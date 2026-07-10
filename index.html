@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>kil9 · docs</title>
+<meta name="description" content="kil9 GitHub Pages — /publish-pages 로 퍼블리시된 정적 페이지 모음.">
+<style>
+  :root {
+    --bg: #FBF5EF;
+    --surface: #FFFFFF;
+    --surface-2: #F4EBE2;
+    --text: #241A0F;
+    --text-muted: #6E5F52;
+    --text-faint: #9A8B7C;
+    --border: #E8DACC;
+    --border-strong: #D8C6B4;
+    --accent: #E1521C;
+    --accent-ink: #B23E12;
+    --accent-soft: rgba(225, 82, 28, 0.10);
+    --shadow: 0 1px 2px rgba(60, 40, 20, 0.04), 0 8px 24px rgba(60, 40, 20, 0.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0D1316;
+      --surface: #141D22;
+      --surface-2: #1A252B;
+      --text: #EDEFF0;
+      --text-muted: #94A2A9;
+      --text-faint: #647178;
+      --border: #26343B;
+      --border-strong: #33454E;
+      --accent: #FF6B3D;
+      --accent-ink: #FF8A61;
+      --accent-soft: rgba(255, 107, 61, 0.13);
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+      "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 24px 96px; }
+
+  header.hero {
+    border-bottom: 1px solid var(--border);
+    background: radial-gradient(120% 90% at 82% -10%, var(--accent-soft), transparent 60%), var(--bg);
+  }
+  .hero-inner { max-width: 860px; margin: 0 auto; padding: 60px 24px 40px; }
+  .eyebrow {
+    font-size: 0.72rem; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--accent-ink); font-weight: 700; margin: 0 0 16px;
+  }
+  h1 { margin: 0; font-size: clamp(2rem, 6vw, 3rem); font-weight: 800; letter-spacing: -0.02em; }
+  h1 .slash { color: var(--accent); }
+  .lede { margin: 16px 0 0; max-width: 58ch; color: var(--text-muted); font-size: 1.02rem; }
+
+  .count { margin: 40px 0 18px; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-faint); font-weight: 700; }
+
+  .grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+
+  a.card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px 24px;
+    box-shadow: var(--shadow);
+    transition: transform 0.16s ease, border-color 0.16s ease;
+  }
+  a.card:hover { transform: translateY(-2px); border-color: var(--border-strong); }
+  a.card:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .card .meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+  .card .date {
+    font-family: ui-monospace, "SF Mono", monospace; font-size: 0.74rem;
+    color: var(--text-faint); font-weight: 700; letter-spacing: 0.04em;
+  }
+  .card .tag {
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.04em;
+    padding: 3px 9px; border-radius: 999px;
+    color: var(--accent-ink); background: var(--accent-soft);
+  }
+  .card h2 { margin: 0 0 6px; font-size: 1.2rem; font-weight: 800; letter-spacing: -0.01em; }
+  .card p { margin: 0; color: var(--text-muted); font-size: 0.92rem; }
+  .card .path {
+    margin-top: 12px; font-family: ui-monospace, "SF Mono", monospace;
+    font-size: 0.76rem; color: var(--text-faint);
+  }
+
+  footer {
+    margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--border);
+    font-size: 0.8rem; color: var(--text-faint);
+  }
+  footer a { color: var(--text-muted); border-bottom: 1px solid var(--border-strong); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">GitHub Pages</p>
+    <h1>kil9 <span class="slash">/</span> docs</h1>
+    <p class="lede"><code>/publish-pages</code> 로 퍼블리시된 정적 페이지 모음. 각 페이지는 자체 완결형 HTML 로, 아래에서 바로 열 수 있습니다.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <p class="count">Published · 1</p>
+
+  <div class="grid">
+
+    <a class="card" href="./2026-matsuri-wuwa/">
+      <div class="meta">
+        <span class="date">2026-07-11</span>
+        <span class="tag">Hololive · Stream Log</span>
+      </div>
+      <h2>夏色まつり ✕ 鳴潮 — 마츠리의 명조 방송 전기록</h2>
+      <p>나츠이로 마츠리의 명조(鳴潮 / Wuthering Waves) 플레이 방송 9회를 타임라인으로 정리하고, 자발적 시작에서 개발사 스폰서까지의 흐름을 근거 기반으로 분석.</p>
+      <div class="path">/2026-matsuri-wuwa/</div>
+    </a>
+
+  </div>
+
+  <footer>
+    <p>Source · <a href="https://github.com/kil9/docs" target="_blank" rel="noopener">github.com/kil9/docs</a></p>
+  </footer>
+</main>
+
+</body>
+</html>

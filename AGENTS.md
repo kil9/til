@@ -1,0 +1,111 @@
+# AGENTS.md
+
+이 저장소에서 AI 에이전트가 작업하기 위한 지침이다. 사람용 개요는 [README.md](README.md), 진행 상황은 [PLAN.md](PLAN.md) 를 본다.
+
+## 이 저장소는 무엇인가
+
+`kil9/docs` 는 정적 HTML 페이지를 GitHub Pages 로 호스팅하는 퍼블리시 저장소다. 사용자가 `/publish-pages` 로 특정 콘텐츠(주로 claude.ai artifact)를 넘기면, 그 콘텐츠를 자체 완결형 HTML 로 만들어 새 디렉터리에 담고 목록을 갱신한 뒤 `main` 에 push 한다.
+
+- 라이브: <https://kil9.github.io/docs/>
+- 호스팅: GitHub Pages, `main` 브랜치 루트에서 직접 서빙(Deploy from a branch, 빌드 없음)
+- 공개 범위: **public** 저장소(무료 Pages 조건). 여기에 올리는 모든 것은 즉시 공개된다.
+
+## 저장소 구조
+
+```
+docs/
+├── index.html            루트 갤러리 랜딩 페이지(퍼블리시된 페이지 목록)
+├── README.md             사람용 개요 + 퍼블리시된 페이지 표
+├── AGENTS.md             (이 파일) 에이전트 지침 + 퍼블리시 런북
+├── PLAN.md               진행 상황 마스터 문서
+├── CLAUDE.md             AGENTS.md 로 향하는 심볼릭 링크
+└── <slug>/
+    └── index.html        개별 페이지(자체 완결형 HTML)
+```
+
+- 페이지 하나당 디렉터리 하나. 디렉터리 이름이 곧 URL 경로다.
+- 슬러그는 kebab-case. 시간순 정렬이 필요하면 `2026-` 처럼 연도 접두사를 붙인다(예: `2026-matsuri-wuwa`).
+- 슬러그는 URL 에 영구히 박히므로 퍼블리시 전에 사용자에게 확인받는다.
+
+## 퍼블리시 런북 (`/publish-pages`)
+
+> 참고: 로스터에 등록된 기존 `/publish-pages` 스킬은 설명상 **Naver Pages** 로 배포한다. 이 저장소는 **GitHub Pages** 이므로 그 스킬을 그대로 쓰지 말고, 아래 수동 런북을 따른다.
+
+### 1. 콘텐츠 확보
+
+- 대상이 claude.ai artifact URL(`https://claude.ai/code/artifact/<uuid>`) 이면 **WebFetch** 로 가져온다. `curl` 은 SPA 셸이나 Cloudflare 403 을 받으므로 쓰지 않는다.
+- 반환된 HTML 에는 claude.ai 프레임 런타임이 주입돼 있다. 다음을 **제거**한다.
+  - `<script>window.__FRAME_PREAMBLE=...</script>` 및 `<!-- frame-runtime -->` ~ `<!-- /frame-runtime -->` 블록 전체
+  - 래퍼가 넣은 최소 리셋(`:root{color-scheme:light}` 등) 중 페이지 자체 스타일과 충돌하는 부분
+- 페이지 자체의 `<style>`, `<header>`, `<main>`(본문)만 남긴다.
+
+### 2. 자체 완결형 문서로 재조립
+
+깨끗한 standalone HTML 로 감싼다.
+
+```html
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>페이지 제목</title>
+<meta name="description" content="한 줄 설명">
+<style> ... 페이지 스타일 ... </style>
+</head>
+<body>
+  ... 본문 ...
+</body>
+</html>
+```
+
+- 외부 리소스(CDN 스크립트/폰트/이미지) 의존 없이 단일 파일로 열려야 한다. 필요한 자산은 인라인하거나 `data:` URI 로 임베드한다.
+- 라이트/다크 대응은 `@media (prefers-color-scheme: dark)` 로 둔다. claude.ai 의 `data-theme` 토글은 standalone 환경에 없으므로 `prefers-color-scheme` 폴백이 있어야 한다.
+- 추적/텔레메트리 성격의 주입 스크립트는 모두 제거한다.
+
+### 3. 배치
+
+- `<slug>/index.html` 로 저장한다.
+
+### 4. 목록 갱신
+
+- 루트 `index.html`: 갤러리 카드를 **최신이 위로** 추가하고 `Published · N` 카운트를 증가시킨다.
+- `README.md`: "퍼블리시된 페이지" 표에 행을 추가한다.
+
+### 5. 반영
+
+- `main` 에 commit / push 한다. 커밋 규칙은 아래 참조.
+- Pages 는 push 후 몇십 초 뒤 반영된다. URL: `https://kil9.github.io/docs/<slug>/`
+
+## 명령어
+
+빌드 단계는 없다. 정적 파일이 전부다.
+
+```bash
+# 로컬 미리보기 (루트에서 실행)
+python3 -m http.server 8000
+# → http://localhost:8000/ 및 http://localhost:8000/<slug>/
+
+# HTML 문법 눈검사 이외 별도 린트/테스트 없음.
+# 배포 상태 확인
+gh api repos/kil9/docs/pages --jq '.status, .html_url'
+```
+
+## 환경 / 전제
+
+- git remote `origin` = `https://github.com/kil9/docs` (public)
+- `gh` 는 github.com 계정 `kil9` 로 인증돼 있어야 한다(`repo` scope 필요).
+- 필수 환경변수 없음. 외부 DB/API/MCP 의존 없음.
+- GitHub Pages 설정: source = branch `main`, path = `/`(root).
+
+## 보안 주의사항
+
+- **저장소가 public 이다.** 시크릿·토큰·비공개 정보·개인 식별정보를 절대 커밋하지 않는다. push 하는 순간 공개되며 되돌려도 히스토리에 남는다.
+- 외부 artifact 를 옮길 때 주입된 스크립트(프레임 런타임, 트래킹 등)를 제거해 순수 콘텐츠만 남긴다.
+- 저작권·초상권이 걸린 콘텐츠를 공개 퍼블리시하기 전에 사용자에게 확인받는다.
+
+## 커밋 규칙
+
+- 커밋 전 `README.md`, `AGENTS.md`, `PLAN.md` 를 검토하고, 변경이 필요하면 **같은 커밋에 포함**한다. 특히 페이지를 추가하면 README 표·루트 갤러리·PLAN 진행 상황이 함께 갱신돼야 한다.
+- 커밋 단위는 논리적으로 분리한다(페이지 추가 1건 = 커밋 1건이 기본).
+- 커밋/푸시는 사용자가 요청하거나 퍼블리시 런북을 실행할 때 수행한다.

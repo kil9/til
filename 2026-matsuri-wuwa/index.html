@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>夏色まつり ✕ 鳴潮 — 마츠리의 명조 방송 전기록</title>
+<meta name="description" content="나츠이로 마츠리의 명조(鳴潮 / Wuthering Waves) 플레이 방송 전기록 — 2026년 1월 첫 접속부터 7월까지, 자발적 시작에서 개발사 스폰서까지.">
+<style>
+  :root {
+    --bg: #FBF5EF;
+    --surface: #FFFFFF;
+    --surface-2: #F4EBE2;
+    --text: #241A0F;
+    --text-muted: #6E5F52;
+    --text-faint: #9A8B7C;
+    --border: #E8DACC;
+    --border-strong: #D8C6B4;
+    --accent: #E1521C;
+    --accent-ink: #B23E12;
+    --accent-soft: rgba(225, 82, 28, 0.10);
+    --teal: #0C8E86;
+    --teal-soft: rgba(12, 142, 134, 0.12);
+    --amber: #A8710F;
+    --amber-soft: rgba(168, 113, 15, 0.14);
+    --shadow: 0 1px 2px rgba(60, 40, 20, 0.04), 0 8px 24px rgba(60, 40, 20, 0.06);
+    --rail: #E0D0BF;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0D1316;
+      --surface: #141D22;
+      --surface-2: #1A252B;
+      --text: #EDEFF0;
+      --text-muted: #94A2A9;
+      --text-faint: #647178;
+      --border: #26343B;
+      --border-strong: #33454E;
+      --accent: #FF6B3D;
+      --accent-ink: #FF8A61;
+      --accent-soft: rgba(255, 107, 61, 0.13);
+      --teal: #34D0C8;
+      --teal-soft: rgba(52, 208, 200, 0.14);
+      --amber: #E7A93B;
+      --amber-soft: rgba(231, 169, 59, 0.15);
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 30px rgba(0, 0, 0, 0.35);
+      --rail: #2B3A42;
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #FBF5EF; --surface: #FFFFFF; --surface-2: #F4EBE2;
+    --text: #241A0F; --text-muted: #6E5F52; --text-faint: #9A8B7C;
+    --border: #E8DACC; --border-strong: #D8C6B4;
+    --accent: #E1521C; --accent-ink: #B23E12; --accent-soft: rgba(225, 82, 28, 0.10);
+    --teal: #0C8E86; --teal-soft: rgba(12, 142, 134, 0.12);
+    --amber: #A8710F; --amber-soft: rgba(168, 113, 15, 0.14);
+    --shadow: 0 1px 2px rgba(60, 40, 20, 0.04), 0 8px 24px rgba(60, 40, 20, 0.06);
+    --rail: #E0D0BF;
+  }
+  :root[data-theme="dark"] {
+    --bg: #0D1316; --surface: #141D22; --surface-2: #1A252B;
+    --text: #EDEFF0; --text-muted: #94A2A9; --text-faint: #647178;
+    --border: #26343B; --border-strong: #33454E;
+    --accent: #FF6B3D; --accent-ink: #FF8A61; --accent-soft: rgba(255, 107, 61, 0.13);
+    --teal: #34D0C8; --teal-soft: rgba(52, 208, 200, 0.14);
+    --amber: #E7A93B; --amber-soft: rgba(231, 169, 59, 0.15);
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 30px rgba(0, 0, 0, 0.35);
+    --rail: #2B3A42;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+      "Hiragino Kaku Gothic ProN", "Noto Sans KR", "Noto Sans JP", "Malgun Gothic", system-ui, sans-serif;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  img { max-width: 100%; }
+
+  .wrap {
+    max-width: 940px;
+    margin: 0 auto;
+    padding: 0 24px 96px;
+  }
+
+  .mono {
+    font-family: ui-monospace, "SF Mono", "JetBrains Mono", "Roboto Mono", "DejaVu Sans Mono", monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+    background:
+      radial-gradient(120% 90% at 82% -10%, var(--accent-soft), transparent 60%),
+      var(--bg);
+  }
+  .hero-inner {
+    max-width: 940px;
+    margin: 0 auto;
+    padding: 68px 24px 40px;
+    position: relative;
+    z-index: 2;
+  }
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    font-weight: 700;
+    margin: 0 0 18px;
+  }
+  h1.title {
+    margin: 0;
+    font-size: clamp(2.1rem, 6.4vw, 3.9rem);
+    line-height: 1.04;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  h1.title .x {
+    color: var(--accent);
+    font-weight: 500;
+    margin: 0 0.18em;
+  }
+  h1.title .game {
+    background: linear-gradient(180deg, var(--accent-ink), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .lede {
+    margin: 20px 0 0;
+    max-width: 60ch;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+  }
+  .hero-wave {
+    position: absolute;
+    left: 0; right: 0; bottom: -1px;
+    width: 100%;
+    height: 120px;
+    z-index: 1;
+    opacity: 0.6;
+  }
+  .hero-wave path { fill: none; stroke-width: 2; }
+  .wave-a { stroke: var(--accent); opacity: 0.5; animation: drift 22s linear infinite; }
+  .wave-b { stroke: var(--teal); opacity: 0.45; animation: drift 16s linear infinite reverse; }
+  @keyframes drift { from { transform: translateX(0); } to { transform: translateX(-240px); } }
+
+  /* ---------- Stats ---------- */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin: 40px 0 8px;
+  }
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 18px 16px;
+    box-shadow: var(--shadow);
+  }
+  .stat .num {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .stat .num.accent { color: var(--accent); }
+  .stat .unit { font-size: 0.95rem; font-weight: 600; color: var(--text-muted); margin-left: 3px; }
+  .stat .label {
+    margin-top: 8px;
+    font-size: 0.78rem;
+    color: var(--text-faint);
+    letter-spacing: 0.02em;
+  }
+  .split { display: inline-flex; align-items: baseline; gap: 2px; }
+  .split .t { color: var(--teal); }
+  .split .a { color: var(--amber); }
+  .split .sep { color: var(--text-faint); font-weight: 500; margin: 0 4px; }
+
+  .foot-note { margin: 10px 2px 0; font-size: 0.76rem; color: var(--text-faint); }
+
+  /* ---------- Section ---------- */
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin: 64px 0 8px;
+  }
+  .section-head h2 {
+    margin: 0;
+    font-size: clamp(1.35rem, 3vw, 1.75rem);
+    font-weight: 800;
+    letter-spacing: -0.015em;
+  }
+  .section-head .kicker {
+    font-size: 0.74rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    font-weight: 700;
+  }
+  .section-sub { margin: 0 0 26px; color: var(--text-muted); max-width: 62ch; }
+
+  /* legend */
+  .legend { display: flex; flex-wrap: wrap; gap: 16px; margin: 0 0 26px; font-size: 0.85rem; }
+  .legend span { display: inline-flex; align-items: center; gap: 7px; color: var(--text-muted); }
+  .dot { width: 11px; height: 11px; border-radius: 50%; flex: none; }
+  .dot.teal { background: var(--teal); }
+  .dot.amber { background: var(--amber); }
+
+  /* ---------- Timeline ---------- */
+  .timeline { position: relative; display: flex; flex-direction: column; gap: 16px; }
+  .entry {
+    display: grid;
+    grid-template-columns: 118px 1fr;
+    gap: 22px;
+    position: relative;
+  }
+  .entry::before {
+    content: "";
+    position: absolute;
+    left: 134px;
+    top: 26px;
+    bottom: -30px;
+    width: 2px;
+    background: var(--rail);
+  }
+  .entry:last-child::before { display: none; }
+
+  .when { position: relative; text-align: right; padding-top: 14px; }
+  .when .date { font-size: 0.95rem; font-weight: 700; letter-spacing: 0.01em; }
+  .when .dow { font-size: 0.74rem; color: var(--text-faint); }
+  .when .time { font-size: 0.72rem; color: var(--text-faint); margin-top: 2px; }
+  .node {
+    position: absolute;
+    right: -22px; top: 20px;
+    width: 15px; height: 15px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 3px solid var(--teal);
+    z-index: 2;
+    transform: translateX(50%);
+  }
+  .entry.pr .node { border-color: var(--amber); }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    box-shadow: var(--shadow);
+    transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+  }
+  .card:hover { transform: translateY(-2px); border-color: var(--border-strong); }
+  .card-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+  .badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 3px 9px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .badge.organic { color: var(--teal); background: var(--teal-soft); }
+  .badge.pr { color: var(--amber); background: var(--amber-soft); }
+  .badge.ghost { color: var(--text-faint); background: var(--surface-2); font-weight: 600; }
+  .ep {
+    font-family: ui-monospace, "SF Mono", monospace;
+    font-size: 0.72rem;
+    color: var(--text-faint);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .card h3 {
+    margin: 0 0 3px;
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1.4;
+    word-break: break-word;
+  }
+  .card .kr { color: var(--text-muted); font-size: 0.9rem; margin: 0 0 10px; }
+  .card .note { margin: 0; font-size: 0.92rem; color: var(--text); }
+  .card .note b { color: var(--accent-ink); font-weight: 700; }
+  .card a.watch {
+    display: inline-flex; align-items: center; gap: 5px;
+    margin-top: 12px;
+    font-size: 0.8rem; font-weight: 600;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+  .card a.watch:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  .card a.watch:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+
+  /* ---------- Analysis ---------- */
+  .verdict {
+    margin-top: 22px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 12px;
+    padding: 22px 24px;
+    box-shadow: var(--shadow);
+  }
+  .verdict .q { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.02em; color: var(--accent-ink); margin: 0 0 8px; }
+  .verdict p.a { margin: 0; font-size: 1.12rem; font-weight: 700; line-height: 1.55; letter-spacing: -0.01em; }
+
+  .pillars { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 22px; }
+  .pillar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 18px 16px;
+  }
+  .pillar .pk {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--teal); margin: 0 0 8px;
+  }
+  .pillar h4 { margin: 0 0 6px; font-size: 1rem; font-weight: 700; }
+  .pillar p { margin: 0; font-size: 0.9rem; color: var(--text-muted); }
+
+  .caveats {
+    margin-top: 22px;
+    background: var(--amber-soft);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 22px;
+  }
+  .caveats h4 { margin: 0 0 10px; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber); }
+  .caveats ul { margin: 0; padding-left: 18px; }
+  .caveats li { font-size: 0.9rem; color: var(--text); margin-bottom: 6px; }
+  .caveats li:last-child { margin-bottom: 0; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    margin-top: 60px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--text-faint);
+  }
+  footer a { color: var(--text-muted); text-decoration: none; border-bottom: 1px solid var(--border-strong); }
+  footer a:hover { color: var(--accent); }
+  footer .method { margin: 0 0 10px; }
+
+  @media (max-width: 620px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .pillars { grid-template-columns: 1fr; }
+    .entry { grid-template-columns: 74px 1fr; gap: 16px; }
+    .entry::before { left: 88px; }
+    .node { right: -16px; }
+    .when .date { font-size: 0.82rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wave-a, .wave-b { animation: none; }
+    .card { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Hololive · Stream Log · 2026</p>
+    <h1 class="title">夏色まつり<span class="x">✕</span><span class="game">鳴潮</span></h1>
+    <p class="lede">나츠이로 마츠리의 명조(鳴潮 / Wuthering Waves) 플레이 방송 전기록. 2026년 1월 첫 접속부터 7월까지 — 자발적으로 시작해 개발사 스폰서로 이어진 여섯 달의 궤적.</p>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 960 120" preserveAspectRatio="none" aria-hidden="true">
+    <path class="wave-a" d="M-240,70 Q-180,40 -120,70 T0,70 T120,70 T240,70 T360,70 T480,70 T600,70 T720,70 T840,70 T960,70 T1080,70 T1200,70" />
+    <path class="wave-b" d="M-240,88 Q-180,64 -120,88 T0,88 T120,88 T240,88 T360,88 T480,88 T600,88 T720,88 T840,88 T960,88 T1080,88 T1200,88" />
+  </svg>
+</header>
+
+<main class="wrap">
+
+  <section class="stats" aria-label="요약 통계">
+    <div class="stat">
+      <div><span class="num accent">9</span><span class="unit">회</span></div>
+      <div class="label">총 명조 방송</div>
+    </div>
+    <div class="stat">
+      <div><span class="num">6</span><span class="unit">개월</span></div>
+      <div class="label">1/12 – 7/10 지속</div>
+    </div>
+    <div class="stat">
+      <div class="num split"><span class="t">6</span><span class="sep">/</span><span class="a">3</span></div>
+      <div class="label">자발적 / 스폰서(PR)</div>
+    </div>
+    <div class="stat">
+      <div><span class="num">5</span><span class="unit">회</span></div>
+      <div class="label">스폰서 전 자발 연속</div>
+    </div>
+  </section>
+  <p class="foot-note">* 7/8 방송은 설명란에 PR 표기가 확인되지 않아 자발적으로 분류(미확인). 나머지 5회(1-2월)는 스폰서 없이 진행된 “完全初見” 방송.</p>
+
+  <div class="section-head">
+    <span class="kicker">Timeline</span>
+    <h2>방송 타임라인</h2>
+  </div>
+  <p class="section-sub">날짜는 라이브 시작 시각(JST) 기준. 노드 색이 방송 성격을 나타냅니다 — 초반의 <b style="color:var(--teal)">틸</b> 군집이 후반의 <b style="color:var(--amber)">앰버</b>로 넘어가는 흐름이 곧 “팬 → 파트너” 변화입니다.</p>
+  <div class="legend">
+    <span><i class="dot teal"></i> 자발적 방송 (비PR)</span>
+    <span><i class="dot amber"></i> 스폰서 방송 (#PR · Kuro Games 제공)</span>
+  </div>
+
+  <div class="timeline">
+
+    <div class="entry">
+      <div class="when"><div class="node"></div><div class="date mono">01.12</div><div class="dow">월</div><div class="time mono">15:06</div></div>
+      <article class="card">
+        <div class="card-top"><span class="ep">#01</span><span class="badge organic">자발적</span></div>
+        <h3>完全初見！新たな冒険が今、始まる。</h3>
+        <p class="kr">완전 초견! 새로운 모험이 지금 시작된다</p>
+        <p class="note">아무 청탁 없이 스스로 켠 <b>첫 접속</b>. 인트로 컷씬·캐릭터 감상, 리나에(Lynae) 가챠까지. 여기서 게임에 발을 들입니다.</p>
+        <a class="watch" href="https://www.youtube.com/watch?v=PIbOVJMDVSU" target="_blank" rel="noopener">▶ 방송 보기</a>
+      </article>
+    </div>
+
+    <div class="entry">
+      <div class="when"><div class="node"></div><div class="date mono">01.13</div><div class="dow">화</div><div class="time mono">22:00</div></div>
+      <article class="card">
+        <div class="card-top"><span class="ep">#02</span><span class="badge organic">자발적</span></div>
+        <h3>完全初見！ガチャ。勝ちます</h3>
+        <p class="kr">완전 초견! 가챠. 이깁니다</p>
+        <p class="note">가챠 승부욕 폭발. 지얀(Jiyan) 등장씬에 <b>“KAKKOII ZO!!(멋있어!!)”</b>, 뽑기 도중 크게 흥분하는 장면이 클립으로 회자.</p>
+        <a class="watch" href="https://www.youtube.com/watch?v=8tiUVOQeQac" target="_blank" rel="noopener">▶ 방송 보기</a>
+      </article>
+    </div>
+
+    <div class="entry">
+      <div class="when"><div class="node"></div><div class="date mono">02.13</div><div class="dow">금</div><div class="time mono">19:00</div></div>
+      <article class="card">
+        <div class="card-top"><span class="ep">#03</span><span class="badge organic">자발적</span></div>
+        <h3>ストーリー進めるぞ～！！</h3>
+        <p class="kr">스토리 진행하자~!!</p>
+        <p class="note">3주 만에 다시 접속. 메인 스토리를 <b>제대로 밀어보겠다</b>는 의지 — 한 번 해보고 끝낸 게 아니라 계속 돌아왔다는 신호.</p>
+        <a class="watch" href="https://www.youtube.com/watch?v=flckxxWNoC0" target="_blank" rel="noopener">▶ 방송 보기</a>
+      </article>
+    </div>
+
+    <div class="entry">
+      <div class="when"><div class="node"></div><div class="date mono">02.23</div><div class="dow">월</div><div class="time mono">18:02</div></div>
+      <article class="card">
+        <div class="card-top"><span class="ep">#04</span><span class="badge organic">자발적</span></div>
+        <h3>オープンワールドおもろすぎてストーリー進まんｗｗｗ</h3>
+        <p class="kr">오픈월드가 너무 재밌어서 스토리 진행이 안 됨ㅋㅋㅋ</p>
+        <p class="note">본인이 붙인 제목이 곧 감상. <b>탐험이 너무 재밌어서</b> 메인을 못 깬다며 즐거운 비명. 카멜리아(Camellya)에도 반응.</p>
+        <a class="watch" href="https://www.youtube.com/watch?v=HZZfit1-kPg" target="_blank" rel="noopener">▶ 방송 보기</a>
+      </article>
+    </div>
+
+    <div class="entry">
+      <div class="when"><div class="node"></div><div class="date mono">02.28</div><div class="dow">토</div><div class="time mono">18:59</div></div>
+      <article class="card">
+        <div class="card-top"><span class="ep">#05</span><span class="badge organic">자발적</span></div>
+        <h3>絶対にストーリーを進めたいまつり vs 進めさせない神のオープンワールド</h3>
+        <p class="kr">기어코 스토리 진행하려는 마츠리 vs 못 하게 하는 갓-오픈월드</p>
+        <p class="note">오픈월드를 <b>“神(갓)”</b>이라 호명. 게임에 대한 사실상 최고의 칭찬을 스스로 반복 — 여기까지가 스폰서 없는 순수 감상 구간.</p>
+        <a class="watch" href="https://www.youtube.com/watch?v=64xQe_fs3Mo" target="_blank" rel="noopener">▶ 방송 보기</a>
+      </article>
+    </div>
+
+    <div class="entry pr">
+      <div class="when"><div class="node"></div><div class="date mono">05.04</div><div class="dow">월</div><div class="time mono">18:01</div></div>
+      <article class="card">
+        <div class="card-top"><span class="ep">#06</span><span class="badge pr">PR · 스폰서</span></div>
+        <h3>【鳴潮2周年】2周年ってことはガチャから始めなきゃですよね！？</h3>
+        <p class="kr">2주년이면 가챠부터 시작해야죠!?</p>
+        <p class="note">약 2개월 만의 복귀이자 <b>첫 공식 PR 방송</b>. 2주년 이벤트·가챠. 이미 이어온 계정으로 개발사와의 파트너십이 시작된 지점.</p>
+        <a class="watch" href="https://www.youtube.com/watch?v=_Wls4gK4xts" target="_blank" rel="noopener">▶ 방송 보기</a>
+      </article>
+    </div>
+
+    <div class="entry pr">
+      <div class="when"><div class="node"></div><div class="date mono">06.24</div><div class="dow">수</div><div class="time mono">18:09</div></div>
+      <article class="card">
+        <div class="card-top"><span class="ep">#07</span><span class="badge pr">PR · 스폰서</span></div>
+        <h3>サイバーパンクコラボ！楽しんでいきましょいっ✨</h3>
+        <p class="kr">사이버펑크 콜라보! 즐겨봅시다✨</p>
+        <p class="note">폴카·루나 등 동료 홀로멤과 <b>콜라보 스토리 공략</b>. “神コラボ(갓 콜라보)”라는 반응이 나온 회차 — 혼자가 아닌 사교적 플레이.</p>
+        <a class="watch" href="https://www.youtube.com/watch?v=4xiSfVlbnX0" target="_blank" rel="noopener">▶ 방송 보기</a>
+      </article>
+    </div>
+
+    <div class="entry">
+      <div class="when"><div class="node"></div><div class="date mono">07.08</div><div class="dow">수</div><div class="time mono">16:00</div></div>
+      <article class="card">
+        <div class="card-top"><span class="ep">#08</span><span class="badge organic">자발적</span><span class="badge ghost">PR 미표기</span></div>
+        <h3>寄り道しがちな鳴潮がきちゃ！</h3>
+        <p class="kr">자꾸 딴 길로 새게 되는 명조가 왔다!</p>
+        <p class="note">반년이 지나도 여전히 <b>탐험에 정신이 팔리는</b> 스타일 그대로. 제목의 결이 2월 초창기와 완전히 일치.</p>
+        <a class="watch" href="https://www.youtube.com/watch?v=1cSfYcAxnaQ" target="_blank" rel="noopener">▶ 방송 보기</a>
+      </article>
+    </div>
+
+    <div class="entry pr">
+      <div class="when"><div class="node"></div><div class="date mono">07.10</div><div class="dow">금</div><div class="time mono">21:59</div></div>
+      <article class="card">
+        <div class="card-top"><span class="ep">#09</span><span class="badge pr">PR · 스폰서</span></div>
+        <h3>水着らしいですよ！水着！！！！</h3>
+        <p class="kr">수영복이래요! 수영복!!!!</p>
+        <p class="note">여름 수영복 스킨에 텐션 폭발. 설명란에 <b>“이 방송은 Kuro Games 제공”</b> 명시 — 파트너십이 자리 잡은 최신 회차.</p>
+        <a class="watch" href="https://www.youtube.com/watch?v=D0xDpN_7tqk" target="_blank" rel="noopener">▶ 방송 보기</a>
+      </article>
+    </div>
+
+  </div>
+
+  <div class="section-head">
+    <span class="kicker">Analysis</span>
+    <h2>마츠리는 명조를 어떻게 생각할까</h2>
+  </div>
+  <p class="section-sub">제목·클립 프레이밍·행동 패턴·스폰서 구조를 교차 검증한 추정입니다. 발화 원문(전체 자막)까지 확보한 단정이 아니라 <b>근거 기반 추정</b>임을 전제로 합니다.</p>
+
+  <div class="verdict">
+    <p class="q">한 줄 결론</p>
+    <p class="a">“오픈월드 탐험과 캐릭터·가챠 연출을 특히 좋아해 자발적으로 빠졌고, 그 애정이 반년 이상 이어져 지금은 개발사 공식 스폰서까지 맡을 만큼 우호적 — 단, ‘인생 최애 게임’ 수준의 집착보다는 ‘진심으로 즐기는 여러 게임 중 하나이자 좋은 파트너십’에 가깝다.”</p>
+  </div>
+
+  <div class="pillars">
+    <div class="pillar">
+      <p class="pk">근거 01 · 행동</p>
+      <h4>시켜서가 아니라 스스로</h4>
+      <p>1-2월 5회는 스폰서·PR 표기가 전혀 없는 “완전 초견”. 무보수로 6주간 다섯 번 다시 켰다 — 재미가 붙었다는 가장 신뢰할 만한 신호.</p>
+    </div>
+    <div class="pillar">
+      <p class="pk">근거 02 · 제목</p>
+      <h4>제목이 곧 감상</h4>
+      <p>“오픈월드가 너무 재밌어서 스토리 진행이 안 됨”, “갓-오픈월드” — 스폰서 아닌 방송에서 탐험에 대한 최고의 칭찬을 스스로 반복.</p>
+    </div>
+    <div class="pillar">
+      <p class="pk">근거 03 · 반응</p>
+      <h4>핵심 훅에 진심 반응</h4>
+      <p>지얀 등장에 “멋있어!!”, 가챠에서 흥분해 “광란”, 캐릭터·컷씬 몰입. 클리퍼들이 뽑아낸 “가장 기억에 남는 순간”이 곧 그녀의 리액션.</p>
+    </div>
+    <div class="pillar">
+      <p class="pk">근거 04 · 관계</p>
+      <h4>팬 → 공식 스폰서</h4>
+      <p>먼저 자발적으로 즐겼고(1-2월) 나중에 개발사가 스폰서로 붙었다(5월~). 이 순서 자체가 진성 애정을 방증한다.</p>
+    </div>
+  </div>
+
+  <div class="caveats">
+    <h4>⚠ 과대 해석 방지</h4>
+    <ul>
+      <li><b>최근(5·6·7월)은 유료 PR</b> — 텐션·칭찬에 직업적 의무가 섞여 있어 액면 그대로 받기 어렵다. 순수 감상의 근거는 비PR인 1-2월 방송이 훨씬 신뢰도 높다.</li>
+      <li><b>원래 가챠·신작을 두루 파는 스타일</b> — 2월엔 아크나이츠: 엔드필드도 시작. 명조가 “유일한 최애”라기보다 즐기는 여러 게임 중 하나에 가깝다.</li>
+      <li>전체 자막(발화 원문)까지는 미확보. “인생게임”이라 <b>직접 단언한 문장은 확인되지 않았다</b>.</li>
+    </ul>
+  </div>
+
+  <footer>
+    <p class="method">조사 방법 · 마츠리 공식 채널에서 “鳴潮” 검색 결과를 전수 확인해 제목에 명조가 든 실제 플레이 방송만 선별, 각 영상의 라이브 시작 타임스탬프를 JST로 변환해 날짜를 확정. 3D 공개·아크나이츠 엔드필드·쇼츠 등은 명조 플레이가 아니므로 제외. 감상 추정은 제목·설명란(#PR 표기)·영어권 반응 클립을 교차 검증.</p>
+    <p>출처 · <a href="https://www.youtube.com/channel/UCQ0UDLQCjY0rmuxCDE38FGg" target="_blank" rel="noopener">Matsuri Channel 夏色まつり (공식)</a> · 방송 아카이브 및 반응 클립 9종</p>
+  </footer>
+
+</main>
+
+</body>
+</html>
