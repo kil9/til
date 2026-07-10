@@ -11,7 +11,7 @@
 
 ## 현재 상태
 
-초기 세팅 진행 중. 문서 3종 + 첫 페이지 + 루트 갤러리 작성 완료, git/저장소/Pages 설정 및 첫 배포 수행 중.
+초기 세팅 완료 및 첫 페이지 배포 검증 완료. <https://kil9.github.io/docs/> 및 첫 페이지가 200 응답. 다음은 새 `/publish-pages` 요청이 오면 AGENTS.md 런북대로 페이지를 추가하는 것.
 
 ## 태스크
 
@@ -20,13 +20,15 @@
 - **T-1 문서 골격 작성** — README.md / AGENTS.md / PLAN.md / CLAUDE.md(심볼릭 링크). AGENTS.md 에 퍼블리시 런북 문서화.
 - **T-2 첫 페이지 퍼블리시 준비** — claude.ai artifact `6090be57...` 를 자체 완결형 HTML 로 재조립해 `2026-matsuri-wuwa/index.html` 로 저장(프레임 런타임 제거). 제목: 夏色まつり ✕ 鳴潮 — 마츠리의 명조 방송 전기록.
 - **T-3 루트 갤러리** — `index.html` 에 갤러리 랜딩 + 첫 페이지 카드 등록. README 표에도 반영.
+- **T-4 git 초기화 및 첫 커밋** — `git init -b main`, 초기 커밋(`d92bcc1`). 커밋 이메일은 `61569+kil9@users.noreply.github.com`(public 저장소 프라이버시).
+- **T-5 GitHub 저장소 생성 + push** — `gh repo create kil9/docs --public --source . --push`. remote `origin` 연결.
+- **T-6 GitHub Pages 활성화** — source = branch `main`, path = `/`(root). `html_url = https://kil9.github.io/docs/`.
+
+- **T-7 배포 검증** — 루트/첫 페이지 모두 HTTP 200 확인(첫 빌드 약 30초). 프레임 런타임 미유출, 갤러리 링크 정상.
 
 ### 진행 중 / 다음
 
-- **T-4 git 초기화 및 첫 커밋** — `git init`, `main` 브랜치, 초기 커밋.
-- **T-5 GitHub 저장소 생성 + push** — `gh repo create kil9/docs --public --source . --push`.
-- **T-6 GitHub Pages 활성화** — source = branch `main`, path = `/`(root). 배포 URL 확인.
-- **T-7 배포 검증** — `https://kil9.github.io/docs/` 및 `https://kil9.github.io/docs/2026-matsuri-wuwa/` 응답 확인 후 PLAN 갱신.
+- 없음. 다음 `/publish-pages` 요청 대기 중. 새 페이지는 [AGENTS.md](AGENTS.md) "퍼블리시 런북" 을 따른다.
 
 ## 아이디어 (보류)
 
