@@ -78,6 +78,9 @@
   .chip.p{color:var(--producer); background:var(--producer-bg); border-color:var(--producer-line)}
   .chip.c{color:var(--consumer); background:var(--consumer-bg); border-color:var(--consumer-line)}
   .chip.q{color:var(--queue); background:var(--queue-bg); border-color:var(--queue-line)}
+  a.chip{text-decoration:none}
+  a.chip:hover{text-decoration:none; border-color:currentColor; filter:brightness(.97)}
+  td a{text-decoration:none} td a:hover code{text-decoration:underline}
   /* code block */
   pre{background:var(--code-bg); border:1px solid var(--line); border-radius:12px; padding:16px 18px; overflow-x:auto; font-size:13px; line-height:1.65; margin:18px 0}
   pre code{background:none; border:none; padding:0; font-size:inherit}
@@ -296,7 +299,7 @@
   <h2 id="producer"><span class="n">4</span>생산자 세션 — 계획을 쌓는다 <span class="tag p">Producer</span></h2>
   <p class="sub">여기서는 코드를 거의 짜지 않는다. "다음에 뭘 할지"를 큐에 정확히 적어 넣는 게 전부다.</p>
 
-  <p>생산자 세션에서 가장 많이 쓰는 건 <span class="chip p">/add-plan</span>이다. 떠오른 작업을 인자로 던지면, 스킬이 <strong>가벼운 조사만</strong> 하고(관련 파일·선행 태스크 확인 정도) 애매한 점을 <code>AskUserQuestion</code>으로 물어 정리한 뒤, 다음 <code>T</code> 번호를 붙여 백로그 맨 아래에 <strong>append</strong>한다. 구현은 시작하지 않는다 — 그건 소비자의 몫이다.</p>
+  <p>생산자 세션에서 가장 많이 쓰는 건 <a class="chip p" href="add-plan.html">/add-plan</a>이다. 떠오른 작업을 인자로 던지면, 스킬이 <strong>가벼운 조사만</strong> 하고(관련 파일·선행 태스크 확인 정도) 애매한 점을 <code>AskUserQuestion</code>으로 물어 정리한 뒤, 다음 <code>T</code> 번호를 붙여 백로그 맨 아래에 <strong>append</strong>한다. 구현은 시작하지 않는다 — 그건 소비자의 몫이다.</p>
 
   <figure>
     <div class="card fig-box scroll">
@@ -334,9 +337,9 @@
   <h3>생산자 쪽 다른 손잡이들</h3>
   <table>
     <tr><th>스킬</th><th>언제</th><th>결과</th></tr>
-    <tr><td><span class="chip p">/make-a-plan</span></td><td>PLAN.md가 아직 없을 때 — 파이프라인의 <strong>시동</strong></td><td>배경·목표·제약·태스크 목록을 갖춘 <code>PLAN_&lt;slug&gt;.md</code> 마스터 문서 신규 작성. (add-plan은 PLAN이 없으면 이걸 자동 호출한다)</td></tr>
-    <tr><td><span class="chip p">/add-plan</span></td><td>지금 당장 할 일이 명확할 때</td><td>다음 <code>T-N</code>을 백로그에 추가. 가장 자주 쓰는 손잡이</td></tr>
-    <tr><td><span class="chip p">/add-idea</span></td><td>착상은 있는데 아직 확정 아님</td><td><code>I-N</code>으로 보류 섹션에 기록. 인터뷰·구현 없음 — 손실 없이 받아만 둔다</td></tr>
+    <tr><td><a class="chip p" href="make-a-plan.html">/make-a-plan</a></td><td>PLAN.md가 아직 없을 때 — 파이프라인의 <strong>시동</strong></td><td>배경·목표·제약·태스크 목록을 갖춘 <code>PLAN_&lt;slug&gt;.md</code> 마스터 문서 신규 작성. (add-plan은 PLAN이 없으면 이걸 자동 호출한다)</td></tr>
+    <tr><td><a class="chip p" href="add-plan.html">/add-plan</a></td><td>지금 당장 할 일이 명확할 때</td><td>다음 <code>T-N</code>을 백로그에 추가. 가장 자주 쓰는 손잡이</td></tr>
+    <tr><td><a class="chip p" href="add-idea.html">/add-idea</a></td><td>착상은 있는데 아직 확정 아님</td><td><code>I-N</code>으로 보류 섹션에 기록. 인터뷰·구현 없음 — 손실 없이 받아만 둔다</td></tr>
   </table>
 
   <div class="note p">
@@ -414,17 +417,17 @@
   <table>
     <tr><th>모드</th><th>실행 주체</th><th>격리</th><th>병렬</th><th>고를 때</th></tr>
     <tr>
-      <td><span class="chip c">/follow-plan</span></td>
+      <td><a class="chip c" href="follow-plan.html">/follow-plan</a></td>
       <td>내 세션이 직접</td><td>인플레이스<br>(현재 브랜치)</td><td>순차</td>
       <td>기본값. 태스크가 서로 얽혀 있거나 내가 흐름을 눈으로 따라가고 싶을 때</td>
     </tr>
     <tr>
-      <td><span class="chip c">/sub-follow-plan</span></td>
+      <td><a class="chip c" href="sub-follow-plan.html">/sub-follow-plan</a></td>
       <td>opus 오케스트레이터가<br>sonnet 워커에 위임</td><td>인플레이스</td><td>라운드 병렬</td>
       <td>끝까지 자율로 밀되, worktree까지는 필요 없을 때. 판단은 보수적으로 하고 질문은 모아 마지막에</td>
     </tr>
     <tr>
-      <td><span class="chip c">/parallel-plan</span></td>
+      <td><a class="chip c" href="parallel-plan.html">/parallel-plan</a></td>
       <td>백그라운드 팀원들</td><td>worktree<br>(태스크별 분기)</td><td>진짜 병렬</td>
       <td><strong>서로 의존 없는 굵직한 태스크가 2개 이상</strong>일 때. 병렬 이득이 작으면 스스로 솔로로 폴백</td>
     </tr>
@@ -553,11 +556,11 @@
 
   <div class="grid">
     <div class="card">
-      <h4><span class="chip q">/next-plan</span></h4>
+      <h4><a class="chip q" href="next-plan.html">/next-plan</a></h4>
       <p>플랜 파일만 훑어 "다음에 착수 가능한 T 후보"를 추려 보고한다. 코드·git·웹은 안 본다. 진행 중 항목을 맨 앞에 두고, 의존이 안 풀린 건 <em>막힘</em>으로 표시. 소비를 시작하기 전 "뭐부터 하지?"를 정리하는 데 쓴다.</p>
     </div>
     <div class="card">
-      <h4><span class="chip q">/cleanup-plan</span></h4>
+      <h4><a class="chip q" href="cleanup-plan.html">/cleanup-plan</a></h4>
       <p>완료된 T 태스크의 상세 구현 로그·검증 기록을 <code>- [x] T-12: 한 줄 요약</code> 형태로 압축한다. 미완료·보류·설계 결정은 그대로 보존. PLAN.md가 비대해져 큐로서의 가독성이 떨어질 때 돌린다.</p>
     </div>
   </div>
@@ -603,14 +606,14 @@
 
   <table>
     <tr><th>하고 싶은 것</th><th>세션</th><th>스킬</th></tr>
-    <tr><td>플랜 자체가 아직 없다</td><td class="tag p">생산자</td><td><code>/make-a-plan &lt;작업 설명&gt;</code></td></tr>
-    <tr><td>지금 할 일이 명확하다 — 큐에 추가</td><td class="tag p">생산자</td><td><code>/add-plan &lt;태스크&gt;</code></td></tr>
-    <tr><td>착상만 있다 — 나중에 볼 것</td><td class="tag p">생산자</td><td><code>/add-idea &lt;아이디어&gt;</code></td></tr>
-    <tr><td>뭐부터 할지 후보만 보고 싶다</td><td class="tag p">생산자</td><td><code>/next-plan</code></td></tr>
-    <tr><td>큐를 순서대로 직접 실행</td><td class="tag c">소비자</td><td><code>/follow-plan</code></td></tr>
-    <tr><td>끝까지 자율로 밀되 위임</td><td class="tag c">소비자</td><td><code>/sub-follow-plan</code></td></tr>
-    <tr><td>독립 태스크를 병렬로 밀기</td><td class="tag c">소비자</td><td><code>/parallel-plan</code></td></tr>
-    <tr><td>완료 기록이 쌓여 비대해짐</td><td class="tag c">소비자</td><td><code>/cleanup-plan</code></td></tr>
+    <tr><td>플랜 자체가 아직 없다</td><td class="tag p">생산자</td><td><a href="make-a-plan.html"><code>/make-a-plan &lt;작업 설명&gt;</code></a></td></tr>
+    <tr><td>지금 할 일이 명확하다 — 큐에 추가</td><td class="tag p">생산자</td><td><a href="add-plan.html"><code>/add-plan &lt;태스크&gt;</code></a></td></tr>
+    <tr><td>착상만 있다 — 나중에 볼 것</td><td class="tag p">생산자</td><td><a href="add-idea.html"><code>/add-idea &lt;아이디어&gt;</code></a></td></tr>
+    <tr><td>뭐부터 할지 후보만 보고 싶다</td><td class="tag p">생산자</td><td><a href="next-plan.html"><code>/next-plan</code></a></td></tr>
+    <tr><td>큐를 순서대로 직접 실행</td><td class="tag c">소비자</td><td><a href="follow-plan.html"><code>/follow-plan</code></a></td></tr>
+    <tr><td>끝까지 자율로 밀되 위임</td><td class="tag c">소비자</td><td><a href="sub-follow-plan.html"><code>/sub-follow-plan</code></a></td></tr>
+    <tr><td>독립 태스크를 병렬로 밀기</td><td class="tag c">소비자</td><td><a href="parallel-plan.html"><code>/parallel-plan</code></a></td></tr>
+    <tr><td>완료 기록이 쌓여 비대해짐</td><td class="tag c">소비자</td><td><a href="cleanup-plan.html"><code>/cleanup-plan</code></a></td></tr>
   </table>
 
   <div class="note ok">
@@ -621,7 +624,7 @@
   <hr>
   <footer>
     Claude Code 워크플로 노트 · 생산자–소비자 플랜 파이프라인<br>
-    스킬 동작은 각 <code>SKILL.md</code>의 실제 정의에 근거하며, 예시는 실제 저장소의 PLAN.md에서 발췌했다.
+    스킬 이름(배지·치트시트)을 누르면 각 <code>SKILL.md</code> 정의 페이지로 이동한다. 예시는 실제 저장소의 PLAN.md에서 발췌했다.
   </footer>
 
 </div>

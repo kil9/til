@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>/next-plan — 스킬 정의 · 플랜 파이프라인</title>
+<meta name="description" content="PLAN.md / PLAN_*.md 만 훑어 다음에 착수할 태스크 후보를 추려 보고한다. 추가 조사·구현은 하지 않는다. "다음 뭐 하지 / 다음 태스크 / 남은 일 뭐 있지" 를 물을 때 사용한다.">
+<style>
+:root{--bg:#f7f8fa;--surface:#fff;--surface-2:#f0f2f6;--line:#e2e6ee;--ink:#1a1d24;--ink-2:#4a5262;--ink-3:#78808f;
+--producer:#2563eb;--producer-bg:#eaf1ff;--producer-line:#bcd2ff;--consumer:#d97706;--consumer-bg:#fff3e2;--consumer-line:#f7d9a8;
+--queue:#7c3aed;--queue-bg:#f2ebff;--queue-line:#dcccff;--code-bg:#f4f5f8;--shadow:0 1px 2px rgba(20,25,40,.04),0 8px 24px rgba(20,25,40,.06)}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1014;--surface:#171a21;--surface-2:#1e222b;--line:#2a2f3a;--ink:#eceef2;--ink-2:#aab1bf;--ink-3:#767d8c;
+--producer:#6ea0ff;--producer-bg:#182338;--producer-line:#2c4676;--consumer:#f2b25a;--consumer-bg:#2e2412;--consumer-line:#5c4420;
+--queue:#b28bff;--queue-bg:#221a38;--queue-line:#463069;--code-bg:#12151b;--shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35)}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);line-height:1.72;font-size:16px;letter-spacing:-.01em;-webkit-font-smoothing:antialiased;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Noto Sans KR",Pretendard,Roboto,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:0 22px 96px}
+.top{max-width:760px;margin:0 auto;padding:22px 22px 0}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;color:var(--ink-2);text-decoration:none;padding:7px 13px;border:1px solid var(--line);border-radius:20px;background:var(--surface)}
+.back:hover{border-color:var(--producer);color:var(--producer)}
+header.h{max-width:760px;margin:0 auto;padding:30px 22px 8px}
+.kick{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.kick.p{color:var(--producer)}.kick.c{color:var(--consumer)}
+h1.name{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:clamp(24px,5vw,34px);margin:.3em 0 .2em;font-weight:800;letter-spacing:-.02em}
+.meta{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:16px 18px;margin:14px 0 8px}
+.meta .desc{color:var(--ink-2);font-size:15px;margin:0 0 10px}
+.tools{display:flex;flex-wrap:wrap;gap:6px}
+.tool{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:11.5px;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);padding:.12em .5em;border-radius:6px}
+.body{margin-top:18px}
+.body h2{font-size:21px;margin:34px 0 4px;font-weight:800;letter-spacing:-.02em;border-top:1px solid var(--line);padding-top:26px}
+.body h2:first-child{border-top:none;padding-top:0;margin-top:8px}
+.body h3{font-size:17.5px;margin:24px 0 2px;font-weight:750}
+.body h4{font-size:15px;margin:18px 0 2px;font-weight:700;color:var(--ink-2)}
+.body h5{font-size:13.5px;margin:16px 0 2px;font-weight:700;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+.body h6{font-size:13px;margin:14px 0 2px;font-weight:700;color:var(--ink-3)}
+.body p{margin:.85em 0}
+.body a{color:var(--producer);text-decoration:none}.body a:hover{text-decoration:underline}
+code{font-family:"SF Mono",ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace;font-size:.86em;background:var(--code-bg);border:1px solid var(--line);padding:.06em .38em;border-radius:6px}
+pre{background:var(--code-bg);border:1px solid var(--line);border-radius:12px;padding:15px 17px;overflow-x:auto;font-size:12.5px;line-height:1.6;margin:16px 0}
+pre code{background:none;border:none;padding:0}
+.list{margin:.7em 0}
+.list .li{margin:.28em 0;color:var(--ink)}
+.list .bu{color:var(--ink-3);display:inline-block;width:1.1em;font-weight:600}
+blockquote{border-left:3px solid var(--queue-line);background:var(--queue-bg);margin:16px 0;padding:2px 16px;border-radius:0 8px 8px 0;color:var(--ink-2)}
+hr{border:none;border-top:1px solid var(--line);margin:26px 0}
+strong{font-weight:700}
+footer{color:var(--ink-3);font-size:13px;margin-top:44px;padding-top:20px;border-top:1px solid var(--line)}
+footer code{font-size:12px}
+</style>
+</head>
+<body>
+<div class="top"><a class="back" href="./">← 플랜 파이프라인 개요</a></div>
+<header class="h">
+  <div class="kick p">생산자 스킬</div>
+  <h1 class="name">/next-plan</h1>
+  <div class="meta">
+    <p class="desc">PLAN.md / PLAN_*.md 만 훑어 다음에 착수할 태스크 후보를 추려 보고한다. 추가 조사·구현은 하지 않는다. "다음 뭐 하지 / 다음 태스크 / 남은 일 뭐 있지" 를 물을 때 사용한다.</p>
+    <div class="tools"><span class="tool">Bash</span><span class="tool">Read</span><span class="tool">Glob</span><span class="tool">Grep</span></div>
+  </div>
+</header>
+<main class="wrap">
+  <div class="body">
+<p>플랜 파일만 읽고 <strong>다음에 착수할 태스크 후보</strong>를 추려 보고한다. 추가 조사·구현·파일 수정은 하지 않는다. 그건 후보를 고른 뒤의 다음 행동(<code>/follow-plan</code> 등)의 몫이다.</p>
+<h3>1. 플랜 파일 모으기</h3>
+<p>현재 디렉터리의 <code>PLAN.md</code> 와 <code>PLAN_*.md</code> 를 모두 찾는다. 하나도 없으면 알리고 <code>/make-a-plan</code> 을 안내한 뒤 멈춘다.</p>
+<h3>2. 후보 고르기</h3>
+<p>각 플랜 파일에서 태스크 상태를 파악한다. ID 표기가 <code>M-N</code>(마일스톤)·<code>T-N</code>(태스크)·<code>I-N</code>(아이디어) 표준이 아닐 수 있다. 근거는 플랜 본문뿐이다. 코드·이슈·git·웹 등 바깥을 조사해야 확인되는 것은 조사하지 말고 "플랜만으로는 불명확" 이라고 표시한다.</p>
+<div class="list"><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">·</span><code>[→] IN_PROGRESS</code> 태스크는 <strong>이어서 할 일</strong>로 맨 앞에 올린다.</div><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">·</span><code>[ ] TODO</code> 태스크 중 플랜에 적힌 순서·우선순위·의존상 지금 착수 가능한 것을 후보로 삼는다.</div><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">·</span>선행 의존이 안 끝난 태스크는 후보에서 빼거나 <code>막힘(T-x 대기)</code> 로 표시한다.</div><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">·</span><code>I-N</code> 아이디어와 <code>M-N</code> 마일스톤 자체는 제외한다.</div><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">·</span>플랜 파일이 여러 개면 파일별로 묶어 어느 플랜인지 밝힌다.</div></div>
+<h3>3. 보고하기</h3>
+<p>후보 목록을 낸다. 항목마다 플랜 파일명·ID·제목·완료 조건·지금 착수 가능한 이유 한 줄. 그중 맨 앞 하나를 추천한다. 후보가 없으면(모두 완료거나 전부 막힘) 그 상태를 알린다. 여기서 멈춘다. 태스크·플랜·코드를 건드리지 않는다.</p>
+  </div>
+  <footer>
+    원문: <code>kil9conf / claude/skills/next-plan/SKILL.md</code> 를 렌더링. 이 페이지는 자체 완결형입니다.
+  </footer>
+</main>
+</body>
+</html>

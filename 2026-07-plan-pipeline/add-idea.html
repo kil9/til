@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>/add-idea — 스킬 정의 · 플랜 파이프라인</title>
+<meta name="description" content="PLAN.md의 "아이디어 (보류)" 섹션에 아이디어를 I-N으로 추가한다. 구현·상세 인터뷰는 하지 않고 보류만 기록한다.">
+<style>
+:root{--bg:#f7f8fa;--surface:#fff;--surface-2:#f0f2f6;--line:#e2e6ee;--ink:#1a1d24;--ink-2:#4a5262;--ink-3:#78808f;
+--producer:#2563eb;--producer-bg:#eaf1ff;--producer-line:#bcd2ff;--consumer:#d97706;--consumer-bg:#fff3e2;--consumer-line:#f7d9a8;
+--queue:#7c3aed;--queue-bg:#f2ebff;--queue-line:#dcccff;--code-bg:#f4f5f8;--shadow:0 1px 2px rgba(20,25,40,.04),0 8px 24px rgba(20,25,40,.06)}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1014;--surface:#171a21;--surface-2:#1e222b;--line:#2a2f3a;--ink:#eceef2;--ink-2:#aab1bf;--ink-3:#767d8c;
+--producer:#6ea0ff;--producer-bg:#182338;--producer-line:#2c4676;--consumer:#f2b25a;--consumer-bg:#2e2412;--consumer-line:#5c4420;
+--queue:#b28bff;--queue-bg:#221a38;--queue-line:#463069;--code-bg:#12151b;--shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35)}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);line-height:1.72;font-size:16px;letter-spacing:-.01em;-webkit-font-smoothing:antialiased;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Noto Sans KR",Pretendard,Roboto,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:0 22px 96px}
+.top{max-width:760px;margin:0 auto;padding:22px 22px 0}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;color:var(--ink-2);text-decoration:none;padding:7px 13px;border:1px solid var(--line);border-radius:20px;background:var(--surface)}
+.back:hover{border-color:var(--producer);color:var(--producer)}
+header.h{max-width:760px;margin:0 auto;padding:30px 22px 8px}
+.kick{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.kick.p{color:var(--producer)}.kick.c{color:var(--consumer)}
+h1.name{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:clamp(24px,5vw,34px);margin:.3em 0 .2em;font-weight:800;letter-spacing:-.02em}
+.meta{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:16px 18px;margin:14px 0 8px}
+.meta .desc{color:var(--ink-2);font-size:15px;margin:0 0 10px}
+.tools{display:flex;flex-wrap:wrap;gap:6px}
+.tool{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:11.5px;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);padding:.12em .5em;border-radius:6px}
+.body{margin-top:18px}
+.body h2{font-size:21px;margin:34px 0 4px;font-weight:800;letter-spacing:-.02em;border-top:1px solid var(--line);padding-top:26px}
+.body h2:first-child{border-top:none;padding-top:0;margin-top:8px}
+.body h3{font-size:17.5px;margin:24px 0 2px;font-weight:750}
+.body h4{font-size:15px;margin:18px 0 2px;font-weight:700;color:var(--ink-2)}
+.body h5{font-size:13.5px;margin:16px 0 2px;font-weight:700;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+.body h6{font-size:13px;margin:14px 0 2px;font-weight:700;color:var(--ink-3)}
+.body p{margin:.85em 0}
+.body a{color:var(--producer);text-decoration:none}.body a:hover{text-decoration:underline}
+code{font-family:"SF Mono",ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace;font-size:.86em;background:var(--code-bg);border:1px solid var(--line);padding:.06em .38em;border-radius:6px}
+pre{background:var(--code-bg);border:1px solid var(--line);border-radius:12px;padding:15px 17px;overflow-x:auto;font-size:12.5px;line-height:1.6;margin:16px 0}
+pre code{background:none;border:none;padding:0}
+.list{margin:.7em 0}
+.list .li{margin:.28em 0;color:var(--ink)}
+.list .bu{color:var(--ink-3);display:inline-block;width:1.1em;font-weight:600}
+blockquote{border-left:3px solid var(--queue-line);background:var(--queue-bg);margin:16px 0;padding:2px 16px;border-radius:0 8px 8px 0;color:var(--ink-2)}
+hr{border:none;border-top:1px solid var(--line);margin:26px 0}
+strong{font-weight:700}
+footer{color:var(--ink-3);font-size:13px;margin-top:44px;padding-top:20px;border-top:1px solid var(--line)}
+footer code{font-size:12px}
+</style>
+</head>
+<body>
+<div class="top"><a class="back" href="./">← 플랜 파이프라인 개요</a></div>
+<header class="h">
+  <div class="kick p">생산자 스킬</div>
+  <h1 class="name">/add-idea</h1>
+  <div class="meta">
+    <p class="desc">PLAN.md의 "아이디어 (보류)" 섹션에 아이디어를 I-N으로 추가한다. 구현·상세 인터뷰는 하지 않고 보류만 기록한다.</p>
+    <div class="tools"><span class="tool">Bash</span><span class="tool">Read</span><span class="tool">Edit</span><span class="tool">Write</span><span class="tool">Glob</span><span class="tool">Grep</span><span class="tool">Skill</span></div>
+  </div>
+</header>
+<main class="wrap">
+  <div class="body">
+<p>추가할 아이디어: <code>$ARGUMENTS</code></p>
+<p>아직 착수하지 않을, 나중에 정식 태스크로 편입할 후보 아이디어를 PLAN.md에 보류 항목으로 기록한다.</p>
+<p>현재 디렉토리에 <code>PLAN.md</code> 가 없으면 <code>Skill("make-a-plan")</code> 으로 먼저 만든 뒤 이어서 진행한다.</p>
+<h3>절차</h3>
+<div class="list"><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">1.</span>PLAN.md 에 <code>## 아이디어 (보류 — 착수 전 상세 인터뷰)</code> 섹션이 있는지 확인한다.</div><div class="li" style="padding-left:2.45em;text-indent:-1.1em"><span class="bu">·</span><strong>없으면</strong>: <code>## 백로그</code> 위(또는 <code>## 결정 이력</code> 위)에 새로 만든다. 섹션 머리말로 다음을 적는다: "(아이디어)로 접수된 항목은 <code>I-N</code>으로 별도 넘버링해 여기 모은다. 구현에 착수하지 않으며, 태스크 목록(T-N)·follow-plan 진행 대상이 아니다. 사용자가 착수를 지시하면 상세 인터뷰를 거쳐 정식 태스크(T-N)로 편입한다."</div><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">2.</span>기존 아이디어 중 <strong>가장 큰 <code>I-N</code> 다음 번호</strong>를 새 항목에 부여한다(중복 금지, 삭제된 번호도 재사용하지 않는다 — 항상 최대값+1).</div><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">3.</span>아이디어를 <code>### I-N. &lt;짧은 제목&gt;</code> 헤딩으로 섹션 맨 아래에 추가한다. 본문에는:</div><div class="li" style="padding-left:2.45em;text-indent:-1.1em"><span class="bu">·</span>접수 날짜와 "착수 전 상세 인터뷰 필요"</div><div class="li" style="padding-left:2.45em;text-indent:-1.1em"><span class="bu">·</span>사용자가 준 구상을 <strong>손실 없이</strong> 기록한다(나중 인터뷰·구현의 출발점이 되도록). 필요하면 하위 글머리로 상세를 남긴다.</div><div class="li" style="padding-left:2.45em;text-indent:-1.1em"><span class="bu">·</span>명백한 기술적 충돌·전제(예: 순수 클라이언트 정적 사이트라 서버·API 키가 없음 등)가 보이면 "착수 시 검토 필요" 메모로 덧붙인다.</div><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">4.</span>항목을 제대로 적을 만큼만 가볍게 조사한다(관련 파일 확인 정도). 그 외 기존 PLAN.md 내용은 수정하지 않는다.</div></div>
+<h3>하지 않는 것</h3>
+<div class="list"><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">·</span>구현·커밋을 하지 않는다.</div><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">·</span><code>AskUserQuestion</code> 인터뷰를 하지 않는다(아이디어는 보류가 기본 — 정보가 부족해도 그대로 기록만 한다).</div><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">·</span>활성 태스크(<code>T-N</code>)로 만들지 않는다. 아이디어는 <code>I-N</code> 으로만 기록한다.</div></div>
+<p>마지막으로 추가된 아이디어의 <code>I-N</code>·제목을 알리고 끝낸다.</p>
+  </div>
+  <footer>
+    원문: <code>kil9conf / claude/skills/add-idea/SKILL.md</code> 를 렌더링. 이 페이지는 자체 완결형입니다.
+  </footer>
+</main>
+</body>
+</html>

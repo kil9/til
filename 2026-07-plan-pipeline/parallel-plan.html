@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>/parallel-plan — 스킬 정의 · 플랜 파이프라인</title>
+<meta name="description" content="PLAN.md의 상호 의존이 없는 태스크를 에이전트 팀(팀원)으로 worktree에서 구현·커밋하고, 검증을 통과한 브랜치를 순차 ff-merge해 main에 직접 반영한다. 단, 병렬 이득이 작으면(독립·substantial 태스크 부족) 팀을 띄우지 않고 솔로로 폴백한다.">
+<style>
+:root{--bg:#f7f8fa;--surface:#fff;--surface-2:#f0f2f6;--line:#e2e6ee;--ink:#1a1d24;--ink-2:#4a5262;--ink-3:#78808f;
+--producer:#2563eb;--producer-bg:#eaf1ff;--producer-line:#bcd2ff;--consumer:#d97706;--consumer-bg:#fff3e2;--consumer-line:#f7d9a8;
+--queue:#7c3aed;--queue-bg:#f2ebff;--queue-line:#dcccff;--code-bg:#f4f5f8;--shadow:0 1px 2px rgba(20,25,40,.04),0 8px 24px rgba(20,25,40,.06)}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1014;--surface:#171a21;--surface-2:#1e222b;--line:#2a2f3a;--ink:#eceef2;--ink-2:#aab1bf;--ink-3:#767d8c;
+--producer:#6ea0ff;--producer-bg:#182338;--producer-line:#2c4676;--consumer:#f2b25a;--consumer-bg:#2e2412;--consumer-line:#5c4420;
+--queue:#b28bff;--queue-bg:#221a38;--queue-line:#463069;--code-bg:#12151b;--shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35)}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);line-height:1.72;font-size:16px;letter-spacing:-.01em;-webkit-font-smoothing:antialiased;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Noto Sans KR",Pretendard,Roboto,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:0 22px 96px}
+.top{max-width:760px;margin:0 auto;padding:22px 22px 0}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;color:var(--ink-2);text-decoration:none;padding:7px 13px;border:1px solid var(--line);border-radius:20px;background:var(--surface)}
+.back:hover{border-color:var(--producer);color:var(--producer)}
+header.h{max-width:760px;margin:0 auto;padding:30px 22px 8px}
+.kick{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.kick.p{color:var(--producer)}.kick.c{color:var(--consumer)}
+h1.name{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:clamp(24px,5vw,34px);margin:.3em 0 .2em;font-weight:800;letter-spacing:-.02em}
+.meta{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:16px 18px;margin:14px 0 8px}
+.meta .desc{color:var(--ink-2);font-size:15px;margin:0 0 10px}
+.tools{display:flex;flex-wrap:wrap;gap:6px}
+.tool{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:11.5px;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);padding:.12em .5em;border-radius:6px}
+.body{margin-top:18px}
+.body h2{font-size:21px;margin:34px 0 4px;font-weight:800;letter-spacing:-.02em;border-top:1px solid var(--line);padding-top:26px}
+.body h2:first-child{border-top:none;padding-top:0;margin-top:8px}
+.body h3{font-size:17.5px;margin:24px 0 2px;font-weight:750}
+.body h4{font-size:15px;margin:18px 0 2px;font-weight:700;color:var(--ink-2)}
+.body h5{font-size:13.5px;margin:16px 0 2px;font-weight:700;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+.body h6{font-size:13px;margin:14px 0 2px;font-weight:700;color:var(--ink-3)}
+.body p{margin:.85em 0}
+.body a{color:var(--producer);text-decoration:none}.body a:hover{text-decoration:underline}
+code{font-family:"SF Mono",ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace;font-size:.86em;background:var(--code-bg);border:1px solid var(--line);padding:.06em .38em;border-radius:6px}
+pre{background:var(--code-bg);border:1px solid var(--line);border-radius:12px;padding:15px 17px;overflow-x:auto;font-size:12.5px;line-height:1.6;margin:16px 0}
+pre code{background:none;border:none;padding:0}
+.list{margin:.7em 0}
+.list .li{margin:.28em 0;color:var(--ink)}
+.list .bu{color:var(--ink-3);display:inline-block;width:1.1em;font-weight:600}
+blockquote{border-left:3px solid var(--queue-line);background:var(--queue-bg);margin:16px 0;padding:2px 16px;border-radius:0 8px 8px 0;color:var(--ink-2)}
+hr{border:none;border-top:1px solid var(--line);margin:26px 0}
+strong{font-weight:700}
+footer{color:var(--ink-3);font-size:13px;margin-top:44px;padding-top:20px;border-top:1px solid var(--line)}
+footer code{font-size:12px}
+</style>
+</head>
+<body>
+<div class="top"><a class="back" href="./">← 플랜 파이프라인 개요</a></div>
+<header class="h">
+  <div class="kick c">소비자 스킬</div>
+  <h1 class="name">/parallel-plan</h1>
+  <div class="meta">
+    <p class="desc">PLAN.md의 상호 의존이 없는 태스크를 에이전트 팀(팀원)으로 worktree에서 구현·커밋하고, 검증을 통과한 브랜치를 순차 ff-merge해 main에 직접 반영한다. 단, 병렬 이득이 작으면(독립·substantial 태스크 부족) 팀을 띄우지 않고 솔로로 폴백한다.</p>
+    <div class="tools"><span class="tool">Bash</span><span class="tool">Read</span><span class="tool">Edit</span><span class="tool">Write</span><span class="tool">Glob</span><span class="tool">Grep</span><span class="tool">Agent</span><span class="tool">SendMessage</span><span class="tool">TaskCreate</span><span class="tool">TaskList</span><span class="tool">TaskGet</span><span class="tool">TaskOutput</span><span class="tool">TaskStop</span><span class="tool">TaskUpdate</span></div>
+  </div>
+</header>
+<main class="wrap">
+  <div class="body">
+<p>PLAN.md(또는 <code>PLAN_*.md</code>, 여러 개면 최근 수정본)의 미완료 태스크 중 상호 의존이 없는 것들을 named 백그라운드 팀원(<code>Agent</code> + <code>name</code> + <code>run_in_background: true</code>)에게 배분해 각자 worktree 에서 구현·검증·커밋시키고, 성공한 브랜치를 base(보통 main)에 순차 fast-forward 머지한다. <strong>PR 은 만들지 않고</strong>, 태스크 사이에 사용자 확인도 묻지 않는다. PLAN 이 없으면 <code>/make-a-plan</code> 을 안내하고 중단한다. 팀 도구가 없으면(전제: <code>CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1</code> + <code>teammateMode</code>) 서브에이전트 fire-and-collect 로 폴백한다.</p>
+<p>독립 집합 추출 시 PLAN 에 실제 쓰인 태스크 ID 체계를 그대로 쓰고, 의존 표기가 없으면 의존 없음으로 본다(추측 금지). dependencies 가 비었거나 모두 DONE 인 미완료 태스크가 이번 라운드 대상이다.</p>
+<h3>병렬 적합성 게이트</h3>
+<p>병렬은 공짜가 아니다. 실측(이 머신 전사 분석): 팀원은 리드 대화를 상속받지 못해 컨텍스트를 cold 로 재구성하고, 3\~5명을 띄워도 실효 동시성은 약 1.8x(최악 0.73x, 직렬보다 느림), 토큰은 단일 에이전트 대비 3\~10배다. 따라서:</p>
+<div class="list"><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">·</span><strong>substantial 독립 태스크 ≥ 2개</strong>(팀원 cold-start 를 상쇄할 만큼 큰 것 — 다파일·신규 구현·리팩터급)일 때만 팀을 띄운다. 사소한 태스크(단일 파일·기계적 수정)는 팀원에 끼우지 말고 리드가 인라인 처리한다.</div><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">·</span>아니면 솔로 폴백(직접 순차 처리 또는 <code>/sub-follow-plan</code>). 폴백 이유를 한 줄 보고하고 진행한다.</div><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">·</span>위 수치는 opus/sonnet 팀원 실측이라 보수적이다. 팀원이 상위 모델(Fable 등)로 돌 때는 cold-start 페널티가 낮으므로 문턱을 한 단계 낮춰 병렬을 더 적극 채택해도 된다.</div></div>
+<h3>디스패치</h3>
+<p>1태스크=1팀원 기본, 팀 규모는 <code>min(태스크 수, 5)</code> — 많으면 팀원당 여러 태스크를 순차(각각 별도 worktree·브랜치)로 처리시킨다. 같은 파일을 건드릴 가능성이 큰 태스크들은 같은 팀원에게 묶어 직렬화한다. 분해는 항상 컨텍스트 경계 기준 — 한 태스크의 구현/테스트/리뷰를 여러 팀원에 나누면 핸드오프마다 컨텍스트가 유실되므로 한 팀원이 완결한다. 디스패치 전 <code>TaskCreate</code> 로 태스크보드에 등록한다.</p>
+<p><strong>팀원 모델</strong>: 호출 시 지정이 없으면 <code>model: "opus"</code> 를 기본으로 명시한다(가벼운 태스크는 sonnet) — 리드가 상위 모델(Fable 등)로 돌아도 팀원에게 상속시키지 않기 위함(2026-07-05 사용자 지시). 특별히 무거운 태스크만 리드 재량으로 그 태스크에 한해 올린다.</p>
+<p>팀원 프롬프트에는 <code>MAIN_PATH</code>·<code>BASE_BRANCH</code>·<code>TASK_ID</code>·PLAN 발췌·경로안전 <code>TASK_SLUG</code>(영문/숫자/하이픈/언더스코어 외 <code>_</code> 치환)를 넣고 다음을 지시한다:</p>
+<div class="list"><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">·</span>worktree 생성: <code>git -C {MAIN_PATH} worktree add -b task/{TASK_SLUG}_{slug} {MAIN_PATH}/../{REPO_NAME}__{TASK_SLUG} {BASE_BRANCH}</code>, 이후 모든 git 은 <code>git -C &lt;worktree&gt;</code> 로.</div><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">·</span>정의·참조·테스트를 먼저 읽고 구현. 한국어 커밋 <code>[{TASK_ID}] 요약</code>. <strong>PLAN.md/AGENTS.md/README.md 수정 금지</strong> — 메타 파일은 리드가 머지 단계에서 일괄 처리한다(충돌 방지).</div><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">·</span>스택에 맞는 검증(typecheck/lint/build/test)을 모두 통과시킨다. <code>--no-verify</code> 등 안전 우회 금지.</div><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">·</span>RESULT 블록(<code>task</code>/<code>status</code>(success|failed)/<code>branch</code>/<code>worktree</code>/<code>commit</code>/<code>checks</code>/<code>failure_context</code>)을 SendMessage 로 리드에게 보고. <code>checks</code> 에는 <strong>이번 세션에서 실제 실행한 명령과 결과만</strong> 적고, 못 돌린 검증은 그렇다고 명시한다 — 안 돌린 검증을 통과로 적지 말 것.</div><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">·</span>사용자에게 묻지 말고(막히면 리드에게), worktree·브랜치를 직접 정리하지 말고, 실패해도 부분 커밋을 그대로 두고, PR 생성 금지.</div></div>
+<p><code>failed</code> 보고는 1\~2회 SendMessage 로 진단·재시도를 코칭하고, 그래도 실패하면 블록 처리한다. 무응답 팀원은 <code>TaskGet</code>/<code>TaskOutput</code> 확인 후 필요시 <code>TaskStop</code>.</p>
+<h3>머지 · 보고</h3>
+<p>팀원 자기보고를 그대로 믿지 않는다: 브랜치·커밋 SHA 가 실제 존재하는지 확인하고, 위험이 큰 태스크는 머지 전에 fresh-context 검증자 서브에이전트를 띄울 수 있다(선택). 검증자는 블랙박스로 — worktree 경로·diff·PLAN 에서 뽑은 체크 가능한 성공 기준·검증 실행법만 주고, 팀원의 구현 서사·failure_context 는 넘기지 않는다. 전체 검증 스위트를 실제 실행한 결과만 판정 근거로 인정하고, 가능하면 negative 확인(기준을 위반하는 입력이 실제로 실패하는지) 1개 이상.</p>
+<p>success 브랜치만 태스크 순으로 한 건씩: base ff-pull → <code>merge-base --is-ancestor</code> 로 ff 가능성 확인, 불가면 worktree 에서 rebase. <strong>충돌이 PLAN.md 뿐이면 append-only 로 해소</strong>(양쪽 진행 로그 시간순 보존, 같은 태스크 상태 라인은 완료&gt;진행&gt;TODO 로 통합), 그 외 파일 충돌은 <code>rebase --abort</code> 후 블록 처리하고 다음으로. 머지는 cwd 가 base 브랜치 디렉터리인지 확인 후 <code>merge --ff-only</code> → <code>push origin {BASE_BRANCH}</code> → <code>push github {BASE_BRANCH} 2&gt;/dev/null || true</code> → worktree remove + 브랜치 삭제. 머지마다 메인의 PLAN.md 에 완료·머지 SHA 를 기록하고 즉시 커밋·푸시한다(다음 rebase 충돌 면적 축소).</p>
+<p>실패·블록 태스크는 머지하지 않고, worktree·브랜치를 사용자 진단용으로 남기며, PLAN.md 진행 로그에 <code>자동 실행 실패: &lt;한 줄&gt;</code> 을 append 한다(상태는 TODO 유지).</p>
+<p>최종 보고: 성공/실패/블록 수, 머지된 태스크(ID·제목·SHA), 실패 태스크와 진단, 이번 머지로 의존이 풀린 다음 라운드 후보. 후보가 있으면 "다시 <code>/parallel-plan</code> 을 실행하면 처리됩니다" 로 안내한다(자동 재실행 금지).</p>
+  </div>
+  <footer>
+    원문: <code>kil9conf / claude/skills/parallel-plan/SKILL.md</code> 를 렌더링. 이 페이지는 자체 완결형입니다.
+  </footer>
+</main>
+</body>
+</html>

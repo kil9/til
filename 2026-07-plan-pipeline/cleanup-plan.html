@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>/cleanup-plan — 스킬 정의 · 플랜 파이프라인</title>
+<meta name="description" content="PLAN.md 또는 PLAN_*.md의 완료 태스크 섹션을 작업 ID와 한 줄 요약만 남기도록 압축한다. 사용자가 PLAN 정리나 완료 태스크 압축을 요청할 때 사용한다.">
+<style>
+:root{--bg:#f7f8fa;--surface:#fff;--surface-2:#f0f2f6;--line:#e2e6ee;--ink:#1a1d24;--ink-2:#4a5262;--ink-3:#78808f;
+--producer:#2563eb;--producer-bg:#eaf1ff;--producer-line:#bcd2ff;--consumer:#d97706;--consumer-bg:#fff3e2;--consumer-line:#f7d9a8;
+--queue:#7c3aed;--queue-bg:#f2ebff;--queue-line:#dcccff;--code-bg:#f4f5f8;--shadow:0 1px 2px rgba(20,25,40,.04),0 8px 24px rgba(20,25,40,.06)}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1014;--surface:#171a21;--surface-2:#1e222b;--line:#2a2f3a;--ink:#eceef2;--ink-2:#aab1bf;--ink-3:#767d8c;
+--producer:#6ea0ff;--producer-bg:#182338;--producer-line:#2c4676;--consumer:#f2b25a;--consumer-bg:#2e2412;--consumer-line:#5c4420;
+--queue:#b28bff;--queue-bg:#221a38;--queue-line:#463069;--code-bg:#12151b;--shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35)}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);line-height:1.72;font-size:16px;letter-spacing:-.01em;-webkit-font-smoothing:antialiased;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Noto Sans KR",Pretendard,Roboto,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:0 22px 96px}
+.top{max-width:760px;margin:0 auto;padding:22px 22px 0}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;color:var(--ink-2);text-decoration:none;padding:7px 13px;border:1px solid var(--line);border-radius:20px;background:var(--surface)}
+.back:hover{border-color:var(--producer);color:var(--producer)}
+header.h{max-width:760px;margin:0 auto;padding:30px 22px 8px}
+.kick{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.kick.p{color:var(--producer)}.kick.c{color:var(--consumer)}
+h1.name{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:clamp(24px,5vw,34px);margin:.3em 0 .2em;font-weight:800;letter-spacing:-.02em}
+.meta{background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:16px 18px;margin:14px 0 8px}
+.meta .desc{color:var(--ink-2);font-size:15px;margin:0 0 10px}
+.tools{display:flex;flex-wrap:wrap;gap:6px}
+.tool{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:11.5px;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);padding:.12em .5em;border-radius:6px}
+.body{margin-top:18px}
+.body h2{font-size:21px;margin:34px 0 4px;font-weight:800;letter-spacing:-.02em;border-top:1px solid var(--line);padding-top:26px}
+.body h2:first-child{border-top:none;padding-top:0;margin-top:8px}
+.body h3{font-size:17.5px;margin:24px 0 2px;font-weight:750}
+.body h4{font-size:15px;margin:18px 0 2px;font-weight:700;color:var(--ink-2)}
+.body h5{font-size:13.5px;margin:16px 0 2px;font-weight:700;color:var(--ink-3);letter-spacing:.02em;text-transform:uppercase}
+.body h6{font-size:13px;margin:14px 0 2px;font-weight:700;color:var(--ink-3)}
+.body p{margin:.85em 0}
+.body a{color:var(--producer);text-decoration:none}.body a:hover{text-decoration:underline}
+code{font-family:"SF Mono",ui-monospace,"JetBrains Mono",Menlo,Consolas,monospace;font-size:.86em;background:var(--code-bg);border:1px solid var(--line);padding:.06em .38em;border-radius:6px}
+pre{background:var(--code-bg);border:1px solid var(--line);border-radius:12px;padding:15px 17px;overflow-x:auto;font-size:12.5px;line-height:1.6;margin:16px 0}
+pre code{background:none;border:none;padding:0}
+.list{margin:.7em 0}
+.list .li{margin:.28em 0;color:var(--ink)}
+.list .bu{color:var(--ink-3);display:inline-block;width:1.1em;font-weight:600}
+blockquote{border-left:3px solid var(--queue-line);background:var(--queue-bg);margin:16px 0;padding:2px 16px;border-radius:0 8px 8px 0;color:var(--ink-2)}
+hr{border:none;border-top:1px solid var(--line);margin:26px 0}
+strong{font-weight:700}
+footer{color:var(--ink-3);font-size:13px;margin-top:44px;padding-top:20px;border-top:1px solid var(--line)}
+footer code{font-size:12px}
+</style>
+</head>
+<body>
+<div class="top"><a class="back" href="./">← 플랜 파이프라인 개요</a></div>
+<header class="h">
+  <div class="kick c">소비자 스킬</div>
+  <h1 class="name">/cleanup-plan</h1>
+  <div class="meta">
+    <p class="desc">PLAN.md 또는 PLAN_*.md의 완료 태스크 섹션을 작업 ID와 한 줄 요약만 남기도록 압축한다. 사용자가 PLAN 정리나 완료 태스크 압축을 요청할 때 사용한다.</p>
+    <div class="tools"><span class="tool">Bash</span><span class="tool">Read</span><span class="tool">Edit</span><span class="tool">Write</span><span class="tool">Glob</span><span class="tool">Grep</span></div>
+  </div>
+</header>
+<main class="wrap">
+  <div class="body">
+<h2>Cleanup Plan</h2>
+<p>완료된 작업의 세부 구현 기록을 지우고, 재개에 필요한 미완료 작업과 결정 사항은 보존한다. PLAN 파일만 수정한다 — 코드 변경·테스트는 하지 않고, 커밋은 사용자가 명시적으로 요청할 때만 한다.</p>
+<h3>절차</h3>
+<div class="list"><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">1.</span>대상 PLAN 파일을 고른다.</div><div class="li" style="padding-left:2.45em;text-indent:-1.1em"><span class="bu">·</span>현재 디렉토리에 <code>PLAN.md</code>가 있으면 그것을 사용한다.</div><div class="li" style="padding-left:2.45em;text-indent:-1.1em"><span class="bu">·</span>없으면 <code>PLAN_*.md</code> 중 가장 최근 수정된 파일을 사용한다.</div><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">2.</span>파일 전체를 읽고 태스크 ID 체계를 파악한다. 표준은 <code>M-N</code>(마일스톤)/<code>T-N</code>(태스크)/<code>I-N</code>(아이디어)이며, <code>T1</code>·<code>NU-3</code> 같은 커스텀 표기도 있을 수 있다. 원문에 적힌 ID 표기를 그대로 보존한다(표준으로 바꾸지 않는다).</div><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">3.</span>완료 태스크만 정리 대상으로 삼는다.</div><div class="li" style="padding-left:2.45em;text-indent:-1.1em"><span class="bu">·</span>완료로 보는 신호: <code>[x]</code>, <code>DONE</code>, <code>완료</code>, 커밋/검증까지 끝났다고 명시된 태스크.</div><div class="li" style="padding-left:2.45em;text-indent:-1.1em"><span class="bu">·</span>정리하지 않는 신호: <code>[ ]</code>, <code>[→]</code>, <code>TODO</code>, <code>IN_PROGRESS</code>, <code>진행 중</code>, <code>blocked</code>, <code>보류</code>, <code>아이디어</code>.</div><div class="li" style="padding-left:2.45em;text-indent:-1.1em"><span class="bu">·</span>완료 여부가 조금이라도 애매하면 원문을 보존한다.</div><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">4.</span>모든 완료 태스크를 빠짐없이 한 줄 요약으로 치환한다.</div><div class="li" style="padding-left:2.45em;text-indent:-1.1em"><span class="bu">·</span>완료 태스크의 하위 체크리스트, 상세 설명, 검증 로그, 커밋 로그, 리뷰 메모는 삭제한다.</div><div class="li" style="padding-left:2.45em;text-indent:-1.1em"><span class="bu">·</span>남기는 형식은 기존 PLAN 스타일에 맞추되, 기본은 다음 형태다.</div></div>
+<pre><code>- [x] T-12: 짧은 요약</code></pre>
+<div class="list"><div class="li" style="padding-left:2.45em;text-indent:-1.1em"><span class="bu">·</span>기존 제목이 충분히 짧으면 제목을 요약으로 사용하고, 길거나 구현 세부가 섞여 있으면 결과 중심으로 새로 쓴다.</div><div class="li" style="padding-left:2.45em;text-indent:-1.1em"><span class="bu">·</span>새로 쓰는 범위 표기 <code>~</code>는 Markdown 규칙에 맞게 <code>\~</code>로 escape한다.</div><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">5.</span>살아 있는 컨텍스트는 보존한다.</div><div class="li" style="padding-left:2.45em;text-indent:-1.1em"><span class="bu">·</span>문제 정의, 목표/비목표, 제약, 설계 결정, 리스크, 미완료 태스크, 보류 아이디어는 삭제하지 않는다.</div><div class="li" style="padding-left:2.45em;text-indent:-1.1em"><span class="bu">·</span>단, 완료 태스크 내부에만 있던 세부 결정이 이후 작업에 필요하면 태스크 밖의 적절한 "디자인 결정" 또는 "리스크/주의" 섹션으로 옮긴 뒤 압축한다.</div><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">6.</span>변경 후 결과를 검증한다.</div><div class="li" style="padding-left:2.45em;text-indent:-1.1em"><span class="bu">·</span>삭제된 내용이 완료 태스크 세부 기록에 한정되는지 확인한다.</div><div class="li" style="padding-left:2.45em;text-indent:-1.1em"><span class="bu">·</span>미완료/진행 중/보류 항목의 본문이 바뀌지 않았는지 확인한다.</div><div class="li" style="padding-left:2.45em;text-indent:-1.1em"><span class="bu">·</span>마지막에 정리한 파일, 압축한 태스크 수, 보존한 미완료 태스크 수를 보고한다.</div></div>
+  </div>
+  <footer>
+    원문: <code>kil9conf / claude/skills/cleanup-plan/SKILL.md</code> 를 렌더링. 이 페이지는 자체 완결형입니다.
+  </footer>
+</main>
+</body>
+</html>
