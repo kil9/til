@@ -121,7 +121,7 @@
 
   <div class="grid">
 
-    <a class="card" href="./2026-luna-wuwa/">
+    <a class="card" href="./2026-luna-wuwa/" data-date="2026-07-11">
       <div class="meta">
         <span class="date">2026-07-11</span>
         <span class="tag">Hololive · Stream Log</span>
@@ -131,7 +131,7 @@
       <div class="path">/2026-luna-wuwa/</div>
     </a>
 
-    <a class="card" href="./2026-matsuri-wuwa/">
+    <a class="card" href="./2026-matsuri-wuwa/" data-date="2026-07-11">
       <div class="meta">
         <span class="date">2026-07-11</span>
         <span class="tag">Hololive · Stream Log</span>
@@ -141,7 +141,7 @@
       <div class="path">/2026-matsuri-wuwa/</div>
     </a>
 
-    <a class="card" href="./2026-07-plan-pipeline/">
+    <a class="card" href="./2026-07-plan-pipeline/" data-date="2026-07-11">
       <div class="meta">
         <span class="date">2026-07-11</span>
         <span class="tag">Claude Code · Workflow</span>
@@ -157,6 +157,21 @@
     <p>Source · <a href="https://github.com/kil9/docs" target="_blank" rel="noopener">github.com/kil9/docs</a></p>
   </footer>
 </main>
+
+<script>
+  (function () {
+    var grid = document.querySelector(".grid");
+    if (!grid) return;
+    var cards = Array.prototype.slice.call(grid.querySelectorAll("a.card[data-date]"));
+    cards
+      .map(function (card, i) { return { card: card, date: card.dataset.date, i: i }; })
+      .sort(function (a, b) {
+        if (a.date !== b.date) return a.date < b.date ? 1 : -1;
+        return a.i - b.i;
+      })
+      .forEach(function (entry) { grid.appendChild(entry.card); });
+  })();
+</script>
 
 </body>
 </html>
