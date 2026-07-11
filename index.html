@@ -62,7 +62,6 @@
     color: var(--accent-ink); font-weight: 700; margin: 0 0 16px;
   }
   h1 { margin: 0; font-size: clamp(2rem, 6vw, 3rem); font-weight: 800; letter-spacing: -0.02em; }
-  .lede { margin: 16px 0 0; max-width: 58ch; color: var(--text-muted); font-size: 1.02rem; }
 
   .count { margin: 40px 0 18px; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-faint); font-weight: 700; }
 
@@ -121,21 +120,21 @@
   .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .chip.active { background: var(--accent-soft); color: var(--accent-ink); border-color: var(--accent); }
 
-  .ai-summary { margin: 44px 0 0; }
+  .ai-summary { margin: 18px 0 0; }
   .ai-summary .ai-label {
-    margin: 0 0 8px; font-size: 0.72rem; letter-spacing: 0.24em; text-transform: uppercase;
+    margin: 0 0 12px; font-size: 0.72rem; letter-spacing: 0.24em; text-transform: uppercase;
     color: var(--accent-ink); font-weight: 700;
   }
   .ai-summary .ai-label .ai-date {
     font-family: ui-monospace, "SF Mono", monospace; font-size: 0.72rem;
     color: var(--text-faint); font-weight: 700; letter-spacing: 0.04em;
-    text-transform: none; margin-left: 8px;
+    text-transform: none;
   }
-  .ai-summary p { margin: 0; color: var(--text-muted); font-size: 0.95rem; max-width: 62ch; }
-  .ai-summary ul { list-style: none; margin: 8px 0 0; padding: 0; color: var(--text-faint); font-size: 0.88rem; }
-  .ai-summary li { margin: 3px 0; }
-  .ai-summary a { color: var(--accent-ink); text-decoration: none; border-bottom: 1px solid var(--border-strong); }
-  .ai-summary a:hover { color: var(--accent); }
+  .ai-summary .ai-label .ai-date::before { content: "· "; }
+  .ai-summary .ai-intro {
+    margin: 0; max-width: 60ch; color: var(--text-muted);
+    font-size: 1.02rem; line-height: 1.65;
+  }
 
   footer {
     margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--border);
@@ -151,23 +150,16 @@
   <div class="hero-inner">
     <p class="eyebrow">GitHub Pages</p>
     <h1>today i learned</h1>
-    <p class="lede"><code>/publish-pages</code> 로 퍼블리시된 정적 페이지 모음. 각 페이지는 자체 완결형 HTML 로, 아래에서 바로 열 수 있습니다.</p>
+    <!-- AI-SUMMARY:START -->
+    <section class="ai-summary" aria-label="AI 요약">
+      <p class="ai-label">AI 요약 <span class="ai-date">2026-07-11</span></p>
+      <p class="ai-intro">최근 세 편의 글이 새로 올라왔어요. Claude Code 개발 워크플로부터 hololive 크리에이터의 게임 여정까지, 각 주제를 타임라인으로 짚어 안내합니다. 아래 카드를 누르면 바로 열립니다.</p>
+    </section>
+    <!-- AI-SUMMARY:END -->
   </div>
 </header>
 
 <main class="wrap">
-  <!-- AI-SUMMARY:START -->
-  <section class="ai-summary" aria-label="AI 요약">
-    <p class="ai-label">AI 요약 <span class="ai-date">2026-07-11</span></p>
-    <p>세 가지 새로운 문서가 추가되었습니다. Claude Code 개발 워크플로부터 hololive 크리에이터의 게임 여정까지, 각 주제별 상세한 타임라인 기록을 담았습니다.</p>
-    <ul>
-      <li><a href="./2026-07-plan-pipeline/">두 세션 플랜 파이프라인 — 생산자·소비자로 나눠 쓰는 Claude Code</a> — 한 세션은 계획 수립, 다른 세션은 구현 실행 — PLAN.md로 소통하는 Claude Code 두 세션 워크플로</li>
-      <li><a href="./2026-luna-wuwa/">姫森ルーナ ✕ 鳴潮 — 루나의 명조 방송 항해일지</a> — 히메모리 루나의 명조 플레이 방송 23편을 타임라인으로 정리한 4개월 여정 기록</li>
-      <li><a href="./2026-matsuri-wuwa/">夏色まつり ✕ 鳴潮 — 마츠리의 명조 방송 전기록</a> — 나츠이로 마츠리의 명조 플레이 방송 전기록 — 자발적 시작에서 개발사 스폰서까지</li>
-    </ul>
-  </section>
-  <!-- AI-SUMMARY:END -->
-
   <nav class="chips" id="topic-chips" aria-label="주제 필터" hidden></nav>
 
   <p class="count">Published · 4</p>
