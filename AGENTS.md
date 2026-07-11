@@ -4,16 +4,16 @@
 
 ## 이 저장소는 무엇인가
 
-`kil9/docs` 는 정적 HTML 페이지를 GitHub Pages 로 호스팅하는 퍼블리시 저장소다. 사용자가 `/publish-pages` 로 특정 콘텐츠(주로 claude.ai artifact)를 넘기면, 그 콘텐츠를 자체 완결형 HTML 로 만들어 새 디렉터리에 담고 목록을 갱신한 뒤 `main` 에 push 한다.
+`kil9/til` 은 정적 HTML 페이지를 GitHub Pages 로 호스팅하는 퍼블리시 저장소다. 사용자가 `/publish-pages` 로 특정 콘텐츠(주로 claude.ai artifact)를 넘기면, 그 콘텐츠를 자체 완결형 HTML 로 만들어 새 디렉터리에 담고 목록을 갱신한 뒤 `main` 에 push 한다.
 
-- 라이브: <https://kil9.github.io/docs/>
+- 라이브: <https://kil9.github.io/til/>
 - 호스팅: GitHub Pages, `main` 브랜치 루트에서 직접 서빙(Deploy from a branch, 빌드 없음)
 - 공개 범위: **public** 저장소(무료 Pages 조건). 여기에 올리는 모든 것은 즉시 공개된다.
 
 ## 저장소 구조
 
 ```
-docs/
+til/
 ├── index.html            루트 갤러리 랜딩 페이지(퍼블리시된 페이지 목록)
 ├── README.md             사람용 개요 + 퍼블리시된 페이지 표
 ├── AGENTS.md             (이 파일) 에이전트 지침 + 퍼블리시 런북
@@ -76,7 +76,7 @@ docs/
 ### 5. 반영
 
 - `main` 에 commit / push 한다. 커밋 규칙은 아래 참조.
-- Pages 는 push 후 몇십 초 뒤 반영된다. URL: `https://kil9.github.io/docs/<slug>/`
+- Pages 는 push 후 몇십 초 뒤 반영된다. URL: `https://kil9.github.io/til/<slug>/`
 
 ## 명령어
 
@@ -89,12 +89,12 @@ python3 -m http.server 8000
 
 # HTML 문법 눈검사 이외 별도 린트/테스트 없음.
 # 배포 상태 확인
-gh api repos/kil9/docs/pages --jq '.status, .html_url'
+gh api repos/kil9/til/pages --jq '.status, .html_url'
 ```
 
 ## 환경 / 전제
 
-- git remote `origin` = `https://github.com/kil9/docs` (public)
+- git remote `origin` = `https://github.com/kil9/til` (public)
 - `gh` 는 github.com 계정 `kil9` 로 인증돼 있어야 한다(`repo` scope 필요).
 - 필수 환경변수 없음. 외부 DB/API/MCP 의존 없음.
 - GitHub Pages 설정: source = branch `main`, path = `/`(root).

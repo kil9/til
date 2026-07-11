@@ -1,16 +1,16 @@
-# kil9 / docs
+# kil9 / til
 
 `/publish-pages` 로 요청한 정적 페이지를 GitHub Pages 로 퍼블리시하는 저장소.
 
-- 라이브 사이트: <https://kil9.github.io/docs/>
+- 라이브 사이트: <https://kil9.github.io/til/>
 - 각 페이지는 자체 완결형(self-contained) HTML 이며, 한 페이지당 디렉터리 하나를 차지한다.
 - 루트 `index.html` 은 퍼블리시된 페이지 전체를 나열하는 갤러리 랜딩 페이지다.
 
 ## URL 구조
 
 ```
-https://kil9.github.io/docs/                     루트 갤러리
-https://kil9.github.io/docs/<디렉터리>/           개별 페이지 (예: 2026-matsuri-wuwa)
+https://kil9.github.io/til/                     루트 갤러리
+https://kil9.github.io/til/<디렉터리>/           개별 페이지 (예: 2026-matsuri-wuwa)
 ```
 
 GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드 없음). `main` 에 push 하면 몇십 초 뒤 반영된다.
@@ -35,7 +35,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
-| 2026-07-11 | TIL 아카이브 — Today I Learned | [/til-archive/](https://kil9.github.io/docs/til-archive/) |
-| 2026-07-11 | 姫森ルーナ ✕ 鳴潮 — 루나의 명조 방송 항해일지 | [/2026-luna-wuwa/](https://kil9.github.io/docs/2026-luna-wuwa/) |
-| 2026-07-11 | 夏色まつり ✕ 鳴潮 — 마츠리의 명조 방송 전기록 | [/2026-matsuri-wuwa/](https://kil9.github.io/docs/2026-matsuri-wuwa/) |
-| 2026-07-11 | 두 세션 플랜 파이프라인 — Claude Code 를 생산자·소비자로 나눠 쓰기 | [/2026-07-plan-pipeline/](https://kil9.github.io/docs/2026-07-plan-pipeline/) |
+| 2026-07-11 | TIL 아카이브 — Today I Learned | [/til-archive/](https://kil9.github.io/til/til-archive/) |
+| 2026-07-11 | 姫森ルーナ ✕ 鳴潮 — 루나의 명조 방송 항해일지 | [/2026-luna-wuwa/](https://kil9.github.io/til/2026-luna-wuwa/) |
+| 2026-07-11 | 夏色まつり ✕ 鳴潮 — 마츠리의 명조 방송 전기록 | [/2026-matsuri-wuwa/](https://kil9.github.io/til/2026-matsuri-wuwa/) |
+| 2026-07-11 | 두 세션 플랜 파이프라인 — Claude Code 를 생산자·소비자로 나눠 쓰기 | [/2026-07-plan-pipeline/](https://kil9.github.io/til/2026-07-plan-pipeline/) |
