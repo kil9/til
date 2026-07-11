@@ -38,6 +38,7 @@
   }
 
   * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
 
   body {
     margin: 0;
@@ -109,6 +110,18 @@
     font-family: ui-monospace, "SF Mono", monospace;
   }
 
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 36px 0 0; }
+  .chip {
+    font: inherit; font-size: 0.78rem; font-weight: 700;
+    padding: 5px 14px; border-radius: 999px; cursor: pointer;
+    border: 1px solid var(--border-strong);
+    background: var(--surface); color: var(--text-muted);
+    transition: border-color 0.16s ease, color 0.16s ease;
+  }
+  .chip:hover { border-color: var(--accent); color: var(--accent-ink); }
+  .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .chip.active { background: var(--accent-soft); color: var(--accent-ink); border-color: var(--accent); }
+
   .ai-summary {
     margin: 40px 0 8px; padding: 20px 24px;
     background: var(--surface); border: 1px solid var(--border);
@@ -163,11 +176,13 @@
   </section>
   <!-- AI-SUMMARY:END -->
 
+  <nav class="chips" id="topic-chips" aria-label="주제 필터" hidden></nav>
+
   <p class="count">Published · 3</p>
 
   <div class="grid">
 
-    <a class="card" href="./2026-luna-wuwa/" data-date="2026-07-11">
+    <a class="card" href="./2026-luna-wuwa/" data-date="2026-07-11" data-topic="hololive">
       <div class="meta">
         <span class="date">2026-07-11</span>
         <span class="tag">Hololive · Stream Log</span>
@@ -177,7 +192,7 @@
       <div class="path">/2026-luna-wuwa/</div>
     </a>
 
-    <a class="card" href="./2026-matsuri-wuwa/" data-date="2026-07-11">
+    <a class="card" href="./2026-matsuri-wuwa/" data-date="2026-07-11" data-topic="hololive">
       <div class="meta">
         <span class="date">2026-07-11</span>
         <span class="tag">Hololive · Stream Log</span>
@@ -187,7 +202,7 @@
       <div class="path">/2026-matsuri-wuwa/</div>
     </a>
 
-    <a class="card" href="./2026-07-plan-pipeline/" data-date="2026-07-11">
+    <a class="card" href="./2026-07-plan-pipeline/" data-date="2026-07-11" data-topic="claude-code">
       <div class="meta">
         <span class="date">2026-07-11</span>
         <span class="tag">Claude Code · Workflow</span>
@@ -227,7 +242,8 @@
 
     // 이번달 외 카드 축약 + 연/월 아카이브 (T-11).
     // ?now=YYYY-MM 으로 현재 달을 오버라이드할 수 있다(검증용).
-    var nowParam = new URLSearchParams(location.search).get("now");
+    var params = new URLSearchParams(location.search);
+    var nowParam = params.get("now");
     var thisMonth = /^\d{4}-\d{2}$/.test(nowParam || "")
       ? nowParam
       : new Date().getFullYear() + "-" + String(new Date().getMonth() + 1).padStart(2, "0");
@@ -235,7 +251,6 @@
     var past = cards.filter(function (card) {
       return card.dataset.date.slice(0, 7) !== thisMonth;
     });
-    if (!past.length) return;
 
     // 연 단위 그룹핑이 기본, 한 해에 12개를 넘으면 그 해만 월 단위로 쪼갠다.
     var byYear = {};
@@ -275,8 +290,56 @@
         groupGrid.appendChild(card);
       });
       container.appendChild(groupGrid);
+      group.heading = heading;
+      group.grid = groupGrid;
     });
-    archive.hidden = false;
+    archive.hidden = !past.length;
+
+    // 주제 필터 칩 (T-14). data-topic 카드에서 칩을 자동 생성한다.
+    // 칩 라벨은 카드 .tag 의 "·" 앞 첫 세그먼트를 재활용한다.
+    // ?topic=<key> 로 초기 필터를 걸 수 있다(딥링크·검증용).
+    var topics = {};
+    cards.forEach(function (card) {
+      var key = card.dataset.topic;
+      if (!key || topics[key]) return;
+      var tag = card.querySelector(".tag");
+      topics[key] = tag ? tag.textContent.split("·")[0].trim() : key;
+    });
+    var topicKeys = Object.keys(topics);
+    if (topicKeys.length < 2) return;
+
+    var nav = document.getElementById("topic-chips");
+    function applyFilter(topic) {
+      cards.forEach(function (card) {
+        card.hidden = topic !== "all" && card.dataset.topic !== topic;
+      });
+      var anyPast = false;
+      groups.forEach(function (group) {
+        var any = group.cards.some(function (card) { return !card.hidden; });
+        group.heading.hidden = !any;
+        group.grid.hidden = !any;
+        if (any) anyPast = true;
+      });
+      archive.hidden = !anyPast;
+      Array.prototype.forEach.call(nav.querySelectorAll(".chip"), function (chip) {
+        chip.classList.toggle("active", chip.dataset.topic === topic);
+      });
+    }
+    function addChip(key, label) {
+      var chip = document.createElement("button");
+      chip.type = "button";
+      chip.className = "chip";
+      chip.dataset.topic = key;
+      chip.textContent = label;
+      chip.addEventListener("click", function () { applyFilter(key); });
+      nav.appendChild(chip);
+    }
+    addChip("all", "전체");
+    topicKeys.forEach(function (key) { addChip(key, topics[key]); });
+    nav.hidden = false;
+
+    var initial = params.get("topic");
+    applyFilter(initial && topics[initial] ? initial : "all");
   })();
 </script>
 
