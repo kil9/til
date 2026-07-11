@@ -47,6 +47,11 @@
 
 - **T-15 방문 지표 — Cloudflare Web Analytics** — 정적 공개 사이트라 서버 로그가 없으므로 클라이언트 비콘으로 **익명 집계**(페이지뷰·리퍼러·지역·디바이스·시각)를 수집한다. Cloudflare Web Analytics 를 도입한다: CF 계정에 사이트 등록 → beacon 토큰 발급 → JS beacon 스크립트(`static.cloudflareinsights.com/beacon.min.js`, cookieless)를 루트 `index.html` 과 모든 `<slug>/index.html` 에 삽입. GitHub Pages 호스팅이라 CF 프록시 없이 beacon 방식으로 동작한다. beacon 토큰은 클라이언트 임베드용 공개 값이라 public repo 커밋 무방하나 확인 후 넣는다. 지표는 **CF 기본 대시보드**로 확인하고 사이트 내 커스텀 대시보드는 만들지 않는다. **신규 페이지에도 자동 반영되도록** beacon 삽입을 퍼블리시 런북([AGENTS.md](AGENTS.md))과 `publish-gh-pages` 스킬·페이지 템플릿에 넣는다. 완료 조건: 전 페이지에 beacon 존재 + CF 대시보드에 방문 데이터 집계 확인.
 - **T-18 갤러리 다단 칼럼 레이아웃** — 현재 갤러리는 1단(`index.html` 의 `.grid { grid-template-columns: 1fr }`)이라 정보 밀도가 낮다. 반응형 다단 칼럼(예: 넓은 화면에서 2\~3열)으로 나눠 밀도를 높인다. 선행(T-11·T-14·T-17) 모두 완료되어 2026-07-11 블록 해제. T-19 는 현행 룩 유지로 종결됐으므로, 현재 카드 레이아웃 위에서 칼럼 분할 여부·형태를 판단한다.
+- **T-22 2026-07-plan-pipeline 글에 "beads를 채택하지 않은 이유" 섹션 추가**
+  - 완료 조건: beads(https://github.com/gastownhall/beads, AI 코딩 에이전트용 dependency-graph 이슈 트래커)를 조사해, 마크다운 PLAN.md 파이프라인 대비 트레이드오프(쿼리 가능한 의존 그래프·컨텍스트 절약이라는 강점 vs 솔로 1\~2 세션 규모에서의 오버헤드, cleanup-plan 압축·구역 분리로 마크다운 약점을 이미 상쇄 중이라는 점 등)를 정리한 미채택 근거 섹션이 글에 추가되고 GitHub Pages에 배포됨
+  - 의존: 없음
+  - 범위 힌트: `2026-07-plan-pipeline/`(글 소스), 필요시 루트 `index.html`
+  - 접수: 2026-07-12
 
 - 위 태스크 외 다음 `/publish-pages` 요청 대기 중. 새 페이지는 [AGENTS.md](AGENTS.md) "퍼블리시 런북" 을 따른다.
 
