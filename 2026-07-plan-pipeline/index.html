@@ -127,6 +127,7 @@
     <a href="#flow">전체 흐름</a>
     <a href="#collision">왜 안 부딪히나</a>
     <a href="#support">보조 스킬</a>
+    <a href="#beads">beads는 왜 안 쓰나</a>
     <a href="#cheat">치트시트</a>
   </div>
 
@@ -600,8 +601,50 @@
     <figcaption>스킬 지도 — 왼쪽에서 채우고, 가운데 큐를 거쳐, 오른쪽에서 비운다. 그리고 검증된 커밋으로 나온다.</figcaption>
   </figure>
 
+  <!-- ============================ BEADS ============================ -->
+  <h2 id="beads"><span class="n">9</span>대안 검토 — beads를 채택하지 않은 이유</h2>
+  <p class="sub">"마크다운 플랜 파일은 원시적이지 않나? 전용 도구를 쓰지 그래?"에 대한 답. 대표 주자인 beads와 비교해 본다.</p>
+
+  <p><a href="https://github.com/gastownhall/beads">beads</a>(<code>bd</code>)는 정확히 이 파이프라인이 다루는 문제 — "AI 코딩 에이전트가 장기 작업에서 컨텍스트를 잃지 않게 하기" — 를 겨냥한 <strong>의존성 그래프 기반 이슈 트래커</strong>다. 마크다운 TODO/플랜 파일을 대체하겠다고 명시적으로 선언하는 도구이고, 실제로 잘 만들어져 있다. 이슈가 그래프의 노드, 의존이 엣지가 되고, 임베디드 SQL 데이터베이스(Dolt)에 저장된다.</p>
+
+  <table>
+    <tr><th>beads가 잘하는 것</th><th>어떻게</th></tr>
+    <tr><td>착수 가능 태스크 선별</td><td><code>bd ready</code> — 열린 블로커가 없는 태스크만 쿼리로 골라준다. 의존 그래프가 깊어도 즉답</td></tr>
+    <tr><td>컨텍스트 절약</td><td>에이전트가 플랜 전체를 읽는 대신 <code>bd show &lt;id&gt;</code>로 필요한 이슈만 꺼내 읽는다. <code>--json</code> 구조화 출력</td></tr>
+    <tr><td>동시성</td><td><code>bd update --claim</code>으로 할당+상태를 원자적으로 클레임. 해시 기반 ID(<code>bd-a3f8</code>)라 병합 충돌이 없다</td></tr>
+    <tr><td>기억 관리</td><td><code>bd remember</code>로 프로젝트 메모리를 쌓고 <code>bd prime</code>이 에이전트 시동 컨텍스트로 주입</td></tr>
+    <tr><td>감사 추적</td><td>모든 변경이 DB 커밋으로 기록된다</td></tr>
+  </table>
+
+  <p>그런데도 이 파이프라인은 마크다운 <code>PLAN.md</code>를 쓴다. beads가 열등해서가 아니라, <strong>beads가 푸는 문제가 이 규모에서는 아직 발생하지 않기 때문</strong>이다.</p>
+
+  <h3>규모가 다르다 — 솔로 1~2 세션에는 그래프가 필요 없다</h3>
+  <p>beads의 핵심 가치는 <em>쿼리 가능한 의존 그래프</em>다. 태스크가 수백 건이고 블로킹 관계가 얽혀 있으면 "지금 착수 가능한 게 뭔가"는 쿼리 없이 답하기 어렵다. 하지만 이 파이프라인의 백로그는 사실상 <strong>선형 큐</strong>다 — 태스크 수십 건, 블록된 항목은 한 줄짜리 "blocked (T-x 대기)" 표기로 충분한 수준. <a class="chip q" href="next-plan.html">/next-plan</a>이 플랜 파일 하나를 훑는 것으로 몇 초 만에 같은 답을 낸다. 그래프 DB가 풀어줄 병목이 없다.</p>
+
+  <h3>마크다운의 약점은 이미 다른 방법으로 상쇄돼 있다</h3>
+  <p>beads가 마크다운의 약점으로 꼽는 두 가지가 이 파이프라인에서는 운영 습관으로 막혀 있다.</p>
+  <table>
+    <tr><th>마크다운의 약점</th><th>beads의 해법</th><th>이 파이프라인의 해법</th></tr>
+    <tr><td>파일이 계속 자라 컨텍스트를 잡아먹는다</td><td>DB에 넣고 필요한 이슈만 꺼내 읽기</td><td><a class="chip q" href="cleanup-plan.html">/cleanup-plan</a> — 완료 태스크를 한 줄 요약으로 접어 파일 자체를 작게 유지</td></tr>
+    <tr><td>동시 편집이 병합 충돌을 낸다</td><td>해시 ID + 셀 수준 머지</td><td>구역 분리(<a href="#collision">§7</a>) — 생산자는 끝에 append, 소비자는 기존 줄의 체크박스만. 2세션 규모에선 겹칠 라인이 없다</td></tr>
+  </table>
+
+  <h3>도입 비용은 실재한다</h3>
+  <p>반면 beads로 갈아타는 순간 생기는 비용은 규모와 무관하게 즉시 발생한다.</p>
+  <ul>
+    <li><strong>런타임 의존</strong> — <code>bd</code> 바이너리와 임베디드 Dolt DB(<code>.beads/</code>)가 모든 작업 머신에 깔려야 한다. 지금은 git과 텍스트 에디터면 끝이다.</li>
+    <li><strong>진실원본이 DB로 옮겨간다</strong> — <code>PLAN.md</code>는 GitHub 웹에서 그대로 읽히고 diff가 리뷰가 된다. beads는 <code>issues.jsonl</code> 내보내기가 있지만 어디까지나 사본이고, 열람·검색·이력 확인에 도구가 한 겹 낀다.</li>
+    <li><strong>스킬 파이프라인 전면 재작성</strong> — <code>/add-plan</code>·<code>/follow-plan</code>·<code>/next-plan</code>·<code>/cleanup-plan</code>이 전부 "마크다운 파일을 읽고 고친다"를 전제한다. 큐의 포맷을 바꾸면 생산자·소비자 양쪽 손잡이를 다 새로 깎아야 한다.</li>
+    <li><strong>산문이 죽는다</strong> — <code>PLAN.md</code>는 큐인 동시에 사람이 읽는 상태 문서다. "현재 상태" 요약과 디자인 결정의 근거·트레이드오프가 산문으로 함께 산다. 이슈 레코드로 쪼개면 이 서사가 필드 사이로 흩어진다.</li>
+  </ul>
+
+  <div class="note">
+    <b>재평가 트리거 — 도구 문제가 아니라 규모 문제</b>
+    병렬 에이전트가 늘어 원자적 클레임 없이는 태스크를 서로 집어가고, 의존 그래프가 깊어져 "다음 착수 가능"이 파일 훑기로 안 나오는 시점이 오면 — 그때는 beads(또는 같은 계열 도구)가 정답에 가까워진다. 지금 안 쓰는 건 "아직 그 규모가 아니다"이지 "영원히 아니다"가 아니다.
+  </div>
+
   <!-- ============================ CHEAT ============================ -->
-  <h2 id="cheat"><span class="n">9</span>치트시트</h2>
+  <h2 id="cheat"><span class="n">10</span>치트시트</h2>
   <p class="sub">역할별로 어떤 손잡이를 언제 당기나.</p>
 
   <table>
