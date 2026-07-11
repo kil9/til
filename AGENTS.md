@@ -70,7 +70,7 @@ til/
 ### 4. 목록 갱신
 
 - 루트 `index.html`: 갤러리 카드를 **최신이 위로** 추가하고 `Published · N` 카운트를 증가시킨다.
-  - 카드 `<a class="card">` 에 `data-date="YYYY-MM-DD"`(정렬·아카이브용)와 `data-topic="<주제키>"`(필터 칩용, kebab-case)를 반드시 넣는다. 주제키는 기존 카드 값(`hololive`, `claude-code` 등)을 재사용하고, 새 주제면 새 키를 만든다 — 칩은 `data-topic` 과 `.tag` 텍스트("·" 앞 세그먼트가 칩 라벨)에서 자동 생성된다.
+  - 카드 `<a class="card">` 에 `data-date="YYYY-MM-DDTHH:MM"`(정렬·아카이브용, 퍼블리시 시각까지 넣는다 — `.date` 표시는 JS 가 이 값에서 렌더링하므로 `span.date` 텍스트는 무엇을 넣어도 덮어써진다)와 `data-topic="<주제키>"`(필터 칩용, kebab-case)를 반드시 넣는다. 주제키는 기존 카드 값(`hololive`, `claude-code` 등)을 재사용하고, 새 주제면 새 키를 만든다 — 칩은 `data-topic` 과 `.tag` 텍스트("·" 앞 세그먼트가 칩 라벨)에서 자동 생성된다.
 - `README.md`: "퍼블리시된 페이지" 표에 행을 추가한다.
 
 ### 5. 반영
