@@ -98,6 +98,17 @@
     font-size: 0.76rem; color: var(--text-faint);
   }
 
+  a.card.compact { padding: 14px 20px; }
+  a.card.compact .meta { margin-bottom: 4px; }
+  a.card.compact h2 { margin: 0; font-size: 1.02rem; }
+  a.card.compact p, a.card.compact .path { display: none; }
+
+  .archive-heading {
+    margin: 36px 0 14px; font-size: 0.82rem; font-weight: 800;
+    letter-spacing: 0.08em; color: var(--text-muted);
+    font-family: ui-monospace, "SF Mono", monospace;
+  }
+
   .ai-summary {
     margin: 40px 0 8px; padding: 20px 24px;
     background: var(--surface); border: 1px solid var(--border);
@@ -188,6 +199,11 @@
 
   </div>
 
+  <section id="archive" aria-label="아카이브" hidden>
+    <p class="count">Archive</p>
+    <div id="archive-groups"></div>
+  </section>
+
   <footer>
     <p>Source · <a href="https://github.com/kil9/docs" target="_blank" rel="noopener">github.com/kil9/docs</a></p>
   </footer>
@@ -197,14 +213,70 @@
   (function () {
     var grid = document.querySelector(".grid");
     if (!grid) return;
-    var cards = Array.prototype.slice.call(grid.querySelectorAll("a.card[data-date]"));
-    cards
+
+    // 날짜 내림차순 정렬 (T-10). 동일 날짜는 원래 순서 유지.
+    var cards = Array.prototype.slice
+      .call(grid.querySelectorAll("a.card[data-date]"))
       .map(function (card, i) { return { card: card, date: card.dataset.date, i: i }; })
       .sort(function (a, b) {
         if (a.date !== b.date) return a.date < b.date ? 1 : -1;
         return a.i - b.i;
       })
-      .forEach(function (entry) { grid.appendChild(entry.card); });
+      .map(function (entry) { return entry.card; });
+    cards.forEach(function (card) { grid.appendChild(card); });
+
+    // 이번달 외 카드 축약 + 연/월 아카이브 (T-11).
+    // ?now=YYYY-MM 으로 현재 달을 오버라이드할 수 있다(검증용).
+    var nowParam = new URLSearchParams(location.search).get("now");
+    var thisMonth = /^\d{4}-\d{2}$/.test(nowParam || "")
+      ? nowParam
+      : new Date().getFullYear() + "-" + String(new Date().getMonth() + 1).padStart(2, "0");
+
+    var past = cards.filter(function (card) {
+      return card.dataset.date.slice(0, 7) !== thisMonth;
+    });
+    if (!past.length) return;
+
+    // 연 단위 그룹핑이 기본, 한 해에 12개를 넘으면 그 해만 월 단위로 쪼갠다.
+    var byYear = {};
+    past.forEach(function (card) {
+      var year = card.dataset.date.slice(0, 4);
+      (byYear[year] = byYear[year] || []).push(card);
+    });
+
+    var groups = [];
+    Object.keys(byYear).sort().reverse().forEach(function (year) {
+      var items = byYear[year];
+      if (items.length <= 12) {
+        groups.push({ key: year, cards: items });
+        return;
+      }
+      var byMonth = {};
+      items.forEach(function (card) {
+        var month = card.dataset.date.slice(0, 7);
+        (byMonth[month] = byMonth[month] || []).push(card);
+      });
+      Object.keys(byMonth).sort().reverse().forEach(function (month) {
+        groups.push({ key: month, cards: byMonth[month] });
+      });
+    });
+
+    var archive = document.getElementById("archive");
+    var container = document.getElementById("archive-groups");
+    groups.forEach(function (group) {
+      var heading = document.createElement("h2");
+      heading.className = "archive-heading";
+      heading.textContent = group.key;
+      container.appendChild(heading);
+      var groupGrid = document.createElement("div");
+      groupGrid.className = "grid";
+      group.cards.forEach(function (card) {
+        card.classList.add("compact");
+        groupGrid.appendChild(card);
+      });
+      container.appendChild(groupGrid);
+    });
+    archive.hidden = false;
   })();
 </script>
 
