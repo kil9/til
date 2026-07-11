@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>/follow-plan — 스킬 정의 · 플랜 파이프라인</title>
-<meta name="description" content="PLAN.md 파일을 읽고 계획에 따라 개발을 순서대로 진행한다.">
+<meta name="description" content="PLAN.md(없으면 최근 PLAN_*.md) 파일을 읽고 계획에 따라 개발을 순서대로 진행한다.">
 <style>
 :root{--bg:#f7f8fa;--surface:#fff;--surface-2:#f0f2f6;--line:#e2e6ee;--ink:#1a1d24;--ink-2:#4a5262;--ink-3:#78808f;
 --producer:#2563eb;--producer-bg:#eaf1ff;--producer-line:#bcd2ff;--consumer:#d97706;--consumer-bg:#fff3e2;--consumer-line:#f7d9a8;
@@ -55,17 +55,18 @@ footer code{font-size:12px}
   <div class="kick c">소비자 스킬</div>
   <h1 class="name">/follow-plan</h1>
   <div class="meta">
-    <p class="desc">PLAN.md 파일을 읽고 계획에 따라 개발을 순서대로 진행한다.</p>
+    <p class="desc">PLAN.md(없으면 최근 PLAN_*.md) 파일을 읽고 계획에 따라 개발을 순서대로 진행한다.</p>
     <div class="tools"><span class="tool">Bash</span><span class="tool">Read</span><span class="tool">Edit</span><span class="tool">Write</span><span class="tool">Glob</span><span class="tool">Grep</span><span class="tool">Agent</span><span class="tool">AskUserQuestion</span></div>
   </div>
 </header>
 <main class="wrap">
   <div class="body">
-<p>PLAN.md 파일을 읽고 계획에 따라 개발을 순서대로 진행한다.</p>
-<h3>0. PLAN.md 확인</h3>
-<p>현재 디렉토리에 PLAN.md 가 없으면 "PLAN.md 파일이 없습니다. 먼저 계획을 작성해 주세요." 라고 알리고 중단한다. 있으면 전체를 읽고 미완료 항목·우선순위·의존 관계·완료 조건을 파악한다.</p>
+<p>PLAN 파일을 읽고 계획에 따라 개발을 순서대로 진행한다.</p>
+<h3>0. PLAN 파일 확인</h3>
+<p>대상 플랜 파일은 현재 디렉토리의 PLAN.md, 없으면 <code>PLAN_*.md</code> 중 가장 최근 수정본이다(어느 파일을 쓰는지 알린다). 둘 다 없으면 "PLAN 파일이 없습니다. <code>/make-a-plan</code> 으로 먼저 작성해 주세요." 라고 알리고 중단한다. 있으면 전체를 읽고 미완료 항목·우선순위·의존 관계·완료 조건을 파악한다.</p>
 <p><strong>아이디어(I-N) 제외</strong>: "아이디어 (보류)" 섹션의 <code>I-N</code> 항목은 착수 전 보류 후보이므로 진행 대상에서 제외한다. 태스크(<code>T-N</code>)만 순서대로 처리한다(마일스톤 <code>M-N</code> 은 태스크를 묶는 상위 단위일 뿐 그 자체가 실행 대상은 아니다). 사용자가 특정 아이디어 착수를 지시하면 그때 상세 인터뷰를 거쳐 정식 태스크로 편입한 뒤 진행한다.</p>
 <p><strong>진행 원칙</strong>: 항목을 한꺼번에 섞지 않고 하나씩, 반드시 <strong>구현 → 검증 → 커밋</strong> 으로 완결한다. 검증을 통과하지 않으면 커밋하지 않고, 커밋하지 않으면 다음 항목으로 넘어가지 않는다.</p>
+<p><strong>세션 위생</strong>: PLAN 은 세션 리셋 후에도 재개 가능한 진실원본이다. 태스크 몇 개를 소화해 컨텍스트가 비대해졌으면, 커밋 직후 경계에서 세션을 리셋(/clear)하고 재진입해도 손실이 없다. 늘어진 세션으로 품질을 떨어뜨리는 것보다 낫다.</p>
 <h3>1. 항목별 반복 루프</h3>
 <h4>1-1. 작업 전 준비</h4>
 <p>해당 항목의 범위·완료 조건을 정의하고 관련 파일(정의·참조·테스트·설정)을 읽는다. PLAN 에 명시되지 않아 판단이 필요한 사항(설계 방향, 라이브러리·API 선택, 범위 경계, 네이밍, 에러 처리 정책 등)은 구현 시작 전에 <code>AskUserQuestion</code> 으로 모두 해소한다 — 추측으로 진행하지 않고, 답변으로 생긴 후속 의문도 다시 묻는다. PLAN 에 이미 명시됐거나 판단 요소가 없으면 묻지 않고 바로 구현한다. 확정된 결정은 섹션 2 형식으로 PLAN.md 에 기록한다.</p>
@@ -83,7 +84,7 @@ footer code{font-size:12px}
 - **이유**: 결정 근거 (트레이드오프 포함)
 - **대안**: 검토했던 다른 방법</code></pre>
 <h3>3. 완료 보고</h3>
-<p>모든 항목 완료 후 완료된 항목 목록, 중요한 디자인 결정, 추가 확인이 필요한 사항을 요약해 알린다.</p>
+<p>모든 항목 완료 후 완료된 항목 목록, 중요한 디자인 결정, 추가 확인이 필요한 사항을 요약해 알린다. PLAN 에 완료(<code>[x]</code>) 태스크가 3개 이상 쌓여 있으면 <code>/cleanup-plan</code> 실행 권장을 덧붙인다.</p>
   </div>
   <footer>
     원문: <code>kil9conf / claude/skills/follow-plan/SKILL.md</code> 를 렌더링. 이 페이지는 자체 완결형입니다.

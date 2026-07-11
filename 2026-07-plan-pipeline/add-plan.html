@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>/add-plan — 스킬 정의 · 플랜 파이프라인</title>
-<meta name="description" content="간단한 조사만 거쳐 PLAN.md에 새 태스크 항목을 추가한다. 작업은 시작하지 않는다. PLAN.md가 없으면 /make-a-plan을 자동 수행한다.">
+<meta name="description" content="간단한 조사만 거쳐 PLAN.md(없으면 최근 PLAN_*.md)에 새 태스크 항목을 추가한다. I-N 아이디어의 태스크 승격(I → T)도 담당한다. 작업은 시작하지 않는다. 플랜 파일이 없으면 /make-a-plan을 자동 수행한다.">
 <style>
 :root{--bg:#f7f8fa;--surface:#fff;--surface-2:#f0f2f6;--line:#e2e6ee;--ink:#1a1d24;--ink-2:#4a5262;--ink-3:#78808f;
 --producer:#2563eb;--producer-bg:#eaf1ff;--producer-line:#bcd2ff;--consumer:#d97706;--consumer-bg:#fff3e2;--consumer-line:#f7d9a8;
@@ -55,7 +55,7 @@ footer code{font-size:12px}
   <div class="kick p">생산자 스킬</div>
   <h1 class="name">/add-plan</h1>
   <div class="meta">
-    <p class="desc">간단한 조사만 거쳐 PLAN.md에 새 태스크 항목을 추가한다. 작업은 시작하지 않는다. PLAN.md가 없으면 /make-a-plan을 자동 수행한다.</p>
+    <p class="desc">간단한 조사만 거쳐 PLAN.md(없으면 최근 PLAN_*.md)에 새 태스크 항목을 추가한다. I-N 아이디어의 태스크 승격(I → T)도 담당한다. 작업은 시작하지 않는다. 플랜 파일이 없으면 /make-a-plan을 자동 수행한다.</p>
     <div class="tools"><span class="tool">Bash</span><span class="tool">Read</span><span class="tool">Edit</span><span class="tool">Write</span><span class="tool">Glob</span><span class="tool">Grep</span><span class="tool">AskUserQuestion</span><span class="tool">Skill</span></div>
   </div>
 </header>
@@ -63,11 +63,13 @@ footer code{font-size:12px}
   <div class="body">
 <p>추가할 태스크: <code>$ARGUMENTS</code></p>
 <p><strong>"(아이디어)" 접두 항목은 이 스킬로 처리하지 않는다.</strong> <code>$ARGUMENTS</code> 가 "(아이디어)"로 시작하면(또는 사용자가 아직 착수하지 말고 보류만 원하면) 태스크로 만들지 말고 <code>Skill("add-idea")</code> 로 넘겨 PLAN.md 의 "아이디어 (보류)" 섹션에 <code>I-N</code> 으로 기록한다. 인터뷰·구현도 하지 않는다.</p>
-<p>현재 디렉토리에 <code>PLAN.md</code> 가 없으면 <code>Skill("make-a-plan")</code> 으로 먼저 만든 뒤 이어서 진행한다.</p>
+<p><strong>아이디어 승격(I → T).</strong> <code>$ARGUMENTS</code> 가 기존 <code>I-N</code> 항목의 착수를 지시하면: 해당 아이디어 본문을 출발점으로 상세 인터뷰를 진행하고, 확정 내용을 새 <code>T-&lt;다음 번호&gt;</code> 태스크로 편입한다. 원래 <code>I-N</code> 항목은 삭제하지 않고 본문 첫 줄에 <code>→ T-M 편입 (YYYY-MM-DD)</code> 를 마킹한다(I 번호 재사용 금지 유지).</p>
+<p>대상 플랜 파일은 현재 디렉토리의 <code>PLAN.md</code> 우선, 없으면 <code>PLAN_*.md</code> 중 가장 최근 수정본이다. 둘 다 없으면 <code>Skill("make-a-plan")</code> 으로 먼저 만든 뒤(산출물은 <code>PLAN_&lt;slug&gt;.md</code>) 그 파일에 이어서 진행한다.</p>
 <p>항목을 제대로 서술할 만큼만 코드베이스를 가볍게 조사한다(관련 파일·선행 태스크 확인 정도). 구현은 하지 않는다.</p>
 <p>애매한 점(범위, 완료 조건, 의존 관계, 접근 방식 등)이 하나라도 남으면 모두 해소될 때까지 <code>AskUserQuestion</code> 으로 집요하게 사용자를 인터뷰한다. 줄글 자유 입력은 쓰지 않는다.</p>
 <p><strong>넘버링 규칙 (M / T / I).</strong> 플랜의 항목은 세 계열로 번호를 매긴다.</p>
 <div class="list"><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">·</span><code>M-N</code> 마일스톤: 태스크를 묶는 상위 단위 (<code>M-1</code>, <code>M-2</code> …).</div><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">·</span><code>T-N</code> 태스크: 마일스톤 아래의 실행 단위 (<code>T-1</code>, <code>T-2</code> …). <strong>플랜 전체에서 유일하게 증가하는 전역 카운터</strong>로, 현재 존재하는 가장 큰 <code>T-N</code> 다음 번호를 부여한다(중복·재사용 금지, 마일스톤이 바뀌어도 리셋하지 않는다).</div><div class="li" style="padding-left:1.10em;text-indent:-1.1em"><span class="bu">·</span><code>I-N</code> 아이디어: 보류 항목 (<code>I-1</code>, <code>I-2</code> …), 별도 카운터. <code>/add-idea</code> 가 관리.</div></div>
+<p><strong>태스크 표준 필드.</strong> 새 태스크 본문에는 다음 필드를 반드시 적는다: <code>완료 조건:</code>(검증 가능한 기준), <code>의존:</code>(선행 태스크 ID, 없으면 <code>없음</code> 을 반드시 명시), <code>범위 힌트:</code>(파악된 파일·모듈, 모르면 생략), <code>접수:</code>(오늘 날짜). 특히 <code>의존: 없음</code> 명시는 소비자 스킬(<code>/sub-follow-plan</code>·<code>/parallel-plan</code>)이 추측 없이 병렬 안전성을 판단하는 근거가 된다.</p>
 <p>새 태스크는 이 규칙에 따라 적절한 마일스톤 아래 "다음 할 일"에 해당하는 위치 맨 아래에 <code>T-&lt;다음 번호&gt;</code> 로 추가한다. 마일스톤 구분이 없는 기존 플랜이면 마일스톤은 강제로 만들지 말고 기존 포맷을 존중하되, 태스크 번호는 <code>T-N</code> 을 쓴다. 원문 ID 표기가 표준(<code>M-</code>/<code>T-</code>/<code>I-</code>)과 다르면(예: <code>T1</code>, <code>NU-3</code>) 그 표기를 그대로 이어서 붙인다. 그 외 기존 내용은 수정하지 않는다.</p>
 <p>마지막으로 추가된 항목의 번호·제목을 알리고 끝낸다. 구현·커밋은 하지 않는다.</p>
   </div>

@@ -245,7 +245,7 @@
   <h2 id="queue"><span class="n">3</span>PLAN.md — 두 세션을 잇는 공유 큐</h2>
   <p class="sub">모든 게 이 파일 하나로 돌아간다. 세션은 서로 직접 말하지 않는다 — 오직 이 파일을 통해서만.</p>
 
-  <p><code>PLAN.md</code>는 저장소 루트의 단일 마스터 문서다. 세션 리셋 후에도 이 파일만으로 작업을 재개할 수 있을 만큼 상세하게, 그러나 큐로 쓸 수 있을 만큼 구조적으로 적는다. 항목은 세 계열로 번호를 매긴다.</p>
+  <p><code>PLAN.md</code>는 저장소 루트의 단일 마스터 문서다(파일명이 <code>PLAN_&lt;slug&gt;.md</code> 여도 된다 — 모든 스킬이 <code>PLAN.md</code> 우선, 없으면 <code>PLAN_*.md</code> 중 최근 수정본으로 폴백한다). 세션 리셋 후에도 이 파일만으로 작업을 재개할 수 있을 만큼 상세하게, 그러나 큐로 쓸 수 있을 만큼 구조적으로 적는다. 항목은 세 계열로 번호를 매긴다.</p>
 
   <figure>
     <div class="card fig-box scroll">
@@ -302,6 +302,8 @@
 
   <p>생산자 세션에서 가장 많이 쓰는 건 <a class="chip p" href="add-plan.html">/add-plan</a>이다. 떠오른 작업을 인자로 던지면, 스킬이 <strong>가벼운 조사만</strong> 하고(관련 파일·선행 태스크 확인 정도) 애매한 점을 <code>AskUserQuestion</code>으로 물어 정리한 뒤, 다음 <code>T</code> 번호를 붙여 백로그 맨 아래에 <strong>append</strong>한다. 구현은 시작하지 않는다 — 그건 소비자의 몫이다.</p>
 
+  <p>태스크 본문에는 <strong>표준 필드</strong> 네 가지 — <code>완료 조건:</code>(검증 가능한 기준) · <code>의존:</code>(선행 태스크, 없으면 <code>없음</code> 을 반드시 명시) · <code>범위 힌트:</code>(변경 대상 파일) · <code>접수:</code>(날짜) — 를 적는다. 소비자 스킬이 이 필드로 검증 기준을 잡고, 특히 <code>의존: 없음</code> 명시는 <code>/sub-follow-plan</code>·<code>/parallel-plan</code>이 추측 없이 병렬 안전성을 판단하는 근거가 된다.</p>
+
   <figure>
     <div class="card fig-box scroll">
       <svg viewBox="0 0 800 220" role="img" aria-label="add-plan 스킬이 아이디어를 받아 조사·인터뷰 후 PLAN.md에 T 태스크로 추가하는 흐름">
@@ -338,14 +340,14 @@
   <h3>생산자 쪽 다른 손잡이들</h3>
   <table>
     <tr><th>스킬</th><th>언제</th><th>결과</th></tr>
-    <tr><td><a class="chip p" href="make-a-plan.html">/make-a-plan</a></td><td>PLAN.md가 아직 없을 때 — 파이프라인의 <strong>시동</strong></td><td>배경·목표·제약·태스크 목록을 갖춘 <code>PLAN_&lt;slug&gt;.md</code> 마스터 문서 신규 작성. (add-plan은 PLAN이 없으면 이걸 자동 호출한다)</td></tr>
-    <tr><td><a class="chip p" href="add-plan.html">/add-plan</a></td><td>지금 당장 할 일이 명확할 때</td><td>다음 <code>T-N</code>을 백로그에 추가. 가장 자주 쓰는 손잡이</td></tr>
+    <tr><td><a class="chip p" href="make-a-plan.html">/make-a-plan</a></td><td>PLAN.md가 아직 없을 때 — 파이프라인의 <strong>시동</strong></td><td>배경·목표·제약·태스크 목록을 갖춘 <code>PLAN_&lt;slug&gt;.md</code> 마스터 문서 신규 작성 후 <strong>멈춘다</strong> — 구현은 소비자 몫. (add-plan은 PLAN이 없으면 이걸 자동 호출한다)</td></tr>
+    <tr><td><a class="chip p" href="add-plan.html">/add-plan</a></td><td>지금 당장 할 일이 명확할 때</td><td>다음 <code>T-N</code>을 표준 필드와 함께 백로그에 추가. <code>I-N</code>의 태스크 승격(I → T)도 담당 — 원래 아이디어에는 <code>→ T-M 편입</code> 마킹. 가장 자주 쓰는 손잡이</td></tr>
     <tr><td><a class="chip p" href="add-idea.html">/add-idea</a></td><td>착상은 있는데 아직 확정 아님</td><td><code>I-N</code>으로 보류 섹션에 기록. 인터뷰·구현 없음 — 손실 없이 받아만 둔다</td></tr>
   </table>
 
   <div class="note p">
     <b>생산자의 원칙: 큐에 넣되, 착수하지 않는다</b>
-    <code>/add-plan</code>도 <code>/add-idea</code>도 코드를 건드리지 않는다. 생산자 세션의 임무는 <em>소비자가 맥락 없이도 실행할 수 있을 만큼</em> 태스크를 또렷하게 적어두는 것뿐이다.
+    <code>/make-a-plan</code>도 <code>/add-plan</code>도 <code>/add-idea</code>도 코드를 건드리지 않는다 — make-a-plan 은 마스터 문서를 만든 뒤 그 자리에서 멈춘다. 생산자 세션의 임무는 <em>소비자가 맥락 없이도 실행할 수 있을 만큼</em> 태스크를 또렷하게 적어두는 것뿐이다.
   </div>
 
   <!-- ============================ CONSUMER ============================ -->
@@ -376,7 +378,7 @@
         <text x="400" y="56" text-anchor="middle" font-size="13" font-weight="800" fill="var(--ink)">/sub-follow-plan</text>
         <text x="400" y="74" text-anchor="middle" font-size="10.5" fill="var(--ink-2)">오케스트레이터 + 워커</text>
         <rect x="330" y="92" width="140" height="30" rx="7" fill="var(--queue-bg)" stroke="var(--queue-line)"/>
-        <text x="400" y="111" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--queue)">opus (검토·커밋)</text>
+        <text x="400" y="111" text-anchor="middle" font-size="10.5" font-weight="700" fill="var(--queue)">리드 (검토·커밋)</text>
         <line x1="360" y1="122" x2="345" y2="150" stroke="var(--ink-3)" stroke-width="1.5" marker-end="url(#ar)"/>
         <line x1="400" y1="122" x2="400" y2="150" stroke="var(--ink-3)" stroke-width="1.5" marker-end="url(#ar)"/>
         <line x1="440" y1="122" x2="455" y2="150" stroke="var(--ink-3)" stroke-width="1.5" marker-end="url(#ar)"/>
@@ -386,7 +388,7 @@
           <rect x="425" y="152" width="60" height="40" rx="6" fill="var(--surface)" stroke="var(--line)"/><text x="455" y="170" text-anchor="middle">sonnet</text><text x="455" y="184" text-anchor="middle">워커</text>
         </g>
         <text x="400" y="224" text-anchor="middle" font-size="10.5" fill="var(--ink-3)">구현은 서브에이전트에 위임</text>
-        <text x="400" y="244" text-anchor="middle" font-size="10.5" fill="var(--ink-3)">opus가 검토 후 커밋</text>
+        <text x="400" y="244" text-anchor="middle" font-size="10.5" fill="var(--ink-3)">리드가 검토 후 커밋</text>
         <text x="400" y="270" text-anchor="middle" font-size="10.5" fill="var(--ink-3)">worktree 없음 · 인플레이스</text>
         <text x="400" y="290" text-anchor="middle" font-size="10.5" fill="var(--ink-3)">끝까지 자율 · 질문은 마지막에</text>
 
@@ -424,7 +426,7 @@
     </tr>
     <tr>
       <td><a class="chip c" href="sub-follow-plan.html">/sub-follow-plan</a></td>
-      <td>opus 오케스트레이터가<br>sonnet 워커에 위임</td><td>인플레이스</td><td>라운드 병렬</td>
+      <td>리드(세션 모델)가<br>하위 모델 워커에 위임</td><td>인플레이스</td><td>라운드 병렬</td>
       <td>끝까지 자율로 밀되, worktree까지는 필요 없을 때. 판단은 보수적으로 하고 질문은 모아 마지막에</td>
     </tr>
     <tr>
@@ -562,7 +564,7 @@
     </div>
     <div class="card">
       <h4><a class="chip q" href="cleanup-plan.html">/cleanup-plan</a></h4>
-      <p>완료된 T 태스크의 상세 구현 로그·검증 기록을 <code>- [x] T-12: 한 줄 요약</code> 형태로 압축한다. 미완료·보류·설계 결정은 그대로 보존. PLAN.md가 비대해져 큐로서의 가독성이 떨어질 때 돌린다.</p>
+      <p>완료된 T 태스크의 상세 구현 로그·검증 기록을 <code>- [x] T-12: 한 줄 요약</code> 형태로 압축한다. 미완료·보류·설계 결정은 그대로 보존. PLAN.md가 비대해져 큐로서의 가독성이 떨어질 때 돌린다 — 소비자 스킬은 완료 태스크가 3개 이상 쌓이면 종료 보고에서 이 스킬 실행을 권장한다.</p>
     </div>
   </div>
 
