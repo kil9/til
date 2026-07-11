@@ -11,7 +11,7 @@
 
 ## 현재 상태
 
-페이지 3건 퍼블리시됨. 루트 갤러리는 `data-date` 최신순 정렬(T-10) + 이번달 외 카드 축약·연/월 아카이브(T-11) + 주제 필터 칩(T-14) 적용, AI요약은 카드가 아닌 서브헤딩 스타일 텍스트 블록으로 표시(T-17), nuc14 에 일 1회 AI요약 잡 가동 중(T-12, cron 09:00 KST). 사이트 구조는 SSG 미도입·현행 자체 완결형 HTML 방식 유지로 결정(T-16). 사이트 디자인 방향 검토(T-19)는 제안 전부 폐기·현행 룩 유지로 종결(검토 내역은 I-5). 남은 태스크는 T-15·T-18·T-20 이며, 그 외에는 새 `/publish-pages` 요청이 오면 AGENTS.md 런북대로 페이지를 추가한다.
+페이지 3건 퍼블리시됨. 루트 갤러리는 `data-date` 최신순 정렬(T-10) + 이번달 외 카드 축약·연/월 아카이브(T-11) + 주제 필터 칩(T-14) 적용, AI요약은 카드가 아닌 서브헤딩 스타일 텍스트 블록으로 표시(T-17), nuc14 에 일 1회 AI요약 잡 가동 중(T-12, cron 09:00 KST). 사이트 구조는 SSG 미도입·현행 자체 완결형 HTML 방식 유지로 결정(T-16). 사이트 디자인 방향 검토(T-19)는 제안 전부 폐기·현행 룩 유지로 종결(검토 내역은 I-5). til 리네임·흡수 권고안 제시 완료(T-20 — 실행은 사용자 승인 후 후속 태스크로 분리). 남은 태스크는 T-15·T-18 이며, 그 외에는 새 `/publish-pages` 요청이 오면 AGENTS.md 런북대로 페이지를 추가한다.
 
 ## 태스크
 
@@ -35,18 +35,17 @@
 - **T-17 AI 요약 표시를 서브헤딩 스타일로** — 루트 `index.html` 의 AI요약 섹션을 카드(배경·테두리·그림자)에서 eyebrow 라벨(`AI 요약` + 날짜) + 요약 문단 + 불릿 없는 링크 리스트의 가벼운 텍스트 블록으로 변경. nuc14 `~/jobs/docs-ai-summary/inject.py` 의 주입 템플릿도 동일 마크업으로 갱신하고 스크래치 복사본에 실제 주입을 실행해 검증. Firefox 헤드리스 스크린샷으로 라이트/다크 렌더링 모두 확인. 요약 파이프라인 로직은 변경 없음.
 - **T-19 사이트 전체 디자인 방향 제안** — 1차 3안(A 플레인로그 / B 열람실 / C 온에어) 비교 아티팩트와 2차 A안 세부 3안(A-1 레저 / A-2 TTY / A-3 관제실) 비교 아티팩트를 제작해 제안. 결과: **제안 전부 폐기, 현행 룩 유지**(사용자 결정, 2026-07-11). 검토 내역과 아티팩트 링크는 [I-5](#아이디어-보류) 로 보류 이관.
 - **T-9 두 세션 플랜 파이프라인 페이지 추가** — Claude Code 를 생산자·소비자 두 세션으로 나눠 쓰는 작업 방식(한쪽은 `/add-plan`, 다른 쪽은 `/follow-plan`·`/parallel-plan`)과 각 플랜 스킬의 용도를 인라인 SVG 다이어그램으로 설명한 자체 완결형 페이지를 `2026-07-plan-pipeline/index.html` 로 저장. 루트 갤러리·README 표 함께 갱신.
+- **T-20 (제안까지) 저장소 kil9/til 리네임 + 기존 til 흡수 방안 권고** — 권고안 제시 완료(2026-07-11). **실행은 하지 않았다** — 사용자 승인 후 후속 태스크로 분리한다. 조사 근거: 기존 `kil9/til` 은 노트 26개(15개 토픽, 총 약 26KB)·29커밋(2016\~2026)·스타/포크/이슈 0·Pages 미사용·브랜치 main 단일; 이 repo 의 `kil9/docs` 문자열은 README 6곳·AGENTS 5곳·루트 index.html 1곳(footer)·PLAN 다수이며 개별 `<slug>/index.html` 에는 자기참조 없음; nuc14 AI요약 잡은 clone 의 origin URL 만 걸려 있고 run.sh/extract.py/inject.py 에 하드코딩 없음; 현재 gh 토큰 scope 에 `delete_repo` 없음. **권고 실행 계획(5단계)**:
+  - **P0 백업** — 삭제는 영구 조치이므로 실행 전 `git clone --mirror https://github.com/kil9/til` 후 `git bundle create til-YYYYMMDD.bundle --all` 로 전체 히스토리 번들을 로컬 보관(공개 repo 에는 커밋하지 않음). GitHub 지원의 90일 복구는 rename 으로 이름이 즉시 재사용되면 막히므로 번들이 실질적 안전장치다.
+  - **P1 흡수** — **정적 렌더 단일 아카이브 페이지** `til-archive/index.html` 채택(택1 중 정적 렌더). 근거: ① 사이트 컨벤션(자체 완결형 HTML 디렉터리)과 일치 ② Pages legacy 빌드는 front matter 없는 `.md` 를 raw 텍스트로 서빙해 "원본 md + 인덱스" 안은 열람성이 나쁨 ③ 총 26KB·동결 콘텐츠라 1회 변환으로 끝나고 재생성 파이프라인 불필요. 26개 노트를 토픽별 섹션 + 페이지 내 목차로 렌더. 슬러그는 rename 후 `kil9.github.io/til/til/` 중복을 피해 `til-archive` 로. 히스토리는 **subtree 병합 비권고, 단순 복사(렌더) 채택** — 29커밋이 퍼블리시 repo 히스토리에 섞이는 노이즈 대비 노트 중요도가 낮고, 히스토리 보존은 P0 번들이 담당. 갤러리 카드 추가(`data-topic="til"` 신규 키) — AI요약 잡이 다음 실행에서 신규 slug 로 1회 요약에 포함하는 것은 무해하므로 수용. 검증: 원본 26개 파일 대 페이지 섹션 전수 대조 + 로컬 http.server 렌더 확인 + push 후 라이브 200.
+  - **P2 기존 til 삭제** — 게이트: P0 번들 존재 + P1 라이브 200·전수 대조 통과 후에만. `gh auth refresh -h github.com -s delete_repo`(현 토큰에 없음) → `gh repo delete kil9/til --yes`. 삭제 즉시 이름이 해제된다.
+  - **P3 리네임** — `gh repo rename til -R kil9/docs --yes`. github.com 쪽(웹·git 원격)은 `kil9/docs` → `kil9/til` 자동 리다이렉트가 생기지만 **Pages URL 은 리다이렉트 없이 404**(수용 확정). Pages 설정은 유지된 채 `https://kil9.github.io/til/` 로 재빌드 — `gh api repos/kil9/til/pages` 로 확인. 주의: 이후 `kil9/docs` 이름의 repo 를 새로 만들면 리다이렉트가 끊긴다.
+  - **P4 문자열·로컬 정합** — rename 직후 1커밋으로: README 6곳·AGENTS 5곳·루트 index.html footer 1곳 갱신, PLAN 은 살아있는 참조(제목·개요·현재 상태)만 갱신하고 완료 태스크의 과거 사실 서술(T-5·T-6·T-13 등)은 그대로 둔다. 개별 페이지는 갱신 불필요. 로컬: 이 클론과 nuc14 잡 클론(`~/jobs/docs-ai-summary/repo`) 모두 `git remote set-url origin https://github.com/kil9/til.git`(리다이렉트로 당장은 동작하나 명시 갱신), crontab 코멘트 문구 갱신. 작업 디렉터리 `~/work/kil9/docs` → `~/work/kil9/til` 이동은 선택 — Claude Code 프로젝트 설정·auto-memory 가 경로 키라 이동 시 memory 디렉터리 이관 필요함을 유의.
 
 ### 진행 중 / 다음
 
 - **T-15 방문 지표 — Cloudflare Web Analytics** — 정적 공개 사이트라 서버 로그가 없으므로 클라이언트 비콘으로 **익명 집계**(페이지뷰·리퍼러·지역·디바이스·시각)를 수집한다. Cloudflare Web Analytics 를 도입한다: CF 계정에 사이트 등록 → beacon 토큰 발급 → JS beacon 스크립트(`static.cloudflareinsights.com/beacon.min.js`, cookieless)를 루트 `index.html` 과 모든 `<slug>/index.html` 에 삽입. GitHub Pages 호스팅이라 CF 프록시 없이 beacon 방식으로 동작한다. beacon 토큰은 클라이언트 임베드용 공개 값이라 public repo 커밋 무방하나 확인 후 넣는다. 지표는 **CF 기본 대시보드**로 확인하고 사이트 내 커스텀 대시보드는 만들지 않는다. **신규 페이지에도 자동 반영되도록** beacon 삽입을 퍼블리시 런북([AGENTS.md](AGENTS.md))과 `publish-gh-pages` 스킬·페이지 템플릿에 넣는다. 완료 조건: 전 페이지에 beacon 존재 + CF 대시보드에 방문 데이터 집계 확인.
 - **T-18 갤러리 다단 칼럼 레이아웃** — 현재 갤러리는 1단(`index.html` 의 `.grid { grid-template-columns: 1fr }`)이라 정보 밀도가 낮다. 반응형 다단 칼럼(예: 넓은 화면에서 2\~3열)으로 나눠 밀도를 높인다. 선행(T-11·T-14·T-17) 모두 완료되어 2026-07-11 블록 해제. T-19 는 현행 룩 유지로 종결됐으므로, 현재 카드 레이아웃 위에서 칼럼 분할 여부·형태를 판단한다.
-
-- **T-20 (단독, 제안까지) 저장소 kil9/til 리네임 + 기존 til 흡수 방안 권고** — 이 저장소(`kil9/docs`)를 `kil9/til` 로 리네임하고, 기존 `kil9/til`(토픽별 마크다운 노트 저장소: docker/·git/·go/·vim/ 등, 약 22KB·29커밋, 최근 푸시 2026-04-02)의 내용을 이 저장소로 흡수하는 **단계별 실행 계획을 권고안(근거 포함)으로 제시**한다. **결과물은 권고안까지이며 실제 리네임·흡수·삭제·push 는 하지 않는다**(승인 후 후속 태스크로 분리). 권고안이 다뤄야 할 결정 사항(사용자 확정):
-  - **이름 충돌 해소 순서** — `kil9/til` 이 이미 존재하므로 곧바로 rename 불가. 확정 방침: **기존 til 콘텐츠를 이 repo 로 먼저 흡수 → 기존 `kil9/til` 삭제 → `kil9/docs` 를 `kil9/til` 로 rename**. 각 단계의 GitHub 조작(`gh repo rename`/`gh repo delete`)과 순서 안전성(삭제 전 흡수 검증)을 명시한다.
-  - **TIL 콘텐츠 흡수 형태** — 기존 til 노트의 중요성은 낮음. **아카이브 페이지 하나로** 만들어 기존 토픽별 마크다운을 열람만 가능하면 충분(갤러리·AI요약·아카이브 등 기존 기능과 깊게 통합할 필요 없음). 원본 `.md` 를 어떤 형태로 담을지(원본 md 보존 + 간단한 인덱스 페이지 / 정적 렌더 중 택1)를 권고한다. 히스토리 병합 여부(subtree 병합 vs 단순 파일 복사)도 근거와 함께 제안.
-  - **리네임에 따른 URL 변경** — Pages 경로가 `kil9.github.io/docs/` → `kil9.github.io/til/` 로 바뀌고 기존 퍼블리시 페이지 URL 이 깨지는 것을 **수용**함(리다이렉트·custom domain 유지는 요구하지 않음). 다만 저장소 내 문서(README/AGENTS/PLAN·루트 index.html 등)의 `kil9/docs`·`kil9.github.io/docs` 문자열을 어디까지 갱신해야 하는지 범위를 정리한다.
-  - **git remote / 로컬 정합** — rename 후 로컬 `origin` URL 갱신(`git remote set-url`), GitHub 자동 repo 리다이렉트로 인한 영향 등을 점검 항목으로 포함한다.
-  - **(단독 진행 — 에이전트 팀/parallel-plan 으로 나누지 않고 단일 세션에서 처리한다.)**
 
 - 위 태스크 외 다음 `/publish-pages` 요청 대기 중. 새 페이지는 [AGENTS.md](AGENTS.md) "퍼블리시 런북" 을 따른다.
 
