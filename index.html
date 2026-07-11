@@ -122,26 +122,19 @@
   .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .chip.active { background: var(--accent-soft); color: var(--accent-ink); border-color: var(--accent); }
 
-  .ai-summary {
-    margin: 40px 0 8px; padding: 20px 24px;
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 16px; box-shadow: var(--shadow);
+  .ai-summary { margin: 44px 0 0; }
+  .ai-summary .ai-label {
+    margin: 0 0 8px; font-size: 0.72rem; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--accent-ink); font-weight: 700;
   }
-  .ai-summary h2 {
-    margin: 0 0 10px; font-size: 1.05rem; font-weight: 800; letter-spacing: -0.01em;
-    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
-  }
-  .ai-summary h2 .badge {
-    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--accent-ink); background: var(--accent-soft); padding: 3px 9px; border-radius: 999px;
-  }
-  .ai-summary .ai-date {
+  .ai-summary .ai-label .ai-date {
     font-family: ui-monospace, "SF Mono", monospace; font-size: 0.72rem;
-    color: var(--text-faint); font-weight: 700;
+    color: var(--text-faint); font-weight: 700; letter-spacing: 0.04em;
+    text-transform: none; margin-left: 8px;
   }
-  .ai-summary p { margin: 0 0 8px; color: var(--text-muted); font-size: 0.92rem; }
-  .ai-summary ul { margin: 0; padding-left: 1.2em; color: var(--text-muted); font-size: 0.92rem; }
-  .ai-summary li { margin: 4px 0; }
+  .ai-summary p { margin: 0; color: var(--text-muted); font-size: 0.95rem; max-width: 62ch; }
+  .ai-summary ul { list-style: none; margin: 8px 0 0; padding: 0; color: var(--text-faint); font-size: 0.88rem; }
+  .ai-summary li { margin: 3px 0; }
   .ai-summary a { color: var(--accent-ink); text-decoration: none; border-bottom: 1px solid var(--border-strong); }
   .ai-summary a:hover { color: var(--accent); }
 
@@ -166,7 +159,7 @@
 <main class="wrap">
   <!-- AI-SUMMARY:START -->
   <section class="ai-summary" aria-label="AI 요약">
-    <h2><span class="badge">AI요약</span>신규 문서 요약 <span class="ai-date">2026-07-11</span></h2>
+    <p class="ai-label">AI 요약 <span class="ai-date">2026-07-11</span></p>
     <p>세 가지 새로운 문서가 추가되었습니다. Claude Code 개발 워크플로부터 hololive 크리에이터의 게임 여정까지, 각 주제별 상세한 타임라인 기록을 담았습니다.</p>
     <ul>
       <li><a href="./2026-07-plan-pipeline/">두 세션 플랜 파이프라인 — 생산자·소비자로 나눠 쓰는 Claude Code</a> — 한 세션은 계획 수립, 다른 세션은 구현 실행 — PLAN.md로 소통하는 Claude Code 두 세션 워크플로</li>
