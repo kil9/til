@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TIL 아카이브 — Today I Learned</title>
+<meta name="description" content="2016-2026 kil9/til 저장소의 기술 노트 22편을 토픽별로 이관한 열람용 아카이브.">
+<style>
+  :root {
+    --bg: #FBF5EF;
+    --surface: #FFFFFF;
+    --surface-2: #F4EBE2;
+    --text: #241A0F;
+    --text-muted: #6E5F52;
+    --text-faint: #9A8B7C;
+    --border: #E8DACC;
+    --border-strong: #D8C6B4;
+    --accent: #E1521C;
+    --accent-ink: #B23E12;
+    --accent-soft: rgba(225, 82, 28, 0.10);
+    --code-bg: #F4EBE2;
+    --shadow: 0 1px 2px rgba(60, 40, 20, 0.04), 0 8px 24px rgba(60, 40, 20, 0.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0D1316;
+      --surface: #141D22;
+      --surface-2: #1A252B;
+      --text: #EDEFF0;
+      --text-muted: #94A2A9;
+      --text-faint: #647178;
+      --border: #26343B;
+      --border-strong: #33454E;
+      --accent: #FF6B3D;
+      --accent-ink: #FF8A61;
+      --accent-soft: rgba(255, 107, 61, 0.13);
+      --code-bg: #1A252B;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+      "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px 96px; }
+
+  header.hero {
+    border-bottom: 1px solid var(--border);
+    background: radial-gradient(120% 90% at 82% -10%, var(--accent-soft), transparent 60%), var(--bg);
+  }
+  .hero-inner { max-width: 760px; margin: 0 auto; padding: 56px 24px 36px; }
+  .eyebrow {
+    font-size: 0.72rem; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--accent-ink); font-weight: 700; margin: 0 0 14px;
+  }
+  h1 { margin: 0; font-size: clamp(1.7rem, 5vw, 2.5rem); font-weight: 800; letter-spacing: -0.02em; }
+  .lede { margin: 14px 0 0; max-width: 60ch; color: var(--text-muted); font-size: 0.98rem; }
+  .lede code { font-size: 0.88em; }
+
+  nav.toc { margin: 40px 0 0; }
+  nav.toc .toc-label {
+    margin: 0 0 10px; font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-faint); font-weight: 700;
+  }
+  nav.toc ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  nav.toc a {
+    display: inline-block; font-size: 0.82rem; font-weight: 700;
+    padding: 4px 13px; border-radius: 999px; text-decoration: none;
+    border: 1px solid var(--border-strong); background: var(--surface); color: var(--text-muted);
+    transition: border-color 0.16s ease, color 0.16s ease;
+  }
+  nav.toc a:hover { border-color: var(--accent); color: var(--accent-ink); }
+  nav.toc a .n { color: var(--text-faint); font-weight: 700; margin-left: 4px; }
+
+  section.topic { margin-top: 52px; }
+  section.topic > h2 {
+    margin: 0 0 4px; font-size: 1.35rem; font-weight: 800; letter-spacing: -0.01em;
+    padding-bottom: 8px; border-bottom: 2px solid var(--accent-soft);
+  }
+  section.topic > h2 a { color: inherit; text-decoration: none; }
+
+  article.note {
+    margin-top: 22px; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 14px;
+    padding: 20px 22px; box-shadow: var(--shadow);
+  }
+  article.note > h3 { margin: 0 0 4px; font-size: 1.05rem; font-weight: 800; letter-spacing: -0.01em; }
+  article.note .src {
+    margin: 0 0 12px; font-family: ui-monospace, "SF Mono", monospace;
+    font-size: 0.72rem; color: var(--text-faint);
+  }
+  article.note h4 {
+    margin: 18px 0 6px; font-size: 0.92rem; font-weight: 800; color: var(--text);
+  }
+  article.note p { margin: 8px 0; color: var(--text-muted); font-size: 0.92rem; }
+  article.note ul, article.note ol { margin: 8px 0; padding-left: 22px; color: var(--text-muted); font-size: 0.92rem; }
+  article.note li { margin: 3px 0; }
+  article.note a { color: var(--accent-ink); text-decoration: none; border-bottom: 1px solid var(--border-strong); word-break: break-all; }
+  article.note a:hover { color: var(--accent); }
+  article.note blockquote {
+    margin: 10px 0; padding: 2px 14px; border-left: 3px solid var(--border-strong);
+    color: var(--text-faint); font-size: 0.88rem;
+  }
+  article.note blockquote p { color: inherit; }
+
+  code {
+    font-family: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+    font-size: 0.85em; background: var(--code-bg);
+    padding: 1px 5px; border-radius: 5px;
+  }
+  pre {
+    margin: 10px 0; padding: 13px 15px; overflow-x: auto;
+    background: var(--code-bg); border: 1px solid var(--border);
+    border-radius: 10px; line-height: 1.5;
+  }
+  pre code { background: none; padding: 0; font-size: 0.8rem; color: var(--text); display: block; }
+
+  .backtop { margin-top: 14px; font-size: 0.78rem; }
+  .backtop a { color: var(--text-faint); text-decoration: none; border-bottom: 1px solid var(--border); }
+  .backtop a:hover { color: var(--accent-ink); }
+
+  footer {
+    margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--border);
+    font-size: 0.8rem; color: var(--text-faint);
+  }
+  footer a { color: var(--text-muted); border-bottom: 1px solid var(--border-strong); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">TIL Archive</p>
+    <h1>TIL 아카이브 — Today I Learned</h1>
+    <p class="lede">2016-2026년 <code>kil9/til</code> 저장소에 쌓인 기술 노트 22편을 토픽별로 이관한 열람용 아카이브. 짧은 트러블슈팅과 발견의 기록이며, 내용은 작성 시점 기준이다.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <nav class="toc" aria-label="토픽 목차">
+    <p class="toc-label">Topics · 12 / Notes · 22</p>
+    <ul>
+      <li><a href="#docker">Docker<span class="n">4</span></a></li>
+      <li><a href="#vim">Vim<span class="n">4</span></a></li>
+      <li><a href="#go">Go<span class="n">3</span></a></li>
+      <li><a href="#python">Python<span class="n">3</span></a></li>
+      <li><a href="#cmake">CMake<span class="n">1</span></a></li>
+      <li><a href="#git">Git<span class="n">1</span></a></li>
+      <li><a href="#github-actions">GitHub Actions<span class="n">1</span></a></li>
+      <li><a href="#node">Node.js<span class="n">1</span></a></li>
+      <li><a href="#octave">Octave<span class="n">1</span></a></li>
+      <li><a href="#postgres">PostgreSQL<span class="n">1</span></a></li>
+      <li><a href="#tmux">tmux<span class="n">1</span></a></li>
+      <li><a href="#zsh">zsh<span class="n">1</span></a></li>
+    </ul>
+  </nav>
+
+  <section class="topic" id="docker">
+    <h2><a href="#docker">Docker</a></h2>
+
+    <article class="note" id="docker-internals">
+      <h3>Docker Internals</h3>
+      <p class="src">docker/internals.md</p>
+      <blockquote><p><a href="http://docker-saigon.github.io/post/Docker-Internals/" rel="noopener">http://docker-saigon.github.io/post/Docker-Internals/</a> 의 요약/번역</p></blockquote>
+      <h4>리눅스 컨테이너 요약 — 컨테이너란 무엇인가?</h4>
+      <ul>
+        <li>컨테이너는 호스트 커널을 공유한다.</li>
+        <li>컨테이너는 리소스 제어를 위해 프로세스를 그룹화하는 커널의 능력을 활용한다.</li>
+        <li>컨테이너는 네임스페이스들 간의 격리를 제공한다.</li>
+        <li>컨테이너는 경량의 VM처럼 느껴질 수 있으나 <strong>실제로 가상머신인 것은 아니다</strong>.</li>
+      </ul>
+      <p>컨테이너의 생태계는 다음과 같은 구성요소를 포함한다: 런타임, 이미지 배포, 툴링(Tooling). <a href="http://www.slideshare.net/jkshah/postgresql-and-linux-containers" rel="noopener">Reference slide deck</a></p>
+      <h4>컨테이너와 패키지 매니저의 차이?</h4>
+      <p>이미지로 패키징하는 것은 RPM과 비슷하지만, 리눅스 배포본(소프트웨어가 제대로 패키지되어있기 어려운)과 분리되어 있다. Docker의 큰 혁신은 패키지 매니저보다 좀 더 사용하기 쉽다는 것이다. <strong>패키지 매니저는 공유 라이브러리의 버전이 다르면 의존성 이슈를 일으켜 실패하는데,</strong> 이것은 공유 라이브러리를 이미지 내에 패키징하는 것으로 해결한다.</p>
+      <p>패키지 매니저들은 패키지 내부에 무엇이 들어있는지 파악할 쉬운 방법을 제공한다. 컨테이너 이미지를 다루는 방법에 대해서는 <a href="https://github.com/docker/community/blob/master/DockerCon/DockerCon%20EU%202015.md" rel="noopener">Dockercon EU talks</a>의 <a href="https://youtu.be/j4SZ1qoR8Hs" rel="noopener">Shipping Manifests, Bill of Lading and Docker Metadata and Containers — Video</a>를 참고한다.</p>
+      <h4>컨테이너와 구성 매니지먼트의 차이?</h4>
+      <p>유명한 CM(Configuration Management) 도구로 Puppet(Ruby), Chef(Ruby), Ansible(Python), SALT(Python), Terraform(Golang) 등이 있다. 위의 몇몇 도구들은 절차적으로 환경을 구성하는데, self-contained하고 동일한 환경의 동일한 아키텍쳐에서 정확히 같은 방식으로 실행되는 패키지를 배포하는 것과는 다르다. 하지만 Docker 환경을 설치할 때 쓰는건 좋다. 이후에는 컨테이너 런타임 레이어가 어플리케이션 레이어를 관리하게 한다.</p>
+      <ul>
+        <li>Docker는 self-contained 이미지를 제공하며 클라우드에서나 랩탑에서나 정확히 동일하게 실행된다('Immutable Infrastructure').</li>
+        <li>Docker는 매우 빠르며, 컨테이너를 띄우는데 수 초면 된다. 오버헤드도 매우 작다.</li>
+        <li><strong>Dockerfile DSL</strong>은 매우 간단하고 강력하다.</li>
+      </ul>
+      <h4>왜 Docker인가?</h4>
+      <p>Docker 생태계는 현재 아래 패키지들을 모두 제공하는 유일한 생태계이다: Image management, Resource Isolation, File System Isolation, Network Isolation, Change Management, Sharing, Process Management, Service Discovery (DNS since 1.10).</p>
+      <h4>어떻게 동작하는가? — 커널 네임스페이스</h4>
+      <p>하이레벨 설명은 <a href="https://docs.docker.com/engine/understanding-docker/" rel="noopener">공식 문서</a>를 볼 것.</p>
+      <ul>
+        <li>Process trees (PID Namespace)</li>
+        <li>Mounts (MNT namespace) <code>wc -l /proc/mounts</code></li>
+        <li>Network (Net namespace) <code>ip addr</code></li>
+        <li>Users / UIDs (User Namespace)</li>
+        <li>Hostnames (UTS Namespace) <code>hostname</code></li>
+        <li>Inter Process Communication (IPC Namespace) <code>ipcs</code> — IPC를 쓰는 예시 = PostgreSQL</li>
+      </ul>
+      <h4>Cgroups</h4>
+      <p>커널 제어 그룹(cgroups)을 통해 프로세스에 의해 사용된 리소스들의 관리를 할 수 있고, 장치 노드들에 대한 약간의 접근제어, 혹은 프로세스 그룹의 프리징 등을 제공한다. cgroups는 리소스들에 대한 하나의 계층구조(트리)를 제공한다. 아래는 하나의 예시이다.</p>
+      <pre><code>cpu                      memory
+├── batch                ├── 109
+│   ├── hadoop           ├── 88 &lt;
+│   │   ├── 88 &lt;         ├── 25
+│   │   └── 109          ├── 26
+└── realtime             └── databases
+    ├── nginx                ├── 1008
+    │   ├── 25               └── 524
+    │   └── 26
+    ├── postgres
+    │   ├── 524
+    └── redis
+        └── 1008</code></pre>
+      <p>각각의 계층구조에 서브그룹을 만들 수 있다. 위의 예시에선 <code>cpu</code> 리소스 아래에 <code>batch</code>와 <code>realtime</code> 서브그룹을 만들었다. 각각의 리소스에 대해 개별 프로세스가 1개의 노드가 된다. 예를 들어 <code>pid 88</code>은 cpu에도 메모리에도 있다.</p>
+      <p>(계속)</p>
+    </article>
+
+    <article class="note" id="docker-private-registry">
+      <h3>Docker Hub / Private Registry</h3>
+      <p class="src">docker/private_registry.md</p>
+      <p><a href="https://hub.docker.com/" rel="noopener">Docker Hub</a>는 docker 이미지들을 서빙하는 웹서비스. docker는 특정 이미지를 run 시킬 경우 로컬에서 해당 이름을 가진 이미지를 찾아보고 없으면 자동으로 Docker Hub에서 검색해서 받아온다. Docker Hub는 Dockerfile만 올려두면 자동으로 빌드를 하기도 하고 webhook을 달 수 있는 등의 기능도 가지고 있다.</p>
+      <h4>Docker private registry</h4>
+      <p>Docker Hub을 이용할 수 없는 환경이라면 로컬에서 Docker 이미지를 서빙할 수 있다. 이 서버 또한 Docker 이미지로 되어있음. <code>registry</code>. Docker를 이용하여 레지스트리 서버를 띄울 수 있다. <code>registry:2</code> 이용. 2는 버전.</p>
+      <pre><code>docker run -d -p 5000:5000 --restart=always --name registry registry:2</code></pre>
+      <p>그리고 여기에 tagging한 이미지를 push하면 자동으로 서빙하게 된다.</p>
+      <pre><code>docker tag cana/cana-standalone localhost:5000/cana/cana-standalone
+docker push localhost:5000/cana/cana-standalone</code></pre>
+      <p>가져올 때는 이렇게</p>
+      <pre><code>docker pull localhost:5000/cana/cana-standalone</code></pre>
+      <p>정지하려면 이렇게</p>
+      <pre><code>docker stop registry &amp;&amp; docker rm -v registry</code></pre>
+      <p>외부에서도 접근이 가능한 private registry를 만들기 위해서는 아래 방식을 참고한다.</p>
+      <p>자동으로 생성되는 docker.service에서는 별도로 EnvironmentFile을 읽지 않기 때문에, 이를 추가하여 환경변수를 설정해주고, docker.service를 수정하여 직접 이 옵션을 호출해주어야 한다. <code>docker.service</code> 파일을 다음과 같이 수정한다. EnvironmentFile 행을 추가하고, ExceStart 행은 수정한다. <code>/etc/sysconfig/docker</code> 파일에는 필요한 옵션들을 지정한다.</p>
+      <pre><code>[Service]
+EnvironmentFile=-/etc/sysconfig/docker
+...
+ExecStart=/usr/bin/docker daemon -H fd:// $DOCKER_OPTS
+...</code></pre>
+      <p>/etc/sysconfig/docker 파일을 만들고 다음의 내용으로 저장한다.</p>
+      <pre><code>DOCKER_OPTS="--insecure-registry={HOSTNAME}:{PORT}"</code></pre>
+      <p>참고: <a href="https://docs.docker.com/registry/deploying/" rel="noopener">registry/deploying</a> · <a href="https://docs.docker.com/registry/insecure/" rel="noopener">registry/insecure</a> · <a href="https://docs.docker.com/engine/admin/systemd/" rel="noopener">engine/admin/systemd</a></p>
+    </article>
+
+    <article class="note" id="docker-rootless">
+      <h3>root 없이 실행시키기</h3>
+      <p class="src">docker/rootless.md</p>
+      <p>group을 만들고 거기에 user를 추가해주면 됨</p>
+      <pre><code>sudo groupadd docker
+sudo usermod -aG docker $USER</code></pre>
+      <p>socket 권한이 없다고 뭐라고 하는 경우</p>
+      <pre><code>sudo setfacl -m user:$USER:rw /var/run/docker.sock</code></pre>
+      <blockquote><p><a href="https://askubuntu.com/a/982187" rel="noopener">https://askubuntu.com/a/982187</a></p></blockquote>
+    </article>
+
+    <article class="note" id="docker-ts">
+      <h3>Unable to enable SKIP DNAT rule 뜰 경우</h3>
+      <p class="src">docker/ts.md</p>
+      <p>docker를 재시작하면 된다</p>
+    </article>
+
+    <p class="backtop"><a href="#top">↑ 목차로</a></p>
+  </section>
+
+  <section class="topic" id="vim">
+    <h2><a href="#vim">Vim</a></h2>
+
+    <article class="note" id="vim-vimrc">
+      <h3>외부 vimrc 로드</h3>
+      <p class="src">vim/vimrc.md</p>
+      <p>vim 시작시 자동으로 외부 vimrc 파일을 로드하려면 메인 .vimrc 파일에 <code>set exrc</code>가 들어있어야 한다.</p>
+    </article>
+
+    <article class="note" id="vim-increasing-numbers">
+      <h3>증가하는 숫자 붙여넣기·치환·zero padding</h3>
+      <p class="src">vim/increasing_numbers.md</p>
+      <h4>증가하는 숫자 붙여넣기</h4>
+      <pre><code>:put =range(11,15)</code></pre>
+      <p>출력:</p>
+      <pre><code>11
+12
+13
+14
+15</code></pre>
+      <h4>증가하는 숫자 치환하기</h4>
+      <pre><code>:let i=1 | g/abc/s//\='xyz_'.i/ | let i=i+1</code></pre>
+      <p>입력:</p>
+      <pre><code>this is abc
+that is abc
+we are abc</code></pre>
+      <p>출력:</p>
+      <pre><code>this is xyz_1
+that is xyz_2
+we are xyz_3</code></pre>
+      <h4>zero padding 넣기</h4>
+      <pre><code>:let i=1 | g/XXX/s//\=printf("%03d", i)/ | let i=i+1</code></pre>
+    </article>
+
+    <article class="note" id="vim-ycmd">
+      <h3>YouCompleteMe 트러블슈팅</h3>
+      <p class="src">vim/ycmd.md</p>
+      <h4>CMake 버전이 낮아서 빌드가 안될 때</h4>
+      <p><a href="https://www.softwarecollections.org/en/scls/rhscl/devtoolset-8/" rel="noopener">devtoolset-8</a></p>
+      <pre><code>sudo yum install centos-release-scl
+sudo yum-config-manager --enable rhel-server-rhscl-7-rpms
+sudo yum install devtoolset-8
+scl enable devtoolset-8 bash</code></pre>
+      <blockquote><p><a href="https://stackoverflow.com/a/68679386" rel="noopener">https://stackoverflow.com/a/68679386</a></p></blockquote>
+      <h4>수동으로 빌드하기</h4>
+      <pre><code>cd $HOME/.vim/plugged/plugged/youcompleteme
+python3 ./install.py --go-completer --ts-completer</code></pre>
+    </article>
+
+    <article class="note" id="vim-go">
+      <h3>vim-go GoDef 안 먹힐 때</h3>
+      <p class="src">vim/vim-go.md</p>
+      <p>vim-go에서는 별도의 바이너리들을 활용하는데, 일부 바이너리는 모듈을 제대로 지원하지 않는 경우가 있음.</p>
+      <pre><code>let g:go_def_mode = 'godef'</code></pre>
+    </article>
+
+    <p class="backtop"><a href="#top">↑ 목차로</a></p>
+  </section>
+
+  <section class="topic" id="go">
+    <h2><a href="#go">Go</a></h2>
+
+    <article class="note" id="go-mod">
+      <h3>go.mod</h3>
+      <p class="src">go/go_mod.md</p>
+      <ul>
+        <li>다른 module의 go.mod 의 replace 부분은 무시된다</li>
+        <li>예를 들어, 빌드하려는 모듈이 A 모듈이고 B 모듈을 import할 경우 B 모듈의 go.mod 파일에 적힌 replace는 무시된다.</li>
+        <li>따라서 A모듈에도 replace 절을 똑같이 적어주어야 함.</li>
+      </ul>
+    </article>
+
+    <article class="note" id="go-reflect">
+      <h3>reflect — 구조체 순회</h3>
+      <p class="src">go/reflect.md</p>
+      <pre><code>package main
+
+import (
+        "fmt"
+        "reflect"
+)
+
+func main() {
+        x := struct {
+                Foo string
+                Bar int
+        }{"foo", 2}
+
+        e := reflect.ValueOf(&amp;x).Elem()
+
+        for i := 0; i &lt; e.NumField(); i++ {
+                v := e.Field(i)
+                t := e.Type().Field(i)
+                fmt.Printf("name: %s, type: %s, value: %v, tag: %s\n",
+                        t.Name, t.Type, v.Interface(), t.Tag.Get("custom"))
+        }
+}</code></pre>
+    </article>
+
+    <article class="note" id="go-compress">
+      <h3>응답 압축</h3>
+      <p class="src">go/compress.md</p>
+      <p><a href="https://godoc.org/github.com/valyala/fasthttp#CompressHandler" rel="noopener">fasthttp CompressHandler</a></p>
+      <pre><code>handler = fasthttp.CompressHandler(handler)</code></pre>
+    </article>
+
+    <p class="backtop"><a href="#top">↑ 목차로</a></p>
+  </section>
+
+  <section class="topic" id="python">
+    <h2><a href="#python">Python</a></h2>
+
+    <article class="note" id="python-matrix-multiplication">
+      <h3>Matrix Multiplication</h3>
+      <p class="src">python/matrix_multiplication.md</p>
+      <p>파이썬(&gt;=3.5.0)은 matrix multiplication 연산자 <code>@</code>을 지원한다. 아래는 PEP465에 첨부된 예제이다.</p>
+      <pre><code>import numpy as np
+from numpy.linalg import inv, solve
+
+# dot 함수를 이용할 경우
+S = np.dot((np.dot(H, beta) - r).T,
+           np.dot(inv(np.dot(np.dot(H, V), H.T)), np.dot(H, beta) - r))
+
+# dot 메서드를 이용할 경우
+S = (H.dot(beta) - r).T.dot(inv(H.dot(V).dot(H.T))).dot(H.dot(beta) - r)
+
+# @ 연산자를 이용할 경우
+S = (H @ beta - r).T @ inv(H @ V @ H.T) @ (H @ beta - r)</code></pre>
+      <p>@ 연산자를 쓰는 쪽이 간결하다. 참고: <a href="https://www.python.org/dev/peps/pep-0465/" rel="noopener">PEP465</a></p>
+    </article>
+
+    <article class="note" id="python-flask-sqlalchemy-paginate">
+      <h3>Flask-SQLAlchemy에서 join된 칼럼들에 대해 paginate() 사용하기</h3>
+      <p class="src">python/flask-sqlalchemy_paginate_hack.md</p>
+      <p>Flask-SQLAlchemy는 paginate 클래스를 제공하지만 join된 칼럼에 대해서는 직접 사용할 수 없다. join한 후 하나의 테이블에 대한 결과만 필요하다면 상관없지만, 두 개의 테이블에 대한 결과를 모두 사용해야 할 때는 원래의 BaseQuery를 써야 하고 이 때는 paginate를 사용할 수 없는 것.</p>
+      <p>해결하려면 아래처럼 pagination을 래핑하거나,</p>
+      <pre><code>def paginate(query, page, per_page=20, error_out=True):
+    if error_out and page &lt; 1:
+        abort(404)
+    items = query.limit(per_page).offset((page - 1) * per_page).all()
+    if not items and page != 1 and error_out:
+        abort(404)
+
+    # No need to count if we're on the first page and there are fewer
+    # items than we expected.
+    if page == 1 and len(items) &lt; per_page:
+        total = len(items)
+    else:
+        total = query.order_by(None).count()
+
+    return Pagination(query, page, per_page, total, items)</code></pre>
+      <p>아래처럼 내용물을 바꿔치기할 수 있다.</p>
+      <pre><code>from flask.ext.sqlalchemy import BaseQuery
+def paginate(sa_query, page, per_page=20, error_out=True):
+    sa_query.__class__ = BaseQuery
+    # We can now use BaseQuery methods like .paginate on our SA query
+    return sa_query.paginate(page, per_page, error_out)</code></pre>
+      <p>두 번째 방법은 위험할 수 있으니 중요한 곳에서는 사용하지 말 것. 참고: <a href="http://stackoverflow.com/questions/15727155/how-to-paginate-in-flask-sqlalchemy-for-db-session-joined-queries" rel="noopener">stackoverflow</a></p>
+    </article>
+
+    <article class="note" id="python-install-problems">
+      <h3>OpenSSL 문제로 안 깔릴 때</h3>
+      <p class="src">python/install-problems.md</p>
+      <p>패키지 매니저로 설치해도 잘 인식하지 못하는 경우 sudo 권한이 있다면 그냥 직접 설치한다.</p>
+      <pre><code>./config shared --prefix=/usr
+make
+sudo make install</code></pre>
+      <p><code>/usr/local/bin</code> 등을 인식하지 못하는 경우에는 아예 <code>/usr</code>에 덮어써버리면 인식은 잘 됨</p>
+    </article>
+
+    <p class="backtop"><a href="#top">↑ 목차로</a></p>
+  </section>
+
+  <section class="topic" id="cmake">
+    <h2><a href="#cmake">CMake</a></h2>
+
+    <article class="note" id="cmake-install-to-user-directory">
+      <h3>설치할 특정 디렉토리를 지정하기</h3>
+      <p class="src">cmake/install-to-user-directory.md</p>
+      <pre><code>cmake -DCMAKE_INSTALL_PREFIX:PATH=~/testinstall -DCMAKE_BUILD_TYPE:STRING=Release .</code></pre>
+      <p><a href="https://www.visitusers.org/index.php?title=Installing_using_CMake" rel="noopener">visitusers.org — Installing using CMake</a></p>
+    </article>
+
+    <p class="backtop"><a href="#top">↑ 목차로</a></p>
+  </section>
+
+  <section class="topic" id="git">
+    <h2><a href="#git">Git</a></h2>
+
+    <article class="note" id="git-specify-ssh-key">
+      <h3>Git에서 특정 ssh key를 쓰고 싶을 경우</h3>
+      <p class="src">git/specify_ssh_key.md</p>
+      <p><code>~/.ssh/config</code> 파일에 다음 내용을 추가한다.</p>
+      <pre><code>Host github.com
+  IdentityFile ~/.ssh/github_rsa</code></pre>
+      <p><a href="http://stackoverflow.com/a/18839540" rel="noopener">http://stackoverflow.com/a/18839540</a></p>
+    </article>
+
+    <p class="backtop"><a href="#top">↑ 목차로</a></p>
+  </section>
+
+  <section class="topic" id="github-actions">
+    <h2><a href="#github-actions">GitHub Actions</a></h2>
+
+    <article class="note" id="github-actions-rerun">
+      <h3>Rerun은 기존 Pod를 재사용한다</h3>
+      <p class="src">github-actions/rerun-uses-existing-pod.md</p>
+      <p>GitHub Actions에서 job을 rerun하면 새 Pod를 생성하지 않고 <strong>기존 Pod를 그대로 사용</strong>한다. 따라서 Actions Runner를 새 버전으로 배포한 뒤 rerun해도, 이미 실행 중이던 Pod가 살아있으면 예전 Runner Pod에서 실행된다.</p>
+      <h4>해결 방법</h4>
+      <p>새 Runner가 확실히 사용되도록 하려면 rerun 대신 <strong>새 커밋을 push하거나 PR을 다시 트리거</strong>해야 한다.</p>
+    </article>
+
+    <p class="backtop"><a href="#top">↑ 목차로</a></p>
+  </section>
+
+  <section class="topic" id="node">
+    <h2><a href="#node">Node.js</a></h2>
+
+    <article class="note" id="node-glibc">
+      <h3>node.js의 GLIBC 최신 버전 의존성 문제</h3>
+      <p class="src">node/glibc.md</p>
+      <ul>
+        <li>node.js 18+ 버전은 GLIBC 최신 버전이 필요함</li>
+        <li>하지만 CentOS 7에서 GLIBC 업그레이드를 하는 것은 큰 리스크가 있음. glibc의 활용도가 높기 때문에 많은 모듈들이 하드 링크를 하고 있기 때문이라고 함.</li>
+        <li>별도로 빌드해서 node에서만 쓴다고 해도 빌드 자체가 쉽지 않음.</li>
+        <li>GLIBC 2.17 버전에서 동작하는 node.js를 찾으면 됨.
+          <ul>
+            <li><a href="https://github.com/nodejs/unofficial-builds" rel="noopener">nodejs/unofficial-builds</a></li>
+            <li><a href="https://unofficial-builds.nodejs.org/download/release/v22.11.0/" rel="noopener">unofficial-builds.nodejs.org — v22.11.0</a></li>
+          </ul>
+        </li>
+      </ul>
+    </article>
+
+    <p class="backtop"><a href="#top">↑ 목차로</a></p>
+  </section>
+
+  <section class="topic" id="octave">
+    <h2><a href="#octave">Octave</a></h2>
+
+    <article class="note" id="octave-urlread-bug">
+      <h3>urlread() 버그</h3>
+      <p class="src">octave/urlread_bug.md</p>
+      <p>특정 버전(4.2.0)의 Octave에는 <code>urlread()</code> 버그가 있다.</p>
+      <pre><code>responseBody = urlread(submissionUrl, 'post', params);</code></pre>
+      <p>위 부분을 아래처럼 바꿔 우회할 수 있다.</p>
+      <pre><code>[code, responseBody] = system(sprintf('echo jsonBody=%s | curl -k -X POST -d @- %s', body, submissionUrl));</code></pre>
+      <p>위 코드는 Coursera ML 강의 중 2번째와 그 이후 과제에 포함되어있다. 수정하지 않으면 submit()할 때 <code>Peer certificate cannot be authenticated with given CA certificates</code> 에러가 발생하게 됨.</p>
+      <blockquote><p><a href="http://stackoverflow.com/a/38559677" rel="noopener">http://stackoverflow.com/a/38559677</a></p></blockquote>
+    </article>
+
+    <p class="backtop"><a href="#top">↑ 목차로</a></p>
+  </section>
+
+  <section class="topic" id="postgres">
+    <h2><a href="#postgres">PostgreSQL</a></h2>
+
+    <article class="note" id="postgres-troubleshoot">
+      <h3>트러블슈팅</h3>
+      <p class="src">postgres/troubleshoot.md</p>
+      <h4>테이블 설명시 아래와 같은 에러가 나올 경우</h4>
+      <pre><code>flowermap=&gt; \d flower_map_items
+ERROR:  column c.relhasoids does not exist
+LINE 1: ..., c.relhasindex, c.relhasrules, c.relhastriggers, c.relhasoi...
+                                                             ^</code></pre>
+      <p>오래된(1.11 미만) postgres client를 쓰기 때문에 발생. postgres client를 업데이트해줘야 함.</p>
+    </article>
+
+    <p class="backtop"><a href="#top">↑ 목차로</a></p>
+  </section>
+
+  <section class="topic" id="tmux">
+    <h2><a href="#tmux">tmux</a></h2>
+
+    <article class="note" id="tmux-split-script">
+      <h3>New window 스크립트</h3>
+      <p class="src">tmux/tmux-split-script.md</p>
+      <p>tmux에서 새로운 window를 만들기 위한 스크립트는 대략 다음과 같이 만들 수 있다.</p>
+      <pre><code>#!/bin/bash
+
+NAME='window-name'
+HOSTS=(
+server01
+server02
+server03
+)
+
+for idx in ${!HOSTS[@]}; do
+  if [ $idx -eq 0 ]; then
+    tmux new-window "ssh ${HOSTS[idx]}"
+  else
+    tmux split-window "ssh ${HOSTS[idx]}"
+    tmux select-layout tiled
+  fi
+done
+tmux set synchronize-panes on
+tmux rename-window "$NAME"</code></pre>
+    </article>
+
+    <p class="backtop"><a href="#top">↑ 목차로</a></p>
+  </section>
+
+  <section class="topic" id="zsh">
+    <h2><a href="#zsh">zsh</a></h2>
+
+    <article class="note" id="zsh-ctrl-r">
+      <h3>Ctrl-R 안될 때</h3>
+      <p class="src">zsh/ctrl-r.md</p>
+      <p><code>$HOME</code> 디렉토리의 .fzf.bash 파일을 .fzf.zsh 로 바꿔주고 내용도 bash를 zsh로 변경한다.</p>
+      <pre><code># Auto-completion
+# ---------------
+[[ $- == *i* ]] &amp;&amp; source "~/env/fzf/shell/completion.zsh" 2&gt; /dev/null
+
+# Key bindings
+# ------------
+source "~/env/fzf/shell/key-bindings.zsh"</code></pre>
+    </article>
+
+    <p class="backtop"><a href="#top">↑ 목차로</a></p>
+  </section>
+
+  <section class="topic" id="appendix">
+    <h2><a href="#appendix">부록</a></h2>
+
+    <article class="note" id="appendix-vimrc">
+      <h3>.vimrc — TIL 카운트 매크로</h3>
+      <p class="src">.vimrc</p>
+      <p>원 저장소 루트에 있던 로컬 vimrc. <a href="https://github.com/jbranchaud/til" rel="noopener">jbranchaud/til</a> 에서 가져온 것으로, README 인덱스의 노트 개수를 세는 매크로다. 메인 <code>.vimrc</code> 에 <code>set exrc</code> 가 있어야 로드된다(위 <a href="#vim-vimrc">외부 vimrc 로드</a> 노트 참조).</p>
+      <pre><code>function! CountTils()
+  execute '%s/^- \[//n'
+endfunction
+
+nnoremap &lt;leader&gt;&lt;leader&gt;c :call CountTils()&lt;cr&gt;</code></pre>
+    </article>
+
+    <p class="backtop"><a href="#top">↑ 목차로</a></p>
+  </section>
+
+  <footer>
+    <p>2016-2026 <code>kil9/til</code> 저장소에서 2026-07-11 이관 · 원 저장소의 README 인덱스·에이전트 메타 문서(AGENTS.md/CLAUDE.md)는 이 페이지 구성으로 대체됨</p>
+    <p>Source · <a href="https://github.com/kil9/docs" target="_blank" rel="noopener">github.com/kil9/docs</a></p>
+  </footer>
+</main>
+
+</body>
+</html>
