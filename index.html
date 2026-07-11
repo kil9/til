@@ -98,6 +98,29 @@
     font-size: 0.76rem; color: var(--text-faint);
   }
 
+  .ai-summary {
+    margin: 40px 0 8px; padding: 20px 24px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; box-shadow: var(--shadow);
+  }
+  .ai-summary h2 {
+    margin: 0 0 10px; font-size: 1.05rem; font-weight: 800; letter-spacing: -0.01em;
+    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+  }
+  .ai-summary h2 .badge {
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--accent-ink); background: var(--accent-soft); padding: 3px 9px; border-radius: 999px;
+  }
+  .ai-summary .ai-date {
+    font-family: ui-monospace, "SF Mono", monospace; font-size: 0.72rem;
+    color: var(--text-faint); font-weight: 700;
+  }
+  .ai-summary p { margin: 0 0 8px; color: var(--text-muted); font-size: 0.92rem; }
+  .ai-summary ul { margin: 0; padding-left: 1.2em; color: var(--text-muted); font-size: 0.92rem; }
+  .ai-summary li { margin: 4px 0; }
+  .ai-summary a { color: var(--accent-ink); text-decoration: none; border-bottom: 1px solid var(--border-strong); }
+  .ai-summary a:hover { color: var(--accent); }
+
   footer {
     margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--border);
     font-size: 0.8rem; color: var(--text-faint);
@@ -117,6 +140,9 @@
 </header>
 
 <main class="wrap">
+  <!-- AI-SUMMARY:START -->
+  <!-- AI-SUMMARY:END -->
+
   <p class="count">Published · 3</p>
 
   <div class="grid">
