@@ -29,7 +29,7 @@ til/
 
 ## 퍼블리시 런북 (`/publish-pages`)
 
-> 참고: 로스터에 등록된 기존 `/publish-pages` 스킬은 설명상 **Naver Pages** 로 배포한다. 이 저장소는 **GitHub Pages** 이므로 그 스킬을 그대로 쓰지 말고, 아래 수동 런북을 따른다.
+> 참고: 이 런북의 자동화 스킬은 `/publish-til`(사외용)이다. `/publish-pages` 는 사내망 감지 자동 분기 디스패처(사내 `/publish-naver` ↔ 사외 `/publish-til`), `/publish-naver` 는 사내 GHE+Naver Pages 용이다. 스킬과 이 런북이 어긋나면 **이 런북이 정본**이다.
 
 ### 1. 콘텐츠 확보
 

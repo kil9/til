@@ -51,9 +51,10 @@
 
 - **T-24 OG 메타 + favicon + 404 페이지 (I-3 승격, 2026-07-12 완료)** — 전 페이지(루트+4)에 favicon(리스트 3줄 인라인 SVG data URI, 첫 줄 액센트 블루) + `og:type/og:title/og:description/og:url/og:site_name/og:locale` + `twitter:card=summary` 삽입(OG 이미지는 제외). `2026-07-plan-pipeline` 은 meta description 이 없어 신규 작성. 미니멀 셸 스타일 루트 `404.html`(noindex, 갤러리 링크, beacon 포함) 추가 — GitHub Pages 가 루트 404.html 을 자동 사용. AGENTS.md 공통 셸 템플릿에 favicon·OG 블록 반영, artifact 자체 스타일 페이지에도 favicon·OG·beacon 필수 명시. 라이브 전 페이지 OG 태그 + 404 동작 확인.
 
+- **T-25 퍼블리시 스킬 정비 (I-1 승격, 2026-07-12 완료)** — kil9conf 의 `/publish-til` 스킬을 현행화: §3 배치에 공통 셸(T-23)·favicon/OG(T-24)·beacon(T-15) 필수 명시, §4 `data-date` 를 시각 포함(`YYYY-MM-DDTHH:MM`) 형식으로 수정, §5 검증에 favicon·og:title·beacon grep 추가. AGENTS.md 상단 스킬 주석을 현행화(/publish-til 이 자동화 스킬, /publish-pages 는 분기 디스패처, 런북이 정본). 스킬 변경은 kil9conf 저장소에 별도 커밋.
+
 ### 진행 중 / 다음
 
-- **T-25 퍼블리시 스킬 정비 (I-1 승격)** — 로스터의 `/publish-til`(사외용, kil9conf 관리)이 이 저장소 런북의 자동화 스킬이다. T-23(미니멀 공통 셸)·T-15(beacon)·T-24(OG/favicon) 반영 상태를 점검해 스킬을 갱신하고, AGENTS.md 상단의 낡은 주석("로스터 /publish-pages 는 Naver Pages 용" — 현재는 자동 분기 디스패처이고 /publish-til 이 따로 있음)을 현행화한다.
 - 위 태스크 외 다음 `/publish-pages` 요청 대기 중. 새 페이지는 [AGENTS.md](AGENTS.md) "퍼블리시 런북" 을 따른다.
 
 ### 블록됨 (blocked)
