@@ -41,7 +41,7 @@ til/
 
 ### 2. 자체 완결형 문서로 재조립
 
-깨끗한 standalone HTML 로 감싼다.
+깨끗한 standalone HTML 로 감싼다. artifact 원본이 자체 스타일을 갖고 있으면 그 스타일을 존중하고(기존 matsuri/luna/plan-pipeline 페이지처럼), 스타일이 없거나 페이지를 새로 쓰는 경우에는 아래 **공통 셸**(사이트 디자인, T-23 확정: 극한 미니멀·무채색+차가운 블루 액센트)을 기본으로 쓴다.
 
 ```html
 <!doctype html>
@@ -51,15 +51,55 @@ til/
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>페이지 제목</title>
 <meta name="description" content="한 줄 설명">
-<style> ... 페이지 스타일 ... </style>
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --text: #1B2027;
+    --text-muted: #4E5A66;
+    --text-faint: #6E7A86;
+    --rule: #E3E7EB;
+    --accent: #1A5FC8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171B;
+      --text: #E7EAEE;
+      --text-muted: #A9B3BD;
+      --text-faint: #7E8994;
+      --rule: #2A3037;
+      --accent: #82B1F0;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+      "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 { margin: 0 0 8px; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
+  h2 { margin: 40px 0 12px; font-size: 1.0625rem; font-weight: 600; }
+  p { margin: 0 0 12px; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  code { font-family: ui-monospace, "SF Mono", monospace; font-size: 0.9em; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 32px 0; }
+  footer {
+    margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--rule);
+    font-size: 0.8125rem; color: var(--text-faint);
+  }
+</style>
 </head>
 <body>
+<main>
   ... 본문 ...
+  <footer><p><a href="../">← today i learned</a></p></footer>
+</main>
 </body>
 </html>
 ```
 
-- 외부 리소스(CDN 스크립트/폰트/이미지) 의존 없이 단일 파일로 열려야 한다. 필요한 자산은 인라인하거나 `data:` URI 로 임베드한다.
+- 외부 리소스(CDN 스크립트/폰트/이미지) 의존 없이 단일 파일로 열려야 한다. 필요한 자산은 인라인하거나 `data:` URI 로 임베드한다. 웹폰트는 쓰지 않는다(시스템 폰트 스택만).
 - 라이트/다크 대응은 `@media (prefers-color-scheme: dark)` 로 둔다. claude.ai 의 `data-theme` 토글은 standalone 환경에 없으므로 `prefers-color-scheme` 폴백이 있어야 한다.
 - 추적/텔레메트리 성격의 주입 스크립트는 모두 제거한다.
 
