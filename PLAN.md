@@ -49,8 +49,11 @@
 
 - **T-15 방문 지표 — Cloudflare Web Analytics (2026-07-12 완료)** — CF 계정(krieiter@gmail.com)에 `kil9.github.io` 를 Web Analytics 사이트로 등록(claude-in-chrome 으로 대시보드 조작). 등록이 401 로 막혔던 원인은 **CF 계정 이메일 미인증**이었고, 인증 후 정상 진행. beacon 스크립트(`static.cloudflareinsights.com/beacon.min.js`, cookieless, token `56f2ecb6...` 공개 값)를 루트 + 4개 페이지 전부의 `</body>` 직전에 삽입, AGENTS.md 런북 공통 셸 템플릿에도 포함해 신규 페이지에 자동 반영. "외부 리소스 금지" 원칙의 유일한 예외로 런북에 명시. 지표는 CF 기본 대시보드(Analytics & Logs → Web Analytics)로 확인, 커스텀 대시보드 없음. 라이브 반영 + 대시보드 집계 확인까지 검증.
 
+- **T-24 OG 메타 + favicon + 404 페이지 (I-3 승격, 2026-07-12 완료)** — 전 페이지(루트+4)에 favicon(리스트 3줄 인라인 SVG data URI, 첫 줄 액센트 블루) + `og:type/og:title/og:description/og:url/og:site_name/og:locale` + `twitter:card=summary` 삽입(OG 이미지는 제외). `2026-07-plan-pipeline` 은 meta description 이 없어 신규 작성. 미니멀 셸 스타일 루트 `404.html`(noindex, 갤러리 링크, beacon 포함) 추가 — GitHub Pages 가 루트 404.html 을 자동 사용. AGENTS.md 공통 셸 템플릿에 favicon·OG 블록 반영, artifact 자체 스타일 페이지에도 favicon·OG·beacon 필수 명시. 라이브 전 페이지 OG 태그 + 404 동작 확인.
+
 ### 진행 중 / 다음
 
+- **T-25 퍼블리시 스킬 정비 (I-1 승격)** — 로스터의 `/publish-til`(사외용, kil9conf 관리)이 이 저장소 런북의 자동화 스킬이다. T-23(미니멀 공통 셸)·T-15(beacon)·T-24(OG/favicon) 반영 상태를 점검해 스킬을 갱신하고, AGENTS.md 상단의 낡은 주석("로스터 /publish-pages 는 Naver Pages 용" — 현재는 자동 분기 디스패처이고 /publish-til 이 따로 있음)을 현행화한다.
 - 위 태스크 외 다음 `/publish-pages` 요청 대기 중. 새 페이지는 [AGENTS.md](AGENTS.md) "퍼블리시 런북" 을 따른다.
 
 ### 블록됨 (blocked)
@@ -59,9 +62,9 @@
 
 ## 아이디어 (보류)
 
-- **I-1 저장소 전용 publish 커맨드** — 기존 `/publish-pages`(Naver Pages 배포)와 별개로, 이 저장소의 GitHub Pages 런북을 자동화하는 전용 슬래시 커맨드/워크플로 제작. 지금은 AGENTS.md 런북을 수동으로 따른다.
+- **I-1 저장소 전용 publish 커맨드** — T-25 로 승격(2026-07-12).
 - **I-2 갤러리 검색** — 페이지가 많아지면 루트 갤러리에 검색 추가. (태그 필터는 T-14, 연도 구분은 T-11 로 구현됨.)
-- **I-3 OG 메타/썸네일** — 각 페이지에 Open Graph 메타태그와 미리보기 이미지 추가(SNS 공유 대응).
+- **I-3 OG 메타/썸네일** — T-24 로 승격(2026-07-12, 썸네일 이미지는 제외하고 승격).
 - **I-4 공통 요소 소급 후처리 스크립트** — 기존 전 페이지(`*/index.html`)에 OG 메타·분석 beacon 등 공통 헤드 요소의 누락을 검사·삽입하는 경량 스크립트(빌드 시스템 없이). T-16 권고의 선택 보완안 — 페이지 10건 이상으로 늘 때 착수를 검토한다.
 - **I-5 사이트 리디자인 (T-19 검토 내역 보관)** — 2026-07-11 T-19 에서 디자인 방향을 검토했으나 제안 전부 폐기, 현행 룩(웜 크림+오렌지 카드 갤러리, 페이지별 주제 팔레트) 유지로 결정. 검토했던 안: 1차 3안 — A 「플레인로그」(터미널 모노 인덱스·앰버 액센트·행 단위 밀도), B 「열람실」(서고 카드 카탈로그 — 명조 표제·점선 목차·낙관 「九」), C 「온에어」(주제색 듀오 포스터 벽·다단 카드 그리드); 2차 A안 세부 3안 — A-1 「레저」(인쇄물·man page 표제), A-2 「TTY」(프롬프트+블록 커서·앰버 인광), A-3 「관제실」(TUI 패널·ANSI 토픽 컬러·키보드 내비). 아티팩트: [1차 비교](https://claude.ai/code/artifact/d06f3b11-6d72-4e62-877d-9ee3154165e6) · [2차 A안 세부](https://claude.ai/code/artifact/5a8e39e2-a822-419e-ac8f-b5c740b44008). 추후 리디자인을 착수하게 되면 이 검토를 출발점으로 재활용한다.
 
