@@ -116,6 +116,7 @@
       <li><a href="#community">커뮤니티 반응 — GeekNews·HN·Lobsters</a></li>
       <li><a href="#adversarial">적대적 리뷰 — Claude Fable 5 의 반론 6편</a></li>
       <li><a href="#verdict">총평</a></li>
+      <li><a href="#ghostty-edge">부록 — 경쟁 터미널 대비 Ghostty 의 강점</a></li>
     </ol>
   </nav>
 
@@ -224,6 +225,18 @@
   <h2 id="verdict">8. 총평</h2>
   <p>여섯 반론 중 온전히 성립하는 것은 수사(rhetoric)를 겨냥한 ①②뿐이고, 나머지는 주장의 강도를 깎을 뿐 방향을 뒤집지 못한다. 이것이 이 인터뷰의 특징을 역으로 증명한다. 하시모토는 거의 모든 주장에 한정어를 미리 심어 둔다 — "AI 하이프 마스터가 아니다", "그들이 나쁜 사람이라는 게 아니다", "내 소프트웨어가 형편없다고 할 사람도 있겠지만". HN 댓글 하나가 정확히 짚었듯 "말을 고르는 재주"가 있고, 그래서 적대적으로 읽어도 무너지는 지점이 적다.</p>
   <p>남는 취약점은 일관되게 한 곳이다: <strong>개인 단위 경험의 생태계 단위 외삽</strong>. 포크 대칭성(①)은 자신처럼 인프라를 가진 사람 기준의 대칭이고, 커밋 검토 책임론(②)은 자신처럼 검토 능력이 있는 사람 기준의 등치이며, AI 마이그레이션 낙관(③)은 자신처럼 코드를 아는 사람 기준의 외삽이다. "나는 내 소프트웨어의 큰 사용자라서 판단할 수 있다"는 그의 강점이, 자신과 조건이 다른 행위자를 모델링할 때는 그대로 맹점이 된다. 그 맹점을 감안하고 읽으면, 터미널 프로토콜 구상(n-screen·버튼)과 "명사가 중요하다"는 설계론은 이 인터뷰에서 가장 순도 높은, 반박할 거리가 거의 없는 부분이다.</p>
+
+  <h2 id="ghostty-edge">9. 부록 — 경쟁 터미널 대비 Ghostty 의 강점</h2>
+  <p class="src">인터뷰의 배경 이해를 돕는 부록. 커뮤니티(HN·전환 후기·2026년 비교 리뷰)에서 사람들이 iTerm2·kitty·Alacritty·WezTerm·Warp 대신 Ghostty 를 고르는 이유를 언급 빈도 위주로 정리했다. 요약하면 "Alacritty 의 속도 + kitty 의 기능 + 네이티브 앱의 감촉"을 한 번에 준다는 것이다.</p>
+  <ol>
+    <li><strong>네이티브 플랫폼 통합 — 가장 많이 언급되는 차별점.</strong> GPU 가속 터미널 중 유일하게 진짜 플랫폼 UI 를 쓴다. macOS 에서는 AppKit 기반이라 네이티브 타이틀바·탭·메뉴가 그대로 동작하고, Linux 에서는 GTK 를 쓴다. kitty·Alacritty·WezTerm 은 크로스플랫폼 툴킷 특유의 "이질적인 창" 느낌이 있는데, Ghostty 는 "Apple 이 Terminal.app 을 지금 다시 만들면 이런 모습"이라는 평을 듣는다. 본문 5장에서 하시모토가 말한 "코어는 크로스플랫폼, GUI 는 비타협적 네이티브" 원칙의 결과물이다.</li>
+    <li><strong>성능 — 특히 체감 반응성.</strong> 시작 시간 100ms 미만(iTerm2 는 300ms+), 대량 출력 스크롤에서 144fps 유지, 유휴 메모리도 iTerm2 대비 수 배 적다는 벤치마크가 반복 인용된다. <code>kubectl logs -f</code> 같은 로그 폭주 상황에서 iTerm2 는 CPU 코어를 포화시키는데 Ghostty 는 여유 있었다는 실무 사례도 있다. 다만 평상시 타이핑·스크롤에서 kitty 와의 차이는 크지 않다는 평가다.</li>
+    <li><strong>제로 컨피그로 완성된 기본값.</strong> 설정이 평평한 <code>key = value</code> 형식이라 kitty·WezTerm(Lua)·Alacritty(TOML)보다 단순하고, 아무 설정 없이도 리거처·Kitty 그래픽 프로토콜·탭/분할·테마 수백 종이 바로 된다. "Alacritty 는 탭도 없어서 tmux 가 필수인데, Ghostty 는 깔고 바로 끝"이라는 유형의 전환 후기가 많다.</li>
+    <li><strong>기능이 많은데 거슬리지 않음.</strong> iTerm2 는 설정 창에 옵션이 200개가 넘는 "부엌 싱크대" 접근이고, Warp 는 AI 사이드바와 계정 로그인이 따라온다. Ghostty 는 기능은 풍부하되 쓰기 전까지 숨겨져 있다는 점이 호평받는다. ThePrimeagen 이 "방해하는 AI 사이드바가 없다"를 장점으로 꼽은 것이 이 정서를 대표한다. 본문 3장의 "feature-rich ≠ bloat, 안 쓰는 기능은 실행되지 않는다" 철학이 실제 사용감으로 전달되는 셈이다.</li>
+    <li><strong>터미널 표준 구현의 정확성과 생태계 기여.</strong> xterm 호환성을 가장 엄격하게 지키는 축이고, Kitty 그래픽·OSC 8 하이퍼링크 등 최신 프로토콜을 빠짐없이 지원하면서 libghostty 로 임베딩 가능한 코어를 분리하는 방향이라 "터미널 생태계 전체에 투자하는 프로젝트"라는 신뢰가 있다. rockorager 같은 유명 메인테이너들이 합류해 있는 것도 이 신뢰를 강화한다.</li>
+  </ol>
+  <p>반대편 평가도 하나 붙이면: iTerm2 의 트리거·자동화·프로파일 같은 고급 기능이나 kitty 의 스크립팅 확장성(kittens)이 꼭 필요한 사람에게는 아직 Ghostty 가 부족하고, 6장의 GeekNews 반응에 있었듯 "iTerm 보다 버그 많고 기능 적다"는 소수 의견도 존재한다. 요약하면 Ghostty 의 승부처는 기능 목록이 아니라 <strong>기본값의 완성도와 네이티브 감촉</strong>이다.</p>
+  <p class="src">부록 참고: <a href="https://blog.luminoid.dev/Terminal-Emulator-Comparison-2026/" target="_blank" rel="noopener">Terminal Emulator Comparison 2026</a> · <a href="https://www.devtoolreviews.com/reviews/ghostty-vs-iterm2-vs-kitty" target="_blank" rel="noopener">Ghostty vs iTerm2 vs Kitty (2026)</a> · <a href="https://blog.codeminer42.com/modern-terminals-alacritty-kitty-and-ghostty/" target="_blank" rel="noopener">The Modern Terminals Showdown</a> · <a href="https://moltamp.com/blog/kitty-vs-ghostty-2026/" target="_blank" rel="noopener">Kitty vs Ghostty in 2026</a> · <a href="https://news.ycombinator.com/item?id=47203972" target="_blank" rel="noopener">Why are you not using Ghostty instead of iTerm2? (HN)</a> · <a href="https://blog.jamesbrooks.net/posts/migrating-from-iterm2-to-ghostty/" target="_blank" rel="noopener">Migrating from iTerm2 to Ghostty</a></p>
 
   <hr>
   <p class="src">소스: <a href="https://alexalejandre.com/programming/interview-with-mitchell-hashimoto/" target="_blank" rel="noopener">인터뷰 원문</a> · <a href="https://news.hada.io/topic?id=31294" target="_blank" rel="noopener">GeekNews 토론</a>(HN·Lobsters 의견 번역 포함) · 인용은 모두 의역이며 원문 뉘앙스는 원문 링크에서 확인. 적대적 리뷰 섹션은 Claude Fable 5 의 생성 결과로, 사실 검증이 아니라 논증 스트레스 테스트다.</p>
