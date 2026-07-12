@@ -88,6 +88,19 @@
     text-decoration-thickness: 2px;
   }
 
+  .search { margin: 20px 0 0; }
+  .search input {
+    width: 100%; max-width: 320px;
+    font: inherit; font-size: 0.875rem;
+    color: var(--text);
+    background: none; border: 0; border-radius: 0;
+    appearance: none; -webkit-appearance: none;
+    border-bottom: 1px solid var(--rule);
+    padding: 4px 0;
+  }
+  .search input::placeholder { color: var(--text-faint); }
+  .search input:focus { outline: none; border-bottom-color: var(--accent); }
+
   .count { margin: 32px 0 20px; font-size: 0.8125rem; color: var(--text-faint); }
 
   .grid { display: grid; grid-template-columns: 1fr; gap: 28px; }
@@ -170,6 +183,8 @@
 <main class="wrap">
   <nav class="chips" id="topic-chips" aria-label="주제 필터" hidden></nav>
 
+  <p class="search"><input id="search" type="search" placeholder="검색" aria-label="갤러리 검색" autocomplete="off"></p>
+
   <p class="count">Published · 4</p>
 
   <div class="grid">
@@ -215,6 +230,8 @@
     </a>
 
   </div>
+
+  <p class="count" id="no-results" hidden>일치하는 항목이 없습니다.</p>
 
   <section id="archive" aria-label="아카이브" hidden>
     <p class="count">Archive</p>
@@ -303,9 +320,9 @@
     });
     archive.hidden = !past.length;
 
-    // 주제 필터 칩 (T-14). data-topic 카드에서 칩을 자동 생성한다.
+    // 주제 필터 칩 (T-14) + 검색 (T-26). 두 조건은 AND 로 결합된다.
     // 칩 라벨은 카드 .tag 의 "·" 앞 첫 세그먼트를 재활용한다.
-    // ?topic=<key> 로 초기 필터를 걸 수 있다(딥링크·검증용).
+    // ?topic=<key>·?q=<검색어> 로 초기 상태를 걸 수 있다(딥링크·검증용, 조합 가능).
     var topics = {};
     cards.forEach(function (card) {
       var key = card.dataset.topic;
@@ -314,12 +331,29 @@
       topics[key] = tag ? tag.textContent.split("·")[0].trim() : key;
     });
     var topicKeys = Object.keys(topics);
-    if (topicKeys.length < 2) return;
 
     var nav = document.getElementById("topic-chips");
-    function applyFilter(topic) {
+    var searchInput = document.getElementById("search");
+    var noResults = document.getElementById("no-results");
+    var state = { topic: "all", q: "" };
+
+    // 검색은 카드 텍스트 전체(제목·설명·태그·경로) + href 슬러그 + data-topic 를
+    // 대소문자 무시 부분 일치로 본다. 공백 구분 토큰은 모두 매치해야 한다(AND).
+    function matches(card) {
+      if (state.topic !== "all" && card.dataset.topic !== state.topic) return false;
+      if (!state.q) return true;
+      var hay = (card.textContent + " " + card.getAttribute("href") + " " +
+        (card.dataset.topic || "")).toLowerCase();
+      return state.q.toLowerCase().split(/\s+/).every(function (tok) {
+        return !tok || hay.indexOf(tok) !== -1;
+      });
+    }
+
+    function update() {
+      var anyVisible = false;
       cards.forEach(function (card) {
-        card.hidden = topic !== "all" && card.dataset.topic !== topic;
+        card.hidden = !matches(card);
+        if (!card.hidden) anyVisible = true;
       });
       var anyPast = false;
       groups.forEach(function (group) {
@@ -329,25 +363,37 @@
         if (any) anyPast = true;
       });
       archive.hidden = !anyPast;
+      noResults.hidden = anyVisible;
       Array.prototype.forEach.call(nav.querySelectorAll(".chip"), function (chip) {
-        chip.classList.toggle("active", chip.dataset.topic === topic);
+        chip.classList.toggle("active", chip.dataset.topic === state.topic);
       });
     }
+
     function addChip(key, label) {
       var chip = document.createElement("button");
       chip.type = "button";
       chip.className = "chip";
       chip.dataset.topic = key;
       chip.textContent = label;
-      chip.addEventListener("click", function () { applyFilter(key); });
+      chip.addEventListener("click", function () { state.topic = key; update(); });
       nav.appendChild(chip);
     }
-    addChip("all", "전체");
-    topicKeys.forEach(function (key) { addChip(key, topics[key]); });
-    nav.hidden = false;
+    if (topicKeys.length >= 2) {
+      addChip("all", "전체");
+      topicKeys.forEach(function (key) { addChip(key, topics[key]); });
+      nav.hidden = false;
+    }
 
-    var initial = params.get("topic");
-    applyFilter(initial && topics[initial] ? initial : "all");
+    searchInput.addEventListener("input", function () {
+      state.q = searchInput.value.trim();
+      update();
+    });
+
+    var initialTopic = params.get("topic");
+    if (initialTopic && topics[initialTopic]) state.topic = initialTopic;
+    var initialQ = params.get("q");
+    if (initialQ) { searchInput.value = initialQ; state.q = initialQ.trim(); }
+    update();
   })();
 </script>
 
