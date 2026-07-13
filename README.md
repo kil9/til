@@ -44,3 +44,4 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 | 2026-07-12 | 시트리니 리포트 — 「2028 글로벌 지능 위기」 해설 | [/citrini-2028-gic/](https://kil9.github.io/til/citrini-2028-gic/) |
 | 2026-07-13 | 미첼 하시모토 인터뷰 해설 — 터미널·Zig·오픈소스 | [/hashimoto-oss-philosophy/](https://kil9.github.io/til/hashimoto-oss-philosophy/) |
 | 2026-07-13 | Ghostty vs Windows Terminal | [/ghostty-vs-windows-terminal/](https://kil9.github.io/til/ghostty-vs-windows-terminal/) |
+| 2026-07-13 | Backlog.md 도입 검토 | [/backlog-md-vs-plan-md/](https://kil9.github.io/til/backlog-md-vs-plan-md/) |
