@@ -1,6 +1,6 @@
 # AGENTS.md
 
-이 저장소에서 AI 에이전트가 작업하기 위한 지침이다. 사람용 개요는 [README.md](README.md), 진행 상황은 [PLAN.md](PLAN.md) 를 본다.
+이 저장소에서 AI 에이전트가 작업하기 위한 지침이다. 사람용 개요는 [README.md](README.md), 진행 상황은 backlog(`backlog/`, 조회는 `/next-task`)를 본다. 구 [PLAN.md](PLAN.md) 는 2026-07-13 backlog 로 전환되어 완료 이력 아카이브로만 남아 있다.
 
 ## 이 저장소는 무엇인가
 
@@ -17,7 +17,8 @@ til/
 ├── index.html            루트 갤러리 랜딩 페이지(퍼블리시된 페이지 목록)
 ├── README.md             사람용 개요 + 퍼블리시된 페이지 표
 ├── AGENTS.md             (이 파일) 에이전트 지침 + 퍼블리시 런북
-├── PLAN.md               진행 상황 마스터 문서
+├── backlog/              진행 상황 원본(태스크·draft·docs·decisions, backlog CLI)
+├── PLAN.md               (아카이브) backlog 전환 전 진행 상황·완료 이력
 ├── CLAUDE.md             AGENTS.md 로 향하는 심볼릭 링크
 └── <slug>/
     └── index.html        개별 페이지(자체 완결형 HTML)
@@ -164,6 +165,6 @@ gh api repos/kil9/til/pages --jq '.status, .html_url'
 
 ## 커밋 규칙
 
-- 커밋 전 `README.md`, `AGENTS.md`, `PLAN.md` 를 검토하고, 변경이 필요하면 **같은 커밋에 포함**한다. 특히 페이지를 추가하면 README 표·루트 갤러리·PLAN 진행 상황이 함께 갱신돼야 한다.
+- 커밋 전 `README.md`, `AGENTS.md`, backlog(진행 상황) 를 검토하고, 변경이 필요하면 **같은 커밋에 포함**한다. 특히 페이지를 추가하면 README 표·루트 갤러리·backlog 진행 상황이 함께 갱신돼야 한다.
 - 커밋 단위는 논리적으로 분리한다(페이지 추가 1건 = 커밋 1건이 기본).
 - 커밋/푸시는 사용자가 요청하거나 퍼블리시 런북을 실행할 때 수행한다.
