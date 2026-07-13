@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Backlog.md 도입 검토</title>
-<meta name="description" content="PLAN.md + 플랜 스킬 8개 체계에 Backlog.md(마크다운 네이티브 태스크 매니저)를 도입할 가치가 있는지 다각 검토. 기능 매핑, 장단점, 전환 리스크, beads 반려 논리와의 비교.">
+<meta name="description" content="PLAN.md + 플랜 스킬 8개 체계에 Backlog.md(마크다운 네이티브 태스크 매니저)를 도입할 가치가 있는지 다각 검토. 기능 매핑, 장단점, 전환 리스크, beads 반려 논리와의 비교. 후속 검토에서 결론을 파일럿 착수(B)로 갱신.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='3' y='3.2' width='10' height='1.8' rx='.9' fill='%231A5FC8'/%3E%3Crect x='3' y='7.1' width='10' height='1.8' rx='.9' fill='%238A96A2'/%3E%3Crect x='3' y='11' width='7' height='1.8' rx='.9' fill='%238A96A2'/%3E%3C/svg%3E">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Backlog.md 도입 검토">
-<meta property="og:description" content="PLAN.md + 플랜 스킬 8개 체계에 Backlog.md(마크다운 네이티브 태스크 매니저)를 도입할 가치가 있는지 다각 검토. 기능 매핑, 장단점, 전환 리스크, beads 반려 논리와의 비교.">
+<meta property="og:description" content="PLAN.md + 플랜 스킬 8개 체계에 Backlog.md(마크다운 네이티브 태스크 매니저)를 도입할 가치가 있는지 다각 검토. 기능 매핑, 장단점, 전환 리스크, beads 반려 논리와의 비교. 후속 검토에서 결론을 파일럿 착수(B)로 갱신.">
 <meta property="og:url" content="https://kil9.github.io/til/backlog-md-vs-plan-md/">
 <meta property="og:site_name" content="today i learned">
 <meta property="og:locale" content="ko_KR">
@@ -104,7 +104,7 @@
 <main>
 
 <h1>Backlog.md 도입 검토</h1>
-<p class="byline">2026-07-13 · 검토 대상: <a href="https://github.com/MrLesk/Backlog.md" target="_blank" rel="noopener">MrLesk/Backlog.md</a> v1.48.0 · 비교 기준: 현행 PLAN.md + 플랜 스킬 8개 체계</p>
+<p class="byline">2026-07-13 · 검토 대상: <a href="https://github.com/MrLesk/Backlog.md" target="_blank" rel="noopener">MrLesk/Backlog.md</a> v1.48.0 · 비교 기준: 현행 PLAN.md + 플랜 스킬 8개 체계 · 같은 날 <a href="#followup">후속 검토(§10)</a>로 결론 갱신</p>
 
 <p class="lede">"태스크를 마크다운 파일로 관리하는 전용 도구를 쓰면 어떨까"의 두 번째 검토다. <a href="../2026-07-plan-pipeline/#beads">첫 번째(beads 반려)</a>가 "마크다운을 버리고 DB 로 갈 이유가 없다"였다면, 이번 후보는 마크다운을 버리지 않는다. 그래서 질문이 한 단계 어려워진다: 진실원본이 똑같이 git 안의 마크다운이라면, 지금의 수제 PLAN.md 체계를 기성 도구로 바꿀 이유가 있는가.</p>
 
@@ -116,6 +116,7 @@
 <div class="tldr">
   <p><span class="k">결론.</span> 지금은 도입하지 않는 것이 낫다. 현행 체계의 표준 필드(완료 조건·의존·단독실행)와 상태 4종은 사실상 Backlog.md frontmatter 의 산문형 구현이라, 도구가 주는 구조화 이득의 대부분을 이미 갖고 있다. 반면 전환 비용(스킬 8개 재작성, PLAN 파일 16개 마이그레이션, 전 머신 런타임 설치)과 가장 큰 손실(플랜 문서의 산문성)은 즉시 발생한다.</p>
   <p><span class="k">단서.</span> beads 반려의 최대 사유였던 "진실원본이 DB 로 옮겨간다"가 Backlog.md 에는 없다. 병렬 에이전트 운용이 상시화되어 태스크 단위 파일 분리가 필요해지는 시점이 오면, 그때의 1순위 후보는 beads 가 아니라 Backlog.md 다. 그 시점 전에 신규 저장소 1곳 파일럿부터 시작하면 된다.</p>
+  <p><span class="k">갱신.</span> 같은 날의 <a href="#followup">후속 검토(§10)</a>에서 이 결론은 "B 파일럿 착수"로 바뀌었다. 위 결론의 전제였던 산문성 손실이 실사용 관찰("인간이 PLAN.md 를 읽지 않는다")로 무게를 잃었기 때문이다. §1-9 는 발행 당시 원형대로 두었다.</p>
 </div>
 
 <h2 id="what"><span class="n">1</span>Backlog.md 는 무엇인가</h2>
@@ -453,6 +454,8 @@ created: 2026-07-13
 
 <h2 id="verdict"><span class="n">8</span>시나리오 비교와 권고</h2>
 
+<p class="byline">→ 이 섹션의 권고(D)는 <a href="#followup">§10 후속 검토</a>에서 B(파일럿)로 갱신되었다.</p>
+
 <div class="table-wrap">
 <table>
   <thead><tr><th>시나리오</th><th>내용</th><th>비용</th><th>판단</th></tr></thead>
@@ -503,8 +506,72 @@ created: 2026-07-13
 
 <p class="lede">한 줄로 줄이면: Backlog.md 는 "우리가 손으로 만든 것의 기성품"이라 언젠가 갈아탈 수 있는 좋은 후보지만, 기성품이 이기는 조건(병렬 상시화·수백 건 규모)이 아직 오지 않았다. 그 조건이 오면 이번에는 마크다운을 버릴 필요가 없다.</p>
 
+<hr>
+
+<h2 id="followup"><span class="n">10</span>후속 검토: 결론을 B(파일럿)로 옮긴다</h2>
+
+<p class="byline">2026-07-13 · 발행 직후 실사용자 리뷰와 추가 조사(스킬 본문 정독, CLI 문서 재확인, 운영 형태·멀티 repo 조사)를 반영한 후속 기록. §1-9 는 원형대로 두었다.</p>
+
+<h3>10-1. 트리거 목록이 놓친 진짜 트리거</h3>
+
+<p>§5-1 은 산문성 상실을 "가장 본질적" 손실로 놓았고, D(현상 유지) 권고는 그 위에 서 있었다. 그런데 실사용 관찰은 반대였다: <strong>인간이 PLAN.md 를 실제로 읽지 않는다.</strong> 마크다운 파일을 뒤적이는 일은 인간에게 생각보다 크고, 산문 서사의 독자는 사실상 세션 리셋 후의 에이전트뿐이었다. 아무도 읽지 않는 산문은 §5-1 이 매긴 무게만큼 지킬 가치가 없다. 반대로 칸반 보드는 인간이 실제로 소비할 수 있는 형태의 전체 조망이다. "인간이 진실원본을 소비하지 못하고 있다"는 §9 의 세 트리거(병렬 상시화·규모·도구 혼용)보다 본질적인 트리거인데, 목록에 없었다.</p>
+
+<h3>10-2. 스킬 = 프론트엔드 유지, Backlog.md = 백엔드 교체</h3>
+
+<p>전환의 형태도 §5-3 이 가정한 "재작성"과 다르다는 것이 확인됐다. 사용자는 PLAN.md 를 직접 편집하지 않고 스킬을 통해서만 만진다. 즉 스킬 계층이 이미 저장소 추상화이고, 백엔드만 갈아끼우면 사용 패턴은 그대로다. 갈아끼울 지점도 정확히 한 곳이다: 생산자 스킬들이 "플랜 파일 탐색 + 다음 번호 계산"을 <code>plan-context.sh</code> 헬퍼 1회 호출로 해결하는데, 그 자리가 backlog CLI 호출로 치환되는 유일한 심(seam)이다.</p>
+
+<p>CLI 문서(CLI-INSTRUCTIONS.md · ADVANCED-CONFIG.md) 기준으로 §3 매핑을 구체화하면:</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>현행 요소</th><th>Backlog.md 대응</th><th>판정</th></tr></thead>
+  <tbody>
+    <tr><td>T-N 전역 증가 카운터</td><td>task ID 자동 채번</td><td class="verdict eq">= 동일 의미론</td></tr>
+    <tr><td>I-N 아이디어 + 승격(I → T)</td><td><code>draft</code> + <code>draft promote</code>, 역방향 <code>task demote</code> 까지</td><td class="verdict up">▲ 양방향</td></tr>
+    <tr><td>M-N 마일스톤</td><td><code>milestone</code> 네이티브</td><td class="verdict eq">= 동등</td></tr>
+    <tr><td>상태 4종</td><td><code>statuses</code> 커스터마이즈(기본 3종 + Blocked 추가)</td><td class="verdict eq">= 설정으로 동등</td></tr>
+    <tr><td>완료 조건 (산문 한 줄)</td><td>AC 체크박스, <code>--check-ac N</code> 개별 조작</td><td class="verdict up">▲ 검증 기계화</td></tr>
+    <tr><td>의존: 없음 명시</td><td><code>--dep</code>, 참조 유효성 자동 검증</td><td class="verdict up">▲ 검증 내장</td></tr>
+    <tr><td>접수: 날짜</td><td><code>created</code> 자동</td><td class="verdict eq">= 자동화</td></tr>
+    <tr><td>디자인 결정 기록</td><td><code>decisions/</code> (ADR)</td><td class="verdict eq">= 동등</td></tr>
+    <tr><td>/cleanup-plan 압축</td><td><code>archive/</code> 이동으로 필요 자체가 소멸</td><td class="verdict up">▲ 스킬 폐기</td></tr>
+    <tr><td>단독실행: 필요</td><td>대응물 없음. label 로 표현</td><td class="verdict down">▼ 유일한 공백</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>더 중요한 발견은 스킬 쪽에 있다. 플랜 스킬 8종 본문(합계 443줄)의 상당 부분이 채번 규칙, 상태 표준, ID 표기 보존 같은 <strong>"도구 부재를 프롬프트로 보완하던 규칙"</strong>이다. 도구가 이를 구조적으로 보장하면 스킬은 재작성이 아니라 다이어트가 된다. 최대 수혜자는 <code>/parallel-plan</code> 이다: §4-1 이 최대 이득으로 꼽은 append-only 충돌 해소 규칙과 "워커의 메타 파일 수정 금지" 규칙이 통째로 사라진다.</p>
+
+<h3>10-3. 옮기는 김에 좋아지는 것들</h3>
+
+<ul>
+  <li><strong>검증의 기계화</strong> · "AC 전 항목 체크 완료 = 커밋 가능"으로 follow-plan 의 검증 게이트를 기계적으로 정의할 수 있다.</li>
+  <li><strong>워커 보고의 영속화</strong> · 서브에이전트의 RESULT 블록(현행은 대화에서 휘발)을 태스크 파일의 Implementation Notes 에 남긴다.</li>
+  <li><strong>우선순위 명시화</strong> · 현행 PLAN 은 우선순위가 서술 순서에 암묵적으로만 있다. priority 필드로 next-plan 의 후보 산출이 추론이 아니라 조회가 된다.</li>
+  <li><strong>서브태스크</strong> · <code>-p</code> 로 부모 아래 분해. 현행은 T 번호 폭증이 무서워 큰 태스크를 안 쪼갰다.</li>
+  <li><strong>다중 플랜 파일 정리</strong> · PLAN_*.md 여러 개 + "최근 수정본" 휴리스틱이 단일 백로그 + 마일스톤/라벨로 정리된다.</li>
+  <li><strong>미러 드리프트 감소</strong> · 스킬이 CLI 기반이 되면 codex/gemini 미러에서 도구명 치환이 필요한 면적이 줄어든다.</li>
+  <li><strong>인간 개입 채널</strong> · 웹 보드에서 카드를 옮기는 것이 곧 파일 변경이라, 사람의 우선순위 조정이 에이전트에게 그대로 전달된다.</li>
+</ul>
+
+<h3>10-4. 운영 형태: tailnet 안에서, 인스턴스는 저장소당 하나</h3>
+
+<p>상시 보드 운영을 조사한 결과 세 가지가 확정됐다.</p>
+
+<ul>
+  <li><strong>Tailscale funnel(공개 노출)은 부적합.</strong> 메인테이너가 <a href="https://github.com/MrLesk/Backlog.md/issues/716" target="_blank" rel="noopener">reverse-proxy base-path 요청을 거부</a>하며 밝혔듯, <code>backlog browser</code> 는 의도적으로 무인증·로컬 단일 사용자 도구다(접속 가능 = 파일시스템 접근 권한자 전제). tailnet 내부 한정 <code>tailscale serve</code> 는 이 보안 모델과 어긋나지 않는다.</li>
+  <li><strong>멀티 repo 단일 웹 UI 는 없다.</strong> 인스턴스 1개 = 프로젝트 1개. "backlog of backlogs" 는 <a href="https://github.com/MrLesk/Backlog.md/issues/334" target="_blank" rel="noopener">요청은 있었으나</a> 미구현이고, v1.38.0 의 <code>BACKLOG_CWD</code> 는 인스턴스가 바라볼 폴더를 바꿀 뿐이다. 우회는 저장소별 포트 + 링크 index 페이지. path-prefix 프록시는 #716 거부로 SPA 라우팅이 깨져 불가.</li>
+  <li><strong>중앙 상시 보드는 "어느 클론을 보느냐" 문제가 있다.</strong> autoCommit 이 false 라 웹에서의 편집은 커밋·푸시 없이는 다른 머신에 전달되지 않는다. read-only 조망용으로 한정하거나, 보드 전용 클론에 pull 주기 + 자동 커밋을 붙이거나를 파일럿에서 정해야 한다.</li>
+</ul>
+
+<h3>10-5. 갱신된 권고</h3>
+
+<p><strong>D(현상 유지)에서 B(파일럿)로 옮긴다.</strong> 도구가 이기는 조건은 이미 충족돼 있었고, §9 의 트리거 정의가 그것을 담지 못했을 뿐이다. 파일럿은 신규 또는 백로그가 얕은 저장소 1곳에서 열고(§6 의 ID 연속성 문제 회피), 스킬은 <code>backlog/</code> 디렉터리 감지 dual-mode 로 개조한다. 산문 서사는 <code>docs/</code> 문서로 분리 존치를 시도하되, 파일럿의 핵심 검증 질문은 "세션 리셋 후 docs 문서 + 태스크 frontmatter 만으로 재개가 되는가"다.</p>
+
+<p class="lede">§8 의 한 줄을 갱신하면: 기성품이 이기는 조건은 이미 와 있었다. 다만 그 조건은 병렬도 규모도 아니라, 인간이 읽지 않는 진실원본이었다.</p>
+
 <footer>
-  <p>이 리포트는 Claude Fable 5 가 로컬 플랜 스킬 8종의 정의와 MrLesk/Backlog.md v1.48.0 공개 문서를 근거로 작성했다 (2026-07-13). 선행 검토: <a href="../2026-07-plan-pipeline/#beads">beads 를 채택하지 않은 이유</a>.</p>
+  <p>이 리포트는 Claude Fable 5 가 로컬 플랜 스킬 8종의 정의와 MrLesk/Backlog.md v1.48.0 공개 문서를 근거로 작성했다 (2026-07-13). 같은 날 실사용자 리뷰와 추가 조사(CLI 문서, 이슈 #716·#334)를 반영해 §10 후속 검토를 추가했다. 선행 검토: <a href="../2026-07-plan-pipeline/#beads">beads 를 채택하지 않은 이유</a>.</p>
   <p><a href="../">← today i learned</a></p>
 </footer>
 
