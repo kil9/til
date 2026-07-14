@@ -63,6 +63,14 @@
   .byline { margin: 0 0 24px; font-size: 0.8125rem; color: var(--text-faint); }
   .lede { color: var(--text-muted); }
 
+  .note {
+    margin: 0 0 20px; padding: 10px 14px;
+    border: 1px solid var(--rule); border-radius: 4px;
+    font-size: 0.875rem; line-height: 1.6; color: var(--text-muted);
+  }
+  .note p { margin: 0; }
+  .note .k { font-weight: 600; color: var(--text); }
+
   .tldr {
     margin: 24px 0 8px; padding: 4px 0 4px 18px;
     border-left: 3px solid var(--accent);
@@ -120,6 +128,10 @@
 <main>
   <h1>에이전트를 지켜보는 비용</h1>
   <p class="byline">2026-07-14 · herdr pane 오케스트레이션 재평가 — 로컬 실측(2026-07-04 - 07-12) + Anthropic 공식 자료 인용판</p>
+
+  <div class="note">
+    <p><span class="k">herdr 란?</span> tmux 처럼 터미널 화면을 여러 pane 으로 쪼개 쓰는 터미널 멀티플렉서인데, pane 안에서 도는 AI 코딩 에이전트(<code>claude</code> 등)를 네이티브로 인식한다는 점이 다르다. 각 에이전트가 작업 중인지·권한 승인에 막혔는지·끝났는지를 상태로 추적하고, pane 분할·에이전트 스폰·완료 대기를 전부 CLI 로 제어할 수 있다. 이 글의 "pane 오케스트레이션"은 이 기능으로 서브에이전트들을 화면에 펼쳐 놓고 조율하는 방식을 가리킨다.</p>
+  </div>
 
   <p class="lede">서브에이전트나 에이전트 팀을 띄울 때 herdr pane 으로 각 에이전트를 화면에 펼쳐 놓는 방식은 직관적으로 매력적이다. 모든 과정이 눈앞에서 실시간으로 흘러가기 때문이다. 그런데 몇 주간 실측하며 써 본 결론은 "생각보다 별로"였다. 이 글은 그 결론을 Anthropic 의 공식 글과 수치를 빌려 다시 쓴 것이다.</p>
 
