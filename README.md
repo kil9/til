@@ -35,7 +35,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
-| 2026-07-15 | 내 셸에선 되는데 — systemd PATH 와 fail-closed 가드가 겹친 자리 | [/systemd-path-fail-closed/](https://kil9.github.io/til/systemd-path-fail-closed/) |
+| 2026-07-15 | 내 셸에선 되는데: systemd PATH 와 fail-closed 가드가 겹친 자리 | [/systemd-path-fail-closed/](https://kil9.github.io/til/systemd-path-fail-closed/) |
 | 2026-07-14 | 닌텐도의 Actions Runner 운용 | [/nintendo-actions-runner/](https://kil9.github.io/til/nintendo-actions-runner/) |
 | 2026-07-14 | 에이전트를 지켜보는 비용 — herdr pane 오케스트레이션 재평가 | [/herdr-pane-tradeoffs/](https://kil9.github.io/til/herdr-pane-tradeoffs/) |
 | 2026-07-13 | Backlog.md 도입 검토 | [/backlog-md-vs-plan-md/](https://kil9.github.io/til/backlog-md-vs-plan-md/) |

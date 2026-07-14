@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>내 셸에선 되는데 — systemd PATH 와 fail-closed 가드가 겹친 자리</title>
+<title>내 셸에선 되는데: systemd PATH 와 fail-closed 가드가 겹친 자리</title>
 <meta name="description" content="사용자 설치 바이너리를 못 찾은 systemd 서비스, 조회 실패를 전면 차단으로 처리하는 가드, 원인을 삼키는 except. 셋이 겹치니 로그에 증거 한 줄 없는 전면 장애가 됐다.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='3' y='3.2' width='10' height='1.8' rx='.9' fill='%231A5FC8'/%3E%3Crect x='3' y='7.1' width='10' height='1.8' rx='.9' fill='%238A96A2'/%3E%3Crect x='3' y='11' width='7' height='1.8' rx='.9' fill='%238A96A2'/%3E%3C/svg%3E">
 <meta property="og:type" content="article">
-<meta property="og:title" content="내 셸에선 되는데 — systemd PATH 와 fail-closed 가드가 겹친 자리">
+<meta property="og:title" content="내 셸에선 되는데: systemd PATH 와 fail-closed 가드가 겹친 자리">
 <meta property="og:description" content="사용자 설치 바이너리를 못 찾은 systemd 서비스, 조회 실패를 전면 차단으로 처리하는 가드, 원인을 삼키는 except. 셋이 겹치니 로그에 증거 한 줄 없는 전면 장애가 됐다.">
 <meta property="og:url" content="https://kil9.github.io/til/systemd-path-fail-closed/">
 <meta property="og:site_name" content="today i learned">
@@ -82,7 +82,7 @@
 <main>
   <p class="home-top" style="margin:0 0 28px;font-size:0.8125rem"><a href="../">← today i learned</a></p>
 
-  <h1>내 셸에선 되는데 — systemd PATH 와 fail-closed 가드가 겹친 자리</h1>
+  <h1>내 셸에선 되는데: systemd PATH 와 fail-closed 가드가 겹친 자리</h1>
   <p class="lede">사용자 설치 바이너리를 못 찾은 서비스, 조회 실패를 전면 차단으로 처리하는 가드, 원인을 삼키는 <code>except</code>. 각각은 사소하거나 심지어 의도된 설계였는데, 셋이 겹치니 로그에 증거 한 줄 없는 전면 장애가 됐다.</p>
   <p class="byline">2026-07-15</p>
 
@@ -110,13 +110,13 @@ except Exception as exc:
   <pre><code>$ python3 -c "import asyncio; from bland_ai_bot.codex_quota import fetch_codex_weekly_snapshot; \
     print(asyncio.run(fetch_codex_weekly_snapshot('codex', 10.0)))"
 OK WeeklyQuotaSnapshot(used_percent=24.0, resets_at=1784519672, ...)</code></pre>
-  <p>잘 된다. 여기서 재현이 갈렸다 — 내 셸에서는 되고 서비스에서는 안 된다면, 차이는 코드가 아니라 <em>환경</em>이다. 서비스 프로세스의 환경을 그대로 들여다봤다.</p>
+  <p>잘 된다. 여기서 재현이 갈렸다. 내 셸에서는 되고 서비스에서는 안 된다면, 차이는 코드가 아니라 <em>환경</em>이다. 서비스 프로세스의 환경을 그대로 들여다봤다.</p>
   <pre><code>$ sudo tr '\0' '\n' &lt; /proc/$(systemctl show -p MainPID --value bland-ai)/environ | grep ^PATH=
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/snap/bin
 
 $ which codex
 /home/…/.local/bin/codex</code></pre>
-  <p>범인이 여기 있었다. <code>codex</code> 는 사용자 홈의 <code>~/.local/bin</code> 에 설치돼 있는데, systemd 유닛의 PATH 에는 그 경로가 없다. 로그인 셸이 <code>.zshrc</code> 로 넣어 주는 경로를 systemd 는 넣어 주지 않는다. <code>User=</code> 를 지정해도 마찬가지다 — 그건 로그인 셸을 띄우는 게 아니라 그냥 그 uid 로 프로세스를 실행하는 것뿐이라서, 셸 설정 파일은 읽히지 않는다.</p>
+  <p>범인이 여기 있었다. <code>codex</code> 는 사용자 홈의 <code>~/.local/bin</code> 에 설치돼 있는데, systemd 유닛의 PATH 에는 그 경로가 없다. 로그인 셸이 <code>.zshrc</code> 로 넣어 주는 경로를 systemd 는 넣어 주지 않는다. <code>User=</code> 를 지정해도 마찬가지다. 그건 로그인 셸을 띄우는 게 아니라 그냥 그 uid 로 프로세스를 실행하는 것뿐이라서, 셸 설정 파일은 읽히지 않는다.</p>
 
   <div class="table-wrap">
   <table>
@@ -135,9 +135,9 @@ $ which codex
   <h2>세 겹</h2>
   <p>이 장애는 버그 하나가 아니라 셋이 겹친 결과다.</p>
   <ul>
-    <li><strong>PATH 가정</strong> — 바이너리를 이름으로만 부르면서, 실행 환경의 PATH 가 내 셸과 같다고 가정했다.</li>
-    <li><strong>fail-closed 가드</strong> — 옳은 설계다. 다만 실패가 <em>일시적</em>일 거라 가정했다. 영구 실패와 일시 실패를 구분하지 않았다.</li>
-    <li><strong>침묵하는 <code>except</code></strong> — 원인을 사용자 메시지로 갈아끼우고 로그에 아무것도 남기지 않았다. 앞의 둘을 진단 불가능하게 만든 게 이것이다.</li>
+    <li><strong>PATH 가정</strong>: 바이너리를 이름으로만 부르면서, 실행 환경의 PATH 가 내 셸과 같다고 가정했다.</li>
+    <li><strong>fail-closed 가드</strong>: 옳은 설계다. 다만 실패가 <em>일시적</em>일 거라 가정했다. 영구 실패와 일시 실패를 구분하지 않았다.</li>
+    <li><strong>침묵하는 <code>except</code></strong>: 원인을 사용자 메시지로 갈아끼우고 로그에 아무것도 남기지 않았다. 앞의 둘을 진단 불가능하게 만든 게 이것이다.</li>
   </ul>
   <p>앞의 둘만 있었다면 로그의 <code>FileNotFoundError: 'codex'</code> 한 줄로 30초 만에 끝났을 일이다. 세 번째가 그걸 조사로 만들었다.</p>
 
@@ -168,7 +168,7 @@ def _resolve_codex_bin(codex_bin: str) -> str:
   <h2>환경변수로 때울 수도 있었다</h2>
   <p>사실 이 코드에는 이미 탈출구가 있었다. <code>BLAND_AI_CODEX_QUOTA_GUARD_BIN</code> 에 절대경로를 넣으면 끝난다. 코드 변경 0줄. 그런데 이 저장소의 운영 <code>.env</code> 는 시크릿 관리 시스템이 렌더링하는 파일이라 직접 수정이 금지돼 있고, 그쪽에서 값을 바꾸면 그 변경은 <code>git push</code> 로 나가지 않는다.</p>
   <p>즉 고장의 원인은 코드에 남지 않고 운영 설정에만 남는다. 다른 머신에 clone 하면 같은 증상이 재발하고, 그때마다 "아 이거 env 넣어야 하는 거였지"를 다시 알아내야 한다. 게다가 경로는 머신마다 다른데 그걸 시크릿 저장소에 하드코딩하는 것도 어색하다.</p>
-  <p>그래서 코드 폴백을 골랐다. 환경변수 탈출구를 없앤 것도 아니다 — 절대경로가 설정되면 그대로 쓰므로 비표준 위치는 여전히 env 로 덮어쓸 수 있다. <strong>기본값은 코드가 똑똑하게, env 는 예외 상황용으로.</strong></p>
+  <p>그래서 코드 폴백을 골랐다. 환경변수 탈출구를 없앤 것도 아니다. 절대경로가 설정되면 그대로 쓰므로 비표준 위치는 여전히 env 로 덮어쓸 수 있다. <strong>기본값은 코드가 똑똑하게, env 는 예외 상황용으로.</strong></p>
 
   <h2>검증은 서비스의 환경에서</h2>
   <p>"내 셸에서 되는데"가 이 버그의 본질이었으므로, 검증도 내 셸에서 하면 의미가 없다. 서비스와 똑같은 환경을 만들어 돌렸다.</p>
