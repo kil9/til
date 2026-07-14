@@ -35,16 +35,16 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
-| 2026-07-11 | TIL 아카이브 — Today I Learned | [/til-archive/](https://kil9.github.io/til/til-archive/) |
+| 2026-07-15 | 내 셸에선 되는데 — systemd PATH 와 fail-closed 가드가 겹친 자리 | [/systemd-path-fail-closed/](https://kil9.github.io/til/systemd-path-fail-closed/) |
+| 2026-07-14 | 닌텐도의 Actions Runner 운용 | [/nintendo-actions-runner/](https://kil9.github.io/til/nintendo-actions-runner/) |
+| 2026-07-14 | 에이전트를 지켜보는 비용 — herdr pane 오케스트레이션 재평가 | [/herdr-pane-tradeoffs/](https://kil9.github.io/til/herdr-pane-tradeoffs/) |
+| 2026-07-13 | Backlog.md 도입 검토 | [/backlog-md-vs-plan-md/](https://kil9.github.io/til/backlog-md-vs-plan-md/) |
+| 2026-07-13 | Ghostty vs Windows Terminal | [/ghostty-vs-windows-terminal/](https://kil9.github.io/til/ghostty-vs-windows-terminal/) |
+| 2026-07-13 | 미첼 하시모토 인터뷰 해설 — 터미널·Zig·오픈소스 | [/hashimoto-oss-philosophy/](https://kil9.github.io/til/hashimoto-oss-philosophy/) |
+| 2026-07-12 | 시트리니 리포트 — 「2028 글로벌 지능 위기」 해설 | [/citrini-2028-gic/](https://kil9.github.io/til/citrini-2028-gic/) |
+| 2026-07-12 | Claude Fable 5 vs GPT-5.6 — computer use 벤치마크·가격 비교 | [/claude-vs-gpt56-computer-use/](https://kil9.github.io/til/claude-vs-gpt56-computer-use/) |
+| 2026-07-12 | 알파벳 축소·애플 확대 — AI capex 헷지 가설 재검증 | [/ai-capex-hedge/](https://kil9.github.io/til/ai-capex-hedge/) |
+| 2026-07-11 | 두 세션 플랜 파이프라인 — Claude Code 를 생산자·소비자로 나눠 쓰기 | [/2026-07-plan-pipeline/](https://kil9.github.io/til/2026-07-plan-pipeline/) |
 | 2026-07-11 | 姫森ルーナ ✕ 鳴潮 — 루나의 명조 방송 항해일지 | [/2026-luna-wuwa/](https://kil9.github.io/til/2026-luna-wuwa/) |
 | 2026-07-11 | 夏色まつり ✕ 鳴潮 — 마츠리의 명조 방송 전기록 | [/2026-matsuri-wuwa/](https://kil9.github.io/til/2026-matsuri-wuwa/) |
-| 2026-07-11 | 두 세션 플랜 파이프라인 — Claude Code 를 생산자·소비자로 나눠 쓰기 | [/2026-07-plan-pipeline/](https://kil9.github.io/til/2026-07-plan-pipeline/) |
-| 2026-07-12 | 알파벳 축소·애플 확대 — AI capex 헷지 가설 재검증 | [/ai-capex-hedge/](https://kil9.github.io/til/ai-capex-hedge/) |
-| 2026-07-12 | Claude Fable 5 vs GPT-5.6 — computer use 벤치마크·가격 비교 | [/claude-vs-gpt56-computer-use/](https://kil9.github.io/til/claude-vs-gpt56-computer-use/) |
-| 2026-07-12 | 시트리니 리포트 — 「2028 글로벌 지능 위기」 해설 | [/citrini-2028-gic/](https://kil9.github.io/til/citrini-2028-gic/) |
-| 2026-07-13 | 미첼 하시모토 인터뷰 해설 — 터미널·Zig·오픈소스 | [/hashimoto-oss-philosophy/](https://kil9.github.io/til/hashimoto-oss-philosophy/) |
-| 2026-07-13 | Ghostty vs Windows Terminal | [/ghostty-vs-windows-terminal/](https://kil9.github.io/til/ghostty-vs-windows-terminal/) |
-| 2026-07-13 | Backlog.md 도입 검토 | [/backlog-md-vs-plan-md/](https://kil9.github.io/til/backlog-md-vs-plan-md/) |
-| 2026-07-14 | 에이전트를 지켜보는 비용 — herdr pane 오케스트레이션 재평가 | [/herdr-pane-tradeoffs/](https://kil9.github.io/til/herdr-pane-tradeoffs/) |
-| 2026-07-14 | 닌텐도의 Actions Runner 운용 | [/nintendo-actions-runner/](https://kil9.github.io/til/nintendo-actions-runner/) |
-| 2026-07-15 | 내 셸에선 되는데 — systemd PATH 와 fail-closed 가드가 겹친 자리 | [/systemd-path-fail-closed/](https://kil9.github.io/til/systemd-path-fail-closed/) |
+| 2026-07-11 | TIL 아카이브 — Today I Learned | [/til-archive/](https://kil9.github.io/til/til-archive/) |
