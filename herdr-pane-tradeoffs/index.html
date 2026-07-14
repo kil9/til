@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>에이전트를 지켜보는 비용 — herdr pane 오케스트레이션 재평가</title>
+<meta name="description" content="서브에이전트를 herdr pane 으로 띄워 실시간 관찰하는 방식이 생각보다 별로인 이유. 로컬 실측과 Anthropic 공식 자료(멀티에이전트 리서치 시스템의 90.2%·토큰 15× 수치, agent teams 문서의 설계 방향)를 근거로 재평가한다.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='3' y='3.2' width='10' height='1.8' rx='.9' fill='%231A5FC8'/%3E%3Crect x='3' y='7.1' width='10' height='1.8' rx='.9' fill='%238A96A2'/%3E%3Crect x='3' y='11' width='7' height='1.8' rx='.9' fill='%238A96A2'/%3E%3C/svg%3E">
+<meta property="og:type" content="article">
+<meta property="og:title" content="에이전트를 지켜보는 비용 — herdr pane 오케스트레이션 재평가">
+<meta property="og:description" content="서브에이전트를 herdr pane 으로 띄워 실시간 관찰하는 방식이 생각보다 별로인 이유. 로컬 실측과 Anthropic 공식 수치로 재평가.">
+<meta property="og:url" content="https://kil9.github.io/til/herdr-pane-tradeoffs/">
+<meta property="og:site_name" content="today i learned">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary">
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --text: #1B2027;
+    --text-muted: #4E5A66;
+    --text-faint: #6E7A86;
+    --rule: #E3E7EB;
+    --accent: #1A5FC8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171B;
+      --text: #E7EAEE;
+      --text-muted: #A9B3BD;
+      --text-faint: #7E8994;
+      --rule: #2A3037;
+      --accent: #82B1F0;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+      "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 { margin: 0 0 8px; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
+  h2 { margin: 44px 0 12px; font-size: 1.0625rem; font-weight: 600; }
+  h2 .n {
+    display: inline-block; min-width: 1.4em; margin-right: 6px;
+    font-family: ui-monospace, "SF Mono", monospace; font-size: 0.875rem;
+    color: var(--accent); font-weight: 600;
+  }
+  h3 { margin: 24px 0 8px; font-size: 0.9375rem; font-weight: 600; }
+  p { margin: 0 0 12px; }
+  ul, ol { margin: 0 0 12px; padding-left: 22px; }
+  li { margin: 0 0 6px; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  code { font-family: ui-monospace, "SF Mono", monospace; font-size: 0.9em; }
+  pre {
+    margin: 14px 0 16px; padding: 12px 14px;
+    border: 1px solid var(--rule); border-radius: 4px;
+    overflow-x: auto; font-size: 0.8125rem; line-height: 1.55;
+  }
+  pre code { font-size: 1em; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 32px 0; }
+  .byline { margin: 0 0 24px; font-size: 0.8125rem; color: var(--text-faint); }
+  .lede { color: var(--text-muted); }
+
+  .tldr {
+    margin: 24px 0 8px; padding: 4px 0 4px 18px;
+    border-left: 3px solid var(--accent);
+  }
+  .tldr p { margin: 0 0 10px; }
+  .tldr p:last-child { margin-bottom: 0; }
+  .tldr .k { font-weight: 700; }
+
+  blockquote {
+    margin: 14px 0 16px; padding: 2px 0 2px 18px;
+    border-left: 3px solid var(--rule); color: var(--text-muted);
+    font-size: 0.9375rem;
+  }
+  blockquote p { margin: 0 0 6px; }
+  blockquote .src { font-size: 0.8125rem; color: var(--text-faint); }
+
+  .table-wrap { overflow-x: auto; margin: 14px 0 18px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.875rem; line-height: 1.55; }
+  th {
+    text-align: left; font-weight: 600; font-size: 0.8125rem; color: var(--text-muted);
+    padding: 6px 10px; border-bottom: 1px solid var(--text-faint); white-space: nowrap;
+  }
+  td { padding: 8px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th:first-child, td:first-child { padding-left: 0; }
+  tbody td:first-child { white-space: nowrap; font-weight: 600; font-size: 0.8125rem; }
+  th:last-child, td:last-child { padding-right: 0; }
+
+  figure { margin: 24px 0; }
+  figcaption { margin-top: 8px; font-size: 0.8125rem; color: var(--text-faint); line-height: 1.5; }
+  .figwrap { overflow-x: auto; }
+  .figwrap svg { display: block; min-width: 640px; width: 100%; height: auto; }
+
+  footer {
+    margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--rule);
+    font-size: 0.8125rem; color: var(--text-faint);
+  }
+  footer p { margin: 0 0 6px; }
+</style>
+<style>
+  /* SVG 공용 클래스 — 텍스트는 텍스트 토큰, 마크만 액센트 */
+  .svg-t { font: 600 13px -apple-system, system-ui, sans-serif; fill: var(--text); }
+  .svg-s { font: 12px -apple-system, system-ui, sans-serif; fill: var(--text); }
+  .svg-m { font: 11px -apple-system, system-ui, sans-serif; fill: var(--text-muted); }
+  .svg-f { font: 11px ui-monospace, "SF Mono", monospace; fill: var(--text-muted); }
+  .svg-v { font: 600 12px ui-monospace, "SF Mono", monospace; fill: var(--text); }
+  .bar { fill: var(--accent); }
+  .baseline { stroke: var(--text-faint); stroke-width: 1; }
+  .card { fill: var(--bg); stroke: var(--text-muted); stroke-width: 1.2; rx: 4; }
+  .cardA { fill: none; stroke: var(--accent); stroke-width: 1.4; rx: 4; }
+  .arrow { stroke: var(--text-faint); stroke-width: 1.2; fill: none; }
+  .lane { font: 600 12px -apple-system, system-ui, sans-serif; fill: var(--text); }
+</style>
+</head>
+<body>
+<main>
+  <h1>에이전트를 지켜보는 비용</h1>
+  <p class="byline">2026-07-14 · herdr pane 오케스트레이션 재평가 — 로컬 실측(2026-07-04 - 07-12) + Anthropic 공식 자료 인용판</p>
+
+  <p class="lede">서브에이전트나 에이전트 팀을 띄울 때 herdr pane 으로 각 에이전트를 화면에 펼쳐 놓는 방식은 직관적으로 매력적이다. 모든 과정이 눈앞에서 실시간으로 흘러가기 때문이다. 그런데 몇 주간 실측하며 써 본 결론은 "생각보다 별로"였다. 이 글은 그 결론을 Anthropic 의 공식 글과 수치를 빌려 다시 쓴 것이다.</p>
+
+  <div class="tldr">
+    <p><span class="k">TL;DR</span> — pane 의 유일한 차별점은 실시간 가시성인데, 그 가시성으로 인간이 실제로 할 수 있는 일이 적다. 멀티에이전트의 성능은 토큰 지출과 오케스트레이션 구조에서 나온다는 것이 Anthropic 의 실측(성능 분산의 80% 를 토큰 사용량이 설명)이고, 공식 도구의 설계 방향도 "인간이 지켜본다"에서 "이벤트가 통지된다"로 이동했다(split-pane 기본값 폐지, 자동 메시지 전달, hook 게이트). 인간은 이 시스템에서 가장 비싼 컴포넌트이고, 24시간 여러 창을 응시하는 감독 모델은 그 비싼 자원을 가장 낭비하는 설계다.</p>
+  </div>
+
+  <h2><span class="n">1</span>배경 — pane 오케스트레이션이란</h2>
+  <p>Claude Code 에서 병렬 작업을 시키는 방법은 크게 세 가지다. Agent 도구로 서브에이전트를 백그라운드에 띄우거나(결과만 대화로 돌아온다), 실험 기능인 agent teams 로 독립 세션 여러 개를 조율하거나, 아니면 터미널 멀티플렉서(herdr, tmux 등)의 pane 을 직접 쪼개 각 pane 에 <code>claude</code> 프로세스를 하나씩 띄우는 것이다. 마지막 방식이 이 글의 대상인 pane 오케스트레이션으로, 에이전트 하나하나의 터미널 화면이 그대로 보인다는 점이 다른 두 방식과 구별되는 유일한 특징이다.</p>
+  <p>공식 문서도 이 구도를 인정한다. agent teams 는 split-pane 표시 모드를 지원하고, 그 효용을 이렇게 설명한다: "each teammate gets its own pane. You can see everyone's output at once and click into a pane to interact directly." 보인다는 것, 그리고 클릭해서 직접 개입할 수 있다는 것. pane 방식의 가치 제안은 이 두 문장이 전부다.</p>
+
+  <h2><span class="n">2</span>실측 — 토큰은 문제가 아니었다</h2>
+  <p>처음에는 pane 방식이 토큰 면에서 손해일 것이라고 짐작했다. 실측 결과는 반대였다. 2026-07-12 에 동일한 태스크를 Haiku 로 pane 서브에이전트와 Agent 도구 서브에이전트에 각각 시켜 비교했을 때:</p>
+  <ul>
+    <li>pane 기동 + 1턴 완료까지 약 7초 — 기동 오버헤드는 무시할 수준.</li>
+    <li>프리픽스/캐시 토큰은 Agent 도구 서브에이전트와 동급(cache write 약 8만 토큰). 어느 쪽이든 새 프로세스는 시스템 프롬프트·프로젝트 컨텍스트를 새로 쌓으므로 토큰 구조가 같다.</li>
+    <li>단, 대화 컨텍스트를 상속하는 fork 는 리더의 프리픽스 캐시를 재사용하므로, fork 로 충분한 작업엔 fork 가 항상 최저가.</li>
+  </ul>
+  <p>그러면 pane 의 실비용은 어디에 있는가. 토큰이 아니라 <strong>완료 감지·결과 회수의 왕복 지연과 오케스트레이션 잡무</strong>다. 태스크당 상수로 붙기 때문에 태스크가 짧을수록 상대 비용이 커진다. 2026-07-04 부터 07-12 까지 실측으로 확인한 잡무 목록은 이렇다.</p>
+  <ul>
+    <li>스폰 시 착지 위치를 <code>--workspace</code>/<code>--tab</code> 으로 못박아야 한다. 안 그러면 포커스된 다른 워크스페이스로 떠 버린다.</li>
+    <li>처음 쓰는 디렉터리면 folder-trust 프롬프트에 걸리는데, 이때 상태가 blocked 가 아니라 idle 로 감지돼 완료 대기가 가짜로 풀린다. 화면을 읽어 Enter 를 대신 쳐 줘야 한다.</li>
+    <li>무인 실행이면 <code>--dangerously-skip-permissions</code> 필수 — 없으면 첫 도구 호출에서 권한 프롬프트에 걸려 멈춘다.</li>
+    <li>완료 대기는 <code>wait --status idle</code> 만 가능하다. <code>done</code> 은 pane 이 보이는 순간 즉시 소비되는 UI 알림 상태라 대기가 영원히 안 풀릴 수 있다.</li>
+    <li>결과는 pane 화면 읽기로 회수할 수 없는 경우가 잦다(TUI 가 최종 답변을 접는다). 프롬프트에 출력 파일 경로를 박고 파일로 회수해야 한다.</li>
+    <li>정리도 수동이다. 완료된 pane 을 pane id 로 직접 닫는다.</li>
+  </ul>
+
+  <figure>
+    <div class="figwrap">
+    <svg viewBox="0 0 680 240" role="img" aria-label="Agent 도구 서브에이전트와 herdr pane 오케스트레이션의 단계 수 비교 다이어그램. Agent 도구는 스폰, 자동 작업, 결과 자동 반환의 3단계. herdr pane 은 스폰 옵션 고정, trust·권한 프롬프트 처리, 기동 확인 대기, 완료 대기, 파일 회수, pane 정리의 6단계.">
+      <text x="0" y="18" class="lane">Agent 도구 서브에이전트 — 통지가 온다</text>
+      <rect x="0" y="30" width="150" height="44" class="card" rx="4"/>
+      <text x="12" y="49" class="svg-s">스폰</text>
+      <text x="12" y="65" class="svg-m">Agent 도구 호출 1회</text>
+      <rect x="180" y="30" width="150" height="44" class="card" rx="4"/>
+      <text x="192" y="49" class="svg-s">작업 (백그라운드)</text>
+      <text x="192" y="65" class="svg-m">개입 불필요</text>
+      <rect x="360" y="30" width="180" height="44" class="cardA" rx="4"/>
+      <text x="372" y="49" class="svg-s">결과가 대화로 반환</text>
+      <text x="372" y="65" class="svg-m">완료 시 자동 재호출</text>
+      <path d="M152 52 L176 52" class="arrow"/><path d="M172 48 L178 52 L172 56" class="arrow"/>
+      <path d="M332 52 L356 52" class="arrow"/><path d="M352 48 L358 52 L352 56" class="arrow"/>
+
+      <text x="0" y="122" class="lane">herdr pane — 지켜보고, 기다리고, 회수한다</text>
+      <rect x="0" y="134" width="100" height="44" class="card" rx="4"/>
+      <text x="10" y="153" class="svg-s">스폰</text>
+      <text x="10" y="169" class="svg-f">--cwd·착지 고정</text>
+      <rect x="116" y="134" width="100" height="44" class="card" rx="4"/>
+      <text x="126" y="153" class="svg-s">프롬프트 처리</text>
+      <text x="126" y="169" class="svg-m">trust·권한 승인</text>
+      <rect x="232" y="134" width="100" height="44" class="card" rx="4"/>
+      <text x="242" y="153" class="svg-s">기동 확인</text>
+      <text x="242" y="169" class="svg-f">wait working</text>
+      <rect x="348" y="134" width="100" height="44" class="card" rx="4"/>
+      <text x="358" y="153" class="svg-s">완료 대기</text>
+      <text x="358" y="169" class="svg-f">wait idle</text>
+      <rect x="464" y="134" width="100" height="44" class="card" rx="4"/>
+      <text x="474" y="153" class="svg-s">파일 회수</text>
+      <text x="474" y="169" class="svg-m">화면 읽기 불가</text>
+      <rect x="580" y="134" width="100" height="44" class="card" rx="4"/>
+      <text x="590" y="153" class="svg-s">pane 정리</text>
+      <text x="590" y="169" class="svg-m">수동 close</text>
+      <path d="M102 156 L112 156" class="arrow"/><path d="M109 152 L115 156 L109 160" class="arrow"/>
+      <path d="M218 156 L228 156" class="arrow"/><path d="M225 152 L231 156 L225 160" class="arrow"/>
+      <path d="M334 156 L344 156" class="arrow"/><path d="M341 152 L347 156 L341 160" class="arrow"/>
+      <path d="M450 156 L460 156" class="arrow"/><path d="M457 152 L463 156 L457 160" class="arrow"/>
+      <path d="M566 156 L576 156" class="arrow"/><path d="M573 152 L579 156 L573 160" class="arrow"/>
+      <text x="0" y="210" class="svg-m">토큰 비용은 두 경로가 동급(cache write 약 8만, 2026-07-12 실측). 차이는 태스크당 상수로 붙는 왕복·잡무다.</text>
+    </svg>
+    </div>
+    <figcaption>같은 태스크의 두 실행 경로. Agent 도구는 완료가 통지로 돌아오지만, pane 은 감지·회수·정리를 오케스트레이터가 전부 직접 한다.</figcaption>
+  </figure>
+
+  <h2><span class="n">3</span>공식 수치 — 성능은 토큰과 구조에서 나온다</h2>
+  <p>Anthropic 이 자사 Research 기능(멀티에이전트 리서치 시스템)을 만들며 공개한 엔지니어링 글에는 이 논의에 직접 쓸 수 있는 수치가 있다. 내부 리서치 평가에서 Claude Opus 4 리드 + Claude Sonnet 4 서브에이전트 구성의 멀티에이전트 시스템이 싱글 에이전트 Opus 4 를 <strong>90.2%</strong> 앞섰는데, 그 성능이 어디서 왔는지에 대한 분석이 핵심이다.</p>
+  <blockquote>
+    <p>"In our analysis, three factors explained 95% of the performance variance. … token usage by itself explains 80% of the variance."</p>
+    <p class="src">— Anthropic, How we built our multi-agent research system (2025-06)</p>
+  </blockquote>
+  <p>성능 분산의 80% 를 토큰 사용량이, 95% 를 토큰·도구 호출 수·모델 선택 세 요인이 설명한다. 이 목록에 "인간이 중간 과정을 지켜봤는가"는 없다. 멀티에이전트가 잘 되는 이유는 병렬로 더 많은 토큰을 태우면서 각자의 컨텍스트 창에서 독립적으로 탐색하기 때문이지, 감독의 밀도 때문이 아니다. 실제로 Anthropic 의 시스템은 리드 에이전트가 서브에이전트에 위임하고 결과를 종합하는 오케스트레이터-워커 패턴이며, 인간이 서브에이전트 화면을 보는 단계 자체가 존재하지 않는다. 병렬화로 복잡한 쿼리의 리서치 시간을 최대 90% 줄였다는 수치도 같은 글에 있다.</p>
+  <p>대신 이 구조의 비용은 토큰으로 지불한다.</p>
+
+  <figure>
+    <div class="figwrap">
+    <svg viewBox="0 0 680 190" role="img" aria-label="상호작용 유형별 토큰 사용 배수 가로 막대 차트. 채팅 1배, 싱글 에이전트 약 4배, 멀티에이전트 시스템 약 15배.">
+      <text x="0" y="16" class="svg-t">토큰 사용 배수 — 채팅 대비</text>
+      <text x="0" y="34" class="svg-m">Anthropic 실측: 에이전트는 채팅의 약 4배, 멀티에이전트 시스템은 약 15배의 토큰을 쓴다</text>
+
+      <text x="0" y="72" class="svg-s">채팅</text>
+      <rect x="150" y="60" width="33" height="16" rx="3" class="bar"/>
+      <text x="191" y="73" class="svg-v">1×</text>
+
+      <text x="0" y="112" class="svg-s">싱글 에이전트</text>
+      <rect x="150" y="100" width="132" height="16" rx="3" class="bar"/>
+      <text x="290" y="113" class="svg-v">약 4×</text>
+
+      <text x="0" y="152" class="svg-s">멀티에이전트 시스템</text>
+      <rect x="150" y="140" width="495" height="16" rx="3" class="bar"/>
+      <text x="560" y="135" class="svg-v">약 15×</text>
+
+      <line x1="150" y1="52" x2="150" y2="164" class="baseline"/>
+    </svg>
+    </div>
+    <figcaption>"agents typically use about 4× more tokens than chat interactions, and multi-agent systems use about 15× more tokens than chats" — Anthropic 엔지니어링 블로그의 실측치를 도식화.</figcaption>
+  </figure>
+
+  <p>15× 라는 배수는 멀티에이전트를 아무 데나 쓰지 말라는 경고이기도 하다. 같은 글은 이 비용을 정당화하려면 태스크의 가치가 충분히 높고 병렬화가 실제로 먹히는 작업이어야 한다고 못박는다. 그런데 주목할 점은, 이 비용 계산 어디에도 pane 이 끼어들 자리가 없다는 것이다. 토큰 15× 는 백그라운드로 돌리든 pane 에 펼쳐 놓든 똑같이 나간다. pane 은 여기에 §2 의 잡무 비용을 얹을 뿐이다.</p>
+
+  <h2><span class="n">4</span>실시간 가시성으로 실제로 할 수 있는 것</h2>
+  <p>그래도 눈앞에서 흘러가는 화면에는 분명한 매력이 있다. 문제는 그 가시성이 실행 가능한 개입(actionable intervention)으로 이어지는 경우가 드물다는 점이다. 실제로 pane 을 보다가 할 수 있는 일을 나열해 보면:</p>
+  <ul>
+    <li><strong>잘못된 방향을 조기에 발견</strong> — 가장 실질적인 효용. 하지만 방향이 틀어진 원인은 대부분 스폰 프롬프트의 맥락 부족이고, 처방은 pane 안에서의 미세 조정이 아니라 중단 후 더 나은 프롬프트로 재스폰이다. 서브에이전트는 리더의 대화 기록을 상속하지 않으므로, 중간에 말을 걸어 맥락을 보충하는 것보다 처음부터 제대로 주는 편이 싸다.</li>
+    <li><strong>멈춘 에이전트 승인</strong> — 권한 프롬프트나 trust 프롬프트에 걸린 pane 에 Enter 를 쳐 준다. 이것은 개입이라기보다 §2 에서 본 잡무이며, 처음부터 권한 모드를 제대로 주면 발생하지 않는다.</li>
+    <li><strong>구경</strong> — 남는 것은 이것이다. 데모와 학습에는 진짜 가치가 있지만, 생산 작업의 정상 경로에서 반복될 이유는 없다.</li>
+  </ul>
+  <p>공식 도구의 설계 이력이 이 관찰을 뒷받침한다. Claude Code agent teams 의 표시 모드 기본값은 원래 <code>auto</code>(tmux 안이면 split panes)였는데, v2.1.179 에서 <code>in-process</code>(모든 팀원이 메인 터미널 안에서 돌고, 필요할 때 선택해서 들여다봄)로 바뀌었다. "모두 펼쳐 보여 주기"가 기본값에서 밀려나고 "필요할 때 조회"가 기본값이 된 것이다. 통신 모델도 같은 방향이다:</p>
+  <blockquote>
+    <p>"Automatic message delivery: when teammates send messages, they're delivered automatically to recipients. The lead doesn't need to poll for updates."</p>
+    <p class="src">— Claude Code 공식 문서, Agent teams</p>
+  </blockquote>
+  <p>리드조차 팀원을 폴링하지 않는다. 완료·실패·중간 발견은 이벤트로 밀려 들어온다. 인간의 역할에 대해서도 Anthropic 의 에이전트 설계 가이드는 상시 관찰이 아니라 체크포인트를 말한다: "Agents can pause for human feedback at checkpoints or when encountering blockers." 나아가 agent teams 는 <code>TeammateIdle</code>·<code>TaskCompleted</code> 같은 hook 으로 품질 게이트를 기계화하는 길을 열어 뒀다 — 팀원이 놀려고 하면 hook 이 exit 2 로 되돌려 보낸다. 인간의 눈이 하던 "끝났는지 봐 주기"를 코드가 대신하는 구조다.</p>
+
+  <h2><span class="n">5</span>인간이 가장 비싼 컴포넌트다</h2>
+  <p>실시간 가시성의 가치는 인간이 실제로 응시하는 시간만큼만 실현된다. 그리고 그 인간 시간이 이 시스템 전체에서 가장 비싼 자원이다. 멀티에이전트가 토큰을 15배 태워도 그것은 API 요금이지만, 여러 pane 을 유의미하게 감독하는 인간은 그 시간 동안 다른 모든 일을 멈춘다. 감독 대상이 늘수록 이 비용은 선형으로 늘고, 에이전트가 밤에도 도는 시대에 "24시간 여러 창을 지켜보는 인간"은 애초에 성립하지 않는 설계다.</p>
+  <p>오해를 피하자면, 감독 자체가 불필요하다는 말이 아니다. 공식 문서도 방치를 경고한다:</p>
+  <blockquote>
+    <p>"Check in on teammates' progress, redirect approaches that aren't working, and synthesize findings as they come in. Letting a team run unattended for too long increases the risk of wasted effort."</p>
+    <p class="src">— Claude Code 공식 문서, Agent teams (Best practices)</p>
+  </blockquote>
+  <p>핵심은 감독의 <strong>단위</strong>다. 여기서 권하는 것은 체크인(check in)이지 응시가 아니다. 태스크를 5-6개 단위로 잘게 쪼개고, 팀 규모를 3-5명으로 묶고, 완료·유휴가 통지로 돌아오게 하고, 게이트를 hook 으로 걸면 — 인간은 통지가 왔을 때와 체크포인트에서만 판단력을 투입하면 된다. 같은 감독 품질을 훨씬 적은 인간 시간으로 사는 것이다. "The autonomous nature of agents means higher costs, and the potential for compounding errors" 라는 경고에 대한 올바른 대응은 자율성을 회수해 인간이 지켜보는 것이 아니라, 오류가 누적되기 전에 걸리는 구조적 검문소를 세우는 것이다.</p>
+
+  <h2><span class="n">6</span>그래서 pane 은 언제 쓰나</h2>
+  <p>세 방식의 자리를 정리하면 이렇다.</p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th></th><th>Agent 도구 서브에이전트</th><th>agent teams (in-process)</th><th>herdr pane</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>실시간 가시성</td><td>없음 (결과만)</td><td>선택 조회 (패널에서 열람)</td><td>상시 (화면에 펼쳐짐)</td></tr>
+        <tr><td>완료 감지</td><td>자동 (완료 시 재호출)</td><td>자동 (idle 통지·메시지 전달)</td><td>수동 (<code>wait --status idle</code> 폴링)</td></tr>
+        <tr><td>결과 회수</td><td>자동 (반환값)</td><td>자동 (메시지)</td><td>수동 (출력 파일 지정 후 회수)</td></tr>
+        <tr><td>토큰 비용</td><td>낮음 — "results summarized back to main context"</td><td>높음 — "each teammate is a separate Claude instance"</td><td>agent teams 와 동급 (독립 프로세스)</td></tr>
+        <tr><td>오케스트레이션 잡무</td><td>없음</td><td>낮음</td><td>태스크당 상수로 발생 (§2)</td></tr>
+        <tr><td>맞는 자리</td><td>결과만 필요한 집중 태스크</td><td>팀원 간 협의가 필요한 병렬 작업</td><td>과정 관찰 자체가 목적일 때</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>따라서 남는 pane 의 use case 는 좁고 명확하다. 수 분 이상 걸리는 독립적이고 substantial 한 구현 태스크이면서, 사용자가 진행 과정을 지켜보거나 직접 개입할 <em>의사</em>가 실제로 있을 때. 데모, 새 워크플로의 학습·디버깅, 그리고 사용자가 명시적으로 "보면서 하고 싶다"고 opt-in 한 경우다. 그 외의 기본값은 결과가 통지로 돌아오는 구조(Agent 도구, 또는 필요하면 agent teams)이고, 리더의 대화 맥락이 필요한 작업은 fork 가 캐시 재사용 덕에 항상 최저가다.</p>
+
+  <h2><span class="n">7</span>결론</h2>
+  <p>pane 오케스트레이션의 약점은 토큰도 속도도 아니었다. 실측상 토큰은 Agent 도구와 동급이고 기동도 7초면 끝난다. 약점은 (1) 완료 감지·회수·정리가 전부 수동이라 태스크당 상수 잡무가 붙는다는 것, 그리고 (2) 그 대가로 사는 실시간 가시성이 막상 실행 가능한 개입으로 잘 이어지지 않는다는 것이다. 멀티에이전트의 성능이 토큰과 구조에서 나온다는 Anthropic 의 실측, split-pane 을 기본값에서 내리고 통지·hook 중심으로 이동한 공식 도구의 궤적, 그리고 인간 시간이 가장 비싸다는 단순한 경제학이 모두 같은 방향을 가리킨다. 지켜보는 것은 훌륭한 학습 도구이지만, 감독 모델로서는 사치품이다. 감독은 응시가 아니라 체크포인트로 설계하는 것이 맞다.</p>
+
+  <hr>
+
+  <h2>출처</h2>
+  <ul>
+    <li>Anthropic Engineering, <a href="https://www.anthropic.com/engineering/built-multi-agent-research-system">How we built our multi-agent research system</a> (2025-06) — 90.2% 성능 우위, 성능 분산 설명 요인(토큰 80% / 3요인 95%), 토큰 배수 4×·15×, 리서치 시간 최대 90% 단축.</li>
+    <li>Anthropic Engineering, <a href="https://www.anthropic.com/engineering/building-effective-agents">Building effective agents</a> (2024-12) — 최소 복잡도 원칙, 자율성의 비용·오류 누적 경고, 체크포인트 기반 인간 피드백.</li>
+    <li>Claude Code 공식 문서, <a href="https://code.claude.com/docs/en/agent-teams">Orchestrate teams of Claude Code sessions</a> — 표시 모드 기본값 변경(auto→in-process, v2.1.179), 자동 메시지 전달, subagent/teams 토큰 비용 비교, 팀 규모(3-5명)·태스크 크기(5-6개/명) 권고, TeammateIdle·TaskCompleted hook 게이트, 방치 경고.</li>
+    <li>로컬 실측 (2026-07-04 - 07-12, herdr + Claude Code) — pane 기동+1턴 약 7초, cache write 약 8만 토큰 동급, 완료 감지·회수 함정 목록. 이 저장소 사용자의 작업 노트.</li>
+  </ul>
+
+  <footer>
+    <p><a href="../">← today i learned</a></p>
+  </footer>
+</main>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
