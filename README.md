@@ -35,6 +35,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-07-15 | 글자가 겹치면 폰트를 고치면 된다: NotoSansKR NFC Fixed 삽질기 | [/notosanskr-nfc-fixed/](https://kil9.github.io/til/notosanskr-nfc-fixed/) |
 | 2026-07-15 | 내 셸에선 되는데: systemd PATH 와 fail-closed 가드가 겹친 자리 | [/systemd-path-fail-closed/](https://kil9.github.io/til/systemd-path-fail-closed/) |
 | 2026-07-14 | 닌텐도의 Actions Runner 운용 | [/nintendo-actions-runner/](https://kil9.github.io/til/nintendo-actions-runner/) |
 | 2026-07-14 | 에이전트를 지켜보는 비용 — herdr pane 오케스트레이션 재평가 | [/herdr-pane-tradeoffs/](https://kil9.github.io/til/herdr-pane-tradeoffs/) |

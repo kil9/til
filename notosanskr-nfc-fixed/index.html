@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>글자가 겹치면 폰트를 고치면 된다: NotoSansKR NFC Fixed 삽질기</title>
+<meta name="description" content="터미널에서 ↑ 위에 다음 글자가 포개지던 문제를 fontTools 로 TTF 를 직접 패치해 해결한 기록. East-Asian Ambiguous, 글리프 폴백, 광학 중심, 그리고 Windows Terminal 크래시까지.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='3' y='3.2' width='10' height='1.8' rx='.9' fill='%231A5FC8'/%3E%3Crect x='3' y='7.1' width='10' height='1.8' rx='.9' fill='%238A96A2'/%3E%3Crect x='3' y='11' width='7' height='1.8' rx='.9' fill='%238A96A2'/%3E%3C/svg%3E">
+<meta property="og:type" content="article">
+<meta property="og:title" content="글자가 겹치면 폰트를 고치면 된다: NotoSansKR NFC Fixed 삽질기">
+<meta property="og:description" content="터미널에서 ↑ 위에 다음 글자가 포개지던 문제를 fontTools 로 TTF 를 직접 패치해 해결한 기록. East-Asian Ambiguous, 글리프 폴백, 광학 중심, 그리고 Windows Terminal 크래시까지.">
+<meta property="og:url" content="https://kil9.github.io/til/notosanskr-nfc-fixed/">
+<meta property="og:site_name" content="today i learned">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary">
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --text: #1B2027;
+    --text-muted: #4E5A66;
+    --text-faint: #6E7A86;
+    --rule: #E3E7EB;
+    --accent: #1A5FC8;
+    --warn: #B4552D;
+    --code-bg: #F4F6F8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171B;
+      --text: #E7EAEE;
+      --text-muted: #A9B3BD;
+      --text-faint: #7E8994;
+      --rule: #2A3037;
+      --accent: #82B1F0;
+      --warn: #E09070;
+      --code-bg: #1D2126;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+      "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 { margin: 0 0 8px; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
+  h2 { margin: 44px 0 12px; font-size: 1.0625rem; font-weight: 600; }
+  h3 { margin: 28px 0 8px; font-size: 0.9375rem; font-weight: 600; }
+  p { margin: 0 0 12px; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  code {
+    font-family: ui-monospace, "SF Mono", monospace; font-size: 0.875em;
+    background: var(--code-bg); padding: 1px 5px; border-radius: 4px;
+  }
+  pre {
+    background: var(--code-bg); border-radius: 8px; padding: 14px 16px;
+    overflow-x: auto; font-size: 0.8125rem; line-height: 1.55; margin: 0 0 12px;
+  }
+  pre code { background: none; padding: 0; font-size: inherit; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 36px 0; }
+  ul, ol { margin: 0 0 12px; padding-left: 22px; }
+  li { margin-bottom: 4px; }
+  .lede { color: var(--text-muted); }
+  .figwrap { margin: 20px 0 24px; overflow-x: auto; }
+  figure { margin: 0; }
+  figcaption { font-size: 0.8125rem; color: var(--text-faint); margin-top: 8px; line-height: 1.5; }
+  table {
+    border-collapse: collapse; width: 100%; font-size: 0.875rem; margin: 16px 0 20px;
+  }
+  th, td { border-bottom: 1px solid var(--rule); padding: 8px 10px; text-align: left; vertical-align: top; }
+  th { font-weight: 600; color: var(--text-muted); font-size: 0.8125rem; }
+  td code { white-space: nowrap; }
+  .tablewrap { overflow-x: auto; margin: 16px 0 20px; }
+  .tablewrap table { margin: 0; min-width: 560px; }
+  aside.note {
+    border-left: 3px solid var(--rule); padding: 2px 0 2px 16px;
+    color: var(--text-muted); font-size: 0.9375rem; margin: 20px 0;
+  }
+  footer {
+    margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--rule);
+    font-size: 0.8125rem; color: var(--text-faint);
+  }
+  svg text { font-family: "Pretendard", -apple-system, "Apple SD Gothic Neo", "Noto Sans KR", system-ui, sans-serif; }
+  svg .mono { font-family: ui-monospace, "SF Mono", monospace; }
+</style>
+</head>
+<body>
+<main>
+  <p class="home-top" style="margin:0 0 28px;font-size:0.8125rem"><a href="../">← today i learned</a></p>
+
+  <h1>글자가 겹치면 폰트를 고치면 된다</h1>
+  <p class="lede">터미널 상태줄에서 <code>↑</code> 위에 다음 글자가 포개졌다. 앱 설정을 뒤지는 대신 TTF 를 직접 패치했고, 그 과정에서 East-Asian Width, Windows 폰트 폴백, 세로 메트릭, 광학 중심, 그리고 Windows Terminal 의 미수정 크래시 버그까지 한 바퀴 돌았다. 2026년 6월 말부터 7월 중순까지, dotfiles 저장소(kil9conf)에 남은 커밋 11개의 기록이다.</p>
+
+  <h2>증상: "main ↑1" 에서 ↑ 위에 1 이 포개진다</h2>
+  <p>Windows Terminal(WSL)에서 herdr(터미널 에이전트 오케스트레이터) 사이드바가 <code>main ↑1</code> 을 그리면 <code>↑</code> 와 <code>1</code> 이 겹쳐 보였다. 본문에서도 <code>§4</code> 의 <code>§</code> 위에 <code>4</code> 가 올라앉았다. 프롬프트나 상태줄에 기호를 쓰는 앱(herdr, Claude Code, p10k, starship)마다 같은 증상이 났다.</p>
+  <p>원인은 폭 계산의 불일치다. 터미널 앱은 unicode-width 표준(비-CJK 테이블)에 따라 <code>↑</code> 같은 문자를 1셀로 세고 커서를 1칸만 전진시킨다. 그런데 사용 중이던 한글 폰트 NotoSansKR Nerd Font Compact 는 이 글리프를 2셀 폭으로 그린다. 앱이 1칸 뒤에 다음 글자를 찍으니, 폰트가 그린 2셀짜리 글리프의 오른쪽 절반 위에 다음 글자가 포개진다.</p>
+
+  <div class="figwrap">
+  <figure>
+  <svg viewBox="0 0 640 210" width="640" role="img" aria-label="앱이 세는 폭과 폰트가 그리는 폭이 어긋나 글자가 겹치는 개념도">
+    <!-- row 1: app view -->
+    <text x="0" y="18" font-size="13" fill="var(--text-muted)">앱이 세는 폭 (unicode-width: ↑ = 1셀)</text>
+    <g transform="translate(0,28)">
+      <g fill="none" stroke="var(--rule)">
+        <rect x="0.5" y="0.5" width="40" height="48"/><rect x="40.5" y="0.5" width="40" height="48"/>
+        <rect x="80.5" y="0.5" width="40" height="48"/><rect x="120.5" y="0.5" width="40" height="48"/>
+        <rect x="160.5" y="0.5" width="40" height="48"/><rect x="200.5" y="0.5" width="40" height="48"/>
+        <rect x="240.5" y="0.5" width="40" height="48"/>
+      </g>
+      <g font-size="24" class="mono" fill="var(--text)" text-anchor="middle">
+        <text x="20" y="33">m</text><text x="60" y="33">a</text><text x="100" y="33">i</text>
+        <text x="140" y="33">n</text><text x="220" y="33" fill="var(--accent)">↑</text><text x="260" y="33">1</text>
+      </g>
+    </g>
+    <!-- row 2: font view -->
+    <text x="0" y="112" font-size="13" fill="var(--text-muted)">폰트가 그리는 폭 (CJK 폰트: ↑ = 2셀) → 다음 글자와 겹침</text>
+    <g transform="translate(0,122)">
+      <g fill="none" stroke="var(--rule)">
+        <rect x="0.5" y="0.5" width="40" height="48"/><rect x="40.5" y="0.5" width="40" height="48"/>
+        <rect x="80.5" y="0.5" width="40" height="48"/><rect x="120.5" y="0.5" width="40" height="48"/>
+        <rect x="160.5" y="0.5" width="40" height="48"/><rect x="200.5" y="0.5" width="40" height="48"/>
+        <rect x="240.5" y="0.5" width="40" height="48"/>
+      </g>
+      <rect x="200.5" y="0.5" width="80" height="48" fill="var(--warn)" opacity="0.14"/>
+      <g font-size="24" class="mono" fill="var(--text)" text-anchor="middle">
+        <text x="20" y="33">m</text><text x="60" y="33">a</text><text x="100" y="33">i</text>
+        <text x="140" y="33">n</text>
+        <text x="240" y="34" font-size="36" fill="var(--warn)">↑</text>
+        <text x="260" y="33">1</text>
+      </g>
+      <text x="292" y="30" font-size="12" fill="var(--warn)">← 커서는 1칸만 전진, 글리프는 2칸 차지</text>
+    </g>
+  </svg>
+  <figcaption>앱은 ↑ 를 1셀로 세고 바로 다음 칸에 1 을 찍지만, 폰트는 ↑ 를 2셀 폭으로 그려 1 이 글리프 오른쪽 절반과 포개진다.</figcaption>
+  </figure>
+  </div>
+
+  <p>이 어긋남의 뿌리는 유니코드의 East-Asian Width 속성이다. <code>↑ ↓ ● ○ ◆ § ¶ × ±</code> 같은 문자는 EAW 가 Ambiguous 로 지정돼 있어서, CJK 조판 맥락에서는 전각(2셀), 그 외에는 반각(1셀)으로 취급해도 된다. 한글 폰트는 CJK 관례대로 2셀로 그리고, 터미널 앱은 비-CJK 테이블로 1셀로 센다. 둘 다 "표준대로" 인데 화면만 깨진다.</p>
+  <p>터미널 쪽 설정으로 우회할 수도 있지만(ambiguous width 를 wide 로 강제하는 옵션이 있는 터미널도 있다), 그러면 반대로 앱이 세는 폭과 또 어긋난다. 앱들은 어차피 1셀로 센다. 그렇다면 답은 하나다. <strong>폰트가 1셀로 그리게 만들면 된다.</strong></p>
+
+  <h2>1차 수정: advance 를 반칸으로 줄인 패치 폰트 (7/12)</h2>
+  <p>fontTools 로 TTF 를 열어 문제 글리프의 advance(폭)를 반칸(500/1000upem)으로 줄인 수정판을 만들었다. <code>script/patch-font-halfwidth.py</code> 가 그 패처이고, 결과물 패밀리명은 "NotoSansKR NFC Fixed". 한글과 영문 글리프는 손대지 않으므로 본문 모양은 원본과 동일하다.</p>
+  <p>폭만 줄이면 잉크가 셀 밖으로 삐져나가므로, 글리프 성격에 따라 변환을 세 갈래로 나눴다.</p>
+  <ul>
+    <li><strong>박스/블록 문자(U+2500-U+259F)</strong>: x축만 절반 스케일. 선이 셀 가장자리에 닿아 이웃 셀과 접합돼야 하므로 균등 축소하면 안 된다.</li>
+    <li><strong>잉크가 이미 반칸에 들어가는 글리프(↑ ↓ │ 등)</strong>: 왜곡 없이 이동만.</li>
+    <li><strong>그 외(● ○ ◆ 등)</strong>: 균등 축소 후 중앙 정렬. Nerd Font 의 Mono 변형이 쓰는 방식과 같다.</li>
+  </ul>
+  <p>설치 스크립트(<code>bootstrap/install-wt-fixed-font.sh</code>)는 WSL 에서 Windows 사용자 폰트 디렉터리로 복사하고 HKCU 레지스트리에 등록한다(멱등). WT 프로필 3종의 face 를 패치 폰트로 바꾸는 것까지가 한 세트다.</p>
+
+  <h3>같은 날 저녁: § 는 왜 여전히 겹치는가</h3>
+  <p>첫 판은 스캔 범위를 기호 블록 창(U+2000-U+2BFF)으로 한정했는데, <code>§ ¶ × ± ®</code> 처럼 그 범위 밖에 사는 Ambiguous 문자가 여전히 2셀로 그려졌다. 그래서 스캔을 폰트 cmap 전체로 넓히되 정책을 이원화했다. 기호 블록 안은 폭이 넓은 글리프 전부, 블록 밖은 EAW=Ambiguous 인 것만 반칸 처리한다. 범위 밖의 Narrow 글자(라틴, 구두점)까지 줄이면 본문 폭이 깨지기 때문이다.</p>
+  <p>이때 빌드 구조도 바꿨다. 설치할 때마다 런타임에 패치하던 것을 없애고, 패치 완료본 TTF 를 저장소(<code>var/fonts/</code>)에 커밋해 설치 스크립트는 복사와 등록만 하게 했다(fontTools 의존 제거). 그리고 폰트 파일이 WT 에 로드돼 잠겨 있으면 덮어쓰기가 실패하므로, 옛 파일을 <code>.locked-old</code> 로 rename 한 뒤 새 파일을 놓는 우회를 넣었다. Windows 는 열려 있는 파일의 덮어쓰기는 막지만 rename 은 허용한다. 이 우회가 나중에 다른 사건의 복선이 된다.</p>
+
+  <h2>회귀: 라이브 설정 export 가 수정을 되돌리다 (7/13)</h2>
+  <p>하루 뒤, 다 고쳐 놓은 겹침이 재발했다. 범인은 폰트가 아니라 설정 관리 습관이었다. WT 색 구성표를 추가하는 커밋이 라이브 WT 의 <code>settings.json</code> export 를 통째로 다시 커밋했는데, 그 라이브 설정이 아직 원본 폰트(NotoSansKR Nerd Font Compact)를 가리키고 있었다. 패치 폰트도, 패처도, 문서도 멀쩡한데 프로필만 원본으로 되돌아가 수정이 무력화된 상태.</p>
+  <p>프로필을 복원하는 것으로 끝내지 않고 재발 방지를 두 겹 깔았다.</p>
+  <ul>
+    <li>부트스트랩 검증(<code>verify.sh</code>)에 wt-fixed-font 설치 여부와 미패치 프로필 잔존 점검을 추가했다(WSL 전용, WARN). 이제 환경 재적용 때마다 자동으로 걸린다.</li>
+    <li>설치 스크립트가 폰트 파일만 놓고 끝나지 않고, Stable / Preview / 비패키지 세 위치의 <code>settings.json</code> 을 훑어 face 를 패치 폰트로 치환(repoint)하게 했다. 폰트가 이미 설치돼 있어도 repoint 는 항상 수행한다. "폰트는 깔렸는데 프로필이 옛 폰트를 가리켜 겹침이 안 사라지는" 함정을 구조적으로 막는다.</li>
+  </ul>
+  <p>그런데 이 repoint 도 구멍이 있었다. 이 머신의 WT 는 Portable 판이라 후보 경로 3곳 어디에도 설정이 없었고, 스크립트는 "찾지 못함"만 찍고 성공으로 끝났다. 폰트만 깔리고 프로필은 그대로. 이틀 뒤 Portable 경로(<code>Programs/WindowsTerminalPortable/settings/settings.json</code>)를 후보에 추가하고서야 닫혔다. 조용히 성공하는 스크립트가 제일 무섭다.</p>
+
+  <h2>2번째 갈래: 글리프가 없어서 생기는 겹침 (7/15)</h2>
+  <p>이제 다 끝난 줄 알았는데, 상태줄의 <code>↻</code>(U+21BB)가 다음 글자와 겹쳤다. 그런데 이번엔 진단이 달랐다. <code>↻</code> 는 EAW=Neutral 이라 앱이 1셀로 세는 게 맞고, 폰트도 잘못이 없다. <strong>폰트에 이 글리프가 아예 없었다.</strong> 그래서 Windows 폰트 폴백이 다른 폰트에서 끌어왔고, 하필 그 폴백 폰트의 advance 가 2셀이었던 것. 증상은 똑같은데 원인이 전혀 다른 두 번째 갈래다.</p>
+
+  <div class="tablewrap">
+  <table>
+    <tr><th></th><th>갈래 1: 글리프가 있는데 2셀</th><th>갈래 2: 글리프가 없어서 폴백</th></tr>
+    <tr><td>대표 문자</td><td><code>↑ ● § ×</code> (EAW=Ambiguous)</td><td><code>↻</code> U+21BB (EAW=Neutral)</td></tr>
+    <tr><td>폭을 세는 앱</td><td>1셀 (비-CJK 테이블)</td><td>1셀 (옳음)</td></tr>
+    <tr><td>실제로 그려지는 폭</td><td>폰트 자신이 2셀로 그림</td><td>폴백 폰트가 2셀로 그림</td></tr>
+    <tr><td>고치는 방법</td><td>advance 를 반칸으로 패치</td><td>글리프를 소스 폰트에서 병합</td></tr>
+    <tr><td>담당 스크립트</td><td><code>patch-font-halfwidth.py</code></td><td><code>merge-font-symbols.py</code></td></tr>
+  </table>
+  </div>
+
+  <p>기존 패처는 폰트에 <em>있는</em> 글리프의 advance 만 줄이므로 이 갈래를 못 고친다. 그리고 한 글자씩 대응하면 두더지잡기가 된다. NotoSansKR NFC 는 기호 블록 1712자 중 352자만 갖고 있어 구멍이 1360개다. 그래서 빈 칸을 Noto 소스 폰트에서 <strong>일괄로</strong> 메우는 병합 단계(<code>merge-font-symbols.py</code>)를 패치 앞에 뒀다. 병합된 글리프는 기존 범위 로직에 그대로 걸려 자동으로 반칸이 되므로, merge → patch 순서가 강제된다. 결과적으로 글리프 수는 25135 → 27407 (+2272), 겹침 위험군 32개가 해소됐다.</p>
+
+  <div class="figwrap">
+  <figure>
+  <svg viewBox="0 0 660 150" width="660" role="img" aria-label="폰트 빌드 파이프라인: Noto 소스 4종에서 병합, 반칸 패치, 회귀 검사, 설치 순서">
+    <defs>
+      <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+        <path d="M0,0 L10,5 L0,10 z" fill="var(--text-faint)"/>
+      </marker>
+    </defs>
+    <g font-size="12.5" text-anchor="middle">
+      <rect x="4" y="30" width="130" height="66" rx="8" fill="none" stroke="var(--rule)"/>
+      <text x="69" y="52" fill="var(--text)">Noto 소스 4종</text>
+      <text x="69" y="70" fill="var(--text-faint)" font-size="11">Sans · Math ·</text>
+      <text x="69" y="85" fill="var(--text-faint)" font-size="11">Symbols · Symbols2</text>
+
+      <rect x="172" y="30" width="128" height="66" rx="8" fill="none" stroke="var(--accent)"/>
+      <text x="236" y="52" fill="var(--text)">merge</text>
+      <text x="236" y="70" fill="var(--text-faint)" font-size="11">빈 글리프 1360칸</text>
+      <text x="236" y="85" fill="var(--text-faint)" font-size="11">일괄 병합</text>
+
+      <rect x="338" y="30" width="120" height="66" rx="8" fill="none" stroke="var(--accent)"/>
+      <text x="398" y="52" fill="var(--text)">patch</text>
+      <text x="398" y="70" fill="var(--text-faint)" font-size="11">ambiguous 기호</text>
+      <text x="398" y="85" fill="var(--text-faint)" font-size="11">advance 반칸화</text>
+
+      <rect x="496" y="30" width="118" height="66" rx="8" fill="none" stroke="var(--rule)"/>
+      <text x="555" y="52" fill="var(--text)">check</text>
+      <text x="555" y="70" fill="var(--text-faint)" font-size="11">겹침 위험 기호</text>
+      <text x="555" y="85" fill="var(--text-faint)" font-size="11">회귀 검사</text>
+
+      <line x1="134" y1="63" x2="170" y2="63" stroke="var(--text-faint)" marker-end="url(#arr)"/>
+      <line x1="300" y1="63" x2="336" y2="63" stroke="var(--text-faint)" marker-end="url(#arr)"/>
+      <line x1="458" y1="63" x2="494" y2="63" stroke="var(--text-faint)" marker-end="url(#arr)"/>
+      <text x="330" y="130" fill="var(--text-faint)" font-size="11.5">build-fixed-font.sh 가 소스 다운로드부터 검사까지 래핑. 순서가 바뀌면 병합분이 반칸이 안 된다.</text>
+    </g>
+  </svg>
+  <figcaption>2단계 빌드 파이프라인. merge 가 채운 글리프를 patch 가 반칸으로 줄이므로 순서가 강제된다.</figcaption>
+  </figure>
+  </div>
+
+  <p>병합에도 규칙이 여럿 필요했다.</p>
+  <ul>
+    <li><strong>소스 선정</strong>: 전부 OFL(재배포 자유)이고 upem 1000 으로 target 과 같아 스케일 변환이 필요 없는 Noto 계열만 썼다. upem 이 다르면 조용히 찌그러진 글리프가 들어가므로 병합 시 검증해 중단한다. 참고로 <code>↻</code> 는 NotoSansMath 에만 있어서 Symbols 계열만으로는 못 메운다.</li>
+    <li><strong>EAW=Wide 이모지는 제외</strong>: ⌛ ⚪ ✅ 같은 문자는 앱도 폰트도 2셀로 합의해 안 깨진다. 오히려 흑백 글리프를 병합하면 컬러 이모지(seguiemj) 폴백을 잃는다.</li>
+    <li><strong>제로폭·포맷 문자(ZWJ 등) 제외</strong>: 보이는 글리프가 있으면 안 되는 문자들이다.</li>
+    <li><strong>세로 메트릭(vmtx) 함정</strong>: NotoSansKR 은 세로쓰기용 vmtx 테이블을 갖는데, 글리프만 추가하면 테이블 길이가 어긋나 폰트가 아예 열리지 않는다. 터미널은 세로쓰기를 안 쓰므로 원본 관례(advanceHeight=upem, vOrigin=800)를 따라 채워 넣었다.</li>
+  </ul>
+
+  <h2>겹침은 사라졌는데 글자가 처져 보인다</h2>
+  <p>병합 직후, <code>↻</code> 겹침은 사라졌는데 이번엔 글자가 옆 숫자보다 눈에 띄게 낮게 앉았다. 폰트마다 기호를 두는 높이 관례가 다른데 소스의 세로 위치를 그대로 복사한 탓이다. NotoSansMath 의 <code>↻</code> 는 수학 조판의 math axis 에 맞춰 그려져 광학 중심이 278(upem 좌표)인데, 이 폰트의 기호 관례는 380 이다. <code>● ○ ◆ ↑ ↓ ×</code> 전부 376-382 에 모여 있다. 100유닛 차이는 육안으로 확연하다.</p>
+
+  <div class="figwrap">
+  <figure>
+  <svg viewBox="0 0 560 170" width="560" role="img" aria-label="광학 중심 비교: 소스 그대로 복사하면 중심 278 로 낮게 앉고, 재중심하면 target 관례인 380 에 맞는다">
+    <g font-size="12">
+      <!-- baseline & center guides -->
+      <line x1="40" y1="130" x2="520" y2="130" stroke="var(--rule)"/>
+      <text x="524" y="134" fill="var(--text-faint)" font-size="11">baseline 0</text>
+      <line x1="40" y1="77" x2="520" y2="77" stroke="var(--accent)" stroke-dasharray="4 4" opacity="0.65"/>
+      <text x="524" y="72" fill="var(--accent)" font-size="11">중심 380</text>
+      <text x="524" y="86" fill="var(--accent)" font-size="11">(관례)</text>
+      <!-- house glyphs -->
+      <g class="mono" text-anchor="middle" fill="var(--text)" font-size="30">
+        <text x="80" y="88">●</text>
+        <text x="130" y="88">↑</text>
+        <text x="180" y="88">×</text>
+      </g>
+      <text x="130" y="152" fill="var(--text-faint)" text-anchor="middle" font-size="11.5">원래 있던 기호 (중심 376-382)</text>
+      <!-- low glyph -->
+      <text x="300" y="102" class="mono" text-anchor="middle" fill="var(--warn)" font-size="30">↻</text>
+      <line x1="282" y1="91" x2="318" y2="91" stroke="var(--warn)" stroke-dasharray="3 3" opacity="0.8"/>
+      <text x="300" y="152" fill="var(--warn)" text-anchor="middle" font-size="11.5">병합 직후: 중심 278</text>
+      <!-- fixed glyph -->
+      <text x="440" y="88" class="mono" text-anchor="middle" fill="var(--accent)" font-size="30">↻</text>
+      <text x="440" y="152" fill="var(--accent)" text-anchor="middle" font-size="11.5">재중심 후: 380</text>
+      <line x1="330" y1="95" x2="410" y2="82" stroke="var(--text-faint)" marker-end="url(#arr2)"/>
+      <defs>
+        <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0,0 L10,5 L0,10 z" fill="var(--text-faint)"/>
+        </marker>
+      </defs>
+    </g>
+  </svg>
+  <figcaption>NotoSansMath 의 ↻ 는 수학 축 기준이라 광학 중심이 278. target 폰트의 기호 관례(380)로 올려야 옆 글자와 정렬된다.</figcaption>
+  </figure>
+  </div>
+
+  <p>재중심 로직에서 마음에 드는 부분은 관례값을 하드코딩하지 않은 것이다. target 폰트에 원래 있던 기호 표본(<code>● ○ ◆ ↑ ↓ × ■ ▲</code>)의 광학 중심을 재서 중앙값으로 역산한다. 업스트림 폰트가 바뀌어도 따라간다.</p>
+  <p>그리고 전부 올리면 안 된다. 세로 위치 자체가 의미인 블록이 있다.</p>
+  <ul>
+    <li><strong>브라유(U+2800-28FF)</strong>: 점 격자가 글리프 사이에 고정돼야 한다. 개별 재중심하면 켜진 점만 bbox 에 잡혀(⠋ 는 309..699, ⠹ 는 59..699) 스피너가 돌 때마다 점이 위아래로 튄다.</li>
+    <li><strong>위첨자·아래첨자·문자꼴 기호</strong>: 베이스라인 기준으로 읽히므로 소스 그대로 둔다.</li>
+  </ul>
+  <p>그래서 화살표, 수학 연산자, 기하 도형, 딩벳처럼 글자 사이에 홀로 놓이는 블록만 골라 재중심했다(1283자). 이동만 하므로 모양과 폭은 변하지 않는다. 크기도 손대지 않았다. 반칸 셀에서 원형 기호의 기하학적 한계는 높이 468 인데, Nerd Font 자체 아이콘도 468 로 같은 값이라 이미 한계에 있다.</p>
+
+  <h2>보너스 트랙: 폰트를 갈면 WT 가 안 켜진다</h2>
+  <p>폰트를 교체한 날마다 Windows Terminal 이 창도 못 띄우고 죽었다. "패치 폰트가 깨졌나" 싶지만 폰트는 무혐의다. 원본과 upem, advance=0 글리프 수(742)가 완전히 같았다. 실체는 WT 의 미수정 버그(<a href="https://github.com/microsoft/terminal/issues/16579">microsoft/terminal#16579</a>)로, 폰트 셀 메트릭이 0 으로 잡히면 <code>GetViewportInCharacters()</code> 가 0 으로 나눠 크래시한다. 이벤트 로그에 <code>0xc0000094</code>(integer divide by zero) + <code>Microsoft.Terminal.Control.dll</code> 로 찍힌다.</p>
+  <p>더 흥미로운 건 "왜 WT 를 재시작해도 안 낫고 재부팅해야 낫는가" 였다. 폰트 파일을 붙들고 있는 프로세스는 WT 가 아니라 <code>fontdrvhost.exe</code> 와 FontCache 서비스이고, 이들은 WT 보다 오래 산다. WT 만 재시작하면 이 둘이 rename 우회로 갈린 옛 폰트 데이터를 그대로 물고 있어 소용이 없고, 로그오프나 재부팅으로 둘이 재시작돼야 풀린다. 재부팅이 듣는 게 우연이 아니었다.</p>
+  <p>설치를 WT 안에서 돌리는 한 이건 못 피한다. 자기가 쓰는 폰트라 항상 잠겨 있어 rename 우회로 빠지고, 그 우회가 스테일 상태를 만든다. 폰트 재생성이 드물어 감수하기로 하고, 대신 설치 스크립트의 안내문을 "재시작하면 된다"에서 실상대로 고쳤다. 제대로 고친다면 파일명에 내용 해시를 붙여 매번 새 경로에 쓰고 <code>AddFontResourceW</code> + <code>WM_FONTCHANGE</code> 로 세션에 즉시 반영하는 방향인데, 검증이 필요해 남겨뒀다.</p>
+
+  <aside class="note">
+    <p style="margin:0">잡동사니 하나 더: 커밋된 TTF 두 개에 실행권한(100755)이 붙어 있었다. WSL 의 DrvFs 가 Windows 파일시스템을 전부 777 로 노출하는데, <code>/mnt/c</code> 에서 복사해 <code>git add -f</code> 하면서 실행비트가 그대로 박제된 것. 동작엔 영향이 없지만 저장소 위생 차원에서 644 로 정리했다.</p>
+  </aside>
+
+  <h2>타임라인</h2>
+  <div class="tablewrap">
+  <table>
+    <tr><th>날짜</th><th>커밋</th><th>내용</th></tr>
+    <tr><td>06-22</td><td><code>a468a83</code></td><td>WT 사용 폰트(NotoSansKR Nerd Font Compact)를 저장소에 강제 커밋. 관리 시작.</td></tr>
+    <tr><td>07-12</td><td><code>c1f08be</code></td><td>패치 폰트 "NotoSansKR NFC Fixed" 도입. ambiguous 기호 advance 반칸화.</td></tr>
+    <tr><td>07-12</td><td><code>5a3c689</code></td><td>스캔을 cmap 전체로 확장(§ ¶ × 해결). 패치본 커밋, <code>.locked-old</code> rename 우회.</td></tr>
+    <tr><td>07-13</td><td><code>e34b2a5</code></td><td>라이브 설정 export 커밋이 만든 회귀 복원.</td></tr>
+    <tr><td>07-13</td><td><code>83c19a7</code></td><td>부트스트랩 재적용 흐름에 편입, verify 점검 추가.</td></tr>
+    <tr><td>07-14</td><td><code>d25af9a</code></td><td>설치가 라이브 WT 프로필 face 도 repoint.</td></tr>
+    <tr><td>07-15</td><td><code>4f0f8e7</code></td><td>2번째 갈래(글리프 부재 → 폴백) 해결. merge 단계 신설, +2272 글리프.</td></tr>
+    <tr><td>07-15</td><td><code>1c058be</code></td><td>WT Portable 설정 경로 누락으로 repoint 가 조용히 스킵되던 구멍.</td></tr>
+    <tr><td>07-15</td><td><code>c5b91a5</code></td><td>병합 글리프 광학 중심 재정렬(278 → 380). 브라유는 제외.</td></tr>
+    <tr><td>07-15</td><td><code>13ab61a</code></td><td>TTF 실행비트 제거(DrvFs 777 박제).</td></tr>
+    <tr><td>07-15</td><td><code>98d8046</code></td><td>WT 크래시(#16579)의 정체와 재부팅이 답인 이유 문서화.</td></tr>
+  </table>
+  </div>
+
+  <h2>소감: 늘 거슬렸지만 손대지 못했던 영역</h2>
+  <p>터미널에서 기호가 겹치는 건 십몇 년을 봐 온 증상이다. 그때마다 "CJK 폰트가 원래 그래" 하고 넘기거나, 겹치는 기호를 피해서 상태줄을 다시 꾸미거나, 폰트를 통째로 갈아 다른 트레이드오프를 안았다. 폰트 파일을 열어 glyph advance 를 고친다는 선택지는 알고는 있어도 실행 비용이 너무 컸다. fontTools 사용법, cmap 과 hmtx 와 vmtx 의 관계, EAW 테이블, 폴백 체인 같은 걸 다 공부해야 며칠짜리다.</p>
+  <p>이번엔 그 대부분을 Claude Code 가 했다. 증상을 설명하면 EAW Ambiguous 가설을 세우고, 패처를 쓰고, § 가 남았다고 하면 cmap 스캔으로 넓히고, ↻ 겹침에선 "이건 이모지 폭 문제가 아니라 글리프 부재 폴백" 이라는 다른 진단을 내리고, 글자가 처져 보인다니까 광학 중심을 재서 폰트의 자체 관례를 역산해 맞췄다. 브라유 점 격자를 재중심에서 빼야 한다는 것 같은 디테일은 솔직히 나 혼자였으면 스피너가 튀는 걸 보고 나서야 알았을 것이다. 사람이 한 건 증상을 정확히 보고하고, 결과를 눈으로 검수하고, 방향을 정하는 일이었다.</p>
+  <p>결과물은 재현 가능한 파이프라인으로 남았다. 새 기호가 또 겹치면 <code>check-font-coverage.py</code> 로 확인하고 <code>build-fixed-font.sh</code> 로 재생성하면 된다. 부트스트랩 검증에도 묶여 있어 새 머신에서도 자동으로 걸린다. 이 정도 깊이의 환경 튜닝을, 늘 거슬려하면서도 엄두를 못 내던 것을 마침내 해치웠다는 게 이번 삽질의 가장 큰 소득이다. 화면에서 <code>↑1</code> 이 또렷하게 떨어져 보이는 게 이렇게 기분 좋은 일일 줄은 몰랐다.</p>
+
+  <footer><p><a href="../">← today i learned</a></p></footer>
+</main>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
