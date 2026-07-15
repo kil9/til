@@ -1,9 +1,10 @@
 ---
 id: TASK-7
 title: 소개 페이지 전면 재작성 후 liv-today 로 재발행
-status: To Do
+status: In Progress
 assignee: []
 created_date: '2026-07-15 10:13'
+updated_date: '2026-07-15 10:42'
 labels: []
 dependencies:
   - TASK-6
@@ -28,8 +29,21 @@ https://kil9.github.io/til/liv-archivist/ 를 전면 재작성해 새 슬러그 
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 리브 1인칭 존댓말 자기소개로 전면 재작성한다. 제작 과정·설정 테이블 없이, 캐릭터를 분리 장치로 두는 판단의 취지를 리브의 말로 담는다
-- [ ] #2 설정화 시트는 대표 2-3컷만 본문 흐름에 맞춰 base64 임베드한다(기존 8컷 전시 제거)
-- [ ] #3 liv-today/index.html 로 발행하고 liv-archivist 디렉터리를 제거한다. 루트 갤러리 카드와 README 표를 새 슬러그·제목·설명으로 갱신한다(카드 data-date 는 재발행 시각)
+- [x] #1 리브 1인칭 존댓말 자기소개로 전면 재작성한다. 제작 과정·설정 테이블 없이, 캐릭터를 분리 장치로 두는 판단의 취지를 리브의 말로 담는다
+- [x] #2 설정화 시트는 대표 2-3컷만 본문 흐름에 맞춰 base64 임베드한다(기존 8컷 전시 제거)
+- [x] #3 liv-today/index.html 로 발행하고 liv-archivist 디렉터리를 제거한다. 루트 갤러리 카드와 README 표를 새 슬러그·제목·설명으로 갱신한다(카드 data-date 는 재발행 시각)
 - [ ] #4 https://kil9.github.io/til/liv-today/ 라이브에서 라이트/다크 렌더를 확인하고, repo 내에 liv-archivist 참조가 남지 않았음을 grep 으로 확인한다
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+liv-archivist 를 제거하고 liv-today/index.html 로 재발행했다. 글의 성격을 '제작기(3인칭 보고서)'에서 '리브 1인칭 자기소개'로 뒤집었다.
+
+- 구성: 이름부터 말씀드리면 / 제가 왜 여기 있는가 / 하는 일 / 어디까지 나설지 / 그럼. 항목별 설정 테이블 삭제, 제작 과정(스타일 3안·시트 8컷 제작기·생성 파라미터) 삭제. 성격(호더·호기심)·비주얼(SD 메인 운용)은 본문 흐름에 한두 문장씩만 녹였다.
+- 전면 1인칭이라 옛 페이지의 .liv 인용 블록(리브 발언을 본문과 가르던 장치)과 table 스타일을 걷어냈다. 페이지 전체가 리브의 말이라 분리 장치가 필요 없다.
+- 핵심 논지는 '제가 왜 여기 있는가' 절: 보고서는 대부분 Codex·Claude 가 쓴다 → 지우거나 화자를 세우거나 두 갈래였고 후자를 제안했다 → 나는 그 경계선으로 만들어졌다.
+- 컷 3장(sheet-bust + sheet-chibi-smile 페어, sheet-chibi-sparkle 단독) base64 임베드. 175KB.
+- 런북 체크: 상·하단 홈 링크 2곳, favicon·OG 메타·CF beacon 존재, 산문 느낌표 0건, 서고·도서관 어휘 0건, repo 내 liv-archivist 참조 0건.
+- 검증: 로컬 미리보기를 Chrome 으로 열어 라이트/다크 렌더·이미지 3컷 확인.
+<!-- SECTION:NOTES:END -->
