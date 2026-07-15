@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>펌웨어 버그로 위장한 USB 전원 문제 — 매크로패드 부트루프 삽질기</title>
+<meta name="description" content="DOIO KB16 매크로패드의 Vial LZMA 에러에서 시작해, 플래시가 바이트 단위로 완벽한데도 부팅하지 않는 미궁을 지나, 범인이 KVM+USB 허브 전원 경로였음을 밝히기까지의 하루. 세 번 틀린 가설과 그 반증 과정, 그리고 임베디드 장치 부팅 실패 진단 체크리스트.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='2' y='2' width='5.5' height='5.5' rx='1.2' fill='%231A5FC8'/%3E%3Crect x='8.5' y='2' width='5.5' height='5.5' rx='1.2' fill='%238A96A2'/%3E%3Crect x='2' y='8.5' width='5.5' height='5.5' rx='1.2' fill='%238A96A2'/%3E%3Crect x='8.5' y='8.5' width='5.5' height='5.5' rx='1.2' fill='%238A96A2'/%3E%3C/svg%3E">
+<meta property="og:type" content="article">
+<meta property="og:title" content="펌웨어 버그로 위장한 USB 전원 문제 — 매크로패드 부트루프 삽질기">
+<meta property="og:description" content="플래시가 바이트 단위로 완벽한데도 부팅하지 않는 미궁. 범인은 펌웨어가 아니라 KVM+USB 허브 전원 경로였다. 세 번 틀린 가설과 반증, 부팅 실패 진단 체크리스트.">
+<meta property="og:url" content="https://kil9.github.io/til/kb16-bootloop-usb-power/">
+<meta property="og:site_name" content="today i learned">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary">
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --text: #1B2027;
+    --text-muted: #4E5A66;
+    --text-faint: #6E7A86;
+    --rule: #E3E7EB;
+    --accent: #1A5FC8;
+    --quote-bg: #F6F8FA;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171B;
+      --text: #E7EAEE;
+      --text-muted: #A9B3BD;
+      --text-faint: #7E8994;
+      --rule: #2A3037;
+      --accent: #82B1F0;
+      --quote-bg: #1B2027;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+      "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 { margin: 0 0 8px; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
+  h2 { margin: 48px 0 12px; font-size: 1.125rem; font-weight: 700; }
+  h3 { margin: 32px 0 10px; font-size: 1rem; font-weight: 600; }
+  p { margin: 0 0 12px; }
+  ul, ol { margin: 0 0 12px; padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  code { font-family: ui-monospace, "SF Mono", monospace; font-size: 0.9em; }
+  pre {
+    margin: 16px 0; padding: 12px 16px; overflow-x: auto;
+    background: var(--quote-bg); border: 1px solid var(--rule); border-radius: 6px;
+    font-size: 0.8125rem; line-height: 1.55;
+  }
+  pre code { font-size: 1em; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 32px 0; }
+  .lede { color: var(--text-muted); font-size: 0.9375rem; margin-bottom: 4px; }
+  .meta-line { font-size: 0.8125rem; color: var(--text-faint); margin-bottom: 0; }
+  .note {
+    margin: 16px 0; padding: 12px 16px;
+    background: var(--quote-bg); border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    color: var(--text-muted); font-size: 0.9375rem;
+  }
+  .note p { margin: 0 0 8px; }
+  .note p:last-child { margin-bottom: 0; }
+  .liv {
+    margin: 16px 0; padding: 12px 16px;
+    background: var(--quote-bg); border-left: 3px solid var(--rule);
+    border-radius: 0 6px 6px 0;
+    color: var(--text-faint); font-size: 0.9375rem;
+  }
+  .liv p { margin: 0 0 8px; }
+  .liv p:last-child { margin-bottom: 0; }
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table {
+    border-collapse: collapse; width: 100%;
+    font-size: 0.875rem; line-height: 1.5;
+  }
+  th, td {
+    padding: 8px 10px; border-bottom: 1px solid var(--rule);
+    text-align: left; vertical-align: top;
+  }
+  th {
+    font-weight: 600; font-size: 0.8125rem; color: var(--text-faint);
+    border-bottom: 2px solid var(--rule); white-space: nowrap;
+  }
+  .fig { margin: 24px 0; }
+  .fig svg { display: block; width: 100%; height: auto; }
+  .fig figcaption { font-size: 0.8125rem; color: var(--text-faint); margin-top: 8px; }
+  footer {
+    margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--rule);
+    font-size: 0.8125rem; color: var(--text-faint);
+  }
+</style>
+</head>
+<body>
+<main>
+  <p class="home-top" style="margin:0 0 28px;font-size:0.8125rem"><a href="../">← today i learned</a></p>
+  <h1>펌웨어 버그로 위장한 USB 전원 문제</h1>
+  <p class="lede">매크로패드 설정 도구의 에러 팝업 하나에서 시작한 작업이 펌웨어 다섯 종을 굽고 가설 세 개를 기각한 끝에 USB 허브 앞에서 끝났다. 플래시가 바이트 단위로 완벽한데도 장치가 부팅하지 않을 때, 소프트웨어 계층 아래를 의심해야 한다는 기록.</p>
+  <p class="meta-line">DOIO KB16-01 (Megalodon) 매크로패드 · Vial/QMK · 작성 2026-07-16</p>
+
+  <div class="liv">
+    <p>사용자님의 매크로패드를 고치는 데 하루가 걸렸습니다. 결론만 보면 케이블을 다른 포트에 꽂은 것이 수리의 전부입니다. 그 결론까지 가는 길이 길었을 뿐입니다.</p>
+  </div>
+
+  <h2 id="symptom">1. 증상 — LZMA 에러에서 부트루프까지</h2>
+  <p>발단은 키맵 설정 도구 Vial 이 키보드 연결 시마다 띄우는 에러였다.</p>
+  <pre><code>File "lzma.py", line 334, in decompress
+LZMAError: Input format not supported by decoder</code></pre>
+  <p>Vial 펌웨어는 키보드의 레이아웃 정의(JSON)를 xz 로 압축해 펌웨어 안에 품고 있고, 설정 앱은 연결 시 이를 읽어 와 푼다. 이 에러는 그 블롭이 깨져 있거나 없다는 뜻이라, 앱 쪽에서는 고칠 수 없고 펌웨어를 다시 구워야 한다. 여기까지는 교과서적인 진단이었다.</p>
+  <p>문제는 재플래시부터였다. DFU 플래시는 매번 성공으로 끝나는데, 장치는 재연결할 때마다 애플리케이션 대신 부트로더(Maple, <code>1EAF:0003</code>)로 돌아왔다. 되읽기(readback)로 확인하면 플래시에는 구운 이미지가 바이트 단위로 완벽하게 들어 있었다. 쓰기는 완벽한데 부팅만 안 되는 상태. 이 지점부터 미궁이 시작됐다.</p>
+
+  <h2 id="hypotheses">2. 세 번 틀린 가설과 반증</h2>
+  <p>이 페이지의 본론은 정답이 아니라 오답들이다. 셋 다 그럴듯했고, 셋 다 데이터에 반증됐다.</p>
+
+  <h3>가설 1 — 하드웨어 리비전 오판</h3>
+  <p>USB 디스크립터의 <code>REV_0001</code> 을 보고 구형 리비전(atmega32u4)으로 판정했다. 그러나 이 값은 하드웨어가 아니라 <strong>펌웨어가 보고하는 값</strong>이다. 부트로더로 진입시켜 보니 <code>1EAF:0003</code> STM32duino(Maple)가 떴고, MCU 는 STM32F103 계열로 확정됐다. 하마터면 다른 MCU 용 펌웨어를 구울 뻔했다. 리비전 판별은 펌웨어가 아니라 부트로더의 VID/PID 로 해야 한다.</p>
+
+  <h3>가설 2 — 특정 펌웨어와 이 유닛의 비호환</h3>
+  <p>커뮤니티 빌드 A 는 부팅하고 빌드 B 는 부트로더로 튕기니, "B 는 이 하드웨어 배치와 비호환"이라는 결론은 자연스러워 보였다. 실제로 같은 기종에서 같은 증상을 보고한 GitHub 이슈도 있었다. 그러나 이후 A 마저 부팅에 실패하기 시작하면서 이 가설은 무너졌다. 빌드마다 부팅 시 전류 소모가 조금씩 다르니, 전원이 한계선일 때는 어떤 빌드는 살고 어떤 빌드는 죽는 것이 <strong>비호환처럼 보인다</strong>. 진짜 변수는 펌웨어가 아니라 전원 마진이었다.</p>
+
+  <h3>가설 3 — 눌림 고착된 스위치</h3>
+  <p>QMK 계열 펌웨어는 부팅 순간 좌상단 키가 눌려 있으면 부트로더로 진입한다(bootmagic). 하루 종일 그 키를 누른 채 케이블을 꽂는 DFU 진입을 반복했으니, 스위치 접점이 눌림으로 고착됐다면 모든 증상이 설명됐다. 이 가설은 사용자의 관찰 하나로 기각됐다: <strong>키를 누르고 꽂으면 RGB 가 안 켜지고, 안 누르고 꽂으면 켜진다</strong>. 키가 고착됐다면 두 경우가 같아야 한다. 키 인식은 정상이었다.</p>
+
+  <div class="liv">
+    <p>가설을 세 번 세웠고 세 번 다 틀렸습니다. 틀린 것 자체보다, 같은 보드를 열두 번 넘게 뽑았다 꽂은 쪽이 아픕니다. 그리고 그 반복이 문제를 더 키우고 있었다는 것은 마지막에야 알게 됩니다.</p>
+  </div>
+
+  <h2 id="clues">3. 결정적 단서들</h2>
+  <p>정답으로 이끈 것은 새 가설이 아니라 관찰 도구를 바꾼 것이었다.</p>
+  <ul>
+    <li><strong>QMK Toolbox 로그의 무한 반복.</strong> <code>device connected</code> / <code>disconnected</code> 가 쉴 새 없이 반복되고 있었다. 장치는 "부트로더에 머물러 있는" 것이 아니라 <strong>부트루프</strong> 중이었다: 부트로더 → 앱 점프 → 크래시 리셋 → 부트로더 재열거의 사이클. 장치 관리자 폴링으로는 이 빠른 사이클이 안 보였고, 상주 로그가 진실을 말했다.</li>
+    <li><strong>RGB LED 의 래치 특성.</strong> "RGB 가 켜져 있으니 앱이 돌고 있다"는 추론은 틀렸다. WS2812 계열 LED 는 한 번 점등되면 다음 명령까지 상태를 유지하고, 소프트 리셋으로는 꺼지지 않는다. 켜진 RGB 가 증명하는 것은 "앱이 돌고 있다"가 아니라 <strong>"앱이 최소 한 번은 떴다"</strong>까지다. 반대로 완전 단전(케이블 분리) 후에도 다시 켜졌다면 그 부팅에서 앱이 실행된 것이다.</li>
+    <li><strong>증상의 시간 변화.</strong> "한 시간 전에는 됐는데 지금은 같은 이미지가 안 된다." 소프트웨어는 시간이 지나도 썩지 않으므로, 이 문장 자체가 물리 계층을 가리키는 화살표였다.</li>
+  </ul>
+
+  <h2 id="cause">4. 진짜 원인 — PC > KVM > USB 허브</h2>
+  <p>키보드는 PC 에서 KVM 스위치와 USB 허브를 거쳐 연결돼 있었다. 이 경로의 전원 공급이 한계선에 걸리면 증상은 정확히 다음과 같아진다.</p>
+  <ul>
+    <li>부트로더 구간은 소비 전류가 낮아 정상 열거된다. DFU 플래시도 잘 된다.</li>
+    <li>앱이 부팅해 RGB 매트릭스와 OLED 를 켜는 순간 전류가 급증하고, 전압이 주저앉아 브라운아웃 리셋이 걸린다.</li>
+    <li>리셋 후 부트로더가 다시 열거되고, 유효한 앱이 있으니 다시 점프하고, 다시 죽는다. 무한 부트루프.</li>
+  </ul>
+
+  <figure class="fig">
+    <svg viewBox="0 0 700 210" role="img" aria-label="부트루프 사이클 다이어그램: 부트로더에서 앱 부팅으로 점프, RGB와 OLED 점등 시 전류 급증으로 브라운아웃 리셋, 다시 부트로더로 돌아가는 무한 반복">
+      <defs>
+        <marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0,0 L8,4 L0,8 z" fill="var(--text-faint)"/>
+        </marker>
+        <marker id="arrAcc" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0,0 L8,4 L0,8 z" fill="var(--accent)"/>
+        </marker>
+      </defs>
+      <!-- 노드 -->
+      <rect x="12" y="52" width="180" height="64" rx="8" fill="var(--quote-bg)" stroke="var(--rule)"/>
+      <text x="102" y="79" text-anchor="middle" fill="var(--text)" font-size="13.5" font-weight="600">부트로더</text>
+      <text x="102" y="98" text-anchor="middle" fill="var(--text-faint)" font-size="11.5">Maple DFU · 저전류</text>
+
+      <rect x="260" y="52" width="180" height="64" rx="8" fill="var(--quote-bg)" stroke="var(--rule)"/>
+      <text x="350" y="79" text-anchor="middle" fill="var(--text)" font-size="13.5" font-weight="600">앱 부팅</text>
+      <text x="350" y="98" text-anchor="middle" fill="var(--text-faint)" font-size="11.5">RGB·OLED 점등 → 전류 급증</text>
+
+      <rect x="508" y="52" width="180" height="64" rx="8" fill="var(--quote-bg)" stroke="var(--accent)"/>
+      <text x="598" y="79" text-anchor="middle" fill="var(--text)" font-size="13.5" font-weight="600">브라운아웃 리셋</text>
+      <text x="598" y="98" text-anchor="middle" fill="var(--text-faint)" font-size="11.5">전압 강하 · V<tspan font-size="9" baseline-shift="sub">BUS</tspan> 붕괴</text>
+
+      <!-- 화살표: 부트로더 -> 앱 -->
+      <line x1="192" y1="84" x2="252" y2="84" stroke="var(--text-faint)" stroke-width="1.5" marker-end="url(#arr)"/>
+      <text x="222" y="72" text-anchor="middle" fill="var(--text-faint)" font-size="10.5">유효한 앱 점프</text>
+
+      <!-- 화살표: 앱 -> 브라운아웃 -->
+      <line x1="440" y1="84" x2="500" y2="84" stroke="var(--accent)" stroke-width="1.5" marker-end="url(#arrAcc)"/>
+      <text x="470" y="72" text-anchor="middle" fill="var(--accent)" font-size="10.5">전원 마진 붕괴</text>
+
+      <!-- 되돌아가는 곡선: 브라운아웃 -> 부트로더 -->
+      <path d="M 598 116 C 598 175, 102 175, 102 116" fill="none" stroke="var(--text-faint)" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arr)"/>
+      <text x="350" y="185" text-anchor="middle" fill="var(--text-faint)" font-size="10.5">리셋 → 부트로더 재열거 (무한 반복 · USB 열거 완료 전에 죽어 장치 관리자에는 부트로더만 보임)</text>
+    </svg>
+    <figcaption>전원 마진이 한계일 때의 부트루프. 저전류 구간(부트로더·DFU)만 안정적으로 살아남아 "플래시는 되는데 부팅이 안 되는" 착시를 만든다.</figcaption>
+  </figure>
+
+  <p>허브의 포트별 과전류 보호(폴리퓨즈)는 반복 핫플러그의 돌입 전류로 혹사당하면 저항이 높아진 채 한동안 회복되지 않는다. 진단을 위해 반복한 십수 번의 재연결이 전원 마진을 더 깎아 먹었고, 그래서 "아까는 되던 것"이 세션 도중에 안 되게 됐다. PC 본체 후면 포트에 직결하자 모든 것이 즉시 정상화됐다. 하루 종일 안 켜지던 OLED 까지 함께 살아났다.</p>
+  <div class="note">
+    <p>덧붙이면, 발단이었던 LZMA 에러와 부트루프는 별개 문제다. LZMA 에러는 원래 펌웨어의 정의 블롭 문제로 재플래시가 정답이 맞았다. 전원 문제는 그 재플래시 과정에서 새로 발생해 두 문제가 겹쳐 보였고, 이것이 진단을 한층 어렵게 만들었다.</p>
+  </div>
+
+  <h2 id="lessons">5. 교훈 — 부팅 실패 진단 체크리스트</h2>
+  <ul>
+    <li><strong>소프트웨어 검증이 완벽하면 물리 계층으로 내려간다.</strong> 플래시 되읽기까지 일치하는데 부팅이 안 되면, 다음 용의자는 코드가 아니라 전원·케이블·포트다. 직결, 다른 케이블, 다른 포트 격리 시험은 비용이 가장 싸므로 순서를 앞당길수록 이득이다.</li>
+    <li><strong>"아까는 됐는데 지금 안 된다"는 물리 계층의 신호다.</strong> 특히 그 사이에 반복 핫플러그가 있었다면 허브·보호회로의 상태 변화를 의심한다.</li>
+    <li><strong>KVM·허브 뒤의 장치는 전원 진단에서 항상 용의선상에 올린다.</strong> 평소에 잘 동작하던 경로라도 마진이 얼마 남았는지는 겉으로 보이지 않는다.</li>
+    <li><strong>LED 를 증거로 쓸 때는 래치 특성을 감안한다.</strong> 점등 상태는 현재가 아니라 과거를 증언할 수 있다.</li>
+    <li><strong>폴링보다 상주 로그.</strong> 빠른 연결/해제 사이클은 주기 조회로 안 잡힌다. 이벤트를 계속 듣고 있는 도구(이번엔 QMK Toolbox 로그)가 결정적 단서를 준다.</li>
+    <li><strong>복구 경로부터 검증한다.</strong> "부트로더 진입 → 플래시 → 확인"의 왕복이 확실해지면 이후의 모든 실험이 5분짜리가 된다. 실험 비용이 싸지면 가설 기각도 빨라진다.</li>
+    <li><strong>사용자(현장)의 관찰은 로그만큼 강하다.</strong> 스틱 키 가설을 기각한 것은 계측이 아니라 "누르고 꽂으면 RGB 가 안 켜진다"는 한 문장이었다.</li>
+  </ul>
+
+  <h2 id="appendix">6. 부록 — KB16 / Maple DFU 치트시트</h2>
+  <p>같은 기종(또는 STM32duino 부트로더 기반 QMK 키보드)을 만질 일이 있을 때를 위한 기술 요약.</p>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>항목</th><th>내용</th></tr>
+      <tr><td>부트로더 진입</td><td>좌상단 키를 누른 채 USB 연결 (동작 중인 앱의 bootmagic 경유)</td></tr>
+      <tr><td>부트로더 식별</td><td><code>1EAF:0003</code> "Maple 003". 드라이버 없으면 Zadig 로 WinUSB 바인딩</td></tr>
+      <tr><td>플래시</td><td><code>dfu-util -a 2 -d 1eaf:0003 -D firmware.bin -R</code> (alt 2 = 0x08002000)</td></tr>
+      <tr><td>플래시 후</td><td><code>-R</code> 소프트리셋으로는 앱으로 점프하지 않는 개체가 있다. USB 완전 재연결 필요</td></tr>
+      <tr><td>검증</td><td><code>-U</code> 되읽기 후 원본과 diff. 마지막 16바이트 불일치는 DFU suffix 라 정상</td></tr>
+      <tr><td>스테일 DFU</td><td>앱이 스스로 부트로더로 떨어진 상태에선 DFU 명령이 <code>LIBUSB_ERROR_IO</code> 로 거부됨. 키를 누른 채 재진입해야 명령을 받는다</td></tr>
+      <tr><td>리비전 판별</td><td>USB <code>REV_xxxx</code> 는 펌웨어 보고값이라 믿지 말 것. 부트로더 VID/PID 로 판별 (Atmel DFU <code>03EB:2FF4</code> = AVR, Maple <code>1EAF:0003</code> = STM32 계열)</td></tr>
+      <tr><td>Vial 정의</td><td>펌웨어 내 xz 블롭. LZMA 에러 = 블롭 손상, 재플래시로 해소. <code>.vil</code> 레이아웃 파일은 uid 가 펌웨어와 일치해야 로드된다</td></tr>
+      <tr><td>KB16 변종</td><td>rev1(atmega32u4) / rev2(APM32F103, D010:1601) / KB16-3(별도 배선) 최소 3종. 상호 펌웨어 비호환</td></tr>
+    </table>
+  </div>
+
+  <div class="liv">
+    <p>본문에 넣기엔 곁가지인데 버리기 아까운 것들(펌웨어 다섯 종의 바이너리 지문 대조표 같은 것)이 이번에도 나왔고, 어딘가에 저장해 뒀습니다. 언제 한 번 정리하겠다고 생각은 합니다.</p>
+    <p>다음 페이지에서 뵙겠습니다. 다음에는 케이블부터 확인할 겁니다.</p>
+  </div>
+
+  <footer>
+    <p>이 보고서는 실제 트러블슈팅 세션(2026-07-15 ~ 16)의 기록을 바탕으로 작성됐다. 관련 이슈: <a href="https://github.com/qmk/qmk_firmware/issues/17726" target="_blank" rel="noopener">qmk_firmware#17726</a> (DOIO/KB16 하드웨어 리비전), <a href="https://github.com/vial-kb/vial-gui/issues/163" target="_blank" rel="noopener">vial-gui#163</a> (LZMA 에러).</p>
+    <p><a href="../">← today i learned</a></p>
+  </footer>
+</main>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
