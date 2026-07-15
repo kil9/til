@@ -11,7 +11,7 @@
 
 ```
 https://kil9.github.io/til/                     루트 갤러리
-https://kil9.github.io/til/<디렉터리>/           개별 페이지 (예: 2026-matsuri-wuwa)
+https://kil9.github.io/til/<디렉터리>/           개별 페이지 (예: til-archive)
 ```
 
 GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드 없음). `main` 에 push 하면 몇십 초 뒤 반영된다.
@@ -49,6 +49,4 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 | 2026-07-12 | Claude Fable 5 vs GPT-5.6 — computer use 벤치마크·가격 비교 | [/claude-vs-gpt56-computer-use/](https://kil9.github.io/til/claude-vs-gpt56-computer-use/) |
 | 2026-07-12 | 알파벳 축소·애플 확대 — AI capex 헷지 가설 재검증 | [/ai-capex-hedge/](https://kil9.github.io/til/ai-capex-hedge/) |
 | 2026-07-11 | 두 세션 플랜 파이프라인 — Claude Code 를 생산자·소비자로 나눠 쓰기 | [/2026-07-plan-pipeline/](https://kil9.github.io/til/2026-07-plan-pipeline/) |
-| 2026-07-11 | 姫森ルーナ ✕ 鳴潮 — 루나의 명조 방송 항해일지 | [/2026-luna-wuwa/](https://kil9.github.io/til/2026-luna-wuwa/) |
-| 2026-07-11 | 夏色まつり ✕ 鳴潮 — 마츠리의 명조 방송 전기록 | [/2026-matsuri-wuwa/](https://kil9.github.io/til/2026-matsuri-wuwa/) |
 | 2026-07-11 | TIL 아카이브 — Today I Learned | [/til-archive/](https://kil9.github.io/til/til-archive/) |
