@@ -4,6 +4,7 @@ title: 설정화 시트 제작
 status: To Do
 assignee: []
 created_date: '2026-07-15 04:55'
+updated_date: '2026-07-15 07:52'
 labels: []
 milestone: m-0
 dependencies:
