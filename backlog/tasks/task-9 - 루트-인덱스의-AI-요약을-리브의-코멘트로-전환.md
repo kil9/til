@@ -1,9 +1,10 @@
 ---
 id: TASK-9
 title: 루트 인덱스의 'AI 요약'을 '리브의 코멘트'로 전환
-status: To Do
+status: In Progress
 assignee: []
 created_date: '2026-07-15 10:14'
+updated_date: '2026-07-15 10:46'
 labels: []
 dependencies:
   - TASK-6
