@@ -52,13 +52,13 @@
   code { font-family: ui-monospace, "SF Mono", monospace; font-size: 0.9em; }
 
   .wrap {
-    max-width: 940px; margin: 0 auto; padding: 0 24px 80px;
-    display: grid; grid-template-columns: 1fr 200px; column-gap: 40px; align-items: start;
+    max-width: 1000px; margin: 0 auto; padding: 0 24px 80px;
+    display: grid; grid-template-columns: 1fr 260px; column-gap: 40px; align-items: start;
   }
   .feed { grid-column: 1; min-width: 0; }
 
   header.hero { border-bottom: 1px solid var(--rule); }
-  .hero-inner { max-width: 940px; margin: 0 auto; padding: 48px 24px 32px; }
+  .hero-inner { max-width: 1000px; margin: 0 auto; padding: 48px 24px 32px; }
   h1 { margin: 0; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
   .site-intro {
     margin: 10px 0 0; max-width: 46ch; color: var(--text-muted);
@@ -101,7 +101,7 @@
   .ai-summary .ai-label .ai-date::before { content: "· "; }
   .ai-summary .ai-intro {
     margin: 0; color: var(--text-muted);
-    font-size: 0.8125rem; line-height: 1.65;
+    font-size: 0.875rem; line-height: 1.7;
   }
 
   .chips { display: flex; gap: 4px 20px; flex-wrap: wrap; margin: 28px 0 0; }
@@ -188,7 +188,7 @@
   footer a { color: var(--text-muted); text-decoration: underline; text-underline-offset: 3px; }
   footer a:hover { color: var(--accent); }
 
-  @media (max-width: 860px) {
+  @media (max-width: 920px) {
     .wrap { grid-template-columns: 1fr; }
     .feed, .side { grid-column: 1; }
     /* 좁은 화면에선 사이드바를 목록 위로 올린다(카드 목록 끝까지 밀리지 않도록). */
