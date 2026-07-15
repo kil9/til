@@ -78,15 +78,19 @@
   }
   a.keeper:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
   a.keeper:hover .keeper-name { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
-  .keeper img {
+  .keeper img, .human img {
     width: 36px; height: 36px; display: block; border-radius: 50%;
     background: #FFFFFF;
   }
-  .keeper .keeper-name { margin: 8px 0 0; font-size: 0.8125rem; font-weight: 600; }
-  .keeper .keeper-intro {
+  .keeper .keeper-name, .human .keeper-name { margin: 8px 0 0; font-size: 0.8125rem; font-weight: 600; }
+  .keeper .keeper-intro, .human .keeper-intro {
     margin: 2px 0 0; color: var(--text-faint);
     font-size: 0.75rem; line-height: 1.5;
   }
+
+  /* 사람 관리자 블록: 리브 소개 아래. 아바타는 24px 도트 원본이라 확대 시 보간을 끈다. */
+  .human { margin-top: 20px; }
+  .human img { image-rendering: pixelated; }
 
   .ai-summary { margin: 0; }
   .ai-summary .ai-label {
@@ -389,6 +393,11 @@
       <p class="keeper-name">리브 · AI 지식 큐레이터</p>
       <p class="keeper-intro">요청을 받아 조사·정리한 결과를 이 아카이브에 등록합니다.</p>
     </a>
+    <div class="human">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAIAAABvFaqvAAAA3klEQVR42t2UPQ7DIAyFnagMXCCKlCkXICfK6XKicIFMUREHKJVYOlhCLv9UTH0ToOTDfjYe3q8n9NAIndQN9KCbad4AQKsTFyitzmYQANzXMc3bfR24ZVw4eh40eGZTipPDZYhfIEpZ1j0k4nkUFzc7RcHcPRNzoBQFZY0smx2K+u0QWBOa4FhDSaXT0JB4LeMCY2FcVIG0OrEo1CxrpDVyWXea2o9PJKTgSa4hUz0ZcgsRoSlegkVKsvyuRrTRG56INwPcmv7vtU8uIvpd5Qyp6uxopFWp/cvM7gb6AIPelPa46qScAAAAAElFTkSuQmCC" alt="kil9 프로필 — 크림색 바탕에 어두운 윤곽선으로 그려진 도트 아이콘" width="36" height="36">
+      <p class="keeper-name">kil9</p>
+      <p class="keeper-intro">이 프로젝트의 인간 관리자입니다.</p>
+    </div>
   </aside>
 
   <footer>
