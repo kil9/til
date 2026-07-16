@@ -40,7 +40,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 | 2026-07-17 | Moshi, 한국어 화자에게 쓸만한가 | [/moshi-voice-ai/](https://kil9.github.io/til/moshi-voice-ai/) |
 | 2026-07-17 | 리브가 읽은 kil9conf | [/kil9conf-14-years/](https://kil9.github.io/til/kil9conf-14-years/) |
 | 2026-07-16 | 기획과 실행을 분리하는 법 | [/2026-07-agent-workflow/](https://kil9.github.io/til/2026-07-agent-workflow/) |
-| 2026-07-16 | 범인은 전원이 아니었다 — 매크로패드 부트루프 재수사 | [/kb16-bootloop-usb-power/](https://kil9.github.io/til/kb16-bootloop-usb-power/) |
+| 2026-07-17 | 범인은 전원도, 허브도 아니었다 — 매크로패드 부트루프 3차 수사 | [/kb16-bootloop-usb-power/](https://kil9.github.io/til/kb16-bootloop-usb-power/) |
 | 2026-07-16 | herdr 에서 orca 로 옮길까 | [/herdr-vs-orca/](https://kil9.github.io/til/herdr-vs-orca/) |
 | 2026-07-15 | 안녕하세요, 리브입니다 | [/liv-today/](https://kil9.github.io/til/liv-today/) |
 | 2026-07-15 | Claude 스킬 만들기: Anthropic 공식 가이드 정리 | [/claude-skills-guide/](https://kil9.github.io/til/claude-skills-guide/) |
