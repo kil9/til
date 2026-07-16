@@ -140,6 +140,35 @@ SD(치비) 기본:
 - 아바타(`backlog/assets/liv/avatar-chibi.webp`, 256px 원형)는 `sheet-chibi-hoodie` 의 얼굴을 크롭해 만든다. 루트 `index.html` 의 `a.keeper` 에 base64 로 임베드돼 있다.
 - 구 판본 자산은 `backlog/assets/liv/legacy/` 에 있다(구 시트 8컷·구 확정본·구 아바타·구 소개 페이지 `pages/liv-today-2026-07-15.html`). 참고용이며 신규 생성의 기준으로 쓰지 않는다.
 
+### 4-5. 코멘트 아바타 표정 세트 (TASK-15)
+
+`backlog/assets/liv/` 에 256px 원본과 `.liv` 임베드용 72px WebP q85 파생본을 함께 보존한다. 256px 원본은 자산 관리용이고, 새 페이지에서 실제 base64 로 넣는 파일은 `-72.webp` 파생본이다. 기존 페이지와 루트 `a.keeper` 는 당시의 기본 아바타를 그대로 유지한다.
+
+| 256px 원본 | 72px 파생본 | 표정 | 쓰임새 |
+|---|---|---|---|
+| `avatar-expression-base.webp` | `avatar-expression-base-72.webp` | 기본 시큰둥 | 맥락이 애매할 때의 기본값 |
+| `avatar-expression-yawn.webp` | `avatar-expression-yawn-72.webp` | 하품 | 일을 끝낸 직후, 반복 작업을 끝냈을 때 |
+| `avatar-expression-awkward.webp` | `avatar-expression-awkward-72.webp` | 계면쩍음 | 실수 고백, 예상 밖의 허점 |
+| `avatar-expression-troubled.webp` | `avatar-expression-troubled-72.webp` | 곤란·난감 | 제약, 남은 선택지, 잠깐의 막힘 |
+| `avatar-expression-satisfied.webp` | `avatar-expression-satisfied-72.webp` | 살짝 만족 | 검증 완료, 최소 동선으로 일을 끝냈을 때 |
+| `avatar-expression-curious.webp` | `avatar-expression-curious-72.webp` | 살짝 흥미 | 뜻밖의 발견, 곁가지를 아카이브에 남길 때 |
+
+- 코멘트의 정서에 맞춰 표정을 고르고, 한 페이지 안에서는 같은 표정을 반복하지 않는다. 표정 선택이 애매하면 기본 시큰둥을 쓴다.
+- 28px `.liv` 와 48px `a.keeper` 크기에서 눈·눈썹·입의 차이가 읽히는지 확인한다. 구분이 약하면 표정을 더 눌러 새로 생성한다.
+- 새 표정은 매번 `liv-final-chibi.webp` 를 참고 이미지로 넣은 **generate** 작업으로 만든다. 결과물 md5를 기준 입력 및 다른 컷과 대조해 재탕·중복을 배제한다.
+
+아바타 표정 생성 확정 프롬프트:
+
+```
+입력 이미지는 스타일과 인물 참고로만 쓴다. edit이 아닌 generate로 새 컷을 만든다.
+참고 이미지와 완전히 동일 인물·플랫 마스코트 화풍·치비 비율·다크 브라운 단발 보브·파란 눈·그레이 후디를 유지한다.
+앞머리 옆에는 파란 통신 헤어핀 1개를 반드시 넣는다. 헤어핀은 작은 곡선 막대, 그릴 슬릿, 청록 LED 도트가 있어야 한다.
+구도는 정사각형 얼굴과 어깨 클로즈업, 흰 배경, 가운데 배치다. 28px과 48px에서도 표정이 읽혀야 한다.
+표정: <컷별 표정 지시와 부정형 제약>.
+굵고 균일한 아웃라인의 2D 플랫 마스코트/스티커 스타일, 평면 색면, 단순한 한 단계 그림자만 쓴다.
+글자·숫자·텍스트·로고·워터마크·테두리·3D 렌더·피규어 질감은 넣지 않는다.
+```
+
 ## 5. 적용 범위 (요약)
 
 - 신규 TIL 페이지부터 적용한다. 기존 페이지 소급 없음(사용자가 특정 페이지를 지정하면 예외).
