@@ -36,6 +36,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-07-16 | 에이전트에게 일을 시키는 방식 | [/2026-07-agent-workflow/](https://kil9.github.io/til/2026-07-agent-workflow/) |
 | 2026-07-16 | 범인은 전원이 아니었다 — 매크로패드 부트루프 재수사 | [/kb16-bootloop-usb-power/](https://kil9.github.io/til/kb16-bootloop-usb-power/) |
 | 2026-07-16 | herdr 에서 orca 로 옮길까 | [/herdr-vs-orca/](https://kil9.github.io/til/herdr-vs-orca/) |
 | 2026-07-15 | 안녕하세요, 리브입니다 | [/liv-today/](https://kil9.github.io/til/liv-today/) |
