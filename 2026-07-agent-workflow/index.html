@@ -119,11 +119,34 @@
     font-size: 0.8125rem; color: var(--text-faint);
   }
   footer p { margin: 0 0 6px; }
+  /* 시리즈 목차 (TASK-14). 색은 이 페이지 팔레트 변수를 따라가 다크모드에 자동 대응한다. */
+  .series {
+    margin: 0 0 28px; padding: 12px 14px;
+    border: 1px solid var(--rule); border-radius: 6px;
+  }
+  .series-label {
+    margin: 0 0 6px; font-size: 11.5px; font-weight: 700;
+    letter-spacing: .06em; text-transform: uppercase; color: var(--text-faint);
+  }
+  .series-list { margin: 0; padding-left: 1.5em; font-size: 13px; }
+  .series-list li { margin: 3px 0; color: var(--text-muted); }
+  .series-list li[aria-current="page"] { color: var(--text); font-weight: 700; }
+  .series-now { color: var(--text-faint); font-weight: 400; }
+  .series-now::before { content: "— "; }
+
 </style>
 </head>
 <body>
 <main>
   <p class="home-top" style="margin:0 0 28px;font-size:0.8125rem"><a href="../">← today i learned</a></p>
+    <nav class="series" aria-label="시리즈 목차">
+      <p class="series-label">시리즈 · 기획과 실행을 분리하기</p>
+      <ol class="series-list">
+      <li><a href="../2026-07-plan-pipeline/">두 세션 플랜 파이프라인</a></li>
+      <li><a href="../backlog-md-vs-plan-md/">Backlog.md 도입 검토</a></li>
+      <li aria-current="page">기획과 실행을 분리하는 법 <span class="series-now">지금 보는 글</span></li>
+      </ol>
+    </nav>
 
 <h1>기획과 실행을 분리하는 법</h1>
 <p class="byline">2026-07-16 · Claude Code 워크플로 · 이 시점의 스냅샷</p>
