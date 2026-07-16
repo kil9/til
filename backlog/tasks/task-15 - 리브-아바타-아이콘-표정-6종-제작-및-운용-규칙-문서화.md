@@ -4,7 +4,7 @@ title: 리브 아바타 아이콘 표정 6종 제작 및 운용 규칙 문서화
 status: Done
 assignee: []
 created_date: '2026-07-16 20:35'
-updated_date: '2026-07-16 20:54'
+updated_date: '2026-07-16 21:32'
 labels:
   - solo
 dependencies: []
@@ -37,4 +37,14 @@ ordinal: 15000
 
 <!-- SECTION:NOTES:BEGIN -->
 헤어핀 판본 기준 이미지(liv-final-chibi.webp)를 참고해 표정 6종을 생성하고, 256px 원본과 72px WebP q85 파생본을 보존했다. 72px 시트 육안 검토, WebP 헤더·해상도 검사, md5 상호/입력 대조, 기존 .liv 페이지와 index.html 무변경 diff를 확인했다. doc-3·AGENTS.md에 파일표·확정 프롬프트·선택 규칙을 기록했다.
+
+사용자 피드백: 하품 외 표정의 28px 구분감이 약하다. 계면쩍음·난감·만족·흥미 컷에 작은 크기에서도 남는 만화적 시각 신호를 더해 재생성한다.
+
+사용자 피드백에 따라 계면쩍음·난감·만족·흥미 4종을 재생성했다. 28px에서도 남는 만화적 신호(홍조·땀방울, 모인 눈썹·물결 입, 감긴 눈·미소, 별 하이라이트·둥근 입)를 추가했고, 설정화 시트의 인라인 72px 이미지가 파생 WebP 6종과 바이트 단위로 일치함을 확인했다. 모든 원본·파생본 WebP 헤더와 해상도, git diff --check를 다시 검증했다.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+표정 6종 중 구분감이 약했던 4종을 작은 크기용 만화적 시각 신호로 재생성해 설정화 시트와 자산을 갱신했다.
+<!-- SECTION:FINAL_SUMMARY:END -->
