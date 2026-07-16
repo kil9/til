@@ -36,6 +36,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-07-17 | 프롬프트를 입으로 친다면 얼마일까 | [/voice-prompting-cost/](https://kil9.github.io/til/voice-prompting-cost/) |
 | 2026-07-17 | Moshi, 한국어 화자에게 쓸만한가 | [/moshi-voice-ai/](https://kil9.github.io/til/moshi-voice-ai/) |
 | 2026-07-17 | 리브가 읽은 kil9conf | [/kil9conf-14-years/](https://kil9.github.io/til/kil9conf-14-years/) |
 | 2026-07-16 | 기획과 실행을 분리하는 법 | [/2026-07-agent-workflow/](https://kil9.github.io/til/2026-07-agent-workflow/) |
