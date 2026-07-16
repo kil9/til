@@ -72,12 +72,14 @@
     background: var(--quote-bg); border-left: 3px solid var(--rule);
     border-radius: 0 6px 6px 0;
     color: var(--text-faint); font-size: 0.9375rem;
-    display: flex; align-items: flex-start; gap: 10px;
+    display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start;
   }
   .liv img {
-    width: 28px; height: 28px; flex: none; margin-top: 2px;
+    grid-column: 1; grid-row: 1;
+    width: 28px; height: 28px; margin-top: 2px;
     border-radius: 50%; background: #FFFFFF;
   }
+  .liv p { grid-column: 2; }
   .liv p { margin: 0 0 8px; }
   .liv p:last-child { margin-bottom: 0; }
   .tbl-wrap { overflow-x: auto; margin: 16px 0; }
