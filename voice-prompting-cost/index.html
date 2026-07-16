@@ -210,6 +210,35 @@
 
   <hr>
 
+  <h2>6. 추가 조사 — 클로바노트로 hold-to-speech 가 되는가</h2>
+  <p class="note">2026-07-17 추가. 발행 후 이어진 질문: 매크로 키보드의 키를 <strong>누르는 동안만 듣고, 떼면 커서 위치에 텍스트가 꽂히는</strong> hold-to-speech 형태로 Windows Terminal 에서 쓰고 싶은데, 클로바노트가 이 패턴과 맞는가. 붙여넣기 같은 손 조작이 다시 생기는 것은 피하고 싶다.</p>
+
+  <p>결론부터: <strong>클로바노트는 이 사용 형태와 맞지 않는다.</strong> 클로바노트는 회의·강의를 녹음해 두고 나중에 전사·요약하는 <em>기록 제품</em>이지, 커서에 텍스트를 꽂아 주는 <em>입력기</em>가 아니다. 구체적으로 두 지점에서 어긋난다.</p>
+  <ul>
+    <li><strong>PC 에서 실시간 녹음이 안 된다.</strong> 실시간 녹음은 모바일 앱 전용이고, PC 웹(clovanote.naver.com)은 녹음 파일 업로드와 편집·내보내기만 지원한다.</li>
+    <li><strong>결과가 앱 안에 남는다.</strong> 흐름이 녹음 → 전사 대기 → 앱에서 열기 → 복사 → 터미널에 붙여넣기가 되는데, 이것은 피하려던 마찰이 더 늘어난 형태다. §4 에서 클로바를 후보에 올린 것은 인식 품질 축이었고, 입력 동선 축에서는 탈락이다.</li>
+  </ul>
+  <p>Clova 계열의 인식 품질을 이 형태로 쓰는 유일한 길은 Clova Speech API 로 직접 만드는 것인데, 마찰을 없애려고 개발 프로젝트를 여는 셈이라 순서가 뒤집힌다.</p>
+
+  <p><strong>"whisper 가 더 맞지 않나"라는 직감은 맞다.</strong> 정확히 이 사용 형태를 위한 도구 카테고리가 이미 있다 — 시스템 전역 핫키를 누르고 있는 동안 녹음하고, 떼는 순간 로컬 Whisper 로 전사해 포커스된 창(터미널 포함)에 텍스트를 주입하는 push-to-talk 딕테이션 도구들이다. 주입은 키 입력 시뮬레이션이나 자동 붙여넣기로 이뤄지므로 손으로 붙여넣을 일이 없고, SSH 위로는 어차피 텍스트만 흐르므로 원격 세션이라는 사실 자체가 변수가 아니다.</p>
+
+  <div class="table-scroll">
+  <table>
+    <thead><tr><th>도구</th><th>hold-to-speech</th><th>한국어</th><th>비용</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td>클로바노트</td><td>불가 — 녹음·전사·복사 흐름</td><td>최상급</td><td>무료 한도(월 300분)</td><td>회의 기록용. 입력기가 아님</td></tr>
+      <tr><td>오픈소스 PTT 딕테이션 (WhisperType, whisper-local, OpenWhispr 등)</td><td>핵심 기능 — 핫키 hold 중 녹음, 뗄 때 주입</td><td>Whisper large 계열 그대로</td><td>무료</td><td>로컬 실행, 오프라인. faster-whisper 기반이 많음</td></tr>
+      <tr><td>Wispr Flow</td><td>지원 (기본 조작이 hold)</td><td>지원 (100+ 언어)</td><td>주 2,000단어 무료, Pro $15/월($12 연간)</td><td>LLM 후처리로 혼용 용어 보정. §4 의 "딕테이션 앱" 항목</td></tr>
+      <tr><td>Windows 기본 음성 입력 (Win+H)</td><td>토글만 — hold 아님</td><td>지원 (음성 팩 설치)</td><td>무료</td><td>인식 언어가 IME 상태에 묶여 한/영 전환이 번거로움. 온라인 필요</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p><strong>매크로 키보드 연동</strong>은 걱정할 것이 없다. QMK/VIA 매크로패드에서 키 하나를 F13-F24 로 할당하면 된다 — 이 키들은 물리 키보드에 없어서 다른 앱과 충돌하지 않고, PTT 도구들의 핫키 설정에서 그대로 hold 키로 지정할 수 있다. "키를 누르는 동안 녹음"은 도구 쪽 기능이므로 매크로패드는 평범한 키 하나만 보내면 충분하다.</p>
+  <p>이에 따라 §5 의 1단계를 구체화하면: <strong>오픈소스 PTT 도구 + Whisper large-v3(또는 turbo) 조합을 매크로패드 F13 에 물려 무료로 검증</strong>하고, 혼용 용어 보정이 아쉬우면 그때 Wispr Flow 로 옮긴다. 클로바노트는 회의 기록이라는 원래 용도로는 여전히 유효하지만, 이 파이프라인에는 들어올 자리가 없다.</p>
+
+  <p class="liv"><span class="who">리브 —</span> "귀찮은 걸 피하려고 골랐는데 다른 귀찮음이 생기는" 경로를 걸러내는 것이 이번 추가 조사의 전부였습니다. 남은 후보는 키 하나로 끝나는 것들뿐이니, 여기서 다시 닫겠습니다.</p>
+
   <h2>출처</h2>
   <ul class="src">
     <li><a href="https://openai.com/index/introducing-gpt-realtime/">Introducing gpt-realtime — OpenAI</a> · <a href="https://developers.openai.com/api/docs/pricing">OpenAI API Pricing</a></li>
@@ -218,6 +247,7 @@
     <li><a href="https://whisperweb.dev/ko/blog/korean-speech-to-text-comparison-2026-clova-whisper">한국어 음성인식 도구 비교: 클로바노트 vs 다글로 vs Whisper (2026)</a></li>
     <li><a href="https://enerzai.com/resources/blog/%EC%9E%91%EC%9D%80-%EC%96%B8%EC%96%B4-%EB%AA%A8%EB%8D%B8%EC%9D%B4-%EB%A7%B5%EB%8B%A4-low-bit-whisper%EB%A1%9C-%ED%95%9C%EA%B5%AD%EC%96%B4-%EC%9D%8C%EC%84%B1-%EC%9D%B8%EC%8B%9D-%EC%A0%95%EB%B3%B5%ED%95%98%EA%B8%B0">Low-bit Whisper 한국어 음성 인식 분석 — ENERZAi</a></li>
     <li>입력량 실측: 이 머신의 Claude Code 세션 트랜스크립트 (2026-07-16 ~ 07-17, 집계 스크립트로 필터링)</li>
+    <li>§6 추가 조사: <a href="https://toollog.net/clovenote-guide-2026/">클로바노트 사용법 가이드 2026 (PC 웹 기능 범위)</a> · <a href="https://github.com/Danaor/WhisperType">WhisperType</a> · <a href="https://github.com/drajb/whisper-local">whisper-local</a> · <a href="https://github.com/OpenWhispr/openwhispr">OpenWhispr</a> · <a href="https://wisprflow.ai/pricing">Wispr Flow Pricing</a> · <a href="https://support.microsoft.com/en-us/windows/use-voice-typing-to-talk-instead-of-type-on-your-pc-fec94565-c4bd-329d-e59a-af033fa5689f">Windows 음성 입력 — Microsoft Support</a></li>
   </ul>
 
   <footer>
