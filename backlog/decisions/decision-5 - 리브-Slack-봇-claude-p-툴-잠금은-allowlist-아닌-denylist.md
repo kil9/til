@@ -27,8 +27,18 @@ denylist(제거 대상): `Bash Edit Write NotebookEdit Read Glob Grep Agent Task
 추가 방어:
 - 종량제 차단: subprocess env 에서 `ANTHROPIC_API_KEY` unset(`env -u`) + systemd `UnsetEnvironment=ANTHROPIC_API_KEY`. 있으면 구독 OAuth 를 덮어 종량제로 넘어간다.
 - cwd 는 민감 파일 없는 전용 빈 디렉터리(`~/.liv/workdir`, 700).
-- 프롬프트 인젝션 완화: 사용자 입력을 명확한 구분자로 감싸 시스템 지시와 섞이지 않게 한다.
+- 프롬프트 인젝션 완화: 사용자 입력을 명확한 구분자로 감싸 시스템 지시와 섞이지 않게 한다. 대화 감지 마커(PUBLISH_REQUEST)는 **응답 마지막 줄만** 파싱하고, 프롬프트에 넣는 외부 텍스트의 마커 토큰은 escape 한다.
 - `--dangerously-skip-permissions` 는 절대 쓰지 않는다(til-submit 무인 배치와 달리 이건 임의 입력 대화 봇이다).
+
+### 추가 하드닝 (Fable advisor 점검 + 실측, 2026-07-18 반영)
+
+denylist 만으로 안 막히는 상속 벡터 3개를 실측으로 확인해 플래그로 닫았다:
+
+- **MCP 상속**: `claude -p` 는 사용자 `~/.claude.json` 의 MCP 서버(실측: `ccs-websearch`·`ccs-image-analysis`)를 그대로 로드한다. MCP 툴은 이름(`mcp__…`)이 달라 denylist 로 안 잡힌다 → **`--strict-mcp-config --mcp-config '{"mcpServers":{}}'`** 로 전면 차단.
+- **유저 메모리·settings 상속**: `claude -p` 는 사용자 글로벌 `~/.claude/CLAUDE.md`(실측: liv 가 "herdr" 등 내부 규칙을 그대로 노출)와 `settings.json` 의 `permissions.allow` 를 상속한다(HOME·CLAUDE_CONFIG_DIR 오버라이드로는 안 막힘 — 메모리는 getpwuid 홈에서 읽는다). → **`--setting-sources ''`**(user/project/local 전부 미로드)로 메모리 유출 + settings.allow 상속을 함께 차단. 인증·모델은 그대로 적용돼 구독 OAuth 는 유지된다.
+- **종량제·엔드포인트 우회 env**: `ANTHROPIC_API_KEY` 외에 `ANTHROPIC_AUTH_TOKEN`·`ANTHROPIC_BASE_URL`·`CLAUDE_CODE_USE_BEDROCK/VERTEX` 도 같은 계열이라, 블록리스트 대신 **env 화이트리스트**({HOME,PATH,LANG,LC_*,USER,LOGNAME})로 새로 조립한다.
+- **`--permission-mode dontAsk` 는 fail-open**(실측: allowlist 밖 Bash 가 그대로 실행됨). 그래서 dontAsk 로 화이트리스트화하는 길은 없고 denylist 가 유일 경계로 남는다. 신규 툴 구멍 위험은 유효하므로 CLI 버전 업 시 툴 목록 재점검이 곧 보안 통제다.
+- 프로세스 정리: `claude` 가 node 자식을 낳아 timeout 시 단일 kill 로는 잔존이 남으므로 `start_new_session=True` + timeout 시 `killpg`.
 
 ## Consequences
 
