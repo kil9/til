@@ -52,7 +52,7 @@ til/
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>페이지 제목</title>
 <meta name="description" content="한 줄 설명">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='3' y='3.2' width='10' height='1.8' rx='.9' fill='%231A5FC8'/%3E%3Crect x='3' y='7.1' width='10' height='1.8' rx='.9' fill='%238A96A2'/%3E%3Crect x='3' y='11' width='7' height='1.8' rx='.9' fill='%238A96A2'/%3E%3C/svg%3E">
+<link rel="icon" type="image/webp" href="data:image/webp;base64,(리브 파비콘 — 루트 index.html 의 것을 그대로 복사)">
 <meta property="og:type" content="article">
 <meta property="og:title" content="페이지 제목">
 <meta property="og:description" content="한 줄 설명">
@@ -111,7 +111,7 @@ til/
 ```
 
 - 외부 리소스(CDN 스크립트/폰트/이미지) 의존 없이 단일 파일로 열려야 한다. 필요한 자산은 인라인하거나 `data:` URI 로 임베드한다. 웹폰트는 쓰지 않는다(시스템 폰트 스택만).
-- artifact 원본 스타일을 유지하는 페이지라도 **favicon·OG 메타(위 템플릿의 `<link rel="icon">`\~`twitter:card` 블록, 제목·설명·slug 치환)와 beacon 은 반드시 넣는다**(T-24). OG 이미지는 쓰지 않는다.
+- artifact 원본 스타일을 유지하는 페이지라도 **favicon·OG 메타(위 템플릿의 `<link rel="icon">`\~`twitter:card` 블록, 제목·설명·slug 치환)와 beacon 은 반드시 넣는다**(T-24). OG 이미지는 쓰지 않는다. 파비콘은 전 페이지 공통 **리브 원형 아이콘**(64px WebP, 얼굴 크롭 + 원형 마스크)이며 페이지별 커스텀 파비콘을 만들지 않는다 — base64 데이터는 루트 `index.html` 의 것을 복사한다.
 - **인덱스로 돌아가는 링크(`← today i learned`)를 상단(본문 첫 요소)과 하단(footer) 양쪽에 넣는다.** 자체 스타일 페이지도 동일 — 상단은 히어로/본문 컨테이너의 첫 요소로, 하단은 기존 footer 안에 넣는다.
 - **유일한 예외는 Cloudflare Web Analytics beacon**(T-15)이다. 위 템플릿의 `</body>` 직전 beacon `<script>` 를 **모든 신규 페이지에 그대로 넣는다**(token 은 클라이언트 임베드용 공개 값). 쿠키 없는 익명 집계이며, 로드 실패해도 페이지 렌더에는 영향이 없다. 지표는 CF 대시보드(Web Analytics, `kil9.github.io`)에서 본다.
 - 라이트/다크 대응은 `@media (prefers-color-scheme: dark)` 로 둔다. claude.ai 의 `data-theme` 토글은 standalone 환경에 없으므로 `prefers-color-scheme` 폴백이 있어야 한다.
