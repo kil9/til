@@ -17,7 +17,10 @@ status: accepted
 
 ## Decision
 
-리브 대화 데몬의 `claude -p` 호출은 **denylist 로 위험 툴을 전부 제거**하고, 프롬프트는 stdin 으로 넘긴다. 남기는 툴은 아카이브 조회용 `WebFetch`·`WebSearch` 뿐(기본 제공이라 별도 allow 불필요).
+리브 대화 데몬의 `claude -p` 호출은 **allowlist + denylist 를 함께** 주고, 프롬프트는 stdin 으로 넘긴다. 둘의 역할이 다르다:
+
+- `--allowedTools WebFetch WebSearch`: 아카이브 조회 툴을 **pre-approve**. 이게 없으면 헤드리스에서 WebFetch 가 "사용자 승인이 필요"로 **막힌다**(default permission-mode 라도 WebFetch 는 도메인 승인이 필요해 자동 실행되지 않는다 — Bash 와 다르다). additive 라 잠금 효과는 없고 승인 효과만 있다.
+- `--disallowedTools <denylist>`: 위험 툴을 세션에서 **제거**. deny 가 allow 를 이기므로, allowlist 를 함께 줘도 denylist 의 툴은 여전히 제거된다(최종 조합에서 Bash 강제 시도 → "Bash 도구가 없다" 재확인).
 
 denylist(제거 대상): `Bash Edit Write NotebookEdit Read Glob Grep Agent Task Skill Workflow ToolSearch ScheduleWakeup TodoWrite` (실행·파일변경·파일읽기·서브에이전트 스폰·MCP 로딩 계열 전부).
 
