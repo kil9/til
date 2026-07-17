@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Backlog.md 도입 검토</title>
+<meta name="description" content="PLAN.md + 플랜 스킬 8개 체계에 Backlog.md(마크다운 네이티브 태스크 매니저)를 도입할 가치가 있는지 다각 검토. 기능 매핑, 장단점, 전환 리스크, beads 반려 논리와의 비교. 후속 검토에서 결론을 파일럿 착수(B)로 갱신.">
+<link rel="icon" type="image/webp" href="data:image/webp;base64,UklGRlYJAABXRUJQVlA4WAoAAAAQAAAAPwAAPwAAQUxQSLgBAAABkFttm+pG38y9VgOmAphi6sPLvDXYuTLLkfJbiakDO6ISljnT0cz/f4F4vi0gIhi4baSoHdxjnrknYAqGGkC9+6xzefOP7vx3c9l5tju0MwEFGCqgOjy763ECe3dnh4M9mj2ogeWTO5K0bOYDuFk2krw7WQbq2RADltpfSU/mk4xbcvJrewkhzjb68ROZjFPSEvnp4yyDNdbPyeScgZ7I8/VpJUQ8/TkSzRj8fIoYptMumVmAmexOI6FCw+wsQs9sUIXJccM+i7HPZlIYajRMLMjEZsJDUKM7HJcMu2O3U+GIfS8L7/MI1ejdjpXf5mRhsd8riCM+XjOzODOvYzUy9o6JAia+GxoKcf6LmQJmX+ZjGPj2wGtcGxVCWPrproH7z6UQ5nA88Cp3jLnYenRTwfyxFbFHI2XCPaAzyHVpB60HrXlobfcoZW/71cAr3atTZiUyTy/V5vJWjdt/dCWc/yiny1UPyqmfRb8i/X2rf270z63+vaF/b+nfm/r3tv67of9u6b+b8u+2vm6Q1y3yuklft8nrRnndqq+b5XW7vG+Q9y3yvkndt8n7Rnnfqu6b/7u+Xf7fAFZQOCB4BwAAkCIAnQEqQABAAD4xFIhCoiEhFwtvGCADBKALszJgwxL4nMDuBNtrfMd+un6q9kv0AP7B/ZvVs9TP0APLM/Zz4Mf3M/bn2m7wr/C+F/gz8UewucR+0/4X8oOS/gBeof79+V/5Fe1Xs8QAflf9U/y35jebJqU98vQ//Mf8N+W/M++Af037bvsD/kH9I/2H5X/3b6Wv6T/j/dv7aPof/m/5b4Bv45/RP89/eP3h/yP//8R37Z+yP+rSlnW4ioLp3S3V9RbaZTa/I/S+3SuW/3aJ7egk+a/O21C3gk5+BekStwQgWX7oKnCr+WrXtZOcaaOEuMvu7c87oz815WhWd3ItI9/EYd6nUwdZxrHLx1B156BxAYuEq9/zfAKb79YAAP7//oO08c6jQ96xjklloouKrc10ljEGcfR0EpvZ6EACwe77Id3GlrzLYWl+204HrXcrbILVzxWQwTFiIdEbQm7cASRgignX3zOORv/Oblh+yfB4mEDnh51vDQ7RAS/3LyybWRMJqbcPzRUPyv0zo2ywwPXwY2SY0yzjltE2h6B4VSAL8M8hSAEwpekUGFThcKlQApWiRFrIjIqidCihhIfpm9V6ihBUDiO6Ae8g+VqIuyKgqlqtz0JAe52aT0AZqujlJA0N6kIXFTxNRLmr0XvjP3j4mXfxOsZUSMVeD4GpOJ3drtjNcwHWjHOL7MIkDj+JDdN4geM0O0P1tjvU+0gFayisJuMzWZ3v5/65IheEK+LIKvzK9PcbIEk0oQIUvqYAaEMGrWAuVtEJ5EoX/EvoDmNgYDjVoulbsFRRLGNwb8Q3EBozaQQjxn1lTmAVsutMTO7mccZhqx8jMiDDF5zwrWzgRAowdrALH+YMINNlI/pOt//R9ohe2gZdusuXQNOn/M1WIHSMTqFWMxhK37cKDBhzEW/dqIr8XwoFvWoTLOtntYA3gbvJiek9UxP1ay6I9NQZzsZ6f/PS8x5aMkalIBn/WQrFiu9r+Y7vND/5v/r/I2PdfBccd4bD8XarblnbON88WX9zBPxB9Jp8UapELy+mfOjr/xRqFWur/tLTPejexO2w4rouNUd6f10OBYyktXTQVvajI/E7c+AP06cNiIELAe8Rhre79X4pjtoGPPgHujoytvuqd6oRQN85v3cio4gAIS0mX8UGbTWarlga24pRBqRGNf5+FrMfvf4df96Pm9WWtsRXNoQAmSKd+irxUgc238FMsU16KIMYv5jT4yvoTrwAq9V7VCMzpsTkICLVSw1tEzc5jn05dP2D+o+HuenSVRQK1sgu8XVoMmd87ocfVd/4DD3yyq0B+M5uUUk50MZmzk5ilgO+LW9wtoMB3xLP+htQum03aqP8TrHwoMfrwBHwkC/mdkWlzsTJSlxI+lXuLfokstVq+4wy74vCLgTQhsH0SqZtee6KfmK3Dx+D+0MBo2p3zD4D/buxGWMi7ku3+BNpH2kUjXuVr4TTo/MhV7VWW6jmNZYlrdyTm50tNmTOO0Pne8ICrz00Cd8yUmCa9su9eE7IcmQYZrBa7DyomDOxgohg4W2Vn1g4CK8VC+RM+CDgEW4aXwY4Afmgnvpj+pmRjoWyboa7Y9f4XwSDTwV2SXypoDh86/hsEJZzgvcqFSEgwdT4xV/9PT5P5tsJ13MoR0bpPb2zX6HE6kVhMHmuBL5kYKm/z59P8IDy6zO6PcYuBPj7cMmQr+f1lKsJPGpvHqUJafDHkPzAu/Bw5QKAJcxq4/Cd9txkzhTnxaAEJv/0zs6B4U88/jhQrMYB2FT9bP2OsUv2Dej+5HTvYvX63PBeniHs+2t+yetznyxW3rHQyGuvDYbb0o6McoH4uUS2/ZrJ6xtwgD+GQx/uVyjXI2eND8kKVEQeC/XmDLBornJ6QBRBsMU/V7X1KayBUyZD/aVONLOlv7lCa6ravwzPVUu7fkAsZi6rh6kM20xzCs5HxJmHv09msJ7T4miz7ev18vKaqmxNs2Qx8SG3d1G7t3cwoOW8NV4aoIl8aZNE0NzzZwXqE4FMU6UdrG6Udkz/uXJR9LK/6i+Wygh6se63/5gf87zAWJLWNssASlcX++IyAsuX1yIKiW322YgMKUfGnBKMX5Ts6+hz0eBlEuG9sX/8vsub7rlvZZfJi5dDfnO/Wuruy6I41MHm8j/sFYHXU66lE6/qeh0q7PmQ4ILqJ1g7N4QBbV/I3+7M32Sqjr4cI/DpxaaKU8xpKze5pl+LYXCvRR2Wl3MbRz0US7cmNmX4jt8RoO9bVGLw5LHMr8c24bMnZRSPBspsTyAuZQPU9mg8KunmqC9F7HqPuR8AxZTZSQlbiJJ6iZv50h6kAtIQNiU4E7g78VHv0iJ+hlYBzIjpJeUNK6RlKEZgFK16f+mzJvGu0OEpcwmMR5R7TKS6CXPBVa+70mPXhE3F4pNKIyXPMetqJD4cBiigb4LE3XZZ6GiWKhY2QCDTZUdF4zpYBVHAruBdXGLggMrTrr0MtqOufR/l/6g7Es/oXcYEqjzlHHMTsCcU1j6R8CjI/kZJlmf8aV8737rQ7bt9LlngAA==">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Backlog.md 도입 검토">
+<meta property="og:description" content="PLAN.md + 플랜 스킬 8개 체계에 Backlog.md(마크다운 네이티브 태스크 매니저)를 도입할 가치가 있는지 다각 검토. 기능 매핑, 장단점, 전환 리스크, beads 반려 논리와의 비교. 후속 검토에서 결론을 파일럿 착수(B)로 갱신.">
+<meta property="og:url" content="https://kil9.github.io/til/2026/backlog-md-vs-plan-md/">
+<meta property="og:site_name" content="today i learned">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary">
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --text: #1B2027;
+    --text-muted: #4E5A66;
+    --text-faint: #6E7A86;
+    --rule: #E3E7EB;
+    --accent: #1A5FC8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171B;
+      --text: #E7EAEE;
+      --text-muted: #A9B3BD;
+      --text-faint: #7E8994;
+      --rule: #2A3037;
+      --accent: #82B1F0;
+    }
+    .illust img { filter: brightness(0.9); }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+      "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 { margin: 0 0 8px; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
+  h2 { margin: 44px 0 12px; font-size: 1.0625rem; font-weight: 600; }
+  h2 .n {
+    display: inline-block; min-width: 1.4em; margin-right: 6px;
+    font-family: ui-monospace, "SF Mono", monospace; font-size: 0.875rem;
+    color: var(--accent); font-weight: 600;
+  }
+  h3 { margin: 24px 0 8px; font-size: 0.9375rem; font-weight: 600; }
+  p { margin: 0 0 12px; }
+  ul, ol { margin: 0 0 12px; padding-left: 22px; }
+  li { margin: 0 0 6px; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  code { font-family: ui-monospace, "SF Mono", monospace; font-size: 0.9em; }
+  pre {
+    margin: 14px 0 16px; padding: 12px 14px;
+    border: 1px solid var(--rule); border-radius: 4px;
+    overflow-x: auto; font-size: 0.8125rem; line-height: 1.55;
+  }
+  pre code { font-size: 1em; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 32px 0; }
+  .byline { margin: 0 0 24px; font-size: 0.8125rem; color: var(--text-faint); }
+  .byline code { font-size: 0.9em; }
+  .lede { color: var(--text-muted); }
+
+  .tldr {
+    margin: 24px 0 8px; padding: 4px 0 4px 18px;
+    border-left: 3px solid var(--accent);
+  }
+  .tldr p { margin: 0 0 10px; }
+  .tldr p:last-child { margin-bottom: 0; }
+  .tldr .k { font-weight: 700; }
+
+  .table-wrap { overflow-x: auto; margin: 14px 0 18px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.875rem; line-height: 1.55; }
+  th {
+    text-align: left; font-weight: 600; font-size: 0.8125rem; color: var(--text-muted);
+    padding: 6px 10px; border-bottom: 1px solid var(--text-faint); white-space: nowrap;
+  }
+  td { padding: 8px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th:first-child, td:first-child { padding-left: 0; }
+  th:last-child, td:last-child { padding-right: 0; }
+  .verdict { white-space: nowrap; font-weight: 600; }
+  .verdict.up { color: var(--accent); }
+  .verdict.down { color: var(--text); }
+  .verdict.eq { color: var(--text-faint); font-weight: 500; }
+
+  figure { margin: 24px 0; }
+  figure.illust img { display: block; width: 100%; height: auto; border: 1px solid var(--rule); border-radius: 4px; }
+  figcaption { margin-top: 8px; font-size: 0.8125rem; color: var(--text-faint); line-height: 1.5; }
+  .figwrap { overflow-x: auto; }
+  .figwrap svg { display: block; min-width: 640px; width: 100%; height: auto; }
+
+  footer {
+    margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--rule);
+    font-size: 0.8125rem; color: var(--text-faint);
+  }
+  footer p { margin: 0 0 6px; }
+  /* 시리즈 목차 (TASK-14). 색은 이 페이지 팔레트 변수를 따라가 다크모드에 자동 대응한다. */
+  .series {
+    margin: 0 0 28px; padding: 12px 14px;
+    border: 1px solid var(--rule); border-radius: 6px;
+  }
+  .series-label {
+    margin: 0 0 6px; font-size: 11.5px; font-weight: 700;
+    letter-spacing: .06em; text-transform: uppercase; color: var(--text-faint);
+  }
+  .series-list { margin: 0; padding-left: 1.5em; font-size: 13px; }
+  .series-list li { margin: 3px 0; color: var(--text-muted); }
+  .series-list li[aria-current="page"] { color: var(--text); font-weight: 700; }
+  .series-now { color: var(--text-faint); font-weight: 400; }
+  .series-now::before { content: "— "; }
+
+</style>
+</head>
+<body>
+<main>
+  <p class="home-top" style="margin:0 0 28px;font-size:0.8125rem"><a href="../../">← today i learned</a></p>
+    <nav class="series" aria-label="시리즈 목차">
+      <p class="series-label">시리즈 · 기획과 실행을 분리하기</p>
+      <ol class="series-list">
+      <li><a href="../2026-07-plan-pipeline/">두 세션 플랜 파이프라인</a></li>
+      <li aria-current="page">Backlog.md 도입 검토 <span class="series-now">지금 보는 글</span></li>
+      <li><a href="../2026-07-agent-workflow/">기획과 실행을 분리하는 법</a></li>
+      </ol>
+    </nav>
+
+<h1>Backlog.md 도입 검토</h1>
+<p class="byline">2026-07-13 · 검토 대상: <a href="https://github.com/MrLesk/Backlog.md" target="_blank" rel="noopener">MrLesk/Backlog.md</a> v1.48.0 · 비교 기준: 현행 PLAN.md + 플랜 스킬 8개 체계 · 같은 날 <a href="#followup">후속 검토(§10)</a>로 결론 갱신</p>
+
+<p class="lede">"태스크를 마크다운 파일로 관리하는 전용 도구를 쓰면 어떨까"의 두 번째 검토다. <a href="../2026-07-plan-pipeline/#beads">첫 번째(beads 반려)</a>가 "마크다운을 버리고 DB 로 갈 이유가 없다"였다면, 이번 후보는 마크다운을 버리지 않는다. 그래서 질문이 한 단계 어려워진다: 진실원본이 똑같이 git 안의 마크다운이라면, 지금의 수제 PLAN.md 체계를 기성 도구로 바꿀 이유가 있는가.</p>
+
+<figure class="illust">
+  <img src="data:image/webp;base64,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" alt="하나의 긴 계획 문서에서 글줄 몇 개가 떠올라 점선 궤적을 따라 오른쪽 칸반 보드의 카드로 변환되어 날아가는 플랫 벡터 일러스트. 보드의 카드 일부만 파란색으로 채워져 있다." width="1440" height="960">
+  <figcaption>단일 계획 문서의 구역들이 카드(파일)로 분해되는 전환의 은유. 삽화: Codex 이미지 생성</figcaption>
+</figure>
+
+<div class="tldr">
+  <p><span class="k">결론.</span> 지금은 도입하지 않는 것이 낫다. 현행 체계의 표준 필드(완료 조건·의존·단독실행)와 상태 4종은 사실상 Backlog.md frontmatter 의 산문형 구현이라, 도구가 주는 구조화 이득의 대부분을 이미 갖고 있다. 반면 전환 비용(스킬 8개 재작성, PLAN 파일 16개 마이그레이션, 전 머신 런타임 설치)과 가장 큰 손실(플랜 문서의 산문성)은 즉시 발생한다.</p>
+  <p><span class="k">단서.</span> beads 반려의 최대 사유였던 "진실원본이 DB 로 옮겨간다"가 Backlog.md 에는 없다. 병렬 에이전트 운용이 상시화되어 태스크 단위 파일 분리가 필요해지는 시점이 오면, 그때의 1순위 후보는 beads 가 아니라 Backlog.md 다. 그 시점 전에 신규 저장소 1곳 파일럿부터 시작하면 된다.</p>
+  <p><span class="k">갱신.</span> 같은 날의 <a href="#followup">후속 검토(§10)</a>에서 이 결론은 "B 파일럿 착수"로 바뀌었다. 위 결론의 전제였던 산문성 손실이 실사용 관찰("인간이 PLAN.md 를 읽지 않는다")로 무게를 잃었기 때문이다. §1-9 는 발행 당시 원형대로 두었다.</p>
+</div>
+
+<h2 id="what"><span class="n">1</span>Backlog.md 는 무엇인가</h2>
+
+<p><a href="https://github.com/MrLesk/Backlog.md" target="_blank" rel="noopener">Backlog.md</a> 는 git 저장소 안에서 사람과 AI 에이전트가 협업하기 위한 마크다운 네이티브 태스크 매니저다. 태스크 하나가 <code>backlog/tasks/</code> 아래 마크다운 파일 하나가 되고, CLI·터미널 칸반 보드·웹 UI·MCP 서버가 같은 파일들을 읽고 쓴다. 서버도 텔레메트리도 없는 로컬 우선 도구다.</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>항목</th><th>내용</th></tr></thead>
+  <tbody>
+    <tr><td>버전 · 활동</td><td>v1.48.0 (2026-07-12 릴리스), 누적 릴리스 192회, GitHub 스타 약 6.2k</td></tr>
+    <tr><td>라이선스 · 구현</td><td>MIT, TypeScript (개인 계정 소유 프로젝트)</td></tr>
+    <tr><td>설치 · 런타임</td><td><code>npm i -g backlog.md</code> / bun / brew / nix. Node.js 또는 Bun 필요</td></tr>
+    <tr><td>저장 형식</td><td>YAML frontmatter + 마크다운 본문. 도구 없이도 읽고 고칠 수 있다</td></tr>
+    <tr><td>인터페이스</td><td>CLI, 터미널 칸반(<code>backlog board</code>), 웹 UI(<code>backlog browser</code>, 기본 포트 6420), MCP 서버(<code>backlog mcp start</code>)</td></tr>
+    <tr><td>상태 모델</td><td>기본 <code>To Do / In Progress / Done</code> 3종, <code>statuses</code> 설정으로 확장 가능</td></tr>
+    <tr><td>git 통합</td><td><code>autoCommit</code>(기본 false), <code>checkActiveBranches</code> 로 다른 브랜치의 태스크 상태까지 읽어 최신 상태를 판정</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>디렉터리 구조와 태스크 파일은 이렇게 생겼다.</p>
+
+<pre><code>backlog/
+├── tasks/          # 태스크 1건 = 파일 1개 ("task-12 - 제목.md")
+├── drafts/         # 착수 전 보류 항목
+├── docs/           # 프로젝트 문서
+├── decisions/      # 설계 결정 기록 (ADR)
+├── archive/        # 완료·취소 태스크 보관
+└── config.yml      # statuses, autoCommit, zeroPaddedIds 등</code></pre>
+
+<pre><code>---
+id: task-12
+status: In Progress
+priority: high
+milestone: MVP
+dependencies: [task-5, task-8]
+created: 2026-07-13
+---
+## Description        (배경·목표)
+## Acceptance Criteria (체크박스 완료 조건)
+## Implementation Plan (구현 전 승인용 계획)
+## Implementation Notes(진행 기록)</code></pre>
+
+<p>설계 철학이 뚜렷하다: 에이전트 시대의 병목은 코드 작성이 아니라 사람의 주의(attention)이므로, 스펙 리뷰 → 구현 계획 승인 → 태스크별 코드 리뷰라는 체크포인트를 강제하고, <strong>태스크 1건 = 컨텍스트 윈도 1개 = PR 1개</strong>로 diff 를 사람이 읽을 수 있는 크기로 유지한다. <code>backlog init</code> 은 CLAUDE.md / AGENTS.md 에 에이전트용 작업 지침을 주입해 주고, <code>--plain</code> 플래그와 MCP 리소스(<code>backlog://workflow/*</code>)로 에이전트가 태스크를 직접 조회·조작한다.</p>
+
+<h2 id="current"><span class="n">2</span>비교 기준: 현행 PLAN.md 체계</h2>
+
+<p>비교 대상이 "맨손 마크다운"이 아니라는 점이 이 검토의 핵심 전제다. 현행 체계는 저장소마다 PLAN.md(또는 <code>PLAN_*.md</code>) 하나를 진실원본으로 두고, 그 위에 생산자·소비자로 분리된 스킬 8개가 수명주기 전체를 돌린다. 상세는 <a href="../2026-07-plan-pipeline/">두 세션 플랜 파이프라인</a> 페이지에 있고, 요약하면:</p>
+
+<ul>
+  <li><strong>생산자</strong> · <code>/make-a-plan</code>(문서 신규 작성), <code>/add-plan</code>(태스크 T-N 추가·아이디어 승격), <code>/add-idea</code>(보류 아이디어 I-N 기록)</li>
+  <li><strong>소비자</strong> · <code>/next-plan</code>(다음 착수 후보 보고), <code>/follow-plan</code>(순차: 구현 → 검증 → 커밋), <code>/sub-follow-plan</code>(워커 서브에이전트 위임), <code>/parallel-plan</code>(worktree 병렬 + ff-merge)</li>
+  <li><strong>유지보수</strong> · <code>/cleanup-plan</code>(완료 태스크를 ID + 한 줄 요약으로 압축, 완료 5건 이상이면 소비자 스킬이 자동 호출)</li>
+</ul>
+
+<p>태스크에는 표준 필드(완료 조건 · 의존 · 범위 힌트 · 단독실행 · 접수일)와 상태 4종(<code>[ ]</code> TODO / <code>[→]</code> IN_PROGRESS / <code>[x]</code> DONE / <code>[!]</code> BLOCKED)이 강제되고, T-N 은 플랜 전역에서 유일하게 증가하는 카운터다. 이 머신의 작업 디렉터리에만 PLAN 파일 16개가 이 규약으로 운영되고 있다.</p>
+
+<figure>
+<div class="figwrap">
+<svg viewBox="0 0 720 470" role="img" aria-label="현행 PLAN.md 단일 파일 구조와 Backlog.md 디렉터리 구조의 비교 다이어그램">
+  <style>
+    .t  { font: 600 13px ui-monospace, "SF Mono", monospace; fill: var(--text); }
+    .s  { font: 12px -apple-system, system-ui, sans-serif; fill: var(--text); }
+    .m  { font: 11px -apple-system, system-ui, sans-serif; fill: var(--text-muted); }
+    .f  { font: 11px ui-monospace, "SF Mono", monospace; fill: var(--text-muted); }
+    .a  { font: 600 11px -apple-system, system-ui, sans-serif; fill: var(--accent); }
+    .box { fill: none; stroke: var(--rule); stroke-width: 1.5; rx: 6; }
+    .sect { fill: none; stroke: var(--text-faint); stroke-width: 1; stroke-dasharray: 3 3; rx: 4; }
+    .card { fill: var(--bg); stroke: var(--text-muted); stroke-width: 1.2; rx: 4; }
+    .cardA { fill: none; stroke: var(--accent); stroke-width: 1.4; rx: 4; }
+    .arrow { stroke: var(--text-faint); stroke-width: 1.2; fill: none; }
+    .cap { font: 600 12px -apple-system, system-ui, sans-serif; fill: var(--text); }
+  </style>
+
+  <!-- ===== 좌: 현행 ===== -->
+  <text x="30" y="24" class="cap">현행 · PLAN.md 하나</text>
+  <text x="30" y="42" class="m">태스크 = 문서 안의 한 구역</text>
+
+  <!-- 생산자 -->
+  <text x="30" y="70" class="a">/add-plan · /add-idea · /make-a-plan</text>
+  <path d="M 120 78 L 120 96" class="arrow" marker-end="url(#ah)"/>
+
+  <!-- 문서 박스 -->
+  <rect x="30" y="100" width="280" height="250" class="box"/>
+  <text x="46" y="124" class="t">PLAN.md</text>
+
+  <rect x="46" y="136" width="248" height="40" class="sect"/>
+  <text x="56" y="153" class="s">개요 · 현재 상태</text>
+  <text x="56" y="168" class="m">산문 서사 (세션 재개의 출발점)</text>
+
+  <rect x="46" y="184" width="248" height="64" class="sect"/>
+  <text x="56" y="201" class="s">태스크 T-1 … T-N</text>
+  <text x="56" y="216" class="m">상태 4종 + 완료 조건 · 의존 ·</text>
+  <text x="56" y="230" class="m">단독실행 · 접수일 표준 필드</text>
+
+  <rect x="46" y="256" width="248" height="38" class="sect"/>
+  <text x="56" y="273" class="s">아이디어 (보류) I-1 … I-N</text>
+  <text x="56" y="287" class="m">착수 전 후보, 승격 시 T-N 편입</text>
+
+  <rect x="46" y="302" width="248" height="36" class="sect"/>
+  <text x="56" y="319" class="s">디자인 결정 · 진행 로그</text>
+  <text x="56" y="333" class="m">결정 · 근거 · 대안 산문 기록</text>
+
+  <!-- 소비자 -->
+  <path d="M 120 350 L 120 368" class="arrow" marker-end="url(#ah)"/>
+  <text x="30" y="388" class="a">/next-plan · /follow-plan · /parallel-plan</text>
+  <text x="30" y="406" class="m">완료 누적 시 /cleanup-plan 이 구역을 압축</text>
+
+  <!-- ===== 우: Backlog.md ===== -->
+  <text x="410" y="24" class="cap">Backlog.md · backlog/ 디렉터리</text>
+  <text x="410" y="42" class="m">태스크 = 파일 하나</text>
+
+  <rect x="410" y="56" width="280" height="294" class="box"/>
+  <text x="426" y="80" class="t">backlog/</text>
+
+  <!-- tasks -->
+  <text x="426" y="104" class="f">tasks/</text>
+  <rect x="446" y="114" width="150" height="30" class="card"/>
+  <rect x="454" y="122" width="150" height="30" class="card"/>
+  <rect x="462" y="130" width="150" height="30" class="cardA"/>
+  <text x="472" y="149" class="f">task-12 - ….md</text>
+  <text x="622" y="140" class="m" text-anchor="end"> </text>
+
+  <!-- 나머지 폴더 -->
+  <text x="426" y="188" class="f">drafts/</text>
+  <text x="530" y="188" class="m">보류 항목 (I-N 대응)</text>
+  <text x="426" y="210" class="f">docs/</text>
+  <text x="530" y="210" class="m">프로젝트 문서</text>
+  <text x="426" y="232" class="f">decisions/</text>
+  <text x="530" y="232" class="m">설계 결정 (ADR)</text>
+  <text x="426" y="254" class="f">archive/</text>
+  <text x="530" y="254" class="m">완료 보관 (압축 불필요)</text>
+  <text x="426" y="276" class="f">config.yml</text>
+  <text x="530" y="276" class="m">statuses · autoCommit …</text>
+
+  <!-- 인터페이스 -->
+  <line x1="426" y1="292" x2="674" y2="292" stroke="var(--rule)" stroke-width="1"/>
+  <text x="426" y="314" class="s">읽고 쓰는 곳</text>
+  <text x="426" y="334" class="a">CLI · 칸반 TUI · 웹 UI :6420 · MCP</text>
+
+  <path d="M 550 350 L 550 368" class="arrow" marker-end="url(#ah)"/>
+  <text x="410" y="388" class="m">에이전트는 task view --plain / MCP 로</text>
+  <text x="410" y="406" class="m">필요한 태스크만 부분 조회</text>
+
+  <!-- 가운데 대비 -->
+  <path d="M 330 220 L 392 220" class="arrow" marker-end="url(#ah)"/>
+  <text x="360" y="206" class="m" text-anchor="middle">vs</text>
+
+  <defs>
+    <marker id="ah" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M 0 0 L 8 4 L 0 8" fill="none" stroke="var(--text-faint)" stroke-width="1.2"/>
+    </marker>
+  </defs>
+</svg>
+</div>
+<figcaption>같은 정보를 담는 두 형태. 왼쪽은 한 문서 안의 구역, 오른쪽은 디렉터리 안의 파일. 저장 형태의 차이가 병렬 편집 충돌·부분 조회·산문성에서 서로 반대 방향의 트레이드오프를 만든다.</figcaption>
+</figure>
+
+<h2 id="mapping"><span class="n">3</span>기능 대응 매핑</h2>
+
+<p>현행 체계의 요소를 하나씩 Backlog.md 로 옮겨 보면, 대부분이 1:1 로 대응된다. 이 대응표 자체가 이번 검토의 첫 발견이다: <strong>현행 표준 필드 체계는 사실상 Backlog.md 의 frontmatter 를 산문형 마크다운으로 구현한 것</strong>이다. 완료 조건은 Acceptance Criteria, 의존은 dependencies, 접수일은 created, 아이디어 보류는 drafts 에 해당한다.</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>현행 요소</th><th>Backlog.md 대응</th><th>판정</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>아이디어 보류 I-N (<code>/add-idea</code>)</td>
+      <td><code>drafts/</code> 분리 보관</td>
+      <td class="verdict eq">= 동등</td>
+    </tr>
+    <tr>
+      <td>태스크 T-N + 표준 필드 (<code>/add-plan</code>)</td>
+      <td><code>task create</code> + frontmatter(dependencies·priority) + AC 체크박스, ID 자동 발급</td>
+      <td class="verdict up">▲ 소폭 개선</td>
+    </tr>
+    <tr>
+      <td>상태 4종 (<code>[!]</code> BLOCKED 포함)</td>
+      <td>기본 3종. <code>statuses</code> 설정에 Blocked 추가 필요</td>
+      <td class="verdict eq">= 설정으로 동등</td>
+    </tr>
+    <tr>
+      <td>다음 착수 후보 (<code>/next-plan</code>)</td>
+      <td><code>task list -s "To Do"</code> · 칸반 보드 · <code>board export</code></td>
+      <td class="verdict up">▲ 시각화 추가</td>
+    </tr>
+    <tr>
+      <td>구현 → 검증 → 커밋 규율 (<code>/follow-plan</code>)</td>
+      <td>스펙 → 계획 승인 → 리뷰 워크플로 지침 + Definition of Done</td>
+      <td class="verdict eq">= 철학 유사, 스킬 규율은 여전히 필요</td>
+    </tr>
+    <tr>
+      <td>완료 태스크 압축 (<code>/cleanup-plan</code>)</td>
+      <td><code>archive/</code> 이동. 파일 단위라 압축 자체가 불필요</td>
+      <td class="verdict up">▲ 스킬 하나가 사라짐</td>
+    </tr>
+    <tr>
+      <td>병렬 시 PLAN 충돌 관리 (<code>/parallel-plan</code> 의 append-only 해소 규칙, 메타파일 리드 전담)</td>
+      <td>태스크 = 파일 분리로 충돌 면적 자체가 소멸 + <code>checkActiveBranches</code> 크로스 브랜치 상태 판정</td>
+      <td class="verdict up">▲ 구조적 해소 (최대 이득)</td>
+    </tr>
+    <tr>
+      <td>디자인 결정 기록 (follow-plan §2 형식)</td>
+      <td><code>decisions/</code> (ADR)</td>
+      <td class="verdict eq">= 동등</td>
+    </tr>
+    <tr>
+      <td>"현재 상태" 산문 서사 (세션 재개의 출발점)</td>
+      <td>대응물 없음. <code>docs/</code> 로 수동 보완하거나 board export 사본</td>
+      <td class="verdict down">▼ 유일한 실질 손실</td>
+    </tr>
+    <tr>
+      <td>두 세션 공유 (생산자 · 소비자가 같은 파일을 읽음)</td>
+      <td>CLI <code>--plain</code> · MCP 서버로 어느 세션이든 부분 조회</td>
+      <td class="verdict up">▲ 부분 로드 가능</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="gains"><span class="n">4</span>도입하면 얻는 것</h2>
+
+<h3>4-1. 병렬 편집 충돌의 구조적 해소</h3>
+<p>현행 체계의 가장 실재하는 마찰이다. <code>/parallel-plan</code> 은 여러 워커가 PLAN.md 를 동시에 못 건드리게 하려고 "워커는 메타 파일 수정 금지, 리드가 머지 단계에서 일괄 갱신, 충돌 시 append-only 해소" 규칙을 유지하고 있다. 태스크가 파일 하나씩이면 이 규칙 자체가 필요 없어진다. 각 워커가 자기 태스크 파일만 만지면 충돌 면적이 0 이고, <code>checkActiveBranches</code> 는 다른 worktree 브랜치에서 진행 중인 태스크의 상태까지 읽어 "이미 다른 브랜치에서 Done" 같은 오판을 막는다. 병렬 에이전트 운용에 정확히 맞춘 설계다.</p>
+
+<h3>4-2. 부분 조회로 컨텍스트 절약</h3>
+<p>현행은 소비자 스킬이 PLAN.md 전체를 읽는다. 완료 이력과 서사가 함께 읽히므로 파일이 크면 낭비가 생기고, 그래서 <code>/cleanup-plan</code> 압축이 존재한다. Backlog.md 는 <code>task view --plain</code> 이나 MCP 로 필요한 태스크만 가져온다. 다만 대칭 비용이 있다: 전체 그림이 필요할 때는 여러 번 질의해야 하고, 태스크 수십 건 규모에서는 파일 하나를 통째로 읽는 쪽이 오히려 싸다. 이 이득은 백로그가 수백 건으로 커질 때 실효가 생긴다.</p>
+
+<h3>4-3. 시각화가 공짜</h3>
+<p>칸반 TUI 와 웹 UI(드래그 앤 드롭, AC 체크박스 편집)가 그냥 따라온다. 현행에는 대응물이 없고 <code>/next-plan</code> 의 텍스트 보고가 전부다. 솔로 운용에서 필수는 아니지만, 진행 중 태스크가 여러 브랜치에 걸쳐 늘어나면 보드의 가치가 커진다.</p>
+
+<h3>4-4. 생태계 표준과의 호환</h3>
+<p>Claude Code 전용이 아니라 codex 등 다른 에이전트도 같은 MCP·CLI 로 붙는다. 지금은 플랜 규약이 스킬 프롬프트 안에만 존재해서, 다른 도구를 쓰는 순간 규약을 다시 가르쳐야 한다. 도구 중립적 태스크 계층이 생기는 셈이다.</p>
+
+<h3>4-5. 완료 이력의 보존 품질</h3>
+<p><code>/cleanup-plan</code> 은 완료 태스크를 한 줄로 압축하면서 세부(검증 로그, 구현 노트)를 버린다. Backlog.md 는 완료 태스크 파일을 Implementation Notes 째로 <code>archive/</code> 에 보관하므로, 압축과 보존이 양자택일이 아니게 된다.</p>
+
+<h2 id="losses"><span class="n">5</span>잃는 것과 리스크</h2>
+
+<h3>5-1. 산문성의 상실 (가장 본질적)</h3>
+<p>PLAN.md 는 태스크 큐이기만 한 것이 아니다. "현재 상태" 단락의 산문 서사, 태스크 사이에 흐르는 맥락, 디자인 결정의 배경이 한 문서에 있고, 세션이 리셋된 에이전트가 <strong>파일 하나를 읽으면 프로젝트 전체의 서사를 복원</strong>한다. 이 저장소의 PLAN.md 가 좋은 예다: 27개 태스크의 이력이 "왜 SSG 를 안 쓰는지, 왜 리네임을 했는지"라는 이야기로 압축돼 있다. Backlog.md 로 가면 이것이 파일 30여 개로 흩어지고, 서사는 <code>docs/</code> 에 따로 쓰지 않는 한 사라진다. 태스크 파편의 합은 이야기가 아니다.</p>
+
+<h3>5-2. 런타임 의존과 전 머신 전파</h3>
+<p>지금은 git 과 텍스트 에디터면 끝이다. 도입하면 모든 작업 머신에 Node/Bun 런타임과 <code>backlog</code> 바이너리가 필요하고, 부트스트랩 스크립트에 설치·버전 고정을 추가해 유지해야 한다. 이 머신에는 Node v22 가 있어 <code>npm i -g backlog.md</code> 한 줄이지만, 머신이 늘 때마다 이 한 줄도 같이 는다. MCP 로 쓰면 세션마다 상주 프로세스도 하나 더 생긴다.</p>
+
+<h3>5-3. 스킬 8개의 재작성</h3>
+<p>플랜 계열 스킬 전부가 "PLAN.md 를 읽고 쓴다"를 전제한다. 헬퍼 스크립트(plan-context.sh)의 번호 계산, 상태 표기 규칙, cleanup 압축 로직, parallel-plan 의 충돌 해소 규칙이 모두 도구 호출로 대체되거나 폐기돼야 한다. 없어지는 코드가 많다는 건 좋은 신호이기도 하지만(cleanup-plan 폐기, 충돌 규칙 폐기), 전환기의 재작성·재검증 비용은 실제로 크다.</p>
+
+<h3>5-4. 이중 체계 과도기</h3>
+<p>PLAN 파일 16개를 한 번에 옮길 수는 없으므로, 상당 기간 "backlog 저장소"와 "PLAN.md 저장소"가 공존한다. 스킬은 <code>backlog/</code> 존재 여부로 자동 분기해야 하고(퍼블리시 스킬의 사내/사외 디스패처와 같은 패턴이라 선례는 있다), 그동안 두 규약의 미묘한 차이가 혼선을 만든다.</p>
+
+<h3>5-5. 전체 조망의 간접화</h3>
+<p>GitHub 웹에서 PLAN.md 는 문서 하나로 전체가 읽히고 diff 하나로 변경이 리뷰된다. Backlog.md 도 파일 단위 열람은 되지만, 전체 조망은 <code>board export</code> 산출물(사본)이나 로컬 보드를 거쳐야 한다. beads 의 "열람에 도구가 한 겹 낀다" 문제의 약한 버전이 남는 셈이다.</p>
+
+<h3>5-6. 도구 수명 리스크 (낮음)</h3>
+<p>개인 계정 소유 프로젝트라는 점은 beads 와 같지만, exit cost 가 다르다. 데이터가 순수 마크다운이므로 도구가 버려져도 파일은 그대로 남고, 스크립트로 언제든 PLAN.md 로 되돌릴 수 있다. 락인이 얕다는 것이 이 도구의 가장 좋은 안전 속성이다.</p>
+
+<h2 id="migration"><span class="n">6</span>전환 과정에서 예상되는 문제</h2>
+
+<p>실제로 도입한다고 가정했을 때 걸릴 지점들이다. 파일럿 전에 답을 정해 두어야 한다.</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>문제</th><th>내용</th><th>대응</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>ID 연속성</td>
+      <td>T-27 같은 번호가 커밋 메시지·문서 곳곳에 박혀 있다. Backlog.md 는 <code>--task-prefix</code> 로 접두사를 바꿀 수 있지만, 기존 전역 카운터를 이어받는 시작 번호 지정은 문서에서 확인되지 않았다</td>
+      <td>구 ID 를 태스크 본문에 병기하는 매핑으로 우회. 신규 저장소 파일럿이면 문제 자체가 없음</td>
+    </tr>
+    <tr>
+      <td>BLOCKED 상태</td>
+      <td>기본 상태 3종에 <code>[!]</code> 대응물이 없다</td>
+      <td><code>statuses</code> 설정에 Blocked 추가 + 사유는 본문에 기록 (규약으로 강제)</td>
+    </tr>
+    <tr>
+      <td>커밋 규칙 경합</td>
+      <td>현행 "태스크당 1커밋, PLAN 상태 갱신을 같은 커밋에 포함" 규칙과 도구의 자동 커밋이 겹치면 커밋 단위가 흐트러진다</td>
+      <td><code>autoCommit</code> 기본값이 false 라 현행 규칙 그대로 공존 가능. 켜지 않는 것을 규약화</td>
+    </tr>
+    <tr>
+      <td>워커 규칙 재설계</td>
+      <td>"워커는 PLAN.md 수정 금지" 규칙은 파일 분리로 근거가 사라진다. 대신 "자기 태스크 파일만 수정"으로 바뀌어야 하고, 리드 검토·커밋 순서와 상태 전이 주체를 다시 정해야 한다</td>
+      <td>파일럿에서 sub-follow-plan 하나만 먼저 개조해 규칙을 검증</td>
+    </tr>
+    <tr>
+      <td>산문 서사의 자리</td>
+      <td>"현재 상태" 단락을 어디에 쓸지 정하지 않으면 아무 데도 안 쓰게 된다</td>
+      <td><code>docs/status.md</code> 한 파일을 규약으로 지정하고 커밋마다 갱신 (사실상 미니 PLAN.md 존치)</td>
+    </tr>
+    <tr>
+      <td>스킬 분기 유지</td>
+      <td>과도기 동안 저장소마다 규약이 다르다</td>
+      <td><code>backlog/</code> 감지 자동 분기 디스패처. 퍼블리시 스킬 선례 재사용</td>
+    </tr>
+    <tr>
+      <td>소규모 저장소 과잉</td>
+      <td>이 저장소만 해도 태스크 27건 + 아이디어 5건이 파일 30여 개가 된다. 문서형·소규모 저장소에서 파일 수는 순수 오버헤드다</td>
+      <td>전면 전환하지 않고 저장소 성격별로 선택 도입 (코드 저장소 위주)</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2 id="beads"><span class="n">7</span>beads 반려 논리와의 정합</h2>
+
+<p><a href="../2026-07-plan-pipeline/#beads">plan-pipeline §9</a> 에서 beads 를 반려한 근거가 이 후보에는 얼마나 적용되는지 대조하면, 이 검토의 위치가 정확해진다.</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>beads 반려 사유</th><th>Backlog.md 에서는</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>규모 미달: 백로그가 선형 큐라 그래프 쿼리가 풀 병목이 없다</td>
+      <td><strong>그대로 유효.</strong> 태스크 수십 건 규모에서는 <code>/next-plan</code> 의 파일 훑기로 충분하다. 이번에도 가장 무거운 반려 사유다</td>
+    </tr>
+    <tr>
+      <td>진실원본이 DB(Dolt)로 이전, GitHub 열람성 상실</td>
+      <td><strong>해소.</strong> 진실원본이 git 안의 마크다운 그대로다. 파일 단위 열람·diff 리뷰 가능 (전체 조망만 간접화, §5-5)</td>
+    </tr>
+    <tr>
+      <td>런타임 의존 (bd 바이너리 + 임베디드 DB)</td>
+      <td><strong>절반 해소.</strong> CLI 설치는 여전히 필요하지만 데이터는 도구 없이 읽고 고칠 수 있어 락인이 얕다</td>
+    </tr>
+    <tr>
+      <td>마크다운 전제 스킬의 전면 재작성 + 산문성 상실</td>
+      <td><strong>그대로 유효.</strong> 스킬 8개 재작성(§5-3)과 산문 서사 상실(§5-1)은 동일하게 발생한다</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>정리하면 Backlog.md 는 beads 반려 사유 넷 중 도구 쪽 결함 둘을 지웠고, 우리 쪽 사정 둘(규모, 전환 비용)은 도구가 지울 수 없는 것이다. 그래서 결론은 "반려"가 아니라 "대기"가 된다: 규모 사유가 사라지는 순간 남는 장애물은 전환 비용뿐이고, 그건 일회성이다.</p>
+
+<h2 id="verdict"><span class="n">8</span>시나리오 비교와 권고</h2>
+
+<p class="byline">→ 이 섹션의 권고(D)는 <a href="#followup">§10 후속 검토</a>에서 B(파일럿)로 갱신되었다.</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>시나리오</th><th>내용</th><th>비용</th><th>판단</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>A</strong> 전면 전환</td>
+      <td>전 저장소 마이그레이션 + 스킬 8개 재작성</td>
+      <td>높음</td>
+      <td>현재 페인포인트 대비 과잉. 비권장</td>
+    </tr>
+    <tr>
+      <td><strong>B</strong> 파일럿</td>
+      <td>다음 신규 저장소 1곳만 <code>backlog init</code>, 스킬은 감지 분기로 최소 개조</td>
+      <td>중간</td>
+      <td>병렬 운용이 늘어나는 시점의 진입로. 조건부 권장</td>
+    </tr>
+    <tr>
+      <td><strong>C</strong> 구조 차용</td>
+      <td>도구 없이 아이디어만 흡수 (frontmatter 식 표준 필드, AC, 상태 모델)</td>
+      <td>낮음</td>
+      <td><strong>이미 완료된 상태.</strong> 현행 표준 필드가 곧 그것이다</td>
+    </tr>
+    <tr>
+      <td><strong>D</strong> 현상 유지</td>
+      <td>재평가 트리거만 걸어 둔다</td>
+      <td>0</td>
+      <td><strong>권고 기본값</strong></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p><strong>권고: D 를 기본으로, 트리거가 오면 B 로.</strong> 판단의 축은 도구의 품질이 아니라(품질은 충분하다) 페인포인트의 실재다. 현행 체계에서 실제로 아픈 곳은 parallel-plan 의 PLAN 충돌 관리 하나인데, 이미 규칙으로 관리되고 있고 병렬 실행 자체가 아직 상시 운용이 아니다. 도구가 주는 나머지 구조화 이득은 표준 필드 체계로 이미 흡수했다(시나리오 C 가 완료 상태라는 것, 이것이 이번 검토의 두 번째 발견이다).</p>
+
+<h2 id="triggers"><span class="n">9</span>재평가 트리거</h2>
+
+<p>다음 중 하나가 현실이 되면 이 결론을 다시 연다. beads 검토 때의 트리거와 같은 축이되, 이번에는 갈 곳이 정해져 있다.</p>
+
+<ul>
+  <li><strong>병렬 상시화</strong> · <code>/parallel-plan</code> 급 병렬 실행이 예외가 아니라 기본 운용이 되어, append-only 충돌 해소 규칙이 실제로 자주 발동할 때</li>
+  <li><strong>규모</strong> · 단일 저장소의 활성 백로그가 수백 건에 이르러 "다음 착수 가능"이 파일 훑기로 안 나올 때</li>
+  <li><strong>도구 혼용</strong> · Claude Code 외의 에이전트(codex 등)가 같은 백로그를 상시로 읽고 써야 할 때 (스킬 프롬프트 규약은 도구 경계를 못 넘는다)</li>
+</ul>
+
+<p>트리거가 오면: 신규 저장소 1곳에 <code>backlog init --task-prefix T</code> 로 파일럿을 열고, <code>/sub-follow-plan</code> 하나만 backlog CLI 기반으로 개조해 한 사이클을 돌려 본 뒤 확대를 결정한다. 되돌리기는 쉽다. 파일은 어차피 마크다운이다.</p>
+
+<hr>
+
+<p class="lede">한 줄로 줄이면: Backlog.md 는 "우리가 손으로 만든 것의 기성품"이라 언젠가 갈아탈 수 있는 좋은 후보지만, 기성품이 이기는 조건(병렬 상시화·수백 건 규모)이 아직 오지 않았다. 그 조건이 오면 이번에는 마크다운을 버릴 필요가 없다.</p>
+
+<hr>
+
+<h2 id="followup"><span class="n">10</span>후속 검토: 결론을 B(파일럿)로 옮긴다</h2>
+
+<p class="byline">2026-07-13 · 발행 직후 실사용자 리뷰와 추가 조사(스킬 본문 정독, CLI 문서 재확인, 운영 형태·멀티 repo 조사)를 반영한 후속 기록. §1-9 는 원형대로 두었다.</p>
+
+<h3>10-1. 트리거 목록이 놓친 진짜 트리거</h3>
+
+<p>§5-1 은 산문성 상실을 "가장 본질적" 손실로 놓았고, D(현상 유지) 권고는 그 위에 서 있었다. 그런데 실사용 관찰은 반대였다: <strong>인간이 PLAN.md 를 실제로 읽지 않는다.</strong> 마크다운 파일을 뒤적이는 일은 인간에게 생각보다 크고, 산문 서사의 독자는 사실상 세션 리셋 후의 에이전트뿐이었다. 아무도 읽지 않는 산문은 §5-1 이 매긴 무게만큼 지킬 가치가 없다. 반대로 칸반 보드는 인간이 실제로 소비할 수 있는 형태의 전체 조망이다. "인간이 진실원본을 소비하지 못하고 있다"는 §9 의 세 트리거(병렬 상시화·규모·도구 혼용)보다 본질적인 트리거인데, 목록에 없었다.</p>
+
+<h3>10-2. 스킬 = 프론트엔드 유지, Backlog.md = 백엔드 교체</h3>
+
+<p>전환의 형태도 §5-3 이 가정한 "재작성"과 다르다는 것이 확인됐다. 사용자는 PLAN.md 를 직접 편집하지 않고 스킬을 통해서만 만진다. 즉 스킬 계층이 이미 저장소 추상화이고, 백엔드만 갈아끼우면 사용 패턴은 그대로다. 갈아끼울 지점도 정확히 한 곳이다: 생산자 스킬들이 "플랜 파일 탐색 + 다음 번호 계산"을 <code>plan-context.sh</code> 헬퍼 1회 호출로 해결하는데, 그 자리가 backlog CLI 호출로 치환되는 유일한 심(seam)이다.</p>
+
+<p>CLI 문서(CLI-INSTRUCTIONS.md · ADVANCED-CONFIG.md) 기준으로 §3 매핑을 구체화하면:</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>현행 요소</th><th>Backlog.md 대응</th><th>판정</th></tr></thead>
+  <tbody>
+    <tr><td>T-N 전역 증가 카운터</td><td>task ID 자동 채번</td><td class="verdict eq">= 동일 의미론</td></tr>
+    <tr><td>I-N 아이디어 + 승격(I → T)</td><td><code>draft</code> + <code>draft promote</code>, 역방향 <code>task demote</code> 까지</td><td class="verdict up">▲ 양방향</td></tr>
+    <tr><td>M-N 마일스톤</td><td><code>milestone</code> 네이티브</td><td class="verdict eq">= 동등</td></tr>
+    <tr><td>상태 4종</td><td><code>statuses</code> 커스터마이즈(기본 3종 + Blocked 추가)</td><td class="verdict eq">= 설정으로 동등</td></tr>
+    <tr><td>완료 조건 (산문 한 줄)</td><td>AC 체크박스, <code>--check-ac N</code> 개별 조작</td><td class="verdict up">▲ 검증 기계화</td></tr>
+    <tr><td>의존: 없음 명시</td><td><code>--dep</code>, 참조 유효성 자동 검증</td><td class="verdict up">▲ 검증 내장</td></tr>
+    <tr><td>접수: 날짜</td><td><code>created</code> 자동</td><td class="verdict eq">= 자동화</td></tr>
+    <tr><td>디자인 결정 기록</td><td><code>decisions/</code> (ADR)</td><td class="verdict eq">= 동등</td></tr>
+    <tr><td>/cleanup-plan 압축</td><td><code>archive/</code> 이동으로 필요 자체가 소멸</td><td class="verdict up">▲ 스킬 폐기</td></tr>
+    <tr><td>단독실행: 필요</td><td>대응물 없음. label 로 표현</td><td class="verdict down">▼ 유일한 공백</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>더 중요한 발견은 스킬 쪽에 있다. 플랜 스킬 8종 본문(합계 443줄)의 상당 부분이 채번 규칙, 상태 표준, ID 표기 보존 같은 <strong>"도구 부재를 프롬프트로 보완하던 규칙"</strong>이다. 도구가 이를 구조적으로 보장하면 스킬은 재작성이 아니라 다이어트가 된다. 최대 수혜자는 <code>/parallel-plan</code> 이다: §4-1 이 최대 이득으로 꼽은 append-only 충돌 해소 규칙과 "워커의 메타 파일 수정 금지" 규칙이 통째로 사라진다.</p>
+
+<h3>10-3. 옮기는 김에 좋아지는 것들</h3>
+
+<ul>
+  <li><strong>검증의 기계화</strong> · "AC 전 항목 체크 완료 = 커밋 가능"으로 follow-plan 의 검증 게이트를 기계적으로 정의할 수 있다.</li>
+  <li><strong>워커 보고의 영속화</strong> · 서브에이전트의 RESULT 블록(현행은 대화에서 휘발)을 태스크 파일의 Implementation Notes 에 남긴다.</li>
+  <li><strong>우선순위 명시화</strong> · 현행 PLAN 은 우선순위가 서술 순서에 암묵적으로만 있다. priority 필드로 next-plan 의 후보 산출이 추론이 아니라 조회가 된다.</li>
+  <li><strong>서브태스크</strong> · <code>-p</code> 로 부모 아래 분해. 현행은 T 번호 폭증이 무서워 큰 태스크를 안 쪼갰다.</li>
+  <li><strong>다중 플랜 파일 정리</strong> · PLAN_*.md 여러 개 + "최근 수정본" 휴리스틱이 단일 백로그 + 마일스톤/라벨로 정리된다.</li>
+  <li><strong>미러 드리프트 감소</strong> · 스킬이 CLI 기반이 되면 codex/gemini 미러에서 도구명 치환이 필요한 면적이 줄어든다.</li>
+  <li><strong>인간 개입 채널</strong> · 웹 보드에서 카드를 옮기는 것이 곧 파일 변경이라, 사람의 우선순위 조정이 에이전트에게 그대로 전달된다.</li>
+</ul>
+
+<h3>10-4. 운영 형태: tailnet 안에서, 인스턴스는 저장소당 하나</h3>
+
+<p>상시 보드 운영을 조사한 결과 세 가지가 확정됐다.</p>
+
+<ul>
+  <li><strong>Tailscale funnel(공개 노출)은 부적합.</strong> 메인테이너가 <a href="https://github.com/MrLesk/Backlog.md/issues/716" target="_blank" rel="noopener">reverse-proxy base-path 요청을 거부</a>하며 밝혔듯, <code>backlog browser</code> 는 의도적으로 무인증·로컬 단일 사용자 도구다(접속 가능 = 파일시스템 접근 권한자 전제). tailnet 내부 한정 <code>tailscale serve</code> 는 이 보안 모델과 어긋나지 않는다.</li>
+  <li><strong>멀티 repo 단일 웹 UI 는 없다.</strong> 인스턴스 1개 = 프로젝트 1개. "backlog of backlogs" 는 <a href="https://github.com/MrLesk/Backlog.md/issues/334" target="_blank" rel="noopener">요청은 있었으나</a> 미구현이고, v1.38.0 의 <code>BACKLOG_CWD</code> 는 인스턴스가 바라볼 폴더를 바꿀 뿐이다. 우회는 저장소별 포트 + 링크 index 페이지. path-prefix 프록시는 #716 거부로 SPA 라우팅이 깨져 불가.</li>
+  <li><strong>중앙 상시 보드는 "어느 클론을 보느냐" 문제가 있다.</strong> autoCommit 이 false 라 웹에서의 편집은 커밋·푸시 없이는 다른 머신에 전달되지 않는다. read-only 조망용으로 한정하거나, 보드 전용 클론에 pull 주기 + 자동 커밋을 붙이거나를 파일럿에서 정해야 한다.</li>
+</ul>
+
+<h3>10-5. 갱신된 권고</h3>
+
+<p><strong>D(현상 유지)에서 B(파일럿)로 옮긴다.</strong> 도구가 이기는 조건은 이미 충족돼 있었고, §9 의 트리거 정의가 그것을 담지 못했을 뿐이다. 파일럿은 신규 또는 백로그가 얕은 저장소 1곳에서 열고(§6 의 ID 연속성 문제 회피), 스킬은 <code>backlog/</code> 디렉터리 감지 dual-mode 로 개조한다. 산문 서사는 <code>docs/</code> 문서로 분리 존치를 시도하되, 파일럿의 핵심 검증 질문은 "세션 리셋 후 docs 문서 + 태스크 frontmatter 만으로 재개가 되는가"다.</p>
+
+<p class="lede">§8 의 한 줄을 갱신하면: 기성품이 이기는 조건은 이미 와 있었다. 다만 그 조건은 병렬도 규모도 아니라, 인간이 읽지 않는 진실원본이었다.</p>
+
+<footer>
+  <p>이 리포트는 Claude Fable 5 가 로컬 플랜 스킬 8종의 정의와 MrLesk/Backlog.md v1.48.0 공개 문서를 근거로 작성했다 (2026-07-13). 같은 날 실사용자 리뷰와 추가 조사(CLI 문서, 이슈 #716·#334)를 반영해 §10 후속 검토를 추가했다. 선행 검토: <a href="../2026-07-plan-pipeline/#beads">beads 를 채택하지 않은 이유</a>.</p>
+  <p><a href="../../">← today i learned</a></p>
+</footer>
+
+</main>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

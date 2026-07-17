@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ghostty vs Windows Terminal — 아직 공식 대결이 성립하지 않는 비교</title>
+<meta name="description" content="공식 Ghostty 가 아직 Windows 에 없는 2026년 7월 기준, 두 터미널을 설계 철학·기능·성능과 ConPTY 구조 관점에서 비교한다. winghostty 등 비공식 포트, WSL·PowerShell 통합, ConPTY 해설, PuTTY 계보, libghostty 로드맵 포함.">
+<link rel="icon" type="image/webp" href="data:image/webp;base64,UklGRlYJAABXRUJQVlA4WAoAAAAQAAAAPwAAPwAAQUxQSLgBAAABkFttm+pG38y9VgOmAphi6sPLvDXYuTLLkfJbiakDO6ISljnT0cz/f4F4vi0gIhi4baSoHdxjnrknYAqGGkC9+6xzefOP7vx3c9l5tju0MwEFGCqgOjy763ECe3dnh4M9mj2ogeWTO5K0bOYDuFk2krw7WQbq2RADltpfSU/mk4xbcvJrewkhzjb68ROZjFPSEvnp4yyDNdbPyeScgZ7I8/VpJUQ8/TkSzRj8fIoYptMumVmAmexOI6FCw+wsQs9sUIXJccM+i7HPZlIYajRMLMjEZsJDUKM7HJcMu2O3U+GIfS8L7/MI1ejdjpXf5mRhsd8riCM+XjOzODOvYzUy9o6JAia+GxoKcf6LmQJmX+ZjGPj2wGtcGxVCWPrproH7z6UQ5nA88Cp3jLnYenRTwfyxFbFHI2XCPaAzyHVpB60HrXlobfcoZW/71cAr3atTZiUyTy/V5vJWjdt/dCWc/yiny1UPyqmfRb8i/X2rf270z63+vaF/b+nfm/r3tv67of9u6b+b8u+2vm6Q1y3yuklft8nrRnndqq+b5XW7vG+Q9y3yvkndt8n7Rnnfqu6b/7u+Xf7fAFZQOCB4BwAAkCIAnQEqQABAAD4xFIhCoiEhFwtvGCADBKALszJgwxL4nMDuBNtrfMd+un6q9kv0AP7B/ZvVs9TP0APLM/Zz4Mf3M/bn2m7wr/C+F/gz8UewucR+0/4X8oOS/gBeof79+V/5Fe1Xs8QAflf9U/y35jebJqU98vQ//Mf8N+W/M++Af037bvsD/kH9I/2H5X/3b6Wv6T/j/dv7aPof/m/5b4Bv45/RP89/eP3h/yP//8R37Z+yP+rSlnW4ioLp3S3V9RbaZTa/I/S+3SuW/3aJ7egk+a/O21C3gk5+BekStwQgWX7oKnCr+WrXtZOcaaOEuMvu7c87oz815WhWd3ItI9/EYd6nUwdZxrHLx1B156BxAYuEq9/zfAKb79YAAP7//oO08c6jQ96xjklloouKrc10ljEGcfR0EpvZ6EACwe77Id3GlrzLYWl+204HrXcrbILVzxWQwTFiIdEbQm7cASRgignX3zOORv/Oblh+yfB4mEDnh51vDQ7RAS/3LyybWRMJqbcPzRUPyv0zo2ywwPXwY2SY0yzjltE2h6B4VSAL8M8hSAEwpekUGFThcKlQApWiRFrIjIqidCihhIfpm9V6ihBUDiO6Ae8g+VqIuyKgqlqtz0JAe52aT0AZqujlJA0N6kIXFTxNRLmr0XvjP3j4mXfxOsZUSMVeD4GpOJ3drtjNcwHWjHOL7MIkDj+JDdN4geM0O0P1tjvU+0gFayisJuMzWZ3v5/65IheEK+LIKvzK9PcbIEk0oQIUvqYAaEMGrWAuVtEJ5EoX/EvoDmNgYDjVoulbsFRRLGNwb8Q3EBozaQQjxn1lTmAVsutMTO7mccZhqx8jMiDDF5zwrWzgRAowdrALH+YMINNlI/pOt//R9ohe2gZdusuXQNOn/M1WIHSMTqFWMxhK37cKDBhzEW/dqIr8XwoFvWoTLOtntYA3gbvJiek9UxP1ay6I9NQZzsZ6f/PS8x5aMkalIBn/WQrFiu9r+Y7vND/5v/r/I2PdfBccd4bD8XarblnbON88WX9zBPxB9Jp8UapELy+mfOjr/xRqFWur/tLTPejexO2w4rouNUd6f10OBYyktXTQVvajI/E7c+AP06cNiIELAe8Rhre79X4pjtoGPPgHujoytvuqd6oRQN85v3cio4gAIS0mX8UGbTWarlga24pRBqRGNf5+FrMfvf4df96Pm9WWtsRXNoQAmSKd+irxUgc238FMsU16KIMYv5jT4yvoTrwAq9V7VCMzpsTkICLVSw1tEzc5jn05dP2D+o+HuenSVRQK1sgu8XVoMmd87ocfVd/4DD3yyq0B+M5uUUk50MZmzk5ilgO+LW9wtoMB3xLP+htQum03aqP8TrHwoMfrwBHwkC/mdkWlzsTJSlxI+lXuLfokstVq+4wy74vCLgTQhsH0SqZtee6KfmK3Dx+D+0MBo2p3zD4D/buxGWMi7ku3+BNpH2kUjXuVr4TTo/MhV7VWW6jmNZYlrdyTm50tNmTOO0Pne8ICrz00Cd8yUmCa9su9eE7IcmQYZrBa7DyomDOxgohg4W2Vn1g4CK8VC+RM+CDgEW4aXwY4Afmgnvpj+pmRjoWyboa7Y9f4XwSDTwV2SXypoDh86/hsEJZzgvcqFSEgwdT4xV/9PT5P5tsJ13MoR0bpPb2zX6HE6kVhMHmuBL5kYKm/z59P8IDy6zO6PcYuBPj7cMmQr+f1lKsJPGpvHqUJafDHkPzAu/Bw5QKAJcxq4/Cd9txkzhTnxaAEJv/0zs6B4U88/jhQrMYB2FT9bP2OsUv2Dej+5HTvYvX63PBeniHs+2t+yetznyxW3rHQyGuvDYbb0o6McoH4uUS2/ZrJ6xtwgD+GQx/uVyjXI2eND8kKVEQeC/XmDLBornJ6QBRBsMU/V7X1KayBUyZD/aVONLOlv7lCa6ravwzPVUu7fkAsZi6rh6kM20xzCs5HxJmHv09msJ7T4miz7ev18vKaqmxNs2Qx8SG3d1G7t3cwoOW8NV4aoIl8aZNE0NzzZwXqE4FMU6UdrG6Udkz/uXJR9LK/6i+Wygh6se63/5gf87zAWJLWNssASlcX++IyAsuX1yIKiW322YgMKUfGnBKMX5Ts6+hz0eBlEuG9sX/8vsub7rlvZZfJi5dDfnO/Wuruy6I41MHm8j/sFYHXU66lE6/qeh0q7PmQ4ILqJ1g7N4QBbV/I3+7M32Sqjr4cI/DpxaaKU8xpKze5pl+LYXCvRR2Wl3MbRz0US7cmNmX4jt8RoO9bVGLw5LHMr8c24bMnZRSPBspsTyAuZQPU9mg8KunmqC9F7HqPuR8AxZTZSQlbiJJ6iZv50h6kAtIQNiU4E7g78VHv0iJ+hlYBzIjpJeUNK6RlKEZgFK16f+mzJvGu0OEpcwmMR5R7TKS6CXPBVa+70mPXhE3F4pNKIyXPMetqJD4cBiigb4LE3XZZ6GiWKhY2QCDTZUdF4zpYBVHAruBdXGLggMrTrr0MtqOufR/l/6g7Es/oXcYEqjzlHHMTsCcU1j6R8CjI/kZJlmf8aV8737rQ7bt9LlngAA==">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ghostty vs Windows Terminal — 아직 공식 대결이 성립하지 않는 비교">
+<meta property="og:description" content="공식 Ghostty 가 아직 Windows 에 없는 2026년 7월 기준, 두 터미널을 설계 철학·기능·성능과 ConPTY 구조 관점에서 비교한다. winghostty 등 비공식 포트, WSL·PowerShell 통합, ConPTY 해설, PuTTY 계보, libghostty 로드맵 포함.">
+<meta property="og:url" content="https://kil9.github.io/til/2026/ghostty-vs-windows-terminal/">
+<meta property="og:site_name" content="today i learned">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary">
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --text: #1B2027;
+    --text-muted: #4E5A66;
+    --text-faint: #6E7A86;
+    --rule: #E3E7EB;
+    --accent: #1A5FC8;
+    --quote-bg: #F6F8FA;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171B;
+      --text: #E7EAEE;
+      --text-muted: #A9B3BD;
+      --text-faint: #7E8994;
+      --rule: #2A3037;
+      --accent: #82B1F0;
+      --quote-bg: #1B2027;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+      "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 { margin: 0 0 8px; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
+  h2 { margin: 48px 0 12px; font-size: 1.125rem; font-weight: 700; }
+  h3 { margin: 32px 0 10px; font-size: 1rem; font-weight: 600; }
+  p { margin: 0 0 12px; }
+  ul, ol { margin: 0 0 12px; padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  code { font-family: ui-monospace, "SF Mono", monospace; font-size: 0.9em; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 32px 0; }
+  .lede { color: var(--text-muted); font-size: 0.9375rem; margin-bottom: 4px; }
+  .meta-line { font-size: 0.8125rem; color: var(--text-faint); margin-bottom: 0; }
+  .src { font-size: 0.8125rem; color: var(--text-faint); }
+  .note {
+    margin: 16px 0; padding: 12px 16px;
+    background: var(--quote-bg); border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    color: var(--text-muted); font-size: 0.9375rem;
+  }
+  .note p { margin: 0 0 8px; }
+  .note p:last-child { margin-bottom: 0; }
+  .tbl-wrap { overflow-x: auto; margin: 16px 0; }
+  table {
+    border-collapse: collapse; width: 100%;
+    font-size: 0.875rem; line-height: 1.5;
+  }
+  th, td {
+    padding: 8px 10px; border-bottom: 1px solid var(--rule);
+    text-align: left; vertical-align: top;
+  }
+  th {
+    font-weight: 600; font-size: 0.8125rem; color: var(--text-faint);
+    border-bottom: 2px solid var(--rule); white-space: nowrap;
+  }
+  td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .fig { margin: 24px 0; }
+  .fig svg { display: block; width: 100%; height: auto; }
+  .fig figcaption { font-size: 0.8125rem; color: var(--text-faint); margin-top: 8px; }
+  footer {
+    margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--rule);
+    font-size: 0.8125rem; color: var(--text-faint);
+  }
+</style>
+</head>
+<body>
+<main>
+  <p class="home-top" style="margin:0 0 28px;font-size:0.8125rem"><a href="../../">← today i learned</a></p>
+  <h1>Ghostty vs Windows Terminal</h1>
+  <p class="lede">아직 공식 대결이 성립하지 않는 비교. 공식 Ghostty 는 2026년 7월 현재 Windows 에 없다. 그래서 이 비교는 세 층위로 나눠야 정직하다 — 설계 철학의 비교, 지금 Windows 에서의 현실(Windows Terminal vs 비공식 포트 winghostty), 그리고 공식 Ghostty 가 Windows 에 오는 경로.</p>
+  <p class="meta-line"><a href="../hashimoto-oss-philosophy/">미첼 하시모토 인터뷰 해설</a>의 부록(경쟁 터미널 대비 Ghostty 강점)에서 이어지는 별개 페이지 · 작성 2026-07-13</p>
+
+  <h2 id="premise">1. 전제 — 왜 이 비교는 비대칭인가</h2>
+  <p>iTerm2·kitty·Alacritty 와의 비교(<a href="../hashimoto-oss-philosophy/#ghostty-edge">이전 페이지 부록</a>)는 같은 플랫폼에서 둘 다 설치해 나란히 돌려 본 사용자들의 후기가 근거였다. Ghostty vs Windows Terminal 은 그게 안 된다. 공식 Ghostty 의 지원 플랫폼은 macOS 와 Linux 뿐이고, Windows 지원은 <a href="https://github.com/ghostty-org/ghostty/discussions/2563" target="_blank" rel="noopener">공식 discussion</a> 기준 "계획은 있으나 타임라인 없음" 상태다. 하시모토가 지금 집중하는 것은 <a href="https://mitchellh.com/writing/libghostty-is-coming" target="_blank" rel="noopener">libghostty</a>(터미널 코어의 라이브러리화)이고, Windows 는 그 라이브러리의 확장 타겟으로 명시돼 있다.</p>
+  <p>반대 방향도 비대칭이다. Windows Terminal 은 Windows 전용이라 macOS·Linux 사용자에게는 애초에 선택지가 아니다. 즉 두 프로젝트는 오늘 기준 <strong>겹치는 시장이 없다</strong>. 그런데도 이 비교가 의미 있는 이유는 두 가지다. 첫째, 두 프로젝트는 "터미널을 어떻게 만들어야 하는가"에 대해 흥미롭게 수렴하고 흥미롭게 갈라진다. 둘째, libghostty 가 진행되고 비공식 포트가 이미 돌아가는 지금, 이 대결은 몇 년 안에 실제로 성립할 가능성이 높다.</p>
+
+  <h2 id="profile">2. 프로필 한눈 비교</h2>
+  <div class="tbl-wrap">
+  <table>
+    <thead>
+      <tr><th></th><th>Ghostty</th><th>Windows Terminal</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>개발 주체</td><td>미첼 하시모토 + 커뮤니티 (개인 유지보수자 모델)</td><td>Microsoft 제품 팀 + 커뮤니티</td></tr>
+      <tr><td>라이선스</td><td>MIT</td><td>MIT</td></tr>
+      <tr><td>구현 언어</td><td>Zig (GUI 는 Swift/GTK)</td><td>C++ (GUI 는 XAML/WinUI)</td></tr>
+      <tr><td>플랫폼</td><td>macOS · Linux (Windows 는 계획만)</td><td>Windows 전용</td></tr>
+      <tr><td>기본 지위</td><td>서드파티 앱</td><td>Windows 11 22H2 부터 기본 터미널 앱 · Windows 10 은 스토어 설치(기본은 conhost)</td></tr>
+      <tr><td>렌더링</td><td>GPU 가속 (Metal / OpenGL)</td><td>GPU 가속 (AtlasEngine, DirectX)</td></tr>
+      <tr><td>설정</td><td>평평한 <code>key = value</code> 텍스트 파일, 제로 컨피그 지향</td><td>설정 UI + <code>settings.json</code></td></tr>
+      <tr><td>이미지 프로토콜</td><td>Kitty 그래픽 프로토콜</td><td>Sixel (1.22 프리뷰부터)</td></tr>
+      <tr><td>배포</td><td>공식 사이트·패키지 매니저</td><td>Microsoft Store (자동 업데이트) 등</td></tr>
+      <tr><td>구조적 특이점</td><td>libghostty — 코어를 임베딩 가능한 라이브러리로 분리</td><td>ConPTY — Windows 콘솔 기반시설 자체를 유지보수</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2 id="wt">3. Windows Terminal — Windows 의 "네이티브" 는 이쪽이다</h2>
+  <p>하시모토의 Ghostty 원칙은 "코어는 크로스플랫폼, GUI 는 비타협적 네이티브"다. 이 잣대를 Windows 에 적용하면 통과하는 것은 현재 Windows Terminal 쪽이라는 점이 이 비교의 첫 번째 아이러니다. Windows Terminal 은 Windows 의 UI 스택(XAML/WinUI)으로 만들어졌고, PowerShell·cmd·WSL·Azure Cloud Shell 을 프로파일로 통합한다. kitty 나 Alacritty 가 macOS 에서 받는 "이질적인 창" 비판을 Windows Terminal 은 자기 플랫폼에서 받지 않는다.</p>
+
+  <h3>"기본 터미널" 의 정확한 범위</h3>
+  <p>"Windows 의 기본 터미널"이라는 표현은 조건 없이 쓰면 틀린다. cmd 와 PowerShell 은 셸이고, 그 셸을 창에 그려 주는 앱이 터미널인데, Windows 의 역대 기본 터미널은 그 회색 창 — conhost.exe(콘솔 호스트)였다. Windows Terminal 은 2019년 스토어 앱으로 출발한 별도 프로젝트다. 전환점은 <a href="https://devblogs.microsoft.com/commandline/windows-terminal-as-your-default-command-line-experience/" target="_blank" rel="noopener">Windows 11 22H2(2022년 10월 업데이트)</a>로, 이때부터 기본 터미널 애플리케이션이 conhost 에서 Windows Terminal 로 바뀌어 <code>.cmd</code> 더블클릭·Win+X·시작 메뉴의 PowerShell 이 전부 Windows Terminal 탭으로 열린다.</p>
+  <p>단서가 셋 붙는다. Windows 10 에서는 여전히 conhost 가 기본이고 Windows Terminal 은 스토어에서 따로 설치해야 한다. Windows 11 에서도 설정으로 기본 터미널을 conhost 로 되돌릴 수 있다. 그리고 conhost 는 사라진 게 아니라 아래 5장의 ConPTY 배관이 되어 모든 세션의 물밑에서 계속 돈다. 요약하면 "Windows 11 22H2 이후의 기본 터미널 앱"이 정확한 표현이다.</p>
+
+  <h3>WSL·PowerShell 통합의 실체</h3>
+  <p>"통합"이라는 말이 실제로 가리키는 동작은 이런 것들이다:</p>
+  <ul>
+    <li><strong>동적 프로파일</strong> — 설치된 셸 환경(PowerShell 7, WSL 의 각 배포판, Azure Cloud Shell)을 자동 감지해 새 탭 드롭다운에 프로파일로 등록한다. Ubuntu 배포판을 설치하면 아무 설정 없이 다음 실행부터 Ubuntu 탭이 생긴다.</li>
+    <li><strong>프로파일 단위 설정</strong> — 셸마다 시작 디렉터리·배색·폰트·아이콘을 따로 가진다. WSL 프로파일의 시작 경로를 <code>\\wsl$</code> 경유의 리눅스 홈 디렉터리로 잡는 식으로, Windows/리눅스 경계를 넘는 설정이 자연스럽다.</li>
+    <li><strong>OS 진입점</strong> — 탐색기 우클릭 "터미널에서 열기", Win+X 메뉴, 탭·분할 구성까지 지정할 수 있는 <code>wt</code> CLI 인자가 전부 Windows Terminal 로 이어진다.</li>
+    <li><strong>셸 통합 시퀀스</strong> — 셸이 프롬프트 위치를 알려 주면(OSC 133 계열) 명령 단위로 스크롤을 점프하고 출력 블록을 통째로 선택할 수 있다. PowerShell 과의 연동이 대표 사례고, 탭 복제 시 현재 작업 디렉터리가 유지되는 것도 셸이 경로를 알려 주는 같은 계열의 시퀀스 덕이다.</li>
+  </ul>
+  <p>요컨대 여러 셸이 공존하는 OS 에서 셸들을 묶는 허브가 이 통합의 정체다. 단일 셸 문화에 가까운 macOS·Linux 를 타겟으로 하는 Ghostty 에는 애초에 이만한 프로파일 개념이 필요하지 않았고, 이 차이가 6장의 설정 철학 차이로 이어진다.</p>
+
+  <h3>최근 기능 흐름</h3>
+  <p>기능 면에서도 정체된 프로젝트가 아니다. 최근 흐름만 짚으면:</p>
+  <ul>
+    <li><strong>Sixel 인라인 이미지</strong> — <a href="https://devblogs.microsoft.com/commandline/windows-terminal-preview-1-22-release/" target="_blank" rel="noopener">1.22 프리뷰</a>에서 커뮤니티 기여(j4james)로 구현됐다. WinGet 이 콘솔 안에 앱 아이콘을 그리는 식의 활용이 시작됐다.</li>
+    <li><strong>OSC 52(클립보드)·정규식 검색·quake 모드·탭 분리(tearout)</strong> 등 서드파티 터미널의 대표 기능들을 꾸준히 흡수하고 있다.</li>
+    <li><strong>콘솔 엔진 자체의 재건</strong> — 2026년 3월 Windows 11 업데이트에서 conhost 계층까지 재구축해 <a href="https://www.helpnetsecurity.com/2026/03/31/windows-11-console-upgrade-speed-boost/" target="_blank" rel="noopener">일부 시나리오 스크롤 성능 최대 10배</a>, sixel·정규식 검색이 구식 콘솔에도 내려갔다.</li>
+  </ul>
+  <p>마지막 항목이 구조적으로 중요하다. Windows Terminal 팀은 터미널 앱 하나가 아니라 <strong>ConPTY(의사 콘솔) 인프라의 관리자</strong>다. Windows 에서 돌아가는 모든 서드파티 터미널 — Alacritty 든 WezTerm 이든, 미래의 Ghostty 든 — 이 이 팀이 만드는 배관 위에서 돌아간다.</p>
+
+  <h2 id="ghostty-path">4. Ghostty 가 Windows 에 없는 이유, 그리고 오는 경로</h2>
+  <p>Ghostty 의 Windows 부재는 기술적 불가능이 아니라 우선순위다. 하시모토는 2025년 9월 <a href="https://mitchellh.com/writing/libghostty-is-coming" target="_blank" rel="noopener">libghostty 계획</a>에서 초기 타겟을 macOS·Linux 로 잡되 "Windows, 임베디드, WASM 웹"으로 확장하겠다고 명시했다. 코어(VT 파서·화면 상태·렌더링)를 C ABI 라이브러리로 분리하고, 그 위에 플랫폼별 GUI(현재 Swift·GTK)를 얹는 구조이므로, Windows 판은 "코어 이식 + Win32/WinUI 프론트엔드 신작"이라는 큰 작업이 된다. 비타협적 네이티브 원칙을 Windows 에서도 지키려면 Electron 식 지름길이 없기 때문이다.</p>
+  <p>그 공백을 커뮤니티가 먼저 메웠다:</p>
+  <ul>
+    <li><strong><a href="https://github.com/amanthanvi/winghostty" target="_blank" rel="noopener">winghostty</a></strong> — 2026년 4월 시작된 비공식 포크. Ghostty 의 터미널 코어(VT 파서·스크롤백)를 그대로 쓰고 Zig 로 짠 네이티브 Win32 런타임을 얹었다. WGL 경유 OpenGL 4.3 렌더링, 네이티브 탭바·모니터별 DPI·IME·WSL 인식 셸 선택까지 갖췄고 x64/ARM64 인스톨러로 배포된다(2026-07-11 기준 1.3.117). 업스트림을 git remote 로 추적하며 충돌 시 Windows 동작을 우선한다.</li>
+    <li><strong><a href="https://github.com/Thr45hx/ghostty-windows" target="_blank" rel="noopener">ghostty-windows</a></strong> — DirectWrite 폰트 백엔드를 쓰는 또 다른 커뮤니티 x64 빌드.</li>
+  </ul>
+  <p>단, 이들은 공식 프로젝트가 아니다. 단일 메인테이너 의존, 업스트림과의 지속 동기화 부담(이전 페이지에서 다룬 <a href="../hashimoto-oss-philosophy/#adversarial">포크 대칭성 반론</a>의 실물 사례다), 보안 업데이트 보증 없음이라는 전형적 포크 리스크를 안고 있다. 흥미롭게도 하시모토의 "개인·유지 포크가 훨씬 많아져야 한다"는 지론이 실제로 작동한 사례이기도 하다 — libghostty 방향의 코어/셸 분리가 이런 포크를 가능하게 했다.</p>
+
+  <h2 id="perf">5. 성능과 레이턴시 — ConPTY 라는 공통 천장</h2>
+  <p>macOS·Linux 에서 Ghostty 의 강점 중 하나는 체감 성능이다(시작 100ms 미만, 로그 폭주에도 여유). 그러나 이 강점을 Windows 로 그대로 들고 올 수 있다고 가정하면 안 된다. Windows 에서는 모든 서드파티 터미널이 ConPTY 라는 변환 계층을 거친다.</p>
+
+  <h3>ConPTY 란 무엇인가</h3>
+  <p>Unix 계열에서 PTY(의사 터미널)는 커널이 제공하는 원시 부품이다. 터미널과 셸 사이에 양방향 바이트 스트림 하나가 있고 그 위로 VT 이스케이프 시퀀스가 흐르는 게 전부라서, 터미널 에뮬레이터는 그 스트림만 해석하면 된다. Windows 는 사정이 다르다. 40년 치 콘솔 프로그램들이 바이트 스트림이 아니라 <strong>Console API</strong> — <code>WriteConsole</code> 같은 함수 호출 — 로 화면을 그려 왔다. 서드파티 터미널이 이 앱들을 품으려면 함수 호출의 결과를 가로챌 방법이 필요한데, 공식 방법이 없던 시절에는 화면 밖에 콘솔을 숨겨 두고 그 버퍼를 긁어 오는 해킹(winpty)이 유일한 길이었다.</p>
+  <p><a href="https://devblogs.microsoft.com/commandline/windows-command-line-introducing-the-windows-pseudo-console-conpty/" target="_blank" rel="noopener">ConPTY(의사 콘솔 API)</a>는 2018년 Windows 10 1809 에서 그 해킹을 OS 공식 기능으로 승격시킨 것이다. 콘솔 앱과 터미널 사이에 conhost 인스턴스가 번역기로 끼어들어, 앱의 Console API 호출을 VT 시퀀스로, 터미널이 보낸 입력을 콘솔 입력 이벤트로 양방향 변환한다. 덕분에 터미널 개발자는 Unix 에서처럼 바이트 스트림만 다루면 되고 — Alacritty·WezTerm 의 Windows 지원도, winghostty 가 Ghostty 코어를 거의 그대로 들고 올 수 있었던 것도 이 API 가 있어서다. 대가는 구조적이다. 세션마다 번역 프로세스가 하나 더 끼고, 버퍼링과 청크 단위 전달이 레이턴시를 더하며, 숨은 콘솔 창이 포커스를 훔치는 류의 오랜 버그도 있다. 2026년 3월의 콘솔 엔진 재건은 바로 이 계층의 성능 개선이다.</p>
+
+  <figure class="fig">
+    <svg viewBox="0 0 720 336" role="img" aria-label="Windows 터미널 계층 구조: 로컬 콘솔 앱들이 ConPTY 를 거쳐 각 터미널 에뮬레이터에 연결되고, SSH 원격 세션은 ConPTY 를 거치지 않고 PuTTY 등으로 직접 연결되는 다이어그램. 공식 Ghostty 는 점선으로 미래 위치를 표시.">
+      <!-- local stack -->
+      <rect x="24" y="16" width="426" height="56" rx="8" fill="none" stroke="var(--rule)" stroke-width="1.5"/>
+      <text x="237" y="40" text-anchor="middle" fill="var(--text)" font-size="14" font-weight="600">로컬 콘솔 애플리케이션</text>
+      <text x="237" y="60" text-anchor="middle" fill="var(--text-faint)" font-size="12">PowerShell · cmd · WSL 안의 CLI · vim · Claude Code …</text>
+      <line x1="237" y1="72" x2="237" y2="104" stroke="var(--text-faint)" stroke-width="1.5"/>
+      <path d="M231 98 L237 106 L243 98" fill="none" stroke="var(--text-faint)" stroke-width="1.5"/>
+      <rect x="24" y="108" width="426" height="60" rx="8" fill="none" stroke="var(--accent)" stroke-width="2"/>
+      <text x="237" y="132" text-anchor="middle" fill="var(--accent)" font-size="14.5" font-weight="700">ConPTY (의사 콘솔)</text>
+      <text x="237" y="152" text-anchor="middle" fill="var(--text-faint)" font-size="12">Console API ↔ VT 시퀀스 번역 — WT 팀이 유지보수</text>
+      <line x1="84" y1="168" x2="84" y2="204" stroke="var(--text-faint)" stroke-width="1.5"/>
+      <path d="M78 198 L84 206 L90 198" fill="none" stroke="var(--text-faint)" stroke-width="1.5"/>
+      <line x1="239" y1="168" x2="239" y2="204" stroke="var(--text-faint)" stroke-width="1.5"/>
+      <path d="M233 198 L239 206 L245 198" fill="none" stroke="var(--text-faint)" stroke-width="1.5"/>
+      <line x1="392" y1="168" x2="392" y2="204" stroke="var(--text-faint)" stroke-width="1.5"/>
+      <path d="M386 198 L392 206 L398 198" fill="none" stroke="var(--text-faint)" stroke-width="1.5"/>
+      <rect x="24" y="208" width="120" height="80" rx="8" fill="none" stroke="var(--rule)" stroke-width="1.5"/>
+      <text x="84" y="242" text-anchor="middle" fill="var(--text)" font-size="12" font-weight="600">Windows Terminal</text>
+      <text x="84" y="262" text-anchor="middle" fill="var(--text-faint)" font-size="11.5">Win11 기본</text>
+      <rect x="154" y="208" width="170" height="80" rx="8" fill="none" stroke="var(--rule)" stroke-width="1.5"/>
+      <text x="239" y="234" text-anchor="middle" fill="var(--text)" font-size="12.5" font-weight="600">서드파티 터미널</text>
+      <text x="239" y="254" text-anchor="middle" fill="var(--text-faint)" font-size="11.5">winghostty(비공식) · pterm</text>
+      <text x="239" y="272" text-anchor="middle" fill="var(--text-faint)" font-size="11.5">Alacritty · WezTerm 등</text>
+      <rect x="334" y="208" width="116" height="80" rx="8" fill="none" stroke="var(--text-faint)" stroke-width="1.5" stroke-dasharray="6 5"/>
+      <text x="392" y="242" text-anchor="middle" fill="var(--text-muted)" font-size="12.5" font-weight="600">공식 Ghostty</text>
+      <text x="392" y="262" text-anchor="middle" fill="var(--text-faint)" font-size="11.5">미래 · libghostty</text>
+      <!-- divider -->
+      <line x1="478" y1="20" x2="478" y2="292" stroke="var(--rule)" stroke-width="1.5" stroke-dasharray="4 6"/>
+      <!-- remote lane -->
+      <rect x="506" y="16" width="190" height="72" rx="8" fill="none" stroke="var(--rule)" stroke-width="1.5"/>
+      <text x="601" y="42" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="600">원격 서버 (Linux 등)</text>
+      <text x="601" y="62" text-anchor="middle" fill="var(--text-faint)" font-size="11.5">CLI 앱 · PTY(커널) · sshd</text>
+      <line x1="601" y1="88" x2="601" y2="204" stroke="var(--text-faint)" stroke-width="1.5"/>
+      <path d="M595 198 L601 206 L607 198" fill="none" stroke="var(--text-faint)" stroke-width="1.5"/>
+      <text x="612" y="140" fill="var(--text-faint)" font-size="11.5">SSH</text>
+      <text x="612" y="156" fill="var(--text-faint)" font-size="11.5">(네트워크)</text>
+      <rect x="506" y="208" width="190" height="80" rx="8" fill="none" stroke="var(--rule)" stroke-width="1.5"/>
+      <text x="601" y="238" text-anchor="middle" fill="var(--text)" font-size="12.5" font-weight="600">PuTTY · MinTTY</text>
+      <text x="601" y="258" text-anchor="middle" fill="var(--text-faint)" font-size="11.5">자체 터미널 구현</text>
+      <text x="601" y="276" text-anchor="middle" fill="var(--text-faint)" font-size="11.5">ConPTY 우회 (SSH·Cygwin PTY)</text>
+      <text x="360" y="322" text-anchor="middle" fill="var(--text-faint)" font-size="12">로컬 셸은 어느 터미널을 쓰든 ConPTY 를 거치고, SSH 원격 세션은 이 계층을 거치지 않는다</text>
+    </svg>
+    <figcaption>Windows 터미널 스택. 로컬 셸의 성능 상한은 각 앱의 렌더러 이전에 ConPTY 계층에서 상당 부분 결정되고, SSH 원격 접속(PuTTY 계보)은 이 계층 밖에 있다.</figcaption>
+  </figure>
+
+  <p>이 구조의 실측 근거로 자주 인용되는 것이 Chad Austin 의 <a href="https://chadaustin.me/2024/02/windows-terminal-latency/" target="_blank" rel="noopener">키 입력 레이턴시 측정</a>(2024-02, 120Hz 카메라 실측)이다:</p>
+  <div class="tbl-wrap">
+  <table>
+    <thead>
+      <tr><th>터미널 (WSL1, 80x50)</th><th>키 입력 → 화면 반영</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>conhost.exe (구식 콘솔)</td><td class="num">33.3 ms</td></tr>
+      <tr><td>MinTTY</td><td class="num">33.3 ms</td></tr>
+      <tr><td>Alacritty</td><td class="num">62.5 ms</td></tr>
+      <tr><td>WezTerm</td><td class="num">66.7 ms</td></tr>
+      <tr><td>Windows Terminal</td><td class="num">66.7 ms</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>주목할 것은 순위표의 꼭대기다. GPU 가속 신형 터미널들이 아니라 <strong>구식 conhost 가 가장 빨랐다</strong>. macOS 에서 "iTerm2 는 느리고 Ghostty 는 빠르다"로 요약되던 구도가 Windows 에서는 성립하지 않는다는 뜻이다 — 여기서는 GPU 가속 자체가 승부를 결정하지 못하고, ConPTY 왕복과 합성 파이프라인이 병목을 지배한다. 미래의 공식 Ghostty 도 이 천장 아래에서 시작한다.</p>
+  <div class="note">
+    <p>단, 이 수치는 2024년 초 측정이라 현재와 다를 수 있다. 같은 글의 추기에 따르면 Windows Terminal 1.19 에서 레이턴시가 약 50% 개선됐고, 2026년 3월의 콘솔 엔진 재건으로 스크롤 성능도 크게 올랐다. 방향은 분명하다: Windows Terminal 은 느리다는 평판을 데이터로 반박하는 중이고, ConPTY 개선은 경쟁자(미래의 Ghostty 포함)까지 함께 빨라지게 한다.</p>
+  </div>
+
+  <h3>PuTTY 는 이 지도의 어디에 있나</h3>
+  <p>Windows 터미널 이야기에서 빠지지 않는 PuTTY(1999)는 위 두 앱과 계보가 다르다. 로컬 셸을 품는 터미널이 아니라 SSH·telnet·시리얼용 원격 접속 클라이언트로, 접속하는 순간 PTY 는 원격 리눅스 서버의 커널에 만들어진다. 즉 SSH 세션은 로컬 ConPTY 를 아예 거치지 않는다 — 위 다이어그램의 오른쪽 우회로다. 레이턴시 표 공동 1위인 MinTTY 가 PuTTY 의 터미널 구현에서 갈라져 나온 코드라는 점도 우연이 아니다. GPU 가속 없는 구식 렌더링이 최신 GPU 터미널보다 빨랐던 이유는 그림 실력이 아니라 파이프라인이 짧기 때문이다.</p>
+  <p>다만 PuTTY 조차 로컬 셸을 품는 순간에는 ConPTY 아래로 들어온다. 0.77 부터 제공되는 <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/changes.html" target="_blank" rel="noopener">pterm.exe</a>(cmd 등 Windows 콘솔 앱용 PuTTY 창)가 정확히 ConPTY 위에서 돈다 — 로컬 셸을 다루는 한 누구도 이 계층을 피할 수 없다는 또 하나의 증거다. 한편 Windows 10 부터 OpenSSH 클라이언트(<code>ssh.exe</code>)가 기본 탑재되면서 "Windows Terminal + ssh" 조합이 PuTTY 의 전통적 역할을 잠식하는 중이라, 원격 접속 위주 사용자에게는 그 전환이 Ghostty vs Windows Terminal 보다 훨씬 현실적인 선택 문제다.</p>
+
+  <h2 id="philosophy">6. 철학 비교 — 수렴하는 원칙, 갈라지는 거버넌스</h2>
+  <h3>수렴: 네이티브 GUI 와 "기능 풍부 ≠ 부풀림"</h3>
+  <p>두 프로젝트는 서로 독립적으로 같은 결론에 도달했다. 플랫폼 고유 UI 스택을 쓰고(AppKit/GTK ↔ XAML/WinUI), GPU 가속 렌더러를 직접 만들고(Metal/OpenGL ↔ AtlasEngine), 기능을 많이 넣되 기본 경험을 어지럽히지 않는다. 하시모토가 인터뷰에서 말한 "새 프로토콜을 만들기 전에 Win32·WinUI 같은 기존 플랫폼 선례를 조사한다"는 원칙까지 포함하면, 그가 Windows Terminal 의 접근을 부정할 이유는 별로 없다.</p>
+  <h3>갈라짐 1: 설정 철학</h3>
+  <p>Ghostty 는 제로 컨피그가 목표다 — 설정 파일 없이도 완성돼 있어야 하고, 설정은 평평한 텍스트다. Windows Terminal 은 GUI 설정 화면과 <code>settings.json</code> 의 이중 구조로, 프로파일(셸별 설정 묶음)이라는 추가 개념이 있다. Windows 의 현실(PowerShell·cmd·여러 WSL 배포판이 공존)에는 프로파일 모델이 맞지만, "깔고 바로 끝"이라는 Ghostty 식 감촉과는 거리가 있다.</p>
+  <h3>갈라짐 2: 그래픽 프로토콜의 진영</h3>
+  <p>Ghostty 는 Kitty 그래픽 프로토콜(현대 서드파티 터미널 진영의 사실상 표준)을, Windows Terminal 은 Sixel(1980년대 DEC 유래의 구 표준)을 택했다. 인터뷰에서 하시모토가 짚은 "터미널에 표준화 기구가 없어서 가장 인기 있는 터미널을 따라가는 방식으로 표준화된다"는 문제의 실례다 — 양쪽 다 자기 생태계에서 가장 인기 있는 쪽을 따라갔고, 결과적으로 진영이 갈렸다.</p>
+  <h3>갈라짐 3: 거버넌스</h3>
+  <p>가장 근본적인 차이다. Ghostty 는 "의무 0, 그러나 책임감" 을 말하는 개인 유지보수자의 프로젝트고, Windows Terminal 은 이슈 트래커·로드맵·보안 패치 의무를 지는 Microsoft 제품이다(코드는 MIT 오픈소스이며 sixel 처럼 굵직한 기능이 커뮤니티에서 오기도 한다). 어느 쪽이 좋은가는 사용자가 무엇을 원하느냐에 달렸다 — 벤더에게 책임을 물을 권리가 필요한 조직이라면 후자가 정답이고, 하시모토식으로 말하면 그 권리는 원래 돈(또는 플랫폼 종속)을 내고 사는 것이다.</p>
+
+  <h2 id="verdict">7. 총평 — 오늘 무엇을 쓸까</h2>
+  <ul>
+    <li><strong>Windows 에서 오늘 고른다면</strong>: Windows Terminal 이 합리적 기본값이다. Windows 11 에서의 기본 터미널 지위(3장), 자동 업데이트, WSL·PowerShell 허브 역할, 그리고 빠르게 좁혀지는 성능 격차까지, 서드파티로 갈아탈 유인이 예전보다 약해졌다. Ghostty 의 감촉이 궁금하면 winghostty 를 시험해 볼 수 있지만, 비공식 포크의 리스크(단일 메인테이너·보증 없음)를 이해하고 쓰는 실험으로 접근해야 한다. 원격 서버 접속이 주 용도라면 PuTTY 에서 "Windows Terminal + 기본 탑재 ssh" 로의 전환(5장)이 먼저 검토할 문제다.</li>
+    <li><strong>macOS·Linux 사용자에게</strong>: 이 비교는 선택 문제가 아니다. 다만 Windows Terminal 팀의 ConPTY·conhost 개선은 WSL 을 쓰는 순간 간접적으로 체감된다.</li>
+    <li><strong>진짜 대결은 아직</strong>: libghostty 가 Windows 타겟을 완성하고 공식 Win32 프론트엔드가 나오는 시점 — 그때의 관전 포인트는 렌더러 성능이 아니라 <strong>ConPTY 천장 아래에서 Ghostty 의 강점(제로 컨피그·기본값의 완성도)이 얼마나 살아남는가</strong>, 그리고 OS 기본 앱을 이길 만큼의 차별화가 남는가다. iTerm2 를 이기는 것과 OS 기본 터미널을 이기는 것은 난도가 다른 게임이다.</li>
+  </ul>
+
+  <hr>
+  <p class="src">소스: <a href="https://github.com/ghostty-org/ghostty/discussions/2563" target="_blank" rel="noopener">Ghostty Windows Support discussion</a> · <a href="https://mitchellh.com/writing/libghostty-is-coming" target="_blank" rel="noopener">libghostty Is Coming</a> (mitchellh.com, 2025-09) · <a href="https://github.com/amanthanvi/winghostty" target="_blank" rel="noopener">winghostty</a> · <a href="https://github.com/Thr45hx/ghostty-windows" target="_blank" rel="noopener">ghostty-windows</a> · <a href="https://devblogs.microsoft.com/commandline/windows-terminal-preview-1-22-release/" target="_blank" rel="noopener">Windows Terminal Preview 1.22</a> · <a href="https://www.helpnetsecurity.com/2026/03/31/windows-11-console-upgrade-speed-boost/" target="_blank" rel="noopener">Windows 11 console upgrade (2026-03)</a> · <a href="https://chadaustin.me/2024/02/windows-terminal-latency/" target="_blank" rel="noopener">Terminal Latency on Windows</a> (Chad Austin, 2024-02) · <a href="https://devblogs.microsoft.com/commandline/windows-terminal-as-your-default-command-line-experience/" target="_blank" rel="noopener">WT as your Default</a> (devblogs) · <a href="https://devblogs.microsoft.com/commandline/windows-command-line-introducing-the-windows-pseudo-console-conpty/" target="_blank" rel="noopener">Introducing ConPTY</a> (devblogs, 2018) · <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/changes.html" target="_blank" rel="noopener">PuTTY Change Log</a> · 배경: <a href="../hashimoto-oss-philosophy/">미첼 하시모토 인터뷰 해설</a></p>
+
+  <footer><p><a href="../../">← today i learned</a></p></footer>
+</main>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

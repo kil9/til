@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Fable 5 vs GPT-5.6 — computer use 벤치마크·가격 비교</title>
+<meta name="description" content="OSWorld-Verified 와 OSWorld 2.0 으로 갈라진 computer use 벤치마크에서 Claude Fable 5 와 GPT-5.6 (Sol·Terra) 를 교차 비교하고, API 가격과 실효 비용까지 정리.">
+<link rel="icon" type="image/webp" href="data:image/webp;base64,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">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Claude Fable 5 vs GPT-5.6 — computer use 벤치마크·가격 비교">
+<meta property="og:description" content="OSWorld-Verified 와 OSWorld 2.0 으로 갈라진 computer use 벤치마크에서 Claude Fable 5 와 GPT-5.6 (Sol·Terra) 를 교차 비교하고, API 가격과 실효 비용까지 정리.">
+<meta property="og:url" content="https://kil9.github.io/til/2026/claude-vs-gpt56-computer-use/">
+<meta property="og:site_name" content="today i learned">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary">
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --text: #1B2027;
+    --text-muted: #4E5A66;
+    --text-faint: #6E7A86;
+    --rule: #E3E7EB;
+    --accent: #1A5FC8;
+    --row-alt: #F6F8FA;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171B;
+      --text: #E7EAEE;
+      --text-muted: #A9B3BD;
+      --text-faint: #7E8994;
+      --rule: #2A3037;
+      --accent: #82B1F0;
+      --row-alt: #1A1E24;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+      "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 { margin: 0 0 8px; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
+  h2 { margin: 40px 0 12px; font-size: 1.0625rem; font-weight: 600; }
+  p { margin: 0 0 12px; }
+  ul { margin: 0 0 12px; padding-left: 22px; }
+  li { margin: 0 0 6px; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  code { font-family: ui-monospace, "SF Mono", monospace; font-size: 0.9em; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 32px 0; }
+  .lede { color: var(--text-muted); font-size: 0.9375rem; }
+  .meta-line { margin: 0 0 24px; font-size: 0.8125rem; color: var(--text-faint);
+    font-family: ui-monospace, "SF Mono", monospace; }
+  .table-wrap { overflow-x: auto; margin: 0 0 12px; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--rule);
+    white-space: nowrap; }
+  td:last-child, th:last-child { white-space: normal; }
+  th { font-weight: 600; font-size: 0.8125rem; color: var(--text-muted);
+    border-bottom: 2px solid var(--rule); }
+  tbody tr:nth-child(even) { background: var(--row-alt); }
+  .win { font-weight: 700; color: var(--accent); }
+  .na { color: var(--text-faint); }
+  .note {
+    margin: 16px 0; padding: 12px 16px; border-left: 3px solid var(--accent);
+    background: var(--row-alt); font-size: 0.9rem; color: var(--text-muted);
+  }
+  .note p { margin: 0; }
+  footer {
+    margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--rule);
+    font-size: 0.8125rem; color: var(--text-faint);
+  }
+</style>
+</head>
+<body>
+<main>
+  <p class="home-top" style="margin:0 0 28px;font-size:0.8125rem"><a href="../../">← today i learned</a></p>
+  <h1>Claude Fable 5 vs GPT-5.6 — computer use 벤치마크·가격 비교</h1>
+  <p class="meta-line">2026-07-12 · 공개 벤치마크·가격 자료 기준</p>
+
+  <p class="lede">2026년 7월, Anthropic 의 Claude Fable 5 와 OpenAI 의 GPT-5.6 패밀리(Sol·Terra·Luna)가 일주일 간격으로 출시되며 정면 충돌했다.
+  그런데 computer use 성능은 직접 비교가 안 된다. 두 회사가 <strong>서로 다른 OSWorld 변형</strong>에서만 점수를 공개했고, 상대 모델의 점수는 비교표에서 빼 버렸기 때문이다.
+  이 글은 공개된 수치만으로 어디까지 말할 수 있는지 정리한 기록이다.</p>
+
+  <h2>1. 벤치마크가 갈라졌다</h2>
+  <p>computer use 의 대표 벤치마크였던 OSWorld 는 현재 두 갈래다.</p>
+  <ul>
+    <li><strong>OSWorld-Verified</strong> — 기존 태스크셋의 검증판. 프런티어 모델들이 80% 중반에 몰려 사실상 포화 상태.</li>
+    <li><strong>OSWorld 2.0</strong> — 장기 실행(long-horizon) 태스크 중심의 더 어려운 변형. 아직 SOTA 가 60% 초반.</li>
+  </ul>
+  <p>Anthropic 은 Verified 점수만, OpenAI 는 2.0 점수만 발표했다. 같은 이름을 달고 있지만 태스크셋이 달라 숫자를 나란히 놓을 수 없다.</p>
+
+  <h2>2. 교차 비교 — Opus 4.8 을 다리로</h2>
+  <p>다행히 Claude Opus 4.8 은 양쪽 벤치마크에 모두 점수가 있어 간접 비교의 다리(bridge)가 된다.</p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>벤치마크</th><th>Claude Fable 5</th><th>GPT-5.6 Sol</th><th>Opus 4.8 (다리)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>OSWorld-Verified</td><td class="win">85.0% (1위)</td><td class="na">미공개</td><td>83.4%</td></tr>
+        <tr><td>OSWorld 2.0</td><td class="na">미공개</td><td class="win">62.6% (SOTA)</td><td>54.8%*</td></tr>
+        <tr><td>BrowseComp (브라우저)</td><td class="na">비교표 제외</td><td class="win">90.4% (Ultra 92.2%)</td><td class="na">—</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:0.8125rem;color:var(--text-faint)">* OpenAI 발표 비교표 기준. 서드파티 집계(BenchLM)는 20.6% 로 크게 다르다 — 하네스·설정 차이로 보이며, 이 지점이 교차 비교의 최대 불확실성이다.</p>
+  <p>다리 논리로 읽으면: 포화된 Verified 에서 Fable 5 와 Opus 4.8 의 격차는 1.6%p 에 불과한 반면, 어려운 2.0 에서 Sol 은 Opus 4.8 을 7.8%p 앞섰다.
+  Fable 5 가 2.0 에서 얼마나 개선됐는지 알 수 없으므로 단정은 못 하지만, <strong>장기 computer use 태스크에서는 공개 수치상 GPT-5.6 Sol 의 우위 주장이 더 강하다</strong>.
+  반면 짧은 GUI 조작(Verified 계열)은 Fable 5 가 공식 1위다.</p>
+  <div class="note">
+    <p>효율성은 Sol 의 명확한 강점이다. OSWorld 결과 기준 Opus 4.8 대비 출력 토큰을 85% 적게 쓴다.
+    스크린샷을 반복 처리하는 computer use 에이전트 특성상 이 차이는 실운영 비용에 크게 작용한다.</p>
+  </div>
+
+  <h2>3. API 가격 (per MTok, input / output)</h2>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>모델</th><th>Input</th><th>Output</th><th>비고</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Claude Fable 5</td><td>$10.00</td><td>$50.00</td><td>프리미엄 티어, 1M 컨텍스트</td></tr>
+        <tr><td>Claude Opus 4.8</td><td>$5.00</td><td>$25.00</td><td>1M 컨텍스트</td></tr>
+        <tr><td>GPT-5.6 Sol</td><td>$5.00</td><td>$30.00</td><td>플래그십</td></tr>
+        <tr><td>GPT-5.6 Terra</td><td>$2.50</td><td>$15.00</td><td>GPT-5.5급 성능을 절반 가격에</td></tr>
+        <tr><td>GPT-5.6 Luna</td><td>$1.00</td><td>$6.00</td><td>경량 티어</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <ul>
+    <li>표면 단가로 Sol 은 Fable 5 의 절반(input 1/2, output 3/5), Terra 는 Opus 4.8 의 정확히 절반.</li>
+    <li>캐시 정책은 양사 유사 — 캐시 쓰기 1.25배, 캐시 읽기 약 90% 할인.</li>
+    <li>실효 비용 격차는 더 크다. Sol 은 토큰 효율(출력 85% 절감)까지 겹쳐, 출력이 많은 에이전트 워크로드에서 단가 × 토큰량 양쪽 모두 저렴하다.</li>
+  </ul>
+
+  <h2>4. 체급 파괴 매치업 — Opus 4.8 vs GPT-5.6 Terra</h2>
+  <p>Terra 는 절반 가격인데 서드파티 집계 기준 종합 점수가 Opus 4.8 과 동률이다.</p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>벤치마크</th><th>Opus 4.8</th><th>GPT-5.6 Terra</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>OSWorld-Verified</td><td class="win">83.4%</td><td class="na">미공개</td></tr>
+        <tr><td>OSWorld 2.0</td><td>54.8% / 20.6%*</td><td>50.2%</td></tr>
+        <tr><td>Terminal-Bench 2.0</td><td>74.6%</td><td class="win">87.4%</td></tr>
+        <tr><td>BrowseComp</td><td>84.3%</td><td class="win">87.5%</td></tr>
+        <tr><td>코딩 (카테고리 평균)</td><td class="win">76.4</td><td>63.4</td></tr>
+        <tr><td>지식</td><td>62.7</td><td class="win">92.9</td></tr>
+        <tr><td>수학</td><td>53.9</td><td class="win">80.8</td></tr>
+        <tr><td>에이전트 종합</td><td>80.3</td><td class="win">87.4</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:0.8125rem;color:var(--text-faint)">* 출처에 따라 갈림(OpenAI 표 54.8% vs BenchLM 집계 20.6%). 카테고리 평균은 서드파티 집계(BenchLM·DocsBot)로, 양사 공식 발표와 하네스 조건이 다를 수 있어 방향성 참고용.</p>
+  <p>코딩만 Opus 4.8 이 확실히 우위이고, 지식·수학·에이전트 종합은 Terra 가 앞선다.
+  Terra 는 "Opus 4.8 동급 종합 점수를 절반 가격에" 파는 포지션이고, Anthropic 쪽 대응 카드는 사실상 Opus 가 아니라 Sonnet 5($3/$15, Terra 와 동일 output 단가)다.</p>
+
+  <h2>5. 정리</h2>
+  <ul>
+    <li><strong>짧은 GUI 조작</strong>(OSWorld-Verified): Claude Fable 5 가 85.0% 로 공식 1위. 단, 상위권이 1.6%p 안에 몰린 포화 벤치마크.</li>
+    <li><strong>장기 자율 태스크</strong>(OSWorld 2.0): GPT-5.6 Sol 이 62.6% SOTA. Fable 5 는 미공개.</li>
+    <li><strong>토큰 효율·비용</strong>: Sol 이 명확한 우위(출력 토큰 85% 절감 + Fable 5 대비 절반 단가).</li>
+    <li><strong>동일 조건 비교는 현재 불가능</strong> — 양사가 서로 상대 점수를 비교표에서 제외했고, 제3자 재측정도 하네스에 따라 수치가 갈린다.</li>
+    <li>브라우저/GUI 자동화를 오래 돌리는 용도라면 비용 효율 면에서 Sol, 단발성 정밀 조작이라면 Fable 5 가 유리하다는 것이 공개 데이터 기준의 잠정 결론.</li>
+  </ul>
+
+  <hr>
+
+  <h2>출처</h2>
+  <ul style="font-size:0.875rem">
+    <li><a href="https://openai.com/index/gpt-5-6/" target="_blank" rel="noopener">OpenAI — GPT-5.6 발표</a></li>
+    <li><a href="https://benchlm.ai/benchmarks/osWorldVerified" target="_blank" rel="noopener">BenchLM — OSWorld-Verified 리더보드</a></li>
+    <li><a href="https://benchlm.ai/compare/claude-opus-4-8-vs-gpt-5-6-terra" target="_blank" rel="noopener">BenchLM — Opus 4.8 vs GPT-5.6 Terra</a></li>
+    <li><a href="https://www.vellum.ai/blog/gpt-5-6-benchmarks-explained" target="_blank" rel="noopener">Vellum — GPT-5.6 Sol/Terra/Luna 벤치마크 해설</a></li>
+    <li><a href="https://www.vellum.ai/blog/claude-fable-5-and-mythos-5-benchmarks-explained" target="_blank" rel="noopener">Vellum — Claude Fable 5 벤치마크 해설</a></li>
+    <li><a href="https://www.digitalapplied.com/blog/gpt-5-6-sol-terra-luna-public-ga" target="_blank" rel="noopener">DigitalApplied — GPT-5.6 GA 벤치마크</a></li>
+    <li><a href="https://simonwillison.net/2026/Jul/9/gpt-5-6/" target="_blank" rel="noopener">Simon Willison — The new GPT-5.6 family</a></li>
+    <li>Claude 가격: Anthropic 공식 API 문서 (2026-06 기준)</li>
+  </ul>
+
+  <footer><p><a href="../../">← today i learned</a></p></footer>
+</main>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
