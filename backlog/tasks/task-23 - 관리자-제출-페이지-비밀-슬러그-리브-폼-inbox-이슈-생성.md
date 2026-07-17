@@ -4,7 +4,7 @@ title: '관리자 제출 페이지: 비밀 슬러그 + 리브 폼 + inbox 이슈
 status: Done
 assignee: []
 created_date: '2026-07-17 07:27'
-updated_date: '2026-07-17 07:32'
+updated_date: '2026-07-17 07:42'
 labels:
   - solo
 milestone: m-1
@@ -31,5 +31,5 @@ til repo 에 비밀 랜덤 슬러그 디렉터리로 관리자 전용 제출 페
 ## Implementation Notes
 
 <!-- SECTION:NOTES:BEGIN -->
-슬러그 submit-96a2d1c7e19e8a09 (미노출·noindex). PAT 패널(localStorage til-inbox-pat, 등록 시 GET /repos 검증)·제출 폼·리브 인사(base 표정 아바타 72px WebP, RIFF 헤더 검증) 구현. 이슈 페이로드는 gh 토큰 curl 로 실측(201, pending 라벨, 본문 규약 일치 — 테스트 이슈 #1 은 done 클로즈). 의도적 이탈: OG 메타·CF beacon 생략 — 미노출 관리자 페이지라 슬러그를 소셜 캐시·애널리틱스 경로에 남기지 않기 위함. PAT 실토큰 브라우저 플로는 TASK-26 E2E 에서 검증.
+슬러그는 미노출 원칙에 따라 여기 기록하지 않음(디렉터리는 repo 트리에서 보이지만 문서·갤러리·README 에 링크하지 않는다 — 방어선은 PAT). PAT 패널(localStorage til-inbox-pat, 등록 시 GET /repos 검증)·제출 폼·리브 인사(base 표정 아바타 72px WebP, RIFF 헤더 검증) 구현. 이슈 페이로드는 gh 토큰 curl 로 실측(201, pending 라벨, 본문 규약 일치 — 테스트 이슈 #1 은 done 클로즈). 의도적 이탈: OG 메타·CF beacon 생략 — 미노출 관리자 페이지라 슬러그를 소셜 캐시·애널리틱스 경로에 남기지 않기 위함. PAT 실토큰 브라우저 플로는 TASK-26 E2E 에서 검증.
 <!-- SECTION:NOTES:END -->
