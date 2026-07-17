@@ -1,9 +1,10 @@
 ---
 id: TASK-23
 title: '관리자 제출 페이지: 비밀 슬러그 + 리브 폼 + inbox 이슈 생성'
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-07-17 07:27'
+updated_date: '2026-07-17 07:32'
 labels:
   - solo
 milestone: m-1
@@ -21,8 +22,14 @@ til repo 에 비밀 랜덤 슬러그 디렉터리로 관리자 전용 제출 페
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 비밀 슬러그 페이지가 생성되고 갤러리·README·sitemap 어디에도 노출되지 않으며 noindex 메타가 있다
-- [ ] #2 PAT 최초 1회 입력·localStorage 보관·재설정 UI 가 동작한다
-- [ ] #3 URL 제출 시 til-inbox 에 규약(TASK-22) 포맷의 이슈가 생성되고 성공/실패 피드백이 표시된다
-- [ ] #4 리브 인사·아바타가 있고 공통 셸 디자인과 다크모드를 따른다
+- [x] #1 비밀 슬러그 페이지가 생성되고 갤러리·README·sitemap 어디에도 노출되지 않으며 noindex 메타가 있다
+- [x] #2 PAT 최초 1회 입력·localStorage 보관·재설정 UI 가 동작한다
+- [x] #3 URL 제출 시 til-inbox 에 규약(TASK-22) 포맷의 이슈가 생성되고 성공/실패 피드백이 표시된다
+- [x] #4 리브 인사·아바타가 있고 공통 셸 디자인과 다크모드를 따른다
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+슬러그 submit-96a2d1c7e19e8a09 (미노출·noindex). PAT 패널(localStorage til-inbox-pat, 등록 시 GET /repos 검증)·제출 폼·리브 인사(base 표정 아바타 72px WebP, RIFF 헤더 검증) 구현. 이슈 페이로드는 gh 토큰 curl 로 실측(201, pending 라벨, 본문 규약 일치 — 테스트 이슈 #1 은 done 클로즈). 의도적 이탈: OG 메타·CF beacon 생략 — 미노출 관리자 페이지라 슬러그를 소셜 캐시·애널리틱스 경로에 남기지 않기 위함. PAT 실토큰 브라우저 플로는 TASK-26 E2E 에서 검증.
+<!-- SECTION:NOTES:END -->
