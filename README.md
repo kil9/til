@@ -5,7 +5,7 @@
 - 라이브 사이트: <https://kil9.github.io/til/>
 - 각 페이지는 자체 완결형(self-contained) HTML 이며, 한 페이지당 디렉터리 하나를 차지한다.
 - 루트 `index.html` 은 퍼블리시된 페이지 전체를 나열하는 갤러리 랜딩 페이지다.
-- 이 아카이브의 화자는 전속 AI 지식 큐레이터 캐릭터 **리브 투데이**다. 신규 페이지부터 적용되며, 설정·문체 규칙은 `backlog/docs/doc-3 - 리브-투데이-캐릭터-설정.md` 와 [AGENTS.md](AGENTS.md) §2-2 에 있다. 소개는 [/liv-today/](https://kil9.github.io/til/liv-today/), 설정화 시트는 [/liv-today/sheet/](https://kil9.github.io/til/liv-today/sheet/)(갤러리 미노출, 소개 페이지 링크로 진입).
+- 이 아카이브의 화자는 전속 AI 지식 큐레이터 캐릭터 **리브 투데이**다. 신규 페이지부터 적용되며, 설정·문체 규칙은 `backlog/docs/doc-3 - 리브-투데이-캐릭터-설정.md` 와 [AGENTS.md](AGENTS.md) §2-2 에 있다. 소개는 [/p/liv-today/](https://kil9.github.io/til/p/liv-today/), 설정화 시트는 [/p/liv-today/sheet/](https://kil9.github.io/til/p/liv-today/sheet/)(갤러리 미노출, 소개 페이지 링크로 진입).
 
 ## URL 구조
 
@@ -36,25 +36,25 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
-| 2026-07-18 | LingBot-Map — 폰으로 찍고, 4080 으로 돌린다 | [/lingbot-map-local/](https://kil9.github.io/til/lingbot-map-local/) |
-| 2026-07-17 | QMK 레이어는 왜 아래를 못 보나 | [/kb16-qmk-layer-stack/](https://kil9.github.io/til/kb16-qmk-layer-stack/) |
-| 2026-07-17 | 범인은 전원도, 허브도 아니었다 — 매크로패드 부트루프 3차 수사 | [/kb16-bootloop-usb-power/](https://kil9.github.io/til/kb16-bootloop-usb-power/) |
-| 2026-07-17 | 프롬프트를 입으로 친다면 얼마일까 | [/voice-prompting-cost/](https://kil9.github.io/til/voice-prompting-cost/) |
-| 2026-07-17 | Moshi, 한국어 화자에게 쓸만한가 | [/moshi-voice-ai/](https://kil9.github.io/til/moshi-voice-ai/) |
-| 2026-07-17 | 리브가 읽은 kil9conf | [/kil9conf-14-years/](https://kil9.github.io/til/kil9conf-14-years/) |
-| 2026-07-16 | 기획과 실행을 분리하는 법 | [/2026-07-agent-workflow/](https://kil9.github.io/til/2026-07-agent-workflow/) |
-| 2026-07-16 | herdr 에서 orca 로 옮길까 | [/herdr-vs-orca/](https://kil9.github.io/til/herdr-vs-orca/) |
-| 2026-07-15 | 안녕하세요, 리브입니다 | [/liv-today/](https://kil9.github.io/til/liv-today/) |
-| 2026-07-15 | Claude 스킬 만들기: Anthropic 공식 가이드 정리 | [/claude-skills-guide/](https://kil9.github.io/til/claude-skills-guide/) |
-| 2026-07-15 | 글자가 겹치면 폰트를 고치면 된다: NotoSansKR NFC Fixed 삽질기 | [/notosanskr-nfc-fixed/](https://kil9.github.io/til/notosanskr-nfc-fixed/) |
-| 2026-07-15 | 내 셸에선 되는데: systemd PATH 와 fail-closed 가드가 겹친 자리 | [/systemd-path-fail-closed/](https://kil9.github.io/til/systemd-path-fail-closed/) |
-| 2026-07-14 | 닌텐도의 Actions Runner 운용 | [/nintendo-actions-runner/](https://kil9.github.io/til/nintendo-actions-runner/) |
-| 2026-07-14 | 에이전트를 지켜보는 비용 — herdr pane 오케스트레이션 재평가 | [/herdr-pane-tradeoffs/](https://kil9.github.io/til/herdr-pane-tradeoffs/) |
-| 2026-07-13 | Backlog.md 도입 검토 | [/backlog-md-vs-plan-md/](https://kil9.github.io/til/backlog-md-vs-plan-md/) |
-| 2026-07-13 | Ghostty vs Windows Terminal | [/ghostty-vs-windows-terminal/](https://kil9.github.io/til/ghostty-vs-windows-terminal/) |
-| 2026-07-13 | 미첼 하시모토 인터뷰 해설 — 터미널·Zig·오픈소스 | [/hashimoto-oss-philosophy/](https://kil9.github.io/til/hashimoto-oss-philosophy/) |
-| 2026-07-12 | 시트리니 리포트 — 「2028 글로벌 지능 위기」 해설 | [/citrini-2028-gic/](https://kil9.github.io/til/citrini-2028-gic/) |
-| 2026-07-12 | Claude Fable 5 vs GPT-5.6 — computer use 벤치마크·가격 비교 | [/claude-vs-gpt56-computer-use/](https://kil9.github.io/til/claude-vs-gpt56-computer-use/) |
-| 2026-07-12 | 알파벳 축소·애플 확대 — AI capex 헷지 가설 재검증 | [/ai-capex-hedge/](https://kil9.github.io/til/ai-capex-hedge/) |
-| 2026-07-11 | 두 세션 플랜 파이프라인 — Claude Code 를 생산자·소비자로 나눠 쓰기 | [/2026-07-plan-pipeline/](https://kil9.github.io/til/2026-07-plan-pipeline/) |
-| 2026-07-11 | TIL 아카이브 — Today I Learned | [/til-archive/](https://kil9.github.io/til/til-archive/) |
+| 2026-07-18 | LingBot-Map — 폰으로 찍고, 4080 으로 돌린다 | [/t/2026/lingbot-map-local/](https://kil9.github.io/til/t/2026/lingbot-map-local/) |
+| 2026-07-17 | QMK 레이어는 왜 아래를 못 보나 | [/t/2026/kb16-qmk-layer-stack/](https://kil9.github.io/til/t/2026/kb16-qmk-layer-stack/) |
+| 2026-07-17 | 범인은 전원도, 허브도 아니었다 — 매크로패드 부트루프 3차 수사 | [/t/2026/kb16-bootloop-usb-power/](https://kil9.github.io/til/t/2026/kb16-bootloop-usb-power/) |
+| 2026-07-17 | 프롬프트를 입으로 친다면 얼마일까 | [/t/2026/voice-prompting-cost/](https://kil9.github.io/til/t/2026/voice-prompting-cost/) |
+| 2026-07-17 | Moshi, 한국어 화자에게 쓸만한가 | [/t/2026/moshi-voice-ai/](https://kil9.github.io/til/t/2026/moshi-voice-ai/) |
+| 2026-07-17 | 리브가 읽은 kil9conf | [/t/2026/kil9conf-14-years/](https://kil9.github.io/til/t/2026/kil9conf-14-years/) |
+| 2026-07-16 | 기획과 실행을 분리하는 법 | [/t/2026/2026-07-agent-workflow/](https://kil9.github.io/til/t/2026/2026-07-agent-workflow/) |
+| 2026-07-16 | herdr 에서 orca 로 옮길까 | [/t/2026/herdr-vs-orca/](https://kil9.github.io/til/t/2026/herdr-vs-orca/) |
+| 2026-07-15 | 안녕하세요, 리브입니다 | [/p/liv-today/](https://kil9.github.io/til/p/liv-today/) |
+| 2026-07-15 | Claude 스킬 만들기: Anthropic 공식 가이드 정리 | [/t/2026/claude-skills-guide/](https://kil9.github.io/til/t/2026/claude-skills-guide/) |
+| 2026-07-15 | 글자가 겹치면 폰트를 고치면 된다: NotoSansKR NFC Fixed 삽질기 | [/t/2026/notosanskr-nfc-fixed/](https://kil9.github.io/til/t/2026/notosanskr-nfc-fixed/) |
+| 2026-07-15 | 내 셸에선 되는데: systemd PATH 와 fail-closed 가드가 겹친 자리 | [/t/2026/systemd-path-fail-closed/](https://kil9.github.io/til/t/2026/systemd-path-fail-closed/) |
+| 2026-07-14 | 닌텐도의 Actions Runner 운용 | [/t/2026/nintendo-actions-runner/](https://kil9.github.io/til/t/2026/nintendo-actions-runner/) |
+| 2026-07-14 | 에이전트를 지켜보는 비용 — herdr pane 오케스트레이션 재평가 | [/t/2026/herdr-pane-tradeoffs/](https://kil9.github.io/til/t/2026/herdr-pane-tradeoffs/) |
+| 2026-07-13 | Backlog.md 도입 검토 | [/t/2026/backlog-md-vs-plan-md/](https://kil9.github.io/til/t/2026/backlog-md-vs-plan-md/) |
+| 2026-07-13 | Ghostty vs Windows Terminal | [/t/2026/ghostty-vs-windows-terminal/](https://kil9.github.io/til/t/2026/ghostty-vs-windows-terminal/) |
+| 2026-07-13 | 미첼 하시모토 인터뷰 해설 — 터미널·Zig·오픈소스 | [/t/2026/hashimoto-oss-philosophy/](https://kil9.github.io/til/t/2026/hashimoto-oss-philosophy/) |
+| 2026-07-12 | 시트리니 리포트 — 「2028 글로벌 지능 위기」 해설 | [/t/2026/citrini-2028-gic/](https://kil9.github.io/til/t/2026/citrini-2028-gic/) |
+| 2026-07-12 | Claude Fable 5 vs GPT-5.6 — computer use 벤치마크·가격 비교 | [/t/2026/claude-vs-gpt56-computer-use/](https://kil9.github.io/til/t/2026/claude-vs-gpt56-computer-use/) |
+| 2026-07-12 | 알파벳 축소·애플 확대 — AI capex 헷지 가설 재검증 | [/t/2026/ai-capex-hedge/](https://kil9.github.io/til/t/2026/ai-capex-hedge/) |
+| 2026-07-11 | 두 세션 플랜 파이프라인 — Claude Code 를 생산자·소비자로 나눠 쓰기 | [/t/2026/2026-07-plan-pipeline/](https://kil9.github.io/til/t/2026/2026-07-plan-pipeline/) |
+| 2026-07-11 | TIL 아카이브 — Today I Learned | [/p/til-archive/](https://kil9.github.io/til/p/til-archive/) |

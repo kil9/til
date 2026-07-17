@@ -1,6 +1,41 @@
 <!doctype html>
 <html lang="ko">
 <head>
+<script>
+/* 구 URL(/til/<slug>/) → 신 경로 자동 이동. 2026-07 루트 재편 안전망. */
+(function(){
+  var map = {
+    "2026-07-agent-workflow":"t/2026/2026-07-agent-workflow",
+    "2026-07-plan-pipeline":"t/2026/2026-07-plan-pipeline",
+    "ai-capex-hedge":"t/2026/ai-capex-hedge",
+    "backlog-md-vs-plan-md":"t/2026/backlog-md-vs-plan-md",
+    "citrini-2028-gic":"t/2026/citrini-2028-gic",
+    "claude-skills-guide":"t/2026/claude-skills-guide",
+    "claude-vs-gpt56-computer-use":"t/2026/claude-vs-gpt56-computer-use",
+    "ghostty-vs-windows-terminal":"t/2026/ghostty-vs-windows-terminal",
+    "hashimoto-oss-philosophy":"t/2026/hashimoto-oss-philosophy",
+    "herdr-pane-tradeoffs":"t/2026/herdr-pane-tradeoffs",
+    "herdr-pane-tradeoffs-anime":"t/2026/herdr-pane-tradeoffs-anime",
+    "herdr-vs-orca":"t/2026/herdr-vs-orca",
+    "kb16-bootloop-usb-power":"t/2026/kb16-bootloop-usb-power",
+    "kb16-qmk-layer-stack":"t/2026/kb16-qmk-layer-stack",
+    "kil9conf-14-years":"t/2026/kil9conf-14-years",
+    "lingbot-map-local":"t/2026/lingbot-map-local",
+    "liv-today":"p/liv-today",
+    "moshi-voice-ai":"t/2026/moshi-voice-ai",
+    "nintendo-actions-runner":"t/2026/nintendo-actions-runner",
+    "notosanskr-nfc-fixed":"t/2026/notosanskr-nfc-fixed",
+    "submit-96a2d1c7e19e8a09":"p/submit-96a2d1c7e19e8a09",
+    "systemd-path-fail-closed":"t/2026/systemd-path-fail-closed",
+    "til-archive":"p/til-archive",
+    "voice-prompting-cost":"t/2026/voice-prompting-cost"
+  };
+  var m = location.pathname.match(/^\/til\/([^\/]+)(\/.*)?$/);
+  if (m && map[m[1]]) {
+    location.replace("/til/" + map[m[1]] + (m[2] || "/") + location.hash);
+  }
+})();
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>404 — today i learned</title>

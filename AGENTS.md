@@ -17,16 +17,23 @@ til/
 ├── index.html            루트 갤러리 랜딩 페이지(퍼블리시된 페이지 목록)
 ├── README.md             사람용 개요 + 퍼블리시된 페이지 표
 ├── AGENTS.md             (이 파일) 에이전트 지침 + 퍼블리시 런북
+├── 404.html              커스텀 404 + 구 URL → 신 경로 리다이렉트 맵
 ├── backlog/              진행 상황 원본(태스크·draft·docs·decisions, backlog CLI)
 ├── PLAN.md               (아카이브) backlog 전환 전 진행 상황·완료 이력
 ├── CLAUDE.md             AGENTS.md 로 향하는 심볼릭 링크
-└── <slug>/
-    └── index.html        개별 페이지(자체 완결형 HTML)
+├── t/                    날짜 아티클(til). 연도로 한 뎁스 더 나눔
+│   └── <YYYY>/
+│       └── <slug>/
+│           └── index.html   개별 페이지(자체 완결형 HTML)
+└── p/                    비-날짜 지원 페이지(pages). 소개·아카이브·제출 도구 등
+    └── <slug>/
+        └── index.html
 ```
 
-- 페이지 하나당 디렉터리 하나. 디렉터리 이름이 곧 URL 경로다.
-- 슬러그는 kebab-case. 시간순 정렬이 필요하면 `2026-` 처럼 연도 접두사를 붙인다(예: `2026-07-plan-pipeline`).
-- 슬러그는 URL 에 영구히 박히므로 퍼블리시 전에 사용자에게 확인받는다.
+- 루트를 평평하게 두지 않는다(TASK-32). 날짜 아티클은 `t/<연도>/<slug>/`, 비-날짜 상설 페이지(리브 소개·아카이브·관리자 제출 도구 등)는 `p/<slug>/` 아래에 둔다. 루트에는 `t/`·`p/`·`backlog/` 와 루트 파일만 남긴다.
+- 연도(`<YYYY>`)는 갤러리 카드 `data-date` 의 연도를 쓴다(현재는 전부 `2026`).
+- 슬러그는 kebab-case. `t/<연도>/` 로 이미 시간 분리되므로 슬러그에 `2026-` 연도 접두사를 새로 붙일 필요는 없다(기존 `2026-07-plan-pipeline` 등은 그대로 둔다).
+- 슬러그·경로는 URL 에 영구히 박히므로 퍼블리시 전에 사용자에게 확인받는다. 구 평면 URL(`/til/<slug>/`)은 `404.html` 리다이렉트 맵이 새 경로로 넘겨준다.
 
 ## 퍼블리시 런북 (`/publish-pages`)
 
@@ -56,7 +63,7 @@ til/
 <meta property="og:type" content="article">
 <meta property="og:title" content="페이지 제목">
 <meta property="og:description" content="한 줄 설명">
-<meta property="og:url" content="https://kil9.github.io/til/<slug>/">
+<meta property="og:url" content="https://kil9.github.io/til/t/<YYYY>/<slug>/">
 <meta property="og:site_name" content="today i learned">
 <meta property="og:locale" content="ko_KR">
 <meta name="twitter:card" content="summary">
@@ -101,9 +108,9 @@ til/
 </head>
 <body>
 <main>
-  <p class="home-top" style="margin:0 0 28px;font-size:0.8125rem"><a href="../">← today i learned</a></p>
+  <p class="home-top" style="margin:0 0 28px;font-size:0.8125rem"><a href="../../../">← today i learned</a></p>
   ... 본문 ...
-  <footer><p><a href="../">← today i learned</a></p></footer>
+  <footer><p><a href="../../../">← today i learned</a></p></footer>
 </main>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
@@ -112,7 +119,7 @@ til/
 
 - 외부 리소스(CDN 스크립트/폰트/이미지) 의존 없이 단일 파일로 열려야 한다. 필요한 자산은 인라인하거나 `data:` URI 로 임베드한다. 웹폰트는 쓰지 않는다(시스템 폰트 스택만).
 - artifact 원본 스타일을 유지하는 페이지라도 **favicon·OG 메타(위 템플릿의 `<link rel="icon">`\~`twitter:card` 블록, 제목·설명·slug 치환)와 beacon 은 반드시 넣는다**(T-24). OG 이미지는 쓰지 않는다. 파비콘은 전 페이지 공통 **리브 원형 아이콘**(64px WebP, 얼굴 크롭 + 원형 마스크)이며 페이지별 커스텀 파비콘을 만들지 않는다 — base64 데이터는 루트 `index.html` 의 것을 복사한다.
-- **인덱스로 돌아가는 링크(`← today i learned`)를 상단(본문 첫 요소)과 하단(footer) 양쪽에 넣는다.** 자체 스타일 페이지도 동일 — 상단은 히어로/본문 컨테이너의 첫 요소로, 하단은 기존 footer 안에 넣는다.
+- **인덱스로 돌아가는 링크(`← today i learned`)를 상단(본문 첫 요소)과 하단(footer) 양쪽에 넣는다.** 자체 스타일 페이지도 동일 — 상단은 히어로/본문 컨테이너의 첫 요소로, 하단은 기존 footer 안에 넣는다. 위 템플릿의 `../../../` 은 아티클 뎁스(`t/<YYYY>/<slug>/`, 루트가 3단계 위) 기준이다. 지원 페이지(`p/<slug>/`)에 쓸 때는 `../../` 로 맞춘다.
 - **유일한 예외는 Cloudflare Web Analytics beacon**(T-15)이다. 위 템플릿의 `</body>` 직전 beacon `<script>` 를 **모든 신규 페이지에 그대로 넣는다**(token 은 클라이언트 임베드용 공개 값). 쿠키 없는 익명 집계이며, 로드 실패해도 페이지 렌더에는 영향이 없다. 지표는 CF 대시보드(Web Analytics, `kil9.github.io`)에서 본다.
 - 라이트/다크 대응은 `@media (prefers-color-scheme: dark)` 로 둔다. claude.ai 의 `data-theme` 토글은 standalone 환경에 없으므로 `prefers-color-scheme` 폴백이 있어야 한다.
 - 추적/텔레메트리 성격의 주입 스크립트는 모두 제거한다.
@@ -133,20 +140,23 @@ til/
 - **성격(TASK-11 개정)**: 핵심 축은 **일은 정확하게 하는데 두 번 하기 싫어서 최소 동선을 찾는 사람**이다. 텐션이 낮고 시큰둥하되, 무기력·번아웃과는 다르다 — 지쳐 쓰러질 것 같은 인상은 이 캐릭터가 아니다. 곁가지를 못 버리고 쌓아 두는 호더 기질은 유지된다.
 - **드물수록 효과가 크다(TASK-11)**: 한 자리당 1-2문장, 페이지 전체로도 몇 자리면 충분하다. 한 가지 캐릭터성(특히 귀찮음·나른함)을 문단마다 반복하면 금방 질린다. 삽화가 이미 나른함을 보여주므로 글에서 되풀이할 필요가 없다. 애매하면 뺀다.
 - **톤**: 존댓말, 사이트 주인 호칭은 "사용자님". 나른하되 담백하게. 과장·이모지·느낌표를 남발하지 않는다(느낌표는 페이지당 1회 이하가 기본).
-- **호칭(TASK-20)**: 풀네임 "리브 투데이"는 소개 페이지(`/liv-today/`)의 자기소개부(인사말·이름 유래)와 공개 설정화 페이지(`/liv-today/sheet/`)에서만 노출한다. 그 외 모든 자리(본문·바이라인·meta description·삽화 alt·루트 인덱스)는 "리브"로 쓴다. 저장소 문서(README·AGENTS.md·doc-3)는 캐릭터를 정의하는 자리라 풀네임을 유지한다.
+- **호칭(TASK-20)**: 풀네임 "리브 투데이"는 소개 페이지(`/p/liv-today/`)의 자기소개부(인사말·이름 유래)와 공개 설정화 페이지(`/p/liv-today/sheet/`)에서만 노출한다. 그 외 모든 자리(본문·바이라인·meta description·삽화 alt·루트 인덱스)는 "리브"로 쓴다. 저장소 문서(README·AGENTS.md·doc-3)는 캐릭터를 정의하는 자리라 풀네임을 유지한다.
 - **어휘**: AI 툴·데이터·파이프라인을 다루는 현대적 어휘로 쓴다 — 쌓이는 곳은 "아카이브", 결과물은 "보고서"·"페이지". 구 "서고지기" 컨셉의 도서관 어휘("서고"·"서가"·"장서"·"사서"·"열람")는 TASK-6 에서 폐기됐으므로 되살리지 않는다.
 - **위 문체·비주얼 항목은 기본값이지 금지 목록이 아니다.** 페이지의 목적에 맞으면 벗어나도 된다. 특정 페이지·컷을 위한 일회성 조정은 그것에만 적용하고 설정(doc-3)으로 편입하지 않는다 — 그렇게 굳히면 캐릭터가 쓸 수 있는 표현이 계속 줄어든다.
-- **캐릭터 이미지(TASK-11 개정)**: 삽화로 쓸 때는 SD(넨드로이드 치비)가 메인이고, 설정화 시트 8컷이 `backlog/assets/liv/sheet/` 에, 공개 설정화 페이지가 `/liv-today/sheet/` 에 있다(갤러리 미노출, 소개 페이지 링크로만 진입 — 공개 페이지는 SD 6컷과 코멘트 아바타 표정 6종을 게시하고 사람 비율 2컷은 내렸다). 화풍은 **굵은 아웃라인의 플랫 마스코트 풍**, 기본 복장은 **그레이 후디 + 네이비 와이드 팬츠**(OL 룩은 외출용, 소매 걷은 셔츠+블루 카디건 변형은 외출·바쁜 작업일 배리에이션)이며, 앞머리 한 갈래에 **파란 통신 헤어핀**(그릴 슬릿 + 청록 LED, 2026-07-17 추가·잠정)이 있다 — 공개 노출 컷(소개 페이지·공개 설정화 SD 6컷·아바타)은 모두 핀 판본이고, 내부 참고용 사람 비율 2컷만 핀 없는 구 판본이다(doc-3 §4). 사람 비율 컷은 공개 페이지에 쓰지 않는다(내부 참고용, `backlog/assets/liv/` 에만 둔다). 신규 생성이 필요하면 doc-3 §4-2\~§4-5 의 확정 프롬프트·일관성 규칙을 따른다 — 특히 `codex exec -i ref.png -- "프롬프트"` 의 `--` 를 빠뜨리면 프롬프트가 통째로 삼켜진다. 임베드 규칙은 §2-1 과 동일(base64 `data:` URI, 사이드카 파일 금지). **base64 치환 시 placeholder 이름이 서로의 접두사가 되지 않게 하고**(`IMG_OL` 이 `IMG_OLC` 를 깨뜨린 사고가 있었다), 임베드 후 각 URI 를 디코드해 WebP 헤더(RIFF/WEBP)까지 검증한다.
+- **캐릭터 이미지(TASK-11 개정)**: 삽화로 쓸 때는 SD(넨드로이드 치비)가 메인이고, 설정화 시트 8컷이 `backlog/assets/liv/sheet/` 에, 공개 설정화 페이지가 `/p/liv-today/sheet/` 에 있다(갤러리 미노출, 소개 페이지 링크로만 진입 — 공개 페이지는 SD 6컷과 코멘트 아바타 표정 6종을 게시하고 사람 비율 2컷은 내렸다). 화풍은 **굵은 아웃라인의 플랫 마스코트 풍**, 기본 복장은 **그레이 후디 + 네이비 와이드 팬츠**(OL 룩은 외출용, 소매 걷은 셔츠+블루 카디건 변형은 외출·바쁜 작업일 배리에이션)이며, 앞머리 한 갈래에 **파란 통신 헤어핀**(그릴 슬릿 + 청록 LED, 2026-07-17 추가·잠정)이 있다 — 공개 노출 컷(소개 페이지·공개 설정화 SD 6컷·아바타)은 모두 핀 판본이고, 내부 참고용 사람 비율 2컷만 핀 없는 구 판본이다(doc-3 §4). 사람 비율 컷은 공개 페이지에 쓰지 않는다(내부 참고용, `backlog/assets/liv/` 에만 둔다). 신규 생성이 필요하면 doc-3 §4-2\~§4-5 의 확정 프롬프트·일관성 규칙을 따른다 — 특히 `codex exec -i ref.png -- "프롬프트"` 의 `--` 를 빠뜨리면 프롬프트가 통째로 삼켜진다. 임베드 규칙은 §2-1 과 동일(base64 `data:` URI, 사이드카 파일 금지). **base64 치환 시 placeholder 이름이 서로의 접두사가 되지 않게 하고**(`IMG_OL` 이 `IMG_OLC` 를 깨뜨린 사고가 있었다), 임베드 후 각 URI 를 디코드해 WebP 헤더(RIFF/WEBP)까지 검증한다.
 - **리브 코멘트 블록(`.liv`)에는 아바타 아이콘을 넣는다.** 마크업은 `<div class="liv"><img src="data:image/webp;base64,…" alt="리브" width="72" height="72"><p>본문</p></div>`, CSS 는 `.liv { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; }` + `.liv img { grid-column: 1; grid-row: 1; width: 28px; height: 28px; margin-top: 2px; border-radius: 50%; background: #FFFFFF; }` + `.liv p { grid-column: 2; }` 다. **flex 로 짜지 말 것** — `.liv` 안에 `<p>` 가 둘 이상이면 flex 는 문단을 가로로 나열해 2칼럼처럼 보인다(kb16 마지막 블록이 그렇게 깨져 게시됐다). grid 는 `<p>` 가 몇 개든 2열에 행으로 쌓아 준다. 아바타가 화자를 나타내므로 `"리브 —"` 같은 텍스트 라벨은 넣지 않는다(구 `.liv .who` 패턴은 2026-07-17 폐기). **원본은 헤어핀 판본을 72x72 WebP q85(약 2KB)로 줄여 쓴다** — 표시가 28px 이라 256px 원본은 과하고, 한 페이지에 코멘트가 서너 개면 그만큼 반복 임베드돼 용량이 불어난다(agent-workflow 가 256px 3회 반복으로 352KB 였다가 320KB 로 줄었다). TASK-15의 6종은 `backlog/assets/liv/avatar-expression-<표정>-72.webp` 에 있고, 코멘트의 정서에 맞춰 고른다. 한 페이지에서 같은 표정을 반복하지 않으며, 애매하면 기본 시큰둥(`base`)을 쓴다. 테두리 배경을 흰색으로 두는 이유는 원본 배경이 흰색이라 다크모드에서 원형 경계가 깨지지 않게 하기 위함이다.
-- 루트 `index.html` 은 본문(`.feed`, 카드 목록)과 우측 사이드바(`aside.side`, 260px) 2칼럼이다. 사이드바 위쪽이 리브의 상설 노출 자리인 `a.keeper` 블록(아바타·이름·한 줄 소개 전체가 `/liv-today/` 로 가는 링크), 그 아래가 사람 관리자 `.human` 블록(kil9, 링크 없음 — 아바타·이름·한 줄 소개 스타일은 `.keeper` 와 공유한다)이며, 그 아래가 '리브의 코멘트'(`<!-- AI-SUMMARY:START -->`\~`END`)다(TASK-13 에서 소개가 먼저 오도록 재배치). 구분선(`border-top`)은 `.ai-summary` 앞에만 두고 소개 두 블록 사이는 여백만 준다 — `a.keeper` 는 사이드바 최상단이라 `margin-top`·`padding-top`·`border-top` 이 없다. `.human` 아바타는 24px 도트 원본이라 `image-rendering: pixelated` 로 확대 보간을 끈다. 히어로는 제목 + 사이트 소개(`.site-intro`)만 두고, 인덱스에서 리브의 표기는 "리브"(풀네임 아님)다. 사이드바는 sticky 가 아니며(스크롤을 따라가지 않는다), 920px 이하에서는 `order: -1` 로 목록 위에 올라간다. `a.keeper` 의 hover·focus 스타일은 `a.card` 규칙(제목에 액센트 + 밑줄)과 같은 결로 맞춘다(TASK-8). 마커 구간은 머신 로컬 잡(`~/jobs/docs-ai-summary/`, repo 밖)이 통째로 덮어쓰므로 그 안에 손으로 마크업을 넣지 않는다 — 라벨·문체를 바꾸려면 잡의 `inject.py`·`run.sh` 를 함께 고쳐야 한다(TASK-9). 마커 이름 `AI-SUMMARY` 는 `inject.py` 의 정규식과 짝이라 유지한다.
+- 루트 `index.html` 은 본문(`.feed`, 카드 목록)과 우측 사이드바(`aside.side`, 260px) 2칼럼이다. 사이드바 위쪽이 리브의 상설 노출 자리인 `a.keeper` 블록(아바타·이름·한 줄 소개 전체가 `/p/liv-today/` 로 가는 링크), 그 아래가 사람 관리자 `.human` 블록(kil9, 링크 없음 — 아바타·이름·한 줄 소개 스타일은 `.keeper` 와 공유한다)이며, 그 아래가 '리브의 코멘트'(`<!-- AI-SUMMARY:START -->`\~`END`)다(TASK-13 에서 소개가 먼저 오도록 재배치). 구분선(`border-top`)은 `.ai-summary` 앞에만 두고 소개 두 블록 사이는 여백만 준다 — `a.keeper` 는 사이드바 최상단이라 `margin-top`·`padding-top`·`border-top` 이 없다. `.human` 아바타는 24px 도트 원본이라 `image-rendering: pixelated` 로 확대 보간을 끈다. 히어로는 제목 + 사이트 소개(`.site-intro`)만 두고, 인덱스에서 리브의 표기는 "리브"(풀네임 아님)다. 사이드바는 sticky 가 아니며(스크롤을 따라가지 않는다), 920px 이하에서는 `order: -1` 로 목록 위에 올라간다. `a.keeper` 의 hover·focus 스타일은 `a.card` 규칙(제목에 액센트 + 밑줄)과 같은 결로 맞춘다(TASK-8). 마커 구간은 머신 로컬 잡(`~/jobs/docs-ai-summary/`, repo 밖)이 통째로 덮어쓰므로 그 안에 손으로 마크업을 넣지 않는다 — 라벨·문체를 바꾸려면 잡의 `inject.py`·`run.sh` 를 함께 고쳐야 한다(TASK-9). 마커 이름 `AI-SUMMARY` 는 `inject.py` 의 정규식과 짝이라 유지한다.
 
 ### 3. 배치
 
-- `<slug>/index.html` 로 저장한다.
+- 날짜 아티클은 `t/<현재연도>/<slug>/index.html`, 비-날짜 상설 페이지는 `p/<slug>/index.html` 로 저장한다. `<현재연도>` dir 이 없으면 만든다.
+- 새 페이지의 인덱스 복귀 링크·상대 자산 경로가 새 뎁스에 맞는지 확인한다. `t/<YYYY>/<slug>/` 는 루트가 3단계 위(`../../../`), `p/<slug>/` 는 2단계 위(`../../`)다.
+- 구 URL 안전망을 위해 `404.html` 의 리다이렉트 맵(`map` 객체)에 `"<slug>":"<새 경로>"` 항목을 추가한다. 새 슬러그가 옛 평면 경로와 겹칠 일은 없지만, 리다이렉트 맵은 구 슬러그의 진실원본이므로 신규도 함께 등록해 둔다.
 
 ### 4. 목록 갱신
 
 - 루트 `index.html`: 갤러리 카드를 **최신이 위로** 추가하고 `Published · N` 카운트를 증가시킨다.
+  - 카드 `<a class="card">` 의 `href` 는 새 경로(`./t/<YYYY>/<slug>/` 또는 `./p/<slug>/`)로 넣는다.
   - 카드 `<a class="card">` 에 `data-date="YYYY-MM-DDTHH:MM"`(정렬·아카이브용, 퍼블리시 시각까지 넣는다 — `.date` 표시는 JS 가 이 값에서 렌더링하므로 `span.date` 텍스트는 무엇을 넣어도 덮어써진다)와 `data-topic="<주제키>"`(필터 칩용, 영문 kebab-case)를 반드시 넣는다. 기존 키는 `index.html` 을 grep 해 확인하고, 새 주제면 새 키를 만든다.
   - `.tag` 는 `<칩 라벨> · <세부 주제>` 형식이고 **한국어로 쓴다**. 제품명·고유명사·정착된 약어(`Claude Code`, `SRE` 등)만 원형을 유지한다.
   - **칩 라벨은 한 단어여야 한다.** 칩은 `.tag` 를 `"·"` 로 split 한 첫 세그먼트에서 자동 생성되므로(`index.html` 의 `topics[key] = ...split("·")[0].trim()`), 칩 이름 자체에 `·` 를 넣으면 앞부분만 잘려 칩이 된다.
@@ -171,7 +181,7 @@ til/
 ### 5. 반영
 
 - `main` 에 commit / push 한다. 커밋 규칙은 아래 참조.
-- Pages 는 push 후 몇십 초 뒤 반영된다. URL: `https://kil9.github.io/til/<slug>/`
+- Pages 는 push 후 몇십 초 뒤 반영된다. URL: 아티클 `https://kil9.github.io/til/t/<YYYY>/<slug>/`, 지원 페이지 `https://kil9.github.io/til/p/<slug>/`
 
 ## 명령어
 
@@ -180,7 +190,7 @@ til/
 ```bash
 # 로컬 미리보기 (루트에서 실행)
 python3 -m http.server 8000
-# → http://localhost:8000/ 및 http://localhost:8000/<slug>/
+# → http://localhost:8000/ 및 http://localhost:8000/t/<YYYY>/<slug>/ (또는 /p/<slug>/)
 
 # HTML 문법 눈검사 이외 별도 린트/테스트 없음.
 # 배포 상태 확인
