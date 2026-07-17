@@ -4,6 +4,7 @@ title: 전 페이지 파비콘을 리브 아이콘으로 교체
 status: Done
 assignee: []
 created_date: '2026-07-17 09:13'
+updated_date: '2026-07-17 09:24'
 labels: []
 dependencies: []
 ordinal: 29000
@@ -19,4 +20,6 @@ ordinal: 29000
 
 <!-- SECTION:NOTES:BEGIN -->
 avatar-expression-base.webp(256px)에서 얼굴 크롭(0.76W, top 2%) 후 원형 마스크(4x 슈퍼샘플링), 64px WebP q90 = 2.4KB 생성. 교체 26 + 파비콘 없던 plan-pipeline 하위 8 페이지 신규 삽입 = 34 파일, backlog legacy 아카이브 페이지는 제외. 각 파일 rel=icon 1개·base64 디코드 RIFF/WEBP 헤더 검증 통과. AGENTS.md 템플릿은 base64 비대화를 피해 '루트 index.html 에서 복사' 포인터로 갱신.
+
+2026-07-17 개정: 사용자 요청으로 표정을 base(시큰둥)에서 awkward(계면쩍음)로 교체. 동일 레시피(0.76W 크롭·원형 마스크·64px WebP q90 = 2.4KB), 땀방울이 크롭에 포함되며 16px 에서도 파란 점으로 식별. 34개 파일 전수 교체·RIFF/WEBP 검증 통과.
 <!-- SECTION:NOTES:END -->
