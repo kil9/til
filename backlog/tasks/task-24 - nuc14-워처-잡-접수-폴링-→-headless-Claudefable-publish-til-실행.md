@@ -1,9 +1,10 @@
 ---
 id: TASK-24
 title: 'nuc14 워처 잡: 접수 폴링 → headless Claude(fable) /publish-til 실행'
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-07-17 07:27'
+updated_date: '2026-07-17 07:38'
 labels:
   - solo
 milestone: m-1
@@ -21,8 +22,14 @@ nuc14 머신 로컬 잡(~/jobs/til-submit/)으로 til-inbox 를 폴링해 접수
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 워처가 pending 이슈를 감지해 claim(processing)하고 headless claude 로 /publish-til 을 실행한다
-- [ ] #2 성공 시 결과 URL 코멘트+done+클로즈, 실패 시 failed 라벨+에러 코멘트가 남는다
-- [ ] #3 lockfile 로 중복 실행이 방지되고 cron/systemd 로 자동 기동된다
-- [ ] #4 스크립트가 til-inbox repo 에 버저닝된다
+- [x] #1 워처가 pending 이슈를 감지해 claim(processing)하고 headless claude 로 /publish-til 을 실행한다
+- [x] #2 성공 시 결과 URL 코멘트+done+클로즈, 실패 시 failed 라벨+에러 코멘트가 남는다
+- [x] #3 lockfile 로 중복 실행이 방지되고 cron/systemd 로 자동 기동된다
+- [x] #4 스크립트가 til-inbox repo 에 버저닝된다
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+워처 원본 til-inbox watcher/run.sh, 배포는 ~/jobs/til-submit/run.sh 심링크 + cron */2분. mock claude(CLAUDE_BIN 주입)로 성공(#2: claim→PUBLISHED_URL 추출→done+클로즈)·실패(#3: failed+로그 tail 코멘트+오픈 유지) 경로 실측. dirty tree 가드도 실측(진행 중 태스크 파일로 재현). 모델 claude-fable-5, timeout 1800s, flock 중복 방지. Slack notify() 는 스텁 — TASK-25 에서 채움. 실 LLM 완주는 TASK-26 E2E 에서.
+<!-- SECTION:NOTES:END -->
