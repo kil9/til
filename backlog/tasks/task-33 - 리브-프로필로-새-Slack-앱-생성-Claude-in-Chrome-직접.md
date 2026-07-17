@@ -1,10 +1,10 @@
 ---
 id: TASK-33
 title: 리브 프로필로 새 Slack 앱 생성 (Claude in Chrome 직접)
-status: Blocked
+status: Done
 assignee: []
 created_date: '2026-07-17 20:30'
-updated_date: '2026-07-17 20:47'
+updated_date: '2026-07-17 21:11'
 labels:
   - solo
 milestone: m-2
@@ -21,16 +21,16 @@ ordinal: 33000
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 기존 #til 워크스페이스에 리브 프로필(이름·아바타)의 새 Slack 앱 생성
-- [ ] #2 Socket Mode 활성화 + app-level token(xapp-) 발급
-- [ ] #3 Bot token(xoxb-) 발급 + 필요한 스코프(app_mentions:read, chat:write, im:history, im:read, im:write)
-- [ ] #4 Event Subscriptions 로 app_mention·message.im 구독
-- [ ] #5 발급 토큰을 nuc14 시크릿(~/.hermes/.env 패턴)에 저장, repo 평문 커밋 금지
-- [ ] #6 Slack 앱 생성·설정을 Claude in Chrome 브라우저 자동화로 수행
+- [x] #1 기존 #til 워크스페이스에 리브 프로필(이름·아바타)의 새 Slack 앱 생성
+- [x] #2 Socket Mode 활성화 + app-level token(xapp-) 발급
+- [x] #3 Bot token(xoxb-) 발급 + 필요한 스코프(app_mentions:read, chat:write, im:history, im:read, im:write)
+- [x] #4 Event Subscriptions 로 app_mention·message.im 구독
+- [x] #5 발급 토큰을 nuc14 시크릿(~/.hermes/.env 패턴)에 저장, repo 평문 커밋 금지
+- [x] #6 Slack 앱 생성·설정을 Claude in Chrome 브라우저 자동화로 수행
 <!-- AC:END -->
 
 ## Implementation Notes
 
 <!-- SECTION:NOTES:BEGIN -->
-loop-task 자율 드레인 판정: 사용자 입회 필요. Claude in Chrome 으로 실 워크스페이스(#til)에 리브 앱 생성 + xapp/xoxb 실 토큰 발급 + ~/.hermes/.env 저장은 (1)인증된 브라우저 세션, (2)외부·비가역 앱 생성, (3)실 시크릿 취급이라 무인 헤드리스 루프에서 수행 부적합. nuc14 엔 Chrome 부재(Firefox 만). 사용자가 브라우저를 직접 몰아 진행해야 하며, 이 태스크가 m-2 임계경로(35→36/37→38→39)를 게이트한다.
+Claude in Chrome(사용자 Windows Chrome, 사용자 입회)으로 api.slack.com 직접 조작해 완료. manifest 방식으로 todolbi 워크스페이스에 앱 '리브'(App ID A0BJ3JMGBJA) 생성 — bot username liv(한글 username 불가로 ASCII), App Home 표시 이름은 '리브'로 설정, 아바타는 리브 원형 아이콘(avatar-expression-base 512px PNG 업스케일) 업로드. Socket Mode 활성 + app-level token liv-socket(connections:write, xapp-) 발급, 워크스페이스 설치로 xoxb 발급(스코프 5종: app_mentions:read/chat:write/im:history/im:read/im:write — x-oauth-scopes 헤더로 확인). Event Subscriptions 는 bot events app_mention·message.im 구독. 토큰 2종은 nuc14 ~/.liv/.env(디렉터리 700/파일 600, hermes .env 패턴)에 저장, repo 커밋 없음. 검증: auth.test ok(team todolbi, user liv, U0BHQ831C9M), apps.connections.open ok(wss URL 발급 — Socket Mode 실동작 확인).
 <!-- SECTION:NOTES:END -->
