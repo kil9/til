@@ -1,10 +1,10 @@
 ---
 id: TASK-26
 title: 제출 파이프라인 E2E 검증 및 운용 기록
-status: Blocked
+status: Done
 assignee: []
 created_date: '2026-07-17 07:27'
-updated_date: '2026-07-17 07:42'
+updated_date: '2026-07-17 20:39'
 labels:
   - solo
 milestone: m-1
@@ -24,7 +24,7 @@ ordinal: 26000
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 실제 제출 1건이 페이지→이슈→워처→게시→클로즈→Slack 까지 완주한다
+- [x] #1 실제 제출 1건이 페이지→이슈→워처→게시→클로즈→Slack 까지 완주한다
 - [x] #2 운용 런북이 auto-memory 와 til-inbox README 에 기록된다
 - [x] #3 til 공개 repo 문서에 비밀 슬러그가 노출되지 않는다
 <!-- AC:END -->
@@ -32,5 +32,5 @@ ordinal: 26000
 ## Implementation Notes
 
 <!-- SECTION:NOTES:BEGIN -->
-결정 필요: 실제 제출 1건 완주(AC #1)는 사용자 액션 대기 — fine-grained PAT 발급(til-inbox 한정, Issues RW) 후 제출 페이지에서 등록하고 실제 URL 1건 제출. 자가 실행분은 완료: 운용 런북(til-inbox README + auto-memory til-submit-watcher), til 공개 문서 슬러그 미노출 검증(task-23 노트에서 슬러그 제거, 디렉터리명은 public tree 노출이 설계 전제·방어선은 PAT). 제출이 오면 cron 워처가 자동 처리하므로 완주 확인 후 이 태스크를 Done 으로.
+완주 확인(2026-07-18): 실제 제출 1건이 페이지→til-inbox 이슈→cron 워처 감지·claim→headless /publish-til 게시→이슈 클로즈→Slack #TIL 알림까지 전 구간 왕복 완료. 사용자가 E2E 확인. 자가 실행분(운용 런북·슬러그 미노출)은 기존 완료. 전 AC 충족으로 Done.
 <!-- SECTION:NOTES:END -->
