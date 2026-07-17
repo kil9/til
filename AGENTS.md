@@ -21,18 +21,17 @@ til/
 ├── backlog/              진행 상황 원본(태스크·draft·docs·decisions, backlog CLI)
 ├── PLAN.md               (아카이브) backlog 전환 전 진행 상황·완료 이력
 ├── CLAUDE.md             AGENTS.md 로 향하는 심볼릭 링크
-├── t/                    날짜 아티클(til). 연도로 한 뎁스 더 나눔
-│   └── <YYYY>/
-│       └── <slug>/
-│           └── index.html   개별 페이지(자체 완결형 HTML)
+├── <YYYY>/                날짜 아티클(til). 연도가 최상위 버킷 (예: 2026/)
+│   └── <slug>/
+│       └── index.html   개별 페이지(자체 완결형 HTML)
 └── p/                    비-날짜 지원 페이지(pages). 소개·아카이브·제출 도구 등
     └── <slug>/
         └── index.html
 ```
 
-- 루트를 평평하게 두지 않는다(TASK-32). 날짜 아티클은 `t/<연도>/<slug>/`, 비-날짜 상설 페이지(리브 소개·아카이브·관리자 제출 도구 등)는 `p/<slug>/` 아래에 둔다. 루트에는 `t/`·`p/`·`backlog/` 와 루트 파일만 남긴다.
+- 루트를 평평하게 두지 않는다(TASK-32, TASK-40 에서 `t/` 래퍼 제거). 날짜 아티클은 `<연도>/<slug>/`, 비-날짜 상설 페이지(리브 소개·아카이브·관리자 제출 도구 등)는 `p/<slug>/` 아래에 둔다. 루트에는 `<연도>/`·`p/`·`backlog/` 와 루트 파일만 남긴다.
 - 연도(`<YYYY>`)는 갤러리 카드 `data-date` 의 연도를 쓴다(현재는 전부 `2026`).
-- 슬러그는 kebab-case. `t/<연도>/` 로 이미 시간 분리되므로 슬러그에 `2026-` 연도 접두사를 새로 붙일 필요는 없다(기존 `2026-07-plan-pipeline` 등은 그대로 둔다).
+- 슬러그는 kebab-case. `<연도>/` 로 이미 시간 분리되므로 슬러그에 `2026-` 연도 접두사를 새로 붙일 필요는 없다(기존 `2026-07-plan-pipeline` 등은 그대로 둔다).
 - 슬러그·경로는 URL 에 영구히 박히므로 퍼블리시 전에 사용자에게 확인받는다. 구 평면 URL(`/til/<slug>/`)은 `404.html` 리다이렉트 맵이 새 경로로 넘겨준다.
 
 ## 퍼블리시 런북 (`/publish-pages`)
@@ -63,7 +62,7 @@ til/
 <meta property="og:type" content="article">
 <meta property="og:title" content="페이지 제목">
 <meta property="og:description" content="한 줄 설명">
-<meta property="og:url" content="https://kil9.github.io/til/t/<YYYY>/<slug>/">
+<meta property="og:url" content="https://kil9.github.io/til/<YYYY>/<slug>/">
 <meta property="og:site_name" content="today i learned">
 <meta property="og:locale" content="ko_KR">
 <meta name="twitter:card" content="summary">
@@ -108,9 +107,9 @@ til/
 </head>
 <body>
 <main>
-  <p class="home-top" style="margin:0 0 28px;font-size:0.8125rem"><a href="../../../">← today i learned</a></p>
+  <p class="home-top" style="margin:0 0 28px;font-size:0.8125rem"><a href="../../">← today i learned</a></p>
   ... 본문 ...
-  <footer><p><a href="../../../">← today i learned</a></p></footer>
+  <footer><p><a href="../../">← today i learned</a></p></footer>
 </main>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
@@ -119,7 +118,7 @@ til/
 
 - 외부 리소스(CDN 스크립트/폰트/이미지) 의존 없이 단일 파일로 열려야 한다. 필요한 자산은 인라인하거나 `data:` URI 로 임베드한다. 웹폰트는 쓰지 않는다(시스템 폰트 스택만).
 - artifact 원본 스타일을 유지하는 페이지라도 **favicon·OG 메타(위 템플릿의 `<link rel="icon">`\~`twitter:card` 블록, 제목·설명·slug 치환)와 beacon 은 반드시 넣는다**(T-24). OG 이미지는 쓰지 않는다. 파비콘은 전 페이지 공통 **리브 원형 아이콘**(64px WebP, 얼굴 크롭 + 원형 마스크)이며 페이지별 커스텀 파비콘을 만들지 않는다 — base64 데이터는 루트 `index.html` 의 것을 복사한다.
-- **인덱스로 돌아가는 링크(`← today i learned`)를 상단(본문 첫 요소)과 하단(footer) 양쪽에 넣는다.** 자체 스타일 페이지도 동일 — 상단은 히어로/본문 컨테이너의 첫 요소로, 하단은 기존 footer 안에 넣는다. 위 템플릿의 `../../../` 은 아티클 뎁스(`t/<YYYY>/<slug>/`, 루트가 3단계 위) 기준이다. 지원 페이지(`p/<slug>/`)에 쓸 때는 `../../` 로 맞춘다.
+- **인덱스로 돌아가는 링크(`← today i learned`)를 상단(본문 첫 요소)과 하단(footer) 양쪽에 넣는다.** 자체 스타일 페이지도 동일 — 상단은 히어로/본문 컨테이너의 첫 요소로, 하단은 기존 footer 안에 넣는다. 위 템플릿의 `../../` 은 아티클 뎁스(`<YYYY>/<slug>/`, 루트가 2단계 위) 기준이며, 지원 페이지(`p/<slug>/`)도 같은 2단계라 동일하게 `../../` 다.
 - **유일한 예외는 Cloudflare Web Analytics beacon**(T-15)이다. 위 템플릿의 `</body>` 직전 beacon `<script>` 를 **모든 신규 페이지에 그대로 넣는다**(token 은 클라이언트 임베드용 공개 값). 쿠키 없는 익명 집계이며, 로드 실패해도 페이지 렌더에는 영향이 없다. 지표는 CF 대시보드(Web Analytics, `kil9.github.io`)에서 본다.
 - 라이트/다크 대응은 `@media (prefers-color-scheme: dark)` 로 둔다. claude.ai 의 `data-theme` 토글은 standalone 환경에 없으므로 `prefers-color-scheme` 폴백이 있어야 한다.
 - 추적/텔레메트리 성격의 주입 스크립트는 모두 제거한다.
@@ -149,14 +148,14 @@ til/
 
 ### 3. 배치
 
-- 날짜 아티클은 `t/<현재연도>/<slug>/index.html`, 비-날짜 상설 페이지는 `p/<slug>/index.html` 로 저장한다. `<현재연도>` dir 이 없으면 만든다.
-- 새 페이지의 인덱스 복귀 링크·상대 자산 경로가 새 뎁스에 맞는지 확인한다. `t/<YYYY>/<slug>/` 는 루트가 3단계 위(`../../../`), `p/<slug>/` 는 2단계 위(`../../`)다.
+- 날짜 아티클은 `<현재연도>/<slug>/index.html`, 비-날짜 상설 페이지는 `p/<slug>/index.html` 로 저장한다. `<현재연도>` dir 이 없으면 만든다.
+- 새 페이지의 인덱스 복귀 링크·상대 자산 경로가 새 뎁스에 맞는지 확인한다. `<YYYY>/<slug>/`·`p/<slug>/` 둘 다 루트가 2단계 위(`../../`)다.
 - 구 URL 안전망을 위해 `404.html` 의 리다이렉트 맵(`map` 객체)에 `"<slug>":"<새 경로>"` 항목을 추가한다. 새 슬러그가 옛 평면 경로와 겹칠 일은 없지만, 리다이렉트 맵은 구 슬러그의 진실원본이므로 신규도 함께 등록해 둔다.
 
 ### 4. 목록 갱신
 
 - 루트 `index.html`: 갤러리 카드를 **최신이 위로** 추가하고 `Published · N` 카운트를 증가시킨다.
-  - 카드 `<a class="card">` 의 `href` 는 새 경로(`./t/<YYYY>/<slug>/` 또는 `./p/<slug>/`)로 넣는다.
+  - 카드 `<a class="card">` 의 `href` 는 새 경로(`./<YYYY>/<slug>/` 또는 `./p/<slug>/`)로 넣는다.
   - 카드 `<a class="card">` 에 `data-date="YYYY-MM-DDTHH:MM"`(정렬·아카이브용, 퍼블리시 시각까지 넣는다 — `.date` 표시는 JS 가 이 값에서 렌더링하므로 `span.date` 텍스트는 무엇을 넣어도 덮어써진다)와 `data-topic="<주제키>"`(필터 칩용, 영문 kebab-case)를 반드시 넣는다. 기존 키는 `index.html` 을 grep 해 확인하고, 새 주제면 새 키를 만든다.
   - `.tag` 는 `<칩 라벨> · <세부 주제>` 형식이고 **한국어로 쓴다**. 제품명·고유명사·정착된 약어(`Claude Code`, `SRE` 등)만 원형을 유지한다.
   - **칩 라벨은 한 단어여야 한다.** 칩은 `.tag` 를 `"·"` 로 split 한 첫 세그먼트에서 자동 생성되므로(`index.html` 의 `topics[key] = ...split("·")[0].trim()`), 칩 이름 자체에 `·` 를 넣으면 앞부분만 잘려 칩이 된다.
@@ -181,7 +180,7 @@ til/
 ### 5. 반영
 
 - `main` 에 commit / push 한다. 커밋 규칙은 아래 참조.
-- Pages 는 push 후 몇십 초 뒤 반영된다. URL: 아티클 `https://kil9.github.io/til/t/<YYYY>/<slug>/`, 지원 페이지 `https://kil9.github.io/til/p/<slug>/`
+- Pages 는 push 후 몇십 초 뒤 반영된다. URL: 아티클 `https://kil9.github.io/til/<YYYY>/<slug>/`, 지원 페이지 `https://kil9.github.io/til/p/<slug>/`
 
 ## 명령어
 
@@ -190,7 +189,7 @@ til/
 ```bash
 # 로컬 미리보기 (루트에서 실행)
 python3 -m http.server 8000
-# → http://localhost:8000/ 및 http://localhost:8000/t/<YYYY>/<slug>/ (또는 /p/<slug>/)
+# → http://localhost:8000/ 및 http://localhost:8000/<YYYY>/<slug>/ (또는 /p/<slug>/)
 
 # HTML 문법 눈검사 이외 별도 린트/테스트 없음.
 # 배포 상태 확인
