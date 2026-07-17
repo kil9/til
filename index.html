@@ -90,6 +90,11 @@
   /* 사람 관리자 블록: 리브 소개 아래. 아바타는 24px 도트 원본이라 확대 시 보간을 끈다. */
   .human { margin-top: 20px; }
   .human img { image-rendering: pixelated; }
+  .human-links { display: flex; gap: 12px; margin: 8px 0 0; }
+  .human-links a { display: inline-flex; }
+  .human-links svg { width: 15px; height: 15px; display: block; fill: var(--text-faint); }
+  .human-links a:hover svg, .human-links a:focus-visible svg { fill: var(--accent); }
+  .human-links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
   /* 리브의 코멘트: 소개 두 블록 아래. 구분선은 여기 앞에만 둔다(TASK-13). */
   .ai-summary {
@@ -460,6 +465,10 @@
       <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABHElEQVR42u2UMQ6CQBREB2IsSaQgJnbG0oIDeAAqag7hcTyApTUVB6A1obAkFCYmxEITShss9Jvl5+8CQRviVLC7mcfsDgv8NXpZfMBxvBoAqupq0TOpqq5WX8BEGsziAH6Y1LfLoTHuLqK6L0hc6Dhefbsc8LinKIsc8+UKADCdbQjUOZXVZu6HCcrTtrGGQCpMBxIBZDhf70AwndRUEmRiiieZl0X+gr+3zQQHANs0KZn7YfLatjdI/RjeutYEkjk1y11EjbPRJbF1Zlxk/rinOB/3GFxT3hyehM/TOD9o27QlkvqYaxNQiiwOPm1pO5vO/wGZ012UxUGjljydybwVoF5+BCLTIRfgB6L2mt5516Xuf1U/A0hpxqknFwe3Im/swJAAAAAASUVORK5CYII=" alt="kil9 프로필 — 노란색 3톤 셰이딩에 어두운 윤곽선의 도트 아이콘" width="36" height="36">
       <p class="keeper-name">kil9</p>
       <p class="keeper-intro">이 프로젝트의 인간 관리자입니다.</p>
+      <p class="human-links">
+        <a href="https://github.com/kil9" target="_blank" rel="noopener" aria-label="kil9 의 GitHub"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg></a>
+        <a href="https://blog.naver.com/pas2v" target="_blank" rel="noopener" aria-label="kil9 의 네이버 블로그"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.273 12.845 7.376 0H0v24h7.726V11.156L16.624 24H24V0h-7.727v12.845Z"/></svg></a>
+      </p>
     </div>
   <!-- AI-SUMMARY:START -->
     <section class="ai-summary" aria-label="리브의 코멘트">
