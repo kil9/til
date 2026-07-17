@@ -1,9 +1,10 @@
 ---
 id: TASK-22
 title: til-inbox private 접수함 repo 생성 및 접수 규약 정의
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-07-17 07:27'
+updated_date: '2026-07-17 07:29'
 labels:
   - solo
 milestone: m-1
@@ -20,7 +21,13 @@ ordinal: 22000
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 kil9/til-inbox private repo 가 생성된다
-- [ ] #2 이슈 접수 포맷(제목·본문 필드: URL·메모)과 라벨 세트(pending/processing/done/failed)가 정의되어 라벨이 실제 생성된다
-- [ ] #3 README 에 접수 규약과 파이프라인 개요 런북이 기록된다
+- [x] #1 kil9/til-inbox private repo 가 생성된다
+- [x] #2 이슈 접수 포맷(제목·본문 필드: URL·메모)과 라벨 세트(pending/processing/done/failed)가 정의되어 라벨이 실제 생성된다
+- [x] #3 README 에 접수 규약과 파이프라인 개요 런북이 기록된다
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+github.com/kil9/til-inbox (PRIVATE) 생성, 라벨 pending/processing/done/failed 등록, README 에 접수 이슈 규약(제목 [submit] URL, 본문 URL:/NOTE:/SOURCE: 라인, 라벨 상태 기계)과 파이프라인 런북 기록. 로컬 클론 ~/work/kil9/til-inbox, 커밋 이메일 noreply 설정.
+<!-- SECTION:NOTES:END -->
