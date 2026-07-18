@@ -4,7 +4,7 @@ title: Tier-2 글쓰기 디스패치 재현 (툴 잠금 하)
 status: Done
 assignee: []
 created_date: '2026-07-18 05:55'
-updated_date: '2026-07-18 06:48'
+updated_date: '2026-07-18 09:44'
 labels: []
 milestone: m-4
 dependencies:
@@ -50,4 +50,6 @@ ordinal: 48000
 
 ## 잔여(→TASK-50 E2E)
 라이브 게이트웨이에서 pre_gateway_dispatch 세션키 ↔ transform session_id 실매칭으로 실제 gh 디스패치가 도는지 최종 확인·튜닝(현재 fail-closed 라 미매칭 시 안전하게 미디스패치). 이는 게이트웨이 상시구동(TASK-49) 후 검증.
+
+[라이브 E2E 검증 2026-07-18] 세션브리지 문제 발견·수정. transform_llm_output 의 session_id 는 pre_gateway_dispatch 이후 생성돼 stash 미매칭(라이브 로그 '세션키 미매칭'). → hermes _SESSION_USER_ID contextvar(게이트웨이가 turn 마다 set_session_vars(user_id=source.user_id)로 채우는 원시 Slack id)를 transform 이 직접 읽도록 재설계. 라이브 dry-run 검증: 명시커맨드 '!til ghostty 새 기능' → 디스패치 OK, 자연어 'ghostty…올려줘' → LLM 마커 → 디스패치 OK. owner id U0B54E64FNW(=kil9) 매칭 확인. 코드 til-inbox 2b55a1f.
 <!-- SECTION:NOTES:END -->
