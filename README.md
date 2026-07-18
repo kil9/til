@@ -36,6 +36,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-07-19 | 키보드를 살렸더니 마이크가 죽었다 | [/2026/keyboard-fixed-mic-dead/](https://kil9.github.io/til/2026/keyboard-fixed-mic-dead/) |
 | 2026-07-19 | 같은 80%인데 색이 다른 이유 | [/2026/pace-not-percent/](https://kil9.github.io/til/2026/pace-not-percent/) |
 | 2026-07-19 | 키보드 글자 폭발 조사기 | [/2026/key-repeat-explosion/](https://kil9.github.io/til/2026/key-repeat-explosion/) |
 | 2026-07-18 | 노동 이후의 자본주의와 기본소득 | [/2026/post-labor-capitalism/](https://kil9.github.io/til/2026/post-labor-capitalism/) |
