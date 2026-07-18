@@ -36,6 +36,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-07-18 | 노동 이후의 자본주의와 기본소득 | [/2026/post-labor-capitalism/](https://kil9.github.io/til/2026/post-labor-capitalism/) |
 | 2026-07-18 | LingBot-Map — 폰으로 찍고, 4080 으로 돌린다 | [/2026/lingbot-map-local/](https://kil9.github.io/til/2026/lingbot-map-local/) |
 | 2026-07-17 | QMK 레이어는 왜 아래를 못 보나 | [/2026/kb16-qmk-layer-stack/](https://kil9.github.io/til/2026/kb16-qmk-layer-stack/) |
 | 2026-07-17 | 범인은 전원도, 허브도 아니었다 — 매크로패드 부트루프 3차 수사 | [/2026/kb16-bootloop-usb-power/](https://kil9.github.io/til/2026/kb16-bootloop-usb-power/) |
