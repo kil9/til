@@ -4,7 +4,7 @@ title: 리브 프로필 툴 읽기전용 잠금 (보안)
 status: Done
 assignee: []
 created_date: '2026-07-18 05:54'
-updated_date: '2026-07-18 06:33'
+updated_date: '2026-07-18 06:59'
 labels: []
 milestone: m-4
 dependencies:
@@ -52,4 +52,11 @@ platform_toolsets.slack → hermes_cli.tools_config._get_platform_tools → enab
 
 ## AC#3 (web 유지)
 잠금이 web 툴셋을 유지(archive 조회 capability 미제거). 단 web_search/web_extract 는 백엔드 없으면 check_fn 이 스키마에서 숨김 — 리브(및 삐약이)에 현재 백엔드 없어 실동작은 미완. 키리스 백엔드 프로비저닝은 삐약이 불간섭 결정이 얽혀 TASK-51 로 분리(Blocked).
+
+[Fable advisor(noel) 검토 반영, 2026-07-18] VERDICT: APPROVE with additions. web/vision 은 CONFIGURABLE_TOOLSETS 라 직접멤버십 분기(config set 문자열저장 시 fail-OPEN=풀툴 폴백 footgun 재확인). 적용한 하드닝:
+- MUST-FIX: platform_toolsets.slack=['web','vision','no_mcp'] — no_mcp 센티넬로 MCP 하드 비활성(글로벌 config·미래 MCP 유입 차단).
+- 방어심층: agent.disabled_toolsets=[terminal,file,code_execution,delegation,browser,cronjob,memory,skills,kanban] — 리졸버 최종 하드 감산. 이로써 kanban_* 도 스키마에서 완전 제거(기존엔 check_fn 게이팅에만 의존).
+- 회귀테스트: til-inbox bot/hermes/test_toolset_lockdown.py — enabled==[vision,web], 위험툴/browser/kanban/MCP 전무, resolved⊆{web_search,web_extract,vision_analyze} 강제. PASS. (config set 문자열 fail-open 도 assert)
+- SSRF 확인: web_extract 는 async_is_safe_url 로 file://·loopback·169.254 메타데이터·사설망 사전 차단(url_safety.py). 잔여: context 내 텍스트만 egress 유출 가능 → 시스템프롬프트/channel_prompts 에 실시크릿 금지(현재 없음).
+※ 크리티컬 배포 요건(게이트웨이 HERMES_HOME)은 TASK-49 로.
 <!-- SECTION:NOTES:END -->
