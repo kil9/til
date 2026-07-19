@@ -1,0 +1,6 @@
+# 글쓰기 작업 공간(m-5). 이 저장소는 public 이므로 게시 전 글감·초안·대화 로그는 커밋하지 않는다.
+# 템플릿만 추적해 디렉터리 구조를 남긴다.
+topics/*
+!topics/_TEMPLATE.md
+drafts/*
+!drafts/_TEMPLATE.md
