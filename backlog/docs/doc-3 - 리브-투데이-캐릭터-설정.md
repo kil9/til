@@ -132,13 +132,15 @@ SD(치비) 기본:
 | 파일 | 비율 | 컷 | 쓰임새 |
 |---|---|---|---|
 | `sheet-chibi-hoodie.webp` | SD | 후디(기본 복장), 머그 | 기준본·일상 운용 |
-| `sheet-chibi-ol.webp` | SD | 정통 OL 룩, 머그 | 복장 배리에이션 |
-| `sheet-chibi-ol-cardigan.webp` | SD | OL 룩 변형(셔츠+블루 카디건), 머그 | 복장 배리에이션 |
+| `sheet-chibi-ol.webp` | SD | 외출복 "접수원"(블라우스+H라인 스커트+스카프), 머그 | 복장 배리에이션 |
+| `sheet-chibi-ol-cardigan.webp` | SD | 외출복 "회사원"(셔츠+블루 카디건), 머그 | 복장 배리에이션 |
 | `sheet-chibi-tablet.webp` | SD | 블루 태블릿 조작 | 조사를 거는 장면 |
 | `sheet-chibi-shy.webp` | SD | 계면쩍음(뒷머리 긁적) | 실수 고백 |
 | `sheet-chibi-yawn.webp` | SD | 하품(손등으로 입 가림) | 일을 끝낸 직후 |
 | `sheet-full.webp` | 사람 | 전신, OL 룩, 머그 | 설정화 페이지 전용 |
 | `sheet-bust.webp` | 사람 | 상반신, OL 룩, 머그 | 설정화 페이지 전용 |
+
+공개 페이지에 노출되는 컷 이름에는 "OL" 을 쓰지 않는다(한국어에서 쓰이지 않는 표현이라 2026-07-20 사용자 지정). 외출복 두 컷의 공개 라벨은 각각 "접수원"·"회사원" 이다. 파일명 `-ol`·`-ol-cardigan` 과 스티커 복장 배분 표기는 내부용이라 그대로 둔다.
 
 - 아바타(`backlog/assets/liv/avatar-chibi.webp`, 256px 원형)는 `sheet-chibi-hoodie` 의 얼굴을 크롭해 만든다. 루트 `index.html` 의 `a.keeper` 에 base64 로 임베드돼 있다.
 - 구 판본 자산은 `backlog/assets/liv/legacy/` 에 있다(구 시트 8컷·구 확정본·구 아바타·구 소개 페이지 `pages/liv-today-2026-07-15.html`, 그리고 TASK-57 이전의 풀어헤친 보브+핀 판본 일괄이 `legacy/bob-hairpin/`). 참고용이며 신규 생성의 기준으로 쓰지 않는다.
