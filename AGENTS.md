@@ -19,6 +19,7 @@ til/
 ├── AGENTS.md             (이 파일) 에이전트 지침 + 퍼블리시 런북
 ├── 404.html              커스텀 404 + 구 URL → 신 경로 리다이렉트 맵
 ├── backlog/              진행 상황 원본(태스크·draft·docs·decisions, backlog CLI)
+├── .claude/skills/       이 저장소 전용 스킬(start-topic 등)
 ├── topics/               글감 메모(gitignore, 템플릿만 추적)
 ├── drafts/               초안 + 대화 로그(gitignore, 템플릿만 추적)
 ├── PLAN.md               (아카이브) backlog 전환 전 진행 상황·완료 이력
