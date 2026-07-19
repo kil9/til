@@ -1,9 +1,10 @@
 ---
 id: TASK-56
 title: kil9log 아카이브 전환 (보관소 표기·잔여 태스크 정리)
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-07-18 15:45'
+updated_date: '2026-07-19 11:07'
 labels: []
 milestone: m-5
 dependencies:
@@ -20,7 +21,13 @@ ordinal: 56000
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 kil9log README·AGENTS.md 상단에 아카이브 안내와 til 포인터가 있다
-- [ ] #2 kil9log 잔여 태스크 6개가 모두 이관·폐기 사유와 함께 정리돼 To Do 가 비어 있다
-- [ ] #3 kil9log 쪽 변경이 kil9log 저장소에 커밋돼 있다
+- [x] #1 kil9log README·AGENTS.md 상단에 아카이브 안내와 til 포인터가 있다
+- [x] #2 kil9log 잔여 태스크 6개가 모두 이관·폐기 사유와 함께 정리돼 To Do 가 비어 있다
+- [x] #3 kil9log 쪽 변경이 kil9log 저장소에 커밋돼 있다
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+kil9log README·AGENTS.md 상단에 아카이브 안내 + til 포인터. 잔여 태스크 정리: TASK-6(네이버 첫 글 게시)은 til DRAFT-3 로 이관 후 닫음, TASK-7(gemini 인증)은 폐기(start-topic 이 codex+Claude 로 확정), TASK-2·3 은 til TASK-55 흡수를 노트에 기록, TASK-1·4·5 는 이미 Done. kil9log To Do 비었음. kil9log 커밋 b6cfe6e(푸시 없음, repo 규칙대로). AC#2 의 '6개'는 계획 시점 추정이고 실제 미종결은 2건(TASK-6·7)이었다 — 나머지는 그 사이 kil9log 에서 완료됨.
+<!-- SECTION:NOTES:END -->
