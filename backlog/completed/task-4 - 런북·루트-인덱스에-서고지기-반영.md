@@ -24,5 +24,5 @@ ordinal: 4000
 ## Implementation Notes
 
 <!-- SECTION:NOTES:BEGIN -->
-AGENTS.md §2-2 '화자 — 서고지기 리브' 신설: 적용 범위(신규 페이지부터, 소급 없음)·자아 표출 위치(제한 없음)·빈도(자리당 1-2문장)·톤(존댓말/사용자님/느낌표 1회 이하)·캐릭터 이미지 운용(SD 메인, 시트 경로, base64 임베드) + doc-3 포인터. 루트 index.html 히어로에 .keeper 소개 블록 추가 — sheet-chibi-smile 에서 얼굴 원형 크롭 48px 아바타(WebP 15.6KB, base64 임베드)+이름+한 줄 소개. AI-SUMMARY 마커 바깥에 배치(로컬 잡 inject.py 가 마커 사이를 덮어쓰므로). 아바타 원본은 backlog/assets/liv/avatar-chibi.webp 보존. 검증: 로컬 http.server + 헤드리스 Firefox 로 라이트/다크 렌더 확인(다크는 media query 스왑 사본으로 캡처). README 개요에 리브 한 줄 추가. AC 3/3 체크.
+AGENTS.md §2-2 '화자 — 서고지기 리브' 신설: 적용 범위(신규 페이지부터, 소급 없음)·자아 표출 위치(제한 없음)·빈도(자리당 1-2문장)·톤(존댓말/관리자님/느낌표 1회 이하)·캐릭터 이미지 운용(SD 메인, 시트 경로, base64 임베드) + doc-3 포인터. 루트 index.html 히어로에 .keeper 소개 블록 추가 — sheet-chibi-smile 에서 얼굴 원형 크롭 48px 아바타(WebP 15.6KB, base64 임베드)+이름+한 줄 소개. AI-SUMMARY 마커 바깥에 배치(로컬 잡 inject.py 가 마커 사이를 덮어쓰므로). 아바타 원본은 backlog/assets/liv/avatar-chibi.webp 보존. 검증: 로컬 http.server + 헤드리스 Firefox 로 라이트/다크 렌더 확인(다크는 media query 스왑 사본으로 캡처). README 개요에 리브 한 줄 추가. AC 3/3 체크.
 <!-- SECTION:NOTES:END -->
