@@ -40,6 +40,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-07-20 | F13 이 조용히 죽어 있었다 | [/2026/wsl2-localhost-death/](https://kil9.github.io/til/2026/wsl2-localhost-death/) |
 | 2026-07-20 | 키 밀림 사건 종결 보고 | [/2026/key-repeat-case-closed/](https://kil9.github.io/til/2026/key-repeat-case-closed/) |
 | 2026-07-19 | 키보드를 살렸더니 마이크가 죽었다 | [/2026/keyboard-fixed-mic-dead/](https://kil9.github.io/til/2026/keyboard-fixed-mic-dead/) |
 | 2026-07-19 | 같은 80%인데 색이 다른 이유 | [/2026/pace-not-percent/](https://kil9.github.io/til/2026/pace-not-percent/) |
