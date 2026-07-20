@@ -40,6 +40,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-07-21 | 야코비안 추측, 87년 만에 무너지다 | [/2026/jacobian-conjecture-counterexample/](https://kil9.github.io/til/2026/jacobian-conjecture-counterexample/) |
 | 2026-07-21 | 펌웨어를 직접 굽게 될 줄은 몰랐다 | [/2026/kb16-firmware-diy/](https://kil9.github.io/til/2026/kb16-firmware-diy/) |
 | 2026-07-21 | rift, git worktree 대안이 될 수 있을까 | [/2026/rift-vs-git-worktree/](https://kil9.github.io/til/2026/rift-vs-git-worktree/) |
 | 2026-07-20 | 하반기 대작 10+1선, 미리 채점해 봤습니다 | [/2026/upcoming-games-2026h2/](https://kil9.github.io/til/2026/upcoming-games-2026h2/) |
