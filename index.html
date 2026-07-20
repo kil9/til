@@ -236,14 +236,22 @@
 
   <p class="search"><input id="search" type="search" placeholder="검색" aria-label="갤러리 검색" autocomplete="off"></p>
 
-  <p class="count">Published · 26</p>
+  <p class="count">Published · 27</p>
 
   <div class="grid">
 
-    <a class="card" href="./2026/keyboard-fixed-mic-dead/" data-date="2026-07-19T08:17" data-topic="system">
+    <a class="card" href="./2026/key-repeat-case-closed/" data-date="2026-07-20T13:00" data-topic="hardware">
+      <div class="meta">
+        <span class="date">2026-07-20 13:00</span>
+        <span class="tag">하드웨어 · USB 진단</span>
+      </div>
+      <h2>키 밀림 사건 종결 보고</h2>
+      <p>재부팅 직후 허브에서 즉시 재발한 키 밀림이 허브 전원 재투입만으로 소멸했다. 허브 단수도 컨트롤러도 용의선상에서 내려왔고, 자가전원 허브는 재부팅의 사각지대라는 것이 드러났다. 두 용의자를 남긴 채 종결한 이유와 재발 플레이북.</p>
+    </a>
+    <a class="card" href="./2026/keyboard-fixed-mic-dead/" data-date="2026-07-19T08:17" data-topic="hardware">
       <div class="meta">
         <span class="date">2026-07-19 08:17</span>
-        <span class="tag">시스템 · USB 진단</span>
+        <span class="tag">하드웨어 · USB 진단</span>
       </div>
       <h2>키보드를 살렸더니 마이크가 죽었다</h2>
       <p>키 밀림 재발을 계측으로 확정하고 허브를 탈출했더니 이번엔 마이크가 죽었다. 원인은 셋 — Windows 엔드포인트 정체성, 전역 리셋이 남긴 컨트롤러 웨지, 허브 뒤 오디오 입력이 안 되는 구조 한계. 컨트롤러 세 개를 오가며 판정하고 CPU 직결 포트에 정착했다.</p>
@@ -258,10 +266,10 @@
       <p>AI 구독 쿼터 표시의 색 규칙을 절대 사용률 임계에서 '앞으로 낼 수 있는 배속'으로 바꿨다. 임계 두 개 대신 e의 2차 곡선 하나 — 같은 80%가 창 중반이면 빨강, 리셋 직전이면 초록이 된다. 5h 창과 7d 창은 다른 곡선을 쓴다.</p>
     </a>
 
-    <a class="card" href="./2026/key-repeat-explosion/" data-date="2026-07-19T02:14" data-topic="system">
+    <a class="card" href="./2026/key-repeat-explosion/" data-date="2026-07-19T02:14" data-topic="hardware">
       <div class="meta">
         <span class="date">2026-07-19 02:14</span>
-        <span class="tag">시스템 · USB 진단</span>
+        <span class="tag">하드웨어 · USB 진단</span>
       </div>
       <h2>키보드 글자 폭발 조사기</h2>
       <p>타이핑 중 한 글자가 스무 자씩 쏟아지는 증상을 새벽에 추적했다. 반박된 가설 5건, 결정적 지문은 서로 다른 두 키의 같은 밀리초 동시 해제 — 진범은 USB HID 리포트 유실. 다만 변수 셋이 같이 바뀌어 조사는 아직 관찰 대기다.</p>
@@ -284,10 +292,10 @@
       <p>Ant Group 의 스트리밍 3D 재구성 모델 LingBot-Map 을 우리 장비로 돌릴 수 있는지 조사했다. 결론은 폰은 촬영만, 계산은 RTX 4080 SUPER — 온디바이스가 안 되는 이유, WSL2 를 권하는 근거, VRAM 튜닝 플래그와 촬영 요령까지.</p>
     </a>
 
-    <a class="card" href="./2026/kb16-qmk-layer-stack/" data-date="2026-07-17T13:35" data-topic="system">
+    <a class="card" href="./2026/kb16-qmk-layer-stack/" data-date="2026-07-17T13:35" data-topic="hardware">
       <div class="meta">
         <span class="date">2026-07-17 13:35</span>
-        <span class="tag">시스템 · 키보드 펌웨어</span>
+        <span class="tag">하드웨어 · 키보드 펌웨어</span>
       </div>
       <h2>QMK 레이어는 왜 아래를 못 보나</h2>
       <p>매크로패드에서 위 레이어는 홀드로 얼마든지 미리 볼 수 있는데 아래 레이어는 어떤 조합으로도 보이지 않는다. 버그가 아니라 QMK 레이어가 모드가 아닌 우선순위 스택이어서다 — 비트마스크 스캔의 동작, MO(0)이 영원히 죽어 있는 이유, TMK 시절 8비트 컨트롤러에서 온 설계 유래까지.</p>
@@ -330,10 +338,10 @@
       <div class="path">/2026-07-agent-workflow/</div>
     </a>
 
-    <a class="card" href="./2026/kb16-bootloop-usb-power/" data-date="2026-07-17T03:50" data-topic="system">
+    <a class="card" href="./2026/kb16-bootloop-usb-power/" data-date="2026-07-17T03:50" data-topic="hardware">
       <div class="meta">
         <span class="date">2026-07-17 03:50</span>
-        <span class="tag">시스템 · 하드웨어</span>
+        <span class="tag">하드웨어 · 매크로패드</span>
       </div>
       <h2>범인은 전원도, 허브도 아니었다 — 매크로패드 부트루프 3차 수사</h2>
       <p>1판은 전원을, 2판은 허브의 내부 상태를 범인으로 지목했고 둘 다 틀렸다. 진범은 Windows 장치 목록의 유령 — KVM/허브 체인이 부트로더→앱 USB 재연결을 삼켜 낡은 항목만 남은 것이었다. 형 집행은 pnputil 한 줄. 세 번의 수사, 두 번의 오판, 유령 자동 퇴치까지의 기록.</p>
