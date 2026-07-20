@@ -607,17 +607,15 @@
       if (el) el.textContent = card.dataset.date.replace("T", " ");
     });
 
-    // 이번달 외 카드 축약 + 연/월 아카이브 (T-11).
-    // ?now=YYYY-MM 으로 현재 달을 오버라이드할 수 있다(검증용).
+    // 최근 N건만 풀 카드, 나머지는 축약 + 연/월 아카이브 (T-11, 2026-07-21 월→개수 기준 전환).
+    // 구 기준(이번달)은 하루 1-2건 페이스에서 이번달 버킷이 30건+로 커져 폐기했다.
+    // ?recent=N 으로 개수를 오버라이드할 수 있다(검증용, 0이면 전부 축약).
     var params = new URLSearchParams(location.search);
-    var nowParam = params.get("now");
-    var thisMonth = /^\d{4}-\d{2}$/.test(nowParam || "")
-      ? nowParam
-      : new Date().getFullYear() + "-" + String(new Date().getMonth() + 1).padStart(2, "0");
+    var RECENT_FULL = 10;
+    var recentParam = parseInt(params.get("recent"), 10);
+    if (recentParam >= 0) RECENT_FULL = recentParam;
 
-    var past = cards.filter(function (card) {
-      return card.dataset.date.slice(0, 7) !== thisMonth;
-    });
+    var past = cards.slice(RECENT_FULL);
 
     // 연 단위 그룹핑이 기본, 한 해에 12개를 넘으면 그 해만 월 단위로 쪼갠다.
     var byYear = {};
