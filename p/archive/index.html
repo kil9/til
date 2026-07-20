@@ -83,12 +83,12 @@
   /* 커버 타일: 실제 썸네일이 없으므로 주제별 색조(--h) + 아이콘으로 대신한다.
      색조는 사이트 정체성(차가운 톤)에 맞춰 파랑-청록 대역에서만 고른다. */
   .cover {
-    height: 84px; flex: none;
+    height: 84px; flex: none; position: relative;
     display: flex; align-items: center; justify-content: center;
     background: hsl(var(--h) 42% 95.5%); color: hsl(var(--h) 40% 46%);
   }
   .cover svg { width: 26px; height: 26px; }
-  .cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   a.cell:hover .cover { background: hsl(var(--h) 45% 92.5%); }
   @media (prefers-color-scheme: dark) {
     .cover { background: hsl(var(--h) 22% 16.5%); color: hsl(var(--h) 42% 72%); }
@@ -155,21 +155,32 @@
       economy: '<path d="M4 4v16h16"/><path d="M7.5 14.5l3.3-4 3 2.5 4.2-5.5"/>',
       site: '<path d="M7 4.5h10V20l-5-3.4L7 20V4.5z"/>'
     };
-    function coverFor(card) {
+    // THUMBS:START
+    var THUMBS = {"2026-07-agent-workflow":1,"agents-a1-4b":1,"backlog-md-vs-plan-md":1,"citrini-2028-gic":1,"herdr-pane-tradeoffs":1,"herdr-vs-orca":1,"kb16-bootloop-usb-power":1,"kb16-firmware-diy":1,"kb16-qmk-layer-stack":1,"key-repeat-case-closed":1,"key-repeat-explosion":1,"keyboard-fixed-mic-dead":1,"kil9conf-14-years":1,"lingbot-map-local":1,"liv-today":1,"moshi-voice-ai":1,"nintendo-actions-runner":1,"notosanskr-nfc-fixed":1,"pace-not-percent":1,"post-labor-capitalism":1,"push-to-talk-edge-cases":1,"rift-vs-git-worktree":1,"upcoming-games-2026h2":1,"voice-prompting-cost":1,"wsl2-localhost-death":1};
+    // THUMBS:END
+    // 실제 썸네일 매니페스트. backlog/assets/archive-thumbs.py 가 각 페이지의
+    // 임베드 삽화를 추출해 thumbs/<slug>.webp 를 만들고 위 THUMBS 한 줄을
+    // 갱신한다. 매니페스트에 없는 글은 주제 타일 폴백(신규 페이지는 스크립트
+    // 재실행 전까지 타일로 보인다).
+
+    function coverFor(card, href) {
       var cover = document.createElement("div");
       cover.className = "cover";
-      // 카드에 data-thumb(소형 이미지 data URI)가 있으면 그것을 커버로 쓴다(확장 훅).
-      if (card.dataset.thumb) {
-        var img = document.createElement("img");
-        img.src = card.dataset.thumb;
-        img.alt = "";
-        img.loading = "lazy";
-        cover.appendChild(img);
-        return cover;
-      }
+      // 바탕에는 항상 주제 타일을 깔고, 썸네일이 있으면 위에 덮는다(로딩 중·실패 시 타일 노출).
       var key = card.dataset.topic || "";
       cover.style.setProperty("--h", hueFor(key));
       cover.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (ICONS[key] || ICON_DEFAULT) + "</svg>";
+      var slug = href.replace(/\/+$/, "").split("/").pop();
+      var src = card.dataset.thumb || (THUMBS[slug] ? "thumbs/" + slug + ".webp" : null);
+      if (src) {
+        var img = document.createElement("img");
+        img.alt = "";
+        img.loading = "lazy";
+        img.decoding = "async";
+        img.onerror = function () { if (img.parentNode) cover.removeChild(img); };
+        img.src = src;
+        cover.appendChild(img);
+      }
       return cover;
     }
 
@@ -236,7 +247,7 @@
             cell.className = "cell";
             // 루트 기준 상대경로("./2026/…")를 이 페이지 뎁스(p/archive/) 기준으로 보정.
             cell.href = card.getAttribute("href").replace(/^\.\//, "../../");
-            cell.appendChild(coverFor(card));
+            cell.appendChild(coverFor(card, cell.getAttribute("href")));
             var body = document.createElement("div");
             body.className = "cell-body";
             var date = document.createElement("span");
