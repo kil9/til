@@ -40,6 +40,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-07-20 | Agents-A1-4B — 4B 에이전트 모델, 우리도 쓸까 | [/2026/agents-a1-4b/](https://kil9.github.io/til/2026/agents-a1-4b/) |
 | 2026-07-20 | 푸시투토크의 마감 처리 | [/2026/push-to-talk-edge-cases/](https://kil9.github.io/til/2026/push-to-talk-edge-cases/) |
 | 2026-07-20 | F13 이 조용히 죽어 있었다 | [/2026/wsl2-localhost-death/](https://kil9.github.io/til/2026/wsl2-localhost-death/) |
 | 2026-07-20 | 키 밀림 사건 종결 보고 | [/2026/key-repeat-case-closed/](https://kil9.github.io/til/2026/key-repeat-case-closed/) |
