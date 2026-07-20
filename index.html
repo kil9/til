@@ -182,38 +182,29 @@
   }
   .card .path { display: none; }
 
-  /* 전체 색인: 피드 아래에 모든 글(피드 노출분 포함)을 월별 한 줄 색인으로 나열한다. */
-  .index-head {
-    display: flex; align-items: baseline; justify-content: space-between;
-    gap: 8px 20px; flex-wrap: wrap;
-    margin: 56px 0 4px; padding-top: 24px; border-top: 1px solid var(--rule);
+  /* 피드 하단 전체 목록 링크: 기본 뷰에서만 보인다(필터 중에는 매치 전체가 이미 펼쳐짐). */
+  .more-link { margin: 32px 0 0; }
+  .more-link a { color: var(--text-muted); text-decoration: underline; text-underline-offset: 3px; }
+  .more-link a:hover { color: var(--accent); }
+
+  /* 월별 목차: 리브의 코멘트 아래. 행은 JS 가 루트 카드에서 세어 /p/archive/ 앵커로 연결한다. */
+  .toc { margin: 24px 0 0; padding-top: 16px; border-top: 1px solid var(--rule); }
+  .toc-label {
+    margin: 0 0 8px; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-faint); font-weight: 600;
   }
-  .index-head .count { margin: 0; }
-  #index-months { display: flex; gap: 4px 14px; flex-wrap: wrap; }
-  #index-months a {
-    font-family: ui-monospace, "SF Mono", monospace; font-size: 0.75rem;
-    color: var(--text-faint); text-decoration: none;
-    font-variant-numeric: tabular-nums;
+  #month-toc { display: grid; gap: 5px; }
+  #month-toc a {
+    display: flex; justify-content: space-between; align-items: baseline;
+    text-decoration: none;
+    font-family: ui-monospace, "SF Mono", monospace; font-size: 0.8125rem;
+    color: var(--text-muted); font-variant-numeric: tabular-nums;
   }
-  #index-months a:hover, #index-months a:focus-visible {
+  #month-toc a:hover, #month-toc a:focus-visible {
     color: var(--accent); text-decoration: underline; text-underline-offset: 3px;
   }
-  .index-heading {
-    margin: 28px 0 10px; font-size: 0.8125rem; font-weight: 600;
-    color: var(--text-faint);
-    font-family: ui-monospace, "SF Mono", monospace;
-    scroll-margin-top: 12px;
-  }
-  .index-list { display: grid; gap: 7px; }
-  a.idx { display: flex; align-items: baseline; gap: 14px; text-decoration: none; color: inherit; }
-  a.idx:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-  .idx-date {
-    font-family: ui-monospace, "SF Mono", monospace;
-    font-size: 0.8125rem; color: var(--text-faint);
-    font-variant-numeric: tabular-nums; white-space: nowrap;
-  }
-  .idx-title { font-size: 0.9375rem; font-weight: 500; line-height: 1.5; }
-  a.idx:hover .idx-title { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  #month-toc .toc-n { color: var(--text-faint); font-size: 0.75rem; }
+  #month-toc a.toc-all { margin-top: 4px; font-family: inherit; font-size: 0.8125rem; }
 
   footer {
     grid-column: 1 / -1;
@@ -573,13 +564,7 @@
 
   <p class="count" id="no-results" hidden>일치하는 항목이 없습니다.</p>
 
-  <section id="all-index" aria-label="전체 색인">
-    <div class="index-head">
-      <p class="count">전체 색인</p>
-      <nav id="index-months" aria-label="월 바로가기"></nav>
-    </div>
-    <div id="index-groups"></div>
-  </section>
+  <p class="count more-link" id="more-link"><a href="./p/archive/">전체 목록 →</a></p>
   </div>
 
   <aside class="side">
@@ -603,6 +588,10 @@
       <p class="ai-intro">이번에는 키보드와 USB 문제 추적 (3건), AI 모델 구동과 도구 개선 (2건), 그리고 노동과 분배를 다룬 에세이 (1건) 를 정리해 아카이브에 올려 두었습니다. 원인을 하나로 좁히려다 셋이 나온 조사들이 특히 기억에 남습니다.</p>
     </section>
     <!-- AI-SUMMARY:END -->
+    <section class="toc" aria-label="월별 목차">
+      <p class="toc-label">월별 목차</p>
+      <nav id="month-toc"></nav>
+    </section>
   </aside>
 
   <footer>
@@ -632,66 +621,44 @@
       if (el) el.textContent = card.dataset.date.replace("T", " ");
     });
 
-    // 최신 피드 + 전체 색인 (2026-07-21, 구 T-11 월 아카이브 대체).
-    // 피드에는 최근 RECENT_FULL 건만 풀 카드로 남긴다. 전체 조망은 아래 색인이
-    // 담당한다 — 모든 글(피드 노출분 포함)을 월별 그룹 + 월 점프 링크로 나열하는
-    // 완전한 목록이라, 임의의 컷으로 갈라진 "나머지" 버킷이 생기지 않는다.
-    // ?recent=N 으로 피드 개수를 오버라이드할 수 있다(검증용, 0이면 피드 없음).
+    // 최신 피드 + 사이드바 월별 목차 (2026-07-21, 구 T-11 월 아카이브 대체).
+    // 기본 뷰에서는 최근 RECENT_FULL 건만 풀 카드로 보인다. 검색·주제 칩이 걸리면
+    // 컷을 풀고 전체 카드에서 매치를 보여준다(루트 검색이 과거 글까지 커버).
+    // 전체 조망·월 단위 내비게이션은 사이드바 목차 → /p/archive/(전체 목록 페이지,
+    // 루트 카드에서 자동 생성) 가 담당한다.
+    // ?recent=N 으로 피드 개수를 오버라이드할 수 있다(검증용).
     var params = new URLSearchParams(location.search);
     var RECENT_FULL = 10;
     var recentParam = parseInt(params.get("recent"), 10);
     if (recentParam >= 0) RECENT_FULL = recentParam;
 
-    var feedCards = cards.slice(0, RECENT_FULL);
-    cards.slice(RECENT_FULL).forEach(function (card) { card.remove(); });
-
-    // 색인 행 생성. 행은 원본 카드와 짝을 이뤄 주제 칩·검색 필터에 함께 반응한다
-    // (matches 는 카드의 텍스트 전체를 보므로, 색인 행도 설명·태그로 검색된다).
+    // 사이드바 월별 목차: 카드에서 월별 건수를 세어 전체 목록 페이지 앵커로 연결한다.
     var byMonth = {};
     cards.forEach(function (card) {
       var month = card.dataset.date.slice(0, 7);
-      (byMonth[month] = byMonth[month] || []).push(card);
+      byMonth[month] = (byMonth[month] || 0) + 1;
     });
-
-    var monthsNav = document.getElementById("index-months");
-    var container = document.getElementById("index-groups");
-    var indexRows = [];
-    var groups = [];
+    var toc = document.getElementById("month-toc");
     Object.keys(byMonth).sort().reverse().forEach(function (month) {
-      var heading = document.createElement("h2");
-      heading.className = "index-heading";
-      heading.id = "m-" + month;
-      heading.textContent = month;
-      container.appendChild(heading);
-
-      var list = document.createElement("div");
-      list.className = "index-list";
-      var group = { heading: heading, list: list, rows: [] };
-      byMonth[month].forEach(function (card) {
-        var row = document.createElement("a");
-        row.className = "idx";
-        row.href = card.getAttribute("href");
-        var date = document.createElement("span");
-        date.className = "idx-date";
-        date.textContent = card.dataset.date.slice(5, 10);
-        var title = document.createElement("span");
-        title.className = "idx-title";
-        var h = card.querySelector("h2");
-        title.textContent = h ? h.textContent : card.getAttribute("href");
-        row.appendChild(date);
-        row.appendChild(title);
-        list.appendChild(row);
-        group.rows.push({ row: row, card: card });
-        indexRows.push({ row: row, card: card });
-      });
-      container.appendChild(list);
-      groups.push(group);
-
       var link = document.createElement("a");
-      link.href = "#m-" + month;
-      link.textContent = month + " (" + byMonth[month].length + ")";
-      monthsNav.appendChild(link);
+      link.href = "./p/archive/#m-" + month;
+      var label = document.createElement("span");
+      label.textContent = month;
+      var n = document.createElement("span");
+      n.className = "toc-n";
+      n.textContent = byMonth[month];
+      link.appendChild(label);
+      link.appendChild(n);
+      toc.appendChild(link);
     });
+    var tocAll = document.createElement("a");
+    tocAll.href = "./p/archive/";
+    tocAll.className = "toc-all";
+    tocAll.textContent = "전체 목록 →";
+    toc.appendChild(tocAll);
+
+    var moreLink = document.getElementById("more-link");
+    moreLink.querySelector("a").textContent = "전체 목록 " + cards.length + "건 →";
 
     // 주제 필터 칩 (T-14) + 검색 (T-26). 두 조건은 AND 로 결합된다.
     // 칩 라벨은 카드 .tag 의 "·" 앞 첫 세그먼트를 재활용한다.
@@ -723,21 +690,14 @@
     }
 
     function update() {
+      var defaultView = state.topic === "all" && !state.q;
       var anyVisible = false;
-      feedCards.forEach(function (card) {
-        card.hidden = !matches(card);
+      cards.forEach(function (card, i) {
+        card.hidden = defaultView ? i >= RECENT_FULL : !matches(card);
         if (!card.hidden) anyVisible = true;
       });
-      indexRows.forEach(function (entry) {
-        entry.row.hidden = !matches(entry.card);
-        if (!entry.row.hidden) anyVisible = true;
-      });
-      groups.forEach(function (group) {
-        var any = group.rows.some(function (entry) { return !entry.row.hidden; });
-        group.heading.hidden = !any;
-        group.list.hidden = !any;
-      });
-      noResults.hidden = anyVisible;
+      moreLink.hidden = !defaultView;
+      noResults.hidden = anyVisible || defaultView;
       Array.prototype.forEach.call(nav.querySelectorAll(".chip"), function (chip) {
         chip.classList.toggle("active", chip.dataset.topic === state.topic);
       });

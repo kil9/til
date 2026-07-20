@@ -4,7 +4,7 @@
 
 - 라이브 사이트: <https://kil9.github.io/til/>
 - 각 페이지는 자체 완결형(self-contained) HTML 이며, 한 페이지당 디렉터리 하나를 차지한다.
-- 루트 `index.html` 은 퍼블리시된 페이지 전체를 나열하는 갤러리 랜딩 페이지다.
+- 루트 `index.html` 은 퍼블리시된 페이지를 나열하는 갤러리 랜딩 페이지다. 기본 뷰는 최근 글 피드이고, 전체 목록은 사이드바 월별 목차 또는 [/p/archive/](https://kil9.github.io/til/p/archive/)(월별 격자 색인, 갤러리 미노출)에서 훑는다.
 - 이 아카이브의 화자는 전속 AI 지식 큐레이터 캐릭터 **리브 투데이**다. 신규 페이지부터 적용되며, 설정·문체 규칙은 `backlog/docs/doc-3 - 리브-투데이-캐릭터-설정.md` 와 [AGENTS.md](AGENTS.md) §2-2 에 있다. 소개는 [/p/liv-today/](https://kil9.github.io/til/p/liv-today/), 설정화 시트는 [/p/liv-today/sheet/](https://kil9.github.io/til/p/liv-today/sheet/)(갤러리 미노출, 소개 페이지 링크로 진입).
 
 ## URL 구조
