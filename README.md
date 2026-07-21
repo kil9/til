@@ -40,6 +40,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-07-21 | 부팅할 때마다 정체를 바꾸는 키보드 | [/2026/kb16-ghost-maple/](https://til.kil9.dev/2026/kb16-ghost-maple/) |
 | 2026-07-21 | Claude Code 활용력 리딩 가이드, 구조만 훑기 | [/2026/claude-code-reading-guide/](https://til.kil9.dev/2026/claude-code-reading-guide/) |
 | 2026-07-21 | 야코비안 추측, 87년 만에 무너지다 | [/2026/jacobian-conjecture-counterexample/](https://til.kil9.dev/2026/jacobian-conjecture-counterexample/) |
 | 2026-07-21 | 펌웨어를 직접 굽게 될 줄은 몰랐다 | [/2026/kb16-firmware-diy/](https://til.kil9.dev/2026/kb16-firmware-diy/) |
