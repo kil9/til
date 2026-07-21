@@ -3,7 +3,9 @@
 <head>
 <script>
 /* 구 URL → 신 경로 자동 이동. 루트 재편 안전망.
-   커버: 구 평면 /til/<slug>/ 와 구 t/ 경로 /til/t/2026/<slug>/ 양쪽. */
+   커버: 구 평면 /<slug>/ 와 구 t/ 경로 /t/2026/<slug>/ 양쪽.
+   베이스는 경로에서 감지: 커스텀 도메인(til.kil9.dev)은 "/", 구 github.io 는 "/til/".
+   github.io 시절 URL 은 GitHub 이 커스텀 도메인으로 301 하므로 보통 "/" 베이스로 도착한다. */
 (function(){
   var map = {
     "2026-07-agent-workflow":"2026/2026-07-agent-workflow",
@@ -46,14 +48,23 @@
     "voice-prompting-cost":"2026/voice-prompting-cost"
   };
   var p = location.pathname;
-  // 구 t/ 경로: /til/t/2026/<slug>/... → /til/2026/<slug>/...
-  var tm = p.match(/^\/til\/t\/(2026\/.*)$/);
-  if (tm) { location.replace("/til/" + tm[1] + location.hash); return; }
-  // 구 평면 경로: /til/<slug>/... → 매핑된 신 경로
-  var m = p.match(/^\/til\/([^\/]+)(\/.*)?$/);
+  var base = "/", rest = p;
+  var bm = p.match(/^\/til(\/.*)?$/);
+  if (bm) { base = "/til/"; rest = bm[1] || "/"; }
+  // 구 t/ 경로: <base>t/2026/<slug>/... → <base>2026/<slug>/...
+  var tm = rest.match(/^\/t\/(2026\/.*)$/);
+  if (tm) { location.replace(base + tm[1] + location.hash); return; }
+  // 구 평면 경로: <base><slug>/... → 매핑된 신 경로
+  var m = rest.match(/^\/([^\/]+)(\/.*)?$/);
   if (m && map[m[1]]) {
-    location.replace("/til/" + map[m[1]] + (m[2] || "/") + location.hash);
+    location.replace(base + map[m[1]] + (m[2] || "/") + location.hash);
+    return;
   }
+  // 목록 복귀 링크를 현재 베이스에 맞춘다
+  document.addEventListener("DOMContentLoaded", function(){
+    var a = document.getElementById("back-home");
+    if (a) a.href = base;
+  });
 })();
 </script>
 <meta charset="utf-8">
@@ -104,7 +115,7 @@
   <p class="code">404</p>
   <h1>페이지를 찾을 수 없습니다</h1>
   <p>주소가 바뀌었거나 삭제된 페이지입니다.</p>
-  <p class="back"><a href="/til/">← today i learned 목록으로</a></p>
+  <p class="back"><a id="back-home" href="/">← today i learned 목록으로</a></p>
 </main>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
 </body>

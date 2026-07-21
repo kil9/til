@@ -1,9 +1,10 @@
 ---
 id: TASK-72
 title: til.kil9.dev 커스텀 도메인 연결 + 사이트 URL 정비
-status: To Do
+status: In Progress
 assignee: []
 created_date: '2026-07-21 02:20'
+updated_date: '2026-07-21 03:05'
 labels: []
 milestone: m-7
 dependencies:

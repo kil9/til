@@ -6,8 +6,8 @@
 
 `kil9/til` 은 정적 HTML 페이지를 GitHub Pages 로 호스팅하는 퍼블리시 저장소다. 사용자가 `/publish-pages` 로 특정 콘텐츠(주로 claude.ai artifact)를 넘기면, 그 콘텐츠를 자체 완결형 HTML 로 만들어 새 디렉터리에 담고 목록을 갱신한 뒤 `main` 에 push 한다.
 
-- 라이브: <https://kil9.github.io/til/>
-- 호스팅: GitHub Pages, `main` 브랜치 루트에서 직접 서빙(Deploy from a branch, 빌드 없음)
+- 라이브: <https://til.kil9.dev/>
+- 호스팅: GitHub Pages, `main` 브랜치 루트에서 직접 서빙(Deploy from a branch, 빌드 없음). 커스텀 도메인 til.kil9.dev(루트 `CNAME` 파일, DNS 는 kil9dev-infra repo 의 dnscontrol 관리). 구 `kil9.github.io/til/...` URL 은 GitHub 이 새 도메인으로 301 리다이렉트한다.
 - 공개 범위: **public** 저장소(무료 Pages 조건). 여기에 올리는 모든 것은 즉시 공개된다.
 
 ## 저장소 구조
@@ -18,6 +18,7 @@ til/
 ├── README.md             사람용 개요 + 퍼블리시된 페이지 표
 ├── AGENTS.md             (이 파일) 에이전트 지침 + 퍼블리시 런북
 ├── 404.html              커스텀 404 + 구 URL → 신 경로 리다이렉트 맵
+├── CNAME                 GitHub Pages 커스텀 도메인(til.kil9.dev) 지정 파일
 ├── backlog/              진행 상황 원본(태스크·draft·docs·decisions, backlog CLI)
 ├── .claude/skills/       이 저장소 전용 스킬(start-topic 등)
 ├── topics/               글감 메모(gitignore, 템플릿만 추적)
@@ -65,7 +66,7 @@ til/
 <meta property="og:type" content="article">
 <meta property="og:title" content="페이지 제목">
 <meta property="og:description" content="한 줄 설명">
-<meta property="og:url" content="https://kil9.github.io/til/<YYYY>/<slug>/">
+<meta property="og:url" content="https://til.kil9.dev/<YYYY>/<slug>/">
 <meta property="og:site_name" content="today i learned">
 <meta property="og:locale" content="ko_KR">
 <meta name="twitter:card" content="summary">
@@ -122,7 +123,7 @@ til/
 - 외부 리소스(CDN 스크립트/폰트/이미지) 의존 없이 단일 파일로 열려야 한다. 필요한 자산은 인라인하거나 `data:` URI 로 임베드한다. 웹폰트는 쓰지 않는다(시스템 폰트 스택만).
 - artifact 원본 스타일을 유지하는 페이지라도 **favicon·OG 메타(위 템플릿의 `<link rel="icon">`\~`twitter:card` 블록, 제목·설명·slug 치환)와 beacon 은 반드시 넣는다**(T-24). OG 이미지는 쓰지 않는다. 파비콘은 전 페이지 공통 **리브 원형 아이콘**(64px WebP, 얼굴 크롭 + 원형 마스크)이며 페이지별 커스텀 파비콘을 만들지 않는다 — base64 데이터는 루트 `index.html` 의 것을 복사한다.
 - **인덱스로 돌아가는 링크(`← today i learned`)를 상단(본문 첫 요소)과 하단(footer) 양쪽에 넣는다.** 자체 스타일 페이지도 동일 — 상단은 히어로/본문 컨테이너의 첫 요소로, 하단은 기존 footer 안에 넣는다. 위 템플릿의 `../../` 은 아티클 뎁스(`<YYYY>/<slug>/`, 루트가 2단계 위) 기준이며, 지원 페이지(`p/<slug>/`)도 같은 2단계라 동일하게 `../../` 다.
-- **유일한 예외는 Cloudflare Web Analytics beacon**(T-15)이다. 위 템플릿의 `</body>` 직전 beacon `<script>` 를 **모든 신규 페이지에 그대로 넣는다**(token 은 클라이언트 임베드용 공개 값). 쿠키 없는 익명 집계이며, 로드 실패해도 페이지 렌더에는 영향이 없다. 지표는 CF 대시보드(Web Analytics, `kil9.github.io`)에서 본다.
+- **유일한 예외는 Cloudflare Web Analytics beacon**(T-15)이다. 위 템플릿의 `</body>` 직전 beacon `<script>` 를 **모든 신규 페이지에 그대로 넣는다**(token 은 클라이언트 임베드용 공개 값). 쿠키 없는 익명 집계이며, 로드 실패해도 페이지 렌더에는 영향이 없다. 지표는 CF 대시보드(Web Analytics, `til.kil9.dev`)에서 본다.
 - 라이트/다크 대응은 `@media (prefers-color-scheme: dark)` 로 둔다. claude.ai 의 `data-theme` 토글은 standalone 환경에 없으므로 `prefers-color-scheme` 폴백이 있어야 한다.
 - 추적/텔레메트리 성격의 주입 스크립트는 모두 제거한다.
 
@@ -214,7 +215,7 @@ til/
 ### 5. 반영
 
 - `main` 에 commit / push 한다. 커밋 규칙은 아래 참조.
-- Pages 는 push 후 몇십 초 뒤 반영된다. URL: 아티클 `https://kil9.github.io/til/<YYYY>/<slug>/`, 지원 페이지 `https://kil9.github.io/til/p/<slug>/`
+- Pages 는 push 후 몇십 초 뒤 반영된다. URL: 아티클 `https://til.kil9.dev/<YYYY>/<slug>/`, 지원 페이지 `https://til.kil9.dev/p/<slug>/`
 
 ## 글쓰기 워크플로 (topics → drafts → 퍼블리시)
 
