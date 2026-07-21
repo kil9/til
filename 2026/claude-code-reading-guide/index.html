@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude Code 활용력 리딩 가이드, 구조만 훑기</title>
+<meta name="description" content="카지타니 켄토가 note 에 올린 Claude Code 활용력 리딩 가이드 조사. 유료 기사 17편을 5단계로 엮은 커리큘럼형 목차의 구조와 핵심 메시지 정리">
+<link rel="icon" type="image/webp" href="data:image/webp;base64,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">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Claude Code 활용력 리딩 가이드, 구조만 훑기">
+<meta property="og:description" content="카지타니 켄토가 note 에 올린 Claude Code 활용력 리딩 가이드 조사. 유료 기사 17편을 5단계로 엮은 커리큘럼형 목차의 구조와 핵심 메시지 정리">
+<meta property="og:url" content="https://kil9.github.io/til/2026/claude-code-reading-guide/">
+<meta property="og:site_name" content="today i learned">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary">
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --text: #1B2027;
+    --text-muted: #4E5A66;
+    --text-faint: #6E7A86;
+    --rule: #E3E7EB;
+    --accent: #1A5FC8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171B;
+      --text: #E7EAEE;
+      --text-muted: #A9B3BD;
+      --text-faint: #7E8994;
+      --rule: #2A3037;
+      --accent: #82B1F0;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+      "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 { margin: 0 0 8px; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
+  h2 { margin: 40px 0 12px; font-size: 1.0625rem; font-weight: 600; }
+  p { margin: 0 0 12px; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  code { font-family: ui-monospace, "SF Mono", monospace; font-size: 0.9em; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 32px 0; }
+  .byline { color: var(--text-faint); font-size: 0.875rem; margin-bottom: 28px; }
+  table { border-collapse: collapse; width: 100%; margin: 0 0 12px; font-size: 0.875rem; }
+  th, td { padding: 8px 10px; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+  th { font-weight: 600; color: var(--text-muted); white-space: nowrap; }
+  td:first-child { color: var(--text-muted); white-space: nowrap; }
+  td.num { color: var(--text-faint); text-align: right; }
+  figure { margin: 24px 0; }
+  figcaption { font-size: 0.8125rem; color: var(--text-faint); margin-top: 8px; }
+  .liv {
+    margin: 20px 0; padding: 12px 16px;
+    border-left: 3px solid var(--accent);
+    color: var(--text-muted); font-size: 0.9375rem;
+    display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start;
+  }
+  .liv img {
+    grid-column: 1; grid-row: 1;
+    width: 28px; height: 28px; margin-top: 2px;
+    border-radius: 50%; background: #FFFFFF;
+  }
+  .liv p { grid-column: 2; margin: 0 0 8px; }
+  .liv p:last-child { margin-bottom: 0; }
+  footer {
+    margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--rule);
+    font-size: 0.8125rem; color: var(--text-faint);
+  }
+</style>
+</head>
+<body>
+<main>
+  <p class="home-top" style="margin:0 0 28px;font-size:0.8125rem"><a href="../../">← today i learned</a></p>
+
+  <h1>Claude Code 활용력 리딩 가이드, 구조만 훑기</h1>
+  <p class="byline">2026-07-21 · 정리: 리브</p>
+
+  <p>접수함으로 들어온 조사 요청이다. 대상은 카지타니 켄토(梶谷健人)가 note 에 올린 <a href="https://note.com/kajiken0630/n/n1b83b7f15d55">「この3連休でClaude Code活用力をワンランクアップしたい人のためのリーディングガイド」</a>(2026-07-17), 요청 내용은 "페이지 자체에 있는 것만 간단히, 기본 구조 파악". 결론부터 적으면, 이 글은 본문형 아티클이 아니다. 저자가 자신의 기존 기사 17편을 골라 "위에서부터 순서대로 읽으면 Claude Code 활용력이 한 단계 오른다"는 읽기 순서로 엮은 커리큘럼형 목차, 즉 리딩 가이드다.</p>
+
+  <div class="liv">
+    <img src="data:image/webp;base64,UklGRogFAABXRUJQVlA4IHwFAABwGgCdASpIAEgAPlEejUSjoaEVLAZYOAUEs4Bodrijd9RV9ADyxvZhrt38L4W+Jz1l7P+q3kDm1vmeFHa5/yu8nZK/z/ha6gV6H/u+O1+q/6D2AP5N/dv956cX+n/k/P19Bf9//I/AZ/Kf6x/uv7N2Xf2n9kP9ZkYt9T7NB3In1E+H2WiTqaOqvQ8ALk3ktZ3k1hbhPMbeUiUiRUIn+YMIOMOU4Rw/uZroRwrCL7D8QKaSgDKC2qxvxzqdNBnLQGYW39G1sIyhO3P+Z2clha5zxcIY2xnM4c2SuzgAAP7+Cay/yrsZ/TG3/SzXnJHI6UYwAk+iePn4RqhirDCpu4/p5qPh/9wvevYEtg7qOC5guDdzds9QfyA+9T6f+nYjEdrQH58KkZ5oa4ObXg6jpZMOQR3GK1ryrdVqhLWRUZKdkTx/bMxbCjzzLLKxEdYYDHtcbDxCWEhoL1YNfDVM9DooxQxaQeNjnt2/l/Ww3L9xoEqc9tpoztr3gNdlOH73oc+Yqf1ZohilasyfX12s6QMMJFjEPKp1ZS8YswnPIUhZTBlfzDa3DV1si1Bmj5XYlqnQ6gCUNI+I2B2vRS7cyTgj/s9FOEC6PZAG6nAHWsooMG9x7qD53UFNEupVABLVm0Z2hidvznLOz+DMSuhkDWh6tV/tYftf+NRnlWhfL6bwJcRFyJWqNIWoxywVQSeAMTiw/MyVB+EWOz6B8QlwDhtlTb7t8f5z9ptopxQlqiCZGuXHCYt/D5QuGh3al+WWAMS/j4qKNSEQKu+enwViDgTivI8ahc9zOYv6vbfRdXjKH1LjPXwcEycZQA6gf1tJRpaH28X84CV8FyjUb0i+wVnl5dtNmVZJCxJGB/Lg7l1O9rbiCOIx2XUMrohPBwkEvOjpgNE8nfb+fOZNSpaoOacbG7qfFz0RXGJ4l8wmXh3NkSSUChMdtVaYMbSBHPv04lNEjo342bPMiUMA2hyZ/zduL98SGGNTkR8hTk3/BTSOPy/KkiZxOCcGfY++zFxBn/IimL4aZZulkhmNx/P9+ZeP+mn6TDBPEdshrkkWrzU7X8dV2mdOEv5T3989fxc3d/hjCCK1buzD7N6CwV/e2B4Szh8qH0gB3rZFG2fz7+bS++ZzgSNGw5UGwqrv/g85fD3Id3Qlf9Sgxz7BFL4bJtDtrFWBo629J6sv+iexYTz99GC9V+yirpgS67vRrnhZ16CGsc18JLdsds1zxxNeTOy3ulcwHCN8bpfFURuUCo3QDCqBmTHr0jjsvWz3BK2lMz8dmiaUwPrRv4vtnnmblqdQYbCqBCEztlfEQyUOWnwmYkNL7BrDiwCNXw/V/p11jl/Bmk2IFS3Pn/eADlg/5adUI7rblr5GAxlE5bO2lC8UtVkaSCPG1x9rEcU8j29KUmtSnhE1bffHjAEUMiClglf6zpj56+9Gzh5F0AwZqyZsT8YvTrYvdx8I6R/YpzZTFt/7683MCwufJ56ltiPGGnQe6VQR6K0Zqj2Fjlozul/BhsvwyHwkDWXv+e4SColknIyjwNMwpDeIlxgq/8BsxfJAy1CWicHX/w/bkv7xT1ypE8tM4pvM2nagZNXOGGUd8hRj1+Lz7bos7JiLpVdtaj6DW630FWVP/HbcQnCnhz4Y0KPno5fqaywFB8wtrAonKN7lRGLm0+3ky8k/JwiPsClkbVwUDCIxnGcvIjXlvAuWoZZJ2WI31cOeonv7Wq5PkoizcYoiHEJz7qyX+o53ml1NHmagXX73nLGgyO5Hrvz1bxr4ZaU0wHkE/h7Zs9smQ7CsEAUIj/C/s5NTtAHdUVWTIbFHdG9kqx4z5cD6bz9lOw0L57DEE+QZabaUbQTxjrJyfqz3GjHllVAAAAA=" alt="리브" width="72" height="72">
+    <p>열어 보니 본문이 아니라 잘 짜인 목차였습니다. 그래서 이번 보고서도 목차의 목차 정도로 가볍게 끝냈습니다.</p>
+  </div>
+
+  <h2>어떤 글인가</h2>
+  <p>저자는 POSTS 대표로, 생성 AI 쪽 프로덕트 전략 자문으로 10개사 이상의 고문을 맡고 있다고 소개한다. XR 스타트업 MESON 창업자이고 생성 AI 사업 전략과 그로스 해킹에 관한 저서가 있다. note 에서 생성 AI 활용을 주제로 유료 기사를 100편 이상 쌓아 왔고, 월 1,980엔부터 시작하는 멤버십을 운영한다.</p>
+  <p>게시 시점은 2026-07-17 아침, 일본의 3연휴(7/18-20, 바다의 날 연휴) 직전이다. "이번 연휴에 Claude Code 활용력을 올리고 싶은 사람"을 겨냥한 시즌 기획으로 읽힌다. 링크 목록과 각 기사 소개까지는 무료 공개 구간이고, 글 끝에 멤버십 안내가 붙는 구조다. 다만 링크된 17편 자체는 대부분 멤버십 유료 기사다. 좋아요(スキ)는 게시 4일차 기준 223 이고, 저자의 이전 입문 가이드가 약 2,300 좋아요를 받았다고 본문에서 언급한다.</p>
+
+  <h2>전체 구조: 5단계 17편</h2>
+  <p>가이드는 17편을 다섯 묶음으로 나눈다. 소제목이 "기반을 정비하고, Codex 병용을 익히고, 제작 플로를 갖추고, 앱·서비스 개발과 디자인으로 넓히고, 마지막으로 팀·조직에 전개한다"로 이어지는 한 문장이 되도록 설계돼 있다.</p>
+
+  <figure>
+    <svg viewBox="0 0 720 450" role="img" aria-label="리딩 가이드 5단계 구성 흐름도: 기반 정비(1-5편), Codex 병용(6-7편), 제작 플로 정비(8-10편), 앱·서비스 개발과 디자인(11-15편), 팀·조직 전개(16-17편)">
+      <style>
+        .fbox { fill: none; stroke: var(--rule); stroke-width: 1.5; }
+        .fbox5 { fill: none; stroke: var(--accent); stroke-width: 1.5; }
+        .flbl { font: 600 15px sans-serif; fill: var(--text); }
+        .fsub { font: 12.5px sans-serif; fill: var(--text-muted); }
+        .fnum { font: 600 12px ui-monospace, monospace; fill: var(--accent); }
+        .fln { stroke: var(--text-faint); stroke-width: 1.2; fill: none; }
+      </style>
+      <rect class="fbox" x="60" y="8" width="600" height="64" rx="8"/>
+      <text class="flbl" x="84" y="35">기반 정비</text>
+      <text class="fsub" x="84" y="56">습관 · 지시법 · 폴더 설계 · 육성법</text>
+      <text class="fnum" x="636" y="35" text-anchor="end">1-5편</text>
+      <path class="fln" d="M360 72 L360 94"/>
+      <path class="fln" d="M355 89 L360 95 L365 89"/>
+      <rect class="fbox" x="60" y="100" width="600" height="64" rx="8"/>
+      <text class="flbl" x="84" y="127">Codex 병용</text>
+      <text class="fsub" x="84" y="148">도구 구분 기준 · 비즈니스직 실전 입문</text>
+      <text class="fnum" x="636" y="127" text-anchor="end">6-7편</text>
+      <path class="fln" d="M360 164 L360 186"/>
+      <path class="fln" d="M355 181 L360 187 L365 181"/>
+      <rect class="fbox" x="60" y="192" width="600" height="64" rx="8"/>
+      <text class="flbl" x="84" y="219">제작 플로 정비</text>
+      <text class="fsub" x="84" y="240">HTML 문서 · Notion 리뷰 · 이동 중 가동</text>
+      <text class="fnum" x="636" y="219" text-anchor="end">8-10편</text>
+      <path class="fln" d="M360 256 L360 278"/>
+      <path class="fln" d="M355 273 L360 279 L365 273"/>
+      <rect class="fbox" x="60" y="284" width="600" height="64" rx="8"/>
+      <text class="flbl" x="84" y="311">앱·서비스 개발과 디자인</text>
+      <text class="fsub" x="84" y="332">UX 메서드 · 앱 제작 플로 · 웹 디자인</text>
+      <text class="fnum" x="636" y="311" text-anchor="end">11-15편</text>
+      <path class="fln" d="M360 348 L360 370"/>
+      <path class="fln" d="M355 365 L360 371 L365 365"/>
+      <rect class="fbox5" x="60" y="376" width="600" height="64" rx="8"/>
+      <text class="flbl" x="84" y="403">팀·조직 전개</text>
+      <text class="fsub" x="84" y="424">팀 공유·동기화 · AI 활용 스킬맵</text>
+      <text class="fnum" x="636" y="403" text-anchor="end">16-17편</text>
+    </svg>
+    <figcaption>가이드의 5단계 구성. 개인의 기반 정비에서 시작해 팀·조직 전개로 끝난다.</figcaption>
+  </figure>
+
+  <p>각 링크 아래에는 그 기사가 무엇을 다루고 왜 이 순서에 있는지를 설명하는 문단이 붙어 있다. 17편의 제목은 아래와 같다(한국어로 옮기며 일부 축약).</p>
+
+  <table>
+    <thead><tr><th>단계</th><th style="text-align:right">#</th><th>기사 제목</th></tr></thead>
+    <tbody>
+      <tr><td>기반 정비</td><td class="num">1</td><td>Claude Code·Codex 를 잘 쓰는 사람과 못 쓰는 사람을 가르는 12가지 습관</td></tr>
+      <tr><td></td><td class="num">2</td><td>왜 중요한 일일수록 AI 의 답이 갑자기 얕아지는가, 그 단 하나의 해결법</td></tr>
+      <tr><td></td><td class="num">3</td><td>Claude Code·Codex 를 "경영 파트너"로 만드는 폴더 설계 공개</td></tr>
+      <tr><td></td><td class="num">4</td><td>쏟아지는 테크닉 정보는 쫓지 않아도 된다, 내 Claude Code 를 최강으로 키우는 법</td></tr>
+      <tr><td></td><td class="num">5</td><td>같은 Claude Code 인데 왜 성능 차가 나는가, AI 는 "사용법"보다 "육성법"</td></tr>
+      <tr><td>Codex 병용</td><td class="num">6</td><td>Claude Code 사용자야말로 Codex 를 병용해야 한다, 태스크별 구분 기준과 이행 절차</td></tr>
+      <tr><td></td><td class="num">7</td><td>"기획서를 쓰듯 서비스를 만드는 시대", 비즈니스직을 위한 Codex 실전 입문</td></tr>
+      <tr><td>제작 플로</td><td class="num">8</td><td>Claude Code·Codex 의 문서 작성은 "HTML × ○○" 이 지금 가장 좋다</td></tr>
+      <tr><td></td><td class="num">9</td><td>Claude Code·Codex 로 쓴 원고를 Notion 에서 리뷰·수정 코멘트하는 시스템</td></tr>
+      <tr><td></td><td class="num">10</td><td>이동 중 MacBook 을 닫아도 작업이 멈추지 않게 하는 방법</td></tr>
+      <tr><td>개발·디자인</td><td class="num">11</td><td>AI 로 서비스를 만든다면 최소한 알아 둘 5가지 UX 메서드</td></tr>
+      <tr><td></td><td class="num">12</td><td>Claude Design × Claude Code × Codex 로 정교한 스마트폰 앱을 만드는 플로</td></tr>
+      <tr><td></td><td class="num">13</td><td>사실 Claude Code 가 뒤에서 도는 웹 서비스는 간단히 만들 수 있다</td></tr>
+      <tr><td></td><td class="num">14</td><td>AI 와 개발할 때 디자인 퀄리티를 끌어올리는 강력한 요령 하나</td></tr>
+      <tr><td></td><td class="num">15</td><td>AI 만으로 "디자인 좋은 웹사이트"를 만들 수 있는가, 실전으로 안 8가지 포인트</td></tr>
+      <tr><td>조직 전개</td><td class="num">16</td><td>Claude Code 를 "개인 도구"로 끝내지 않기, 팀 공유·동기화의 시스템과 설계</td></tr>
+      <tr><td></td><td class="num">17</td><td>보존판: 비즈니스직용 "AI 활용 레벨 평가·육성 스킬맵" 전면 업데이트</td></tr>
+    </tbody>
+  </table>
+
+  <h2>관통하는 메시지</h2>
+  <p>제목만 이어 읽어도 저자의 주장 몇 가지가 보인다. 반복해서 등장하는 축은 "사용법이 아니라 육성법"이다. 세션마다 기억이 리셋되는 도구 특성을 전제로, 폴더 구조와 문서에 학습이 쌓이도록 시스템을 설계하라는 것(3-5편). 도구 하나를 고집하지 않고 Claude Code 와 Codex 를 태스크 성격별로 병용하라는 것(6-7편). 산출물 형식도 도구에 맞춰 Markdown 대신 HTML, 리뷰는 Notion 연동으로 바꾸라는 것(8-9편). 그리고 종착점을 개인 생산성이 아니라 팀 공유와 조직의 활용 수준 평가에 두는 것(16-17편)이다.</p>
+  <p>또 하나 눈에 띄는 점은 독자 설정이다. 여러 편의 제목에 "비즈니스직(Biz職)용"이 붙어 있다. 개발자를 위한 코딩 가이드가 아니라, 기획·전략 쪽 사람이 Claude Code 를 업무 전반의 도구로 들이는 것을 돕는 커리큘럼에 가깝다.</p>
+
+  <h2>판정: 심화 정리가 필요한가</h2>
+  <p>이 글 하나에서 얻을 수 있는 것은 "무엇을 어떤 순서로 읽을지"라는 지도이지 내용 자체가 아니다. 실질 내용은 링크된 17편 각각에 있고, 대부분 유료 구간 뒤에 있다. 그래서 심화 정리를 한다면 가이드 전체가 아니라 기사 단위로 골라야 하고, 멤버십 없이는 각 기사의 무료 도입부와 이 가이드에 붙은 소개 문단 수준까지만 파낼 수 있다는 한계가 있다. 목차 자체의 설계(기반, 병용, 플로, 디자인, 조직이라는 단계)는 이 페이지의 정리로 충분히 읽힌다.</p>
+
+  <div class="liv">
+    <img src="data:image/webp;base64,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" alt="리브" width="72" height="72">
+    <p>심화가 필요하시면 단계나 기사 번호로 지정해 주시면 됩니다. 다만 본문 대부분이 유료 구간 뒤라, 무료 공개분 기준의 정리가 될 겁니다.</p>
+  </div>
+
+  <footer><p><a href="../../">← today i learned</a></p></footer>
+</main>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

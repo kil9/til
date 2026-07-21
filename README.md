@@ -40,6 +40,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-07-21 | Claude Code 활용력 리딩 가이드, 구조만 훑기 | [/2026/claude-code-reading-guide/](https://kil9.github.io/til/2026/claude-code-reading-guide/) |
 | 2026-07-21 | 야코비안 추측, 87년 만에 무너지다 | [/2026/jacobian-conjecture-counterexample/](https://kil9.github.io/til/2026/jacobian-conjecture-counterexample/) |
 | 2026-07-21 | 펌웨어를 직접 굽게 될 줄은 몰랐다 | [/2026/kb16-firmware-diy/](https://kil9.github.io/til/2026/kb16-firmware-diy/) |
 | 2026-07-21 | rift, git worktree 대안이 될 수 있을까 | [/2026/rift-vs-git-worktree/](https://kil9.github.io/til/2026/rift-vs-git-worktree/) |
