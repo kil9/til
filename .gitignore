@@ -4,3 +4,7 @@ topics/*
 !topics/_TEMPLATE.md
 drafts/*
 !drafts/_TEMPLATE.md
+
+# 비커밋 로컬 자산(시안·작업 중 이미지 등). 제출 워처가 untracked 파일을 dirty 로 판정하므로
+# 커밋하지 않을 자산은 반드시 이 아래에 둔다.
+backlog/assets/local/
