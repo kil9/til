@@ -40,6 +40,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-07-22 | 하네스 글, 모델 자율성을 과소평가했나 | [/2026/harness-vs-autonomy/](https://til.kil9.dev/2026/harness-vs-autonomy/) |
 | 2026-07-22 | in-process 팀원, pane 없이도 들여다볼 수 있게 됐나 | [/2026/agent-teams-in-process/](https://til.kil9.dev/2026/agent-teams-in-process/) |
 | 2026-07-21 | 부팅할 때마다 정체를 바꾸는 키보드 | [/2026/kb16-ghost-maple/](https://til.kil9.dev/2026/kb16-ghost-maple/) |
 | 2026-07-21 | Claude Code 활용력 리딩 가이드, 구조만 훑기 | [/2026/claude-code-reading-guide/](https://til.kil9.dev/2026/claude-code-reading-guide/) |
