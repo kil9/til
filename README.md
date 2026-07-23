@@ -40,6 +40,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-07-23 | 그래프 엔지니어링 — 직선 에이전트에서 그래프 아키텍트까지 | [/2026/graph-engineering/](https://til.kil9.dev/2026/graph-engineering/) |
 | 2026-07-22 | 종이클립 최대화 기계 — 불가능성 증명 세 편 뜯어보기 | [/2026/paperclip-maximizer/](https://til.kil9.dev/2026/paperclip-maximizer/) |
 | 2026-07-22 | Gemini 3.6 Flash 발표 — 벤치마크와 가격으로 본 위치 | [/2026/gemini-3-6-flash/](https://til.kil9.dev/2026/gemini-3-6-flash/) |
 | 2026-07-22 | 하네스 글, 모델 자율성을 과소평가했나 | [/2026/harness-vs-autonomy/](https://til.kil9.dev/2026/harness-vs-autonomy/) |
