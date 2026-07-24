@@ -40,6 +40,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-07-25 | Claude Opus 5 자리 잡기: 4.8과 Fable 5 사이 | [/2026/opus5-model-choice/](https://til.kil9.dev/2026/opus5-model-choice/) |
 | 2026-07-24 | GPU 서빙 입문 — 대량 GPU 로 모델을 서빙하기 전에 알아야 할 것들 | [/2026/gpu-serving-primer/](https://til.kil9.dev/2026/gpu-serving-primer/) |
 | 2026-07-23 | 그래프 엔지니어링 — 직선 에이전트에서 그래프 아키텍트까지 | [/2026/graph-engineering/](https://til.kil9.dev/2026/graph-engineering/) |
 | 2026-07-22 | 종이클립 최대화 기계 — 불가능성 증명 세 편 뜯어보기 | [/2026/paperclip-maximizer/](https://til.kil9.dev/2026/paperclip-maximizer/) |
