@@ -202,6 +202,16 @@
   }
   .card .path { display: none; }
 
+  /* 본문 검색 스니펫(TASK-107). 카드 텍스트가 아니라 본문에서 걸린 경우에만 붙는다. */
+  .card .snippet {
+    grid-column: 2; grid-row: 3;
+    margin: 6px 0 0; font-size: 0.8125rem; line-height: 1.6;
+    color: var(--text-faint);
+  }
+  .card .snippet mark {
+    background: none; color: var(--accent); font-weight: 600;
+  }
+
   /* 피드 하단 전체 목록 링크: 기본 뷰에서만 보인다(필터 중에는 매치 전체가 이미 펼쳐짐). */
   .more-link { margin: 32px 0 0; }
   .more-link a { color: var(--text-muted); text-decoration: underline; text-underline-offset: 3px; }
@@ -861,27 +871,111 @@
     var noResults = document.getElementById("no-results");
     var state = { topic: "all", q: "" };
 
+    // 본문 색인(TASK-107). 카드 텍스트로 못 찾은 검색어를 본문까지 넓혀 본다.
+    // 검색창에 첫 입력이 들어올 때 한 번만 fetch 한다 — 초기 로딩에는 영향이 없다.
+    // 색인이 없거나 fetch 가 실패해도 카드 텍스트 검색은 그대로 동작한다(부가 기능).
+    // 생성은 backlog/assets/search-index.py, 진실원본은 각 페이지 본문이다.
+    var bodyIndex = null;
+    var indexState = "idle";   // idle → loading → ready | failed
+    function loadIndex() {
+      if (indexState !== "idle") return;
+      if (!window.fetch) { indexState = "failed"; return; }
+      indexState = "loading";
+      fetch("./search-index.json")
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) {
+          bodyIndex = d;
+          indexState = d ? "ready" : "failed";
+          update();
+        })
+        .catch(function () { indexState = "failed"; update(); });
+    }
+
+    function slugOf(card) {
+      return card.getAttribute("href").replace(/\/+$/, "").split("/").pop();
+    }
+
     // 검색은 카드 텍스트 전체(제목·설명·태그·경로) + href 슬러그 + data-topic 를
     // 대소문자 무시 부분 일치로 본다. 공백 구분 토큰은 모두 매치해야 한다(AND).
-    function matches(card) {
-      if (state.topic !== "all" && card.dataset.topic !== state.topic) return false;
-      if (!state.q) return true;
+    // 카드에서 못 찾은 토큰은 본문 색인에서 다시 찾고, 그때만 스니펫을 붙인다.
+    // 반환: 매치 안 되면 null, 카드만으로 매치면 {}, 본문에서 걸리면 스니펫 재료.
+    function matchInfo(card) {
+      if (state.topic !== "all" && card.dataset.topic !== state.topic) return null;
+      if (!state.q) return {};
+      var toks = state.q.toLowerCase().split(/\s+/).filter(Boolean);
+      if (!toks.length) return {};
       var hay = (card.textContent + " " + card.getAttribute("href") + " " +
         (card.dataset.topic || "")).toLowerCase();
-      return state.q.toLowerCase().split(/\s+/).every(function (tok) {
-        return !tok || hay.indexOf(tok) !== -1;
+      var missing = toks.filter(function (tok) { return hay.indexOf(tok) === -1; });
+      if (!missing.length) return {};
+      var body = bodyIndex && bodyIndex[slugOf(card)];
+      if (!body) return null;
+      var lower = body.toLowerCase();
+      for (var i = 0; i < missing.length; i++) {
+        if (lower.indexOf(missing[i]) === -1) return null;
+      }
+      return { body: body, lower: lower, toks: toks, missing: missing };
+    }
+
+    // 매치 구간 한 줄. 카드에 없던 토큰(missing)의 가장 앞선 위치를 중심으로 자른다 —
+    // 카드에 이미 보이는 단어를 다시 보여 주면 왜 걸렸는지가 설명되지 않는다.
+    function snippetText(info) {
+      var at = -1;
+      info.missing.forEach(function (tok) {
+        var i = info.lower.indexOf(tok);
+        if (i >= 0 && (at < 0 || i < at)) at = i;
       });
+      if (at < 0) return "";
+      var start = Math.max(0, at - 40);
+      var end = Math.min(info.body.length, at + 120);
+      return (start > 0 ? "…" : "") + info.body.slice(start, end).trim() +
+        (end < info.body.length ? "…" : "");
+    }
+
+    function fillHighlighted(el, text, toks) {
+      var pattern = toks.map(function (tok) {
+        return tok.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      }).join("|");
+      var re = new RegExp("(" + pattern + ")", "gi");
+      var last = 0, m;
+      while ((m = re.exec(text)) !== null) {
+        if (m.index > last) {
+          el.appendChild(document.createTextNode(text.slice(last, m.index)));
+        }
+        var mark = document.createElement("mark");
+        mark.textContent = m[0];
+        el.appendChild(mark);
+        last = m.index + m[0].length;
+      }
+      if (last < text.length) {
+        el.appendChild(document.createTextNode(text.slice(last)));
+      }
+    }
+
+    function renderSnippet(card, info) {
+      var old = card.querySelector(".snippet");
+      if (old) card.removeChild(old);
+      if (!info || !info.body) return;
+      var text = snippetText(info);
+      if (!text) return;
+      var el = document.createElement("p");
+      el.className = "snippet";
+      fillHighlighted(el, text, info.toks);
+      card.appendChild(el);
     }
 
     function update() {
       var defaultView = state.topic === "all" && !state.q;
       var anyVisible = false;
       cards.forEach(function (card, i) {
-        card.hidden = defaultView ? i >= RECENT_FULL : !matches(card);
+        var info = defaultView ? null : matchInfo(card);
+        card.hidden = defaultView ? i >= RECENT_FULL : !info;
+        renderSnippet(card, card.hidden ? null : info);
         if (!card.hidden) anyVisible = true;
       });
       moreLink.hidden = !defaultView;
-      noResults.hidden = anyVisible || defaultView;
+      // 색인이 오는 중이면 '결과 없음' 을 띄우지 않는다 — 곧 본문 매치가 붙을 수 있다.
+      noResults.hidden = anyVisible || defaultView || indexState === "loading";
       Array.prototype.forEach.call(nav.querySelectorAll(".chip"), function (chip) {
         chip.classList.toggle("active", chip.dataset.topic === state.topic);
       });
@@ -904,13 +998,18 @@
 
     searchInput.addEventListener("input", function () {
       state.q = searchInput.value.trim();
+      if (state.q) loadIndex();
       update();
     });
 
     var initialTopic = params.get("topic");
     if (initialTopic && topics[initialTopic]) state.topic = initialTopic;
     var initialQ = params.get("q");
-    if (initialQ) { searchInput.value = initialQ; state.q = initialQ.trim(); }
+    if (initialQ) {
+      searchInput.value = initialQ;
+      state.q = initialQ.trim();
+      if (state.q) loadIndex();
+    }
     update();
   })();
 

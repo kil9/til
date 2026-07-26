@@ -22,6 +22,7 @@ til/
 ├── feed.xml              Atom 1.0 피드 (생성물 — site-feed.py, 손으로 고치지 않는다)
 ├── sitemap.xml           sitemap 0.9 (생성물 — 동상)
 ├── robots.txt            전체 허용 + Sitemap 줄 (생성물 — 동상)
+├── search-index.json     본문 검색 색인 (생성물 — search-index.py, 동상)
 ├── og/                   공유 미리보기 이미지 1200x630 JPEG (생성물 — archive-thumbs.py)
 │                         <slug>.jpg 와 대표 이미지 없는 글이 공유하는 default.jpg
 ├── backlog/              진행 상황 원본(태스크·draft·docs·decisions, backlog CLI)
@@ -207,6 +208,7 @@ til/
 - **페이지 공통 요소 재생성**: `python3 backlog/assets/archive-thumbs.py` 를 먼저 돌려 대표 이미지(썸네일·OG)를 굽고, 이어서 `python3 backlog/assets/relink-pages.py` 로 각 페이지 head 의 `og:image`(전 카드)와 아티클 하단의 이전/다음·주제 역링크를 다시 만들고 **바뀐 파일을 전부 같은 커밋에 담는다**(TASK-98·TASK-100). 새 글을 발행하면 직전 글의 '다음' 링크도 바뀌므로 **매번 두 파일 이상이 변경된다** — 새 페이지만 커밋하면 직전 글이 최신인 채로 남는다. **순서가 중요하다**: `relink-pages.py` 를 먼저 돌리면 새 글이 공통 폴백 이미지를 가리킨 채로 굳는다. 진실원본은 루트 카드이고, 페이지의 `<!-- PAGEOG:START -->`·`<!-- PAGENAV-CSS:START -->`·`<!-- PAGENAV:START -->` 마커 구간은 스크립트가 통째로 덮어쓰므로 손으로 고치지 않는다(마커 밖은 건드리지 않아 재실행이 멱등이다. 예외로 `twitter:card` 값만 마커 밖에서 `summary_large_image` 로 올린다). `og:image` 는 카드가 있는 페이지 전부에, 이전/다음 내비는 날짜 아티클에만 붙는다 — 갤러리 카드가 없는 페이지는 순서에 낄 자리가 없어 건너뛴다.
   - `relink-pages.py` 는 끝에 **페이지 용량 경고**를 찍는다(TASK-99). 5MB 를 넘는 페이지가 있으면 stderr 로 알린다 — 경고일 뿐 발행을 막지 않는다. 용량 절약이 목적이 아니라(용량 최적화는 하지 않기로 했고 base64 인라인도 그대로다) **압축을 건너뛴 원본 임베드·같은 이미지 중복 임베드 같은 사고를 발행 전에 알아차리는 것**이 목적이라, 정상 발행이 절대 안 걸리는 자리에 임계를 뒀다(현재 최대 1.24MB). 브리핑의 500KB 상한(TASK-95)과는 무관하다.
 - **피드·sitemap 재생성**: 카드를 추가·수정했으면 `python3 backlog/assets/site-feed.py` 를 돌려 루트 `feed.xml`(Atom 1.0)·`sitemap.xml`·`robots.txt` 를 다시 만들고 **같은 커밋에 담는다**(TASK-97). 생성물의 진실원본은 루트 카드이므로 손으로 고치지 않는다. 카드 없는 페이지(`p/briefing/` 회차, 갤러리 미링크 페이지)는 의도적으로 빠진다. 카드 텍스트만 고친 경우에도 summary 가 바뀌므로 다시 돌린다. 시각 함수를 쓰지 않아 재실행이 멱등이다.
+- **본문 검색 색인 재생성**: `python3 backlog/assets/search-index.py` 를 돌려 루트 `search-index.json` 을 다시 만들고 **같은 커밋에 담는다**(TASK-107). 루트 검색은 카드 텍스트만 보다가 이 색인으로 본문까지 매치하며, 색인은 검색창 첫 입력 때 지연 로딩된다 — 없거나 fetch 가 실패하면 카드 텍스트 검색으로 조용히 폴백하므로 발행을 막지는 않지만, 안 돌리면 **새 글만 본문 검색에서 빠진다**. 대상은 카드가 있는 페이지뿐이고(브리핑 회차 제외), 코드 블록·script·style·하단 내비·footer 는 색인에서 제외한다. 본문이 진실원본이라 페이지를 고쳤으면 카드를 안 건드려도 다시 돌린다. 시각 함수를 쓰지 않아 재실행이 멱등이다.
 
 ### 4-1. 주제 분류는 유동적이다
 

@@ -30,6 +30,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
    python3 backlog/assets/archive-thumbs.py   # 격자 썸네일 + og/<slug>.jpg
    python3 backlog/assets/relink-pages.py     # og:image 메타, 하단 이전/다음·주제 역링크
    python3 backlog/assets/site-feed.py        # feed.xml, sitemap.xml, robots.txt
+   python3 backlog/assets/search-index.py     # search-index.json (본문 검색 색인)
    ```
 
 5. 바뀐 파일을 전부 담아 `main` 에 commit / push 한다. 새 글을 올리면 직전 글의 "다음" 링크도 함께 바뀐다.
