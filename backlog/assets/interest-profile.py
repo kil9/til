@@ -114,6 +114,12 @@ def build(cards, now):
         "recent": [
             {"date": c["date"][:10], "title": c["title"], "topic": c["topic"], "url": c["url"]} for c in recent
         ],
+        # 전체 목록. 브리핑의 'til 연관' 판정처럼 최근 것만으로는 부족한 쪽이 쓴다.
+        "articles": [
+            {"date": c["date"][:10], "title": c["title"], "topic": c["topic"], "url": c["url"],
+             "detail": c["detail"], "summary": c["summary"]}
+            for c in sorted(cards, key=lambda c: c["date"], reverse=True)
+        ],
     }
 
 
