@@ -1,0 +1,18 @@
+<div class="item" id="{{ANCHOR}}">
+  <div>
+    <h3><span class="rank">{{RANK}}</span><a href="{{URL}}">{{TITLE}}</a></h3>
+    <p class="lede">{{LEDE}}</p>
+    <ul>
+{{BULLETS}}
+    </ul>
+    <p class="foot">{{DOMAIN}} · {{INTEREST}} · 추천 상위 {{PERCENTILE}}%</p>
+  </div>
+  <div class="side">
+{{TIEBOX}}{{LIV}}
+    <button class="go" data-topic="{{ACTION_TOPIC}}" data-url="{{ACTION_URL}}" data-angle="{{ACTION_ANGLE}}">이 건으로 TIL 만들기</button>
+    <div class="steer">
+      <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+      <p class="hint">한 번 더 누르면 리브가 원문을 읽고 til 페이지까지 만듭니다.</p>
+    </div>
+  </div>
+</div>

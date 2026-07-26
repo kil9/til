@@ -29,14 +29,18 @@ til/
 │   └── <slug>/
 │       └── index.html   개별 페이지(자체 완결형 HTML)
 └── p/                    비-날짜 지원 페이지(pages). 소개·아카이브·제출 도구 등
-    └── <slug>/
-        └── index.html
+    ├── <slug>/
+    │   └── index.html
+    └── briefing/         리브의 아침 브리핑(자동 발행). 루트가 최신 1건, 하위가 날짜별 누적
+        └── <YYYY-MM-DD>/
+            └── index.html
 ```
 
 - 루트를 평평하게 두지 않는다(TASK-32, TASK-40 에서 `t/` 래퍼 제거). 날짜 아티클은 `<연도>/<slug>/`, 비-날짜 상설 페이지(리브 소개·아카이브·관리자 제출 도구 등)는 `p/<slug>/` 아래에 둔다. 루트에는 `<연도>/`·`p/`·`backlog/`·`topics/`·`drafts/` 와 루트 파일만 남긴다(뒤의 둘은 비커밋 작업 공간이라 사이트로 서빙되지 않는다).
 - 연도(`<YYYY>`)는 갤러리 카드 `data-date` 의 연도를 쓴다(현재는 전부 `2026`).
 - 슬러그는 kebab-case. `<연도>/` 로 이미 시간 분리되므로 슬러그에 `2026-` 연도 접두사를 새로 붙일 필요는 없다(기존 `2026-07-plan-pipeline` 등은 그대로 둔다).
 - 슬러그·경로는 URL 에 영구히 박히므로 퍼블리시 전에 사용자에게 확인받는다. 구 평면 URL(`/til/<slug>/`)은 `404.html` 리다이렉트 맵이 새 경로로 넘겨준다.
+- `p/briefing/` 은 손으로 만들지 않는다. 매일 09:00 발행 잡이 템플릿(`backlog/assets/briefing/`)으로 렌더해 push 하며, 루트 갤러리·README 표·`p/archive/` 에는 노출하지 않고 `noindex, follow` 로 나간다. 경로·노출·보존 정책의 정본은 `backlog/assets/briefing/README.md` 다.
 
 ## 퍼블리시 런북 (`/publish-pages`)
 
