@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://til.kil9.dev/2026/systemd-path-fail-closed/">
 <meta property="og:site_name" content="today i learned">
 <meta property="og:locale" content="ko_KR">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <style>
   :root {
     --bg: #FFFFFF;
@@ -77,6 +77,39 @@
   }
   .takeaway p:last-child { margin-bottom: 0; }
 </style>
+<!-- PAGENAV-CSS:START -->
+<style>
+  /* 하단 글 이동(TASK-98). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .pagenav {
+    --pn-rule: var(--rule, #E3E7EB); --pn-faint: var(--text-faint, #6E7A86);
+    --pn-accent: var(--accent, #1A5FC8); --pn-text: var(--text, #1B2027);
+    margin: 56px 0 0; padding-top: 20px; border-top: 1px solid var(--pn-rule);
+    display: grid; gap: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagenav {
+      --pn-rule: var(--rule, #2A3037); --pn-faint: var(--text-faint, #7E8994);
+      --pn-accent: var(--accent, #82B1F0); --pn-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagenav a { color: var(--pn-text); text-decoration: none; font-size: 0.9375rem; }
+  .pagenav a:hover, .pagenav a:focus-visible {
+    color: var(--pn-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  .pagenav .pn-label {
+    display: inline-block; min-width: 3em; margin-right: 6px;
+    color: var(--pn-faint); font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagenav .pn-topic { margin: 6px 0 0; font-size: 0.8125rem; }
+  .pagenav .pn-topic a { color: var(--pn-faint); font-size: inherit; }
+</style>
+<!-- PAGENAV-CSS:END -->
+<!-- PAGEOG:START -->
+<meta property="og:image" content="https://til.kil9.dev/og/default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="내 셸에선 되는데: systemd PATH 와 fail-closed 가드가 겹친 자리">
+<!-- PAGEOG:END -->
 </head>
 <body>
 <main>
@@ -185,6 +218,13 @@ used%: 24.0 / allowed%: 32.3 (elapsed 22.3 + margin 10)
     <p>fail-closed 는 "막는다"까지만 설계하기 쉽다. 하지만 막는 쪽을 고르는 순간 <em>왜 막았는지</em>를 남기는 것이 설계의 절반이 된다. 그러지 않으면 안전 장치가 스스로를 디버깅 불가능한 장애로 바꾼다.</p>
   </div>
 
+  <!-- PAGENAV:START -->
+<nav class="pagenav" aria-label="글 이동">
+  <a href="../nintendo-actions-runner/"><span class="pn-label">이전</span>닌텐도의 Actions Runner 운용</a>
+  <a href="../notosanskr-nfc-fixed/"><span class="pn-label">다음</span>글자가 겹치면 폰트를 고치면 된다: NotoSansKR NFC Fixed 삽질기</a>
+  <p class="pn-topic"><a href="../../?topic=system">시스템 글 더 보기 →</a></p>
+</nav>
+<!-- PAGENAV:END -->
   <footer><p><a href="../../">← today i learned</a></p></footer>
 </main>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->

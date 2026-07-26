@@ -1,10 +1,10 @@
 ---
 id: TASK-99
 title: 아티클 페이지 용량 폭주 감지 — 느슨한 상한
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-07-26 10:24'
-updated_date: '2026-07-26 10:29'
+updated_date: '2026-07-26 11:00'
 labels: []
 milestone: m-11
 dependencies: []
@@ -27,6 +27,18 @@ ordinal: 99000
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 아티클 HTML 이 5MB 를 넘으면 발행 전에 경고가 뜨고, 경고일 뿐 발행은 막히지 않는다
-- [ ] #2 현재 49건 전체가 임계 미만이라 경고가 하나도 뜨지 않는다
+- [x] #1 아티클 HTML 이 5MB 를 넘으면 발행 전에 경고가 뜨고, 경고일 뿐 발행은 막히지 않는다
+- [x] #2 현재 49건 전체가 임계 미만이라 경고가 하나도 뜨지 않는다
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+relink-pages.py 끝의 warn_oversize() 로 얹었다. 발행 경로에서 매번 도는 스크립트라 단독 체커를 만들지 않았다.
+
+- 임계 5MB, 초과 시 stderr 경고만 내고 발행을 막지 않는다(exit 0).
+- 용량 절약이 목적이 아니다. 압축을 건너뛴 원본 임베드·중복 임베드 같은 사고를 발행 전에 알아차리는 것이 목적이라, 정상 발행이 절대 안 걸리는 자리에 임계를 뒀다.
+- 대상은 손으로 발행하는 전 페이지 56건(카드 없는 미링크 페이지 포함 — 사고는 갤러리 등재 여부와 무관하다). p/briefing/ 은 자동 발행이고 자기 500KB 상한을 잡에서 따로 보므로 뺐다.
+- 검증: 현재 경고 0건, 최대 upcoming-games-2026h2 1.24MB. 임계를 1MB 로 낮춰 경고가 실제로 뜨고 exit code 가 0 인 것도 확인.
+- DRAFT-7 의 (4) 항목은 이걸로 해소돼 그 draft 범위에서 뺐다.
+<!-- SECTION:NOTES:END -->

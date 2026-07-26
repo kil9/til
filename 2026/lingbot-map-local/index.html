@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://til.kil9.dev/2026/lingbot-map-local/">
 <meta property="og:site_name" content="today i learned">
 <meta property="og:locale" content="ko_KR">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <style>
   :root {
     --bg: #FFFFFF;
@@ -102,6 +102,39 @@
     font-size: 0.8125rem; color: var(--text-faint);
   }
 </style>
+<!-- PAGENAV-CSS:START -->
+<style>
+  /* 하단 글 이동(TASK-98). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .pagenav {
+    --pn-rule: var(--rule, #E3E7EB); --pn-faint: var(--text-faint, #6E7A86);
+    --pn-accent: var(--accent, #1A5FC8); --pn-text: var(--text, #1B2027);
+    margin: 56px 0 0; padding-top: 20px; border-top: 1px solid var(--pn-rule);
+    display: grid; gap: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagenav {
+      --pn-rule: var(--rule, #2A3037); --pn-faint: var(--text-faint, #7E8994);
+      --pn-accent: var(--accent, #82B1F0); --pn-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagenav a { color: var(--pn-text); text-decoration: none; font-size: 0.9375rem; }
+  .pagenav a:hover, .pagenav a:focus-visible {
+    color: var(--pn-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  .pagenav .pn-label {
+    display: inline-block; min-width: 3em; margin-right: 6px;
+    color: var(--pn-faint); font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagenav .pn-topic { margin: 6px 0 0; font-size: 0.8125rem; }
+  .pagenav .pn-topic a { color: var(--pn-faint); font-size: inherit; }
+</style>
+<!-- PAGENAV-CSS:END -->
+<!-- PAGEOG:START -->
+<meta property="og:image" content="https://til.kil9.dev/og/lingbot-map-local.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="LingBot-Map — 폰으로 찍고, 4080 으로 돌린다">
+<!-- PAGEOG:END -->
 </head>
 <body>
 <main>
@@ -234,6 +267,13 @@ python demo_render/batch_demo.py --video_path phone.mp4 --fps 10 \
     <li><a href="https://www.progressiverobot.com/2026/04/25/lingbot-map/">LingBot-Map: Streaming 3D Reconstruction for Robotics — Explained (2026-04)</a></li>
   </ul>
 
+  <!-- PAGENAV:START -->
+<nav class="pagenav" aria-label="글 이동">
+  <a href="../kb16-qmk-layer-stack/"><span class="pn-label">이전</span>QMK 레이어는 왜 아래를 못 보나</a>
+  <a href="../post-labor-capitalism/"><span class="pn-label">다음</span>노동 이후의 자본주의와 기본소득</a>
+  <p class="pn-topic"><a href="../../?topic=ai">AI 글 더 보기 →</a></p>
+</nav>
+<!-- PAGENAV:END -->
   <footer>
     <p>2026-07-18 · 조사·작성: 리브 (Claude Fable 5)</p>
     <p><a href="../../">← today i learned</a></p>

@@ -19,6 +19,11 @@ til/
 ├── AGENTS.md             (이 파일) 에이전트 지침 + 퍼블리시 런북
 ├── 404.html              커스텀 404 + 구 URL → 신 경로 리다이렉트 맵
 ├── CNAME                 GitHub Pages 커스텀 도메인(til.kil9.dev) 지정 파일
+├── feed.xml              Atom 1.0 피드 (생성물 — site-feed.py, 손으로 고치지 않는다)
+├── sitemap.xml           sitemap 0.9 (생성물 — 동상)
+├── robots.txt            전체 허용 + Sitemap 줄 (생성물 — 동상)
+├── og/                   공유 미리보기 이미지 1200x630 JPEG (생성물 — archive-thumbs.py)
+│                         <slug>.jpg 와 대표 이미지 없는 글이 공유하는 default.jpg
 ├── backlog/              진행 상황 원본(태스크·draft·docs·decisions, backlog CLI)
 ├── .claude/skills/       이 저장소 전용 스킬(start-topic 등)
 ├── topics/               글감 메모(gitignore, 템플릿만 추적)
@@ -125,7 +130,7 @@ til/
 ```
 
 - 외부 리소스(CDN 스크립트/폰트/이미지) 의존 없이 단일 파일로 열려야 한다. 필요한 자산은 인라인하거나 `data:` URI 로 임베드한다. 웹폰트는 쓰지 않는다(시스템 폰트 스택만).
-- artifact 원본 스타일을 유지하는 페이지라도 **favicon·OG 메타(위 템플릿의 `<link rel="icon">`\~`twitter:card` 블록, 제목·설명·slug 치환)와 beacon 은 반드시 넣는다**(T-24). OG 이미지는 쓰지 않는다. 파비콘은 전 페이지 공통 **리브 원형 아이콘**(64px WebP, 얼굴 크롭 + 원형 마스크)이며 페이지별 커스텀 파비콘을 만들지 않는다 — base64 데이터는 루트 `index.html` 의 것을 복사한다.
+- artifact 원본 스타일을 유지하는 페이지라도 **favicon·OG 메타(위 템플릿의 `<link rel="icon">`\~`twitter:card` 블록, 제목·설명·slug 치환)와 beacon 은 반드시 넣는다**(T-24). **OG 이미지(`og:image`)는 2026-07-26 TASK-100 에서 도입했다 — T-24 의 "쓰지 않는다"는 뒤집혔다.** 당시 배제 이유는 `og:image` 가 `data:` URI 를 못 읽어(크롤러가 받아 갈 실제 URL 이 필요하다) 무예외 단일 파일 원칙과 충돌한다는 것이었고, 그 충돌은 `p/archive/thumbs/` 사이드카 예외로 이미 해소돼 있었다. 실제 손해는 Slack·카카오톡·X 공유가 전부 회색 텍스트 블록으로 뜬다는 것이었다. 메타는 손으로 넣지 않고 `backlog/assets/relink-pages.py` 가 마커 구간(`<!-- PAGEOG:START -->`)에 박으므로 신규 페이지는 §4 의 재생성 단계만 지키면 된다. 이미지는 **JPEG** 다(다른 자산은 전부 WebP 지만, 남의 크롤러가 읽는 자리라 카카오톡·X 의 WebP 지원 불확실성을 감수하지 않는다). 파비콘은 전 페이지 공통 **리브 원형 아이콘**(64px WebP, 얼굴 크롭 + 원형 마스크)이며 페이지별 커스텀 파비콘을 만들지 않는다 — base64 데이터는 루트 `index.html` 의 것을 복사한다.
 - **인덱스로 돌아가는 링크(`← today i learned`)를 상단(본문 첫 요소)과 하단(footer) 양쪽에 넣는다.** 자체 스타일 페이지도 동일 — 상단은 히어로/본문 컨테이너의 첫 요소로, 하단은 기존 footer 안에 넣는다. 위 템플릿의 `../../` 은 아티클 뎁스(`<YYYY>/<slug>/`, 루트가 2단계 위) 기준이며, 지원 페이지(`p/<slug>/`)도 같은 2단계라 동일하게 `../../` 다.
 - **유일한 예외는 Cloudflare Web Analytics beacon**(T-15)이다. 위 템플릿의 `</body>` 직전 beacon `<script>` 를 **모든 신규 페이지에 그대로 넣는다**(token 은 클라이언트 임베드용 공개 값). 쿠키 없는 익명 집계이며, 로드 실패해도 페이지 렌더에는 영향이 없다. 지표는 CF 대시보드(Web Analytics, `til.kil9.dev`)에서 본다.
 - 라이트/다크 대응은 `@media (prefers-color-scheme: dark)` 로 둔다. claude.ai 의 `data-theme` 토글은 standalone 환경에 없으므로 `prefers-color-scheme` 폴백이 있어야 한다.
@@ -194,11 +199,14 @@ til/
 
 - 루트 `index.html`: 갤러리 카드를 **최신이 위로** 추가하고 `Published · N` 카운트를 증가시킨다.
   - 카드 `<a class="card">` 의 `href` 는 새 경로(`./<YYYY>/<slug>/` 또는 `./p/<slug>/`)로 넣는다.
-  - 사이드바 월별 목차와 `/p/archive/`(전체 목록 페이지)는 루트 카드를 진실원본 삼아 JS 로 자동 생성된다(전자는 인라인 스크립트, 후자는 루트 index.html 을 fetch). 카드 추가·카운트 증가 외에 따로 갱신할 것이 없다. 격자 커버는 실제 썸네일이 기본이다: `python3 backlog/assets/archive-thumbs.py` 가 각 페이지의 임베드 삽화(최대 이미지)를 추출해 `p/archive/thumbs/<slug>.webp`(480x172)를 만들고 페이지의 THUMBS 매니페스트를 갱신한다. 썸네일 없는 글은 주제 타일(색조+아이콘, 새 주제는 해시 색·기본 아이콘) 폴백이라 신규 퍼블리시 때 스크립트 실행은 선택이다(안 돌리면 타일, 돌리면 썸네일). 카드 `data-thumb`(data URI) 훅은 최우선. `thumbs/` 사이드카는 단일 파일 원칙(§2-1)의 의도적 예외다 — 30장+를 인라인하면 페이지가 수백 KB 로 불어나고, 분리 파일이라 lazy 로딩이 된다.
+  - 사이드바 월별 목차와 `/p/archive/`(전체 목록 페이지)는 루트 카드를 진실원본 삼아 JS 로 자동 생성된다(전자는 인라인 스크립트, 후자는 루트 index.html 을 fetch). 카드 추가·카운트 증가 외에 따로 갱신할 것이 없다. 격자 커버는 실제 썸네일이 기본이다: `python3 backlog/assets/archive-thumbs.py` 가 각 페이지의 임베드 삽화(최대 이미지)를 대표 이미지로 뽑아 `p/archive/thumbs/<slug>.webp`(480x172, 격자 커버)와 `og/<slug>.jpg`(1200x630, 공유 미리보기)를 함께 굽고 페이지의 THUMBS 매니페스트를 갱신한다. 썸네일 없는 글은 주제 타일(색조+아이콘, 새 주제는 해시 색·기본 아이콘) 폴백이고 OG 는 사이트 공통 `og/default.jpg` 를 공유한다. 카드 `data-thumb`(data URI) 훅은 격자 커버에 한해 최우선이고, 대표 이미지 자체를 갈아끼우려면 `backlog/assets/page-image-override/<slug>.<확장자>`(썸네일·OG 공통 훅, 그 디렉터리의 README 참조)에 파일을 둔다. **TASK-100 이후로 이 스크립트 실행은 선택이 아니다** — 안 돌리면 새 글의 공유 미리보기가 공통 폴백 이미지로 나간다. `thumbs/`·`og/` 사이드카는 단일 파일 원칙(§2-1)의 의도적 예외다 — 30장+를 인라인하면 페이지가 수백 KB 로 불어나고, `og:image` 는 애초에 `data:` URI 를 못 쓴다.
   - 카드 `<a class="card">` 에 `data-date="YYYY-MM-DDTHH:MM"`(정렬·아카이브용, 퍼블리시 시각까지 넣는다 — `.date` 표시는 JS 가 이 값에서 렌더링하므로 `span.date` 텍스트는 무엇을 넣어도 덮어써진다)와 `data-topic="<주제키>"`(필터 칩용, 영문 kebab-case)를 반드시 넣는다. 기존 키는 `index.html` 을 grep 해 확인하고, 새 주제면 새 키를 만든다.
   - `.tag` 는 `<칩 라벨> · <세부 주제>` 형식이고 **한국어로 쓴다**. 제품명·고유명사·정착된 약어(`Claude Code`, `SRE` 등)만 원형을 유지한다.
   - **칩 라벨은 한 단어여야 한다.** 칩은 `.tag` 를 `"·"` 로 split 한 첫 세그먼트에서 자동 생성되므로(`index.html` 의 `topics[key] = ...split("·")[0].trim()`), 칩 이름 자체에 `·` 를 넣으면 앞부분만 잘려 칩이 된다.
 - `README.md`: "퍼블리시된 페이지" 표 **맨 위**에 행을 추가한다. 표는 갤러리와 같은 **최신이 위** 정렬이다(갤러리는 JS 가 `data-date` 로 런타임 정렬하지만 README 는 정적이라 손으로 순서를 지켜야 한다 — 과거에 오래된 것이 위인 채로 어긋나 있었다). 표에는 주제 열이 없으므로 재분류는 README 를 건드리지 않는다.
+- **페이지 공통 요소 재생성**: `python3 backlog/assets/archive-thumbs.py` 를 먼저 돌려 대표 이미지(썸네일·OG)를 굽고, 이어서 `python3 backlog/assets/relink-pages.py` 로 각 페이지 head 의 `og:image`(전 카드)와 아티클 하단의 이전/다음·주제 역링크를 다시 만들고 **바뀐 파일을 전부 같은 커밋에 담는다**(TASK-98·TASK-100). 새 글을 발행하면 직전 글의 '다음' 링크도 바뀌므로 **매번 두 파일 이상이 변경된다** — 새 페이지만 커밋하면 직전 글이 최신인 채로 남는다. **순서가 중요하다**: `relink-pages.py` 를 먼저 돌리면 새 글이 공통 폴백 이미지를 가리킨 채로 굳는다. 진실원본은 루트 카드이고, 페이지의 `<!-- PAGEOG:START -->`·`<!-- PAGENAV-CSS:START -->`·`<!-- PAGENAV:START -->` 마커 구간은 스크립트가 통째로 덮어쓰므로 손으로 고치지 않는다(마커 밖은 건드리지 않아 재실행이 멱등이다. 예외로 `twitter:card` 값만 마커 밖에서 `summary_large_image` 로 올린다). `og:image` 는 카드가 있는 페이지 전부에, 이전/다음 내비는 날짜 아티클에만 붙는다 — 갤러리 카드가 없는 페이지는 순서에 낄 자리가 없어 건너뛴다.
+  - `relink-pages.py` 는 끝에 **페이지 용량 경고**를 찍는다(TASK-99). 5MB 를 넘는 페이지가 있으면 stderr 로 알린다 — 경고일 뿐 발행을 막지 않는다. 용량 절약이 목적이 아니라(용량 최적화는 하지 않기로 했고 base64 인라인도 그대로다) **압축을 건너뛴 원본 임베드·같은 이미지 중복 임베드 같은 사고를 발행 전에 알아차리는 것**이 목적이라, 정상 발행이 절대 안 걸리는 자리에 임계를 뒀다(현재 최대 1.24MB). 브리핑의 500KB 상한(TASK-95)과는 무관하다.
+- **피드·sitemap 재생성**: 카드를 추가·수정했으면 `python3 backlog/assets/site-feed.py` 를 돌려 루트 `feed.xml`(Atom 1.0)·`sitemap.xml`·`robots.txt` 를 다시 만들고 **같은 커밋에 담는다**(TASK-97). 생성물의 진실원본은 루트 카드이므로 손으로 고치지 않는다. 카드 없는 페이지(`p/briefing/` 회차, 갤러리 미링크 페이지)는 의도적으로 빠진다. 카드 텍스트만 고친 경우에도 summary 가 바뀌므로 다시 돌린다. 시각 함수를 쓰지 않아 재실행이 멱등이다.
 
 ### 4-1. 주제 분류는 유동적이다
 

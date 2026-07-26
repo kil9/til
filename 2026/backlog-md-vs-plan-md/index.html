@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://til.kil9.dev/2026/backlog-md-vs-plan-md/">
 <meta property="og:site_name" content="today i learned">
 <meta property="og:locale" content="ko_KR">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <style>
   :root {
     --bg: #FFFFFF;
@@ -114,6 +114,39 @@
   .series-now::before { content: "— "; }
 
 </style>
+<!-- PAGENAV-CSS:START -->
+<style>
+  /* 하단 글 이동(TASK-98). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .pagenav {
+    --pn-rule: var(--rule, #E3E7EB); --pn-faint: var(--text-faint, #6E7A86);
+    --pn-accent: var(--accent, #1A5FC8); --pn-text: var(--text, #1B2027);
+    margin: 56px 0 0; padding-top: 20px; border-top: 1px solid var(--pn-rule);
+    display: grid; gap: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagenav {
+      --pn-rule: var(--rule, #2A3037); --pn-faint: var(--text-faint, #7E8994);
+      --pn-accent: var(--accent, #82B1F0); --pn-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagenav a { color: var(--pn-text); text-decoration: none; font-size: 0.9375rem; }
+  .pagenav a:hover, .pagenav a:focus-visible {
+    color: var(--pn-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  .pagenav .pn-label {
+    display: inline-block; min-width: 3em; margin-right: 6px;
+    color: var(--pn-faint); font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagenav .pn-topic { margin: 6px 0 0; font-size: 0.8125rem; }
+  .pagenav .pn-topic a { color: var(--pn-faint); font-size: inherit; }
+</style>
+<!-- PAGENAV-CSS:END -->
+<!-- PAGEOG:START -->
+<meta property="og:image" content="https://til.kil9.dev/og/backlog-md-vs-plan-md.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Backlog.md 도입 검토">
+<!-- PAGEOG:END -->
 </head>
 <body>
 <main>
@@ -594,6 +627,13 @@ created: 2026-07-13
 
 <p class="lede">§8 의 한 줄을 갱신하면: 기성품이 이기는 조건은 이미 와 있었다. 다만 그 조건은 병렬도 규모도 아니라, 인간이 읽지 않는 진실원본이었다.</p>
 
+<!-- PAGENAV:START -->
+<nav class="pagenav" aria-label="글 이동">
+  <a href="../ghostty-vs-windows-terminal/"><span class="pn-label">이전</span>Ghostty vs Windows Terminal — 아직 공식 대결이 성립하지 않는 비교</a>
+  <a href="../herdr-pane-tradeoffs/"><span class="pn-label">다음</span>에이전트를 지켜보는 비용 — herdr pane 오케스트레이션 재평가</a>
+  <p class="pn-topic"><a href="../../?topic=workflow">워크플로 글 더 보기 →</a></p>
+</nav>
+<!-- PAGENAV:END -->
 <footer>
   <p>이 리포트는 Claude Fable 5 가 로컬 플랜 스킬 8종의 정의와 MrLesk/Backlog.md v1.48.0 공개 문서를 근거로 작성했다 (2026-07-13). 같은 날 실사용자 리뷰와 추가 조사(CLI 문서, 이슈 #716·#334)를 반영해 §10 후속 검토를 추가했다. 선행 검토: <a href="../2026-07-plan-pipeline/#beads">beads 를 채택하지 않은 이유</a>.</p>
   <p><a href="../../">← today i learned</a></p>

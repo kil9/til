@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://til.kil9.dev/2026/nintendo-actions-runner/">
 <meta property="og:site_name" content="today i learned">
 <meta property="og:locale" content="ko_KR">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <style>
   :root {
     --bg: #FFFFFF;
@@ -64,6 +64,39 @@
     font-size: 0.8125rem; color: var(--text-faint);
   }
 </style>
+<!-- PAGENAV-CSS:START -->
+<style>
+  /* 하단 글 이동(TASK-98). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .pagenav {
+    --pn-rule: var(--rule, #E3E7EB); --pn-faint: var(--text-faint, #6E7A86);
+    --pn-accent: var(--accent, #1A5FC8); --pn-text: var(--text, #1B2027);
+    margin: 56px 0 0; padding-top: 20px; border-top: 1px solid var(--pn-rule);
+    display: grid; gap: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagenav {
+      --pn-rule: var(--rule, #2A3037); --pn-faint: var(--text-faint, #7E8994);
+      --pn-accent: var(--accent, #82B1F0); --pn-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagenav a { color: var(--pn-text); text-decoration: none; font-size: 0.9375rem; }
+  .pagenav a:hover, .pagenav a:focus-visible {
+    color: var(--pn-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  .pagenav .pn-label {
+    display: inline-block; min-width: 3em; margin-right: 6px;
+    color: var(--pn-faint); font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagenav .pn-topic { margin: 6px 0 0; font-size: 0.8125rem; }
+  .pagenav .pn-topic a { color: var(--pn-faint); font-size: inherit; }
+</style>
+<!-- PAGENAV-CSS:END -->
+<!-- PAGEOG:START -->
+<meta property="og:image" content="https://til.kil9.dev/og/nintendo-actions-runner.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="닌텐도의 Actions Runner 운용">
+<!-- PAGEOG:END -->
 </head>
 <body>
 <main>
@@ -169,6 +202,13 @@
   <p>앞으로는 Windows/macOS runner, 나아가 <strong>Switch 2 같은 게임 전용기를 이용한 CI/CD 지원</strong>까지 라인업을 넓히고, Renovate 처럼 Actions 를 토대로 한 공통 기반을 늘려 가겠다고 한다.</p>
   <p>발표 제목대로 이 자료의 무게중심은 runner 의 기술 스택이 아니라 체제 쪽이다. 전담 플랫폼 조직을 세우는 대신 각 프로덕트의 당사자를 겸무로 모아 최소한만 공통화하고, 도입은 강제하지 않는데도 플랫폼이 성장한다 — 강제 없는 표준화가 실제로 굴러간 사례라는 점에서, 규모를 불문하고 사내 플랫폼을 만드는 팀이 참고할 만하다. 동시에 "겸무라 공수가 부족하고 서포트에 매몰될 수 있다"는 과제를 숨기지 않고, 그 답을 증원이 아니라 자동화와 셀프서비스에서 찾는 결도 일관적이다.</p>
 
+  <!-- PAGENAV:START -->
+<nav class="pagenav" aria-label="글 이동">
+  <a href="../herdr-pane-tradeoffs/"><span class="pn-label">이전</span>에이전트를 지켜보는 비용 — herdr pane 오케스트레이션 재평가</a>
+  <a href="../systemd-path-fail-closed/"><span class="pn-label">다음</span>내 셸에선 되는데: systemd PATH 와 fail-closed 가드가 겹친 자리</a>
+  <p class="pn-topic"><a href="../../?topic=system">시스템 글 더 보기 →</a></p>
+</nav>
+<!-- PAGENAV:END -->
   <footer><p><a href="../../">← today i learned</a></p></footer>
 </main>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->

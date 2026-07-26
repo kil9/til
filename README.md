@@ -11,7 +11,10 @@
 
 ```
 https://til.kil9.dev/                     루트 갤러리
-https://til.kil9.dev/<디렉터리>/           개별 페이지 (예: til-archive)
+https://til.kil9.dev/<연도>/<slug>/        날짜 아티클 (예: /2026/human-in-the-loop/)
+https://til.kil9.dev/p/<slug>/            비-날짜 지원 페이지 (예: /p/archive/)
+https://til.kil9.dev/feed.xml             Atom 피드
+https://til.kil9.dev/sitemap.xml          sitemap
 ```
 
 GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드 없음). `main` 에 push 하면 몇십 초 뒤 반영된다.
@@ -21,7 +24,15 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 1. 퍼블리시할 콘텐츠(자체 완결형 HTML)를 준비한다.
 2. `<slug>/index.html` 로 새 디렉터리에 저장한다.
 3. 루트 `index.html` 의 갤러리 목록과 이 README 의 "퍼블리시된 페이지" 목록을 갱신한다.
-4. `main` 에 commit / push 한다.
+4. 생성물을 다시 만든다. 루트 카드가 진실원본이므로 손으로 고치지 않는다.
+
+   ```bash
+   python3 backlog/assets/archive-thumbs.py   # 격자 썸네일 + og/<slug>.jpg
+   python3 backlog/assets/relink-pages.py     # og:image 메타, 하단 이전/다음·주제 역링크
+   python3 backlog/assets/site-feed.py        # feed.xml, sitemap.xml, robots.txt
+   ```
+
+5. 바뀐 파일을 전부 담아 `main` 에 commit / push 한다. 새 글을 올리면 직전 글의 "다음" 링크도 함께 바뀐다.
 
 에이전트가 수행할 때의 상세 절차와 규칙은 [AGENTS.md](AGENTS.md) 의 퍼블리시 런북을 따른다.
 

@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://til.kil9.dev/2026/2026-07-plan-pipeline/">
 <meta property="og:site_name" content="today i learned">
 <meta property="og:locale" content="ko_KR">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <style>
   :root{
     --bg:#f7f8fa; --surface:#ffffff; --surface-2:#f0f2f6; --line:#e2e6ee;
@@ -126,6 +126,39 @@
   .series-now::before { content: "— "; }
 
 </style>
+<!-- PAGENAV-CSS:START -->
+<style>
+  /* 하단 글 이동(TASK-98). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .pagenav {
+    --pn-rule: var(--rule, #E3E7EB); --pn-faint: var(--text-faint, #6E7A86);
+    --pn-accent: var(--accent, #1A5FC8); --pn-text: var(--text, #1B2027);
+    margin: 56px 0 0; padding-top: 20px; border-top: 1px solid var(--pn-rule);
+    display: grid; gap: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagenav {
+      --pn-rule: var(--rule, #2A3037); --pn-faint: var(--text-faint, #7E8994);
+      --pn-accent: var(--accent, #82B1F0); --pn-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagenav a { color: var(--pn-text); text-decoration: none; font-size: 0.9375rem; }
+  .pagenav a:hover, .pagenav a:focus-visible {
+    color: var(--pn-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  .pagenav .pn-label {
+    display: inline-block; min-width: 3em; margin-right: 6px;
+    color: var(--pn-faint); font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagenav .pn-topic { margin: 6px 0 0; font-size: 0.8125rem; }
+  .pagenav .pn-topic a { color: var(--pn-faint); font-size: inherit; }
+</style>
+<!-- PAGENAV-CSS:END -->
+<!-- PAGEOG:START -->
+<meta property="og:image" content="https://til.kil9.dev/og/default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="두 세션 플랜 파이프라인 — Claude Code 를 생산자·소비자로">
+<!-- PAGEOG:END -->
 </head>
 <body>
 
@@ -700,6 +733,12 @@
   </div>
 
   <hr>
+  <!-- PAGENAV:START -->
+<nav class="pagenav" aria-label="글 이동">
+  <a href="../ai-capex-hedge/"><span class="pn-label">다음</span>알파벳 축소·애플 확대 — AI capex 헷지 가설 재검증</a>
+  <p class="pn-topic"><a href="../../?topic=workflow">워크플로 글 더 보기 →</a></p>
+</nav>
+<!-- PAGENAV:END -->
   <footer>
     Claude Code 워크플로 노트 · 생산자–소비자 플랜 파이프라인<br>
     스킬 이름(배지·치트시트)을 누르면 각 <code>SKILL.md</code> 정의 페이지로 이동한다. 예시는 실제 저장소의 PLAN.md에서 발췌했다.

@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://til.kil9.dev/2026/kb16-ghost-maple/">
 <meta property="og:site_name" content="today i learned">
 <meta property="og:locale" content="ko_KR">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <style>
   :root {
     --bg: #FFFFFF;
@@ -95,6 +95,39 @@
     font-size: 0.8125rem; color: var(--text-faint);
   }
 </style>
+<!-- PAGENAV-CSS:START -->
+<style>
+  /* 하단 글 이동(TASK-98). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .pagenav {
+    --pn-rule: var(--rule, #E3E7EB); --pn-faint: var(--text-faint, #6E7A86);
+    --pn-accent: var(--accent, #1A5FC8); --pn-text: var(--text, #1B2027);
+    margin: 56px 0 0; padding-top: 20px; border-top: 1px solid var(--pn-rule);
+    display: grid; gap: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagenav {
+      --pn-rule: var(--rule, #2A3037); --pn-faint: var(--text-faint, #7E8994);
+      --pn-accent: var(--accent, #82B1F0); --pn-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagenav a { color: var(--pn-text); text-decoration: none; font-size: 0.9375rem; }
+  .pagenav a:hover, .pagenav a:focus-visible {
+    color: var(--pn-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  .pagenav .pn-label {
+    display: inline-block; min-width: 3em; margin-right: 6px;
+    color: var(--pn-faint); font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagenav .pn-topic { margin: 6px 0 0; font-size: 0.8125rem; }
+  .pagenav .pn-topic a { color: var(--pn-faint); font-size: inherit; }
+</style>
+<!-- PAGENAV-CSS:END -->
+<!-- PAGEOG:START -->
+<meta property="og:image" content="https://til.kil9.dev/og/kb16-ghost-maple.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="부팅할 때마다 정체를 바꾸는 키보드">
+<!-- PAGEOG:END -->
 </head>
 <body>
 <main>
@@ -210,6 +243,13 @@
     <p>다음 재발은 제가 출동하기 전에 끝나 있을 예정입니다. 그게 제일 좋은 결말입니다.</p>
   </div>
 
+  <!-- PAGENAV:START -->
+<nav class="pagenav" aria-label="글 이동">
+  <a href="../claude-code-reading-guide/"><span class="pn-label">이전</span>Claude Code 활용력 리딩 가이드, 구조만 훑기</a>
+  <a href="../agent-teams-in-process/"><span class="pn-label">다음</span>in-process 팀원, pane 없이도 들여다볼 수 있게 됐나</a>
+  <p class="pn-topic"><a href="../../?topic=hardware">하드웨어 글 더 보기 →</a></p>
+</nav>
+<!-- PAGENAV:END -->
   <footer><p><a href="../../">← today i learned</a></p></footer>
 </main>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->

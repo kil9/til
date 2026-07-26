@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://til.kil9.dev/2026/2026-07-agent-workflow/">
 <meta property="og:site_name" content="today i learned">
 <meta property="og:locale" content="ko_KR">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <style>
   :root {
     --bg: #FFFFFF;
@@ -125,6 +125,39 @@
   .series-now { color: var(--text-faint); font-weight: 400; }
   .series-now::before { content: ", "; }
 </style>
+<!-- PAGENAV-CSS:START -->
+<style>
+  /* 하단 글 이동(TASK-98). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .pagenav {
+    --pn-rule: var(--rule, #E3E7EB); --pn-faint: var(--text-faint, #6E7A86);
+    --pn-accent: var(--accent, #1A5FC8); --pn-text: var(--text, #1B2027);
+    margin: 56px 0 0; padding-top: 20px; border-top: 1px solid var(--pn-rule);
+    display: grid; gap: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagenav {
+      --pn-rule: var(--rule, #2A3037); --pn-faint: var(--text-faint, #7E8994);
+      --pn-accent: var(--accent, #82B1F0); --pn-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagenav a { color: var(--pn-text); text-decoration: none; font-size: 0.9375rem; }
+  .pagenav a:hover, .pagenav a:focus-visible {
+    color: var(--pn-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  .pagenav .pn-label {
+    display: inline-block; min-width: 3em; margin-right: 6px;
+    color: var(--pn-faint); font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagenav .pn-topic { margin: 6px 0 0; font-size: 0.8125rem; }
+  .pagenav .pn-topic a { color: var(--pn-faint); font-size: inherit; }
+</style>
+<!-- PAGENAV-CSS:END -->
+<!-- PAGEOG:START -->
+<meta property="og:image" content="https://til.kil9.dev/og/2026-07-agent-workflow.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="기획과 실행을 분리하는 법">
+<!-- PAGEOG:END -->
 </head>
 <body>
 <main>
@@ -615,6 +648,13 @@ backlog task edit task-12 -s Done --notes "&lt;무엇을·왜·검증 결과&gt;
 </div>
 
 <hr>
+<!-- PAGENAV:START -->
+<nav class="pagenav" aria-label="글 이동">
+  <a href="../power-empathy-evidence/"><span class="pn-label">이전</span>&quot;CEO가 되면 뇌가 손상된다&quot;를 다섯 겹 거슬러 올라가 봤다</a>
+  <a href="../sad-light-therapy/"><span class="pn-label">다음</span>겨울 우울과 광치료: 효과와 올바른 사용법</a>
+  <p class="pn-topic"><a href="../../?topic=workflow">워크플로 글 더 보기 →</a></p>
+</nav>
+<!-- PAGENAV:END -->
 <footer>
   <p>2026년 7월 말 시점의 스냅샷이다(초판 7월 16일, 이 판 7월 26일 전면 개고). 이 방식은 이미 백엔드를 한 번 갈아탔고 또 바뀔 수 있어, 슬러그에 연월을 박아 이 판본을 고정한다. 선행 기록으로 <a href="../2026-07-plan-pipeline/">두 세션 플랜 파이프라인</a>(단일 <code>PLAN.md</code> 시절의 같은 구조)과 <a href="../backlog-md-vs-plan-md/">Backlog.md 도입 검토</a>(§10 의 검토·반전 원문)가 있지만, 이 페이지를 읽는 데 필요하지는 않다.</p>
   <p><a href="../../">← today i learned</a></p>

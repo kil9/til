@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://til.kil9.dev/2026/parallel-agent-cost/">
 <meta property="og:site_name" content="today i learned">
 <meta property="og:locale" content="ko_KR">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <style>
   :root {
     --bg: #FFFFFF;
@@ -70,6 +70,39 @@
     font-size: 0.8125rem; color: var(--text-faint);
   }
 </style>
+<!-- PAGENAV-CSS:START -->
+<style>
+  /* 하단 글 이동(TASK-98). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .pagenav {
+    --pn-rule: var(--rule, #E3E7EB); --pn-faint: var(--text-faint, #6E7A86);
+    --pn-accent: var(--accent, #1A5FC8); --pn-text: var(--text, #1B2027);
+    margin: 56px 0 0; padding-top: 20px; border-top: 1px solid var(--pn-rule);
+    display: grid; gap: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagenav {
+      --pn-rule: var(--rule, #2A3037); --pn-faint: var(--text-faint, #7E8994);
+      --pn-accent: var(--accent, #82B1F0); --pn-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagenav a { color: var(--pn-text); text-decoration: none; font-size: 0.9375rem; }
+  .pagenav a:hover, .pagenav a:focus-visible {
+    color: var(--pn-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  .pagenav .pn-label {
+    display: inline-block; min-width: 3em; margin-right: 6px;
+    color: var(--pn-faint); font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagenav .pn-topic { margin: 6px 0 0; font-size: 0.8125rem; }
+  .pagenav .pn-topic a { color: var(--pn-faint); font-size: inherit; }
+</style>
+<!-- PAGENAV-CSS:END -->
+<!-- PAGEOG:START -->
+<meta property="og:image" content="https://til.kil9.dev/og/default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="에이전트 3명을 띄우고 1.36배를 얻었다">
+<!-- PAGEOG:END -->
 </head>
 <body>
 <main>
@@ -246,6 +279,13 @@
   <hr>
   <p style="font-size:0.9375rem;color:var(--text-muted)">모델 티어를 어떻게 배치했는지는 <a href="../opus5-model-choice/">Claude Opus 5 자리 잡기</a>에 정리해 두었습니다.</p>
 
+  <!-- PAGENAV:START -->
+<nav class="pagenav" aria-label="글 이동">
+  <a href="../opus5-model-choice/"><span class="pn-label">이전</span>Claude Opus 5 자리 잡기: 4.8과 Fable 5 사이</a>
+  <a href="../claude5-context-engineering/"><span class="pn-label">다음</span>규칙집을 80% 덜어냈다: Claude 5 컨텍스트 엔지니어링</a>
+  <p class="pn-topic"><a href="../../?topic=workflow">워크플로 글 더 보기 →</a></p>
+</nav>
+<!-- PAGENAV:END -->
   <footer><p><a href="../../">← today i learned</a></p></footer>
 </main>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->

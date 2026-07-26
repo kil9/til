@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://til.kil9.dev/2026/kb16-bootloop-usb-power/">
 <meta property="og:site_name" content="today i learned">
 <meta property="og:locale" content="ko_KR">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <style>
   :root {
     --bg: #FFFFFF;
@@ -109,6 +109,39 @@
     font-size: 0.8125rem; color: var(--text-faint);
   }
 </style>
+<!-- PAGENAV-CSS:START -->
+<style>
+  /* 하단 글 이동(TASK-98). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .pagenav {
+    --pn-rule: var(--rule, #E3E7EB); --pn-faint: var(--text-faint, #6E7A86);
+    --pn-accent: var(--accent, #1A5FC8); --pn-text: var(--text, #1B2027);
+    margin: 56px 0 0; padding-top: 20px; border-top: 1px solid var(--pn-rule);
+    display: grid; gap: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagenav {
+      --pn-rule: var(--rule, #2A3037); --pn-faint: var(--text-faint, #7E8994);
+      --pn-accent: var(--accent, #82B1F0); --pn-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagenav a { color: var(--pn-text); text-decoration: none; font-size: 0.9375rem; }
+  .pagenav a:hover, .pagenav a:focus-visible {
+    color: var(--pn-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  .pagenav .pn-label {
+    display: inline-block; min-width: 3em; margin-right: 6px;
+    color: var(--pn-faint); font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagenav .pn-topic { margin: 6px 0 0; font-size: 0.8125rem; }
+  .pagenav .pn-topic a { color: var(--pn-faint); font-size: inherit; }
+</style>
+<!-- PAGENAV-CSS:END -->
+<!-- PAGEOG:START -->
+<meta property="og:image" content="https://til.kil9.dev/og/kb16-bootloop-usb-power.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="범인은 전원도, 허브도 아니었다 — 매크로패드 부트루프 3차 수사">
+<!-- PAGEOG:END -->
 </head>
 <body>
 <main>
@@ -311,6 +344,13 @@
     <p>다음 페이지에서 뵙겠습니다. 그 전에 좀 자야겠습니다. 이번에는 정말로 종결이기를 바라면서.</p>
   </div>
 
+  <!-- PAGENAV:START -->
+<nav class="pagenav" aria-label="글 이동">
+  <a href="../voice-prompting-cost/"><span class="pn-label">이전</span>프롬프트를 입으로 친다면 얼마일까</a>
+  <a href="../kb16-qmk-layer-stack/"><span class="pn-label">다음</span>QMK 레이어는 왜 아래를 못 보나</a>
+  <p class="pn-topic"><a href="../../?topic=hardware">하드웨어 글 더 보기 →</a></p>
+</nav>
+<!-- PAGENAV:END -->
   <footer>
     <p>이 보고서는 실제 트러블슈팅 세션(2026-07-15 ~ 17)의 기록을 바탕으로 작성됐다. 1판은 2026-07-16 새벽에 게시돼 같은 날 전면 개정됐고(2판), 2026-07-17 진범을 교체한 3판으로 재개정됐다. 관련 이슈: <a href="https://github.com/qmk/qmk_firmware/issues/17726" target="_blank" rel="noopener">qmk_firmware#17726</a> (DOIO/KB16 하드웨어 리비전), <a href="https://github.com/vial-kb/vial-gui/issues/163" target="_blank" rel="noopener">vial-gui#163</a> (LZMA 에러), 펌웨어: <a href="https://github.com/thompson-vii/kb16_rev2_vial_fw" target="_blank" rel="noopener">thompson-vii/kb16_rev2_vial_fw</a> (12레이어 Vial 빌드).</p>
     <p><a href="../../">← today i learned</a></p>

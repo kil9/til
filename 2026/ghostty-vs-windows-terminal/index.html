@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://til.kil9.dev/2026/ghostty-vs-windows-terminal/">
 <meta property="og:site_name" content="today i learned">
 <meta property="og:locale" content="ko_KR">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <style>
   :root {
     --bg: #FFFFFF;
@@ -84,6 +84,39 @@
     font-size: 0.8125rem; color: var(--text-faint);
   }
 </style>
+<!-- PAGENAV-CSS:START -->
+<style>
+  /* 하단 글 이동(TASK-98). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .pagenav {
+    --pn-rule: var(--rule, #E3E7EB); --pn-faint: var(--text-faint, #6E7A86);
+    --pn-accent: var(--accent, #1A5FC8); --pn-text: var(--text, #1B2027);
+    margin: 56px 0 0; padding-top: 20px; border-top: 1px solid var(--pn-rule);
+    display: grid; gap: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagenav {
+      --pn-rule: var(--rule, #2A3037); --pn-faint: var(--text-faint, #7E8994);
+      --pn-accent: var(--accent, #82B1F0); --pn-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagenav a { color: var(--pn-text); text-decoration: none; font-size: 0.9375rem; }
+  .pagenav a:hover, .pagenav a:focus-visible {
+    color: var(--pn-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  .pagenav .pn-label {
+    display: inline-block; min-width: 3em; margin-right: 6px;
+    color: var(--pn-faint); font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagenav .pn-topic { margin: 6px 0 0; font-size: 0.8125rem; }
+  .pagenav .pn-topic a { color: var(--pn-faint); font-size: inherit; }
+</style>
+<!-- PAGENAV-CSS:END -->
+<!-- PAGEOG:START -->
+<meta property="og:image" content="https://til.kil9.dev/og/default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ghostty vs Windows Terminal — 아직 공식 대결이 성립하지 않는 비교">
+<!-- PAGEOG:END -->
 </head>
 <body>
 <main>
@@ -249,6 +282,13 @@
   <hr>
   <p class="src">소스: <a href="https://github.com/ghostty-org/ghostty/discussions/2563" target="_blank" rel="noopener">Ghostty Windows Support discussion</a> · <a href="https://mitchellh.com/writing/libghostty-is-coming" target="_blank" rel="noopener">libghostty Is Coming</a> (mitchellh.com, 2025-09) · <a href="https://github.com/amanthanvi/winghostty" target="_blank" rel="noopener">winghostty</a> · <a href="https://github.com/Thr45hx/ghostty-windows" target="_blank" rel="noopener">ghostty-windows</a> · <a href="https://devblogs.microsoft.com/commandline/windows-terminal-preview-1-22-release/" target="_blank" rel="noopener">Windows Terminal Preview 1.22</a> · <a href="https://www.helpnetsecurity.com/2026/03/31/windows-11-console-upgrade-speed-boost/" target="_blank" rel="noopener">Windows 11 console upgrade (2026-03)</a> · <a href="https://chadaustin.me/2024/02/windows-terminal-latency/" target="_blank" rel="noopener">Terminal Latency on Windows</a> (Chad Austin, 2024-02) · <a href="https://devblogs.microsoft.com/commandline/windows-terminal-as-your-default-command-line-experience/" target="_blank" rel="noopener">WT as your Default</a> (devblogs) · <a href="https://devblogs.microsoft.com/commandline/windows-command-line-introducing-the-windows-pseudo-console-conpty/" target="_blank" rel="noopener">Introducing ConPTY</a> (devblogs, 2018) · <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/changes.html" target="_blank" rel="noopener">PuTTY Change Log</a> · 배경: <a href="../hashimoto-oss-philosophy/">미첼 하시모토 인터뷰 해설</a></p>
 
+  <!-- PAGENAV:START -->
+<nav class="pagenav" aria-label="글 이동">
+  <a href="../hashimoto-oss-philosophy/"><span class="pn-label">이전</span>미첼 하시모토 인터뷰 해설 — 터미널·Zig·오픈소스</a>
+  <a href="../backlog-md-vs-plan-md/"><span class="pn-label">다음</span>Backlog.md 도입 검토</a>
+  <p class="pn-topic"><a href="../../?topic=terminal">터미널 글 더 보기 →</a></p>
+</nav>
+<!-- PAGENAV:END -->
   <footer><p><a href="../../">← today i learned</a></p></footer>
 </main>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->

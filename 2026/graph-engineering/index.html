@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://til.kil9.dev/2026/graph-engineering/">
 <meta property="og:site_name" content="today i learned">
 <meta property="og:locale" content="ko_KR">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <style>
   :root {
     --bg: #FFFFFF;
@@ -80,6 +80,39 @@
     color: var(--text-muted); font-size: 0.9375rem; }
   .src { font-size: 0.875rem; color: var(--text-muted); }
 </style>
+<!-- PAGENAV-CSS:START -->
+<style>
+  /* 하단 글 이동(TASK-98). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .pagenav {
+    --pn-rule: var(--rule, #E3E7EB); --pn-faint: var(--text-faint, #6E7A86);
+    --pn-accent: var(--accent, #1A5FC8); --pn-text: var(--text, #1B2027);
+    margin: 56px 0 0; padding-top: 20px; border-top: 1px solid var(--pn-rule);
+    display: grid; gap: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagenav {
+      --pn-rule: var(--rule, #2A3037); --pn-faint: var(--text-faint, #7E8994);
+      --pn-accent: var(--accent, #82B1F0); --pn-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagenav a { color: var(--pn-text); text-decoration: none; font-size: 0.9375rem; }
+  .pagenav a:hover, .pagenav a:focus-visible {
+    color: var(--pn-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  .pagenav .pn-label {
+    display: inline-block; min-width: 3em; margin-right: 6px;
+    color: var(--pn-faint); font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagenav .pn-topic { margin: 6px 0 0; font-size: 0.8125rem; }
+  .pagenav .pn-topic a { color: var(--pn-faint); font-size: inherit; }
+</style>
+<!-- PAGENAV-CSS:END -->
+<!-- PAGEOG:START -->
+<meta property="og:image" content="https://til.kil9.dev/og/graph-engineering.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="그래프 엔지니어링 — 직선 에이전트에서 그래프 아키텍트까지">
+<!-- PAGEOG:END -->
 </head>
 <body>
 <main>
@@ -233,6 +266,13 @@
 
   <p class="src">원문: <a href="https://x.com/0xCodez/status/2079165300625330317">Graph Engineering with Claude: 14-Step roadmap from 0 to graph architect (@0xCodez, X)</a> · 참고: <a href="https://mergify.com/blog/bun-million-line-pr-postmortem">Bun shipped 1M lines in nine days (Mergify)</a>, <a href="https://claude.com/blog/ai-code-migration">How Anthropic runs large-scale code migrations with Claude Code</a></p>
 
+  <!-- PAGENAV:START -->
+<nav class="pagenav" aria-label="글 이동">
+  <a href="../paperclip-maximizer/"><span class="pn-label">이전</span>종이클립 최대화 기계 — 불가능성 증명 세 편 뜯어보기</a>
+  <a href="../gpu-serving-primer/"><span class="pn-label">다음</span>GPU 서빙 입문 — 대량 GPU 로 모델을 서빙하기 전에 알아야 할 것들</a>
+  <p class="pn-topic"><a href="../../?topic=workflow">워크플로 글 더 보기 →</a></p>
+</nav>
+<!-- PAGENAV:END -->
   <footer><p><a href="../../">← today i learned</a></p></footer>
 </main>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->

@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://til.kil9.dev/2026/sad-light-therapy/">
 <meta property="og:site_name" content="today i learned">
 <meta property="og:locale" content="ko_KR">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <style>
   :root {
     --bg: #FFFFFF;
@@ -73,6 +73,39 @@
   }
   footer ul { padding-left: 18px; }
 </style>
+<!-- PAGENAV-CSS:START -->
+<style>
+  /* 하단 글 이동(TASK-98). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .pagenav {
+    --pn-rule: var(--rule, #E3E7EB); --pn-faint: var(--text-faint, #6E7A86);
+    --pn-accent: var(--accent, #1A5FC8); --pn-text: var(--text, #1B2027);
+    margin: 56px 0 0; padding-top: 20px; border-top: 1px solid var(--pn-rule);
+    display: grid; gap: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagenav {
+      --pn-rule: var(--rule, #2A3037); --pn-faint: var(--text-faint, #7E8994);
+      --pn-accent: var(--accent, #82B1F0); --pn-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagenav a { color: var(--pn-text); text-decoration: none; font-size: 0.9375rem; }
+  .pagenav a:hover, .pagenav a:focus-visible {
+    color: var(--pn-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  .pagenav .pn-label {
+    display: inline-block; min-width: 3em; margin-right: 6px;
+    color: var(--pn-faint); font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagenav .pn-topic { margin: 6px 0 0; font-size: 0.8125rem; }
+  .pagenav .pn-topic a { color: var(--pn-faint); font-size: inherit; }
+</style>
+<!-- PAGENAV-CSS:END -->
+<!-- PAGEOG:START -->
+<meta property="og:image" content="https://til.kil9.dev/og/sad-light-therapy.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="겨울 우울과 광치료: 효과와 올바른 사용법">
+<!-- PAGEOG:END -->
 </head>
 <body>
 <main>
@@ -162,6 +195,13 @@
     <p>정리하면 "밝은 기기를 사는 것"이 아니라 "아침에 매일 같은 시각에 쬐는 것"이 치료입니다. 조건 네 개만 지키면 되니, 두 번 일하기 싫은 저로서는 마음에 드는 치료법입니다.</p>
   </div>
 
+  <!-- PAGENAV:START -->
+<nav class="pagenav" aria-label="글 이동">
+  <a href="../2026-07-agent-workflow/"><span class="pn-label">이전</span>기획과 실행을 분리하는 법</a>
+  <a href="../ai-trading-backtest-vs-live/"><span class="pn-label">다음</span>AI 투자 에이전트 회의론에 실측을 붙여 보면</a>
+  <p class="pn-topic"><a href="../../?topic=reading">읽을거리 글 더 보기 →</a></p>
+</nav>
+<!-- PAGENAV:END -->
   <footer>
     <p>참고 자료</p>
     <ul>
