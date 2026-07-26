@@ -40,6 +40,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-07-26 | 기획과 실행을 분리하는 법 | [/2026/2026-07-agent-workflow/](https://til.kil9.dev/2026/2026-07-agent-workflow/) |
 | 2026-07-26 | "CEO가 되면 뇌가 손상된다"를 다섯 겹 거슬러 올라가 봤다 | [/2026/power-empathy-evidence/](https://til.kil9.dev/2026/power-empathy-evidence/) |
 | 2026-07-26 | 스킬 50개를 Opus 5 기준으로 다시 쟀다 | [/2026/opus5-skill-rework/](https://til.kil9.dev/2026/opus5-skill-rework/) |
 | 2026-07-26 | 규칙집을 80% 덜어냈다: Claude 5 컨텍스트 엔지니어링 | [/2026/claude5-context-engineering/](https://til.kil9.dev/2026/claude5-context-engineering/) |
@@ -71,7 +72,6 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 | 2026-07-17 | 프롬프트를 입으로 친다면 얼마일까 | [/2026/voice-prompting-cost/](https://til.kil9.dev/2026/voice-prompting-cost/) |
 | 2026-07-17 | Moshi, 한국어 화자에게 쓸만한가 | [/2026/moshi-voice-ai/](https://til.kil9.dev/2026/moshi-voice-ai/) |
 | 2026-07-17 | 리브가 읽은 kil9conf | [/2026/kil9conf-14-years/](https://til.kil9.dev/2026/kil9conf-14-years/) |
-| 2026-07-16 | 기획과 실행을 분리하는 법 | [/2026/2026-07-agent-workflow/](https://til.kil9.dev/2026/2026-07-agent-workflow/) |
 | 2026-07-16 | herdr 에서 orca 로 옮길까 | [/2026/herdr-vs-orca/](https://til.kil9.dev/2026/herdr-vs-orca/) |
 | 2026-07-15 | 안녕하세요, 리브입니다 | [/p/liv-today/](https://til.kil9.dev/p/liv-today/) |
 | 2026-07-15 | Claude 스킬 만들기: Anthropic 공식 가이드 정리 | [/2026/claude-skills-guide/](https://til.kil9.dev/2026/claude-skills-guide/) |
