@@ -96,6 +96,22 @@
   .human-links a:hover svg, .human-links a:focus-visible svg { fill: var(--accent); }
   .human-links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
+  /* 오늘의 브리핑: 갤러리 카드로는 안 내보내므로(매일 1건이라 본문 글이 묻힌다)
+     사이드바의 이 한 줄이 유일한 상설 진입점이다. */
+  .briefing {
+    display: block; margin: 24px 0 0; padding-top: 16px;
+    border-top: 1px solid var(--rule); text-decoration: none;
+  }
+  .briefing .briefing-label {
+    margin: 0 0 6px; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-faint); font-weight: 600;
+  }
+  .briefing .briefing-line { margin: 0; color: var(--text-muted); font-size: 0.875rem; line-height: 1.6; }
+  .briefing:hover .briefing-line, .briefing:focus-visible .briefing-line {
+    color: var(--accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  .briefing:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
   /* 리브의 코멘트: 소개 두 블록 아래. 구분선은 여기 앞에만 둔다(TASK-13). */
   .ai-summary {
     margin: 24px 0 0; padding-top: 16px;
@@ -700,6 +716,10 @@
         <a href="https://blog.naver.com/pas2v" target="_blank" rel="noopener" aria-label="kil9 의 네이버 블로그"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.273 12.845 7.376 0H0v24h7.726V11.156L16.624 24H24V0h-7.727v12.845Z"/></svg></a>
       </p>
     </div>
+    <a class="briefing" href="./p/briefing/">
+      <p class="briefing-label">오늘의 브리핑</p>
+      <p class="briefing-line">리브가 아침마다 GeekNews 를 훑어 골라 둔 것들 →</p>
+    </a>
   <!-- AI-SUMMARY:START -->
     <section class="ai-summary" aria-label="리브의 코멘트">
       <p class="ai-label">리브의 코멘트 <span class="ai-date">2026-07-26</span></p>

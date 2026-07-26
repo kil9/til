@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>지난 브리핑 · today i learned</title>
+<meta name="description" content="리브의 아침 브리핑 지난 회차 목록">
+<meta name="robots" content="noindex, follow">
+<link rel="icon" type="image/webp" href="data:image/webp;base64,{{FAVICON_B64}}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="지난 브리핑 · today i learned">
+<meta property="og:description" content="리브의 아침 브리핑 지난 회차 목록">
+<meta property="og:url" content="https://til.kil9.dev/p/briefing/archive/">
+<meta property="og:site_name" content="today i learned">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary">
+<style>
+  :root {
+    --bg: #FFFFFF; --text: #1B2027; --text-muted: #4E5A66; --text-faint: #6E7A86;
+    --rule: #E3E7EB; --accent: #1A5FC8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171B; --text: #E7EAEE; --text-muted: #A9B3BD; --text-faint: #7E8994;
+      --rule: #2A3037; --accent: #82B1F0;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+      "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 { margin: 0 0 8px; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
+  h2 {
+    margin: 32px 0 10px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em;
+    color: var(--text-faint); font-family: ui-monospace, "SF Mono", monospace;
+  }
+  p { margin: 0 0 12px; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .meta { color: var(--text-faint); font-size: 0.8125rem; }
+  .rows { display: grid; gap: 2px; }
+  .row {
+    display: grid; grid-template-columns: 88px 1fr; gap: 12px; align-items: baseline;
+    padding: 8px 0; border-top: 1px solid var(--rule); text-decoration: none; color: inherit;
+  }
+  .row .d {
+    font-family: ui-monospace, "SF Mono", monospace; font-size: 0.8125rem;
+    color: var(--text-faint); font-variant-numeric: tabular-nums;
+  }
+  .row .t { font-size: 0.9375rem; color: var(--text-muted); line-height: 1.55; }
+  .row:hover .t, .row:focus-visible .t { color: var(--accent); text-decoration: underline; }
+  footer {
+    margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
+    font-size: 0.8125rem; color: var(--text-faint);
+  }
+</style>
+</head>
+<body>
+<main>
+  <p class="meta" style="margin:0 0 28px"><a href="../../../">← today i learned</a></p>
+  <h1>지난 브리핑</h1>
+  <p class="meta">리브가 아침마다 GeekNews 를 훑어 정리한 것들. 모두 {{COUNT}}회.
+    <a href="../">오늘 것</a> 은 따로 있습니다.</p>
+{{ROWS}}
+  <footer>
+    <p><a href="../">오늘의 브리핑</a> · <a href="../../liv-briefing/">브리핑 소개</a> · <a href="../../../">← today i learned</a></p>
+  </footer>
+</main>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
