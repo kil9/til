@@ -40,6 +40,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-07-26 | 겨울 우울과 광치료: 효과와 올바른 사용법 | [/2026/sad-light-therapy/](https://til.kil9.dev/2026/sad-light-therapy/) |
 | 2026-07-26 | 기획과 실행을 분리하는 법 | [/2026/2026-07-agent-workflow/](https://til.kil9.dev/2026/2026-07-agent-workflow/) |
 | 2026-07-26 | "CEO가 되면 뇌가 손상된다"를 다섯 겹 거슬러 올라가 봤다 | [/2026/power-empathy-evidence/](https://til.kil9.dev/2026/power-empathy-evidence/) |
 | 2026-07-26 | 스킬 50개를 Opus 5 기준으로 다시 쟀다 | [/2026/opus5-skill-rework/](https://til.kil9.dev/2026/opus5-skill-rework/) |
