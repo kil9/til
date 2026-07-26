@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}} · 주간 리캡</title>
+<meta name="description" content="{{DESCRIPTION}}">
+<meta name="robots" content="noindex, follow">
+<link rel="icon" type="image/webp" href="data:image/webp;base64,{{FAVICON_B64}}">
+<meta property="og:type" content="article">
+<meta property="og:title" content="{{TITLE}} · 주간 리캡">
+<meta property="og:description" content="{{DESCRIPTION}}">
+<meta property="og:url" content="https://til.kil9.dev/p/briefing/recap/{{DATE}}/">
+<meta property="og:site_name" content="today i learned">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary">
+<style>
+  :root {
+    --bg: #FFFFFF; --text: #1B2027; --text-muted: #4E5A66; --text-faint: #6E7A86;
+    --rule: #E3E7EB; --accent: #1A5FC8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171B; --text: #E7EAEE; --text-muted: #A9B3BD; --text-faint: #7E8994;
+      --rule: #2A3037; --accent: #82B1F0;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+      "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 { margin: 0 0 8px; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.4; }
+  h2 { margin: 40px 0 12px; font-size: 1.0625rem; font-weight: 600; }
+  p { margin: 0 0 16px; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  .meta { color: var(--text-faint); font-size: 0.8125rem; line-height: 1.6; }
+  .liv { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; margin: 28px 0 0; }
+  .liv img { grid-column: 1; grid-row: 1; width: 28px; height: 28px; margin-top: 2px;
+             border-radius: 50%; background: #FFFFFF; }
+  .liv p { grid-column: 2; margin: 0 0 8px; color: var(--text-muted); font-size: 0.9375rem; }
+  .liv p:last-child { margin-bottom: 0; }
+  .sources { margin: 40px 0 0; padding-top: 16px; border-top: 1px solid var(--rule); }
+  .sources ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+  .sources li { font-size: 0.8125rem; color: var(--text-muted); }
+  footer {
+    margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
+    font-size: 0.8125rem; color: var(--text-faint);
+  }
+</style>
+</head>
+<body>
+<main>
+  <p class="meta" style="margin:0 0 28px"><a href="../../../../">← today i learned</a></p>
+
+  <h1>{{TITLE}}</h1>
+  <p class="meta">{{RANGE}} 브리핑 {{COUNT}}회를 관통해서 봤습니다 · 정리 Claude Opus 5</p>
+
+{{BODY}}
+
+  <div class="liv">
+    <img src="data:image/webp;base64,{{AVATAR_B64}}" alt="리브" width="72" height="72">
+    <p>{{CLOSING}}</p>
+  </div>
+
+  <section class="sources">
+    <h2 style="margin:0 0 10px;font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-faint)">이번 주 브리핑</h2>
+    <ul>
+{{SOURCES}}
+    </ul>
+  </section>
+
+  <footer>
+    <p><a href="../../">오늘의 브리핑</a> · <a href="../../archive/">지난 브리핑</a> · <a href="../../../liv-briefing/">브리핑 소개</a></p>
+    <p><a href="../../../../">← today i learned</a></p>
+  </footer>
+</main>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
