@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://til.kil9.dev/sitemap.xml

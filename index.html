@@ -13,6 +13,7 @@
 <meta property="og:site_name" content="today i learned">
 <meta property="og:locale" content="ko_KR">
 <meta name="twitter:card" content="summary">
+<link rel="alternate" type="application/atom+xml" title="today i learned" href="/feed.xml">
 <style>
   :root {
     --bg: #FFFFFF;
@@ -224,6 +225,11 @@
   }
   #month-toc .toc-n { color: var(--text-faint); font-size: 0.75rem; }
   #month-toc a.toc-all { margin-top: 4px; font-family: inherit; font-size: 0.8125rem; }
+
+  /* 피드 구독(TASK-97). 목차 아래 한 줄, 구분선 없이 여백만. */
+  .feedlink { margin: 20px 0 0; font-size: 0.8125rem; }
+  .feedlink a { color: var(--text-muted); text-decoration: underline; text-underline-offset: 3px; }
+  .feedlink a:hover, .feedlink a:focus-visible { color: var(--accent); }
 
   footer {
     grid-column: 1 / -1;
@@ -760,6 +766,7 @@
       <p class="toc-label">월별 목차</p>
       <nav id="month-toc"></nav>
     </section>
+    <p class="feedlink"><a href="./feed.xml">Atom 피드 구독</a></p>
   </aside>
 
   <footer>
