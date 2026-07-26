@@ -51,6 +51,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-07-27 | LangGraph를 껍데기로 쓴 값: 그래프가 값을 내는 최소 조건 | [/2026/langgraph-empty-shell/](https://til.kil9.dev/2026/langgraph-empty-shell/) |
 | 2026-07-26 | Human-in-the-Loop, 어디서 나온 말이고 지금 무슨 뜻으로 쓰이나 | [/2026/human-in-the-loop/](https://til.kil9.dev/2026/human-in-the-loop/) |
 | 2026-07-26 | AI 투자 에이전트 회의론에 실측을 붙여 보면 | [/2026/ai-trading-backtest-vs-live/](https://til.kil9.dev/2026/ai-trading-backtest-vs-live/) |
 | 2026-07-26 | 겨울 우울과 광치료: 효과와 올바른 사용법 | [/2026/sad-light-therapy/](https://til.kil9.dev/2026/sad-light-therapy/) |

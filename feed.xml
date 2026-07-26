@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-07-26T18:45:00+09:00</updated>
+  <updated>2026-07-27T00:05:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>LangGraph를 껍데기로 쓴 값: 그래프가 값을 내는 최소 조건</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/langgraph-empty-shell/"/>
+    <id>https://til.kil9.dev/2026/langgraph-empty-shell/</id>
+    <published>2026-07-27T00:05:00+09:00</published>
+    <updated>2026-07-27T00:05:00+09:00</updated>
+    <category term="ai"/>
+    <summary type="text">8,692줄 스파게티가 된 LangGraph 도입 실패기를 분석했다. 조건부 엣지·체크포인터·HITL을 실제로 쓰는 최소 예제로 얼마가 사라지는지 어림하고, 이중 체크포인팅을 일반 함정으로 정리했다.</summary>
+  </entry>
   <entry>
     <title>Human-in-the-Loop, 어디서 나온 말이고 지금 무슨 뜻으로 쓰이나</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/human-in-the-loop/"/>
