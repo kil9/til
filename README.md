@@ -40,6 +40,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-07-26 | "CEO가 되면 뇌가 손상된다"를 다섯 겹 거슬러 올라가 봤다 | [/2026/power-empathy-evidence/](https://til.kil9.dev/2026/power-empathy-evidence/) |
 | 2026-07-26 | 스킬 50개를 Opus 5 기준으로 다시 쟀다 | [/2026/opus5-skill-rework/](https://til.kil9.dev/2026/opus5-skill-rework/) |
 | 2026-07-26 | 규칙집을 80% 덜어냈다: Claude 5 컨텍스트 엔지니어링 | [/2026/claude5-context-engineering/](https://til.kil9.dev/2026/claude5-context-engineering/) |
 | 2026-07-25 | 에이전트 3명을 띄우고 1.36배를 얻었다 | [/2026/parallel-agent-cost/](https://til.kil9.dev/2026/parallel-agent-cost/) |
