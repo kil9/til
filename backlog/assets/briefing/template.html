@@ -145,6 +145,15 @@
     color: var(--text); resize: vertical;
   }
   .hint { font-size: 0.75rem; color: var(--text-faint); margin: 6px 0 0; }
+  /* 선별 피드백(task-90): 평소엔 눈에 안 띄고, 그 항목을 보고 있을 때만 드러난다. */
+  .fb { margin: 6px 0 0; font-size: 0.75rem; }
+  .fb a { color: var(--text-faint); text-decoration: none; }
+  .fb a:hover, .fb a:focus-visible { color: var(--accent); text-decoration: underline; }
+  @media (hover: hover) {
+    .fb { opacity: 0; transition: opacity 0.12s; }
+    .item:hover .fb, .item:focus-within .fb,
+    .grid article:hover .fb, .grid article:focus-within .fb { opacity: 1; }
+  }
   .sent { font-size: 0.8125rem; color: var(--accent); margin: 8px 0 0; }
 
   /* 하단: 넘긴 것들 */
@@ -245,6 +254,21 @@ document.querySelectorAll('button.go').forEach(function (b) {
     s.className = 'sent';
     s.textContent = '새 탭에서 이슈를 등록하시면 리브가 집어 갑니다. 완성되면 Slack 으로 알려 드리겠습니다.';
     b.after(s);
+  });
+});
+
+// 선별 피드백 — 접수와 같은 방식(이슈 프리필)이되 feedback 라벨이라 워처가 집지 않는다.
+// 브리핑 잡이 다음 회차 선별 직전에 수거해 규칙으로 줄여 프롬프트에 넣는다(task-90).
+document.querySelectorAll('a.feedback').forEach(function (a) {
+  a.addEventListener('click', function (e) {
+    e.preventDefault();
+    var note = prompt('이 건에 대한 판단을 한 줄로 (예: 이런 소개 글은 앞으로 빼 주세요)') || '';
+    var body = 'SOURCE: briefing ({{DATE}})\nKIND: feedback\nITEM: ' + a.dataset.item + '\n'
+      + 'VERDICT: ' + a.dataset.verdict + (note ? '\n의견: ' + note : '');
+    window.open(INBOX + '?labels=feedback'
+      + '&title=' + encodeURIComponent('[feedback] ' + a.dataset.item.slice(0, 50))
+      + '&body=' + encodeURIComponent(body), '_blank', 'noopener');
+    a.textContent = '피드백 화면을 열었습니다';
   });
 });
 </script>
