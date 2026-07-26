@@ -221,10 +221,40 @@
 </main>
 
 <script>
-// 접수는 til-inbox(비공개 저장소)의 이슈 작성 화면을 미리 채워 여는 방식이다.
-// 페이지에 토큰을 심지 않아도 되고, 저장소가 비공개라 관리자 외에는 그 화면 자체가 열리지 않는다.
-// 워처는 pending 라벨이 붙은 이슈만 집으므로 권한 없는 사람이 만든 이슈는 파이프라인을 타지 않는다.
+// 접수는 관리자 제출 페이지(p/submit-…/)와 같은 배관이다. 그 페이지가 브라우저
+// localStorage 에 넣어 둔 til-inbox PAT 를 같은 오리진에서 그대로 읽어 GitHub API 로
+// 직접 이슈를 만든다. 페이지에는 토큰이 없고, 누르면 그 자리에서 접수가 끝난다.
+// 토큰이 없는 브라우저에서는 이슈 작성 화면을 미리 채워 여는 방식으로 폴백한다.
 var INBOX = 'https://github.com/kil9/til-inbox/issues/new';
+var INBOX_API = 'https://api.github.com/repos/kil9/til-inbox/issues';
+var INBOX_KEY = 'til-inbox-pat';
+var SUBMIT_PAGE = '{{ROOT_REL}}p/submit-96a2d1c7e19e8a09/';
+
+// 접수 시도 → Promise<{ok, number?, reason?}>. 토큰이 없으면 곧바로 no-token.
+function inboxCreate(title, body, label) {
+  var pat = null;
+  try { pat = localStorage.getItem(INBOX_KEY); } catch (e) { /* 저장소 접근 차단 */ }
+  if (!pat) return Promise.resolve({ ok: false, reason: 'no-token' });
+  return fetch(INBOX_API, {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + pat,
+      'Accept': 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ title: title, body: body, labels: [label] })
+  }).then(function (res) {
+    if (res.status === 201) return res.json().then(function (d) { return { ok: true, number: d.number }; });
+    return { ok: false, reason: res.status === 401 || res.status === 403 ? 'bad-token' : 'http-' + res.status };
+  }).catch(function () { return { ok: false, reason: 'network' }; });
+}
+
+function prefillUrl(title, body, label) {
+  return INBOX + '?labels=' + label
+    + '&title=' + encodeURIComponent(title)
+    + '&body=' + encodeURIComponent(body);
+}
 document.querySelectorAll('button.go').forEach(function (b) {
   var steer = b.parentElement.querySelector('.steer');
   b.addEventListener('click', function () {
@@ -241,34 +271,52 @@ document.querySelectorAll('button.go').forEach(function (b) {
       + b.dataset.topic + ' — ' + b.dataset.url + '\n'
       + '원문을 직접 읽고 til 페이지로 만들어 주세요.\n조사 방향: ' + b.dataset.angle
       + (note ? '\n관리자 지시: ' + note : '');
-    var url = INBOX + '?labels=pending'
-      + '&title=' + encodeURIComponent('[submit] ' + b.dataset.topic)
-      + '&body=' + encodeURIComponent(body);
-    if (navigator.clipboard) navigator.clipboard.writeText(body);   // 새 탭이 막힌 경우의 폴백
-    window.open(url, '_blank', 'noopener');
+    var title = '[submit] ' + b.dataset.topic;
     steer.classList.remove('on');
     b.disabled = true;
     b.classList.remove('armed');
-    b.textContent = '접수 화면을 열었습니다';
+    b.textContent = '접수하는 중';
     var s = document.createElement('p');
     s.className = 'sent';
-    s.textContent = '새 탭에서 이슈를 등록하시면 리브가 집어 갑니다. 완성되면 Slack 으로 알려 드리겠습니다.';
+    s.textContent = '리브에게 넘기는 중입니다…';
     b.after(s);
+    inboxCreate(title, body, 'pending').then(function (r) {
+      if (r.ok) {
+        b.textContent = '리브가 작업 중';
+        s.textContent = '접수했습니다 (#' + r.number + '). 완성되면 til 에 올리고 Slack 으로 알려 드리겠습니다.';
+        return;
+      }
+      // 토큰이 없거나 거부당한 브라우저 — 이슈 작성 화면을 미리 채워 여는 쪽으로 넘긴다.
+      if (navigator.clipboard) navigator.clipboard.writeText(body);
+      window.open(prefillUrl(title, body, 'pending'), '_blank', 'noopener');
+      b.textContent = '접수 화면을 열었습니다';
+      s.innerHTML = r.reason === 'no-token'
+        ? '이 브라우저에는 접수함 토큰이 없어 작성 화면을 열었습니다. <a href="' + SUBMIT_PAGE
+          + '">토큰을 한 번 등록</a> 해 두시면 다음부터는 누르는 즉시 접수됩니다.'
+        : '바로 접수하지 못해(' + r.reason + ') 작성 화면을 열었습니다. 거기서 등록하시면 됩니다.';
+    });
   });
 });
 
-// 선별 피드백 — 접수와 같은 방식(이슈 프리필)이되 feedback 라벨이라 워처가 집지 않는다.
+// 선별 피드백 — 접수와 같은 배관이되 feedback 라벨이라 워처가 집지 않는다.
 // 브리핑 잡이 다음 회차 선별 직전에 수거해 규칙으로 줄여 프롬프트에 넣는다(task-90).
 document.querySelectorAll('a.feedback').forEach(function (a) {
   a.addEventListener('click', function (e) {
     e.preventDefault();
-    var note = prompt('이 건에 대한 판단을 한 줄로 (예: 이런 소개 글은 앞으로 빼 주세요)') || '';
+    var note = prompt('이 건에 대한 판단을 한 줄로 (예: 이런 소개 글은 앞으로 빼 주세요)');
+    if (note === null) return;                       // 취소하면 아무것도 하지 않는다
+    var title = '[feedback] ' + a.dataset.item.slice(0, 50);
     var body = 'SOURCE: briefing ({{DATE}})\nKIND: feedback\nITEM: ' + a.dataset.item + '\n'
-      + 'VERDICT: ' + a.dataset.verdict + (note ? '\n의견: ' + note : '');
-    window.open(INBOX + '?labels=feedback'
-      + '&title=' + encodeURIComponent('[feedback] ' + a.dataset.item.slice(0, 50))
-      + '&body=' + encodeURIComponent(body), '_blank', 'noopener');
-    a.textContent = '피드백 화면을 열었습니다';
+      + 'VERDICT: ' + a.dataset.verdict + (note.trim() ? '\n의견: ' + note.trim() : '');
+    a.textContent = '보내는 중…';
+    inboxCreate(title, body, 'feedback').then(function (r) {
+      if (r.ok) {
+        a.textContent = '피드백 고맙습니다 (#' + r.number + ')';
+        return;
+      }
+      window.open(prefillUrl(title, body, 'feedback'), '_blank', 'noopener');
+      a.textContent = '피드백 화면을 열었습니다';
+    });
   });
 });
 </script>
