@@ -144,6 +144,42 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="키보드 글자 폭발 조사기">
 <!-- PAGEOG:END -->
+<!-- PAGETOC-CSS:START -->
+<style>
+  /* 절 앵커·목차(TASK-108). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .h-anchor {
+    margin-left: 0.35em; font-weight: 400; text-decoration: none;
+    color: var(--text-faint, #6E7A86); opacity: 0; transition: opacity 0.12s;
+  }
+  h2:hover > .h-anchor, .h-anchor:focus-visible { opacity: 1; }
+  /* 터치 기기는 hover 가 없어 영영 안 보인다 — 옅게라도 늘 띄운다. */
+  @media (hover: none) { .h-anchor { opacity: 0.4; } }
+  .pagetoc {
+    --tc-rule: var(--rule, #E3E7EB); --tc-faint: var(--text-faint, #6E7A86);
+    --tc-accent: var(--accent, #1A5FC8); --tc-text: var(--text, #1B2027);
+    margin: 28px 0 36px; padding: 14px 0; border-top: 1px solid var(--tc-rule);
+    border-bottom: 1px solid var(--tc-rule);
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagetoc {
+      --tc-rule: var(--rule, #2A3037); --tc-faint: var(--text-faint, #7E8994);
+      --tc-accent: var(--accent, #82B1F0); --tc-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagetoc-label {
+    margin: 0 0 8px; color: var(--tc-faint);
+    font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagetoc ol {
+    margin: 0; padding: 0; list-style: none;
+    display: grid; gap: 4px;
+  }
+  .pagetoc a { color: var(--tc-text); text-decoration: none; font-size: 0.875rem; }
+  .pagetoc a:hover, .pagetoc a:focus-visible {
+    color: var(--tc-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+</style>
+<!-- PAGETOC-CSS:END -->
 </head>
 <body>
 <main>
@@ -157,7 +193,21 @@
     <figcaption>리포트는 어딘가에서 샌다. 삽화: Codex 이미지 생성</figcaption>
   </figure>
 
-  <h2>증상 &#8212; 그리고 용의자가 너무 많았다</h2>
+  <!-- PAGETOC:START -->
+<nav class="pagetoc" aria-label="목차">
+  <p class="pagetoc-label">목차</p>
+  <ol>
+    <li><a href="#증상-그리고-용의자가-너무-많았다">증상 — 그리고 용의자가 너무 많았다</a></li>
+    <li><a href="#계측기-링버퍼와-수동-마커">계측기 — 링버퍼와 수동 마커</a></li>
+    <li><a href="#결정적-지문-같은-밀리초의-동시-해제">결정적 지문 — 같은 밀리초의 동시 해제</a></li>
+    <li><a href="#반박된-가설-5건-같은-길을-두-번-걷지-않기-위해">반박된 가설 5건 — 같은 길을 두 번 걷지 않기 위해</a></li>
+    <li><a href="#절반-맞은-가설-절전-갔다-온-게-아닐까">절반 맞은 가설 — &quot;절전 갔다 온 게 아닐까&quot;</a></li>
+    <li><a href="#처방-포트를-옮겼다">처방 — 포트를 옮겼다</a></li>
+    <li><a href="#아직-끝나지-않았다-남은-미분리">아직 끝나지 않았다 — 남은 미분리</a></li>
+  </ol>
+</nav>
+<!-- PAGETOC:END -->
+  <h2 id="증상-그리고-용의자가-너무-많았다" data-anchor="auto">증상 &#8212; 그리고 용의자가 너무 많았다<a class="h-anchor" href="#증상-그리고-용의자가-너무-많았다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>증상만 보면 원인 후보가 널려 있다. 키보드 스위치 고장(채터링), OS 의 키 리피트(typematic) 폭주, 키보드 공유 유틸리티의 입력 주입, 게임 안티치트 드라이버, 게임패드의 가상 키보드, USB 절전. 전부 그럴듯하고, 전부 인터넷에 "이게 원인이었다"는 글이 있다.</p>
   <p>문제는 이 증상이 재현을 예약할 수 없다는 것이다. 한두 문장에 한 번이지만 언제 터질지는 모른다. 그래서 추측을 하나씩 시험하는 대신, 터지는 순간을 통째로 기록하는 계측기를 먼저 만들었다.</p>
 
@@ -166,11 +216,11 @@
     <p>새벽 조사를 따라가며 폭주 이벤트 로그 328건을 전부 아카이브에 쌓아 두었습니다. 버리기엔 아까웠고, 실제로 나중에 다 썼습니다.</p>
   </div>
 
-  <h2>계측기 &#8212; 링버퍼와 수동 마커</h2>
+  <h2 id="계측기-링버퍼와-수동-마커" data-anchor="auto">계측기 &#8212; 링버퍼와 수동 마커<a class="h-anchor" href="#계측기-링버퍼와-수동-마커" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>Windows 저수준 키보드 훅과 Raw Input 을 나란히 물려, 키 이벤트마다 시각·DOWN/UP·스캔코드·훅 지연(<code>lat</code>)·직전 이벤트와의 간격(<code>gap</code>)을 찍는 상주 프로그램을 만들었다. 평상시엔 디스크에 아무것도 쓰지 않고 메모리 링버퍼에만 쌓다가, 같은 키 연타가 임계를 넘으면 직전 수백 건을 통째로 로그에 흘린다.</p>
   <p>핵심은 자동 감지가 아니라 <strong>수동 마커 단축키</strong>였다. 지표만으로는 의도적으로 꾹 누른 키와 끼인 키가 구분되지 않는다 &#8212; 초기지연·반복 간격·균일도·Raw Input 대응까지 전부 동일하다. "방금 그거였다"는 판정은 사람만 할 수 있으므로, 증상이 난 직후 단축키를 누르면 직전 400건이 마커와 함께 남는 구조로 했다.</p>
 
-  <h2>결정적 지문 &#8212; 같은 밀리초의 동시 해제</h2>
+  <h2 id="결정적-지문-같은-밀리초의-동시-해제" data-anchor="auto">결정적 지문 &#8212; 같은 밀리초의 동시 해제<a class="h-anchor" href="#결정적-지문-같은-밀리초의-동시-해제" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>사건 로그를 모으다 보니 이상한 장면이 반복됐다. 서로 다른 두 키(<code>L</code> 과 <code>D</code>)가 1.1초 동안 같이 눌린 채였다가, <strong>같은 밀리초에 같이 풀렸다</strong>(<code>UP L</code> / <code>UP D</code> 가 <code>gap=0ms</code>). 물리 스위치 두 개가 그럴 수는 없다.</p>
   <p>이게 지문인 이유는 HID 키보드의 보고 방식에 있다. 키보드는 "지금 눌려 있는 키 전체"를 하나의 리포트로 보낸다. 중간 리포트가 유실되면 OS 는 마지막으로 받은 상태를 그대로 붙들고 &#8212; 이미 뗀 키를 눌린 것으로 알고 &#8212; 나중에 눌린 키에 키 리피트를 돌리다가, 다음 리포트(빈 리포트)가 도착하는 순간 전부 한꺼번에 해제한다. 글자 폭발도, 동시 해제도 이 하나로 설명된다.</p>
 
@@ -238,7 +288,7 @@
     <figcaption>리포트 유실 사건의 재구성. 실제로는 L 을 일찍 뗐지만 그 리포트가 사라졌고, OS 는 빈 리포트가 올 때까지 옛 상태를 붙들고 있었다.</figcaption>
   </figure>
 
-  <h2>반박된 가설 5건 &#8212; 같은 길을 두 번 걷지 않기 위해</h2>
+  <h2 id="반박된-가설-5건-같은-길을-두-번-걷지-않기-위해" data-anchor="auto">반박된 가설 5건 &#8212; 같은 길을 두 번 걷지 않기 위해<a class="h-anchor" href="#반박된-가설-5건-같은-길을-두-번-걷지-않기-위해" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>결론만 보면 깔끔하지만, 여기 도달하기까지 가설 다섯 개가 실측으로 죽었다. 이 표가 이 페이지의 본체다.</p>
 
   <div class="tbl-wrap">
@@ -257,10 +307,10 @@
   </div>
   <p class="tbl-note">부수적으로 죽은 것 하나 더 &#8212; USB 선택적 절전을 끄는 것만으로는 낫지 않는다(적용 18초 뒤 재발). 이미 상태가 틀어진 장치는 정책 변경이 아니라 재열거가 있어야 복구된다.</p>
 
-  <h2>절반 맞은 가설 &#8212; "절전 갔다 온 게 아닐까"</h2>
+  <h2 id="절반-맞은-가설-절전-갔다-온-게-아닐까" data-anchor="auto">절반 맞은 가설 &#8212; "절전 갔다 온 게 아닐까"<a class="h-anchor" href="#절반-맞은-가설-절전-갔다-온-게-아닐까" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>조사 중에 나온 "자리 비운 사이 어설프게 절전에 들어갔다 나온 게 원인 아니냐"는 가설은 절반이 맞았다. 시스템 절전(S3)은 아니다 &#8212; 이벤트 로그에 절전 진입·복귀 기록이 없고, 가동 11시간 52분 동안 재부팅도 없었다. 그러나 <strong>USB 선택적 절전은 시스템 절전과 별개로 동작하고, 이벤트 로그에 흔적을 전혀 남기지 않는다.</strong> 장치별 유휴 전환이라 "자리 비움"이 정확히 그 구간이고, 문제의 경로는 키보드와 허브 전부 절전 허용이었다. 절전의 종류만 바꿔 읽으면 모든 증거와 들어맞는다. 확증은 아니고, 현재로서는 최선의 설명.</p>
 
-  <h2>처방 &#8212; 포트를 옮겼다</h2>
+  <h2 id="처방-포트를-옮겼다" data-anchor="auto">처방 &#8212; 포트를 옮겼다<a class="h-anchor" href="#처방-포트를-옮겼다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>키보드를 다른 USB 포트로 옮기자 글자 폭발과 "미묘하게 느린" 감각이 동시에 사라졌다. 경로는 이렇게 바뀌었다.</p>
 
   <div class="chain">
@@ -268,7 +318,7 @@
     <span class="lbl">이후</span> HHKB &#8594; <b>온보드 허브 1단</b> (Realtek RTS5411) &#8594; 루트 허브 &#8594; AMD USB 3.20 컨트롤러
   </div>
 
-  <h2>아직 끝나지 않았다 &#8212; 남은 미분리</h2>
+  <h2 id="아직-끝나지-않았다-남은-미분리" data-anchor="auto">아직 끝나지 않았다 &#8212; 남은 미분리<a class="h-anchor" href="#아직-끝나지-않았다-남은-미분리" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>여기까지 읽으면 해결된 이야기 같지만, 포트를 옮기면서 변수가 <strong>셋 동시에</strong> 바뀌었다.</p>
   <ol>
     <li>허브 단수 2 &#8594; 1</li>

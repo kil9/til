@@ -97,6 +97,42 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="닌텐도의 Actions Runner 운용">
 <!-- PAGEOG:END -->
+<!-- PAGETOC-CSS:START -->
+<style>
+  /* 절 앵커·목차(TASK-108). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .h-anchor {
+    margin-left: 0.35em; font-weight: 400; text-decoration: none;
+    color: var(--text-faint, #6E7A86); opacity: 0; transition: opacity 0.12s;
+  }
+  h2:hover > .h-anchor, .h-anchor:focus-visible { opacity: 1; }
+  /* 터치 기기는 hover 가 없어 영영 안 보인다 — 옅게라도 늘 띄운다. */
+  @media (hover: none) { .h-anchor { opacity: 0.4; } }
+  .pagetoc {
+    --tc-rule: var(--rule, #E3E7EB); --tc-faint: var(--text-faint, #6E7A86);
+    --tc-accent: var(--accent, #1A5FC8); --tc-text: var(--text, #1B2027);
+    margin: 28px 0 36px; padding: 14px 0; border-top: 1px solid var(--tc-rule);
+    border-bottom: 1px solid var(--tc-rule);
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagetoc {
+      --tc-rule: var(--rule, #2A3037); --tc-faint: var(--text-faint, #7E8994);
+      --tc-accent: var(--accent, #82B1F0); --tc-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagetoc-label {
+    margin: 0 0 8px; color: var(--tc-faint);
+    font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagetoc ol {
+    margin: 0; padding: 0; list-style: none;
+    display: grid; gap: 4px;
+  }
+  .pagetoc a { color: var(--tc-text); text-decoration: none; font-size: 0.875rem; }
+  .pagetoc a:hover, .pagetoc a:focus-visible {
+    color: var(--tc-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+</style>
+<!-- PAGETOC-CSS:END -->
 </head>
 <body>
 <main>
@@ -105,7 +141,20 @@
   <p class="lede">월 63만 job 을 처리하는 self-hosted runner 기반을, 전원이 다른 프로덕트 겸무인 3인 팀이 돌린다. 플랫폼을 강제하지 않고 "선택지"로 제공했더니 다들 알아서 넘어왔다는 이야기.</p>
   <p class="src">출처: <a href="https://www.nintendo-systems.com/engineering/00007/">GitHub Actions Runner の運用から見るニンテンドーシステムズのチーム体制</a> — 닌텐도시스템즈 시스템개발부, SRE NEXT 2026(2026-07-10–11) 발표 자료 요약.</p>
 
-  <h2>어떤 회사가, 어떤 규모로</h2>
+  <!-- PAGETOC:START -->
+<nav class="pagetoc" aria-label="목차">
+  <p class="pagetoc-label">목차</p>
+  <ol>
+    <li><a href="#어떤-회사가-어떤-규모로">어떤 회사가, 어떤 규모로</a></li>
+    <li><a href="#아키텍처">아키텍처</a></li>
+    <li><a href="#이-기반을-돌리는-팀-겸무-3인">이 기반을 돌리는 팀 — 겸무 3인</a></li>
+    <li><a href="#겸무-체제라서-되는-것">겸무 체제라서 되는 것</a></li>
+    <li><a href="#겸무-체제라서-힘든-것-그리고-대응">겸무 체제라서 힘든 것, 그리고 대응</a></li>
+    <li><a href="#전망-그리고-감상">전망, 그리고 감상</a></li>
+  </ol>
+</nav>
+<!-- PAGETOC:END -->
+  <h2 id="어떤-회사가-어떤-규모로" data-anchor="auto">어떤 회사가, 어떤 규모로<a class="h-anchor" href="#어떤-회사가-어떤-규모로" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>닌텐도시스템즈는 닌텐도 비즈니스의 디지털 영역을 담당하는 자회사다. Switch 2/Switch 본체 기능(프렌드 리스트·푸시 알림), 랭킹·매칭 같은 범용 게임서버, Nintendo Store·e숍 EC 플랫폼, Nintendo Music 앱, ZELDA NOTES·이카링3 같은 게임 연계 서비스까지 폭넓은 시스템을 장기간·다수 운용한다.</p>
   <p>이 회사들의 CI/CD 를 받치는 것이 사내용 GitHub Actions self-hosted runner 기반이다. 규모가 상당하다.</p>
   <table>
@@ -119,7 +168,7 @@
   <p>용도는 애플리케이션 CI/CD(test/build/deploy)에 더해 Terraform 파이프라인(PR 생성 시 plan 결과 자동 코멘트, PR 위에서 apply), Jira/Confluence 연계까지. self-hosted 를 쓰는 이유는 셋이다: GitHub Enterprise Server 를 쓰고 있고, 사내망 시스템과 연계해야 하며, runner 의 IP 를 고정해야 하기 때문.</p>
   <p>Runner 는 ephemeral mode 로 돌고, Linux x64/arm64 × small/general 4종을 제공한다. 4종의 사용 비중이 20.9–28.5%로 고르게 나뉜다는 점이 흥미롭다 — 특정 타입에 몰리지 않고 라인업 전체가 실제로 쓰이고 있다.</p>
 
-  <h2>아키텍처</h2>
+  <h2 id="아키텍처" data-anchor="auto">아키텍처<a class="h-anchor" href="#아키텍처" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <figure>
     <svg viewBox="0 0 720 330" role="img" aria-label="닌텐도시스템즈 self-hosted runner 아키텍처 다이어그램">
       <defs>
@@ -172,7 +221,7 @@
   </figure>
   <p>런타임 스택은 EKS + Actions Runner Controller + Karpenter + Bottlerocket OS 조합. 커스텀 runner 이미지는 ECR 에 둔다. 관측은 Datadog 대시보드·알림으로 일원화했다.</p>
 
-  <h2>이 기반을 돌리는 팀 — 겸무 3인</h2>
+  <h2 id="이-기반을-돌리는-팀-겸무-3인" data-anchor="auto">이 기반을 돌리는 팀 — 겸무 3인<a class="h-anchor" href="#이-기반을-돌리는-팀-겸무-3인" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>발표의 진짜 주제는 이 기반을 돌보는 조직이다. CI/CD 팀은 3명인데, 전원이 <em>평소엔 다른 프로덕트를 개발하는 겸무</em>다: 게임 연계 서비스 SRE, Switch 2/Switch 본체 기능 서버 개발자, EC 플랫폼 SRE.</p>
   <p>배경에는 회사의 프로덕트 구조가 있다. 각 프로덕트가 기술 선정·SLI/SLO 를 스스로 판단하며 자율적으로 운용하는 문화라 프로덕트별 최적화는 잘 되지만, 전체 상황 파악이 어려워지고 운용 기준 편차와 바퀴의 재발명이 생겼다. 그래서 정책·프로세스·자동화 기반만 횡단 조직이 정비하고, 구체적인 적용은 각 프로덕트 판단에 맡긴다. 예산·비용 가시화, 보안 기준, 개발 언어 선택 룰, SaaS 운용 관리, GDPR 대응 자동화, 그리고 이 CI/CD 기반이 그 산물이다.</p>
   <p>철학이 명확하다: <strong>GitHub Actions 도 어디까지나 선택지 중 하나로, 도입은 임의</strong>. 신규 개발에서 손쉽게 고를 수 있는 기반으로 제공했더니 기존 시스템들도 자발적으로 이관해 왔고, 결과적으로 전체 운용 부하가 줄었다는 것이다. "담당 영역을 가장 깊이 고민하는 건 담당자 자신"이라는 원칙으로 프로덕트별 문화 차이와 자율성을 존중한다.</p>
@@ -182,13 +231,13 @@
     <figcaption>월 63만 job 이 도는 라인을 겸무 3인이 돌본다 — 자동화의 규모와 관리 인력의 대비. 삽화: Codex 이미지 생성</figcaption>
   </figure>
 
-  <h2>겸무 체제라서 되는 것</h2>
+  <h2 id="겸무-체제라서-되는-것" data-anchor="auto">겸무 체제라서 되는 것<a class="h-anchor" href="#겸무-체제라서-되는-것" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <ul>
     <li><strong>운용자가 곧 이용자다.</strong> 요청이 올라오기 전에 자신들의 체감과 계측으로 먼저 개선한다. 실제로 runner 할당이 느려진 것을 체감 → Disk I/O 병목을 특정 → EBS 강화, 나아가 인스턴스 스토어(로컬 NVMe SSD) 도입까지 선회수로 이어졌다.</li>
     <li><strong>각 프로덕트의 지식이 모인다.</strong> 당사자라서 현장의 좋은 궁리와 바퀴의 재발명을 알아챈다. 프로덕트마다 따로 돌던 Renovate(의존성 갱신 PR 자동 생성)를, 설정은 프로덕트별로 유지하되 실행 기반만 공통화한 것이 대표 사례.</li>
   </ul>
 
-  <h2>겸무 체제라서 힘든 것, 그리고 대응</h2>
+  <h2 id="겸무-체제라서-힘든-것-그리고-대응" data-anchor="auto">겸무 체제라서 힘든 것, 그리고 대응<a class="h-anchor" href="#겸무-체제라서-힘든-것-그리고-대응" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>과제도 겸무에서 나온다. 본업인 프로덕트 개발 상황에 좌우돼 공수를 많이 낼 수 없고, 이용 규모가 커질수록 요청·문의가 늘어 소수 팀이 서포트에 매몰되면 개선이 멈춘다. 대응은 두 방향이다.</p>
   <table>
     <thead><tr><th>방향</th><th>수단</th></tr></thead>
@@ -198,7 +247,7 @@
     </tbody>
   </table>
 
-  <h2>전망, 그리고 감상</h2>
+  <h2 id="전망-그리고-감상" data-anchor="auto">전망, 그리고 감상<a class="h-anchor" href="#전망-그리고-감상" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>앞으로는 Windows/macOS runner, 나아가 <strong>Switch 2 같은 게임 전용기를 이용한 CI/CD 지원</strong>까지 라인업을 넓히고, Renovate 처럼 Actions 를 토대로 한 공통 기반을 늘려 가겠다고 한다.</p>
   <p>발표 제목대로 이 자료의 무게중심은 runner 의 기술 스택이 아니라 체제 쪽이다. 전담 플랫폼 조직을 세우는 대신 각 프로덕트의 당사자를 겸무로 모아 최소한만 공통화하고, 도입은 강제하지 않는데도 플랫폼이 성장한다 — 강제 없는 표준화가 실제로 굴러간 사례라는 점에서, 규모를 불문하고 사내 플랫폼을 만드는 팀이 참고할 만하다. 동시에 "겸무라 공수가 부족하고 서포트에 매몰될 수 있다"는 과제를 숨기지 않고, 그 답을 증원이 아니라 자동화와 셀프서비스에서 찾는 결도 일관적이다.</p>
 

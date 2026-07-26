@@ -42,6 +42,8 @@ DROP_EL_RE = re.compile(
 )
 # 상단 복귀 링크("← today i learned")는 전 페이지 공통이라 색인에서 뺀다.
 HOME_TOP_RE = re.compile(r'<p class="home-top"[^>]*>.*?</p>', re.S | re.I)
+# 절 앵커(TASK-108)의 "#" 도 뺀다. 목차는 <nav> 라 위에서 이미 빠진다.
+H_ANCHOR_RE = re.compile(r'<a class="h-anchor"[^>]*>.*?</a>', re.S | re.I)
 COMMENT_RE = re.compile(r"<!--.*?-->", re.S)
 TAG_RE = re.compile(r"<[^>]+>", re.S)
 MAIN_RE = re.compile(r"<main\b[^>]*>(.*)</main>", re.S | re.I)
@@ -56,6 +58,7 @@ def body_text(page: Path) -> str:
     text = m.group(1) if m else raw
     text = COMMENT_RE.sub(" ", text)
     text = HOME_TOP_RE.sub(" ", text)
+    text = H_ANCHOR_RE.sub(" ", text)
     text = DROP_EL_RE.sub(" ", text)
     # 태그를 지우면 src="data:image/webp;base64,…" 같은 속성값도 함께 사라진다.
     text = TAG_RE.sub(" ", text)

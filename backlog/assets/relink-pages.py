@@ -1,14 +1,21 @@
 #!/usr/bin/env python3
-"""페이지 공통 요소(하단 이전/다음·주제 역링크, og:image)를 소급 재생성한다.
+"""페이지 공통 요소(하단 이전/다음·주제 역링크, og:image, 절 앵커·목차)를 소급 재생성한다.
 
 페이지가 자체 완결형 HTML 이라 이런 요소를 각 파일에 박아야 한다. 진실원본은 루트
 index.html 의 갤러리 카드이고, 이 스크립트가 카드를 읽어 각 페이지의 마커 구간을
 다시 쓴다. 마커 밖은 건드리지 않으므로 반복 실행이 멱등이다.
 
-마커는 세 구간이다.
+마커는 다섯 구간이다.
     <!-- PAGEOG:START --> … <!-- PAGEOG:END -->              </head> 직전 (전 카드)
     <!-- PAGENAV-CSS:START --> … <!-- PAGENAV-CSS:END -->   </head> 직전 (아티클)
     <!-- PAGENAV:START --> … <!-- PAGENAV:END -->            <footer> 직전 (아티클)
+    <!-- PAGETOC-CSS:START --> … <!-- PAGETOC-CSS:END -->    </head> 직전 (아티클)
+    <!-- PAGETOC:START --> … <!-- PAGETOC:END -->            첫 <h2> 직전 (아티클, h2 5개 이상)
+
+h2 의 id·앵커 링크(TASK-108)만은 마커 구간이 아니라 h2 태그 자체를 고친다. 대신 우리가
+붙인 것에 data-anchor="auto" 를 표시해 두고 매번 그것만 다시 계산하므로 재실행이
+멱등이고, 손으로 붙인 기존 id 9건은 표시가 없어 건드리지 않는다(그 값으로 나간 링크가
+깨지면 안 된다). id 는 URL 에 박히므로 규칙을 바꾸면 되돌리기 어렵다.
 
 og:image 파일 자체는 backlog/assets/archive-thumbs.py 가 굽는다. 그래서 발행 시
 archive-thumbs.py 를 먼저 돌리고 이 스크립트를 나중에 돌린다 — 순서가 뒤집히면
@@ -27,6 +34,7 @@ archive-thumbs.py 를 먼저 돌리고 이 스크립트를 나중에 돌린다 �
 사용법: repo 루트에서  python3 backlog/assets/relink-pages.py
 """
 
+import html
 import posixpath
 import re
 import sys
@@ -39,6 +47,11 @@ from sitelib import ROOT, SITE, by_date, gallery_cards, xml_escape  # noqa: E402
 CSS_MARK = ("<!-- PAGENAV-CSS:START -->", "<!-- PAGENAV-CSS:END -->")
 NAV_MARK = ("<!-- PAGENAV:START -->", "<!-- PAGENAV:END -->")
 OG_MARK = ("<!-- PAGEOG:START -->", "<!-- PAGEOG:END -->")
+TOC_CSS_MARK = ("<!-- PAGETOC-CSS:START -->", "<!-- PAGETOC-CSS:END -->")
+TOC_MARK = ("<!-- PAGETOC:START -->", "<!-- PAGETOC:END -->")
+
+# 목차를 넣을 최소 h2 개수. 짧은 글에서는 목차가 소음이다.
+TOC_MIN_HEADINGS = 5
 
 OG_DIR = ROOT / "og"
 OG_EXT = "jpg"           # archive-thumbs.py 와 맞춘다(크롤러 호환 때문에 JPEG)
@@ -81,6 +94,57 @@ PAGENAV_CSS = """<style>
   .pagenav .pn-topic { margin: 6px 0 0; font-size: 0.8125rem; }
   .pagenav .pn-topic a { color: var(--pn-faint); font-size: inherit; }
 </style>"""
+
+
+PAGETOC_CSS = """<style>
+  /* 절 앵커·목차(TASK-108). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .h-anchor {
+    margin-left: 0.35em; font-weight: 400; text-decoration: none;
+    color: var(--text-faint, #6E7A86); opacity: 0; transition: opacity 0.12s;
+  }
+  h2:hover > .h-anchor, .h-anchor:focus-visible { opacity: 1; }
+  /* 터치 기기는 hover 가 없어 영영 안 보인다 — 옅게라도 늘 띄운다. */
+  @media (hover: none) { .h-anchor { opacity: 0.4; } }
+  .pagetoc {
+    --tc-rule: var(--rule, #E3E7EB); --tc-faint: var(--text-faint, #6E7A86);
+    --tc-accent: var(--accent, #1A5FC8); --tc-text: var(--text, #1B2027);
+    margin: 28px 0 36px; padding: 14px 0; border-top: 1px solid var(--tc-rule);
+    border-bottom: 1px solid var(--tc-rule);
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagetoc {
+      --tc-rule: var(--rule, #2A3037); --tc-faint: var(--text-faint, #7E8994);
+      --tc-accent: var(--accent, #82B1F0); --tc-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagetoc-label {
+    margin: 0 0 8px; color: var(--tc-faint);
+    font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagetoc ol {
+    margin: 0; padding: 0; list-style: none;
+    display: grid; gap: 4px;
+  }
+  .pagetoc a { color: var(--tc-text); text-decoration: none; font-size: 0.875rem; }
+  .pagetoc a:hover, .pagetoc a:focus-visible {
+    color: var(--tc-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+</style>"""
+
+# 본문 범위. h2 를 고칠 때 head·footer·하단 내비에 손대지 않기 위한 울타리다.
+MAIN_RE = re.compile(r"(<main\b[^>]*>)(.*)(</main>)", re.S | re.I)
+BODY_RE = re.compile(r"(<body\b[^>]*>)(.*)(</body>)", re.S | re.I)
+H2_RE = re.compile(r"<h2\b([^>]*)>(.*?)</h2>", re.S | re.I)
+H2_ANCHOR_RE = re.compile(r'\s*<a class="h-anchor"[^>]*>.*?</a>', re.S)
+ID_ATTR_RE = re.compile(r'\sid="([^"]*)"')
+AUTO_ATTR_RE = re.compile(r'\sdata-anchor="auto"')
+# 제목 앞머리의 번호는 목차 표시에는 남기고 id 에서만 뺀다. 장식 span 판본과 본문에
+# 그냥 적힌 "3. " 판본이 둘 다 있다. 번호를 id 에 넣으면 절을 하나 끼워 넣는 순간 그
+# 아래 모든 절의 id 가 밀려 기존 링크가 통째로 깨진다.
+NUM_SPAN_RE = re.compile(r'^\s*<span class="n">[^<]*</span>', re.I)
+NUM_PREFIX_RE = re.compile(r"^\d+(?:[.-]\d+)*[.)]?\s+")
+TAG_RE = re.compile(r"<[^>]+>", re.S)
+WS_RE = re.compile(r"\s+")
 
 
 def relative(from_path, to_path):
@@ -131,6 +195,77 @@ def upgrade_twitter_card(text):
         r'(<meta name="twitter:card" content=")summary(">)',
         r"\1summary_large_image\2", text, count=1,
     )
+
+
+def plain(fragment):
+    """마크업을 걷어낸 제목 텍스트. 태그 자리는 공백으로 두어 <span>3</span>제목 이
+    "3제목" 으로 붙지 않게 한다."""
+    return WS_RE.sub(" ", html.unescape(TAG_RE.sub(" ", fragment))).strip()
+
+
+def slugify(text):
+    """한글을 그대로 둔 슬러그. 주소창에서는 퍼센트 인코딩되지만 붙여넣으면 복원되고,
+    링크만 봐도 어디로 가는지 읽힌다. h2 순번(sec-N)은 절을 넣고 빼면 기존 링크가
+    다른 절을 가리켜 쓰지 않는다."""
+    s = re.sub(r"[^\w\s-]", "", text.strip().lower(), flags=re.U)
+    return re.sub(r"[\s_-]+", "-", s).strip("-")
+
+
+def rewrite_headings(text):
+    """본문 h2 에 id 와 앵커 링크를 붙이고 목차 항목을 돌려준다.
+
+    - 이미 id 가 있고 우리가 붙인 것(data-anchor="auto")이 아니면 그 id 를 그대로 쓴다.
+    - 우리가 붙인 id 는 매번 제목에서 다시 계산한다(제목을 고치면 따라온다).
+    - 같은 제목이 둘 이상이면 뒤에 -2, -3 을 붙인다.
+    """
+    m = MAIN_RE.search(text) or BODY_RE.search(text)
+    if not m:
+        return text, []
+    used, entries = set(), []
+
+    def repl(h2):
+        attrs, inner = h2.group(1), h2.group(2)
+        inner = H2_ANCHOR_RE.sub("", inner)
+        label = plain(inner)
+        manual = ID_ATTR_RE.search(attrs)
+        if manual and not AUTO_ATTR_RE.search(attrs):
+            hid = manual.group(1)
+            new_attrs = attrs
+        else:
+            raw = NUM_PREFIX_RE.sub("", plain(NUM_SPAN_RE.sub("", inner)))
+            base = slugify(raw) or f"h2-{len(entries) + 1}"
+            hid, n = base, 1
+            while hid in used:
+                n += 1
+                hid = f"{base}-{n}"
+            new_attrs = AUTO_ATTR_RE.sub("", ID_ATTR_RE.sub("", attrs))
+            new_attrs = f'{new_attrs.rstrip()} id="{hid}" data-anchor="auto"'
+        used.add(hid)
+        entries.append((hid, label))
+        anchor = (f'<a class="h-anchor" href="#{hid}" aria-label="이 절 링크"'
+                  ' title="이 절 링크">#</a>')
+        return f"<h2{new_attrs}>{inner}{anchor}</h2>"
+
+    body = H2_RE.sub(repl, m.group(2))
+    return text[: m.start(2)] + body + text[m.end(2):], entries
+
+
+def toc_html(entries):
+    items = "\n".join(
+        f'    <li><a href="#{hid}">{xml_escape(label)}</a></li>'
+        for hid, label in entries
+    )
+    return ('<nav class="pagetoc" aria-label="목차">\n'
+            '  <p class="pagetoc-label">목차</p>\n  <ol>\n'
+            + items + "\n  </ol>\n</nav>")
+
+
+def unsplice(text, marks):
+    """마커 구간을 통째로 걷어낸다(목차 임계 미달로 내려가는 경우)."""
+    start, end = marks
+    pattern = re.compile(r"[ \t]*" + re.escape(start) + r".*?" + re.escape(end) + r"\n?",
+                         re.S)
+    return pattern.sub("", text, count=1)
 
 
 def splice(text, marks, payload, anchor):
@@ -196,6 +331,15 @@ def main():
             prv = articles[i + 1] if i + 1 < len(articles) else None
             after = splice(after, CSS_MARK, PAGENAV_CSS, r"</head>")
             after = splice(after, NAV_MARK, nav_html(card, prv, nxt), r"<footer\b")
+
+            # 절 앵커·목차(TASK-108). h2 를 먼저 고쳐야 목차가 가리킬 id 가 정해진다.
+            after, entries = rewrite_headings(after)
+            if entries:
+                after = splice(after, TOC_CSS_MARK, PAGETOC_CSS, r"</head>")
+            if len(entries) >= TOC_MIN_HEADINGS:
+                after = splice(after, TOC_MARK, toc_html(entries), r"<h2[\s>]")
+            else:
+                after = unsplice(after, TOC_MARK)
 
         if after != before:
             page.write_text(after, encoding="utf-8")

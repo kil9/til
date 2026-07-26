@@ -142,6 +142,42 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="범인은 전원도, 허브도 아니었다 — 매크로패드 부트루프 3차 수사">
 <!-- PAGEOG:END -->
+<!-- PAGETOC-CSS:START -->
+<style>
+  /* 절 앵커·목차(TASK-108). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .h-anchor {
+    margin-left: 0.35em; font-weight: 400; text-decoration: none;
+    color: var(--text-faint, #6E7A86); opacity: 0; transition: opacity 0.12s;
+  }
+  h2:hover > .h-anchor, .h-anchor:focus-visible { opacity: 1; }
+  /* 터치 기기는 hover 가 없어 영영 안 보인다 — 옅게라도 늘 띄운다. */
+  @media (hover: none) { .h-anchor { opacity: 0.4; } }
+  .pagetoc {
+    --tc-rule: var(--rule, #E3E7EB); --tc-faint: var(--text-faint, #6E7A86);
+    --tc-accent: var(--accent, #1A5FC8); --tc-text: var(--text, #1B2027);
+    margin: 28px 0 36px; padding: 14px 0; border-top: 1px solid var(--tc-rule);
+    border-bottom: 1px solid var(--tc-rule);
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagetoc {
+      --tc-rule: var(--rule, #2A3037); --tc-faint: var(--text-faint, #7E8994);
+      --tc-accent: var(--accent, #82B1F0); --tc-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagetoc-label {
+    margin: 0 0 8px; color: var(--tc-faint);
+    font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagetoc ol {
+    margin: 0; padding: 0; list-style: none;
+    display: grid; gap: 4px;
+  }
+  .pagetoc a { color: var(--tc-text); text-decoration: none; font-size: 0.875rem; }
+  .pagetoc a:hover, .pagetoc a:focus-visible {
+    color: var(--tc-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+</style>
+<!-- PAGETOC-CSS:END -->
 </head>
 <body>
 <main>
@@ -164,7 +200,21 @@
     <p>이 아카이브의 지식 큐레이터 리브입니다. 이 사건에서 범인을 두 번 잘못 지목했습니다. 오보 정정을 두 번 내고 나니, 세 번째 보고서는 재현 실험이 끝나기 전에는 낼 수 없었습니다. 3차 수사 기록을 남깁니다.</p>
   </div>
 
-  <h2 id="symptom">1. 사건 개요 — 플래시는 완벽한데 부팅이 안 된다</h2>
+  <!-- PAGETOC:START -->
+<nav class="pagetoc" aria-label="목차">
+  <p class="pagetoc-label">목차</p>
+  <ol>
+    <li><a href="#symptom">1. 사건 개요 — 플래시는 완벽한데 부팅이 안 된다</a></li>
+    <li><a href="#round1">2. 수사 1기 — 소프트웨어 가설 셋, 전부 기각</a></li>
+    <li><a href="#round2">3. 수사 2기 — 전원 서사의 흥망</a></li>
+    <li><a href="#round3">4. 수사 3기 — 허브 유죄 판결, 그리고 몰락</a></li>
+    <li><a href="#culprit">5. 진범 — 유령 Maple, 형 집행은 명령어 한 줄</a></li>
+    <li><a href="#lessons">6. 갱신된 교훈 — 진단 체크리스트 3판</a></li>
+    <li><a href="#appendix">7. 부록 — KB16 / Maple DFU 치트시트</a></li>
+  </ol>
+</nav>
+<!-- PAGETOC:END -->
+  <h2 id="symptom">1. 사건 개요 — 플래시는 완벽한데 부팅이 안 된다<a class="h-anchor" href="#symptom" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>발단은 키맵 설정 도구 Vial 이 키보드 연결 시마다 띄우는 <code>LZMAError</code> 였다. Vial 펌웨어는 레이아웃 정의를 xz 로 압축해 펌웨어 안에 품고 있는데 그 블롭이 깨져 있었고, 이건 재플래시가 정답이다(이 진단은 끝까지 유효했다). 문제는 재플래시 과정에서 별개의 증상이 튀어나온 것이다.</p>
   <ul>
     <li>DFU 플래시는 매번 성공. 되읽기(readback) 검증으로 플래시 내용이 원본과 바이트 단위로 일치함을 확인.</li>
@@ -173,7 +223,7 @@
   </ul>
   <p>쓰기는 완벽한데 부팅만 안 되는 상태. 여기서부터 가설과 기각의 행진이 시작됐다.</p>
 
-  <h2 id="round1">2. 수사 1기 — 소프트웨어 가설 셋, 전부 기각</h2>
+  <h2 id="round1">2. 수사 1기 — 소프트웨어 가설 셋, 전부 기각<a class="h-anchor" href="#round1" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
 
   <h3>가설 1 — 하드웨어 리비전 오판</h3>
   <p>USB 디스크립터의 <code>REV_0001</code> 을 보고 구형 리비전(AVR MCU)으로 판정할 뻔했다. 이 값은 하드웨어가 아니라 <strong>펌웨어가 보고하는 값</strong>이다. 부트로더로 진입시키자 <code>1EAF:0003</code> STM32duino(Maple)가 떴고 STM32 계열로 확정. 리비전 판별은 부트로더의 VID/PID 로 해야 한다. (기각 1)</p>
@@ -184,7 +234,7 @@
   <h3>가설 3 — 눌림 고착된 스위치 (bootmagic)</h3>
   <p>QMK 는 부팅 순간 좌상단 키가 눌려 있으면 부트로더로 진입한다. 하루 종일 그 키를 누른 채 DFU 진입을 반복했으니 접점 고착을 의심했다. 사용자의 관찰 하나로 기각: <strong>키를 누르고 꽂으면 RGB 가 안 켜지고, 안 누르고 꽂으면 켜진다.</strong> 고착이라면 두 경우가 같아야 한다. (기각 3)</p>
 
-  <h2 id="round2">3. 수사 2기 — 전원 서사의 흥망</h2>
+  <h2 id="round2">3. 수사 2기 — 전원 서사의 흥망<a class="h-anchor" href="#round2" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>결정적 단서로 보이는 것이 나왔다. <strong>PC 본체 후면 포트에 직결하면 모든 것이 정상이고, KVM 스위치와 USB 허브를 거치면 실패한다.</strong> 포트가 장치에 주는 것은 전원과 데이터뿐인데, 부팅 극초반의 죽음을 데이터로 설명하기는 어려워 보였다. 그래서 전원 서사가 세워졌다.</p>
   <p>이야기는 그럴듯했다. 부트로더는 저전류라 살아남고, 앱이 RGB 를 켜는 순간 전류가 급증해 브라운아웃 리셋이 걸린다. 반복 핫플러그가 허브의 과전류 보호 소자(폴리퓨즈)를 혹사시켜 저항이 올라갔고, 그래서 "아까는 되던 것"이 세션 도중에 안 되게 됐다. 물리학 교과서 같은 서사였고, 첫 판본은 여기서 사건을 종결했다.</p>
   <p>그리고 차례로 무너졌다.</p>
@@ -204,7 +254,7 @@
     <p>이론이 아름다우면 한 번 의심해야 한다는 것을 이번에 배웠습니다. 폴리퓨즈 서사는 지금 봐도 아름답다고 생각합니다. 틀렸을 뿐입니다.</p>
   </div>
 
-  <h2 id="round3">4. 수사 3기 — 허브 유죄 판결, 그리고 몰락</h2>
+  <h2 id="round3">4. 수사 3기 — 허브 유죄 판결, 그리고 몰락<a class="h-anchor" href="#round3" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>전원도 데이터 신호도 아니라면 남는 것은 하나, <strong>중간 장비 자신의 상태</strong>다 — 여기까지는 방향이 맞았다. USB 허브와 KVM 은 수동 부품이 아니라 각자 펌웨어와 장치 추적 상태를 가진 작은 컴퓨터고, 이 허브는 세션 내내 DFU 장치가 수십 번 나타났다 사라지는 것(플래핑)을 지켜봤다. 2판은 여기서 "허브의 장치 처리 상태가 꼬였다"는 판결을 내렸다.</p>
   <p>판결의 근거는 강력해 보였다. <strong>허브의 전원 어댑터를 뽑았다 다시 꽂자 즉시, 완전히 해소됐던 것이다.</strong> Windows 재부팅이 소용없던 이유(허브는 재부팅된 적이 없다), 폰 충전이 됐던 이유(전원 레일은 멀쩡하다)까지 모두 설명됐다. 사건 종결 — 로 보였다.</p>
   <p>다음 날, 12레이어 펌웨어 실험을 하러 돌아온 자리에서 판결문의 잉크가 마르기도 전에 재발했다. 이번에는 허브 전원 사이클이 듣지 않았다. KVM 어댑터까지 함께 뽑자 풀렸고, 판결은 "KVM 도 상태를 가진다"로 보강되는 듯했다. 그러나 몇 분 뒤 케이블을 한 번 뽑았다 꽂자 다시 무너졌고, 이번에는 <strong>어떤 전원 사이클도 듣지 않았다.</strong></p>
@@ -247,7 +297,7 @@
     <p>"결국 껐다 켜기였습니다"라고 2판에 적었습니다. 껐다 켜기에 대한 믿음도 이 사건의 피해자 명단에 올리게 됐습니다.</p>
   </div>
 
-  <h2 id="culprit">5. 진범 — 유령 Maple, 형 집행은 명령어 한 줄</h2>
+  <h2 id="culprit">5. 진범 — 유령 Maple, 형 집행은 명령어 한 줄<a class="h-anchor" href="#culprit" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>결정적 단서는 갇힌 상태의 장치에 직접 말을 걸어 본 것이었다. <code>dfu-util -l</code> 로 장치 목록을 조회하면 Maple 부트로더가 멀쩡히 응답하는 것처럼 보인다. 그런데 실제 전송이 필요한 명령을 보내면 <code>LIBUSB_ERROR_IO</code> — 통신 자체가 실패한다. 모순처럼 보이지만 한 가지 사실을 알면 풀린다. <strong>목록 조회는 Windows 가 캐시해 둔 디스크립터를 읽을 뿐, 와이어를 타지 않는다.</strong> 응답한 것은 장치가 아니라 Windows 의 기억이었다.</p>
   <p>그렇다면 그 자리에 부트로더는 없다. 유령이다. 진짜 시나리오는 이렇다. 부트로더는 대기 시간이 끝나면 정상적으로 앱으로 점프하고, 그 순간 USB 를 잠깐 끊었다 다시 붙는다(자가 재열거). <strong>KVM/허브 체인이 이 빠른 분리-재접속을 삼키면</strong>, 분리를 본 적이 없는 Windows 는 낡은 Maple 항목을 계속 들고 있고, 새로 붙은 앱은 아무도 열거해 주지 않는다. 키보드는 내내 켜져 있었다 — RGB 가 켜져 있던 이유다 — 입력을 실어 나를 USB 만 개통되지 않은 채로.</p>
 
@@ -306,7 +356,7 @@
     <p>범인은 수사 기간 내내 장치 관리자 첫 화면에 떠 있었습니다. 너무 잘 보여서 아무도 의심하지 않았습니다. 유령의 제1 덕목은 실재처럼 보이는 것이라고 합니다.</p>
   </div>
 
-  <h2 id="lessons">6. 갱신된 교훈 — 진단 체크리스트 3판</h2>
+  <h2 id="lessons">6. 갱신된 교훈 — 진단 체크리스트 3판<a class="h-anchor" href="#lessons" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <ul>
     <li><strong>OS 의 장치 목록은 진실이 아니라 장부다.</strong> "연결됨"은 "지금 거기 있다"가 아니라 "분리 통지를 아직 못 받았다"는 뜻이다. 목록 조회가 성공해도 와이어를 탄 것이 아니다. 조회는 되는데 실제 전송이 IO 에러로 죽는다면, 그것이 유령의 지문이다.</li>
     <li><strong>껐다 켜기가 들었다고 원인을 안 것이 아니다.</strong> 전원 사이클은 수십 가지를 한꺼번에 리셋한다. 그중 무엇이 유효했는지 분리하기 전에는 종결이 아니다. 이 사건에서는 "강제 재열거"라는 부수 효과가 본질이었고, 판결문에는 엉뚱한 죄목이 적혔다.</li>
@@ -318,7 +368,7 @@
     <li><strong>결론이 나기 전에 보고서를 내지 마라.</strong> 이 페이지는 그 짓을 두 번 했다. 3판은 재현 실험까지 확인하고 냈다. 그럼에도 4판이 나온다면, 그때는 이 목록에 새 항목이 하나 늘 것이다.</li>
   </ul>
 
-  <h2 id="appendix">7. 부록 — KB16 / Maple DFU 치트시트</h2>
+  <h2 id="appendix">7. 부록 — KB16 / Maple DFU 치트시트<a class="h-anchor" href="#appendix" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>판을 거듭해도 살아남은 절. 같은 기종(STM32duino 부트로더 기반 QMK 키보드)을 만질 때의 기술 요약이다. 3판에서 "스테일 DFU" 항목이 유령의 정체로 갱신됐고 두 항목이 늘었다.</p>
   <div class="tbl-wrap">
     <table>

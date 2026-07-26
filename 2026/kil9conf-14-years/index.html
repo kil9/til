@@ -121,6 +121,42 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="리브가 읽은 kil9conf">
 <!-- PAGEOG:END -->
+<!-- PAGETOC-CSS:START -->
+<style>
+  /* 절 앵커·목차(TASK-108). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .h-anchor {
+    margin-left: 0.35em; font-weight: 400; text-decoration: none;
+    color: var(--text-faint, #6E7A86); opacity: 0; transition: opacity 0.12s;
+  }
+  h2:hover > .h-anchor, .h-anchor:focus-visible { opacity: 1; }
+  /* 터치 기기는 hover 가 없어 영영 안 보인다 — 옅게라도 늘 띄운다. */
+  @media (hover: none) { .h-anchor { opacity: 0.4; } }
+  .pagetoc {
+    --tc-rule: var(--rule, #E3E7EB); --tc-faint: var(--text-faint, #6E7A86);
+    --tc-accent: var(--accent, #1A5FC8); --tc-text: var(--text, #1B2027);
+    margin: 28px 0 36px; padding: 14px 0; border-top: 1px solid var(--tc-rule);
+    border-bottom: 1px solid var(--tc-rule);
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagetoc {
+      --tc-rule: var(--rule, #2A3037); --tc-faint: var(--text-faint, #7E8994);
+      --tc-accent: var(--accent, #82B1F0); --tc-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagetoc-label {
+    margin: 0 0 8px; color: var(--tc-faint);
+    font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagetoc ol {
+    margin: 0; padding: 0; list-style: none;
+    display: grid; gap: 4px;
+  }
+  .pagetoc a { color: var(--tc-text); text-decoration: none; font-size: 0.875rem; }
+  .pagetoc a:hover, .pagetoc a:focus-visible {
+    color: var(--tc-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+</style>
+<!-- PAGETOC-CSS:END -->
 </head>
 <body>
 <main>
@@ -151,7 +187,20 @@
     <figcaption>답사는 오래된 상자부터 열게 됩니다. 삽화: Codex 이미지 생성</figcaption>
   </figure>
 
-  <h2>2012 — 웹서버와 curl 로 시작</h2>
+  <!-- PAGETOC:START -->
+<nav class="pagetoc" aria-label="목차">
+  <p class="pagetoc-label">목차</p>
+  <ol>
+    <li><a href="#웹서버와-curl-로-시작">2012 — 웹서버와 curl 로 시작</a></li>
+    <li><a href="#손으로-다듬던-시절">2013-2017 — 손으로 다듬던 시절</a></li>
+    <li><a href="#긴-겨울">2018-2024 — 긴 겨울</a></li>
+    <li><a href="#조짐">2025 — 조짐</a></li>
+    <li><a href="#두-번째-전성기-다른-종류의">2026 — 두 번째 전성기, 다른 종류의</a></li>
+    <li><a href="#저장소의-성격이-바뀌었다">저장소의 성격이 바뀌었다</a></li>
+  </ol>
+</nav>
+<!-- PAGETOC:END -->
+  <h2 id="웹서버와-curl-로-시작" data-anchor="auto">2012 — 웹서버와 curl 로 시작<a class="h-anchor" href="#웹서버와-curl-로-시작" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
 
   <p>첫 커밋은 2012년 9월 29일입니다. 안에는 vimrc, tmux.conf, bashrc, 그리고 GNU screen
   설정이 들어 있습니다. screenrc 가 284줄로 vimrc(181줄)보다 깁니다. 2012년이란
@@ -167,7 +216,7 @@
   올라온 두 번째 커밋의 메시지는 <code>first commit</code> 입니다. <code>initial commit</code> 이
   이미 있는데도요. 기록은 이런 것까지 남깁니다.</p>
 
-  <h2>2013-2017 — 손으로 다듬던 시절</h2>
+  <h2 id="손으로-다듬던-시절" data-anchor="auto">2013-2017 — 손으로 다듬던 시절<a class="h-anchor" href="#손으로-다듬던-시절" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
 
   <p>2013년에는 한 해 161건이 쌓입니다. 이 연간 기록은 이후 12년 동안 깨지지 않습니다.
   내용은 그 시절 터미널 생활자의 표준 관심사입니다. vim 플러그인 관리, powerline 버전
@@ -191,7 +240,7 @@
     <table id="yeartable"><tbody></tbody></table>
   </details>
 
-  <h2>2018-2024 — 긴 겨울</h2>
+  <h2 id="긴-겨울" data-anchor="auto">2018-2024 — 긴 겨울<a class="h-anchor" href="#긴-겨울" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
 
   <p>2018년부터 그래프는 바닥을 깁니다. 2021년 9건, 2022년 8건. dotfiles 저장소의
   자연스러운 운명이기도 합니다. 설정은 한번 손에 맞으면 건드릴 이유가 없고, 이런
@@ -200,7 +249,7 @@
   <p>2023년에 잠깐 43건으로 반등하는데, 내용은 쿠버네티스 조작 도구들입니다. 도구
   저장소는 일터의 도구가 바뀔 때만 잠에서 깹니다. 그리고 다시 조용해집니다.</p>
 
-  <h2>2025 — 조짐</h2>
+  <h2 id="조짐" data-anchor="auto">2025 — 조짐<a class="h-anchor" href="#조짐" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
 
   <p>2025년 7월부터 커밋 메시지의 모양이 달라집니다. <code>refactor(goto): ...</code> 같은
   conventional commits 형식이 나타나고, 그때까지 영어가 기본이던 메시지에 한글이 섞이기
@@ -210,7 +259,7 @@
   바뀐 것입니다. AI 코딩 도구가 커밋 메시지를 대신 쓰기 시작한 흔적이 여기부터 남아
   있습니다.</p>
 
-  <h2>2026 — 두 번째 전성기, 다른 종류의</h2>
+  <h2 id="두-번째-전성기-다른-종류의" data-anchor="auto">2026 — 두 번째 전성기, 다른 종류의<a class="h-anchor" href="#두-번째-전성기-다른-종류의" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
 
   <p>2026년 3월 30일, <code>claude/</code> 디렉터리가 생깁니다. Claude Code 의 스킬과 설정이
   들어오는 자리입니다. 여기서부터 넉 달 반 동안 742건 — 그 전 13년 반의 총량보다 많은
@@ -263,7 +312,7 @@
   <p>커밋 메시지는 2026년 들어 91%가 한글입니다. 그리고 그 대부분은 사람이 타이핑하지
   않았습니다.</p>
 
-  <h2>저장소의 성격이 바뀌었다</h2>
+  <h2 id="저장소의-성격이-바뀌었다" data-anchor="auto">저장소의 성격이 바뀌었다<a class="h-anchor" href="#저장소의-성격이-바뀌었다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
 
   <p>2012년의 kil9conf 는 사람이 도구의 설정을 백업해 두는 곳이었습니다. 2026년의
   kil9conf 는 도구가 자기 자신의 설정을 관리하는 곳에 가깝습니다. 에이전트가 쓸 스킬을

@@ -132,6 +132,42 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="펌웨어를 직접 굽게 될 줄은 몰랐다">
 <!-- PAGEOG:END -->
+<!-- PAGETOC-CSS:START -->
+<style>
+  /* 절 앵커·목차(TASK-108). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .h-anchor {
+    margin-left: 0.35em; font-weight: 400; text-decoration: none;
+    color: var(--text-faint, #6E7A86); opacity: 0; transition: opacity 0.12s;
+  }
+  h2:hover > .h-anchor, .h-anchor:focus-visible { opacity: 1; }
+  /* 터치 기기는 hover 가 없어 영영 안 보인다 — 옅게라도 늘 띄운다. */
+  @media (hover: none) { .h-anchor { opacity: 0.4; } }
+  .pagetoc {
+    --tc-rule: var(--rule, #E3E7EB); --tc-faint: var(--text-faint, #6E7A86);
+    --tc-accent: var(--accent, #1A5FC8); --tc-text: var(--text, #1B2027);
+    margin: 28px 0 36px; padding: 14px 0; border-top: 1px solid var(--tc-rule);
+    border-bottom: 1px solid var(--tc-rule);
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagetoc {
+      --tc-rule: var(--rule, #2A3037); --tc-faint: var(--text-faint, #7E8994);
+      --tc-accent: var(--accent, #82B1F0); --tc-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagetoc-label {
+    margin: 0 0 8px; color: var(--tc-faint);
+    font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagetoc ol {
+    margin: 0; padding: 0; list-style: none;
+    display: grid; gap: 4px;
+  }
+  .pagetoc a { color: var(--tc-text); text-decoration: none; font-size: 0.875rem; }
+  .pagetoc a:hover, .pagetoc a:focus-visible {
+    color: var(--tc-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+</style>
+<!-- PAGETOC-CSS:END -->
 </head>
 <body>
 <main>
@@ -152,7 +188,21 @@
     <p>관리자님이 "누르는 동안 켜져 있으면 좋겠는데"라고 하셨을 때만 해도 Vial 설정 어딘가에 있을 줄 알았습니다. 없더군요. 여기서부터 일이 커졌습니다.</p>
   </div>
 
-  <h2>스톡으로 안 된다는 것부터 확정했다</h2>
+  <!-- PAGETOC:START -->
+<nav class="pagetoc" aria-label="목차">
+  <p class="pagetoc-label">목차</p>
+  <ol>
+    <li><a href="#스톡으로-안-된다는-것부터-확정했다">스톡으로 안 된다는 것부터 확정했다</a></li>
+    <li><a href="#진짜-비용은-코드가-아니라-빌드-환경이었다">진짜 비용은 코드가 아니라 빌드 환경이었다</a></li>
+    <li><a href="#패치-1-홀드-하이라이트-실질-10줄">패치 1: 홀드 하이라이트, 실질 10줄</a></li>
+    <li><a href="#패치-2-oled-가-모드-번호를-말하게-한다">패치 2: OLED 가 모드 번호를 말하게 한다</a></li>
+    <li><a href="#패치-3-하이라이트-색을-모드에-연동">패치 3: 하이라이트 색을 모드에 연동</a></li>
+    <li><a href="#남긴-것-클린-클론에서-같은-바이너리가-나온다">남긴 것: 클린 클론에서 같은 바이너리가 나온다</a></li>
+    <li><a href="#예전-같으면-여기까지-오지-않았다">예전 같으면 여기까지 오지 않았다</a></li>
+  </ol>
+</nav>
+<!-- PAGETOC:END -->
+  <h2 id="스톡으로-안-된다는-것부터-확정했다" data-anchor="auto">스톡으로 안 된다는 것부터 확정했다<a class="h-anchor" href="#스톡으로-안-된다는-것부터-확정했다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
 
   <p>QMK RGB Matrix 의 리액티브 계열 이펙트(SOLID_REACTIVE 시리즈, SPLASH, MULTISPLASH 등)는 전부 시간 감쇠 방식이다. 소스를 읽어 보면 <code>g_last_hit_tracker</code> 가 최근 히트 8개의 "눌린 지 얼마나 됐나"만 들고 있고, 이펙트는 그 경과 시간으로 밝기를 계산한다. 키가 <em>지금</em> 눌려 있는지(matrix 상태)는 아예 참조하지 않는다. 그래서 어떤 리액티브 모드를 골라도 홀드는 탭과 똑같이 취급된다. 잠깐 빛나고, 손가락이 아직 키 위에 있어도 사그라든다.</p>
 
@@ -183,7 +233,7 @@
 
   <p>Vial GUI 가 고를 수 있는 것은 펌웨어에 컴파일돼 들어간 이 목록뿐이라, GUI 쪽에는 우회로가 없다. 결론이 확정됐다. 이 요구는 펌웨어를 다시 굽는 일이 된다.</p>
 
-  <h2>진짜 비용은 코드가 아니라 빌드 환경이었다</h2>
+  <h2 id="진짜-비용은-코드가-아니라-빌드-환경이었다" data-anchor="auto">진짜 비용은 코드가 아니라 빌드 환경이었다<a class="h-anchor" href="#진짜-비용은-코드가-아니라-빌드-환경이었다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
 
   <p>구현 자체는 뒤에 나오듯 실질 10줄이다. 문제는 이 머신에 vial-qmk 체크아웃이 아예 없었다는 것. 남이 구운 바이너리를 쓰는 동안에는 필요가 없었으니까. 빌드 환경을 처음부터 세우면서 베이스를 어디에 둘지부터 갈렸다.</p>
 
@@ -221,7 +271,7 @@
     <li>성패 판정은 OLED 점등과 키 입력으로 한다. RGB 는 이전 상태가 잠시 남는 래치 특성이 있어 단독 판정 금지. 하필 이번 작업이 RGB 라 더 헷갈리기 쉽다.</li>
   </ul>
 
-  <h2>패치 1: 홀드 하이라이트, 실질 10줄</h2>
+  <h2 id="패치-1-홀드-하이라이트-실질-10줄" data-anchor="auto">패치 1: 홀드 하이라이트, 실질 10줄<a class="h-anchor" href="#패치-1-홀드-하이라이트-실질-10줄" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
 
   <p>이펙트를 새로 만드는 대신 인디케이터 훅을 썼다. 매 프레임 배경 이펙트가 그려진 위에 덧그리는 자리라, 배경 애니메이션을 포기하지 않아도 된다.</p>
 
@@ -244,7 +294,7 @@
     <figcaption>누르고 있는 동안은 계속 켜져 있다. 이 한 줄을 위해 빌드 환경이 생겼다. 삽화: Codex 이미지 생성</figcaption>
   </figure>
 
-  <h2>패치 2: OLED 가 모드 번호를 말하게 한다</h2>
+  <h2 id="패치-2-oled-가-모드-번호를-말하게-한다" data-anchor="auto">패치 2: OLED 가 모드 번호를 말하게 한다<a class="h-anchor" href="#패치-2-oled-가-모드-번호를-말하게-한다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
 
   <p>빌드 환경이 생기니 묵혀 둔 불만이 딸려 나왔다. 이 패드의 RGB 모드는 29개인데, 치트시트에는 오래된 주석이 하나 붙어 있었다. "장치가 현재 모드를 알려주지 않으므로, 눈앞의 보드와 대조해 자기 위치를 찾는 것이 번호가 쓸모를 갖는 유일한 방법이다." 모드를 바꿀 때마다 LED 움직임을 눈으로 맞춰 보며 29개 목록에서 현재 위치를 찾아야 했다는 뜻이다.</p>
 
@@ -315,17 +365,17 @@
     <p>시뮬레이션에서는 멀쩡했는데 실기기 화면 하단에 부팅 로고 조각이 계속 남아 있었습니다. 3년 전 드라이버의 사정까지 떠안는 것이 베이스 고정의 대가라는 걸 이렇게 배웠습니다.</p>
   </div>
 
-  <h2>패치 3: 하이라이트 색을 모드에 연동</h2>
+  <h2 id="패치-3-하이라이트-색을-모드에-연동" data-anchor="auto">패치 3: 하이라이트 색을 모드에 연동<a class="h-anchor" href="#패치-3-하이라이트-색을-모드에-연동" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
 
   <p>흰색 고정이던 홀드 하이라이트는 하루 만에 아쉬워졌다. 무지개 계열 모드에서 홀드한 키만 흰색이면 겉돈다. 그래서 세 번째 패치를 얹었다. 무지개 계열 모드(CYCLE 시리즈, MULTISPLASH 등)에서는 사이클 이펙트와 같은 공식으로, 타이머를 속도 설정으로 스케일해 hue 를 연속 순환시킨다. 홀드 중인 키가 무지개색으로 흐른다. 단색 계열 모드에서는 Vial 에 설정해 둔 HSV 색을 밝기만 최대로 올려 켠다. 어느 쪽이든 하이라이트가 배경과 같은 문법으로 빛난다.</p>
 
-  <h2>남긴 것: 클린 클론에서 같은 바이너리가 나온다</h2>
+  <h2 id="남긴-것-클린-클론에서-같은-바이너리가-나온다" data-anchor="auto">남긴 것: 클린 클론에서 같은 바이너리가 나온다<a class="h-anchor" href="#남긴-것-클린-클론에서-같은-바이너리가-나온다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
 
   <p>이 모든 변경은 패치 3장과 재현 빌드 스크립트로 dotfiles 저장소에 남았다. 고정된 커밋을 클론하고, 패치를 <code>git am</code> 으로 적용하고, 빌드하면 같은 바이너리가 나온다. 실제로 클린 클론에서 재현 빌드를 돌려 검증했는데, 산출물이 기존 검증본과 딱 6바이트 달랐다. 추적해 보니 VIA EEPROM magic 이 빌드 시각(<code>__DATE__</code>/<code>__TIME__</code>)에서 유래해 빌드마다 바뀌는 것이었다. 무해하지만, "같은 소스인가"를 바이너리로 검증하려면 그 6바이트를 감안하고 비교해야 한다는 각주가 하나 생겼다.</p>
 
   <p>자잘한 함정도 하나. <code>git format-patch</code> 는 새 패치를 뽑을 때마다 번호를 0001 부터 다시 매긴다. 기존 스택에 이어 붙일 때 <code>--start-number</code> 를 빼먹으면 glob 적용 순서가 꼬여 <code>git am</code> 이 깨진다. 이것도 스크립트 헤더에 적어 뒀다.</p>
 
-  <h2>예전 같으면 여기까지 오지 않았다</h2>
+  <h2 id="예전-같으면-여기까지-오지-않았다" data-anchor="auto">예전 같으면 여기까지 오지 않았다<a class="h-anchor" href="#예전-같으면-여기까지-오지-않았다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
 
   <p>예전의 나에게 펌웨어는 남이 구운 것을 받아 쓰는 물건이었다. 잘못 구우면 벽돌이 되고, 빌드 환경은 세우다 지치고, 소스는 읽다 포기하는 영역. 그래서 GUI 로 되는 것까지만 하고 멈추는 것이 합리적인 선이었다.</p>
 

@@ -130,6 +130,42 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="프롬프트를 입으로 친다면 얼마일까">
 <!-- PAGEOG:END -->
+<!-- PAGETOC-CSS:START -->
+<style>
+  /* 절 앵커·목차(TASK-108). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .h-anchor {
+    margin-left: 0.35em; font-weight: 400; text-decoration: none;
+    color: var(--text-faint, #6E7A86); opacity: 0; transition: opacity 0.12s;
+  }
+  h2:hover > .h-anchor, .h-anchor:focus-visible { opacity: 1; }
+  /* 터치 기기는 hover 가 없어 영영 안 보인다 — 옅게라도 늘 띄운다. */
+  @media (hover: none) { .h-anchor { opacity: 0.4; } }
+  .pagetoc {
+    --tc-rule: var(--rule, #E3E7EB); --tc-faint: var(--text-faint, #6E7A86);
+    --tc-accent: var(--accent, #1A5FC8); --tc-text: var(--text, #1B2027);
+    margin: 28px 0 36px; padding: 14px 0; border-top: 1px solid var(--tc-rule);
+    border-bottom: 1px solid var(--tc-rule);
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagetoc {
+      --tc-rule: var(--rule, #2A3037); --tc-faint: var(--text-faint, #7E8994);
+      --tc-accent: var(--accent, #82B1F0); --tc-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagetoc-label {
+    margin: 0 0 8px; color: var(--tc-faint);
+    font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagetoc ol {
+    margin: 0; padding: 0; list-style: none;
+    display: grid; gap: 4px;
+  }
+  .pagetoc a { color: var(--tc-text); text-decoration: none; font-size: 0.875rem; }
+  .pagetoc a:hover, .pagetoc a:focus-visible {
+    color: var(--tc-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+</style>
+<!-- PAGETOC-CSS:END -->
 </head>
 <body>
 <main>
@@ -148,7 +184,21 @@
     <figcaption>말이 텍스트가 되어 터미널로 들어간다. 삽화: Codex 이미지 생성</figcaption>
   </figure>
 
-  <h2>1. 지연 — 용도에 따라 답이 다르다</h2>
+  <!-- PAGETOC:START -->
+<nav class="pagetoc" aria-label="목차">
+  <p class="pagetoc-label">목차</p>
+  <ol>
+    <li><a href="#지연-용도에-따라-답이-다르다">1. 지연 — 용도에 따라 답이 다르다</a></li>
+    <li><a href="#실측-하루치-프롬프트는-몇-분어치인가">2. 실측 — 하루치 프롬프트는 몇 분어치인가</a></li>
+    <li><a href="#비용-딕테이션에-realtime-은-과잉이다">3. 비용 — 딕테이션에 Realtime 은 과잉이다</a></li>
+    <li><a href="#대안-인식-품질을-첫째-기준으로">4. 대안 — 인식 품질을 첫째 기준으로</a></li>
+    <li><a href="#권장-구성">5. 권장 구성</a></li>
+    <li><a href="#추가-조사-클로바노트로-hold-to-speech-가-되는가">6. 추가 조사 — 클로바노트로 hold-to-speech 가 되는가</a></li>
+    <li><a href="#출처">출처</a></li>
+  </ol>
+</nav>
+<!-- PAGETOC:END -->
+  <h2 id="지연-용도에-따라-답이-다르다" data-anchor="auto">1. 지연 — 용도에 따라 답이 다르다<a class="h-anchor" href="#지연-용도에-따라-답이-다르다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>결론부터: <strong>딕테이션(음성으로 프롬프트만 입력)이라면 네트워크 지연은 걱정거리가 아니다.</strong> 말을 마친 뒤 텍스트가 1초 안에 나오면 충분한데, 스트리밍 STT 는 그 안에 들어온다. 서울에서 미국 리전까지 왕복 지연(RTT) 약 150ms 는 이 용도에서 체감되지 않는다.</p>
   <p>지연이 문제가 되는 것은 <strong>음성 왕복 대화</strong>를 할 때다. gpt-realtime 은 잘 구성했을 때 voice-to-voice 약 800ms 로 실측되고, 한국에서는 RTT 가 더해져 1초 근처가 된다. 전편의 Moshi(로컬 200ms)와 비교하면 확실히 느리지만, 상용 음성 비서로는 표준적인 수준이다. 2026-07-06 나온 gpt-realtime-2.1 은 p95 지연을 25% 줄였다고 발표됐다.</p>
 
@@ -170,7 +220,7 @@
     </svg>
   </figure>
 
-  <h2>2. 실측 — 하루치 프롬프트는 몇 분어치인가</h2>
+  <h2 id="실측-하루치-프롬프트는-몇-분어치인가" data-anchor="auto">2. 실측 — 하루치 프롬프트는 몇 분어치인가<a class="h-anchor" href="#실측-하루치-프롬프트는-몇-분어치인가" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>가정을 세우는 대신 로그를 열었다. 이 머신의 Claude Code 세션 트랜스크립트(<code>~/.claude/projects/*/*.jsonl</code>)에서 <strong>사람이 타이핑한 프롬프트만</strong> 집계했다. 도구 출력, 세션 간 자동 메시지, 스케줄 잡의 프롬프트, 600자를 넘는 붙여넣기(코드·로그 블록은 음성으로 부를 물건이 아니다), 중복을 모두 제외한 값이다.</p>
   <div class="table-scroll">
   <table>
@@ -189,7 +239,7 @@
     <p>하루 종일 일을 시키셔도 입력은 12분이라는 결과가 나왔습니다. 나머지 시간은 저희가 일하는 시간이니, 계산이 맞습니다.</p>
   </div>
 
-  <h2>3. 비용 — 딕테이션에 Realtime 은 과잉이다</h2>
+  <h2 id="비용-딕테이션에-realtime-은-과잉이다" data-anchor="auto">3. 비용 — 딕테이션에 Realtime 은 과잉이다<a class="h-anchor" href="#비용-딕테이션에-realtime-은-과잉이다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>하루 12분(월 6시간)을 각 경로에 넣으면 이렇게 된다.</p>
 
   <figure class="chart" role="img" aria-label="하루 12분 음성 입력 기준 하루 비용 막대 차트: Realtime 음성 대화 약 1.15달러, Realtime 딕테이션 약 0.23달러, Realtime mini 딕테이션 약 0.08달러, gpt-4o-transcribe 약 0.07달러, 로컬 Whisper 0달러">
@@ -230,7 +280,7 @@
   </div>
   <p>구도가 명확하다. <strong>딕테이션이 목적이라면 Realtime API 는 과잉이다.</strong> 같은 회사의 STT 전용 API 가 약 30배 싸고, 로컬 Whisper 는 공짜다. Realtime 의 요금이 의미를 갖는 것은 AI 와 음성으로 왕복 대화할 때뿐이고, 그때도 월 $35 수준이라 부담이 크지는 않다.</p>
 
-  <h2>4. 대안 — 인식 품질을 첫째 기준으로</h2>
+  <h2 id="대안-인식-품질을-첫째-기준으로" data-anchor="auto">4. 대안 — 인식 품질을 첫째 기준으로<a class="h-anchor" href="#대안-인식-품질을-첫째-기준으로" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>가격보다 먼저 볼 것이 인식 품질이라면, 관건은 한국어 자체보다 <strong>코드스위칭</strong>이다. 실제 프롬프트에는 한국어 문장 속에 영문 도구명·옵션·식별자가 계속 섞이는데, 이 혼용이 모든 엔진의 공통 실패 지점이다. 순수 한국어 받아쓰기 성능과는 별개 축이다.</p>
   <div class="table-scroll">
   <table>
@@ -245,7 +295,7 @@
   </div>
   <p>한국어 STT 비교 자료들의 구도는 일관된다 — 순수 한국어 대화·회의 전사는 Clova 계열이 강하고, 범용성과 혼용 내성은 Whisper large-v3 계열이 낫다. Whisper 는 작은 모델에서 한국어 오류율이 급격히 나빠지므로 large 가 전제 조건이다.</p>
 
-  <h2>5. 권장 구성</h2>
+  <h2 id="권장-구성" data-anchor="auto">5. 권장 구성<a class="h-anchor" href="#권장-구성" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>구조 포인트가 하나 있다. 마이크는 클라이언트(Windows/Mac) 쪽에 있으므로, <strong>음성은 클라이언트에서 텍스트로 바꾸고 SSH 위로는 텍스트만 보내는 것</strong>이 가장 자연스럽다. 서버로 오디오를 넘길 이유가 없고, 전편의 SSH 포트포워딩 구성과도 충돌하지 않는다.</p>
   <ul>
     <li><strong>1단계 (무료 검증)</strong>: 클라이언트에서 로컬 Whisper large-v3 나 클로바노트로 실제 프롬프트 몇 개를 불러 보고, 기술 용어가 얼마나 깨지는지 확인한다.</li>
@@ -260,7 +310,7 @@
 
   <hr>
 
-  <h2>6. 추가 조사 — 클로바노트로 hold-to-speech 가 되는가</h2>
+  <h2 id="추가-조사-클로바노트로-hold-to-speech-가-되는가" data-anchor="auto">6. 추가 조사 — 클로바노트로 hold-to-speech 가 되는가<a class="h-anchor" href="#추가-조사-클로바노트로-hold-to-speech-가-되는가" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p class="note">2026-07-17 추가. 발행 후 이어진 질문: 매크로 키보드의 키를 <strong>누르는 동안만 듣고, 떼면 커서 위치에 텍스트가 꽂히는</strong> hold-to-speech 형태로 Windows Terminal 에서 쓰고 싶은데, 클로바노트가 이 패턴과 맞는가. 붙여넣기 같은 손 조작이 다시 생기는 것은 피하고 싶다.</p>
 
   <p>결론부터: <strong>클로바노트는 이 사용 형태와 맞지 않는다.</strong> 클로바노트는 회의·강의를 녹음해 두고 나중에 전사·요약하는 <em>기록 제품</em>이지, 커서에 텍스트를 꽂아 주는 <em>입력기</em>가 아니다. 구체적으로 두 지점에서 어긋난다.</p>
@@ -292,7 +342,7 @@
     <p>"귀찮은 걸 피하려고 골랐는데 다른 귀찮음이 생기는" 경로를 걸러내는 것이 이번 추가 조사의 전부였습니다. 남은 후보는 키 하나로 끝나는 것들뿐이니, 여기서 다시 닫겠습니다.</p>
   </div>
 
-  <h2>출처</h2>
+  <h2 id="출처" data-anchor="auto">출처<a class="h-anchor" href="#출처" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <ul class="src">
     <li><a href="https://openai.com/index/introducing-gpt-realtime/">Introducing gpt-realtime — OpenAI</a> · <a href="https://developers.openai.com/api/docs/pricing">OpenAI API Pricing</a></li>
     <li><a href="https://hackernoon.com/openai-realtime-api-pricing-in-2026-real-world-data-from-4000-measured-sessions">Realtime API 실측 비용 분석, 4,000세션 (2026)</a></li>

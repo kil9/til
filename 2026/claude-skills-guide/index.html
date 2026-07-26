@@ -113,6 +113,42 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Claude 스킬 만들기: Anthropic 공식 가이드 정리">
 <!-- PAGEOG:END -->
+<!-- PAGETOC-CSS:START -->
+<style>
+  /* 절 앵커·목차(TASK-108). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .h-anchor {
+    margin-left: 0.35em; font-weight: 400; text-decoration: none;
+    color: var(--text-faint, #6E7A86); opacity: 0; transition: opacity 0.12s;
+  }
+  h2:hover > .h-anchor, .h-anchor:focus-visible { opacity: 1; }
+  /* 터치 기기는 hover 가 없어 영영 안 보인다 — 옅게라도 늘 띄운다. */
+  @media (hover: none) { .h-anchor { opacity: 0.4; } }
+  .pagetoc {
+    --tc-rule: var(--rule, #E3E7EB); --tc-faint: var(--text-faint, #6E7A86);
+    --tc-accent: var(--accent, #1A5FC8); --tc-text: var(--text, #1B2027);
+    margin: 28px 0 36px; padding: 14px 0; border-top: 1px solid var(--tc-rule);
+    border-bottom: 1px solid var(--tc-rule);
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagetoc {
+      --tc-rule: var(--rule, #2A3037); --tc-faint: var(--text-faint, #7E8994);
+      --tc-accent: var(--accent, #82B1F0); --tc-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagetoc-label {
+    margin: 0 0 8px; color: var(--tc-faint);
+    font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagetoc ol {
+    margin: 0; padding: 0; list-style: none;
+    display: grid; gap: 4px;
+  }
+  .pagetoc a { color: var(--tc-text); text-decoration: none; font-size: 0.875rem; }
+  .pagetoc a:hover, .pagetoc a:focus-visible {
+    color: var(--tc-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+</style>
+<!-- PAGETOC-CSS:END -->
 </head>
 <body>
 <main>
@@ -124,7 +160,24 @@
     를 한글로 정리했다. 스킬의 구조와 설계 원칙부터 YAML frontmatter 작성법, 테스트, 배포,
     실전 패턴 5종과 트러블슈팅까지 원문의 흐름을 따라 요약한다. (원문 기준 시점: 2026년 1월)</p>
 
-  <h2 id="what">스킬이란 무엇인가</h2>
+  <!-- PAGETOC:START -->
+<nav class="pagetoc" aria-label="목차">
+  <p class="pagetoc-label">목차</p>
+  <ol>
+    <li><a href="#what">스킬이란 무엇인가</a></li>
+    <li><a href="#mcp">MCP 와 스킬의 관계</a></li>
+    <li><a href="#planning">계획: 유스케이스에서 시작한다</a></li>
+    <li><a href="#tech">기술 요구사항</a></li>
+    <li><a href="#testing">테스트와 반복</a></li>
+    <li><a href="#distribution">배포와 공유</a></li>
+    <li><a href="#patterns">실전 패턴 5종</a></li>
+    <li><a href="#troubleshooting">트러블슈팅</a></li>
+    <li><a href="#checklist">퀵 체크리스트 요약</a></li>
+    <li><a href="#refs">참고 자료</a></li>
+  </ol>
+</nav>
+<!-- PAGETOC:END -->
+  <h2 id="what">스킬이란 무엇인가<a class="h-anchor" href="#what" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p><strong>스킬(skill)</strong>은 특정 작업이나 워크플로를 처리하는 방법을 Claude 에게 가르치는
     지시문 묶음으로, 폴더 하나로 패키징된다. 매 대화마다 선호·프로세스·도메인 지식을 다시
     설명하는 대신, 한 번 가르쳐 두고 계속 써먹는 장치다. 반복 가능한 워크플로가 있을 때
@@ -186,7 +239,7 @@
       동작한다. 한 번 만들면 수정 없이 모든 표면에서 쓸 수 있다(환경이 의존성을 지원하는 한).</li>
   </ul>
 
-  <h2 id="mcp">MCP 와 스킬의 관계</h2>
+  <h2 id="mcp">MCP 와 스킬의 관계<a class="h-anchor" href="#mcp" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>원문은 주방 비유를 쓴다. <strong>MCP 는 전문 주방</strong>(도구·재료·장비에 대한 접근)을,
     <strong>스킬은 레시피</strong>(가치 있는 결과물을 만드는 단계별 지침)를 제공한다.
     이미 동작하는 MCP 서버가 있다면 어려운 일은 끝났고, 스킬은 그 위에 얹는 지식 레이어다.</p>
@@ -205,7 +258,7 @@
     결과도 제각각이 된다. 스킬이 있으면 미리 만든 워크플로가 필요할 때 자동으로 활성화되고,
     도구 사용이 일관되며, 모범 사례가 모든 상호작용에 내장된다.</p>
 
-  <h2 id="planning">계획: 유스케이스에서 시작한다</h2>
+  <h2 id="planning">계획: 유스케이스에서 시작한다<a class="h-anchor" href="#planning" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>코드를 쓰기 전에 스킬이 가능하게 할 <strong>구체적 유스케이스 2-3개</strong>를 먼저 정의한다.
     좋은 유스케이스 정의에는 트리거(사용자가 뭐라고 말하는가), 단계, 기대 결과가 들어간다.
     스스로 물어볼 것: 사용자가 무엇을 이루려 하는가? 어떤 멀티스텝 워크플로가 필요한가?
@@ -249,7 +302,7 @@
       결과가 일관되는가.</li>
   </ul>
 
-  <h2 id="tech">기술 요구사항</h2>
+  <h2 id="tech">기술 요구사항<a class="h-anchor" href="#tech" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <h3>파일·이름 규칙 (Critical rules)</h3>
   <ul>
     <li>메인 파일 이름은 정확히 <code>SKILL.md</code> (대소문자 구분, SKILL.MD·skill.md 불가).</li>
@@ -309,7 +362,7 @@ description: Implements the Project entity model with hierarchical
       상세 문서는 <code>references/</code> 로 옮겨 링크한다.</li>
   </ul>
 
-  <h2 id="testing">테스트와 반복</h2>
+  <h2 id="testing">테스트와 반복<a class="h-anchor" href="#testing" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>테스트 수단은 셋이다: Claude.ai 에서 수동 테스트(설정 없이 빠른 반복),
     Claude Code 스크립트 테스트(변경마다 반복 가능한 자동 검증),
     Skills API 기반 프로그래매틱 테스트(정의된 테스트셋에 대한 평가 스위트).
@@ -349,7 +402,7 @@ description: Implements the Project entity model with hierarchical
     처리 추가. 디버깅 요령: Claude 에게 "이 스킬 언제 쓸 거야?" 라고 물으면 description 을
     되읽어 주므로, 빠진 것을 기준으로 조정한다.</p>
 
-  <h2 id="distribution">배포와 공유</h2>
+  <h2 id="distribution">배포와 공유<a class="h-anchor" href="#distribution" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>개인 사용자는 스킬 폴더를 (필요하면 zip 으로) Claude.ai 의 Settings → Capabilities →
     Skills 에 업로드하거나 Claude Code 스킬 디렉터리에 놓는다. 조직 레벨로는 관리자가
     워크스페이스 전체에 배포할 수 있다(2025년 12월 출시: 자동 업데이트·중앙 관리).</p>
@@ -379,7 +432,7 @@ description: Implements the Project entity model with hierarchical
     "YAML frontmatter 를 담은 폴더" ❌ 가 아니라 "수동 설정 30분 대신 몇 초 만에 완전한
     프로젝트 워크스페이스 구성" ⭕.</p>
 
-  <h2 id="patterns">실전 패턴 5종</h2>
+  <h2 id="patterns">실전 패턴 5종<a class="h-anchor" href="#patterns" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>얼리어답터와 내부 팀의 스킬에서 관찰된, 규범이 아닌 참고용 패턴들이다. 접근법을 고를 때는
     Home Depot 비유가 나온다: 문제를 들고 가서 도구를 안내받거나(<strong>problem-first</strong>:
     사용자는 결과를 묘사하고 스킬이 도구를 다룬다), 도구를 사 놓고 용법을 배우거나
@@ -418,7 +471,7 @@ description: Implements the Project entity model with hierarchical
     </table>
   </div>
 
-  <h2 id="troubleshooting">트러블슈팅</h2>
+  <h2 id="troubleshooting">트러블슈팅<a class="h-anchor" href="#troubleshooting" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <div class="tablewrap">
     <table>
       <thead><tr><th>증상</th><th>흔한 원인</th><th>해법</th></tr></thead>
@@ -469,7 +522,7 @@ description: Implements the Project entity model with hierarchical
   <p>언어 지시보다 코드가 결정적이라는 조언도 있다: 중요한 검증은 말로 시키지 말고
     검사를 프로그래매틱하게 수행하는 스크립트를 번들하라(Office 스킬들이 이 패턴의 예).</p>
 
-  <h2 id="checklist">퀵 체크리스트 요약</h2>
+  <h2 id="checklist">퀵 체크리스트 요약<a class="h-anchor" href="#checklist" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <ul>
     <li><strong>시작 전</strong>: 구체적 유스케이스 2-3개 식별, 도구(내장/MCP) 식별, 폴더 구조 계획.</li>
     <li><strong>개발 중</strong>: kebab-case 폴더명, 정확한 SKILL.md 철자, <code>---</code> 구분자,
@@ -481,7 +534,7 @@ description: Implements the Project entity model with hierarchical
       description·지시문 반복 개선, metadata 버전 갱신.</li>
   </ul>
 
-  <h2 id="refs">참고 자료</h2>
+  <h2 id="refs">참고 자료<a class="h-anchor" href="#refs" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <ul>
     <li>원문 PDF: <a href="https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf">The Complete Guide to Building Skills for Claude</a></li>
     <li>Anthropic 공개 스킬 저장소: <a href="https://github.com/anthropics/skills">anthropics/skills</a> (커스터마이즈 가능한 공식 예제·문서 스킬)</li>

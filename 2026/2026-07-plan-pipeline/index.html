@@ -159,6 +159,42 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="두 세션 플랜 파이프라인 — Claude Code 를 생산자·소비자로">
 <!-- PAGEOG:END -->
+<!-- PAGETOC-CSS:START -->
+<style>
+  /* 절 앵커·목차(TASK-108). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .h-anchor {
+    margin-left: 0.35em; font-weight: 400; text-decoration: none;
+    color: var(--text-faint, #6E7A86); opacity: 0; transition: opacity 0.12s;
+  }
+  h2:hover > .h-anchor, .h-anchor:focus-visible { opacity: 1; }
+  /* 터치 기기는 hover 가 없어 영영 안 보인다 — 옅게라도 늘 띄운다. */
+  @media (hover: none) { .h-anchor { opacity: 0.4; } }
+  .pagetoc {
+    --tc-rule: var(--rule, #E3E7EB); --tc-faint: var(--text-faint, #6E7A86);
+    --tc-accent: var(--accent, #1A5FC8); --tc-text: var(--text, #1B2027);
+    margin: 28px 0 36px; padding: 14px 0; border-top: 1px solid var(--tc-rule);
+    border-bottom: 1px solid var(--tc-rule);
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagetoc {
+      --tc-rule: var(--rule, #2A3037); --tc-faint: var(--text-faint, #7E8994);
+      --tc-accent: var(--accent, #82B1F0); --tc-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagetoc-label {
+    margin: 0 0 8px; color: var(--tc-faint);
+    font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagetoc ol {
+    margin: 0; padding: 0; list-style: none;
+    display: grid; gap: 4px;
+  }
+  .pagetoc a { color: var(--tc-text); text-decoration: none; font-size: 0.875rem; }
+  .pagetoc a:hover, .pagetoc a:focus-visible {
+    color: var(--tc-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+</style>
+<!-- PAGETOC-CSS:END -->
 </head>
 <body>
 
@@ -198,7 +234,24 @@
   </div>
 
   <!-- ============================ TL;DR ============================ -->
-  <h2 id="tldr"><span class="n">1</span>한눈에 보기</h2>
+  <!-- PAGETOC:START -->
+<nav class="pagetoc" aria-label="목차">
+  <p class="pagetoc-label">목차</p>
+  <ol>
+    <li><a href="#tldr">1 한눈에 보기</a></li>
+    <li><a href="#why">2 왜 한 세션이 아니라 두 세션인가</a></li>
+    <li><a href="#queue">3 PLAN.md — 두 세션을 잇는 공유 큐</a></li>
+    <li><a href="#producer">4 생산자 세션 — 계획을 쌓는다 Producer</a></li>
+    <li><a href="#consumer">5 소비자 세션 — 계획을 실행한다 Consumer</a></li>
+    <li><a href="#flow">6 전체 흐름 — 하루가 어떻게 돌아가나</a></li>
+    <li><a href="#collision">7 같은 파일인데 왜 안 부딪히나</a></li>
+    <li><a href="#support">8 보조 스킬 — 큐를 건강하게 유지</a></li>
+    <li><a href="#beads">9 대안 검토 — beads를 채택하지 않은 이유</a></li>
+    <li><a href="#cheat">10 치트시트</a></li>
+  </ol>
+</nav>
+<!-- PAGETOC:END -->
+  <h2 id="tldr"><span class="n">1</span>한눈에 보기<a class="h-anchor" href="#tldr" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p class="sub">두 개의 Claude Code 창을 띄운다. 왼쪽 창은 "다음에 뭘 할지"를 계속 적고, 오른쪽 창은 적힌 걸 하나씩 구현·검증·커밋한다. 둘 사이를 잇는 건 저장소 루트의 <code>PLAN.md</code> 파일 하나다.</p>
 
   <figure>
@@ -255,7 +308,7 @@
   <p>핵심은 <strong>두 역할을 물리적으로 다른 세션에 분리</strong>했다는 점이다. 계획을 세우는 머리(기획)와 코드를 짜는 머리(실행)는 필요한 맥락도, 사고 모드도 다르다. 한 세션에서 둘을 오가면 컨텍스트가 뒤섞이고 전환 비용이 든다. 파일 하나(<code>PLAN.md</code>)를 큐로 두면 두 머리가 서로를 기다리지 않고 각자의 속도로 돈다.</p>
 
   <!-- ============================ WHY ============================ -->
-  <h2 id="why"><span class="n">2</span>왜 한 세션이 아니라 두 세션인가</h2>
+  <h2 id="why"><span class="n">2</span>왜 한 세션이 아니라 두 세션인가<a class="h-anchor" href="#why" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p class="sub">"계획하면서 동시에 구현하면 되지 않나?"에 대한 답.</p>
 
   <p>가능은 하다. 하지만 한 세션에 기획과 실행을 몰아넣으면 세 가지 비용이 생긴다.</p>
@@ -308,7 +361,7 @@
   </div>
 
   <!-- ============================ QUEUE ============================ -->
-  <h2 id="queue"><span class="n">3</span>PLAN.md — 두 세션을 잇는 공유 큐</h2>
+  <h2 id="queue"><span class="n">3</span>PLAN.md — 두 세션을 잇는 공유 큐<a class="h-anchor" href="#queue" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p class="sub">모든 게 이 파일 하나로 돌아간다. 세션은 서로 직접 말하지 않는다 — 오직 이 파일을 통해서만.</p>
 
   <p><code>PLAN.md</code>는 저장소 루트의 단일 마스터 문서다(파일명이 <code>PLAN_&lt;slug&gt;.md</code> 여도 된다 — 모든 스킬이 <code>PLAN.md</code> 우선, 없으면 <code>PLAN_*.md</code> 중 최근 수정본으로 폴백한다). 세션 리셋 후에도 이 파일만으로 작업을 재개할 수 있을 만큼 상세하게, 그러나 큐로 쓸 수 있을 만큼 구조적으로 적는다. 항목은 세 계열로 번호를 매긴다.</p>
@@ -363,7 +416,7 @@
 <span class="cmt">(I-N 으로 모음. follow-plan 진행 대상 아님.)</span></code></pre>
 
   <!-- ============================ PRODUCER ============================ -->
-  <h2 id="producer"><span class="n">4</span>생산자 세션 — 계획을 쌓는다 <span class="tag p">Producer</span></h2>
+  <h2 id="producer"><span class="n">4</span>생산자 세션 — 계획을 쌓는다 <span class="tag p">Producer</span><a class="h-anchor" href="#producer" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p class="sub">여기서는 코드를 거의 짜지 않는다. "다음에 뭘 할지"를 큐에 정확히 적어 넣는 게 전부다.</p>
 
   <p>생산자 세션에서 가장 많이 쓰는 건 <a class="chip p" href="add-plan.html">/add-plan</a>이다. 떠오른 작업을 인자로 던지면, 스킬이 <strong>가벼운 조사만</strong> 하고(관련 파일·선행 태스크 확인 정도) 애매한 점을 <code>AskUserQuestion</code>으로 물어 정리한 뒤, 다음 <code>T</code> 번호를 붙여 백로그 맨 아래에 <strong>append</strong>한다. 구현은 시작하지 않는다 — 그건 소비자의 몫이다.</p>
@@ -417,7 +470,7 @@
   </div>
 
   <!-- ============================ CONSUMER ============================ -->
-  <h2 id="consumer"><span class="n">5</span>소비자 세션 — 계획을 실행한다 <span class="tag c">Consumer</span></h2>
+  <h2 id="consumer"><span class="n">5</span>소비자 세션 — 계획을 실행한다 <span class="tag c">Consumer</span><a class="h-anchor" href="#consumer" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p class="sub">큐에 쌓인 T 태스크를 꺼내 구현·검증·커밋으로 완결한다. 상황에 따라 세 가지 소비 모드가 있다.</p>
 
   <p>모든 소비자 스킬은 같은 불변식을 지킨다: <strong>구현 → 검증 → 커밋</strong>을 한 태스크 단위로 완결하고, 검증을 통과하지 못하면 커밋하지 않으며, 커밋 없이 다음 태스크로 넘어가지 않는다. 다른 건 <em>얼마나 병렬로, 어디서</em> 실행하느냐다.</p>
@@ -508,7 +561,7 @@
   </div>
 
   <!-- ============================ FLOW ============================ -->
-  <h2 id="flow"><span class="n">6</span>전체 흐름 — 하루가 어떻게 돌아가나</h2>
+  <h2 id="flow"><span class="n">6</span>전체 흐름 — 하루가 어떻게 돌아가나<a class="h-anchor" href="#flow" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p class="sub">두 세션이 시간축 위에서 어떻게 맞물리는지.</p>
 
   <figure>
@@ -568,7 +621,7 @@
   </ol>
 
   <!-- ============================ COLLISION ============================ -->
-  <h2 id="collision"><span class="n">7</span>같은 파일인데 왜 안 부딪히나</h2>
+  <h2 id="collision"><span class="n">7</span>같은 파일인데 왜 안 부딪히나<a class="h-anchor" href="#collision" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p class="sub">두 세션이 같은 PLAN.md를 동시에 쓴다. 뒤에 저장한 쪽이 덮어쓸 것 같은데, 실제로는 거의 부딪히지 않는다. 왜?</p>
 
   <p>답은 <strong>둘이 파일의 서로 다른 구역을 건드리기 때문</strong>이다. 생산자는 백로그 <em>끝에 새 줄을 붙이고(append)</em>, 소비자는 <em>이미 있는 태스크의 체크박스를 뒤집고 진행 로그를 남긴다</em>. 물리적으로 겹치는 라인이 거의 없다.</p>
@@ -620,7 +673,7 @@
   </div>
 
   <!-- ============================ SUPPORT ============================ -->
-  <h2 id="support"><span class="n">8</span>보조 스킬 — 큐를 건강하게 유지</h2>
+  <h2 id="support"><span class="n">8</span>보조 스킬 — 큐를 건강하게 유지<a class="h-anchor" href="#support" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p class="sub">채우고 비우는 것 말고, 큐 자체를 관리하는 두 손잡이.</p>
 
   <div class="grid">
@@ -670,7 +723,7 @@
   </figure>
 
   <!-- ============================ BEADS ============================ -->
-  <h2 id="beads"><span class="n">9</span>대안 검토 — beads를 채택하지 않은 이유</h2>
+  <h2 id="beads"><span class="n">9</span>대안 검토 — beads를 채택하지 않은 이유<a class="h-anchor" href="#beads" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p class="sub">"마크다운 플랜 파일은 원시적이지 않나? 전용 도구를 쓰지 그래?"에 대한 답. 대표 주자인 beads와 비교해 본다.</p>
 
   <p><a href="https://github.com/gastownhall/beads">beads</a>(<code>bd</code>)는 정확히 이 파이프라인이 다루는 문제 — "AI 코딩 에이전트가 장기 작업에서 컨텍스트를 잃지 않게 하기" — 를 겨냥한 <strong>의존성 그래프 기반 이슈 트래커</strong>다. 마크다운 TODO/플랜 파일을 대체하겠다고 명시적으로 선언하는 도구이고, 실제로 잘 만들어져 있다. 이슈가 그래프의 노드, 의존이 엣지가 되고, 임베디드 SQL 데이터베이스(Dolt)에 저장된다.</p>
@@ -712,7 +765,7 @@
   </div>
 
   <!-- ============================ CHEAT ============================ -->
-  <h2 id="cheat"><span class="n">10</span>치트시트</h2>
+  <h2 id="cheat"><span class="n">10</span>치트시트<a class="h-anchor" href="#cheat" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p class="sub">역할별로 어떤 손잡이를 언제 당기나.</p>
 
   <table>

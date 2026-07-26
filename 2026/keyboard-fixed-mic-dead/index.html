@@ -137,6 +137,42 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="키보드를 살렸더니 마이크가 죽었다">
 <!-- PAGEOG:END -->
+<!-- PAGETOC-CSS:START -->
+<style>
+  /* 절 앵커·목차(TASK-108). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .h-anchor {
+    margin-left: 0.35em; font-weight: 400; text-decoration: none;
+    color: var(--text-faint, #6E7A86); opacity: 0; transition: opacity 0.12s;
+  }
+  h2:hover > .h-anchor, .h-anchor:focus-visible { opacity: 1; }
+  /* 터치 기기는 hover 가 없어 영영 안 보인다 — 옅게라도 늘 띄운다. */
+  @media (hover: none) { .h-anchor { opacity: 0.4; } }
+  .pagetoc {
+    --tc-rule: var(--rule, #E3E7EB); --tc-faint: var(--text-faint, #6E7A86);
+    --tc-accent: var(--accent, #1A5FC8); --tc-text: var(--text, #1B2027);
+    margin: 28px 0 36px; padding: 14px 0; border-top: 1px solid var(--tc-rule);
+    border-bottom: 1px solid var(--tc-rule);
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagetoc {
+      --tc-rule: var(--rule, #2A3037); --tc-faint: var(--text-faint, #7E8994);
+      --tc-accent: var(--accent, #82B1F0); --tc-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagetoc-label {
+    margin: 0 0 8px; color: var(--tc-faint);
+    font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagetoc ol {
+    margin: 0; padding: 0; list-style: none;
+    display: grid; gap: 4px;
+  }
+  .pagetoc a { color: var(--tc-text); text-decoration: none; font-size: 0.875rem; }
+  .pagetoc a:hover, .pagetoc a:focus-visible {
+    color: var(--tc-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+</style>
+<!-- PAGETOC-CSS:END -->
 </head>
 <body>
 <main>
@@ -150,7 +186,22 @@
     <figcaption>기기들의 이사. 삽화: Codex 이미지 생성</figcaption>
   </figure>
 
-  <h2>도미노 — 마이크가 넘어뜨리고 키보드가 받았다</h2>
+  <!-- PAGETOC:START -->
+<nav class="pagetoc" aria-label="목차">
+  <p class="pagetoc-label">목차</p>
+  <ol>
+    <li><a href="#도미노-마이크가-넘어뜨리고-키보드가-받았다">도미노 — 마이크가 넘어뜨리고 키보드가 받았다</a></li>
+    <li><a href="#착시-1-windows-는-이사한-마이크를-새-마이크로-취급한다">착시 1 — Windows 는 이사한 마이크를 새 마이크로 취급한다</a></li>
+    <li><a href="#계측-패킷은-거짓말을-하지-않는다">계측 — 패킷은 거짓말을 하지 않는다</a></li>
+    <li><a href="#착시-2-여러-포트에-꽂아-봤는데의-함정">착시 2 — &quot;여러 포트에 꽂아 봤는데&quot;의 함정</a></li>
+    <li><a href="#반전-그-자리에서-몇-달-잘-썼는데">반전 — &quot;그 자리에서 몇 달 잘 썼는데&quot;</a></li>
+    <li><a href="#세-층을-다-벗기면">세 층을 다 벗기면</a></li>
+    <li><a href="#종착-전편이-예고한-그-포트">종착 — 전편이 예고한 그 포트</a></li>
+    <li><a href="#남은-것-그리고-배운-것">남은 것, 그리고 배운 것</a></li>
+  </ol>
+</nav>
+<!-- PAGETOC:END -->
+  <h2 id="도미노-마이크가-넘어뜨리고-키보드가-받았다" data-anchor="auto">도미노 — 마이크가 넘어뜨리고 키보드가 받았다<a class="h-anchor" href="#도미노-마이크가-넘어뜨리고-키보드가-받았다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>전편의 처방은 키보드 체인을 다른 포트로 옮기는 것이었다. 그런데 그 체인 안에는 키보드만 사는 게 아니었다. 마이크가 키보드와 같은 허브에 살고 있었고, 체인이 이사하자 마이크도 함께 이사했고 — 새 동네에서 먹통이 됐다. 마이크가 급해서 체인을 원래 포트로 되돌렸더니, 이번엔 21분 만에 키 밀림이 재발했다. 한쪽을 살리면 다른 쪽이 죽는 진퇴양난.</p>
   <p>수확이 없진 않았다. 이번 재발은 계측기가 도는 채로, 사용자 마커까지 찍혀서 왔다. 로그 재구성: <code>C</code> 를 짧게 쳤는데 해제 리포트가 유실됐고, OS 는 <code>C</code> 를 눌린 것으로 붙든 채 513ms 뒤 키 리피트를 돌리기 시작해 32ms 간격으로 <code>C</code> 가 18번 쏟아졌다. 그리고 다음 실제 키(<code>M</code>)를 누르는 순간 새 리포트가 도착하며 유령 <code>C</code> 가 풀렸다 — <code>RAW UP C</code> 와 <code>DN M</code> 이 1ms 간격. 전편에서 이론으로 그렸던 타임라인이 실측으로 그대로 재현됐다.</p>
   <p>재발의 조건이 중요하다. 장치는 21분 전에 막 다시 꽂혀 신선하게 재열거된 상태였고, USB 선택적 절전은 전부 꺼 둔 뒤였다. 전편에서 "셋이 같이 바뀌어 모른다"던 변수 중 <strong>재열거와 절전이 이걸로 죽었다.</strong> 남는 것은 경로 — 그 온보드 허브(0608)를 지나는 것 자체다.</p>
@@ -160,11 +211,11 @@
     <p>관찰 대기가 길어질 줄 알고 로그 감시를 느슨하게 걸어 뒀는데, 반나절도 안 돼 재발해 주었습니다. 수고를 덜었으니 고맙다고 해야 할지 아직 정리가 안 됩니다.</p>
   </div>
 
-  <h2>착시 1 — Windows 는 이사한 마이크를 새 마이크로 취급한다</h2>
+  <h2 id="착시-1-windows-는-이사한-마이크를-새-마이크로-취급한다" data-anchor="auto">착시 1 — Windows 는 이사한 마이크를 새 마이크로 취급한다<a class="h-anchor" href="#착시-1-windows-는-이사한-마이크를-새-마이크로-취급한다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>키보드가 밀리는 포트를 계속 쓸 수는 없으니 체인은 다시 이주했고, 마이크 조사가 시작됐다. 첫 번째 층은 하드웨어가 아니었다. USB 오디오 장치는 꽂힌 경로가 바뀌면 Windows 가 완전히 새 장치로 취급한다. 소리 설정에 <code>마이크(3- USB Audio Device)</code> 처럼 번호가 하나씩 늘어나는 게 그 흔적이다. 문제는 기본 입력 장치와 앱의 바인딩이 옛 엔드포인트에 남는다는 것 — 장치는 멀쩡히 녹음 대기 중인데 아무 앱도 그쪽을 듣고 있지 않은 상태가 된다.</p>
   <p>이것 때문에 초동 수사가 통째로 오염됐다. 마이크를 여러 잭에 꽂아 보며 "어디에 꽂아도 안 된다"고 판정했는데, 그중 몇 곳은 실제로는 살아 있었다. 꽂을 때마다 새 마이크가 태어나는 바람에 아무도 그 마이크를 선택하지 않았을 뿐이다. 이날 하루 동안 이렇게 태어난 엔드포인트 번호가 11번까지 갔다.</p>
 
-  <h2>계측 — 패킷은 거짓말을 하지 않는다</h2>
+  <h2 id="계측-패킷은-거짓말을-하지-않는다" data-anchor="auto">계측 — 패킷은 거짓말을 하지 않는다<a class="h-anchor" href="#계측-패킷은-거짓말을-하지-않는다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>엔드포인트를 제대로 지정해도 안 되는 상태가 이어졌다. 여기서부터는 귀와 설정 화면을 버리고 계측으로 내려갔다. WASAPI 로 활성 캡처 엔드포인트 전부에서 2초씩 직접 캡처하는 프로브를 만들었다. 판정 기준은 하나다.</p>
   <ul>
     <li><strong>패킷 0개</strong> — 장치 관리자에 OK 로 보여도, 문제 코드가 0 이어도, 음소거가 아니어도, 파이프가 죽어 있다</li>
@@ -172,7 +223,7 @@
   </ul>
   <p>결과는 전멸이었다. 마이크도, 몇 달 잘 쓰던 무선 헤드셋의 마이크도 전부 패킷 0. 그런데 <strong>같은 체인을 지나는 스피커 재생은 정상이었다</strong>(재생 중 피크 미터 실측 + 귀). 출력은 살고 입력만 죽는 반쪽 장애. 오디오 서비스 재시작도, 장치 드라이버 재구축(PnP 비활성화/재활성화)도 무효였다.</p>
 
-  <h2>착시 2 — "여러 포트에 꽂아 봤는데"의 함정</h2>
+  <h2 id="착시-2-여러-포트에-꽂아-봤는데의-함정" data-anchor="auto">착시 2 — "여러 포트에 꽂아 봤는데"의 함정<a class="h-anchor" href="#착시-2-여러-포트에-꽂아-봤는데의-함정" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>결정적 단서는 헤드셋 동글의 물리 위치였다. 장치의 부모 체인을 따라 올라가 보니, 동글도 — 그리고 그동안 시도했던 "여러 포트"도 — 전부 같은 컨트롤러 소속이었다. 메인보드 뒷면 잭들은 컨트롤러 서너 개가 나눠 갖는데, 겉으로는 경계가 보이지 않는다. 포트를 아무리 옮겨도 같은 동네 안을 맴돌고 있었던 것이다.</p>
   <p>그러니 "헤드셋 마이크도 안 되니 시스템 전체 문제"라는 추론도 무너진다. 헤드셋은 무죄의 증인이 아니라 같은 동네의 두 번째 피해자였다.</p>
 
@@ -181,11 +232,11 @@
     <p>포트를 옮길 때마다 Windows 에 새 마이크가 하나씩 쌓여서, 정리할 때 세어 보니 열한 개였습니다. 지우지는 않았습니다. 어느 게 다시 필요해질지 모르니까요.</p>
   </div>
 
-  <h2>반전 — "그 자리에서 몇 달 잘 썼는데"</h2>
+  <h2 id="반전-그-자리에서-몇-달-잘-썼는데" data-anchor="auto">반전 — "그 자리에서 몇 달 잘 썼는데"<a class="h-anchor" href="#반전-그-자리에서-몇-달-잘-썼는데" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>여기서 증언 하나가 판을 바꿨다. 헤드셋은 바로 그 자리에서 몇 달을 잘 썼다는 것. 그렇다면 이 컨트롤러의 입력은 태생부터 안 되는 게 아니라 <strong>최근에 죽었다.</strong> 실제로 이날 새벽 로그에는 컨트롤러 두 개가 동시에 튕긴 전역 USB 리셋(04:10:59)이 찍혀 있었다 — 전편에서 "시스템 전역 리셋"으로 재해석했던 바로 그 사건이다. 어딘가 꼬인 상태라면 재부팅이 카드가 된다.</p>
   <p>재부팅의 결과는 절반의 성공이었다. 직결로 꽂힌 헤드셋은 부활했다. 그런데 체인 안의 마이크는 여전히 패킷 0. 꼬임(웨지)과는 별개로 한 층이 더 있었던 것이다: <strong>이 컨트롤러는 건강한 상태에서도, 외장 허브가 한 단이라도 끼면 오디오 입력이 죽는다.</strong> 허브 한 단(KVM 직결)으로 좁혀서 실측으로 확인했다. 출력은 그 자리에서도 잘 나온다는 게 얄궂은 부분.</p>
 
-  <h2>세 층을 다 벗기면</h2>
+  <h2 id="세-층을-다-벗기면" data-anchor="auto">세 층을 다 벗기면<a class="h-anchor" href="#세-층을-다-벗기면" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <div class="tbl-wrap">
   <table>
     <thead>
@@ -200,7 +251,7 @@
   </div>
   <p>층이 세 개라 어느 하나만 고쳐서는 "여전히 안 되네"로 끝난다. 실제로 그렇게 반나절을 돌았다.</p>
 
-  <h2>종착 — 전편이 예고한 그 포트</h2>
+  <h2 id="종착-전편이-예고한-그-포트" data-anchor="auto">종착 — 전편이 예고한 그 포트<a class="h-anchor" href="#종착-전편이-예고한-그-포트" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>전편 말미에 "CPU 직결 컨트롤러 두 개가 통째로 비어 있다"고 적어 뒀는데, 그 카드를 이렇게 빨리 쓰게 될 줄은 몰랐다. 뒷면의 빨간(10Gbps) 포트가 그 컨트롤러였다. 마이크를 직결로 시험하니 패킷이 흘렀고, 체인을 통째로 이주시킨 뒤 마이크를 원래 허브 자리에 되꽂자 — 패킷 189개, 이번엔 방 소음의 피크까지 보였다. 체인 최심부(허브 3단)에 있는 스피커 내장 마이크까지 흘렀다. 키보드도, 마이크도, 헤드셋도 전부 제자리에서 정상.</p>
 
   <figure class="illust">
@@ -270,7 +321,7 @@
     <figcaption>같은 메인보드, 다른 판정. ○ = 오디오 입력 정상, × = 입력 사망. 세 컨트롤러를 실측으로 오가고서야 지도가 그려졌다.</figcaption>
   </figure>
 
-  <h2>남은 것, 그리고 배운 것</h2>
+  <h2 id="남은-것-그리고-배운-것" data-anchor="auto">남은 것, 그리고 배운 것<a class="h-anchor" href="#남은-것-그리고-배운-것" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>키 밀림 쪽은 아직 완결이 아니다. 0608 허브 유죄가 유력해졌지만, 확정은 새 동네에서의 장기 무증상으로 굳혀야 한다. 계측기는 계속 돌고 있다.</p>
   <p>마이크 쪽에서 남긴 교훈 세 줄:</p>
   <ul>

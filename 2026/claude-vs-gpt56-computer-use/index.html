@@ -106,6 +106,42 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Claude Fable 5 vs GPT-5.6 — computer use 벤치마크·가격 비교">
 <!-- PAGEOG:END -->
+<!-- PAGETOC-CSS:START -->
+<style>
+  /* 절 앵커·목차(TASK-108). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .h-anchor {
+    margin-left: 0.35em; font-weight: 400; text-decoration: none;
+    color: var(--text-faint, #6E7A86); opacity: 0; transition: opacity 0.12s;
+  }
+  h2:hover > .h-anchor, .h-anchor:focus-visible { opacity: 1; }
+  /* 터치 기기는 hover 가 없어 영영 안 보인다 — 옅게라도 늘 띄운다. */
+  @media (hover: none) { .h-anchor { opacity: 0.4; } }
+  .pagetoc {
+    --tc-rule: var(--rule, #E3E7EB); --tc-faint: var(--text-faint, #6E7A86);
+    --tc-accent: var(--accent, #1A5FC8); --tc-text: var(--text, #1B2027);
+    margin: 28px 0 36px; padding: 14px 0; border-top: 1px solid var(--tc-rule);
+    border-bottom: 1px solid var(--tc-rule);
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagetoc {
+      --tc-rule: var(--rule, #2A3037); --tc-faint: var(--text-faint, #7E8994);
+      --tc-accent: var(--accent, #82B1F0); --tc-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagetoc-label {
+    margin: 0 0 8px; color: var(--tc-faint);
+    font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagetoc ol {
+    margin: 0; padding: 0; list-style: none;
+    display: grid; gap: 4px;
+  }
+  .pagetoc a { color: var(--tc-text); text-decoration: none; font-size: 0.875rem; }
+  .pagetoc a:hover, .pagetoc a:focus-visible {
+    color: var(--tc-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+</style>
+<!-- PAGETOC-CSS:END -->
 </head>
 <body>
 <main>
@@ -117,7 +153,20 @@
   그런데 computer use 성능은 직접 비교가 안 된다. 두 회사가 <strong>서로 다른 OSWorld 변형</strong>에서만 점수를 공개했고, 상대 모델의 점수는 비교표에서 빼 버렸기 때문이다.
   이 글은 공개된 수치만으로 어디까지 말할 수 있는지 정리한 기록이다.</p>
 
-  <h2>1. 벤치마크가 갈라졌다</h2>
+  <!-- PAGETOC:START -->
+<nav class="pagetoc" aria-label="목차">
+  <p class="pagetoc-label">목차</p>
+  <ol>
+    <li><a href="#벤치마크가-갈라졌다">1. 벤치마크가 갈라졌다</a></li>
+    <li><a href="#교차-비교-opus-48-을-다리로">2. 교차 비교 — Opus 4.8 을 다리로</a></li>
+    <li><a href="#api-가격-per-mtok-input-output">3. API 가격 (per MTok, input / output)</a></li>
+    <li><a href="#체급-파괴-매치업-opus-48-vs-gpt-56-terra">4. 체급 파괴 매치업 — Opus 4.8 vs GPT-5.6 Terra</a></li>
+    <li><a href="#정리">5. 정리</a></li>
+    <li><a href="#출처">출처</a></li>
+  </ol>
+</nav>
+<!-- PAGETOC:END -->
+  <h2 id="벤치마크가-갈라졌다" data-anchor="auto">1. 벤치마크가 갈라졌다<a class="h-anchor" href="#벤치마크가-갈라졌다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>computer use 의 대표 벤치마크였던 OSWorld 는 현재 두 갈래다.</p>
   <ul>
     <li><strong>OSWorld-Verified</strong> — 기존 태스크셋의 검증판. 프런티어 모델들이 80% 중반에 몰려 사실상 포화 상태.</li>
@@ -125,7 +174,7 @@
   </ul>
   <p>Anthropic 은 Verified 점수만, OpenAI 는 2.0 점수만 발표했다. 같은 이름을 달고 있지만 태스크셋이 달라 숫자를 나란히 놓을 수 없다.</p>
 
-  <h2>2. 교차 비교 — Opus 4.8 을 다리로</h2>
+  <h2 id="교차-비교-opus-48-을-다리로" data-anchor="auto">2. 교차 비교 — Opus 4.8 을 다리로<a class="h-anchor" href="#교차-비교-opus-48-을-다리로" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>다행히 Claude Opus 4.8 은 양쪽 벤치마크에 모두 점수가 있어 간접 비교의 다리(bridge)가 된다.</p>
   <div class="table-wrap">
     <table>
@@ -148,7 +197,7 @@
     스크린샷을 반복 처리하는 computer use 에이전트 특성상 이 차이는 실운영 비용에 크게 작용한다.</p>
   </div>
 
-  <h2>3. API 가격 (per MTok, input / output)</h2>
+  <h2 id="api-가격-per-mtok-input-output" data-anchor="auto">3. API 가격 (per MTok, input / output)<a class="h-anchor" href="#api-가격-per-mtok-input-output" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <div class="table-wrap">
     <table>
       <thead>
@@ -169,7 +218,7 @@
     <li>실효 비용 격차는 더 크다. Sol 은 토큰 효율(출력 85% 절감)까지 겹쳐, 출력이 많은 에이전트 워크로드에서 단가 × 토큰량 양쪽 모두 저렴하다.</li>
   </ul>
 
-  <h2>4. 체급 파괴 매치업 — Opus 4.8 vs GPT-5.6 Terra</h2>
+  <h2 id="체급-파괴-매치업-opus-48-vs-gpt-56-terra" data-anchor="auto">4. 체급 파괴 매치업 — Opus 4.8 vs GPT-5.6 Terra<a class="h-anchor" href="#체급-파괴-매치업-opus-48-vs-gpt-56-terra" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>Terra 는 절반 가격인데 서드파티 집계 기준 종합 점수가 Opus 4.8 과 동률이다.</p>
   <div class="table-wrap">
     <table>
@@ -192,7 +241,7 @@
   <p>코딩만 Opus 4.8 이 확실히 우위이고, 지식·수학·에이전트 종합은 Terra 가 앞선다.
   Terra 는 "Opus 4.8 동급 종합 점수를 절반 가격에" 파는 포지션이고, Anthropic 쪽 대응 카드는 사실상 Opus 가 아니라 Sonnet 5($3/$15, Terra 와 동일 output 단가)다.</p>
 
-  <h2>5. 정리</h2>
+  <h2 id="정리" data-anchor="auto">5. 정리<a class="h-anchor" href="#정리" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <ul>
     <li><strong>짧은 GUI 조작</strong>(OSWorld-Verified): Claude Fable 5 가 85.0% 로 공식 1위. 단, 상위권이 1.6%p 안에 몰린 포화 벤치마크.</li>
     <li><strong>장기 자율 태스크</strong>(OSWorld 2.0): GPT-5.6 Sol 이 62.6% SOTA. Fable 5 는 미공개.</li>
@@ -203,7 +252,7 @@
 
   <hr>
 
-  <h2>출처</h2>
+  <h2 id="출처" data-anchor="auto">출처<a class="h-anchor" href="#출처" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <ul style="font-size:0.875rem">
     <li><a href="https://openai.com/index/gpt-5-6/" target="_blank" rel="noopener">OpenAI — GPT-5.6 발표</a></li>
     <li><a href="https://benchlm.ai/benchmarks/osWorldVerified" target="_blank" rel="noopener">BenchLM — OSWorld-Verified 리더보드</a></li>

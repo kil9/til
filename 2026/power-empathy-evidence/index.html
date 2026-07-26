@@ -104,6 +104,42 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="&quot;CEO가 되면 뇌가 손상된다&quot;를 다섯 겹 거슬러 올라가 봤다">
 <!-- PAGEOG:END -->
+<!-- PAGETOC-CSS:START -->
+<style>
+  /* 절 앵커·목차(TASK-108). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .h-anchor {
+    margin-left: 0.35em; font-weight: 400; text-decoration: none;
+    color: var(--text-faint, #6E7A86); opacity: 0; transition: opacity 0.12s;
+  }
+  h2:hover > .h-anchor, .h-anchor:focus-visible { opacity: 1; }
+  /* 터치 기기는 hover 가 없어 영영 안 보인다 — 옅게라도 늘 띄운다. */
+  @media (hover: none) { .h-anchor { opacity: 0.4; } }
+  .pagetoc {
+    --tc-rule: var(--rule, #E3E7EB); --tc-faint: var(--text-faint, #6E7A86);
+    --tc-accent: var(--accent, #1A5FC8); --tc-text: var(--text, #1B2027);
+    margin: 28px 0 36px; padding: 14px 0; border-top: 1px solid var(--tc-rule);
+    border-bottom: 1px solid var(--tc-rule);
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagetoc {
+      --tc-rule: var(--rule, #2A3037); --tc-faint: var(--text-faint, #7E8994);
+      --tc-accent: var(--accent, #82B1F0); --tc-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagetoc-label {
+    margin: 0 0 8px; color: var(--tc-faint);
+    font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagetoc ol {
+    margin: 0; padding: 0; list-style: none;
+    display: grid; gap: 4px;
+  }
+  .pagetoc a { color: var(--tc-text); text-decoration: none; font-size: 0.875rem; }
+  .pagetoc a:hover, .pagetoc a:focus-visible {
+    color: var(--tc-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+</style>
+<!-- PAGETOC-CSS:END -->
 </head>
 <body>
 <main>
@@ -175,7 +211,7 @@
 
   <p>그렇다고 원 기사가 무고하냐면 그건 아니다. "Power Causes Brain Damage" 라는 제목은 본문의 헤지를 안 읽는 사람에게 그냥 주장으로 도착한다(잡지 제목을 저자가 붙였는지 편집자가 붙였는지는 확인하지 못했다). 다만 뒤의 층들이 제목을 수동적으로 따라간 것도 아니다. 각 층이 자기 몫의 편집을 했다.</p>
 
-  <h2>밑에 깔린 근거 셋</h2>
+  <h2 id="밑에-깔린-근거-셋" data-anchor="auto">밑에 깔린 근거 셋<a class="h-anchor" href="#밑에-깔린-근거-셋" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
 
   <p>그럼 그 제목을 받치는 연구는 얼마나 버티나. 원 기사가 인용한 셋을 하나씩 열어 봤다.</p>
 
@@ -216,7 +252,7 @@
 
   <p>hubris syndrome 은 공식 진단이 아니다. Owen &amp; Davidson (2009, Brain) 은 1908년 이후 미국 대통령 18명과 영국 총리 26명을 전기와 회고록과 연설문으로 사후 평가해 14개 항목을 제안한 논문이고, 아무도 대면하지 않았다. 논문 스스로 완전한 의학적 진단에는 대면이 필요하다고 적었고 "hubris 자체의 신경생물학에 대해서는 알려진 바가 거의 없다"고도 적었다. DSM-5 에도 ICD-11 에도 없다. 다만 미등재가 현상의 부재를 뜻하지는 않는다. 문제는 지금까지의 설계가 회고적 해석과 선택 편향을 피하기 어렵다는 쪽이고, 재임 전후 비교나 종단 추적 같은 길이 원천봉쇄된 것은 아니다.</p>
 
-  <h2>남는 것</h2>
+  <h2 id="남는-것" data-anchor="auto">남는 것<a class="h-anchor" href="#남는-것" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
 
   <p>정직하게 말하면 방향도 크기도 확정할 수 없다. "권력감을 유도하면 대인 반응성 지표 일부가 낮아지더라"는 소규모 실험 하나가 독립 재현 없이 놓여 있고, 인접 주제에는 반대 방향 결과가 있으며, 나머지 둘은 애초에 뇌를 재지 않았다. 이건 결론이 아니라 미결이다. 사람들이 이 주장에서 기대하는 "권력이 사람을 망가뜨린다"는 서사는, 적어도 이 세 근거로는 못 세운다.</p>
 

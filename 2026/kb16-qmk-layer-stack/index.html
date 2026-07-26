@@ -136,6 +136,42 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="QMK 레이어는 왜 아래를 못 보나">
 <!-- PAGEOG:END -->
+<!-- PAGETOC-CSS:START -->
+<style>
+  /* 절 앵커·목차(TASK-108). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .h-anchor {
+    margin-left: 0.35em; font-weight: 400; text-decoration: none;
+    color: var(--text-faint, #6E7A86); opacity: 0; transition: opacity 0.12s;
+  }
+  h2:hover > .h-anchor, .h-anchor:focus-visible { opacity: 1; }
+  /* 터치 기기는 hover 가 없어 영영 안 보인다 — 옅게라도 늘 띄운다. */
+  @media (hover: none) { .h-anchor { opacity: 0.4; } }
+  .pagetoc {
+    --tc-rule: var(--rule, #E3E7EB); --tc-faint: var(--text-faint, #6E7A86);
+    --tc-accent: var(--accent, #1A5FC8); --tc-text: var(--text, #1B2027);
+    margin: 28px 0 36px; padding: 14px 0; border-top: 1px solid var(--tc-rule);
+    border-bottom: 1px solid var(--tc-rule);
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagetoc {
+      --tc-rule: var(--rule, #2A3037); --tc-faint: var(--text-faint, #7E8994);
+      --tc-accent: var(--accent, #82B1F0); --tc-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagetoc-label {
+    margin: 0 0 8px; color: var(--tc-faint);
+    font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagetoc ol {
+    margin: 0; padding: 0; list-style: none;
+    display: grid; gap: 4px;
+  }
+  .pagetoc a { color: var(--tc-text); text-decoration: none; font-size: 0.875rem; }
+  .pagetoc a:hover, .pagetoc a:focus-visible {
+    color: var(--tc-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+</style>
+<!-- PAGETOC-CSS:END -->
 </head>
 <body>
 <main>
@@ -154,7 +190,21 @@
     <p>관리자님이 "왜 아래 레이어는 볼 수 없냐"고 물으셨습니다. 설정 실수를 찾으려고 시작한 조사인데, 도착한 곳은 15년 전 8비트 마이크로컨트롤러의 사정이었습니다. 이왕 알게 된 것이라 보고서로 남깁니다.</p>
   </div>
 
-  <h2 id="symptom">1. 증상 — 위는 보이는데 아래는 안 보인다</h2>
+  <!-- PAGETOC:START -->
+<nav class="pagetoc" aria-label="목차">
+  <p class="pagetoc-label">목차</p>
+  <ol>
+    <li><a href="#symptom">1. 증상 — 위는 보이는데 아래는 안 보인다</a></li>
+    <li><a href="#bitmask">2. 레이어 상태는 정수 하나다</a></li>
+    <li><a href="#mo0">3. MO(0) 은 어디서도 살아나지 않는다</a></li>
+    <li><a href="#why">4. 이 설계에는 이유가 있다</a></li>
+    <li><a href="#mismatch">5. 매크로패드의 용법과는 안 맞는다</a></li>
+    <li><a href="#fix">6. 고칠 수 있나</a></li>
+    <li><a href="#verdict">7. 결론 — 고장이 아니라 구조였다</a></li>
+  </ol>
+</nav>
+<!-- PAGETOC:END -->
+  <h2 id="symptom">1. 증상 — 위는 보이는데 아래는 안 보인다<a class="h-anchor" href="#symptom" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>이 매크로패드는 16키에 노브 하나, 그 위에 레이어 12장을 얹어 쓴다. 인코더 버튼은 어느 레이어에서든 <code>TO(0)</code>, 즉 홈(레이어 0) 복귀. 키 몇 개의 홀드 슬롯에는 <code>MO(n)</code> 이 배정돼 있어, 누르고 있는 동안만 그 레이어가 겹쳐지고 떼면 원래대로 돌아온다 — 다른 레이어를 잠깐 들춰 보는(peek) 용도다. 그런데 이 들춰 보기가 방향을 탄다. 어느 레이어에 앉아 있느냐에 따라 결과가 이렇게 갈린다.</p>
 
   <div class="tbl-wrap">
@@ -175,7 +225,7 @@
 
   <p>표를 보면 규칙이 하나로 수렴한다. <strong>지금 있는 곳보다 번호가 큰 레이어는 언제나 보이고, 번호가 작은 레이어는 결코 보이지 않는다.</strong> 레이어 4-11 에서 모든 것이 정상인 이유도 같은 규칙이다 — 그 레이어들은 비어 있어서 아무것도 가리지 않을 뿐이다. 그리고 0번 열이 하나 더 이상하다. <code>MO(0)</code> 은 어디에서도, 어떤 조건에서도 동작하지 않는다.</p>
 
-  <h2 id="bitmask">2. 레이어 상태는 정수 하나다</h2>
+  <h2 id="bitmask">2. 레이어 상태는 정수 하나다<a class="h-anchor" href="#bitmask" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>원인을 이해하려면 QMK 가 레이어를 어떻게 저장하는지부터 봐야 한다. 레이어 상태는 스택 자료구조도 리스트도 아니고 <code>layer_state</code> 라는 32비트 정수 하나다. 레이어 n 을 켜는 것은 비트 n 을 세우는 것, 끄는 것은 지우는 것. 키가 눌리면 펌웨어는 맨 위 비트부터 아래로 훑으면서, 켜져 있는 레이어 가운데 그 키를 투명(<code>KC_TRNS</code>)이 아닌 것으로 정의한 첫 번째 레이어를 채택한다.</p>
 
 <pre><code>/* 키가 눌릴 때마다 도는 레이어 결정 로직 (단순화) */
@@ -233,11 +283,11 @@ for (int8_t i = MAX_LAYER - 1; i &gt;= 0; i--) {   /* 맨 위 레이어부터 */
     <figcaption>비트 1을 세우는 데까지는 성공한다. 다만 스캔이 비트 2에서 먼저 멈출 뿐이다. MO(1) 이 "안 눌린" 것이 아니라, 눌렸는데도 이길 수 없는 것이다.</figcaption>
   </figure>
 
-  <h2 id="mo0">3. MO(0) 은 어디서도 살아나지 않는다</h2>
+  <h2 id="mo0">3. MO(0) 은 어디서도 살아나지 않는다<a class="h-anchor" href="#mo0" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p><code>MO(0)</code> 이 죽어 있는 이유는 한 겹 더 근본적이다. 레이어 0 은 default layer 로 <strong>항상 켜져 있다</strong>. <code>MO(0)</code> 은 이미 켜져 있는 비트를 또 켜는 연산이라 <code>layer_state</code> 가 1비트도 변하지 않는다. 눌러도 아무 일도 일어나지 않는 것이 정의상 올바른 동작이다.</p>
   <p>키맵 도구가 <code>MO</code> 키에 띄우는 "대상 레이어에 <code>KC_TRNS</code> 가 필요하다"는 안내는 이 증상과 무관하다. 투명 키는 위 레이어가 아래를 가리지 않게 하는 장치일 뿐, 아래 레이어를 위로 끌어올리는 힘은 없다. 대상 레이어를 투명 키로 도배해도 <code>MO(0)</code> 은 살아나지 않는다. 이 키보드에서 1번 키(F1)의 홀드 슬롯이 아무 반응 없던 원인이 정확히 이것이었다 — 그 슬롯에는 <code>MO(0)</code> 이 들어 있었고, 그 자리는 무엇을 기대하든 태생적으로 무동작이다.</p>
 
-  <h2 id="why">4. 이 설계에는 이유가 있다</h2>
+  <h2 id="why">4. 이 설계에는 이유가 있다<a class="h-anchor" href="#why" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>이 레이어 모델은 QMK 의 전신인 TMK 시절, ATmega32U4(16MHz, RAM 2.5KB) 같은 8비트 마이크로컨트롤러 위에서 나왔다. 그 제약에서 보면 선택이 전부 말이 된다.</p>
   <ul>
     <li><strong>상태 전체가 정수 하나.</strong> 레이어를 켜고 끄는 비용이 OR/AND 각 한 번이다. 이 코드는 키 입력을 처리할 때마다 도는 경로라, 저 사양에서는 이것이 실제로 중요했다.</li>
@@ -246,7 +296,7 @@ for (int8_t i = MAX_LAYER - 1; i &gt;= 0; i--) {   /* 맨 위 레이어부터 */
   </ul>
   <p>즉 이것은 잘못 만든 시스템이 아니다. "베이스 키맵 위에, 홀드하는 동안만 보조 레이어 몇 장을 얹는다"는 용도에 최적화된 시스템이다.</p>
 
-  <h2 id="mismatch">5. 매크로패드의 용법과는 안 맞는다</h2>
+  <h2 id="mismatch">5. 매크로패드의 용법과는 안 맞는다<a class="h-anchor" href="#mismatch" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>문제는 이 매크로패드의 용법이 그 용도가 아니라는 것이다. 16키에 레이어 12장을 얹고 인코더로 <code>TO(0..11)</code> 을 순환하는 세팅은 레이어를 <strong>대등한 작업 모드 12개</strong>로 쓰는 것이다. 라디오 버튼 — 아무거나 골라 들어가고, 어디서든 다른 곳으로 튈 수 있어야 하는 것.</p>
   <p>그 라디오 버튼을 우선순위 스택 위에서 흉내 내는 도구가 <code>TO()</code> 다. <code>TO(n)</code> 은 <code>layer_state</code> 를 통째로 덮어써서 "n 하나만 켜진 상태"를 만든다 — 매번 스택을 갈아엎어 스택이 아닌 척하게 만드는 연산이다. 평소에는 이 위장이 잘 굴러간다. 홈에서 위를 들춰 볼 때도 문제없다. 위장이 벗겨지는 것은 딱 한 지점, 스택 중간에 앉아 아래를 내려다보려는 순간이다. 참고로 <code>DF()</code> 라는 겉보기에 모드 스위처처럼 생긴 키코드도 있지만, 이것도 <code>default_layer_state</code> 를 바꿔 같은 스캔에 참여시키는 것이라 사정이 달라지지 않는다.</p>
 
@@ -289,7 +339,7 @@ for (int8_t i = MAX_LAYER - 1; i &gt;= 0; i--) {   /* 맨 위 레이어부터 */
     <figcaption>원하는 것은 왼쪽, 주어진 것은 오른쪽. TO() 는 오른쪽 구조를 매번 갈아엎어 왼쪽처럼 보이게 하는 위장이고, 위장은 스택 중간에서 아래를 내려다보는 순간 벗겨진다.</figcaption>
   </figure>
 
-  <h2 id="fix">6. 고칠 수 있나</h2>
+  <h2 id="fix">6. 고칠 수 있나<a class="h-anchor" href="#fix" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>키맵 수정만으로는(stock QMK 로는) 안 된다.</p>
   <ul>
     <li><strong>레이어 재배치로는 불가능하다.</strong> 서로 들춰 봐야 하는 레이어가 4장이면 누군가는 항상 나머지 셋의 아래에 있다. "모두가 모두의 위"인 순서는 존재하지 않는다.</li>
@@ -301,7 +351,7 @@ for (int8_t i = MAX_LAYER - 1; i &gt;= 0; i--) {   /* 맨 위 레이어부터 */
     <p>고치는 길이 없지는 않은데, 멀쩡히 도는 펌웨어를 버리고 빌드 환경부터 꾸려야 하는 길입니다. 죽은 홀드 슬롯 하나와 맞바꾸기에는 동선이 너무 깁니다.</p>
   </div>
 
-  <h2 id="verdict">7. 결론 — 고장이 아니라 구조였다</h2>
+  <h2 id="verdict">7. 결론 — 고장이 아니라 구조였다<a class="h-anchor" href="#verdict" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>실사용 기준으로 정리하면 피해는 거의 없다.</p>
   <ul>
     <li>홈이 레이어 0 이고, 거기서는 1/2/3 들춰 보기가 전부 정상이다. 스택 맨 아래는 모두의 아래라서, 홈을 기준으로 움직이는 한 이 구조의 제약을 만날 일이 없다.</li>

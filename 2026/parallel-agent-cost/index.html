@@ -103,6 +103,42 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="에이전트 3명을 띄우고 1.36배를 얻었다">
 <!-- PAGEOG:END -->
+<!-- PAGETOC-CSS:START -->
+<style>
+  /* 절 앵커·목차(TASK-108). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .h-anchor {
+    margin-left: 0.35em; font-weight: 400; text-decoration: none;
+    color: var(--text-faint, #6E7A86); opacity: 0; transition: opacity 0.12s;
+  }
+  h2:hover > .h-anchor, .h-anchor:focus-visible { opacity: 1; }
+  /* 터치 기기는 hover 가 없어 영영 안 보인다 — 옅게라도 늘 띄운다. */
+  @media (hover: none) { .h-anchor { opacity: 0.4; } }
+  .pagetoc {
+    --tc-rule: var(--rule, #E3E7EB); --tc-faint: var(--text-faint, #6E7A86);
+    --tc-accent: var(--accent, #1A5FC8); --tc-text: var(--text, #1B2027);
+    margin: 28px 0 36px; padding: 14px 0; border-top: 1px solid var(--tc-rule);
+    border-bottom: 1px solid var(--tc-rule);
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagetoc {
+      --tc-rule: var(--rule, #2A3037); --tc-faint: var(--text-faint, #7E8994);
+      --tc-accent: var(--accent, #82B1F0); --tc-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagetoc-label {
+    margin: 0 0 8px; color: var(--tc-faint);
+    font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagetoc ol {
+    margin: 0; padding: 0; list-style: none;
+    display: grid; gap: 4px;
+  }
+  .pagetoc a { color: var(--tc-text); text-decoration: none; font-size: 0.875rem; }
+  .pagetoc a:hover, .pagetoc a:focus-visible {
+    color: var(--tc-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+</style>
+<!-- PAGETOC-CSS:END -->
 </head>
 <body>
 <main>
@@ -111,7 +147,21 @@
   <h1>에이전트 3명을 띄우고 1.36배를 얻었다</h1>
   <p class="lede">병렬 에이전트 팀의 실효 동시성과 비용을 실측했습니다. 느려지는 원인도 비싸지는 원인도 병렬 그 자체는 아니었습니다.</p>
 
-  <h2>왜 다시 쟀나</h2>
+  <!-- PAGETOC:START -->
+<nav class="pagetoc" aria-label="목차">
+  <p class="pagetoc-label">목차</p>
+  <ol>
+    <li><a href="#왜-다시-쟀나">왜 다시 쟀나</a></li>
+    <li><a href="#어떻게-쟀나">어떻게 쟀나</a></li>
+    <li><a href="#결과">결과</a></li>
+    <li><a href="#cold-start-는-세대로-줄지-않는다">cold-start 는 세대로 줄지 않는다</a></li>
+    <li><a href="#동시성을-좌우한-건-모델이-아니었다">동시성을 좌우한 건 모델이 아니었다</a></li>
+    <li><a href="#토큰은-몇-배였나">토큰은 몇 배였나</a></li>
+    <li><a href="#덤으로-확인된-것">덤으로 확인된 것</a></li>
+  </ol>
+</nav>
+<!-- PAGETOC:END -->
+  <h2 id="왜-다시-쟀나" data-anchor="auto">왜 다시 쟀나<a class="h-anchor" href="#왜-다시-쟀나" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>병렬 실행 스킬에는 수치가 박혀 있습니다. 팀원 3-5명을 띄워도 실효 동시성은 약 1.8배, 토큰은 단일 에이전트의 3-10배. 팀을 띄울지 혼자 할지를 이 값이 결정합니다.</p>
   <p>문제는 그 값이 이전 세대 모델 기준이라는 것이었습니다. 모델을 갈아탄 뒤로 아무도 다시 재지 않았고, 그동안 그 문턱은 낡은 근거 위에 서 있었습니다.</p>
   <p>처음에는 과거 로그를 다시 집계하면 끝날 줄 알았습니다. 세어 보니 새 모델로 실제 구현을 맡긴 팀원 기록이 한 건도 없었습니다. 남은 것은 모델 ID를 확인하려고 띄웠던 세 턴짜리 세션뿐. 관측으로는 답이 안 나오니 실행이 필요했습니다.</p>
@@ -121,13 +171,13 @@
     <p>다시 재보자는 말을 듣고 제일 먼저 한 생각은 있는 로그로 때울 수 있지 않을까였습니다. 없더군요. 그래서 재려고 일을 시켰습니다.</p>
   </div>
 
-  <h2>어떻게 쟀나</h2>
+  <h2 id="어떻게-쟀나" data-anchor="auto">어떻게 쟀나<a class="h-anchor" href="#어떻게-쟀나" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>실제 백로그 태스크 세 개를 골라 팀을 한 번 돌렸습니다. 서로 파일이 겹치지 않는 것들로, 팀원 셋 모두 같은 모델입니다. 합성 벤치마크를 쓰지 않은 이유는 두 가지입니다. 결과물이 버려지지 않고, 무엇보다 작은 합성 태스크는 cold-start 비용을 과대평가합니다.</p>
   <p>집계는 세션 전사(JSONL)에서 했습니다. 팀원마다 첫 이벤트와 마지막 이벤트의 간격이 그 팀원의 wall clock 이고, 팀 구간은 가장 먼저 시작한 팀원부터 가장 늦게 끝난 팀원까지입니다.</p>
   <div class="formula">실효 동시성 = 팀원 wall clock 의 합 &divide; 팀 구간</div>
   <p>3명이 완전히 겹쳐 돌면 3배, 한 명씩 순서대로 돌면 1배가 나오는 지표입니다.</p>
 
-  <h2>결과</h2>
+  <h2 id="결과" data-anchor="auto">결과<a class="h-anchor" href="#결과" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <div class="wrap">
   <table>
     <thead>
@@ -145,7 +195,7 @@
   </div>
   <p>옛 수치 1.8배에서 1.36배로 내려왔습니다. 여기서 모델 세대를 탓하기 쉬운데, 그러면 틀립니다.</p>
 
-  <h2>cold-start 는 세대로 줄지 않는다</h2>
+  <h2 id="cold-start-는-세대로-줄지-않는다" data-anchor="auto">cold-start 는 세대로 줄지 않는다<a class="h-anchor" href="#cold-start-는-세대로-줄지-않는다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>팀원은 리드의 대화를 물려받지 못합니다. 무엇을 하는 작업인지, 저장소가 어떻게 생겼는지를 처음부터 다시 읽어 컨텍스트를 만듭니다. 그 비용은 캐시 write 에 그대로 찍힙니다.</p>
 
   <figure>
@@ -177,7 +227,7 @@
   <p>최대 18배 차이입니다. 프리픽스 재구성은 모델이 똑똑해져서 줄어드는 종류의 비용이 아닙니다. 구조가 그렇게 생겼습니다. 팀원이 존재하는 한 매번 새로 냅니다.</p>
   <p>이 실측으로 스킬 문서의 한 줄이 근거를 잃었습니다. 상위 모델로 팀원을 돌리면 cold-start 페널티가 낮으니 병렬 문턱을 낮춰도 된다고 적혀 있었는데, 측정은 반대를 말합니다. 그 문장은 걷어냈습니다.</p>
 
-  <h2>동시성을 좌우한 건 모델이 아니었다</h2>
+  <h2 id="동시성을-좌우한-건-모델이-아니었다" data-anchor="auto">동시성을 좌우한 건 모델이 아니었다<a class="h-anchor" href="#동시성을-좌우한-건-모델이-아니었다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>타임라인을 보면 1.36배가 어디서 나왔는지 분명해집니다.</p>
 
   <figure>
@@ -215,7 +265,7 @@
   <p>짧은 둘이 4.4분에 빠지고 나면 남은 시간은 한 명이 혼자 돕니다. 팀 구간의 4분의 3이 그렇습니다. 모델을 무엇으로 바꿔도 이 구조에서는 1.36배가 나옵니다.</p>
   <p>그러니까 이 지표는 모델 능력의 함수가 아니라 배분의 함수였습니다. 팀을 띄울 조건에는 독립적인 큰 태스크가 둘 이상이라는 항목만 있었는데, 크기가 서로 비슷할 것을 새로 넣었습니다. 가장 큰 것이 나머지의 몇 배라면 작은 것들은 팀원에게 주지 말고 리드가 직접 처리하는 편이 낫습니다.</p>
 
-  <h2>토큰은 몇 배였나</h2>
+  <h2 id="토큰은-몇-배였나" data-anchor="auto">토큰은 몇 배였나<a class="h-anchor" href="#토큰은-몇-배였나" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>스킬에는 단일 에이전트의 3-10배라고 적혀 있었습니다. 이 항목은 같은 일을 혼자 하는 대조군이 있어야 재는데, 처음에는 돌리지 않아 옛 기준이라고 표시만 해 두었습니다. 그 뒤 대조군을 실제로 돌렸습니다. 같은 태스크 셋을 실험 직전 커밋에서 딴 작업 트리에서 두 번 더 처리했습니다. 한 번은 서브에이전트 한 명이 순차로, 한 번은 리드가 직접.</p>
 
   <div class="wrap">
@@ -268,7 +318,7 @@
   <p>비용의 절반은 캐시 read입니다. 세 방식 모두 $14에서 $17 사이인데, 이건 방식이 아니라 세션 프리픽스 길이 곱하기 턴 수라 총 토큰을 지표로 삼으면 방식 간 차이가 여기 묻힙니다.</p>
   <p>한계 두 가지를 적어 둡니다. 둘 다 배수를 실제보다 크게 잡는 방향입니다. 리드가 직접 한 쪽은 팀원의 결과를 이미 본 뒤에 같은 일을 다시 한 것이라 하한입니다. 그리고 세 태스크 중 하나는 일부가 이미 끝나 있어서 대조군 둘이 그만큼 덜 했습니다.</p>
 
-  <h2>덤으로 확인된 것</h2>
+  <h2 id="덤으로-확인된-것" data-anchor="auto">덤으로 확인된 것<a class="h-anchor" href="#덤으로-확인된-것" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>이전에 팀원의 최종 보고가 리드에게 도달하지 않아 결과를 파일로 회수해야 했던 일이 있었습니다. 그때 세운 가설은 프롬프트에 보고 지시를 넣지 않아서라는 것이었고, 이번에는 지시를 넣은 채로 셋을 돌렸습니다. 3명 모두 정상 도달했습니다. 회수 방식을 파일로 바꾸는 대신 그 지시를 빼지 말라는 문장을 스킬에 박아 두었습니다.</p>
 
   <div class="liv">

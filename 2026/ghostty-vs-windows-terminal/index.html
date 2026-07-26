@@ -117,6 +117,42 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Ghostty vs Windows Terminal — 아직 공식 대결이 성립하지 않는 비교">
 <!-- PAGEOG:END -->
+<!-- PAGETOC-CSS:START -->
+<style>
+  /* 절 앵커·목차(TASK-108). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .h-anchor {
+    margin-left: 0.35em; font-weight: 400; text-decoration: none;
+    color: var(--text-faint, #6E7A86); opacity: 0; transition: opacity 0.12s;
+  }
+  h2:hover > .h-anchor, .h-anchor:focus-visible { opacity: 1; }
+  /* 터치 기기는 hover 가 없어 영영 안 보인다 — 옅게라도 늘 띄운다. */
+  @media (hover: none) { .h-anchor { opacity: 0.4; } }
+  .pagetoc {
+    --tc-rule: var(--rule, #E3E7EB); --tc-faint: var(--text-faint, #6E7A86);
+    --tc-accent: var(--accent, #1A5FC8); --tc-text: var(--text, #1B2027);
+    margin: 28px 0 36px; padding: 14px 0; border-top: 1px solid var(--tc-rule);
+    border-bottom: 1px solid var(--tc-rule);
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagetoc {
+      --tc-rule: var(--rule, #2A3037); --tc-faint: var(--text-faint, #7E8994);
+      --tc-accent: var(--accent, #82B1F0); --tc-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagetoc-label {
+    margin: 0 0 8px; color: var(--tc-faint);
+    font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagetoc ol {
+    margin: 0; padding: 0; list-style: none;
+    display: grid; gap: 4px;
+  }
+  .pagetoc a { color: var(--tc-text); text-decoration: none; font-size: 0.875rem; }
+  .pagetoc a:hover, .pagetoc a:focus-visible {
+    color: var(--tc-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+</style>
+<!-- PAGETOC-CSS:END -->
 </head>
 <body>
 <main>
@@ -125,11 +161,25 @@
   <p class="lede">아직 공식 대결이 성립하지 않는 비교. 공식 Ghostty 는 2026년 7월 현재 Windows 에 없다. 그래서 이 비교는 세 층위로 나눠야 정직하다 — 설계 철학의 비교, 지금 Windows 에서의 현실(Windows Terminal vs 비공식 포트 winghostty), 그리고 공식 Ghostty 가 Windows 에 오는 경로.</p>
   <p class="meta-line"><a href="../hashimoto-oss-philosophy/">미첼 하시모토 인터뷰 해설</a>의 부록(경쟁 터미널 대비 Ghostty 강점)에서 이어지는 별개 페이지 · 작성 2026-07-13</p>
 
-  <h2 id="premise">1. 전제 — 왜 이 비교는 비대칭인가</h2>
+  <!-- PAGETOC:START -->
+<nav class="pagetoc" aria-label="목차">
+  <p class="pagetoc-label">목차</p>
+  <ol>
+    <li><a href="#premise">1. 전제 — 왜 이 비교는 비대칭인가</a></li>
+    <li><a href="#profile">2. 프로필 한눈 비교</a></li>
+    <li><a href="#wt">3. Windows Terminal — Windows 의 &quot;네이티브&quot; 는 이쪽이다</a></li>
+    <li><a href="#ghostty-path">4. Ghostty 가 Windows 에 없는 이유, 그리고 오는 경로</a></li>
+    <li><a href="#perf">5. 성능과 레이턴시 — ConPTY 라는 공통 천장</a></li>
+    <li><a href="#philosophy">6. 철학 비교 — 수렴하는 원칙, 갈라지는 거버넌스</a></li>
+    <li><a href="#verdict">7. 총평 — 오늘 무엇을 쓸까</a></li>
+  </ol>
+</nav>
+<!-- PAGETOC:END -->
+  <h2 id="premise">1. 전제 — 왜 이 비교는 비대칭인가<a class="h-anchor" href="#premise" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>iTerm2·kitty·Alacritty 와의 비교(<a href="../hashimoto-oss-philosophy/#ghostty-edge">이전 페이지 부록</a>)는 같은 플랫폼에서 둘 다 설치해 나란히 돌려 본 사용자들의 후기가 근거였다. Ghostty vs Windows Terminal 은 그게 안 된다. 공식 Ghostty 의 지원 플랫폼은 macOS 와 Linux 뿐이고, Windows 지원은 <a href="https://github.com/ghostty-org/ghostty/discussions/2563" target="_blank" rel="noopener">공식 discussion</a> 기준 "계획은 있으나 타임라인 없음" 상태다. 하시모토가 지금 집중하는 것은 <a href="https://mitchellh.com/writing/libghostty-is-coming" target="_blank" rel="noopener">libghostty</a>(터미널 코어의 라이브러리화)이고, Windows 는 그 라이브러리의 확장 타겟으로 명시돼 있다.</p>
   <p>반대 방향도 비대칭이다. Windows Terminal 은 Windows 전용이라 macOS·Linux 사용자에게는 애초에 선택지가 아니다. 즉 두 프로젝트는 오늘 기준 <strong>겹치는 시장이 없다</strong>. 그런데도 이 비교가 의미 있는 이유는 두 가지다. 첫째, 두 프로젝트는 "터미널을 어떻게 만들어야 하는가"에 대해 흥미롭게 수렴하고 흥미롭게 갈라진다. 둘째, libghostty 가 진행되고 비공식 포트가 이미 돌아가는 지금, 이 대결은 몇 년 안에 실제로 성립할 가능성이 높다.</p>
 
-  <h2 id="profile">2. 프로필 한눈 비교</h2>
+  <h2 id="profile">2. 프로필 한눈 비교<a class="h-anchor" href="#profile" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <div class="tbl-wrap">
   <table>
     <thead>
@@ -150,7 +200,7 @@
   </table>
   </div>
 
-  <h2 id="wt">3. Windows Terminal — Windows 의 "네이티브" 는 이쪽이다</h2>
+  <h2 id="wt">3. Windows Terminal — Windows 의 "네이티브" 는 이쪽이다<a class="h-anchor" href="#wt" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>하시모토의 Ghostty 원칙은 "코어는 크로스플랫폼, GUI 는 비타협적 네이티브"다. 이 잣대를 Windows 에 적용하면 통과하는 것은 현재 Windows Terminal 쪽이라는 점이 이 비교의 첫 번째 아이러니다. Windows Terminal 은 Windows 의 UI 스택(XAML/WinUI)으로 만들어졌고, PowerShell·cmd·WSL·Azure Cloud Shell 을 프로파일로 통합한다. kitty 나 Alacritty 가 macOS 에서 받는 "이질적인 창" 비판을 Windows Terminal 은 자기 플랫폼에서 받지 않는다.</p>
 
   <h3>"기본 터미널" 의 정확한 범위</h3>
@@ -176,7 +226,7 @@
   </ul>
   <p>마지막 항목이 구조적으로 중요하다. Windows Terminal 팀은 터미널 앱 하나가 아니라 <strong>ConPTY(의사 콘솔) 인프라의 관리자</strong>다. Windows 에서 돌아가는 모든 서드파티 터미널 — Alacritty 든 WezTerm 이든, 미래의 Ghostty 든 — 이 이 팀이 만드는 배관 위에서 돌아간다.</p>
 
-  <h2 id="ghostty-path">4. Ghostty 가 Windows 에 없는 이유, 그리고 오는 경로</h2>
+  <h2 id="ghostty-path">4. Ghostty 가 Windows 에 없는 이유, 그리고 오는 경로<a class="h-anchor" href="#ghostty-path" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>Ghostty 의 Windows 부재는 기술적 불가능이 아니라 우선순위다. 하시모토는 2025년 9월 <a href="https://mitchellh.com/writing/libghostty-is-coming" target="_blank" rel="noopener">libghostty 계획</a>에서 초기 타겟을 macOS·Linux 로 잡되 "Windows, 임베디드, WASM 웹"으로 확장하겠다고 명시했다. 코어(VT 파서·화면 상태·렌더링)를 C ABI 라이브러리로 분리하고, 그 위에 플랫폼별 GUI(현재 Swift·GTK)를 얹는 구조이므로, Windows 판은 "코어 이식 + Win32/WinUI 프론트엔드 신작"이라는 큰 작업이 된다. 비타협적 네이티브 원칙을 Windows 에서도 지키려면 Electron 식 지름길이 없기 때문이다.</p>
   <p>그 공백을 커뮤니티가 먼저 메웠다:</p>
   <ul>
@@ -185,7 +235,7 @@
   </ul>
   <p>단, 이들은 공식 프로젝트가 아니다. 단일 메인테이너 의존, 업스트림과의 지속 동기화 부담(이전 페이지에서 다룬 <a href="../hashimoto-oss-philosophy/#adversarial">포크 대칭성 반론</a>의 실물 사례다), 보안 업데이트 보증 없음이라는 전형적 포크 리스크를 안고 있다. 흥미롭게도 하시모토의 "개인·유지 포크가 훨씬 많아져야 한다"는 지론이 실제로 작동한 사례이기도 하다 — libghostty 방향의 코어/셸 분리가 이런 포크를 가능하게 했다.</p>
 
-  <h2 id="perf">5. 성능과 레이턴시 — ConPTY 라는 공통 천장</h2>
+  <h2 id="perf">5. 성능과 레이턴시 — ConPTY 라는 공통 천장<a class="h-anchor" href="#perf" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>macOS·Linux 에서 Ghostty 의 강점 중 하나는 체감 성능이다(시작 100ms 미만, 로그 폭주에도 여유). 그러나 이 강점을 Windows 로 그대로 들고 올 수 있다고 가정하면 안 된다. Windows 에서는 모든 서드파티 터미널이 ConPTY 라는 변환 계층을 거친다.</p>
 
   <h3>ConPTY 란 무엇인가</h3>
@@ -262,7 +312,7 @@
   <p>Windows 터미널 이야기에서 빠지지 않는 PuTTY(1999)는 위 두 앱과 계보가 다르다. 로컬 셸을 품는 터미널이 아니라 SSH·telnet·시리얼용 원격 접속 클라이언트로, 접속하는 순간 PTY 는 원격 리눅스 서버의 커널에 만들어진다. 즉 SSH 세션은 로컬 ConPTY 를 아예 거치지 않는다 — 위 다이어그램의 오른쪽 우회로다. 레이턴시 표 공동 1위인 MinTTY 가 PuTTY 의 터미널 구현에서 갈라져 나온 코드라는 점도 우연이 아니다. GPU 가속 없는 구식 렌더링이 최신 GPU 터미널보다 빨랐던 이유는 그림 실력이 아니라 파이프라인이 짧기 때문이다.</p>
   <p>다만 PuTTY 조차 로컬 셸을 품는 순간에는 ConPTY 아래로 들어온다. 0.77 부터 제공되는 <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/changes.html" target="_blank" rel="noopener">pterm.exe</a>(cmd 등 Windows 콘솔 앱용 PuTTY 창)가 정확히 ConPTY 위에서 돈다 — 로컬 셸을 다루는 한 누구도 이 계층을 피할 수 없다는 또 하나의 증거다. 한편 Windows 10 부터 OpenSSH 클라이언트(<code>ssh.exe</code>)가 기본 탑재되면서 "Windows Terminal + ssh" 조합이 PuTTY 의 전통적 역할을 잠식하는 중이라, 원격 접속 위주 사용자에게는 그 전환이 Ghostty vs Windows Terminal 보다 훨씬 현실적인 선택 문제다.</p>
 
-  <h2 id="philosophy">6. 철학 비교 — 수렴하는 원칙, 갈라지는 거버넌스</h2>
+  <h2 id="philosophy">6. 철학 비교 — 수렴하는 원칙, 갈라지는 거버넌스<a class="h-anchor" href="#philosophy" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <h3>수렴: 네이티브 GUI 와 "기능 풍부 ≠ 부풀림"</h3>
   <p>두 프로젝트는 서로 독립적으로 같은 결론에 도달했다. 플랫폼 고유 UI 스택을 쓰고(AppKit/GTK ↔ XAML/WinUI), GPU 가속 렌더러를 직접 만들고(Metal/OpenGL ↔ AtlasEngine), 기능을 많이 넣되 기본 경험을 어지럽히지 않는다. 하시모토가 인터뷰에서 말한 "새 프로토콜을 만들기 전에 Win32·WinUI 같은 기존 플랫폼 선례를 조사한다"는 원칙까지 포함하면, 그가 Windows Terminal 의 접근을 부정할 이유는 별로 없다.</p>
   <h3>갈라짐 1: 설정 철학</h3>
@@ -272,7 +322,7 @@
   <h3>갈라짐 3: 거버넌스</h3>
   <p>가장 근본적인 차이다. Ghostty 는 "의무 0, 그러나 책임감" 을 말하는 개인 유지보수자의 프로젝트고, Windows Terminal 은 이슈 트래커·로드맵·보안 패치 의무를 지는 Microsoft 제품이다(코드는 MIT 오픈소스이며 sixel 처럼 굵직한 기능이 커뮤니티에서 오기도 한다). 어느 쪽이 좋은가는 사용자가 무엇을 원하느냐에 달렸다 — 벤더에게 책임을 물을 권리가 필요한 조직이라면 후자가 정답이고, 하시모토식으로 말하면 그 권리는 원래 돈(또는 플랫폼 종속)을 내고 사는 것이다.</p>
 
-  <h2 id="verdict">7. 총평 — 오늘 무엇을 쓸까</h2>
+  <h2 id="verdict">7. 총평 — 오늘 무엇을 쓸까<a class="h-anchor" href="#verdict" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <ul>
     <li><strong>Windows 에서 오늘 고른다면</strong>: Windows Terminal 이 합리적 기본값이다. Windows 11 에서의 기본 터미널 지위(3장), 자동 업데이트, WSL·PowerShell 허브 역할, 그리고 빠르게 좁혀지는 성능 격차까지, 서드파티로 갈아탈 유인이 예전보다 약해졌다. Ghostty 의 감촉이 궁금하면 winghostty 를 시험해 볼 수 있지만, 비공식 포크의 리스크(단일 메인테이너·보증 없음)를 이해하고 쓰는 실험으로 접근해야 한다. 원격 서버 접속이 주 용도라면 PuTTY 에서 "Windows Terminal + 기본 탑재 ssh" 로의 전환(5장)이 먼저 검토할 문제다.</li>
     <li><strong>macOS·Linux 사용자에게</strong>: 이 비교는 선택 문제가 아니다. 다만 Windows Terminal 팀의 ConPTY·conhost 개선은 WSL 을 쓰는 순간 간접적으로 체감된다.</li>

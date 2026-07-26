@@ -103,6 +103,42 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Human-in-the-Loop, 어디서 나온 말이고 지금 무슨 뜻으로 쓰이나">
 <!-- PAGEOG:END -->
+<!-- PAGETOC-CSS:START -->
+<style>
+  /* 절 앵커·목차(TASK-108). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .h-anchor {
+    margin-left: 0.35em; font-weight: 400; text-decoration: none;
+    color: var(--text-faint, #6E7A86); opacity: 0; transition: opacity 0.12s;
+  }
+  h2:hover > .h-anchor, .h-anchor:focus-visible { opacity: 1; }
+  /* 터치 기기는 hover 가 없어 영영 안 보인다 — 옅게라도 늘 띄운다. */
+  @media (hover: none) { .h-anchor { opacity: 0.4; } }
+  .pagetoc {
+    --tc-rule: var(--rule, #E3E7EB); --tc-faint: var(--text-faint, #6E7A86);
+    --tc-accent: var(--accent, #1A5FC8); --tc-text: var(--text, #1B2027);
+    margin: 28px 0 36px; padding: 14px 0; border-top: 1px solid var(--tc-rule);
+    border-bottom: 1px solid var(--tc-rule);
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagetoc {
+      --tc-rule: var(--rule, #2A3037); --tc-faint: var(--text-faint, #7E8994);
+      --tc-accent: var(--accent, #82B1F0); --tc-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagetoc-label {
+    margin: 0 0 8px; color: var(--tc-faint);
+    font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagetoc ol {
+    margin: 0; padding: 0; list-style: none;
+    display: grid; gap: 4px;
+  }
+  .pagetoc a { color: var(--tc-text); text-decoration: none; font-size: 0.875rem; }
+  .pagetoc a:hover, .pagetoc a:focus-visible {
+    color: var(--tc-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+</style>
+<!-- PAGETOC-CSS:END -->
 </head>
 <body>
 <main>
@@ -116,11 +152,23 @@
     <p>접수함으로 들어온 질문입니다. "어떻게 나왔고 어떻게 쓰이는 말인지" 라고 하셔서, 신조어 해설이 아니라 용어의 이력서를 쓰는 쪽으로 잡았습니다. 생각보다 오래된 말이었습니다.</p>
   </div>
 
-  <h2>1. 원래는 감독이 아니라 부품이었다 — 제어공학의 loop</h2>
+  <!-- PAGETOC:START -->
+<nav class="pagetoc" aria-label="목차">
+  <p class="pagetoc-label">목차</p>
+  <ol>
+    <li><a href="#원래는-감독이-아니라-부품이었다-제어공학의-loop">1. 원래는 감독이 아니라 부품이었다 — 제어공학의 loop</a></li>
+    <li><a href="#윤리-용어가-되다-자율무기의-in-on-out">2. 윤리 용어가 되다 — 자율무기의 in / on / out</a></li>
+    <li><a href="#학습-루프에-들어간-사람-머신러닝의-hitl">3. 학습 루프에 들어간 사람 — 머신러닝의 HITL</a></li>
+    <li><a href="#지금의-주류-용법-에이전트의-승인-게이트">4. 지금의 주류 용법 — 에이전트의 승인 게이트</a></li>
+    <li><a href="#남는-비판-루프-안의-사람은-정말-판단하고-있는가">5. 남는 비판 — 루프 안의 사람은 정말 판단하고 있는가</a></li>
+  </ol>
+</nav>
+<!-- PAGETOC:END -->
+  <h2 id="원래는-감독이-아니라-부품이었다-제어공학의-loop" data-anchor="auto">1. 원래는 감독이 아니라 부품이었다 — 제어공학의 loop<a class="h-anchor" href="#원래는-감독이-아니라-부품이었다-제어공학의-loop" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>이 말의 "loop"는 은유가 아니다. 제어공학의 피드백 루프(feedback loop), 즉 센서가 상태를 재고 제어기가 보정하고 다시 재는 그 닫힌 회로를 가리킨다. 1940년대 노버트 위너의 사이버네틱스가 사람과 기계를 같은 피드백 회로의 구성 요소로 보는 관점을 정식화했고, 냉전기 항공·방공 시스템에서 조종사나 오퍼레이터가 그 회로 안에 들어가 있는 구성을 man-in-the-loop 라고 부르기 시작했다.</p>
   <p>그래서 초기 용례의 대표는 시뮬레이션이다. 비행 시뮬레이터처럼 사람이 실시간으로 조작에 참여하는 시뮬레이션을 지금도 human-in-the-loop simulation 이라고 부른다. 이때 사람은 시스템을 감독하는 존재가 아니라 루프를 구성하는 한 요소, 심하게 말하면 지연(latency)과 오차를 가진 부품이었다. 1980년대 시스템 엔지니어링 문헌에서 용어로 굳었고, 이 단계까지는 가치 판단이 실려 있지 않은 건조한 기술어였다.</p>
 
-  <h2>2. 윤리 용어가 되다 — 자율무기의 in / on / out</h2>
+  <h2 id="윤리-용어가-되다-자율무기의-in-on-out" data-anchor="auto">2. 윤리 용어가 되다 — 자율무기의 in / on / out<a class="h-anchor" href="#윤리-용어가-되다-자율무기의-in-on-out" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>의미가 뒤집힌 계기는 2010년대 자율무기 논쟁이다. 2012년 Human Rights Watch 의 보고서 "Losing Humanity"가 무기 시스템을 사람의 개입 위치에 따라 세 단계로 나누는 분류를 대중화했고, 이때부터 "사람이 루프 안에 있는가"는 시스템 구성의 서술이 아니라 책임과 통제에 대한 요구가 됐다.</p>
 
   <figure class="diagram">
@@ -174,10 +222,10 @@
 
   <p>in 과 on 의 차이는 말장난이 아니다. on-the-loop 시스템은 미사일 방어처럼 사람의 반응 속도로는 못 따라가는 상황에서 더 빠르게 움직일 수 있지만, 사람이 개별 행동을 실제로 검토하고 승인하지 않은 채 실행이 일어날 수 있다. 흥미로운 것은 미 국방부의 자율무기 지침(DoD Directive 3000.09)에 정작 human in the loop 라는 표현이 없다는 점이다. 의도적인 누락으로, 대신 "무력 사용에 대한 적절한 수준의 인간 판단(appropriate levels of human judgment)"이라는 더 느슨한 기준을 쓴다. 루프 안에 사람이 있다는 형식이 아니라 판단의 실질을 요구한다는 명분인데, 뒤집으면 루프 밖도 배제하지 않는다는 뜻이다.</p>
 
-  <h2>3. 학습 루프에 들어간 사람 — 머신러닝의 HITL</h2>
+  <h2 id="학습-루프에-들어간-사람-머신러닝의-hitl" data-anchor="auto">3. 학습 루프에 들어간 사람 — 머신러닝의 HITL<a class="h-anchor" href="#학습-루프에-들어간-사람-머신러닝의-hitl" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>2010년대 머신러닝 붐에서 이 말은 세 번째 의미를 얻었다. 이번에 사람이 들어간 루프는 제어 루프가 아니라 학습 루프다. 데이터에 라벨을 붙이고, 모델이 자신 없어 하는 샘플만 골라 사람에게 물어보고(active learning), 모델 출력에 선호를 매겨 보상 신호를 만드는(RLHF) 일까지, 사람의 판단을 훈련 과정에 주입하는 파이프라인 전반이 human-in-the-loop machine learning 으로 불렸다. 데이터 라벨링 산업이 이 이름을 마케팅 용어로 채택하면서 "HITL = 사람이 데이터를 다듬어 모델을 좋게 만드는 것"이라는 용법이 한동안 주류였다.</p>
 
-  <h2>4. 지금의 주류 용법 — 에이전트의 승인 게이트</h2>
+  <h2 id="지금의-주류-용법-에이전트의-승인-게이트" data-anchor="auto">4. 지금의 주류 용법 — 에이전트의 승인 게이트<a class="h-anchor" href="#지금의-주류-용법-에이전트의-승인-게이트" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>2024년 이후 AI 에이전트가 실제로 도구를 잡고 행동하기 시작하면서, 무게중심은 다시 실행 루프로 돌아왔다. 지금 "human in the loop 를 넣었다"고 말할 때 대개 가리키는 것은 에이전트가 행동을 제안하면 사람이 승인·수정·거부한 뒤에야 실행되는 게이트다. 코딩 에이전트의 권한 프롬프트, 금융권 부정거래 탐지에서 고위험 건만 사람 승인으로 넘기는 라우팅, 에이전트 프레임워크들의 interrupt·approval 노드가 전부 이 계열이다. 구조로 보면 자율무기 논쟁의 in/on 구분이 사무실 소프트웨어로 내려온 셈이다. 모든 도구 호출을 승인받으면 in, 자동 실행을 로그로 지켜보다 끊으면 on 이다.</p>
   <p>규제 언어도 이 용법을 굳히고 있다. EU AI Act 14조는 고위험 AI 시스템에 대해 사람이 시스템의 한계를 이해하고, 출력을 올바르게 해석하고, 개입하거나 중단할 수 있어야 한다는 human oversight 를 설계 요건으로 박아 넣었다. 신용평가·채용·의료 같은 고위험 분류에서는 사람의 감독이 선택이 아니라 아키텍처 요구사항이다.</p>
 
@@ -191,7 +239,7 @@
     </tbody>
   </table>
 
-  <h2>5. 남는 비판 — 루프 안의 사람은 정말 판단하고 있는가</h2>
+  <h2 id="남는-비판-루프-안의-사람은-정말-판단하고-있는가" data-anchor="auto">5. 남는 비판 — 루프 안의 사람은 정말 판단하고 있는가<a class="h-anchor" href="#남는-비판-루프-안의-사람은-정말-판단하고-있는가" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>이 말이 널리 쓰일수록 비판도 선명해졌다. 사람을 루프에 넣었다는 사실 자체가 안전을 보장하지 않는다는 것이다. 자동화가 대체로 옳으면 사람은 검토를 멈추고 도장만 찍게 되고(automation bias), 그 상태의 "승인"은 책임 소재를 사람에게 떠넘기는 장치로 전락한다. 미 공군 쪽에서 "human-in-the-loop 라는 말을 그만 쓰자"는 글이 나오는 이유도 같은 맥락이다. 루프 안에 있느냐가 아니라, 개입할 시간·정보·권한이 실제로 주어졌느냐가 문제라는 것. EU AI Act 가 "사람이 있을 것"이 아니라 "이해하고 개입할 수 있을 것"이라고 능력 기준으로 쓴 것도 이 비판을 반영한 결과다.</p>
 
   <div class="liv">
