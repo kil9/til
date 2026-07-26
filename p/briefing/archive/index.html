@@ -55,6 +55,8 @@
   /* 읽음 표시(task-93)는 JS 가 붙인다. 안 붙으면 아래 규칙이 하나도 안 걸려 원래 모습이다. */
   .row.read .d, .row.read .t { color: var(--text-faint); }
   .row.unread .t { color: var(--text); }
+  .unread-line { font-size: 0.875rem; color: var(--text-muted); }
+  .unread-line b { color: var(--text); font-weight: 600; }
   .row.unread .d::after {
     content: "●"; margin-left: 6px; font-size: 0.5rem; color: var(--accent); vertical-align: 2px;
   }
@@ -70,6 +72,8 @@
   <h1>지난 브리핑</h1>
   <p class="meta">리브가 아침마다 인터넷을 훑어 정리한 것들. 모두 1회.
     <a href="../">오늘 것</a> 은 따로 있습니다.</p>
+  <p class="unread-line" hidden>안 읽은 회차 <b id="unread-n">0</b>건 ·
+    <a id="unread-oldest" href="../">가장 오래된 것부터 보기 →</a></p>
   <h2>2026-07</h2>
   <div class="rows">
     <a class="row" data-date="2026-07-26" href="../2026-07-26/"><span class="d">07-26 (일)</span><span class="t">프론트엔드 20년 지층 정리부터 에이전트 하네스를 지식 생산으로 옮긴 실험, 그리고 병렬 에이전트가 한 레포에서 서로를 밟은 기록까지.</span></a>
@@ -83,9 +87,18 @@
 // 주간 리캡 행에는 data-date 가 없어 그대로 둔다.
 try {
   var read = JSON.parse(localStorage.getItem('liv-briefing-read') || '[]');
+  var unread = [];
   document.querySelectorAll('.row[data-date]').forEach(function (row) {
-    row.classList.add(read.indexOf(row.dataset.date) < 0 ? 'unread' : 'read');
+    var isUnread = read.indexOf(row.dataset.date) < 0;
+    row.classList.add(isUnread ? 'unread' : 'read');
+    if (isUnread) unread.push(row.dataset.date);
   });
+  // 목록은 최신이 위라 마지막 원소가 가장 오래된 안 읽은 회차다 (task-96).
+  if (unread.length) {
+    document.getElementById('unread-n').textContent = unread.length;
+    document.getElementById('unread-oldest').href = '../' + unread[unread.length - 1] + '/';
+    document.querySelector('.unread-line').hidden = false;
+  }
 } catch (e) { /* 저장소가 막혀 있으면 구분 없이 보여준다 */ }
 </script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
