@@ -40,7 +40,7 @@ til/
 - 연도(`<YYYY>`)는 갤러리 카드 `data-date` 의 연도를 쓴다(현재는 전부 `2026`).
 - 슬러그는 kebab-case. `<연도>/` 로 이미 시간 분리되므로 슬러그에 `2026-` 연도 접두사를 새로 붙일 필요는 없다(기존 `2026-07-plan-pipeline` 등은 그대로 둔다).
 - 슬러그·경로는 URL 에 영구히 박히므로 퍼블리시 전에 사용자에게 확인받는다. 구 평면 URL(`/til/<slug>/`)은 `404.html` 리다이렉트 맵이 새 경로로 넘겨준다.
-- `p/briefing/` 은 손으로 만들지 않는다. 매일 09:00 발행 잡이 템플릿(`backlog/assets/briefing/`)으로 렌더해 push 하며, 루트 갤러리·README 표·`p/archive/` 에는 노출하지 않고 `noindex, follow` 로 나간다. 경로·노출·보존 정책의 정본은 `backlog/assets/briefing/README.md` 다.
+- `p/briefing/` 은 손으로 만들지 않는다. nuc14 의 `~/jobs/liv-briefing/`(머신 로컬, 비버전) 잡이 08:40 에 재료를 만들고 09:00 에 템플릿(`backlog/assets/briefing/`)으로 렌더해 전용 클론에서 push 하며, 루트 갤러리·README 표·`p/archive/` 에는 노출하지 않고 `noindex, follow` 로 나간다. 경로·노출·보존 정책의 정본은 `backlog/assets/briefing/README.md` 다.
 
 ## 퍼블리시 런북 (`/publish-pages`)
 
