@@ -4,7 +4,7 @@ title: 브리핑 읽음/안읽음 표시 (localStorage)
 status: Done
 assignee: []
 created_date: '2026-07-26 09:27'
-updated_date: '2026-07-26 09:34'
+updated_date: '2026-07-26 09:39'
 labels: []
 dependencies: []
 ordinal: 93000
@@ -28,4 +28,6 @@ ordinal: 93000
 
 <!-- SECTION:NOTES:BEGIN -->
 localStorage 키 liv-briefing-read 에 방문 회차 날짜를 배열로 쌓는다(회차 페이지 로드 즉시). 표시는 두 곳: 루트 사이드바 배지(.briefing-new, p/briefing/latest.json 의 최신 회차를 안 읽었을 때만)와 아카이브 목록 행 구분(.row.read 흐리게 / .row.unread 앞점). 루트 index.html 에 최신 날짜를 박지 않고 latest.json 을 따로 둔 것은 AI 요약 잡이 같은 파일을 매일 덮어쓰기 때문이다. 검증: 브라우저가 다른 머신이라 페이지에 실제로 박힌 스크립트 조각을 떼어 스텁 DOM(node)에서 돌렸다 — 방문 기록 append, 아카이브 unread/read 분류, 배지 hidden=false/true 가 기대대로 나왔다. 관련 JS 는 모두 try/catch(또는 promise catch) 안이라 저장소가 막혀도 표시만 빠진다. 눈으로 보는 확인은 사용자 브라우저 몫.
+
+라벨 없이 점만: 사이드바 배지의 '새 회차' 텍스트를 빼고 ●(::before)만 남겼다. 스크린리더용으로 aria-label='안 읽은 회차 있음' 을 붙였다.
 <!-- SECTION:NOTES:END -->

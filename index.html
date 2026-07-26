@@ -107,10 +107,8 @@
     color: var(--text-faint); font-weight: 600;
   }
   /* 안 읽은 회차가 있을 때만 JS 가 켠다(task-93). 기본은 hidden 이라 안 보인다. */
-  .briefing .briefing-new {
-    color: var(--accent); font-weight: 600; letter-spacing: 0.02em;
-  }
-  .briefing .briefing-new::before { content: "● "; font-size: 0.5rem; vertical-align: 2px; }
+  .briefing .briefing-new { color: var(--accent); }
+  .briefing .briefing-new::before { content: "●"; font-size: 0.5rem; vertical-align: 2px; }
   .briefing .briefing-line { margin: 0; color: var(--text-muted); font-size: 0.875rem; line-height: 1.6; }
   .briefing:hover .briefing-line, .briefing:focus-visible .briefing-line {
     color: var(--accent); text-decoration: underline; text-underline-offset: 3px;
@@ -746,7 +744,7 @@
     </section>
     <!-- AI-SUMMARY:END -->
     <a class="briefing" href="./p/briefing/">
-      <p class="briefing-label">오늘의 브리핑 <span class="briefing-new" hidden>새 회차</span></p>
+      <p class="briefing-label">오늘의 브리핑 <span class="briefing-new" hidden role="img" aria-label="안 읽은 회차 있음"></span></p>
       <p class="briefing-line">리브가 아침마다 인터넷을 훑어 골라 둔 것들 →</p>
     </a>
     <section class="toc" aria-label="월별 목차">
