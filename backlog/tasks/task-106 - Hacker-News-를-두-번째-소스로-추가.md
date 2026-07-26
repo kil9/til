@@ -1,10 +1,10 @@
 ---
 id: TASK-106
 title: Hacker News 를 두 번째 소스로 추가
-status: To Do
+status: Blocked
 assignee: []
 created_date: '2026-07-26 06:01'
-updated_date: '2026-07-26 15:30'
+updated_date: '2026-07-26 15:36'
 labels:
   - solo
 milestone: m-8
@@ -42,6 +42,8 @@ priority: medium
 ## Implementation Notes
 
 <!-- SECTION:NOTES:BEGIN -->
+보류 — 사용자 지시로 착수 보류(2026-07-27). 원 draft 의 전제(GeekNews 단일 소스가 안정된 뒤 착수)도 아직 유효하다. 재개하려면 상태를 To Do 로 되돌린다.
+
 확정 사항(2026-07-27 승격 인터뷰):
 - 지면: 소스 섹션을 나누지 않고 한 목록에 섞는다. 항목마다 출처 배지 + 그 소스 기준 점수·백분위.
 - 중복: 원문 URL 정규화로 합치고 링크는 GeekNews 쪽만 남긴다(백분위와 무관하게 GN 우선).
