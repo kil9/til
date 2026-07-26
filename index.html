@@ -905,16 +905,20 @@
     update();
   })();
 
-  // 안 읽은 브리핑 표시 (task-93). 회차 페이지가 localStorage 에 남긴 날짜와
-  // 최신 회차(p/briefing/latest.json)를 견줘 새 것이 있을 때만 배지를 켠다.
-  // 독자가 사실상 관리자 한 명이라 서버 상태 없이 브라우저에만 둔다.
+  // 브리핑 사이드바 (task-93, task-104). 한 번의 latest.json 조회로 둘을 한다.
+  //  - 안 읽은 회차 배지: 회차 페이지가 localStorage 에 남긴 날짜와 최신 회차를 견준다.
+  //    독자가 사실상 관리자 한 명이라 서버 상태 없이 브라우저에만 둔다.
+  //  - 한 줄 소개: 오늘 회차가 무엇으로 채워졌는지를 발행 잡이 line 에 써 둔다.
+  //    HTML 에 박힌 상설 안내문은 폴백이다 — fetch 가 실패하거나 line 이 없으면 그대로 남는다.
   (function () {
     var badge = document.querySelector(".briefing-new");
+    var line = document.querySelector(".briefing-line");
     if (!badge || !window.fetch) return;
     fetch("./p/briefing/latest.json", { cache: "no-store" })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (d) {
         if (!d || !d.latest) return;
+        if (line && d.line) line.textContent = d.line + " →";
         var read = JSON.parse(localStorage.getItem("liv-briefing-read") || "[]");
         if (read.indexOf(d.latest) < 0) badge.hidden = false;
       })
