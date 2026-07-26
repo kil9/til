@@ -49,11 +49,15 @@
           margin: 28px 0 40px; align-items: start; }
   .toc { background: var(--panel); border-radius: 12px; padding: 14px 16px; }
   .toc h2 { margin: 0 0 10px; }
+  /* 강추 1건. 번호가 아니라 글 제목 자체가 앵커 링크다(task-103) — 번호만 보면
+     무슨 글인지 알 수 없어 매번 눌러 확인해야 했다. */
   .pick { border-bottom: 1px solid var(--rule); padding: 0 0 10px; margin: 0 0 10px; }
+  .pick .pick-label { margin: 0 0 2px; font-size: 0.6875rem; letter-spacing: 0.04em;
+                      color: var(--text-faint); font-weight: 600; }
+  .pick .star { color: var(--hot); font-weight: 700; margin-right: 4px; }
   .pick a { display: block; font-size: 0.875rem; font-weight: 650; color: var(--text);
             text-decoration: none; line-height: 1.4; }
   .pick a:hover { color: var(--accent); text-decoration: underline; }
-  .pick .star { color: var(--hot); font-weight: 700; margin-right: 4px; }
   .pick p { margin: 3px 0 0; font-size: 0.75rem; color: var(--text-faint); line-height: 1.5; }
   .toc ol { list-style: none; margin: 0; padding: 0; counter-reset: t; }
   .toc li { counter-increment: t; display: grid; grid-template-columns: 20px 1fr;
@@ -206,7 +210,8 @@
   <div class="toc">
     <h2>오늘의 개요</h2>
     <div class="pick">
-      <a href="#{{PICK_ANCHOR}}"><span class="star">★</span>오늘 하나만 고른다면</a>
+      <p class="pick-label"><span class="star">★</span>오늘 하나만 고른다면</p>
+      <a href="#{{PICK_ANCHOR}}">{{PICK_TITLE}}</a>
       <p>{{PICK_LINE}}</p>
     </div>
     <ol>
