@@ -52,6 +52,12 @@
   }
   .row .t { font-size: 0.9375rem; color: var(--text-muted); line-height: 1.55; }
   .row:hover .t, .row:focus-visible .t { color: var(--accent); text-decoration: underline; }
+  /* 읽음 표시(task-93)는 JS 가 붙인다. 안 붙으면 아래 규칙이 하나도 안 걸려 원래 모습이다. */
+  .row.read .d, .row.read .t { color: var(--text-faint); }
+  .row.unread .t { color: var(--text); }
+  .row.unread .d::after {
+    content: "●"; margin-left: 6px; font-size: 0.5rem; color: var(--accent); vertical-align: 2px;
+  }
   footer {
     margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--rule);
     font-size: 0.8125rem; color: var(--text-faint);
@@ -66,12 +72,22 @@
     <a href="../">오늘 것</a> 은 따로 있습니다.</p>
   <h2>2026-07</h2>
   <div class="rows">
-    <a class="row" href="../2026-07-26/"><span class="d">07-26 (일)</span><span class="t">프론트엔드 20년 지층 정리부터 에이전트 하네스를 지식 생산으로 옮긴 실험, 그리고 병렬 에이전트가 한 레포에서 서로를 밟은 기록까지.</span></a>
+    <a class="row" data-date="2026-07-26" href="../2026-07-26/"><span class="d">07-26 (일)</span><span class="t">프론트엔드 20년 지층 정리부터 에이전트 하네스를 지식 생산으로 옮긴 실험, 그리고 병렬 에이전트가 한 레포에서 서로를 밟은 기록까지.</span></a>
   </div>
   <footer>
     <p><a href="../">오늘의 브리핑</a> · <a href="../../liv-briefing/">브리핑 소개</a> · <a href="../../../">← today i learned</a></p>
   </footer>
 </main>
+<script>
+// 읽음/안읽음 (task-93). 회차 페이지가 localStorage 에 남긴 날짜로 행을 가른다.
+// 주간 리캡 행에는 data-date 가 없어 그대로 둔다.
+try {
+  var read = JSON.parse(localStorage.getItem('liv-briefing-read') || '[]');
+  document.querySelectorAll('.row[data-date]').forEach(function (row) {
+    row.classList.add(read.indexOf(row.dataset.date) < 0 ? 'unread' : 'read');
+  });
+} catch (e) { /* 저장소가 막혀 있으면 구분 없이 보여준다 */ }
+</script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

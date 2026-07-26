@@ -176,7 +176,7 @@
   .grid .steer textarea { min-height: 48px; font-size: 0.75rem; }
   .grid .sent { font-size: 0.75rem; }
 
-  /* 하루 단위 이동 (task-92). 아카이브 목록으로 되돌아가지 않고 옆 회차로 넘어간다. */
+  /* 하루 단위 이동 (task-92) */
   .daynav { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: baseline;
             margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--rule);
             font-size: 0.8125rem; }
@@ -780,6 +780,16 @@ document.querySelectorAll('a.feedback').forEach(function (a) {
     });
   });
 });
+
+// 읽음 기록 (task-93). 근거와 한계는 backlog/assets/briefing/README.md 참조.
+try {
+  var RK = 'liv-briefing-read';
+  var read = JSON.parse(localStorage.getItem(RK) || '[]');
+  if (read.indexOf('2026-07-26') < 0) {
+    read.push('2026-07-26');
+    localStorage.setItem(RK, JSON.stringify(read));
+  }
+} catch (e) { /* 저장소가 막힌 브라우저면 그냥 기록하지 않는다 */ }
 </script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
 </body>

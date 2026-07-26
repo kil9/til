@@ -106,6 +106,11 @@
     margin: 0 0 6px; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
     color: var(--text-faint); font-weight: 600;
   }
+  /* 안 읽은 회차가 있을 때만 JS 가 켠다(task-93). 기본은 hidden 이라 안 보인다. */
+  .briefing .briefing-new {
+    color: var(--accent); font-weight: 600; letter-spacing: 0.02em;
+  }
+  .briefing .briefing-new::before { content: "● "; font-size: 0.5rem; vertical-align: 2px; }
   .briefing .briefing-line { margin: 0; color: var(--text-muted); font-size: 0.875rem; line-height: 1.6; }
   .briefing:hover .briefing-line, .briefing:focus-visible .briefing-line {
     color: var(--accent); text-decoration: underline; text-underline-offset: 3px;
@@ -741,7 +746,7 @@
     </section>
     <!-- AI-SUMMARY:END -->
     <a class="briefing" href="./p/briefing/">
-      <p class="briefing-label">오늘의 브리핑</p>
+      <p class="briefing-label">오늘의 브리핑 <span class="briefing-new" hidden>새 회차</span></p>
       <p class="briefing-line">리브가 아침마다 인터넷을 훑어 골라 둔 것들 →</p>
     </a>
     <section class="toc" aria-label="월별 목차">
@@ -884,6 +889,22 @@
     var initialQ = params.get("q");
     if (initialQ) { searchInput.value = initialQ; state.q = initialQ.trim(); }
     update();
+  })();
+
+  // 안 읽은 브리핑 표시 (task-93). 회차 페이지가 localStorage 에 남긴 날짜와
+  // 최신 회차(p/briefing/latest.json)를 견줘 새 것이 있을 때만 배지를 켠다.
+  // 독자가 사실상 관리자 한 명이라 서버 상태 없이 브라우저에만 둔다.
+  (function () {
+    var badge = document.querySelector(".briefing-new");
+    if (!badge || !window.fetch) return;
+    fetch("./p/briefing/latest.json", { cache: "no-store" })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d || !d.latest) return;
+        var read = JSON.parse(localStorage.getItem("liv-briefing-read") || "[]");
+        if (read.indexOf(d.latest) < 0) badge.hidden = false;
+      })
+      .catch(function () { /* 표시가 없을 뿐 링크는 그대로 동작한다 */ });
   })();
 </script>
 
