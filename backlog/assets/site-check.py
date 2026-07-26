@@ -117,7 +117,7 @@ def check_links(problems):
             elif "#" in target:
                 # 다른 페이지의 앵커까지 본다. 절 id 는 소급 생성물이라 틀어지기 쉽다.
                 anchor = urllib.parse.unquote(target.split("#", 1)[1])
-                if anchor and anchor not in set(
+                if anchor and anchor.lower() != "top" and anchor not in set(
                         ID_RE.findall(path.read_text(encoding="utf-8"))):
                     problems.append(f"다른 페이지 앵커 대상 없음: {rel_page} → {target}")
     return checked
@@ -153,6 +153,19 @@ def check_size(problems):
     return biggest
 
 
+def probe(url, method, ua):
+    """살아 있으면 None, 아니면 사유 문자열."""
+    req = urllib.request.Request(url, method=method, headers={"User-Agent": ua})
+    try:
+        urllib.request.urlopen(req, timeout=15)
+        return None
+    except urllib.error.HTTPError as e:
+        # 봇 차단·요청 제한은 페이지가 죽은 것이 아니다.
+        return None if e.code in (403, 429) else str(e.code)
+    except Exception as e:                      # noqa: BLE001 — 원인 이름만 쓴다
+        return type(e).__name__
+
+
 def check_external():
     """외부 링크 생존. 느린 데다 상대 서버 사정으로 흔들려서 기본 실행에서 뺐고,
     결과도 위반이 아니라 경고로 센다 — 남의 서버 때문에 내 발행이 막히면 안 된다."""
@@ -163,17 +176,19 @@ def check_external():
             target = html.unescape(raw).strip()
             if target.startswith(("http://", "https://")) and not target.startswith(SITE):
                 urls.setdefault(target, page.relative_to(ROOT).as_posix())
+    # 브라우저 UA 를 쓴다. 기본 urllib UA 는 문전에서 막혀 살아 있는 페이지가
+    # 죽은 것으로 잡힌다.
+    ua = ("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) "
+          "Chrome/126.0 Safari/537.36")
     dead = []
     for url, where in sorted(urls.items()):
-        req = urllib.request.Request(url, method="HEAD", headers={
-            "User-Agent": "Mozilla/5.0 (compatible; til-site-check/1.0)"})
-        try:
-            urllib.request.urlopen(req, timeout=10)
-        except urllib.error.HTTPError as e:
-            if e.code not in (403, 405, 429):   # 봇 차단·HEAD 미지원은 죽은 게 아니다
-                dead.append((url, where, str(e.code)))
-        except Exception as e:                  # noqa: BLE001 — 원인 문자열만 쓴다
-            dead.append((url, where, type(e).__name__))
+        why = probe(url, "HEAD", ua)
+        # HEAD 를 제대로 처리하지 않는 서버가 흔하다(실측에서 aitimes·UBC 가 HEAD 에는
+        # 404 를 주고 GET 에는 200 을 줬다). HEAD 가 실패하면 GET 으로 한 번 더 본다.
+        if why:
+            why = probe(url, "GET", ua)
+        if why:
+            dead.append((url, where, why))
     print(f"외부 링크 {len(urls)}개 확인 · 응답 없음 {len(dead)}건")
     for url, where, why in dead:
         print(f"  ⚠ {why}  {url}  ({where})", file=sys.stderr)
