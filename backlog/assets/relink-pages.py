@@ -6,7 +6,7 @@ index.html 의 갤러리 카드이고, 이 스크립트가 카드를 읽어 각 
 다시 쓴다. 마커 밖은 건드리지 않으므로 반복 실행이 멱등이다.
 
 마커는 다섯 구간이다.
-    <!-- PAGEOG:START --> … <!-- PAGEOG:END -->              </head> 직전 (전 카드)
+    <!-- PAGEOG:START --> … <!-- PAGEOG:END -->              </head> 직전 (전 카드, canonical+og)
     <!-- PAGENAV-CSS:START --> … <!-- PAGENAV-CSS:END -->   </head> 직전 (아티클)
     <!-- PAGENAV:START --> … <!-- PAGENAV:END -->            <footer> 직전 (아티클)
     <!-- PAGETOC-CSS:START --> … <!-- PAGETOC-CSS:END -->    </head> 직전 (아티클)
@@ -176,12 +176,16 @@ def nav_html(card, prev_card, next_card):
     return '<nav class="pagenav" aria-label="글 이동">\n' + "\n".join(rows) + "\n</nav>"
 
 
-def og_html(card):
-    """og:image 는 크롤러가 직접 받아 가므로 data: URI 도 상대 경로도 못 쓴다.
-    반드시 절대 URL 이어야 한다. 자기 대표 이미지가 없으면 사이트 공통 폴백을 쓴다."""
+def head_meta_html(card):
+    """크롤러가 보는 절대 URL 메타. canonical 과 og:image 둘 다 상대 경로도 data: URI 도
+    못 쓴다. 대표 이미지가 없으면 사이트 공통 폴백을 쓴다.
+
+    canonical 은 구 평면 URL(`/til/<slug>/`)·쿼리 붙은 딥링크(`?topic=…`)가 같은 글의
+    다른 주소로 색인되는 것을 막는다(TASK-109). 진실원본은 루트 카드의 href 다."""
     name = card.slug if (OG_DIR / f"{card.slug}.{OG_EXT}").exists() else OG_FALLBACK
     url = f"{SITE}/og/{name}.{OG_EXT}"
     return "\n".join([
+        f'<link rel="canonical" href="{card.url}">',
         f'<meta property="og:image" content="{url}">',
         f'<meta property="og:image:width" content="{OG_W}">',
         f'<meta property="og:image:height" content="{OG_H}">',
@@ -317,8 +321,8 @@ def main():
             raise SystemExit(f"카드가 가리키는 페이지가 없다: {page}")
         before = page.read_text(encoding="utf-8")
 
-        # OG 는 카드가 있는 페이지 전부(아티클 + p/ 지원 페이지)에 붙인다.
-        after = splice(before, OG_MARK, og_html(card), r"</head>")
+        # canonical·OG 는 카드가 있는 페이지 전부(아티클 + p/ 지원 페이지)에 붙인다.
+        after = splice(before, OG_MARK, head_meta_html(card), r"</head>")
         after = upgrade_twitter_card(after)
         if not (OG_DIR / f"{card.slug}.{OG_EXT}").exists():
             fallback_og.append(card.slug)

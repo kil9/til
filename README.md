@@ -28,12 +28,13 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
    ```bash
    python3 backlog/assets/archive-thumbs.py   # 격자 썸네일 + og/<slug>.jpg
-   python3 backlog/assets/relink-pages.py     # og:image 메타, 하단 이전/다음·주제 역링크
+   python3 backlog/assets/relink-pages.py     # canonical·og:image, 이전/다음·주제 역링크, 절 앵커·목차
    python3 backlog/assets/site-feed.py        # feed.xml, sitemap.xml, robots.txt
    python3 backlog/assets/search-index.py     # search-index.json (본문 검색 색인)
    ```
 
-5. 바뀐 파일을 전부 담아 `main` 에 commit / push 한다. 새 글을 올리면 직전 글의 "다음" 링크도 함께 바뀐다.
+5. `python3 backlog/assets/site-check.py` 로 점검한다. canonical·내부 링크·404 리다이렉트 맵·용량을 보고, 위반이 있으면 비영 종료코드로 끝난다. 외부 링크 생존은 `--external` 로만 돈다.
+6. 바뀐 파일을 전부 담아 `main` 에 commit / push 한다. 새 글을 올리면 직전 글의 "다음" 링크도 함께 바뀐다.
 
 에이전트가 수행할 때의 상세 절차와 규칙은 [AGENTS.md](AGENTS.md) 의 퍼블리시 런북을 따른다.
 

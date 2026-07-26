@@ -229,6 +229,8 @@ til/
 
 ### 5. 반영
 
+- **커밋 전에 `python3 backlog/assets/site-check.py` 를 돌린다**(TASK-109). 재생성(§4)이 끝난 뒤, 커밋 전이 자리다. 사이트 전체를 보고 canonical 존재·값 일치, 내부 링크 깨짐과 앵커 대상, 404 리다이렉트 맵 등록, HTML 용량 상한(5MB)을 확인한다. **위반이 있으면 비영 종료코드로 끝나므로 무인 워처 발행에서도 걸린다** — 고치고 다시 돌린 뒤에 커밋한다. 외부 링크 생존 확인은 느려서 기본 실행에서 빠져 있고 `--external` 로만 돈다(남의 서버 사정으로 흔들려 위반이 아니라 경고로만 센다).
+  - 스킬의 `til-preflight.sh`(경로·브랜치·clean·슬러그 충돌)와 `til-verify.sh`(새 페이지의 doctype·favicon·og:title·beacon·카드/README 참조)는 둘 다 **그 페이지 하나만** 본다. 이쪽은 사이트 전체를 보는 자리라 중복이 아니다.
 - `main` 에 commit / push 한다. 커밋 규칙은 아래 참조.
 - Pages 는 push 후 몇십 초 뒤 반영된다. URL: 아티클 `https://til.kil9.dev/<YYYY>/<slug>/`, 지원 페이지 `https://til.kil9.dev/p/<slug>/`
 
