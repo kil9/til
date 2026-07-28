@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-07-28T21:24:00+09:00</updated>
+  <updated>2026-07-29T02:01:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>Matt Pocock 의 에이전트 스킬 22종: 프로세스를 뺏지 않는 도구 상자</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/matt-pocock-skills/"/>
+    <id>https://til.kil9.dev/2026/matt-pocock-skills/</id>
+    <published>2026-07-29T02:01:00+09:00</published>
+    <updated>2026-07-29T02:01:00+09:00</updated>
+    <category term="workflow"/>
+    <summary type="text">Total TypeScript 의 Matt Pocock 이 매일 쓴다는 에이전트 스킬 22종이 Claude Code 플러그인으로 나왔다. 프로세스를 통째로 소유하는 GSD·BMAD·Spec-Kit 과 반대 방향으로 작고 조합 가능하게 짜여 있다. 고치려는 실패 모드 네 가지, 스킬이 이어지는 경로, 그리고 매 세션 1,419 토큰이라는 실측 비용까지 실물 22개를 다 열어 보고 정리했다.</summary>
+  </entry>
   <entry>
     <title>Codex 사용량이 빨리 녹는 이유: 배칭 지시문 하나로 27-45% 절감</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/codex-code-mode-batching/"/>
