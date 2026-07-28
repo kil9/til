@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-07-28T14:30:00+09:00</updated>
+  <updated>2026-07-28T21:24:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>Codex 사용량이 빨리 녹는 이유: 배칭 지시문 하나로 27-45% 절감</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/codex-code-mode-batching/"/>
+    <id>https://til.kil9.dev/2026/codex-code-mode-batching/</id>
+    <published>2026-07-28T21:24:00+09:00</published>
+    <updated>2026-07-28T21:24:00+09:00</updated>
+    <category term="workflow"/>
+    <summary type="text">GPT-5.6 Code Mode 는 독립적인 툴 호출을 자주 직렬 실행한다. 739개 exec 셀 중 Promise.all 이 5개뿐. AGENTS.md 에 배칭 지시문 한 단락을 넣자 weighted usage 가 27-45% 줄고 품질은 유지됐다는 통제 실험(openai/codex#35050) 정리다. 접수창구 #37.</summary>
+  </entry>
   <entry>
     <title>LLM 증류: 기술의 원리와 실제로 일어난 일들</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/llm-distillation/"/>
