@@ -141,6 +141,7 @@
   .pagetoc {
     --tc-rule: var(--rule, #E3E7EB); --tc-faint: var(--text-faint, #6E7A86);
     --tc-accent: var(--accent, #1A5FC8); --tc-text: var(--text, #1B2027);
+    --tc-muted: var(--text-muted, #4E5A66);
     margin: 28px 0 36px; padding: 14px 0; border-top: 1px solid var(--tc-rule);
     border-bottom: 1px solid var(--tc-rule);
   }
@@ -148,6 +149,7 @@
     .pagetoc {
       --tc-rule: var(--rule, #2A3037); --tc-faint: var(--text-faint, #7E8994);
       --tc-accent: var(--accent, #82B1F0); --tc-text: var(--text, #E7EAEE);
+      --tc-muted: var(--text-muted, #A9B3BD);
     }
   }
   .pagetoc-label {
@@ -161,6 +163,35 @@
   .pagetoc a { color: var(--tc-text); text-decoration: none; font-size: 0.875rem; }
   .pagetoc a:hover, .pagetoc a:focus-visible {
     color: var(--tc-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  /* 넓은 화면에서는 목차를 본문 왼쪽 여백에 sticky 레일로 띄운다(TASK-115). 그 아래
+     폭에서는 위의 인라인 블록 그대로라 목차가 사라지는 구간이 없다.
+     1200px 근거: 본문 720px 양옆에 240px 씩 남는 지점이고, 레일 192 + 간격 32 = 224 가
+     거기 들어간다. 더 낮추면 레일이 본문에 닿고, 더 올리면 흔한 노트북 폭에서 안 보인다.
+     `main >` 로 한정하는 이유는 <main> 이 없는 자체 스타일 페이지 때문이다 — 그런 곳에서
+     absolute 를 걸면 기준이 body 로 올라가 레일이 엉뚱한 자리에 뜬다. */
+  @media (min-width: 1200px) {
+    main { position: relative; }
+    main > .pagetoc {
+      position: absolute; top: 0; bottom: 0; right: 100%;
+      width: 192px; margin: 0 32px 0 0; padding: 0;
+      border-top: 0; border-bottom: 0;
+    }
+    /* absolute 박스를 main 높이만큼 늘려 두고 그 안을 sticky 로 붙인다. position: fixed 로
+       하면 본문이 끝난 뒤 footer·하단 내비 구간까지 레일이 따라온다. */
+    main > .pagetoc .pagetoc-inner { position: sticky; top: 48px; }
+    main > .pagetoc .pagetoc-label { display: none; }
+    main > .pagetoc ol { gap: 7px; }
+    main > .pagetoc a {
+      /* faint 는 13px 에서 라이트 대비가 4.38:1 로 AA(4.5:1)에 못 미친다. 조용한 톤은
+         유지하되 한 단계 진한 muted(7.05:1)를 쓴다. */
+      display: block; color: var(--tc-muted);
+      font-size: 0.8125rem; line-height: 1.45;
+    }
+    main > .pagetoc a.current { color: var(--tc-accent); }
+    main > .pagetoc a:hover, main > .pagetoc a:focus-visible {
+      color: var(--tc-accent); text-decoration: none;
+    }
   }
 </style>
 <!-- PAGETOC-CSS:END -->
@@ -184,6 +215,7 @@
 
   <!-- PAGETOC:START -->
 <nav class="pagetoc" aria-label="목차">
+  <div class="pagetoc-inner">
   <p class="pagetoc-label">목차</p>
   <ol>
     <li><a href="#검토-대상">검토 대상</a></li>
@@ -196,7 +228,40 @@
     <li><a href="#인스타그램-2025는-hitl-사례가-아니라-부재-사례다">6. 인스타그램 2025는 HITL 사례가 아니라 부재 사례다</a></li>
     <li><a href="#정리">정리</a></li>
   </ol>
+  </div>
 </nav>
+<script>
+(function () {
+  function init() {
+    var toc = document.querySelector('main > .pagetoc');
+    if (!toc || !window.IntersectionObserver) return;
+    var links = toc.querySelectorAll('a[href^="#"]');
+    var pairs = [], i, h;
+    for (i = 0; i < links.length; i++) {
+      h = document.getElementById(decodeURIComponent(links[i].getAttribute('href').slice(1)));
+      if (h) pairs.push([h, links[i]]);
+    }
+    if (!pairs.length) return;
+    var cur = null;
+    function update() {
+      var best = pairs[0][1];
+      for (var j = 0; j < pairs.length; j++) {
+        if (pairs[j][0].getBoundingClientRect().top <= 80) best = pairs[j][1];
+        else break;
+      }
+      if (best === cur) return;
+      if (cur) cur.classList.remove('current');
+      cur = best;
+      cur.classList.add('current');
+    }
+    var io = new IntersectionObserver(update);
+    for (i = 0; i < pairs.length; i++) io.observe(pairs[i][0]);
+    update();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
 <!-- PAGETOC:END -->
   <h2 id="검토-대상" data-anchor="auto">검토 대상<a class="h-anchor" href="#검토-대상" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <div class="quote">
