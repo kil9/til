@@ -1,0 +1,38 @@
+{
+  "detector": {
+    "ignoreRules": [
+      "single-font",
+      "flat-type-hierarchy"
+    ],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-font-size",
+        "value": "0.5rem",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-07-28T17:51:55.831Z",
+        "reason": "브리핑 미열람 표시 ● 글리프 크기 — 텍스트가 아니라 장식 기호다"
+      },
+      {
+        "rule": "tiny-text",
+        "value": "*",
+        "files": [
+          "2026/**/index.html"
+        ],
+        "createdAt": "2026-07-28T17:51:56.281Z",
+        "reason": "인라인 SVG 차트의 축·주석 라벨(11px). 본문이 아니라 도표 안 글자다"
+      },
+      {
+        "rule": "all-caps-body",
+        "value": "*",
+        "files": [
+          "2026/opus5-skill-rework/index.html"
+        ],
+        "createdAt": "2026-07-28T17:51:56.720Z",
+        "reason": "DESIGN.md Label 역할(0.6875rem uppercase) — 본문이 아니다"
+      }
+    ]
+  }
+}
