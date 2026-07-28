@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-07-28T01:49:00+09:00</updated>
+  <updated>2026-07-28T12:16:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>Anthropic 의 오픈 웨이트 입장문: 전면 금지 대신 표적 조치 셋</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/anthropic-open-weights/"/>
+    <id>https://til.kil9.dev/2026/anthropic-open-weights/</id>
+    <published>2026-07-28T12:16:00+09:00</published>
+    <updated>2026-07-28T12:16:00+09:00</updated>
+    <category term="ai"/>
+    <summary type="text">Dario Amodei 가 &quot;오픈 웨이트 금지론자&quot;라는 의혹에 답했다. 금지를 요구한 적 없다는 선긋기, 권위주의 정부의 추월과 오용이라는 두 겹의 우려, 칩 수출통제·산업 규모 증류 단속·안전 테스트 의무화라는 세 가지 표적 조치까지. Kimi K3 정리의 반대편 페이지다. 접수창구 #35.</summary>
+  </entry>
   <entry>
     <title>Kimi K3 기술 보고서: 2.8T 오픈 웨이트는 프런티어에 얼마나 붙었나</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/kimi-k3/"/>

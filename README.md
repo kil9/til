@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-07-28 | Anthropic 의 오픈 웨이트 입장문: 전면 금지 대신 표적 조치 셋 | [/2026/anthropic-open-weights/](https://til.kil9.dev/2026/anthropic-open-weights/) |
 | 2026-07-28 | Kimi K3 기술 보고서: 2.8T 오픈 웨이트는 프런티어에 얼마나 붙었나 | [/2026/kimi-k3/](https://til.kil9.dev/2026/kimi-k3/) |
 | 2026-07-27 | 넷플릭스의 사내 LLM 서빙 | [/2026/netflix-llm-serving/](https://til.kil9.dev/2026/netflix-llm-serving/) |
 | 2026-07-27 | 백슬래시는 어쩌다 ₩가 됐나 | [/2026/backslash-won-sign/](https://til.kil9.dev/2026/backslash-won-sign/) |
