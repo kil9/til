@@ -12,3 +12,16 @@ backlog/assets/local/
 
 # 스크립트 모듈 import 시 생기는 바이트코드 캐시.
 __pycache__/
+
+# impeccable(디자인 가드) 의 로컬 작업 산출물 — 리뷰 보고서·라이브 세션 상태·design.json 사이드카(TASK-112).
+# 이 저장소 루트는 GitHub Pages 로 그대로 서빙되므로 중간 산출물을 커밋하면 즉시 공개된다.
+# 커밋되는 것은 DESIGN.md·PRODUCT.md 와 아래 config.json 뿐이고, design.json 사이드카는
+# /impeccable document 로 다시 만든다. config.json 만 예외로 두는 이유는 규칙 waive 목록
+# (detector.ignoreRules 등)이 머신마다 달라지면 발행 게이트가 사람마다 다르게 통과하기 때문이다.
+.impeccable/*
+!.impeccable/config.json
+
+# impeccable 스킬 본체(130여 파일)는 벤더링하지 않는다 — 훅을 등록하는 settings.local.json 이
+# 어차피 머신 로컬이라 새 머신에서는 `npx impeccable install` 을 한 번 돌려야 하고, 그 한 번이
+# 스킬 본체까지 같이 가져온다. 이 저장소 전용 스킬(start-topic 등)은 계속 추적한다.
+.claude/skills/impeccable/

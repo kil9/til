@@ -17,6 +17,8 @@ til/
 ├── index.html            루트 갤러리 랜딩 페이지(퍼블리시된 페이지 목록)
 ├── README.md             사람용 개요 + 퍼블리시된 페이지 표
 ├── AGENTS.md             (이 파일) 에이전트 지침 + 퍼블리시 런북
+├── DESIGN.md             시각 규칙의 기계 판독 정본(impeccable 이 읽는다 — §디자인 가드)
+├── PRODUCT.md            impeccable 이 읽는 제품 사실 기록(동상)
 ├── 404.html              커스텀 404 + 구 URL → 신 경로 리다이렉트 맵
 ├── CNAME                 GitHub Pages 커스텀 도메인(til.kil9.dev) 지정 파일
 ├── feed.xml              Atom 1.0 피드 (생성물 — site-feed.py, 손으로 고치지 않는다)
@@ -268,6 +270,16 @@ drafts/<slug>.md   대화 로그 + 작성 중인 초안.
   - 근거가 된 문체 해부: `~/work/kil9log/archived/STYLE_ANALYSIS.md`
   - 원자료 코퍼스: `~/work/kil9log/archived/posts/` (페북·텀블러·티스토리)
 - 위 스타일 규칙 1-5 와 `STYLE_GUIDE.md` 가 충돌하면 `STYLE_GUIDE.md` §5 를 따르고, 충돌 자체를 사용자에게 알린다.
+
+## 디자인 가드 (impeccable, m-12)
+
+사이트 디자인 언어를 기계가 읽을 수 있게 명문화하고 UI 안티패턴을 자동 검출한다(TASK-112).
+
+- **`DESIGN.md`(루트, 커밋됨)가 시각 규칙의 기계 판독 정본이다.** 색·타이포 램프·radius·spacing 토큰과 컴포넌트 규약, 명명된 규칙(One Blue Rule, Flat Rule, 8-or-Circle Rule 등)이 들어 있다. 위 §2 공통 셸 템플릿과 §2-2·§2-3 의 리브 코멘트·스티커 규칙이 그 출처이며 **모순이 생기면 이 AGENTS.md 가 정본**이고 DESIGN.md 를 고쳐 맞춘다. 색·크기·반경을 새로 도입하려면 DESIGN.md 를 같은 커밋에서 갱신한다.
+- **`PRODUCT.md`(루트, 커밋됨)는 impeccable 이 읽는 제품 사실 기록**이다. 사람용 개요(README)·작업 지침(이 파일)·캐릭터 설정(doc-3)을 대체하지 않고 요약만 담는다.
+- **검출은 `npx impeccable detect <경로>`.** DESIGN.md 를 자동으로 물어 램프 이탈을 잡는다. advisory(em-dash 등)는 exit code 에 반영되지 않아 발행을 막지 않는다.
+- **훅은 `.claude/settings.local.json` 에 등록되고 그 파일은 gitignore 라 머신마다 1회 재등록이 필요하다.** 새 머신에서는 `npx impeccable install`(설치 위치 `project`)을 다시 돌린다 — 스킬 본체(`.claude/skills/impeccable/`, 130여 파일)도 벤더링하지 않고 gitignore 라 그 한 번이 둘을 같이 가져온다. HTML 을 Edit/Write 하면 PostToolUse 훅이, 턴이 끝나면 Stop 훅이 `hook.mjs` 를 돌린다.
+- **`.impeccable/` 은 gitignore 다**(루트가 그대로 공개 서빙되므로 리뷰 보고서·라이브 상태를 커밋하지 않는다). 예외로 `.impeccable/config.json` 만 추적한다 — 규칙 waive 목록이 머신마다 다르면 발행 게이트가 사람마다 다르게 통과하기 때문이다. `design.json` 사이드카는 비커밋이고 `/impeccable document` 로 다시 만든다.
 
 ## 서브에이전트 네이밍 (이 저장소 한정)
 
