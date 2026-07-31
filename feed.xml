@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-07-29T02:01:00+09:00</updated>
+  <updated>2026-08-01T02:01:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>렌탈 없이 얼음정수기 사기: 3가지 경로</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/ice-water-purifier-without-rental/"/>
+    <id>https://til.kil9.dev/2026/ice-water-purifier-without-rental/</id>
+    <published>2026-08-01T02:01:00+09:00</published>
+    <updated>2026-08-01T02:01:00+09:00</updated>
+    <category term="hardware"/>
+    <summary type="text">얼음이 나오고 온도조절이 되는 정수기를 방문 코디와 렌탈 계약 없이 들이는 방법을 조사했다. 제조사 직판 일시불(쿠쿠·삼성·LG·루헨스), 언더싱크 자가설치 + 급수 직결 제빙기 조합, 렌탈사 자가관리형 절충안. 정수기 온수 80-90도로는 컵라면이 안 익는다는 함정과 자가관리 위생이 성립하는 조건까지 정리했다.</summary>
+  </entry>
   <entry>
     <title>Matt Pocock 의 에이전트 스킬 22종: 프로세스를 뺏지 않는 도구 상자</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/matt-pocock-skills/"/>
