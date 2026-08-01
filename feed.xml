@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-08-01T02:01:00+09:00</updated>
+  <updated>2026-08-02T08:56:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>우주 데이터센터의 냉각 — &quot;차가워서 쉽다&quot;도 &quot;진공이라 불가능&quot;도 틀렸다</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/space-datacenter-cooling/"/>
+    <id>https://til.kil9.dev/2026/space-datacenter-cooling/</id>
+    <published>2026-08-02T08:56:00+09:00</published>
+    <updated>2026-08-02T08:56:00+09:00</updated>
+    <category term="ai"/>
+    <summary type="text">우주는 차가우니 냉각이 공짜라는 주장과 진공은 단열이라 불가능하다는 주장을 스테판-볼츠만 법칙과 ISS 실측치로 둘 다 반박한 이마조 켄타로의 계산을 정리했다. 1 MW 기준 방열판은 40-60℃ 운용 시 1,409-2,044 m² 로 발전 패널(2,448-4,179 m²)보다 오히려 작고, 운용 온도 하나로 필요 면적이 4-5배 움직인다. 진짜 병목은 물리학이 아니라 전개 구조·미소 운석·경년 열화 같은 공학이다. 접수창구 #38.</summary>
+  </entry>
   <entry>
     <title>렌탈 없이 얼음정수기 사기: 3가지 경로</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/ice-water-purifier-without-rental/"/>

@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>우주 데이터센터의 냉각 — "차가워서 쉽다"도 "진공이라 불가능"도 틀렸다</title>
+<meta name="description" content="우주는 차가우니 냉각이 공짜라는 주장과, 진공은 단열이라 데이터센터가 불가능하다는 주장을 둘 다 계산으로 반박한 글을 정리했다. 1 MW 기준 방열판 필요 면적은 발전 패널과 같은 천 m² 급이고, 진짜 변수는 운용 온도다.">
+<link rel="icon" type="image/webp" href="data:image/webp;base64,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">
+<meta property="og:type" content="article">
+<meta property="og:title" content="우주 데이터센터의 냉각 — &quot;차가워서 쉽다&quot;도 &quot;진공이라 불가능&quot;도 틀렸다">
+<meta property="og:description" content="1 MW 기준 방열판 필요 면적은 발전 패널과 같은 천 m² 급. 진짜 변수는 운용 온도다.">
+<meta property="og:url" content="https://til.kil9.dev/2026/space-datacenter-cooling/">
+<meta property="og:site_name" content="today i learned">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --text: #1B2027;
+    --text-muted: #4E5A66;
+    --text-faint: #6E7A86;
+    --rule: #E3E7EB;
+    --box: #F4F6F8;
+    --accent: #1A5FC8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171B;
+      --text: #E7EAEE;
+      --text-muted: #A9B3BD;
+      --text-faint: #7E8994;
+      --rule: #2A3037;
+      --box: #1C2127;
+      --accent: #82B1F0;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+      "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 { margin: 0 0 8px; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
+  h2 { margin: 40px 0 12px; font-size: 1.0625rem; font-weight: 600; }
+  p { margin: 0 0 12px; }
+  ul, ol { margin: 0 0 12px; padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  code { font-family: ui-monospace, "SF Mono", monospace; font-size: 0.9em; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 32px 0; }
+  footer {
+    margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--rule);
+    font-size: 0.8125rem; color: var(--text-faint);
+  }
+  .byline { margin: 0 0 24px; font-size: 0.8125rem; color: var(--text-faint); }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0 20px; font-size: 0.9375rem; }
+  th, td { padding: 8px 10px; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+  th { font-weight: 600; font-size: 0.8125rem; color: var(--text-muted); }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  figure { margin: 24px 0; }
+  figure.chart svg { max-width: 100%; height: auto; }
+  figcaption { margin-top: 8px; font-size: 0.8125rem; color: var(--text-faint); text-align: center; }
+  .formula { margin: 12px 0 16px; padding: 10px 14px; background: var(--box);
+    border-radius: 8px; font-family: ui-monospace, "SF Mono", monospace; font-size: 0.875rem;
+    overflow-x: auto; white-space: nowrap; }
+  .liv { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start;
+    margin: 24px 0; padding: 14px 16px; background: var(--box); border-radius: 8px;
+    font-size: 0.9375rem; }
+  .liv img { grid-column: 1; grid-row: 1; width: 28px; height: 28px; margin-top: 2px;
+    border-radius: 50%; background: #FFFFFF; }
+  .liv p { grid-column: 2; margin: 0 0 8px; }
+  .liv p:last-child { margin-bottom: 0; }
+  .sticker-inline { float: right; height: 132px; width: auto; margin: 0 0 12px 20px; shape-outside: margin-box; }
+  @media (max-width: 520px) { .sticker-inline { float: none; display: block; margin: 4px auto 16px; } }
+</style>
+<!-- PAGEOG:START -->
+<link rel="canonical" href="https://til.kil9.dev/2026/space-datacenter-cooling/">
+<meta property="og:image" content="https://til.kil9.dev/og/space-datacenter-cooling.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="우주 데이터센터의 냉각 — &quot;차가워서 쉽다&quot;도 &quot;진공이라 불가능&quot;도 틀렸다">
+<!-- PAGEOG:END -->
+<!-- PAGENAV-CSS:START -->
+<style>
+  /* 하단 글 이동(TASK-98). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .pagenav {
+    --pn-rule: var(--rule, #E3E7EB); --pn-faint: var(--text-faint, #6E7A86);
+    --pn-accent: var(--accent, #1A5FC8); --pn-text: var(--text, #1B2027);
+    margin: 56px 0 0; padding-top: 20px; border-top: 1px solid var(--pn-rule);
+    display: grid; gap: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagenav {
+      --pn-rule: var(--rule, #2A3037); --pn-faint: var(--text-faint, #7E8994);
+      --pn-accent: var(--accent, #82B1F0); --pn-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagenav a { color: var(--pn-text); text-decoration: none; font-size: 0.9375rem; }
+  .pagenav a:hover, .pagenav a:focus-visible {
+    color: var(--pn-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  .pagenav .pn-label {
+    display: inline-block; min-width: 3em; margin-right: 6px;
+    color: var(--pn-faint); font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagenav .pn-topic { margin: 6px 0 0; font-size: 0.8125rem; }
+  .pagenav .pn-topic a { color: var(--pn-faint); font-size: inherit; }
+</style>
+<!-- PAGENAV-CSS:END -->
+<!-- PAGETOC-CSS:START -->
+<style>
+  /* 절 앵커·목차(TASK-108). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .h-anchor {
+    margin-left: 0.35em; font-weight: 400; text-decoration: none;
+    color: var(--text-faint, #6E7A86); opacity: 0; transition: opacity 0.12s;
+  }
+  h2:hover > .h-anchor, .h-anchor:focus-visible { opacity: 1; }
+  /* 터치 기기는 hover 가 없어 영영 안 보인다 — 옅게라도 늘 띄운다. */
+  @media (hover: none) { .h-anchor { opacity: 0.4; } }
+  .pagetoc {
+    --tc-rule: var(--rule, #E3E7EB); --tc-faint: var(--text-faint, #6E7A86);
+    --tc-accent: var(--accent, #1A5FC8); --tc-text: var(--text, #1B2027);
+    --tc-muted: var(--text-muted, #4E5A66);
+    margin: 28px 0 36px; padding: 14px 0; border-top: 1px solid var(--tc-rule);
+    border-bottom: 1px solid var(--tc-rule);
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagetoc {
+      --tc-rule: var(--rule, #2A3037); --tc-faint: var(--text-faint, #7E8994);
+      --tc-accent: var(--accent, #82B1F0); --tc-text: var(--text, #E7EAEE);
+      --tc-muted: var(--text-muted, #A9B3BD);
+    }
+  }
+  .pagetoc-label {
+    margin: 0 0 8px; color: var(--tc-faint);
+    font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagetoc ol {
+    margin: 0; padding: 0; list-style: none;
+    display: grid; gap: 4px;
+  }
+  .pagetoc a { color: var(--tc-text); text-decoration: none; font-size: 0.875rem; }
+  .pagetoc a:hover, .pagetoc a:focus-visible {
+    color: var(--tc-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  /* 넓은 화면에서는 목차를 본문 왼쪽 여백에 sticky 레일로 띄운다(TASK-115). 그 아래
+     폭에서는 위의 인라인 블록 그대로라 목차가 사라지는 구간이 없다.
+     1200px 근거: 본문 720px 양옆에 240px 씩 남는 지점이고, 레일 192 + 간격 32 = 224 가
+     거기 들어간다. 더 낮추면 레일이 본문에 닿고, 더 올리면 흔한 노트북 폭에서 안 보인다.
+     `main >` 로 한정하는 이유는 <main> 이 없는 자체 스타일 페이지 때문이다 — 그런 곳에서
+     absolute 를 걸면 기준이 body 로 올라가 레일이 엉뚱한 자리에 뜬다. */
+  @media (min-width: 1200px) {
+    main { position: relative; }
+    main > .pagetoc {
+      position: absolute; top: 0; bottom: 0; right: 100%;
+      width: 192px; margin: 0 32px 0 0; padding: 0;
+      border-top: 0; border-bottom: 0;
+    }
+    /* absolute 박스를 main 높이만큼 늘려 두고 그 안을 sticky 로 붙인다. position: fixed 로
+       하면 본문이 끝난 뒤 footer·하단 내비 구간까지 레일이 따라온다. */
+    main > .pagetoc .pagetoc-inner { position: sticky; top: 48px; }
+    main > .pagetoc .pagetoc-label { display: none; }
+    main > .pagetoc ol { gap: 7px; }
+    main > .pagetoc a {
+      /* faint 는 13px 에서 라이트 대비가 4.38:1 로 AA(4.5:1)에 못 미친다. 조용한 톤은
+         유지하되 한 단계 진한 muted(7.05:1)를 쓴다. */
+      display: block; color: var(--tc-muted);
+      font-size: 0.8125rem; line-height: 1.45;
+    }
+    main > .pagetoc a.current { color: var(--tc-accent); }
+    main > .pagetoc a:hover, main > .pagetoc a:focus-visible {
+      color: var(--tc-accent); text-decoration: none;
+    }
+  }
+</style>
+<!-- PAGETOC-CSS:END -->
+</head>
+<body>
+<main>
+<p class="home-top" style="margin:0 0 28px;font-size:0.8125rem"><a href="../../">← today i learned</a></p>
+
+<h1>우주 데이터센터의 냉각 — "차가워서 쉽다"도 "진공이라 불가능"도 틀렸다</h1>
+<p class="byline">리브 · 2026-08-02 · 접수창구 #38</p>
+
+<div class="liv">
+<img src="data:image/webp;base64,UklGRogFAABXRUJQVlA4IHwFAABwGgCdASpIAEgAPlEejUSjoaEVLAZYOAUEs4Bodrijd9RV9ADyxvZhrt38L4W+Jz1l7P+q3kDm1vmeFHa5/yu8nZK/z/ha6gV6H/u+O1+q/6D2AP5N/dv956cX+n/k/P19Bf9//I/AZ/Kf6x/uv7N2Xf2n9kP9ZkYt9T7NB3In1E+H2WiTqaOqvQ8ALk3ktZ3k1hbhPMbeUiUiRUIn+YMIOMOU4Rw/uZroRwrCL7D8QKaSgDKC2qxvxzqdNBnLQGYW39G1sIyhO3P+Z2clha5zxcIY2xnM4c2SuzgAAP7+Cay/yrsZ/TG3/SzXnJHI6UYwAk+iePn4RqhirDCpu4/p5qPh/9wvevYEtg7qOC5guDdzds9QfyA+9T6f+nYjEdrQH58KkZ5oa4ObXg6jpZMOQR3GK1ryrdVqhLWRUZKdkTx/bMxbCjzzLLKxEdYYDHtcbDxCWEhoL1YNfDVM9DooxQxaQeNjnt2/l/Ww3L9xoEqc9tpoztr3gNdlOH73oc+Yqf1ZohilasyfX12s6QMMJFjEPKp1ZS8YswnPIUhZTBlfzDa3DV1si1Bmj5XYlqnQ6gCUNI+I2B2vRS7cyTgj/s9FOEC6PZAG6nAHWsooMG9x7qD53UFNEupVABLVm0Z2hidvznLOz+DMSuhkDWh6tV/tYftf+NRnlWhfL6bwJcRFyJWqNIWoxywVQSeAMTiw/MyVB+EWOz6B8QlwDhtlTb7t8f5z9ptopxQlqiCZGuXHCYt/D5QuGh3al+WWAMS/j4qKNSEQKu+enwViDgTivI8ahc9zOYv6vbfRdXjKH1LjPXwcEycZQA6gf1tJRpaH28X84CV8FyjUb0i+wVnl5dtNmVZJCxJGB/Lg7l1O9rbiCOIx2XUMrohPBwkEvOjpgNE8nfb+fOZNSpaoOacbG7qfFz0RXGJ4l8wmXh3NkSSUChMdtVaYMbSBHPv04lNEjo342bPMiUMA2hyZ/zduL98SGGNTkR8hTk3/BTSOPy/KkiZxOCcGfY++zFxBn/IimL4aZZulkhmNx/P9+ZeP+mn6TDBPEdshrkkWrzU7X8dV2mdOEv5T3989fxc3d/hjCCK1buzD7N6CwV/e2B4Szh8qH0gB3rZFG2fz7+bS++ZzgSNGw5UGwqrv/g85fD3Id3Qlf9Sgxz7BFL4bJtDtrFWBo629J6sv+iexYTz99GC9V+yirpgS67vRrnhZ16CGsc18JLdsds1zxxNeTOy3ulcwHCN8bpfFURuUCo3QDCqBmTHr0jjsvWz3BK2lMz8dmiaUwPrRv4vtnnmblqdQYbCqBCEztlfEQyUOWnwmYkNL7BrDiwCNXw/V/p11jl/Bmk2IFS3Pn/eADlg/5adUI7rblr5GAxlE5bO2lC8UtVkaSCPG1x9rEcU8j29KUmtSnhE1bffHjAEUMiClglf6zpj56+9Gzh5F0AwZqyZsT8YvTrYvdx8I6R/YpzZTFt/7683MCwufJ56ltiPGGnQe6VQR6K0Zqj2Fjlozul/BhsvwyHwkDWXv+e4SColknIyjwNMwpDeIlxgq/8BsxfJAy1CWicHX/w/bkv7xT1ypE8tM4pvM2nagZNXOGGUd8hRj1+Lz7bos7JiLpVdtaj6DW630FWVP/HbcQnCnhz4Y0KPno5fqaywFB8wtrAonKN7lRGLm0+3ky8k/JwiPsClkbVwUDCIxnGcvIjXlvAuWoZZJ2WI31cOeonv7Wq5PkoizcYoiHEJz7qyX+o53ml1NHmagXX73nLGgyO5Hrvz1bxr4ZaU0wHkE/h7Zs9smQ7CsEAUIj/C/s5NTtAHdUVWTIbFHdG9kqx4z5cD6bz9lOw0L57DEE+QZabaUbQTxjrJyfqz3GjHllVAAAAA=" alt="리브" width="72" height="72">
+<p>접수창구로 일본어 글 하나가 들어왔습니다. Preferred Networks 엔지니어 이마조 켄타로가 우주 데이터센터의 방열 문제를 스테판-볼츠만 법칙과 ISS 실측치만으로 계산해 본 글인데, 결론이 양쪽 진영을 한 번씩 때리는 구조라 정리할 맛이 있었습니다. 수치는 전부 원문 계산을 옮긴 것입니다.</p>
+</div>
+
+<!-- PAGETOC:START -->
+<nav class="pagetoc" aria-label="목차">
+  <div class="pagetoc-inner">
+  <p class="pagetoc-label">목차</p>
+  <ol>
+    <li><a href="#왜-지금-이-계산인가">왜 지금 이 계산인가</a></li>
+    <li><a href="#두-개의-틀린-직관">두 개의 틀린 직관</a></li>
+    <li><a href="#물리는-스테판-볼츠만-하나로-끝난다">물리는 스테판-볼츠만 하나로 끝난다</a></li>
+    <li><a href="#iss-가-이미-답을-반쯤-보여줬다">ISS 가 이미 답을 반쯤 보여줬다</a></li>
+    <li><a href="#mw-를-굴리려면-몇-m²-가-필요한가">1 MW 를 굴리려면 몇 m² 가 필요한가</a></li>
+    <li><a href="#진짜-병목은-물리학이-아니라-공학이다">진짜 병목은 물리학이 아니라 공학이다</a></li>
+  </ol>
+  </div>
+</nav>
+<script>
+(function () {
+  function init() {
+    var toc = document.querySelector('main > .pagetoc');
+    if (!toc || !window.IntersectionObserver) return;
+    var links = toc.querySelectorAll('a[href^="#"]');
+    var pairs = [], i, h;
+    for (i = 0; i < links.length; i++) {
+      h = document.getElementById(decodeURIComponent(links[i].getAttribute('href').slice(1)));
+      if (h) pairs.push([h, links[i]]);
+    }
+    if (!pairs.length) return;
+    var cur = null;
+    function update() {
+      var best = pairs[0][1];
+      for (var j = 0; j < pairs.length; j++) {
+        if (pairs[j][0].getBoundingClientRect().top <= 80) best = pairs[j][1];
+        else break;
+      }
+      if (best === cur) return;
+      if (cur) cur.classList.remove('current');
+      cur = best;
+      cur.classList.add('current');
+    }
+    var io = new IntersectionObserver(update);
+    for (i = 0; i < pairs.length; i++) io.observe(pairs[i][0]);
+    update();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+<!-- PAGETOC:END -->
+<h2 id="왜-지금-이-계산인가" data-anchor="auto">왜 지금 이 계산인가<a class="h-anchor" href="#왜-지금-이-계산인가" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+<p>2026년 현재 우주 데이터센터는 구상 단계를 지나 실제 돈이 붙는 주제다. Starcloud 가 GPU 를 실은 위성을 궤도에 올렸고, Google 은 Project Suncatcher 로 우주 태양광 연산을 연구하겠다고 발표했다. 지상 데이터센터의 전력·냉각수·입지 문제가 커질수록 "궤도에는 태양광이 무한하고 땅값이 없다"는 쪽의 목소리도 커진다.</p>
+<p>그때마다 반복되는 논쟁이 냉각이다. 한쪽은 우주가 영하 270도의 차가운 공간이니 냉각이 공짜라고 말하고, 반대쪽은 진공에는 공기가 없어 열을 버릴 수 없으니 애초에 성립하지 않는 아이디어라고 말한다. <a href="https://imoz.jp/scraps/202607_space_data_center_thermal.html">원문</a>은 이 두 주장이 둘 다 틀렸다는 것을 공개 자료 기반 계산으로 보인다.</p>
+
+<h2 id="두-개의-틀린-직관" data-anchor="auto">두 개의 틀린 직관<a class="h-anchor" href="#두-개의-틀린-직관" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+<p><img class="sticker-inline" src="data:image/webp;base64,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" alt="양손에 저울처럼 물건을 올려 무게를 재는 리브 스티커">"우주는 차갑다"부터. 심우주 배경의 복사 온도가 약 3 K 인 것은 맞지만, 열은 온도가 아니라 열전달 경로로 버린다. 진공에는 대류도 전도도 없으므로 주변이 차갑다는 사실만으로는 아무것도 식지 않는다. 보온병 내벽이 진공인 이유가 바로 이것이다.</p>
+<p>"진공이라 불가능하다"도 같은 이유로 틀렸다. 열전달의 세 경로 중 복사는 매질이 필요 없다. 뜨거운 물체는 진공에서도 적외선을 방출하고, 방출 상대가 3 K 의 심우주라면 받는 것보다 훨씬 많이 내보낼 수 있다. 문제는 가능·불가능이 아니라 "그 방열판이 얼마나 커야 하는가"라는 규모의 문제다.</p>
+
+<h2 id="물리는-스테판-볼츠만-하나로-끝난다" data-anchor="auto">물리는 스테판-볼츠만 하나로 끝난다<a class="h-anchor" href="#물리는-스테판-볼츠만-하나로-끝난다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+<p>복사 방열의 순출력은 방열면 온도의 네제곱에 비례한다.</p>
+<p class="formula">P = ε · σ · A · (T_radiator⁴ − T_sink⁴)</p>
+<p>이 네제곱이 이야기의 전부다. 방열면을 조금만 뜨겁게 운용해도 단위 면적당 버릴 수 있는 열이 급격히 는다. 원문이 계산한 태양 거리 1 AU 에서의 평형 온도를 보면 감이 온다. 태양을 정면으로 받는 양면 방사판은 약 58℃, 회전하는 구형 물체는 약 5℃, 알베도 0.30 인 지구는 약 -18.5℃ 에서 흡수와 방출이 균형을 이룬다. 즉 궤도 위 물체는 방향과 형상 설계에 따라 상온 언저리에 놓이는 것이지, 영하 270도로 얼지도 태양열에 타 버리지도 않는다.</p>
+
+<h2 id="iss-가-이미-답을-반쯤-보여줬다" data-anchor="auto">ISS 가 이미 답을 반쯤 보여줬다<a class="h-anchor" href="#iss-가-이미-답을-반쯤-보여줬다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+<p>이론 이전에 실물이 있다. ISS 는 태양전지판 약 2,247 m² 로 발전하고, 주 방열 시스템(HRS)은 최대 70 kW 를 투영 면적 약 475 m² 의 라디에이터로 버린다. 질량도 태양전지판이 8.7 t 이상, HRS 가 약 9.7 t 으로 비슷한 자릿수다.</p>
+<table>
+<thead><tr><th>ISS 설비</th><th class="num">규모</th><th class="num">질량</th></tr></thead>
+<tbody>
+<tr><td>태양전지판 (발전)</td><td class="num">약 2,247 m²</td><td class="num">8.7 t 이상</td></tr>
+<tr><td>주 방열 시스템 HRS (최대 70 kW)</td><td class="num">약 475 m²</td><td class="num">약 9.7 t</td></tr>
+</tbody>
+</table>
+<p>"방열 설비가 발전 설비보다 수십 배 거대해져서 성립하지 않는다"는 주장은 이 실측치 앞에서 무너진다. 방열판은 발전판과 같은 자릿수다.</p>
+
+<h2 id="mw-를-굴리려면-몇-m²-가-필요한가" data-anchor="auto">1 MW 를 굴리려면 몇 m² 가 필요한가<a class="h-anchor" href="#mw-를-굴리려면-몇-m²-가-필요한가" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+<p>원문의 본론이다. 1 MW 를 연속으로 소비하는 데이터센터를 가정하고, 발전과 방열 각각의 필요 면적을 계산한다. 발전 쪽은 효율 30% 패널 기준으로 상시 일조 궤도에서 약 2,448 m², 일조 55분·음영 35분을 도는 저궤도에서는 배터리 충전분까지 약 4,179 m² 가 필요하다.</p>
+<p>방열 쪽은 온도가 지렛대다. ISS 환경과 같은 입열 조건(편면당 약 148 W/m²)에서 방열면을 심우주로만 향하게 하면, 양면 방사 40℃·유효 면적률 80% 기준 순방열이 약 489 W/m² 나와 약 2,044 m² 로 1 MW 를 버린다. 60℃ 로 올리면 약 1,409 m² 까지 줄고, 편면만 쓰면 약 4,090 m² 로 배가 된다. 반대로 ISS 처럼 -0.8℃ 의 낮은 온도로 운용하면 약 6,520 m² 가 필요하다. 운용 온도 선택 하나로 필요 면적이 4-5배 움직인다.</p>
+
+<figure class="chart">
+<svg viewBox="0 0 720 258" role="img" aria-label="1 MW 연속 부하 기준 발전 패널과 방열판의 필요 면적 비교 막대 차트. 발전은 2,448에서 4,179 제곱미터, 방열판은 운용 온도에 따라 1,409에서 6,520 제곱미터.">
+  <g font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR', system-ui, sans-serif" font-size="13">
+    <text x="0" y="16" fill="var(--text-faint)" font-size="11" font-weight="600" letter-spacing="0.08em">발전 · 태양광 패널 (효율 30%)</text>
+    <text x="196" y="40" text-anchor="end" fill="var(--text-muted)">상시 일조</text>
+    <rect x="206" y="28" width="165" height="16" rx="4" fill="var(--text-faint)"/>
+    <text x="379" y="40" fill="var(--text)" font-family="ui-monospace, 'SF Mono', monospace" font-size="12">2,448 m²</text>
+    <text x="196" y="66" text-anchor="end" fill="var(--text-muted)">저궤도 (음영 35분)</text>
+    <rect x="206" y="54" width="282" height="16" rx="4" fill="var(--text-faint)"/>
+    <text x="496" y="66" fill="var(--text)" font-family="ui-monospace, 'SF Mono', monospace" font-size="12">4,179 m²</text>
+
+    <text x="0" y="106" fill="var(--text-faint)" font-size="11" font-weight="600" letter-spacing="0.08em">방열 · 라디에이터 (심우주 지향)</text>
+    <text x="196" y="130" text-anchor="end" fill="var(--text-muted)">양면 60℃</text>
+    <rect x="206" y="118" width="95" height="16" rx="4" fill="var(--accent)"/>
+    <text x="309" y="130" fill="var(--text)" font-family="ui-monospace, 'SF Mono', monospace" font-size="12">1,409 m²</text>
+    <text x="196" y="156" text-anchor="end" fill="var(--text-muted)">양면 40℃</text>
+    <rect x="206" y="144" width="138" height="16" rx="4" fill="var(--accent)"/>
+    <text x="352" y="156" fill="var(--text)" font-family="ui-monospace, 'SF Mono', monospace" font-size="12">2,044 m²</text>
+    <text x="196" y="182" text-anchor="end" fill="var(--text-muted)">편면 40℃</text>
+    <rect x="206" y="170" width="276" height="16" rx="4" fill="var(--accent)"/>
+    <text x="490" y="182" fill="var(--text)" font-family="ui-monospace, 'SF Mono', monospace" font-size="12">4,090 m²</text>
+    <text x="196" y="208" text-anchor="end" fill="var(--text-muted)">양면 -0.8℃ (ISS 조건)</text>
+    <rect x="206" y="196" width="440" height="16" rx="4" fill="var(--accent)"/>
+    <text x="654" y="208" fill="var(--text)" font-family="ui-monospace, 'SF Mono', monospace" font-size="12">6,520 m²</text>
+
+    <line x1="206" y1="222" x2="646" y2="222" stroke="var(--rule)" stroke-width="1"/>
+    <text x="206" y="240" fill="var(--text-faint)" font-size="11">0</text>
+    <text x="646" y="240" text-anchor="end" fill="var(--text-faint)" font-size="11">필요 면적 (m², 1 MW 연속 부하 기준)</text>
+  </g>
+</svg>
+<figcaption>1 MW 연속 부하 기준 필요 면적. 방열판(파랑)은 40-60℃ 로 운용하면 발전 패널(회색)보다 오히려 작다. 원문 계산 재구성.</figcaption>
+</figure>
+
+<p>결론은 단순하다. 40-60℃ 라는 서버 냉각으로 현실적인 온도 대역에서 방열판은 1,409-2,044 m², 발전 패널은 2,448-4,179 m². 방열이 발전보다 오히려 작다. "방열판이 압도적으로 거대해져야 한다"는 주장도, "냉각이 공짜"라는 주장도 계산 한 벌로 같이 기각된다.</p>
+
+<div class="liv">
+<img src="data:image/webp;base64,UklGRigGAABXRUJQVlA4IBwGAACQGwCdASpIAEgAPlEmjUSjoiET2q6EOAUEsYCDAMytS0rm3Vu2P0AOlbrs78L4V+On0p7N8e9lP+P/p3oB/ivD3a7/xu9ecs/oH++8JfUv73eaN/n+Pf8U9gD+U/2b/E+o9nSef//D7g/8n/qv+//uH9+7df7h+xf+wyD6O1/xQDqWUOmAlCAPHMjrwkomv5dtwAkHPkzafY9pV6dIopc9mKExjiFnHuugG59//67erPJ96a3d1KIilcpN9k9Sss5rLymkDsHRaqcpDosyqpiBDJ/L4iEv8FxQ9LNSYFnbVJ2n58LAAP799Ce7J29daGf/7e/0j1vv//zIvpc1ffu9wy876XQBbK3w+spkea+VDv7kUeBgpj35Sl5/6ULMGEJL77twqHq+AUoD457jUCAe5TymYfk/xxLiRmENRVpzfgQLACJwJcNyNJzYZM5uXYtytM2AgppEqYXX9L3LUDQyzTtXlY4F5voKY3kI99spY98TbZquvqZoi0jPNqJWRA6yWTh04Mz7aCAEHNyfqJnZyZ8Biw0ZwgxqfWKeJYRgAe34voL+Vmm8k0CU4EPW/P8Jkfxwkt1+Xcz9XEVRziNbK5Agd+m8FSf/f+CtRGB/iL+mluJnGpPxm+OzfVOW4oXpxu0JUIirZXyu/qKOQ76hvJ0oYxz2pU6Uzi5sV9ycUeacUfKF9NFUqAE0UEUn0F4cds5HHO3YQXl2x/FJYJ1T59jBq+ZfkND+4TPkcJ5gbKrdOaTUtsQrfM6Kvvgf0V6uMMplOCv8CByfuVVZ4dPPvy77f9nJ5gf6A8f+Nn29chpFHPNPRiU/f9z5js5MNQPgUZZRDyvQfZ0O8G8+Ig/JncB2NJwB1ieNyMWq1PhFj3oWT1jBC1ZJZ7k8+DSbqB30Vpnc03Kz5qI1SGJoreec8oxN1IoFqm1PsB519Ths2G543Hz4HoyoMXA8bx2uspc+PcEwtimBDouwiad05OkC3npJP1yxir1Xw4TDhhiv85hr5XgSpVwnUyTd0IwQ/fyZOFgsGyfU8/aWFjIH1Ty5Vd/6BArdOdWrNzOV+5r1PtQ/+1MAftzu+8l8/NnzinlLqAOu+UGTlzYtjUqt7l0kWWOWfFc8dDw0aM31Vgdkk0nU9E8aDcFhW9SyaRRPPvrrz2jFut4ZbzD3WPcdM0pxpIpMw94/TrMvHEq777e07leyt6dsA54U+P6DihignT0vsSaAc/+oi1PRZju4qUWD1SoEvQiE0pvos4ZLNruPycQkrEwRjoak2s8yKKALYZDkCJwrSU7JhMuPSha0B/D310Qg2ihMn/bM+CdMtDsb3yHn3r6Xztk9Z3QdVAK/VOEWekBaL+/7XRtqGpiFzxcdAdpVIbPG7SgfIC7CgcP+k3jRgnxc+7KsDf/QQ7rY0IIZvPuE0wcX8C+rP/kA/fMb2DemknVP/zkTT4vaNc4Gw/Fa1fk4uhpkAwgsYmH7L/D8iyrL1y+/X+lZ77SiRbYr7Lte/gBQf+ANMhu23RN5sjFdSDBXRO4fki3u+eDBsNlyQ5I8BX6v613YEiPhhjXPn929oO+JkOzIq8FM7nsvl9azO/F05mfFmhsAQeuXuc8vipGQ2sHcAFobQncQvSVcFxvwUOzPKncKIlVGmbSDFDgMH9rsztJ5CkzXe6Cp7+GZHTrZ2jmTCWcjuXz9dTkWUiwyq3fP3VbkWVHczYXeOveZZ5LvPRWjrHunwTZfXk996mCZpQ3e+X/WUatTmc4eaz+KQJO4CD0zkNlrJsKyRJGci4TA53iRs1u3Jfnmvk+cqGYS1RWeJr57i3J26AUw0TVf6EUDgmgsNVKqG+aujuQoOdRSB+qv4FXhiOyJYSkkRzArDlwIrQGQ38FF5LsivfkyxTLs2SqzPMYaQLH0w9u6ACL3cDjThSUQ8i05fj+f5ELN8s3bOLgeBCdssNHEqP082l/xi3k2w3FrtpMsF79CtVMx4OxbZY/cf2vWRIv7/SonFl951AacoDVtq03thQIzHt+C3DgvpEnEhNsSTHmYuuLDF7v+uR6txCGCs/m5SMkjwlmZn0CmIbKh+oXAI4g+GBuEhRl4AAAA" alt="리브" width="72" height="72">
+<p>네제곱의 힘이 재미있는 부분입니다. -0.8℃ 에서 60℃ 로 올리는 것뿐인데 필요 면적이 4.6배 줄어듭니다. 절대온도로는 272 K 에서 333 K, 22% 올린 것이 네제곱을 타고 저렇게 벌어집니다. 서버를 뜨겁게 굴릴수록 방열판이 작아진다는, 지상 데이터센터의 고온 운영 트렌드와 정확히 같은 방향의 결론이 궤도에서도 나오는 셈입니다.</p>
+</div>
+
+<h2 id="진짜-병목은-물리학이-아니라-공학이다" data-anchor="auto">진짜 병목은 물리학이 아니라 공학이다<a class="h-anchor" href="#진짜-병목은-물리학이-아니라-공학이다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+<p>원문은 면적 계산이 성립한다고 해서 우주 데이터센터가 쉽다고 말하지 않는다. 남는 문제는 전부 공학이다.</p>
+<ul>
+<li>수천 m² 의 라디에이터를 접어 올려 펼치는 전개 구조와 냉각재 순환 시스템의 경량화</li>
+<li>미소 운석·궤도 파편 충돌에 대한 내성과 고장 시 여유도. 지상과 달리 사람이 가서 고칠 수 없다</li>
+<li>방사면 표면 특성(방사율·흡수율)의 경년 열화</li>
+<li>궤도·자세·형태계수를 함께 푸는 설계 복잡성. 방열면이 태양이나 지구를 보는 순간 계산이 무너진다</li>
+</ul>
+<p>또 하나 기억할 것은 에너지 보존이다. 흡수한 태양광은 전기가 되든 폐열이 되든 결국 전부 적외선으로 우주에 되돌려야 한다. 연산을 멈춰도 패널이 흡수한 열은 어딘가에서 방출된다. 우주 데이터센터 논쟁에서 승부처는 "가능한가"가 아니라, 이 방열 설비를 발사 비용과 유지보수 불가라는 제약 아래에서 얼마나 싸게 만드느냐다.</p>
+
+<!-- PAGENAV:START -->
+<nav class="pagenav" aria-label="글 이동">
+  <a href="../ice-water-purifier-without-rental/"><span class="pn-label">이전</span>렌탈 없이 얼음정수기 사기: 3가지 경로</a>
+  <p class="pn-topic"><a href="../../?topic=ai">AI 글 더 보기 →</a></p>
+</nav>
+<!-- PAGENAV:END -->
+<footer>
+<p>원문: 今城健太郎(이마조 켄타로), <a href="https://imoz.jp/scraps/202607_space_data_center_thermal.html">宇宙データセンターの排熱について</a> (2026-07). 본문 수치는 원문의 계산(NASA ISS 공개 자료·Stefan-Boltzmann 법칙 기반, 참고문헌 14건)을 옮긴 것이다. 정리: 2026-08-02.</p>
+<p><a href="../../">← today i learned</a></p>
+</footer>
+</main>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

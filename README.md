@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-08-02 | 우주 데이터센터의 냉각 — "차가워서 쉽다"도 "진공이라 불가능"도 틀렸다 | [/2026/space-datacenter-cooling/](https://til.kil9.dev/2026/space-datacenter-cooling/) |
 | 2026-08-01 | 렌탈 없이 얼음정수기 사기: 3가지 경로 | [/2026/ice-water-purifier-without-rental/](https://til.kil9.dev/2026/ice-water-purifier-without-rental/) |
 | 2026-07-29 | Matt Pocock 의 에이전트 스킬 22종: 프로세스를 뺏지 않는 도구 상자 | [/2026/matt-pocock-skills/](https://til.kil9.dev/2026/matt-pocock-skills/) |
 | 2026-07-28 | Codex 사용량이 빨리 녹는 이유: 배칭 지시문 하나로 27-45% 절감 | [/2026/codex-code-mode-batching/](https://til.kil9.dev/2026/codex-code-mode-batching/) |
