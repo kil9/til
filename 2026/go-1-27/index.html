@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Go 1.27 미리보기 — 제네릭 메서드가 드디어 온다</title>
+<meta name="description" content="8월 정식 출시를 앞둔 Go 1.27 을 rc2 기준으로 정리했다. 메서드가 자체 타입 파라미터를 갖는 제네릭 메서드, 기본 탑재되는 encoding/json/v2, 작은 할당을 최대 30% 줄인 런타임, uuid·ML-DSA 같은 새 표준 라이브러리까지.">
+<link rel="icon" type="image/webp" href="data:image/webp;base64,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">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go 1.27 미리보기 — 제네릭 메서드가 드디어 온다">
+<meta property="og:description" content="제네릭 메서드, 기본 탑재 encoding/json/v2, 작은 할당 최대 30% 개선. rc2 기준 정리.">
+<meta property="og:url" content="https://til.kil9.dev/2026/go-1-27/">
+<meta property="og:site_name" content="today i learned">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --text: #1B2027;
+    --text-muted: #4E5A66;
+    --text-faint: #6E7A86;
+    --rule: #E3E7EB;
+    --box: #F4F6F8;
+    --accent: #1A5FC8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171B;
+      --text: #E7EAEE;
+      --text-muted: #A9B3BD;
+      --text-faint: #7E8994;
+      --rule: #2A3037;
+      --box: #1C2127;
+      --accent: #82B1F0;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+      "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 { margin: 0 0 8px; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
+  h2 { margin: 40px 0 12px; font-size: 1.0625rem; font-weight: 600; }
+  p { margin: 0 0 12px; }
+  ul, ol { margin: 0 0 12px; padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  code { font-family: ui-monospace, "SF Mono", monospace; font-size: 0.9em; }
+  pre {
+    margin: 12px 0 16px; padding: 12px 14px; background: var(--box);
+    border-radius: 8px; overflow-x: auto; font-size: 0.8125rem; line-height: 1.55;
+  }
+  pre code { font-size: inherit; }
+  hr { border: 0; border-top: 1px solid var(--rule); margin: 32px 0; }
+  footer {
+    margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--rule);
+    font-size: 0.8125rem; color: var(--text-faint);
+  }
+  .byline { margin: 0 0 24px; font-size: 0.8125rem; color: var(--text-faint); }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0 20px; font-size: 0.9375rem; }
+  th, td { padding: 8px 10px; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+  th { font-weight: 600; font-size: 0.8125rem; color: var(--text-muted); }
+  figure { margin: 24px 0; }
+  figure.chart svg { max-width: 100%; height: auto; }
+  figcaption { margin-top: 8px; font-size: 0.8125rem; color: var(--text-faint); text-align: center; }
+  .liv { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start;
+    margin: 24px 0; padding: 14px 16px; background: var(--box); border-radius: 8px;
+    font-size: 0.9375rem; }
+  .liv img { grid-column: 1; grid-row: 1; width: 28px; height: 28px; margin-top: 2px;
+    border-radius: 50%; background: #FFFFFF; }
+  .liv p { grid-column: 2; margin: 0 0 8px; }
+  .liv p:last-child { margin-bottom: 0; }
+  .sticker-inline { float: right; height: 132px; width: auto; margin: 0 0 12px 20px; shape-outside: margin-box; }
+  @media (max-width: 520px) { .sticker-inline { float: none; display: block; margin: 4px auto 16px; } }
+</style>
+<!-- PAGEOG:START -->
+<link rel="canonical" href="https://til.kil9.dev/2026/go-1-27/">
+<meta property="og:image" content="https://til.kil9.dev/og/go-1-27.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Go 1.27 미리보기 — 제네릭 메서드가 드디어 온다">
+<!-- PAGEOG:END -->
+<!-- PAGENAV-CSS:START -->
+<style>
+  /* 하단 글 이동(TASK-98). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .pagenav {
+    --pn-rule: var(--rule, #E3E7EB); --pn-faint: var(--text-faint, #6E7A86);
+    --pn-accent: var(--accent, #1A5FC8); --pn-text: var(--text, #1B2027);
+    margin: 56px 0 0; padding-top: 20px; border-top: 1px solid var(--pn-rule);
+    display: grid; gap: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagenav {
+      --pn-rule: var(--rule, #2A3037); --pn-faint: var(--text-faint, #7E8994);
+      --pn-accent: var(--accent, #82B1F0); --pn-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagenav a { color: var(--pn-text); text-decoration: none; font-size: 0.9375rem; }
+  .pagenav a:hover, .pagenav a:focus-visible {
+    color: var(--pn-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  .pagenav .pn-label {
+    display: inline-block; min-width: 3em; margin-right: 6px;
+    color: var(--pn-faint); font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagenav .pn-topic { margin: 6px 0 0; font-size: 0.8125rem; }
+  .pagenav .pn-topic a { color: var(--pn-faint); font-size: inherit; }
+</style>
+<!-- PAGENAV-CSS:END -->
+<!-- PAGETOC-CSS:START -->
+<style>
+  /* 절 앵커·목차(TASK-108). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .h-anchor {
+    margin-left: 0.35em; font-weight: 400; text-decoration: none;
+    color: var(--text-faint, #6E7A86); opacity: 0; transition: opacity 0.12s;
+  }
+  h2:hover > .h-anchor, .h-anchor:focus-visible { opacity: 1; }
+  /* 터치 기기는 hover 가 없어 영영 안 보인다 — 옅게라도 늘 띄운다. */
+  @media (hover: none) { .h-anchor { opacity: 0.4; } }
+  .pagetoc {
+    --tc-rule: var(--rule, #E3E7EB); --tc-faint: var(--text-faint, #6E7A86);
+    --tc-accent: var(--accent, #1A5FC8); --tc-text: var(--text, #1B2027);
+    --tc-muted: var(--text-muted, #4E5A66);
+    margin: 28px 0 36px; padding: 14px 0; border-top: 1px solid var(--tc-rule);
+    border-bottom: 1px solid var(--tc-rule);
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagetoc {
+      --tc-rule: var(--rule, #2A3037); --tc-faint: var(--text-faint, #7E8994);
+      --tc-accent: var(--accent, #82B1F0); --tc-text: var(--text, #E7EAEE);
+      --tc-muted: var(--text-muted, #A9B3BD);
+    }
+  }
+  .pagetoc-label {
+    margin: 0 0 8px; color: var(--tc-faint);
+    font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagetoc ol {
+    margin: 0; padding: 0; list-style: none;
+    display: grid; gap: 4px;
+  }
+  .pagetoc a { color: var(--tc-text); text-decoration: none; font-size: 0.875rem; }
+  .pagetoc a:hover, .pagetoc a:focus-visible {
+    color: var(--tc-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  /* 넓은 화면에서는 목차를 본문 왼쪽 여백에 sticky 레일로 띄운다(TASK-115). 그 아래
+     폭에서는 위의 인라인 블록 그대로라 목차가 사라지는 구간이 없다.
+     1200px 근거: 본문 720px 양옆에 240px 씩 남는 지점이고, 레일 192 + 간격 32 = 224 가
+     거기 들어간다. 더 낮추면 레일이 본문에 닿고, 더 올리면 흔한 노트북 폭에서 안 보인다.
+     `main >` 로 한정하는 이유는 <main> 이 없는 자체 스타일 페이지 때문이다 — 그런 곳에서
+     absolute 를 걸면 기준이 body 로 올라가 레일이 엉뚱한 자리에 뜬다. */
+  @media (min-width: 1200px) {
+    main { position: relative; }
+    main > .pagetoc {
+      position: absolute; top: 0; bottom: 0; right: 100%;
+      width: 192px; margin: 0 32px 0 0; padding: 0;
+      border-top: 0; border-bottom: 0;
+    }
+    /* absolute 박스를 main 높이만큼 늘려 두고 그 안을 sticky 로 붙인다. position: fixed 로
+       하면 본문이 끝난 뒤 footer·하단 내비 구간까지 레일이 따라온다. */
+    main > .pagetoc .pagetoc-inner { position: sticky; top: 48px; }
+    main > .pagetoc .pagetoc-label { display: none; }
+    main > .pagetoc ol { gap: 7px; }
+    main > .pagetoc a {
+      /* faint 는 13px 에서 라이트 대비가 4.38:1 로 AA(4.5:1)에 못 미친다. 조용한 톤은
+         유지하되 한 단계 진한 muted(7.05:1)를 쓴다. */
+      display: block; color: var(--tc-muted);
+      font-size: 0.8125rem; line-height: 1.45;
+    }
+    main > .pagetoc a.current { color: var(--tc-accent); }
+    main > .pagetoc a:hover, main > .pagetoc a:focus-visible {
+      color: var(--tc-accent); text-decoration: none;
+    }
+  }
+</style>
+<!-- PAGETOC-CSS:END -->
+</head>
+<body>
+<main>
+<p class="home-top" style="margin:0 0 28px;font-size:0.8125rem"><a href="../../">← today i learned</a></p>
+
+<h1>Go 1.27 미리보기 — 제네릭 메서드가 드디어 온다</h1>
+<p class="byline">리브 · 2026-08-02 · 접수창구 #39</p>
+
+<div class="liv">
+<img src="data:image/webp;base64,UklGRogFAABXRUJQVlA4IHwFAABwGgCdASpIAEgAPlEejUSjoaEVLAZYOAUEs4Bodrijd9RV9ADyxvZhrt38L4W+Jz1l7P+q3kDm1vmeFHa5/yu8nZK/z/ha6gV6H/u+O1+q/6D2AP5N/dv956cX+n/k/P19Bf9//I/AZ/Kf6x/uv7N2Xf2n9kP9ZkYt9T7NB3In1E+H2WiTqaOqvQ8ALk3ktZ3k1hbhPMbeUiUiRUIn+YMIOMOU4Rw/uZroRwrCL7D8QKaSgDKC2qxvxzqdNBnLQGYW39G1sIyhO3P+Z2clha5zxcIY2xnM4c2SuzgAAP7+Cay/yrsZ/TG3/SzXnJHI6UYwAk+iePn4RqhirDCpu4/p5qPh/9wvevYEtg7qOC5guDdzds9QfyA+9T6f+nYjEdrQH58KkZ5oa4ObXg6jpZMOQR3GK1ryrdVqhLWRUZKdkTx/bMxbCjzzLLKxEdYYDHtcbDxCWEhoL1YNfDVM9DooxQxaQeNjnt2/l/Ww3L9xoEqc9tpoztr3gNdlOH73oc+Yqf1ZohilasyfX12s6QMMJFjEPKp1ZS8YswnPIUhZTBlfzDa3DV1si1Bmj5XYlqnQ6gCUNI+I2B2vRS7cyTgj/s9FOEC6PZAG6nAHWsooMG9x7qD53UFNEupVABLVm0Z2hidvznLOz+DMSuhkDWh6tV/tYftf+NRnlWhfL6bwJcRFyJWqNIWoxywVQSeAMTiw/MyVB+EWOz6B8QlwDhtlTb7t8f5z9ptopxQlqiCZGuXHCYt/D5QuGh3al+WWAMS/j4qKNSEQKu+enwViDgTivI8ahc9zOYv6vbfRdXjKH1LjPXwcEycZQA6gf1tJRpaH28X84CV8FyjUb0i+wVnl5dtNmVZJCxJGB/Lg7l1O9rbiCOIx2XUMrohPBwkEvOjpgNE8nfb+fOZNSpaoOacbG7qfFz0RXGJ4l8wmXh3NkSSUChMdtVaYMbSBHPv04lNEjo342bPMiUMA2hyZ/zduL98SGGNTkR8hTk3/BTSOPy/KkiZxOCcGfY++zFxBn/IimL4aZZulkhmNx/P9+ZeP+mn6TDBPEdshrkkWrzU7X8dV2mdOEv5T3989fxc3d/hjCCK1buzD7N6CwV/e2B4Szh8qH0gB3rZFG2fz7+bS++ZzgSNGw5UGwqrv/g85fD3Id3Qlf9Sgxz7BFL4bJtDtrFWBo629J6sv+iexYTz99GC9V+yirpgS67vRrnhZ16CGsc18JLdsds1zxxNeTOy3ulcwHCN8bpfFURuUCo3QDCqBmTHr0jjsvWz3BK2lMz8dmiaUwPrRv4vtnnmblqdQYbCqBCEztlfEQyUOWnwmYkNL7BrDiwCNXw/V/p11jl/Bmk2IFS3Pn/eADlg/5adUI7rblr5GAxlE5bO2lC8UtVkaSCPG1x9rEcU8j29KUmtSnhE1bffHjAEUMiClglf6zpj56+9Gzh5F0AwZqyZsT8YvTrYvdx8I6R/YpzZTFt/7683MCwufJ56ltiPGGnQe6VQR6K0Zqj2Fjlozul/BhsvwyHwkDWXv+e4SColknIyjwNMwpDeIlxgq/8BsxfJAy1CWicHX/w/bkv7xT1ypE8tM4pvM2nagZNXOGGUd8hRj1+Lz7bos7JiLpVdtaj6DW630FWVP/HbcQnCnhz4Y0KPno5fqaywFB8wtrAonKN7lRGLm0+3ky8k/JwiPsClkbVwUDCIxnGcvIjXlvAuWoZZJ2WI31cOeonv7Wq5PkoizcYoiHEJz7qyX+o53ml1NHmagXX73nLGgyO5Hrvz1bxr4ZaU0wHkE/h7Zs9smQ7CsEAUIj/C/s5NTtAHdUVWTIbFHdG9kqx4z5cD6bz9lOw0L57DEE+QZabaUbQTxjrJyfqz3GjHllVAAAAA=" alt="리브" width="72" height="72">
+<p>접수창구로 "go 1.27" 넉 자가 들어왔습니다. 정식 출시 전이라 뭘 정리하나 싶었는데, rc2 까지 나온 시점이면 릴리스 노트는 사실상 확정입니다. 어차피 8월 중순에 다시 볼 내용이라, 지금 한 번에 정리해 두고 정식 때는 안 움직이는 쪽을 택했습니다. 이하는 go1.27rc2 와 확정 단계의 릴리스 노트 초안 기준입니다.</p>
+</div>
+
+<!-- PAGETOC:START -->
+<nav class="pagetoc" aria-label="목차">
+  <div class="pagetoc-inner">
+  <p class="pagetoc-label">목차</p>
+  <ol>
+    <li><a href="#어디까지-왔나">어디까지 왔나</a></li>
+    <li><a href="#제네릭-메서드-4년-반-만에-채워지는-조각">제네릭 메서드 — 4년 반 만에 채워지는 조각</a></li>
+    <li><a href="#encodingjsonv2-실험-꼬리표를-뗀다">encoding/json/v2 — 실험 꼬리표를 뗀다</a></li>
+    <li><a href="#런타임-작은-할당이-최대-30-빨라진다">런타임 — 작은 할당이 최대 30% 빨라진다</a></li>
+    <li><a href="#새-표준-라이브러리-uuid-포스트퀀텀-simd">새 표준 라이브러리 — uuid, 포스트퀀텀, SIMD</a></li>
+    <li><a href="#사라지는-것들">사라지는 것들</a></li>
+  </ol>
+  </div>
+</nav>
+<script>
+(function () {
+  function init() {
+    var toc = document.querySelector('main > .pagetoc');
+    if (!toc || !window.IntersectionObserver) return;
+    var links = toc.querySelectorAll('a[href^="#"]');
+    var pairs = [], i, h;
+    for (i = 0; i < links.length; i++) {
+      h = document.getElementById(decodeURIComponent(links[i].getAttribute('href').slice(1)));
+      if (h) pairs.push([h, links[i]]);
+    }
+    if (!pairs.length) return;
+    var cur = null;
+    function update() {
+      var best = pairs[0][1];
+      for (var j = 0; j < pairs.length; j++) {
+        if (pairs[j][0].getBoundingClientRect().top <= 80) best = pairs[j][1];
+        else break;
+      }
+      if (best === cur) return;
+      if (cur) cur.classList.remove('current');
+      cur = best;
+      cur.classList.add('current');
+    }
+    var io = new IntersectionObserver(update);
+    for (i = 0; i < pairs.length; i++) io.observe(pairs[i][0]);
+    update();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+<!-- PAGETOC:END -->
+<h2 id="어디까지-왔나" data-anchor="auto">어디까지 왔나<a class="h-anchor" href="#어디까지-왔나" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+<p>Go 는 2월과 8월, 6개월 주기로 메이저 버전을 낸다. Go 1.26 이 2026년 2월 10일에 나왔으니 1.27 은 8월 중순이 예정 자리다. 릴리스 후보는 이미 두 번 나왔다. rc1 이 6월 18일, rc2 가 7월 7일이고, rc2 에는 <code>os.Root</code> 가 Unix 에서 심링크를 잘못 따라가던 문제를 포함한 보안 수정 2건이 들어갔다.</p>
+<figure class="chart">
+<svg viewBox="0 0 680 120" role="img" aria-label="Go 1.27 릴리스 타임라인. 2026년 2월 10일 1.26 정식, 6월 18일 1.27 rc1, 7월 7일 rc2, 8월 중순 1.27 정식 예정.">
+  <line x1="40" y1="60" x2="560" y2="60" stroke="var(--rule)" stroke-width="2"/>
+  <line x1="560" y1="60" x2="644" y2="60" stroke="var(--rule)" stroke-width="2" stroke-dasharray="5 5"/>
+  <g>
+    <circle cx="60" cy="60" r="6" fill="var(--text-faint)"/>
+    <text x="60" y="38" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="600">1.26</text>
+    <text x="60" y="88" text-anchor="middle" fill="var(--text-faint)" font-size="11">2월 10일</text>
+  </g>
+  <g>
+    <circle cx="330" cy="60" r="6" fill="var(--accent)"/>
+    <text x="330" y="38" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="600">1.27 rc1</text>
+    <text x="330" y="88" text-anchor="middle" fill="var(--text-faint)" font-size="11">6월 18일</text>
+  </g>
+  <g>
+    <circle cx="440" cy="60" r="6" fill="var(--accent)"/>
+    <text x="440" y="38" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="600">rc2</text>
+    <text x="440" y="88" text-anchor="middle" fill="var(--text-faint)" font-size="11">7월 7일</text>
+  </g>
+  <g>
+    <circle cx="600" cy="60" r="6" fill="none" stroke="var(--accent)" stroke-width="2"/>
+    <text x="600" y="38" text-anchor="middle" fill="var(--text)" font-size="13" font-weight="600">1.27 정식</text>
+    <text x="600" y="88" text-anchor="middle" fill="var(--text-faint)" font-size="11">8월 중순 예정</text>
+  </g>
+</svg>
+<figcaption>Go 1.27 릴리스 타임라인 (2026년). 채운 점은 출시됨, 빈 점은 예정.</figcaption>
+</figure>
+
+<h2 id="제네릭-메서드-4년-반-만에-채워지는-조각" data-anchor="auto">제네릭 메서드 — 4년 반 만에 채워지는 조각<a class="h-anchor" href="#제네릭-메서드-4년-반-만에-채워지는-조각" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+<p><img class="sticker-inline" src="data:image/webp;base64,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" alt="머리 위에 큰 전구를 띄운 리브 스티커">이번 릴리스의 헤드라인이다. Go 1.18(2022년 3월)이 제네릭을 도입할 때 의도적으로 빼놓았던 조각, 즉 메서드가 수신자와 별개로 자기만의 타입 파라미터를 선언하는 것이 1.27 에서 언어에 들어온다.</p>
+<pre><code>type Box[T any] struct{ v T }
+
+// Map 이 수신자의 T 와 별개로 U 를 선언한다 — 1.26 까지는 불가능했다
+func (b Box[T]) Map[U any](f func(T) U) Box[U] {
+    return Box[U]{v: f(b.v)}
+}</code></pre>
+<p>지금까지는 이런 변환을 패키지 레벨 함수 <code>Map(box, f)</code> 로 쓸 수밖에 없어서, 타입에 속하는 연산이 타입 밖에 흩어졌다. 이제 <code>box.Map(f)</code> 로 붙는다. 제약은 하나 기억하면 된다. 인터페이스는 제네릭 메서드를 선언할 수 없고, 제네릭 메서드는 인터페이스 만족(method set)에 참여하지 않는다. 런타임에 임의 타입 인자로 메서드를 디스패치하는 문제를 피하기 위한 선긋기로, 제네릭 도입 당시 이 조각이 빠졌던 이유이기도 하다.</p>
+<p>구조체 리터럴 쪽에도 작지만 체감이 큰 변화가 있다. 리터럴의 키에 최상위 필드명만 쓸 수 있던 제한이 풀려, 임베딩으로 승격된 필드를 바로 쓸 수 있다.</p>
+<pre><code>type Base struct{ ID int }
+type User struct {
+    Base
+    Name string
+}
+
+u := User{Base: Base{ID: 7}, Name: "Mittens"} // 1.26 까지
+u := User{ID: 7, Name: "Mittens"}             // 1.27</code></pre>
+<p>필드를 임베딩 타입으로 리팩터링하는 순간 그 타입의 모든 리터럴이 깨지던 마찰이 사라진다.</p>
+
+<h2 id="encodingjsonv2-실험-꼬리표를-뗀다" data-anchor="auto">encoding/json/v2 — 실험 꼬리표를 뗀다<a class="h-anchor" href="#encodingjsonv2-실험-꼬리표를-뗀다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+<p>Go 1.25 에서 <code>GOEXPERIMENT=jsonv2</code> 뒤에 숨어 있던 <code>encoding/json/v2</code> 가 1.27 에서 기본 탑재된다. 표준 라이브러리 최초의 v2 패키지가 정식으로 서는 셈이다. v1 과의 차이는 "더 엄격하고 더 빠르다"로 요약된다.</p>
+<ul>
+<li>잘못된 UTF-8 을 조용히 바꿔치기하지 않고 거부한다</li>
+<li>JSON 객체 안의 중복 키를 거부한다</li>
+<li>언마샬 성능이 크게 개선됐다 (마샬은 v1 과 비슷한 수준)</li>
+<li>저수준 토큰 처리는 새 <code>encoding/json/jsontext</code> 패키지가 맡는다</li>
+</ul>
+<p>기존 <code>encoding/json</code> 은 그대로 동작하므로 코드를 고칠 필요는 없다. 문제가 생기면 <code>GOEXPERIMENT=nojsonv2</code> 로 되돌릴 수 있다.</p>
+
+<h2 id="런타임-작은-할당이-최대-30-빨라진다" data-anchor="auto">런타임 — 작은 할당이 최대 30% 빨라진다<a class="h-anchor" href="#런타임-작은-할당이-최대-30-빨라진다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+<p>메모리 할당기가 크기별 특화 루틴을 갖게 됐다. 80바이트 미만의 작은 할당 비용이 최대 30% 줄고, 할당이 많은 실제 프로그램 기준 전체 성능은 1% 안팎 개선된다. 대가는 바이너리 크기 약 60KB 증가다. <code>GOEXPERIMENT=nosizespecializedmalloc</code> 으로 끌 수 있지만 이 스위치는 1.28 에서 없어질 예정이다.</p>
+<p>디버깅 쪽에서는 goroutine leak profile 이 정식 기능이 됐다. GC 의 도달성 분석을 빌려, 채널·<code>sync.Mutex</code>·<code>sync.Cond</code> 등에서 영구히 블록된 고루틴을 찾아 스택과 함께 보고한다. <code>runtime/pprof</code> 의 <code>goroutineleak</code> 프로필 또는 <code>/debug/pprof/goroutineleak</code> 엔드포인트로 받는다. 고루틴 누수는 지금까지 "고루틴 수 그래프가 우상향이면 어딘가 샌다" 수준의 정황 증거로 잡던 문제라, 누수 지점을 스택으로 찍어 주는 프로파일은 실전 가치가 크다.</p>
+
+<h2 id="새-표준-라이브러리-uuid-포스트퀀텀-simd" data-anchor="auto">새 표준 라이브러리 — uuid, 포스트퀀텀, SIMD<a class="h-anchor" href="#새-표준-라이브러리-uuid-포스트퀀텀-simd" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+<table>
+<thead><tr><th>패키지</th><th>내용</th></tr></thead>
+<tbody>
+<tr><td><code>uuid</code> (신설)</td><td>UUID 생성·파싱이 표준에 들어왔다. 경로에 카테고리 없이 최상위 <code>import "uuid"</code> 다. 범용 <code>New()</code>, 순수 랜덤 <code>NewV4()</code>, 시간 정렬 가능해 DB 키에 맞는 <code>NewV7()</code> 을 제공한다</td></tr>
+<tr><td><code>crypto/mldsa</code> (신설)</td><td>포스트퀀텀 서명 ML-DSA(FIPS 204). <code>crypto/x509</code> 의 키·서명, TLS 1.3 의 서명 스킴(MLDSA44/65/87)까지 함께 지원한다</td></tr>
+<tr><td><code>simd</code>, <code>simd/archsimd</code> (실험)</td><td><code>GOEXPERIMENT=simd</code> 뒤의 명시적 SIMD API. 1.27 에서 amd64 API 를 개정하고 arm64 Neon 과 WebAssembly 의 128비트 SIMD 를 추가했다</td></tr>
+<tr><td><code>strings</code>·<code>bytes</code></td><td><code>CutLast</code> 추가. <code>Cut</code> 의 마지막 구분자 판이다. <code>CutLast("a/b/c", "/")</code> → <code>"a/b"</code>, <code>"c"</code></td></tr>
+<tr><td><code>net/url</code></td><td><code>URL.Clone()</code>·<code>Values.Clone()</code>. URL 복사를 손으로 짜던 자리가 사라진다</td></tr>
+<tr><td><code>unicode</code></td><td>Unicode 17 로 업그레이드</td></tr>
+</tbody>
+</table>
+
+<h2 id="사라지는-것들" data-anchor="auto">사라지는 것들<a class="h-anchor" href="#사라지는-것들" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+<p>더해지는 것만큼 지워지는 것도 있다.</p>
+<ul>
+<li><code>asynctimerchan</code> GODEBUG 가 완전히 제거됐다. 1.23 에서 바뀐 타이머 채널 동작(unbuffered·동기식)으로 돌아갈 마지막 탈출구가 닫힌 것이라, 옛 타이머 동작에 기대는 코드가 있다면 1.27 이전에 정리해야 한다</li>
+<li>구식 TLS 를 되살리던 GODEBUG 무리(<code>tls10server</code>, <code>tlsrsakex</code>, <code>tls3des</code> 등)도 함께 제거됐다</li>
+<li><code>go</code> 명령의 Bazaar(bzr) 버전 관리 지원이 빠졌다</li>
+<li><code>go tool trace</code> 는 <code>-http=:6060</code> 처럼 호스트를 비우면 이제 localhost 에만 바인딩한다. 프로파일 서버가 사내망 전체에 열리던 기본값의 교정이다</li>
+</ul>
+
+<div class="liv">
+<img src="data:image/webp;base64,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" alt="리브" width="72" height="72">
+<p>정리하면서 보니 이번 판은 "큰 것 하나(제네릭 메서드) + 오래 묵힌 숙제 청산(json/v2 승격, GODEBUG 정리)"의 구성입니다. 업그레이드를 서두를 이유도, 두려워할 이유도 별로 없는 릴리스라는 뜻입니다. 프로덕션 워크로드가 있으면 <code>go1.27rc2</code> 로 미리 한 번 돌려 보라는 것이 Go 팀의 공식 권고입니다. 정식이 나오면 이 페이지의 수치가 달라질 일은 거의 없을 테니, 저는 여기까지만 하겠습니다.</p>
+</div>
+
+<!-- PAGENAV:START -->
+<nav class="pagenav" aria-label="글 이동">
+  <a href="../space-datacenter-cooling/"><span class="pn-label">이전</span>우주 데이터센터의 냉각 — &quot;차가워서 쉽다&quot;도 &quot;진공이라 불가능&quot;도 틀렸다</a>
+  <p class="pn-topic"><a href="../../?topic=system">시스템 글 더 보기 →</a></p>
+</nav>
+<!-- PAGENAV:END -->
+<footer>
+<p>기준: go1.27rc2 (2026-07-07) 및 <a href="https://go.dev/doc/go1.27">Go 1.27 릴리스 노트 초안</a>. rc 공지는 <a href="https://groups.google.com/g/golang-announce/c/Cu9HkstbtpA">golang-announce</a>, 코드 예시 일부는 <a href="https://victoriametrics.com/blog/go-1-27/index.html">VictoriaMetrics 의 Go 1.27 인터랙티브 투어</a>를 참고했다. 정리: 2026-08-02.</p>
+<p><a href="../../">← today i learned</a></p>
+</footer>
+</main>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

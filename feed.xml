@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-08-02T08:56:00+09:00</updated>
+  <updated>2026-08-02T10:57:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>Go 1.27 미리보기 — 제네릭 메서드가 드디어 온다</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/go-1-27/"/>
+    <id>https://til.kil9.dev/2026/go-1-27/</id>
+    <published>2026-08-02T10:57:00+09:00</published>
+    <updated>2026-08-02T10:57:00+09:00</updated>
+    <category term="system"/>
+    <summary type="text">8월 중순 정식 출시를 앞둔 Go 1.27 을 rc2 기준으로 정리했다. 1.18 제네릭 도입 때 빠졌던 제네릭 메서드가 언어에 들어오고, encoding/json/v2 가 실험 꼬리표를 떼고 기본 탑재되며, 80바이트 미만 작은 할당이 최대 30% 빨라진다. 최상위 uuid 패키지·포스트퀀텀 ML-DSA 신설, asynctimerchan GODEBUG 완전 제거까지. 접수창구 #39.</summary>
+  </entry>
   <entry>
     <title>우주 데이터센터의 냉각 — &quot;차가워서 쉽다&quot;도 &quot;진공이라 불가능&quot;도 틀렸다</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/space-datacenter-cooling/"/>
