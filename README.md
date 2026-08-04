@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-08-04 | 엘리베이터 알고리즘: 단순한 LOOK 이 첨단 키오스크를 이기는 이유 | [/2026/elevator-algorithms/](https://til.kil9.dev/2026/elevator-algorithms/) |
 | 2026-08-04 | herdr 0.8.0 업그레이드 노트 | [/2026/herdr-0-8-0-release/](https://til.kil9.dev/2026/herdr-0-8-0-release/) |
 | 2026-08-02 | Go 1.27 미리보기 — 제네릭 메서드가 드디어 온다 | [/2026/go-1-27/](https://til.kil9.dev/2026/go-1-27/) |
 | 2026-08-02 | 우주 데이터센터의 냉각 — "차가워서 쉽다"도 "진공이라 불가능"도 틀렸다 | [/2026/space-datacenter-cooling/](https://til.kil9.dev/2026/space-datacenter-cooling/) |

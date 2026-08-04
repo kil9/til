@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-08-04T11:22:00+09:00</updated>
+  <updated>2026-08-04T13:40:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>엘리베이터 알고리즘: 단순한 LOOK 이 첨단 키오스크를 이기는 이유</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/elevator-algorithms/"/>
+    <id>https://til.kil9.dev/2026/elevator-algorithms/</id>
+    <published>2026-08-04T13:40:00+09:00</published>
+    <updated>2026-08-04T13:40:00+09:00</updated>
+    <category term="system"/>
+    <summary type="text">john.fun 의 인터랙티브 시뮬레이션 아티클을 정리했습니다. SCAN 과 LOOK 의 차이, Otis RSR 의 점수식, 대기시간을 p90 으로 재야 하는 이유, 그리고 고부하에서 단순한 LOOK 이 정교한 RSR 을 이기고 목적지 지정 키오스크가 구식 버튼보다 느려지는 두 가지 역설까지.</summary>
+  </entry>
   <entry>
     <title>herdr 0.8.0 업그레이드 노트</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/herdr-0-8-0-release/"/>
