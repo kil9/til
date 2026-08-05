@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-08-05T15:20:00+09:00</updated>
+  <updated>2026-08-06T02:17:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>안드로이드 공유 시트에서 바로 접수창구로: Web Share Target 조사</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/web-share-target/"/>
+    <id>https://til.kil9.dev/2026/web-share-target/</id>
+    <published>2026-08-06T02:17:00+09:00</published>
+    <updated>2026-08-06T02:17:00+09:00</updated>
+    <category term="site"/>
+    <summary type="text">크롬에서 주소 공유를 누르면 접수창구로 바로 접수되게 하는 방법을 조사했습니다. 본선은 접수 페이지를 PWA 로 만들어 share_target 을 다는 것, 사이트를 안 고치고 오늘 당장 쓰는 지름길은 HTTP Shortcuts 앱입니다. 함정은 안드로이드가 URL 을 text 파라미터에 실어 보낸다는 것.</summary>
+  </entry>
   <entry>
     <title>OpenAI 는 그 많은 API 키를 어떻게 관리하나</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/openai-api-key-scale/"/>

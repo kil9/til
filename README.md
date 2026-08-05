@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-08-06 | 안드로이드 공유 시트에서 바로 접수창구로: Web Share Target 조사 | [/2026/web-share-target/](https://til.kil9.dev/2026/web-share-target/) |
 | 2026-08-05 | OpenAI 는 그 많은 API 키를 어떻게 관리하나 | [/2026/openai-api-key-scale/](https://til.kil9.dev/2026/openai-api-key-scale/) |
 | 2026-08-05 | KRAFTON Raon-Speech 21B 검토: 지금 Whisper 를 대체할 수 있나 | [/2026/raon-speech-vs-whisper/](https://til.kil9.dev/2026/raon-speech-vs-whisper/) |
 | 2026-08-04 | 엘리베이터 알고리즘: 단순한 LOOK 이 첨단 키오스크를 이기는 이유 | [/2026/elevator-algorithms/](https://til.kil9.dev/2026/elevator-algorithms/) |
