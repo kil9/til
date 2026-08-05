@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-08-04T13:40:00+09:00</updated>
+  <updated>2026-08-05T10:40:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>KRAFTON Raon-Speech 21B 검토: 지금 Whisper 를 대체할 수 있나</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/raon-speech-vs-whisper/"/>
+    <id>https://til.kil9.dev/2026/raon-speech-vs-whisper/</id>
+    <published>2026-08-05T10:40:00+09:00</published>
+    <updated>2026-08-05T10:40:00+09:00</updated>
+    <category term="ai"/>
+    <summary type="text">KRAFTON 이 공개한 한국어 특화 음성 모델 A.X K2 Raon-Speech 21B-A3B 를 Whisper 대체 후보로 검토했습니다. 한국어 성능은 매력적이지만 CC BY-NC 라이선스, 42GB VRAM, 미성숙한 서빙 생태계가 걸립니다. 판정은 유지, 조건부 재검토.</summary>
+  </entry>
   <entry>
     <title>엘리베이터 알고리즘: 단순한 LOOK 이 첨단 키오스크를 이기는 이유</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/elevator-algorithms/"/>
