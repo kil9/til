@@ -1,10 +1,10 @@
 ---
 id: TASK-119
 title: 접수창구를 PWA 로 만들어 안드로이드 공유 시트에 share_target 등록
-status: In Progress
+status: Blocked
 assignee: []
 created_date: '2026-08-06 12:33'
-updated_date: '2026-08-06 14:28'
+updated_date: '2026-08-06 15:20'
 labels: []
 dependencies: []
 priority: medium
@@ -65,4 +65,10 @@ AC#9 실기 때 볼 것:
 - 크롬 메뉴가 '앱 설치'로 뜨는지. '홈 화면에 추가'만 뜨면 매니페스트 요건 미달 신호이고 그 바로가기는 share target 을 등록하지 않는다.
 - 매니페스트를 고친 뒤에는 WebAPK 갱신이 하루 이상 걸릴 수 있으므로 삭제 후 재설치로 확인한다.
 - 삼성 공유 시트에서는 항목이 첫 화면에 없고 옆으로 스크롤하거나 더보기 안쪽에 있을 수 있다.
+
+배포 경위(2026-08-06): push 후 Pages 배포가 두 회차 연속 실패했다(14:29, 그리고 그 이전 12:34 — 둘 다 deploy 단계 10분 타임아웃). 12:34 커밋은 태스크 md 한 개만 추가한 것이라 이번 변경과 무관하다. gh api 로 직접 건 빌드도 실패해서, Jekyll 처리를 끄는 .nojekyll 을 별도 커밋(85f9653)으로 넣었더니 통과했다. 원인을 Jekyll 로 특정한 것은 아니다 — 실패 원인 후보를 줄이고 빌드를 가볍게 한 조치이고, 재시도가 겹쳐 그냥 풀렸을 가능성도 남는다.
+
+라이브 확인: manifest.webmanifest 200(application/manifest+json; charset=utf-8), 아이콘 3장 200, 페이지 head 의 link rel=manifest·theme-color 반영, prefillFromShare 배포본에 존재.
+
+AC#9 관리자 실기 검증 대기 중이라 Blocked 로 둔다. 실기가 통과하면 Done 으로 닫는다.
 <!-- SECTION:NOTES:END -->
