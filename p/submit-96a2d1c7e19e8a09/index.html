@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>리브의 접수 창구</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#1A5FC8">
+<link rel="apple-touch-icon" href="icon-192.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%AE%3C/text%3E%3C/svg%3E">
 <style>
   :root {
@@ -238,6 +241,40 @@
     refresh();
   });
 
+  // ---- 공유 시트 진입 (매니페스트의 share_target, method GET) ----
+  // 안드로이드 공유 인텐트에는 URL 전용 필드가 없다. 크롬·삼성 브라우저 모두 주소를 text 에
+  // 실어 보내므로 url 파라미터는 비어 오는 쪽이 정상이고, text 에서 골라내는 경로가 본선이다.
+  var URL_IN_TEXT = /https?:\/\/[^\s<>"']+/;
+  var shareEntry = false;
+
+  function prefillFromShare() {
+    var q = new URLSearchParams(location.search);
+    var title = (q.get('title') || '').trim();
+    var text = (q.get('text') || '').trim();
+    var url = (q.get('url') || '').trim();
+    if (!title && !text && !url) return;
+    shareEntry = true;
+    // URL 이 하나일 때만 떼어낸다. 여럿이면 어느 것이 본체인지 알 수 없으므로 원문을
+    // 그대로 둔다 — 자동 접수가 아니라 관리자가 폼에서 고칠 수 있는 것이 이 위험을 흡수한다.
+    if (!url) {
+      var hits = text.match(new RegExp(URL_IN_TEXT.source, 'g'));
+      if (hits && hits.length === 1) {
+        url = hits[0].replace(/[.,)\]}>]+$/, '');
+        // URL 을 떼면 감싸던 괄호 한쪽이 남는다("보기(https://…)" → "보기(").
+        text = text.replace(hits[0], ' ').replace(/\s*[([{<]\s*$/, '').trim();
+      }
+    }
+    // 제목이 본문에 통째로 들어 있으면 두 번 싣지 않는다(삼성 '텍스트 공유'가 그렇게 보낸다).
+    if (title && text.indexOf(title) !== -1) title = '';
+    // 제목을 첫 줄에 둔다. 이슈 제목이 첫 줄에서 만들어지므로(아래 submit 핸들러)
+    // URL 을 먼저 두면 접수함이 URL 만 나열된 목록이 된다.
+    var lines = [];
+    if (title) lines.push(title);
+    if (text) lines.push(text);
+    if (url) lines.push(url);
+    document.getElementById('request').value = lines.join('\n');
+  }
+
   document.getElementById('submit-form').addEventListener('submit', function (e) {
     e.preventDefault();
     var request = document.getElementById('request').value.trim();
@@ -249,7 +286,7 @@
     setStatus(submitStatus, '접수하는 중입니다…');
     var firstLine = request.split('\n')[0].trim();
     var title = '[submit] ' + (firstLine.length > 60 ? firstLine.slice(0, 60) + '…' : firstLine);
-    var body = 'SOURCE: admin-page\nREQUEST:\n' + request;
+    var body = 'SOURCE: ' + (shareEntry ? 'share-sheet' : 'admin-page') + '\nREQUEST:\n' + request;
     fetch(API + '/issues', {
       method: 'POST',
       headers: headers(pat),
@@ -258,6 +295,11 @@
       if (res.status === 201) {
         return res.json().then(function (data) {
           document.getElementById('submit-form').reset();
+          // 공유 쿼리를 지운다. 남겨 두면 새로고침에 같은 내용이 다시 채워져 중복 접수를 부른다.
+          if (shareEntry) {
+            shareEntry = false;
+            history.replaceState(null, '', location.pathname);
+          }
           setStatus(submitStatus, '접수했습니다 (#' + data.number + '). 처리되는 대로 Slack 으로 알려 드리겠습니다.', 'ok');
         });
       }
@@ -271,7 +313,11 @@
     }).finally(function () { btn.disabled = false; });
   });
 
+  prefillFromShare();
   refresh();
+  if (shareEntry && !localStorage.getItem(KEY)) {
+    setStatus(patStatus, '공유한 내용은 담아 뒀습니다. 토큰을 등록하면 그대로 접수하실 수 있습니다.');
+  }
 })();
 </script>
 </body>
