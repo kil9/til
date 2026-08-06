@@ -226,7 +226,10 @@ def render(data, repo, root_rel, dates=(), nav_prefix="../"):
             "TITLE": esc(it["title"]), "LEDE": esc(it["lede"]),
             "BULLETS": "\n".join(f"      <li>{esc(b)}</li>" for b in it["bullets"]),
             "DOMAIN": esc(it["domain"]), "INTEREST": esc(it["interest"]),
-            "PERCENTILE": esc(it["percentile"]), "TIEBOX": tie, "LIV": liv,
+            "PERCENTILE": esc(it["percentile"]),
+            # 반응 온도 배지(task-118) — 값이 없는 항목이 대부분이라 구분점까지 함께 뗀다.
+            "BADGE": (f' · <span class="heat">{esc(it["heat"])}</span>' if it.get("heat") else ""),
+            "TIEBOX": tie, "LIV": liv,
             "ACTION_TOPIC": esc(it["action_topic"]), "ACTION_URL": esc(it["source_url"]),
             "ACTION_ANGLE": esc(it["angle"]),
         }))

@@ -27,6 +27,13 @@ WEEKDAY = "월화수목금토일"
 BODY_RE = re.compile(r"<section id='topic_contents'[^>]*>(.*?)</section>", re.S)
 COMMENT_RE = re.compile(r"<span id='contents\d+' class='comment_contents'>(.*?)</span>\s*</div>", re.S)
 
+# 반응 온도 배지(task-118). 후보를 고르는 것은 코드고, 종류를 정하는 것만 모델이 한다.
+# 판정을 통째로 모델에 맡기면 회차마다 기준이 흔들리고 "왜 붙었나"에 답할 수 없다.
+HEAT_FLOOR = 10        # 절대 하한. GeekNews 댓글수는 회차 최대가 한 자리인 날이 흔해
+                       # (실측 7회차 중 5회차) 상대 순위만 쓰면 댓글 3개에 배지가 붙는다.
+HEAT_TOP_N = 2         # 회차당 후보 상한. 하한을 통과해도 이보다 많이 붙이지 않는다.
+HEAT_KINDS = ("논쟁", "화제")
+
 
 def detail(item):
     """토픽 상세: GN+ 요약 본문과 댓글 몇 개."""
@@ -37,6 +44,19 @@ def detail(item):
         "body": collect.strip_tags(body.group(1))[:6000] if body else "",
         "comments": comments,
     }
+
+
+def heat_candidates(selected):
+    """배지를 검토할 항목 id — 댓글이 절대 하한을 넘으면서 그 회차 상위인 것."""
+    ranked = sorted(selected, key=lambda it: -it.get("comments", 0))
+    return {it["id"] for it in ranked[:HEAT_TOP_N] if it.get("comments", 0) >= HEAT_FLOOR}
+
+
+def heat_value(item_id, written, heat_ids):
+    """모델이 준 heat 를 후보·종류 두 관문에 통과시킨다. 임계를 넘겨 붙이지 못하게 하는 자리."""
+    if item_id not in heat_ids:
+        return ""
+    return written if written in HEAT_KINDS else ""
 
 
 def til_articles():
@@ -59,11 +79,16 @@ def build_prompt(data, articles, prev_items):
         d = it.get("detail", {})
         picked.append(
             f"""## {i:02d}. {it['title']} (id={it['id']}, anchor=i{i:02d})
-원문 {it['source_url']} ({it['domain']}) · 추천 상위 {it['percentile']}% · 관심사 {it['interest']}
+원문 {it['source_url']} ({it['domain']}) · 추천 상위 {it['percentile']}% · 관심사 {it['interest']} · 댓글 {it.get('comments', 0)}개
 1차 선별 사유: {it.get('why', '')}
 GN 요약: {d.get('body', '')[:3000]}
 댓글: {' / '.join(d.get('comments', [])[:3])[:1200]}"""
         )
+    heat_ids = heat_candidates(data["selected"])
+    heat_block = "\n".join(
+        f"- id={it['id']} | {it['title']} | 댓글 {it.get('comments', 0)}개"
+        for it in data["selected"] if it["id"] in heat_ids) or "- (없음)"
+
     rest = [f"- id={it['id']} | {it['title']} ({it['domain']}) | 추천 상위 {it['percentile']}%\n"
             f"  요약: {(it.get('summary') or it.get('desc') or '')[:300]}\n  제외 사유: {it.get('why', '')}"
             for it in data["rest"]]
@@ -86,6 +111,10 @@ GN 요약: {d.get('body', '')[:3000]}
 
 # 관리자의 til 아카이브 (til 연관을 붙일 때만 참고. 억지로 붙이지 않는다)
 {chr(10).join(til)}
+
+# 반응 온도 배지 후보 (댓글이 그 회차 상위이면서 절대 하한을 넘은 것만 골라 둔 것이다)
+{heat_block}
+아래 항목에만 heat 값을 줄 수 있다. 나머지 항목의 heat 는 반드시 빈 문자열("")이다.
 
 # 지난 브리핑에 실었던 항목 (오늘 재료에 그 후속이 있으면 followup_notes 에 적는다)
 {chr(10).join(f"- {p['title']} ({p['url']})" for p in prev_items) or "- (없음)"}
@@ -111,6 +140,10 @@ GN 요약: {d.get('body', '')[:3000]}
   40자 안팎(최대 55자)으로 짧게, 강추 1건이 아니라 오늘 회차 전체가 무엇으로 채워졌는지를
   말한다. 링크·HTML·따옴표 없이 평문 한 문장이고 존댓말이다. 매일 다른 내용이어야 하므로
   '골라 둔 것들' 같은 상설 안내문은 쓰지 않는다.
+- heat 는 위 '반응 온도 배지 후보' 에 오른 항목에 한해, 그 항목의 댓글을 실제로 읽고 정하는 값이다.
+  "논쟁" = 찬반이나 해석이 실제로 갈린다. "화제" = 반응은 몰렸지만 논조는 한쪽이다.
+  "" = 댓글이 많을 뿐 어느 쪽으로도 특징이 없다. 후보라고 해서 반드시 붙이는 것이 아니다 —
+  배지는 드물수록 신호가 산다. 애매하면 "" 를 골라라. 후보 밖 항목은 전부 "" 다.
 - pick 은 오늘 하나만 고른다면 무엇인지다. anchor 와 한 줄 이유. 제목은 렌더가 anchor 로 찾아
   링크로 세우므로 line 에 번호나 제목을 되풀이하지 말고 왜 권하는지만 쓴다.
 
@@ -122,7 +155,7 @@ GN 요약: {d.get('body', '')[:3000]}
   "pick": {{"anchor": "i05", "line": "왜 이걸 권하는지 한 줄 (번호·제목 반복 없이)"}},
   "toc": [{{"anchor": "i01", "label": "짧은 목차 라벨"}}],
   "items": [{{"id": "12345", "anchor": "i01", "lede": "…", "bullets": ["…"],
-              "liv": "", "tie": null, "angle": "…", "action_topic": "til 요청 제목"}}],
+              "liv": "", "tie": null, "heat": "", "angle": "…", "action_topic": "til 요청 제목"}}],
   "rest": [{{"id": "12346", "summary": "한두 문장", "angle": "…", "action_topic": "til 요청 제목"}}],
   "followup_notes": []
 }}
@@ -149,6 +182,7 @@ def main():
 
     items_by_id = {it["id"]: it for it in data["selected"]}
     rest_by_id = {it["id"]: it for it in data["rest"]}
+    heat_ids = heat_candidates(data["selected"])
     items = []
     for i, w in enumerate(body.get("items", []), 1):
         base = items_by_id.get(w.get("id"))
@@ -159,6 +193,8 @@ def main():
             "id": base["id"], "anchor": w.get("anchor") or f"i{i:02d}", "rank": f"{len(items) + 1:02d}",
             "title": base["title"], "url": base["topic_url"], "source_url": base["source_url"],
             "domain": base["domain"], "interest": f"관심사 {base['interest']}", "percentile": base["percentile"],
+            "comments": base.get("comments", 0),
+            "heat": heat_value(base["id"], w.get("heat") or "", heat_ids),
             "lede": w.get("lede", ""), "bullets": w.get("bullets", []), "liv": w.get("liv", ""),
             "tie": w.get("tie"), "angle": w.get("angle", ""),
             "action_topic": w.get("action_topic") or base["title"],
@@ -174,6 +210,9 @@ def main():
                 it[field] = "" if field == "liv" else None
         if kept > cap:
             print(f"  {field} {kept}개 → 상위 {cap}개만 남김")
+
+    badged = [f"{it['title'][:20]}({it['comments']}댓글)={it['heat']}" for it in items if it["heat"]]
+    print(f"  반응 온도 후보 {len(heat_ids)}건 → 배지 {len(badged)}건 {badged}")
 
     rest = []
     for w in body.get("rest", []):
