@@ -1,10 +1,10 @@
 ---
 id: TASK-118
 title: 브리핑 항목 반응 온도 배지
-status: In Progress
+status: Done
 assignee: []
 created_date: '2026-08-06 05:51'
-updated_date: '2026-08-06 06:06'
+updated_date: '2026-08-06 06:25'
 labels:
   - solo
 milestone: m-13
@@ -30,7 +30,7 @@ AIwitness 커뮤니티 인사이트(https://aiwitness.kr/community)의 🔥논�
 - [x] #2 compose 가 반응 온도 배지 여부·종류를 판정하되 임계를 둬 회차당 소수 항목에만 붙는다
 - [x] #3 item.html 에 배지 토큰이 추가되고 값이 없으면 빈 문자열로 렌더된다
 - [x] #4 배지 종류·판정 기준이 backlog/assets/briefing/README.md 에 문서화된다
-- [ ] #5 실제 발행 회차 1건 이상에서 배지가 표시된다
+- [x] #5 실제 발행 회차 1건 이상에서 배지가 표시된다
 <!-- AC:END -->
 
 ## Implementation Notes
@@ -45,4 +45,10 @@ AIwitness 커뮤니티 인사이트(https://aiwitness.kr/community)의 🔥논�
 검증: 임계·관문 단위 검증(경계값·빈 입력·comments 필드 부재 포함)과 실데이터 렌더 dry-run 통과. 값 없으면 배지·구분점이 함께 빠지고, 값 있으면 span 1개(용량 +36B)다.
 
 AC#5(실제 발행 회차에서 표시)만 남았다. 내일 09:00 정기 발행이 검증 창이다 — 오늘 회차를 재compose 해 덮어쓰면 이미 발행·Slack 공지된 페이지가 바뀌는데 얻는 것이 AC 를 하루 일찍 닫는 것뿐이라 하지 않는다. 오늘 회차 후보는 id=32164(댓글 10개)로 이미 산출된다.
+
+AC#5 종료(2026-08-06). 사용자 지시로 오늘 회차를 2차 정리부터 다시 돌려 재발행했다 — 정규 파이프라인(compose.py) 경로 그대로라 배지 판정도 실제 파이프라인의 판단이다.
+
+결과: 후보 1건(Retrieval as Reasoning, 댓글 10개) → 배지 1건 '화제'. 나머지 2건은 후보에 들지 않아 .foot 줄이 그대로다. 발행 커밋 1ef1686.
+
+재compose 라 머리말·항목 요약·리브 한마디·목차가 새로 쓰였다. Slack 재알림은 announced-2026-08-06 마커가 막았다. 직전 재료는 state/briefing-2026-08-06.json.prebadge 로 남겨 뒀다.
 <!-- SECTION:NOTES:END -->
