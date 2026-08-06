@@ -4,7 +4,7 @@ title: 접수창구를 PWA 로 만들어 안드로이드 공유 시트에 share_
 status: Blocked
 assignee: []
 created_date: '2026-08-06 12:33'
-updated_date: '2026-08-06 15:20'
+updated_date: '2026-08-06 15:22'
 labels: []
 dependencies: []
 priority: medium
@@ -71,4 +71,6 @@ AC#9 실기 때 볼 것:
 라이브 확인: manifest.webmanifest 200(application/manifest+json; charset=utf-8), 아이콘 3장 200, 페이지 head 의 link rel=manifest·theme-color 반영, prefillFromShare 배포본에 존재.
 
 AC#9 관리자 실기 검증 대기 중이라 Blocked 로 둔다. 실기가 통과하면 Done 으로 닫는다.
+
+후속 보정(2026-08-06, Fable 2차 자문): URL 꼬리 문장부호 제거를 균형 괄호 검사로 바꿨다(위키백과식 …/Foo_(bar) 가 깨지던 것). url 파라미터와 text 에 같은 주소가 함께 오는 경우(웹앱발 navigator.share) text 쪽 중복을 지운다. 페이지 원문 그대로 node 로 9케이스 재검증 통과. maskable 안전영역 지적은 오독이었다 — 잰 것이 any 판본(bbox 0-512)이고 maskable 은 51-461 로 중앙 410px 안에 들어 있다. 404 맵의 접수창구 항목 제거는 이번 범위 밖이라 draft-8 로 뺐다.
 <!-- SECTION:NOTES:END -->

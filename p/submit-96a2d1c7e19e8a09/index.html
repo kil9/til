@@ -247,6 +247,16 @@
   var URL_IN_TEXT = /https?:\/\/[^\s<>"']+/;
   var shareEntry = false;
 
+  // 문장 끝 부호는 떼되 URL 자체의 균형 잡힌 괄호는 지킨다(위키백과식 …/Foo_(bar)).
+  function trimUrlTail(u) {
+    while (/[.,;:!?\]}>)]$/.test(u)) {
+      if (u.charAt(u.length - 1) === ')' &&
+          u.split('(').length >= u.split(')').length) break;
+      u = u.slice(0, -1);
+    }
+    return u;
+  }
+
   function prefillFromShare() {
     var q = new URLSearchParams(location.search);
     var title = (q.get('title') || '').trim();
@@ -259,10 +269,13 @@
     if (!url) {
       var hits = text.match(new RegExp(URL_IN_TEXT.source, 'g'));
       if (hits && hits.length === 1) {
-        url = hits[0].replace(/[.,)\]}>]+$/, '');
+        url = trimUrlTail(hits[0]);
         // URL 을 떼면 감싸던 괄호 한쪽이 남는다("보기(https://…)" → "보기(").
         text = text.replace(hits[0], ' ').replace(/\s*[([{<]\s*$/, '').trim();
       }
+    } else if (text.indexOf(url) !== -1) {
+      // 웹앱발 navigator.share 는 url 과 text 에 같은 주소를 함께 싣기도 한다.
+      text = text.replace(url, ' ').replace(/\s*[([{<]\s*$/, '').trim();
     }
     // 제목이 본문에 통째로 들어 있으면 두 번 싣지 않는다(삼성 '텍스트 공유'가 그렇게 보낸다).
     if (title && text.indexOf(title) !== -1) title = '';
