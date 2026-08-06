@@ -20,6 +20,7 @@ import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+import collect
 import feedback
 import llm
 
@@ -29,8 +30,13 @@ KST = timezone(timedelta(hours=9))
 
 POPULAR_CUT = 10.0        # 백분위 상위 N% = p90
 POPULAR_MIN, POPULAR_MAX = 2, 5
+# 인기 축의 소스별 상한(task-106). HN 백분위는 프런트페이지 30건 안의 순위라 매일 반드시
+# 3건이 p90 컷 안에 들어오는 반면, GeekNews 는 조용한 날 0건이다. 합산 정렬로 뽑으면
+# 확정 슬롯이 만성적으로 HN 차지가 된다. 소스 균형을 강제하지 않기로 한 것은 선별 전체
+# 얘기였지 확정 슬롯까지 한쪽에 넘기자는 뜻이 아니었다.
+POPULAR_MAX_BY_SOURCE = {"gn": 3, "hn": 2}
 TOTAL_MIN, TOTAL_MAX = 7, 10
-CANDIDATE_LIMIT = 40      # 프롬프트에 싣는 후보 수 상한
+CANDIDATE_LIMIT = 55      # 프롬프트에 싣는 후보 수 상한. 소스가 둘이 되며 40 에서 올렸다
 
 # 관심사 등급이 순위에 끼치는 보정폭(백분위 포인트). 인접한 항목끼리만 뒤집히도록 작게 둔다.
 INTEREST_BONUS = {"최상": 2.0, "상": 1.2, "중": 0.4, "밖": 0.0}
@@ -41,12 +47,16 @@ REAIR_PENALTY = 40.0      # 이전 회차에 실린 항목의 백분위 패널�
 
 
 def aired_before(today):
-    """지난 회차에 실제로 실린 항목 → 그 회차 날짜.
+    """지난 회차에 실제로 실린 항목 → 그 회차 날짜. 키는 항목 id 와 정규화된 원문 URL 둘 다다.
 
     collect.py 는 신규가 얇은 날 목록 전체로 backfill 한다(매일 발행이 중복 회피보다
     우선이라는 결정). 그 대가로 어제 실은 글이 오늘 후보에 다시 올라오고, 추천수가
     높으면 인기 축으로 또 실린다 — 2026-07-30/31 에 2건이 그렇게 연달아 나갔다.
     수집을 조이는 대신 여기서 순위를 크게 눌러 새 항목에 자리를 내준다.
+
+    소스가 둘이 되면서 id 만으로는 못 잡는 경로가 생겼다(task-106). 같은 글이 오늘 HN 에,
+    내일 GeekNews 에 오르면 id 가 달라 재등장 판정을 통과해 이틀 연속 나간다. 회차 안의
+    중복은 collect 의 URL 병합이 잡지만 날짜를 건너뛴 것은 여기서만 잡을 수 있다.
     """
     cutoff = (datetime.fromisoformat(today) - timedelta(days=AIRED_LOOKBACK)).date().isoformat()
     out = {}
@@ -61,7 +71,16 @@ def aired_before(today):
             continue
         for it in data.get("selected", []):
             out[it["id"]] = day
+            # url_key 는 task-106 이후 회차에만 있다. 없으면 원문 URL 에서 그때 만든다.
+            key = it.get("url_key") or collect.url_key(it.get("source_url"))
+            if key:
+                out[key] = day
     return out
+
+
+def aired_on(item, aired):
+    """이 항목이 지난 회차에 실렸는가 — id 로도 원문 URL 로도 본다."""
+    return aired.get(item["id"]) or (aired.get(item["url_key"]) if item.get("url_key") else None)
 
 
 def interest_profile():
@@ -83,15 +102,19 @@ def build_prompt(profile, candidates, forced_ids, aired, want, rules):
     lines = []
     for it in candidates:
         mark = " [인기축 확정]" if it["id"] in forced_ids else ""
-        if it["id"] in aired:
+        if aired.get(it["id"]):
             mark += f" [{aired[it['id']]} 브리핑에 이미 실림]"
+        if it.get("also"):
+            mark += f" [양쪽에 올랐다: HN {it['also']['points']}표]"
+        src = "GN" if it.get("source", "gn") == "gn" else "HN"
         body = (it.get("summary") or it.get("desc") or "")[:400]
         lines.append(
-            f"- id={it['id']}{mark} | 추천 상위 {it['percentile']}% ({it['points']}표, 댓글 {it['comments']})"
+            f"- id={it['id']}{mark} | {src} 추천 상위 {it['percentile']}%"
+            f" ({it['points']}표, 댓글 {it['comments']})"
             f" | {it['domain']}\n  제목: {it['title']}\n  요약: {body}"
         )
-    return f"""너는 kil9 의 til 사이트 큐레이터다. 오늘 GeekNews 에 올라온 아래 후보 중에서
-관리자가 읽을 만한 것을 고른다.
+    return f"""너는 kil9 의 til 사이트 큐레이터다. 오늘 GeekNews(GN)와 Hacker News(HN)에 올라온
+아래 후보 중에서 관리자가 읽을 만한 것을 고른다.
 
 {profile}
 
@@ -105,7 +128,10 @@ def build_prompt(profile, candidates, forced_ids, aired, want, rules):
 - [인기축 확정] 표시가 붙은 것은 관심사와 무관해도 반드시 포함한다(이미 확정이니 다시 고르지 않아도 된다).
 - 확정분을 포함해 총 {want}건 안팎이 되도록 나머지를 관심사 프로필 매칭으로 고른다.
   재료가 빈약하면 {TOTAL_MIN}건, 좋으면 {TOTAL_MAX}건까지 그날 사정에 맞춰 정하라.
-- 같은 사건을 다룬 중복 항목은 하나만 남긴다.
+- 같은 사건을 다룬 중복 항목은 하나만 남긴다. 원문 URL 이 같은 것은 이미 합쳐 두었지만,
+  다른 URL 로 같은 사건을 다룬 GN·HN 항목이 따로 올라올 수 있다. 그때는 한쪽만 고른다.
+- 백분위는 소스 안에서의 순위다. GN 상위 5% 와 HN 상위 5% 는 모집단이 다르니 그 수만 보고
+  둘을 견주지 마라. 무엇을 고를지는 관심사 프로필과 내용으로 판단한다.
 - [… 브리핑에 이미 실림] 표시가 붙은 것은 기본적으로 뺀다. 그날 이후 실제로 달라진 것
   (중요한 후속 소식, 논의가 크게 붙은 댓글)이 있을 때만 남기고, why 에 무엇이 새로운지 적는다.
   재료가 모자라 자리를 못 채우겠으면 {TOTAL_MIN}건에 못 미쳐도 좋으니 재탕으로 채우지 마라.
@@ -133,30 +159,43 @@ def main():
         return 3
 
     aired = aired_before(today)
-    reaired = [i for i in items if i in aired]
+    # id 로도 원문 URL 로도 본다. 항목마다 한 번만 판정해 두고 아래에서 재사용한다.
+    aired_by_item = {i: aired_on(it, aired) for i, it in items.items()}
+    reaired = [i for i, day in aired_by_item.items() if day]
     if reaired:
-        print(f"  지난 회차에 실렸던 {len(reaired)}건 재등장 — 순위 {REAIR_PENALTY} 포인트 강등")
+        by_url = sum(1 for i in reaired if i not in aired)
+        tail = f" (그중 {by_url}건은 원문 URL 로 잡았다)" if by_url else ""
+        print(f"  지난 회차에 실렸던 {len(reaired)}건 재등장 — 순위 {REAIR_PENALTY} 포인트 강등{tail}")
 
     def effective(it):
         """정렬·컷에 쓰는 백분위. 재등장 항목은 크게 뒤로 민다(낮을수록 앞)."""
-        return it["percentile"] + (REAIR_PENALTY if it["id"] in aired else 0.0)
+        return it["percentile"] + (REAIR_PENALTY if aired_by_item.get(it["id"]) else 0.0)
 
     ranked = sorted(items.values(), key=lambda it: (effective(it), -it["points"]))
-    fresh = [it for it in ranked if it["id"] not in aired]
+    fresh = [it for it in ranked if not aired_by_item.get(it["id"])]
     # 인기 축은 새 항목에서만 뽑는다. 재등장 항목이 추천수만으로 다시 확정되면
-    # 위 패널티가 무의미해진다.
-    popular = [it for it in fresh if it["percentile"] <= POPULAR_CUT][:POPULAR_MAX]
+    # 위 패널티가 무의미해진다. 소스별 상한을 함께 걸어 한쪽이 확정 슬롯을 독점하지 못하게 한다.
+    popular, taken = [], {}
+    for it in fresh:
+        if it["percentile"] > POPULAR_CUT or len(popular) >= POPULAR_MAX:
+            continue
+        isrc = it.get("source", "gn")
+        if taken.get(isrc, 0) >= POPULAR_MAX_BY_SOURCE.get(isrc, POPULAR_MAX):
+            continue
+        popular.append(it)
+        taken[isrc] = taken.get(isrc, 0) + 1
     if len(popular) < POPULAR_MIN:
         popular = (fresh or ranked)[:POPULAR_MIN]   # 컷을 넘긴 게 없으면 상위 2건으로 폴백
     forced = {it["id"] for it in popular}
-    print(f"인기 축 확정 {len(forced)}건 (백분위 컷 {POPULAR_CUT}%, 기준 {data['percentile_basis']})")
+    print(f"인기 축 확정 {len(forced)}건 {taken or ''} "
+          f"(백분위 컷 {POPULAR_CUT}%, 기준 {data['percentile_basis']})")
 
     candidates = ranked[:CANDIDATE_LIMIT]
     want = min(TOTAL_MAX, max(TOTAL_MIN, len(forced) + 5))
     rules = feedback.active_rules(today)
     if rules:
         print(f'  선별 규칙 {len(rules)}개 적용')
-    verdict = llm.ask_json(build_prompt(interest_profile(), candidates, forced, aired, want, rules))
+    verdict = llm.ask_json(build_prompt(interest_profile(), candidates, forced, aired_by_item, want, rules))
 
     grades = {r["id"]: r.get("interest", "중") for r in verdict.get("selected", []) + verdict.get("rest", [])}
     whys = {r["id"]: r.get("why", "") for r in verdict.get("selected", []) + verdict.get("rest", [])}
@@ -175,7 +214,7 @@ def main():
         it["interest"] = grades.get(it["id"], "중")
         it["why"] = whys.get(it["id"], "")
         it["forced_popular"] = it["id"] in forced
-        it["aired_on"] = aired.get(it["id"], "")
+        it["aired_on"] = aired_by_item.get(it["id"]) or ""
         return it
 
     selected = sorted((decorate(items[i]) for i in chosen_ids), key=sort_key)
@@ -187,7 +226,10 @@ def main():
                 "selected_at": datetime.now(KST).isoformat(timespec="minutes")})
     path = STATE / f"selected-{today}.json"
     path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"  선별 {len(selected)}건 / 제외 {len(rest)}건 → {path.name}")
+    # 소스 구성을 남긴다. 균형을 강제하지는 않지만(task-106 확정 사항) 한쪽으로 쏠린 회차가
+    # 이어지는지는 보여야 한다 — GeekNews 가 얇은 날은 관심사 축이 HN 으로 채워진다.
+    mix = {s: sum(1 for it in selected if it.get("source", "gn") == s) for s in ("gn", "hn")}
+    print(f"  선별 {len(selected)}건 (GN {mix['gn']} / HN {mix['hn']}) / 제외 {len(rest)}건 → {path.name}")
     for it in selected:
         tail = f"  (재등장 {it['aired_on']})" if it["aired_on"] else ""
         print(f"   {it['percentile']:>5}% {it['interest']:<2} {it['title'][:44]}{tail}")

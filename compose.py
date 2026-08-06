@@ -27,16 +27,25 @@ WEEKDAY = "월화수목금토일"
 BODY_RE = re.compile(r"<section id='topic_contents'[^>]*>(.*?)</section>", re.S)
 COMMENT_RE = re.compile(r"<span id='contents\d+' class='comment_contents'>(.*?)</span>\s*</div>", re.S)
 
+HN_ITEM_API = "https://hn.algolia.com/api/v1/items/{}"
+
 # 반응 온도 배지(task-118). 후보를 고르는 것은 코드고, 종류를 정하는 것만 모델이 한다.
 # 판정을 통째로 모델에 맡기면 회차마다 기준이 흔들리고 "왜 붙었나"에 답할 수 없다.
-HEAT_FLOOR = 10        # 절대 하한. GeekNews 댓글수는 회차 최대가 한 자리인 날이 흔해
-                       # (실측 7회차 중 5회차) 상대 순위만 쓰면 댓글 3개에 배지가 붙는다.
-HEAT_TOP_N = 2         # 회차당 후보 상한. 하한을 통과해도 이보다 많이 붙이지 않는다.
+#
+# 하한은 소스별이다(task-106). 댓글수도 points 처럼 절대값이라 규모가 다르다 — 같은 날
+# 실측에서 GeekNews 는 최대 15개인데 HN 은 중앙값 60, 최대 671개다. 하나의 하한을 쓰면
+# HN 이 배지를 독점하고 GeekNews 기준으로 조율한 10개 하한이 무의미해진다.
+# HN 값 250 은 그날 프런트페이지 30건 중 상위 5건 컷(247)에서 왔고 잠정이다 —
+# points-30d 에 HN 이력이 쌓이면 다시 본다.
+HEAT_FLOOR = {"gn": 10, "hn": 250}
+HEAT_TOP_N = 1         # 소스당 후보 상한. 소스가 둘이니 회차당 최대 2건이다.
 HEAT_KINDS = ("논쟁", "화제")
 
 
 def detail(item):
-    """토픽 상세: GN+ 요약 본문과 댓글 몇 개."""
+    """항목 상세: 소스가 주는 본문과 댓글 몇 개."""
+    if item.get("source") == "hn":
+        return hn_detail(item)
     html = collect.fetch(item["topic_url"])
     body = BODY_RE.search(html)
     comments = [collect.strip_tags(c)[:700] for c in COMMENT_RE.findall(html)][:5]
@@ -46,10 +55,30 @@ def detail(item):
     }
 
 
+def hn_detail(item):
+    """HN 상세 — Algolia items 트리에서 본문(Ask/Show HN 만 있다)과 최상위 댓글 5개.
+
+    원문 페이지를 직접 긁지 않는다. 임의의 웹사이트라 Cloudflare·JS 렌더·타임아웃으로
+    불안정한 데다, strip_tags 가 내비·쿠키 배너를 본문으로 긁어 와 6000자 컷을 잡동사니로
+    채우면 요약이 오히려 나빠진다. GeekNews 쪽 '본문' 도 원문이 아니라 GN+ 요약이라
+    격차가 생각만큼 크지 않고, HN 댓글은 본문 대체재로 밀도가 충분하다.
+    """
+    data = json.loads(collect.fetch(HN_ITEM_API.format(item["id"].removeprefix("hn:"))))
+    top = [c for c in (data.get("children") or []) if c.get("text")][:5]
+    return {
+        "body": collect.strip_tags(data.get("text") or "")[:6000],
+        "comments": [collect.strip_tags(c["text"])[:700] for c in top],
+    }
+
+
 def heat_candidates(selected):
-    """배지를 검토할 항목 id — 댓글이 절대 하한을 넘으면서 그 회차 상위인 것."""
-    ranked = sorted(selected, key=lambda it: -it.get("comments", 0))
-    return {it["id"] for it in ranked[:HEAT_TOP_N] if it.get("comments", 0) >= HEAT_FLOOR}
+    """배지를 검토할 항목 id — 소스별로, 댓글이 그 소스 하한을 넘으면서 상위인 것."""
+    out = set()
+    for src, floor in HEAT_FLOOR.items():
+        group = sorted((it for it in selected if it.get("source", "gn") == src),
+                       key=lambda it: -it.get("comments", 0))
+        out |= {it["id"] for it in group[:HEAT_TOP_N] if it.get("comments", 0) >= floor}
+    return out
 
 
 def heat_value(item_id, written, heat_ids):
@@ -78,10 +107,10 @@ def build_prompt(data, articles, prev_items):
     for i, it in enumerate(data["selected"], 1):
         d = it.get("detail", {})
         picked.append(
-            f"""## {i:02d}. {it['title']} (id={it['id']}, anchor=i{i:02d})
-원문 {it['source_url']} ({it['domain']}) · 추천 상위 {it['percentile']}% · 관심사 {it['interest']} · 댓글 {it.get('comments', 0)}개
+            f"""## {i:02d}. {it['title']} (id={it['id']}, anchor=i{i:02d}, 출처 {it.get('source', 'gn').upper()})
+원문 {it['source_url']} ({it['domain']}) · {it.get('source', 'gn').upper()} 상위 {it['percentile']}% · 관심사 {it['interest']} · 댓글 {it.get('comments', 0)}개
 1차 선별 사유: {it.get('why', '')}
-GN 요약: {d.get('body', '')[:3000]}
+{'GN 요약' if it.get('source', 'gn') == 'gn' else '본문(없으면 제목과 댓글만이 재료다)'}: {d.get('body', '')[:3000]}
 댓글: {' / '.join(d.get('comments', [])[:3])[:1200]}"""
         )
     heat_ids = heat_candidates(data["selected"])
@@ -89,7 +118,8 @@ GN 요약: {d.get('body', '')[:3000]}
         f"- id={it['id']} | {it['title']} | 댓글 {it.get('comments', 0)}개"
         for it in data["selected"] if it["id"] in heat_ids) or "- (없음)"
 
-    rest = [f"- id={it['id']} | {it['title']} ({it['domain']}) | 추천 상위 {it['percentile']}%\n"
+    rest = [f"- id={it['id']} | {it['title']} ({it['domain']}) | "
+            f"{it.get('source', 'gn').upper()} 상위 {it['percentile']}%\n"
             f"  요약: {(it.get('summary') or it.get('desc') or '')[:300]}\n  제외 사유: {it.get('why', '')}"
             for it in data["rest"]]
     til = [f"- {a['title']} — {a['url']} ({a['detail']})" for a in articles]
@@ -140,6 +170,12 @@ GN 요약: {d.get('body', '')[:3000]}
   40자 안팎(최대 55자)으로 짧게, 강추 1건이 아니라 오늘 회차 전체가 무엇으로 채워졌는지를
   말한다. 링크·HTML·따옴표 없이 평문 한 문장이고 존댓말이다. 매일 다른 내용이어야 하므로
   '골라 둔 것들' 같은 상설 안내문은 쓰지 않는다.
+- title_ko 는 **출처가 HN 인 항목에만** 넣는 한국어 제목이다. 원제를 직역하지 말고 무엇에 관한
+  글인지 알 수 있게 옮긴다. 고유명사·제품명은 원형을 유지한다. 출처가 GN 인 항목은 제목이 이미
+  한국어이므로 빈 문자열("")로 둔다. '훑고 넘긴 것'(rest)에도 같은 규칙을 적용한다.
+- HN 항목이라고 해서 요약을 영어로 쓰지 마라. lede·bullets·liv 는 전부 한국어다. HN 항목은
+  본문 대신 최상위 댓글이 재료로 들어오므로, 원문에 없는 내용을 댓글에서 끌어와 단정하지 마라 —
+  댓글에서 온 이야기는 그것이 반응이라는 것이 드러나게 쓴다.
 - heat 는 위 '반응 온도 배지 후보' 에 오른 항목에 한해, 그 항목의 댓글을 실제로 읽고 정하는 값이다.
   "논쟁" = 찬반이나 해석이 실제로 갈린다. "화제" = 반응은 몰렸지만 논조는 한쪽이다.
   "" = 댓글이 많을 뿐 어느 쪽으로도 특징이 없다. 후보라고 해서 반드시 붙이는 것이 아니다 —
@@ -154,9 +190,10 @@ GN 요약: {d.get('body', '')[:3000]}
   "sidebar": "오늘 회차를 한 문장으로 (40자 안팎)",
   "pick": {{"anchor": "i05", "line": "왜 이걸 권하는지 한 줄 (번호·제목 반복 없이)"}},
   "toc": [{{"anchor": "i01", "label": "짧은 목차 라벨"}}],
-  "items": [{{"id": "12345", "anchor": "i01", "lede": "…", "bullets": ["…"],
+  "items": [{{"id": "12345", "anchor": "i01", "title_ko": "", "lede": "…", "bullets": ["…"],
               "liv": "", "tie": null, "heat": "", "angle": "…", "action_topic": "til 요청 제목"}}],
-  "rest": [{{"id": "12346", "summary": "한두 문장", "angle": "…", "action_topic": "til 요청 제목"}}],
+  "rest": [{{"id": "12346", "title_ko": "", "summary": "한두 문장", "angle": "…",
+             "action_topic": "til 요청 제목"}}],
   "followup_notes": []
 }}
 items 는 위 항목 전부를 같은 순서로, rest 는 넘긴 것 전부를 담는다.
@@ -174,8 +211,16 @@ def main():
 
     print(f"선별분 상세 수집 {len(data['selected'])}건")
     for it in data["selected"]:
-        it["detail"] = detail(it)
-        print(f"  {it['id']} 본문 {len(it['detail']['body'])}자 · 댓글 {len(it['detail']['comments'])}개")
+        # 항목 하나의 fetch 실패가 회차 전체를 죽이지 않게 격리한다. collect.fetch() 는
+        # 3회 재시도 뒤 raise 하고 run.sh 의 ERR 트랩이 그것을 잡으므로, 격리가 없으면
+        # 한 건이 안 열리는 날 브리핑이 통째로 결번된다. 상세가 없어도 제목·요약·추천수는
+        # 이미 손에 있어 그 항목만 얇게 나갈 뿐이다.
+        try:
+            it["detail"] = detail(it)
+            print(f"  {it['id']} 본문 {len(it['detail']['body'])}자 · 댓글 {len(it['detail']['comments'])}개")
+        except Exception as e:
+            it["detail"] = {"body": "", "comments": []}
+            print(f"  {it['id']} 상세 수집 실패 — 제목·요약만으로 진행: {e}", file=sys.stderr)
 
     prev_items = followup.previous_items(today)
     body = llm.ask_json(build_prompt(data, til_articles(), prev_items))
@@ -189,15 +234,21 @@ def main():
         if not base:
             print(f"  모르는 id 를 썼다 — 건너뜀: {w.get('id')}", file=sys.stderr)
             continue
+        # HN 항목만 제목을 옮긴다. 모델이 빠뜨리면 원제를 그대로 세운다 — 영문 제목이
+        # 나가는 것이 제목이 비는 것보다 낫다.
+        title_ko = (w.get("title_ko") or "").strip() if base.get("source") == "hn" else ""
         items.append({
             "id": base["id"], "anchor": w.get("anchor") or f"i{i:02d}", "rank": f"{len(items) + 1:02d}",
-            "title": base["title"], "url": base["topic_url"], "source_url": base["source_url"],
+            "title": title_ko or base["title"],
+            "title_orig": base["title"] if title_ko else "",
+            "url": base["topic_url"], "source_url": base["source_url"],
             "domain": base["domain"], "interest": f"관심사 {base['interest']}", "percentile": base["percentile"],
+            "source": base.get("source", "gn"), "also": base.get("also"),
             "comments": base.get("comments", 0),
             "heat": heat_value(base["id"], w.get("heat") or "", heat_ids),
             "lede": w.get("lede", ""), "bullets": w.get("bullets", []), "liv": w.get("liv", ""),
             "tie": w.get("tie"), "angle": w.get("angle", ""),
-            "action_topic": w.get("action_topic") or base["title"],
+            "action_topic": w.get("action_topic") or title_ko or base["title"],
         })
     # 리브 한마디·til 연관은 드물수록 효과가 크다(doc-3). 모델이 넘치게 달면 앞쪽만 남긴다.
     for field, cap in (("liv", 4), ("tie", 3)):
@@ -219,11 +270,15 @@ def main():
         base = rest_by_id.get(w.get("id"))
         if not base:
             continue
+        # 넘긴 것 그리드도 같은 규칙이다. 한 페이지 안에서 본문은 한국어인데 하단 그리드만
+        # 영문 제목이면 그게 더 눈에 걸린다.
+        rest_ko = (w.get("title_ko") or "").strip() if base.get("source") == "hn" else ""
         rest.append({
-            "id": base["id"], "title": base["title"], "url": base["topic_url"],
+            "id": base["id"], "title": rest_ko or base["title"], "url": base["topic_url"],
             "source_url": base["source_url"], "domain": base["domain"],
+            "source": base.get("source", "gn"),
             "summary": w.get("summary", ""), "angle": w.get("angle", ""),
-            "action_topic": w.get("action_topic") or base["title"],
+            "action_topic": w.get("action_topic") or rest_ko or base["title"],
         })
 
     d = datetime.fromisoformat(today)

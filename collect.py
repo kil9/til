@@ -1,8 +1,17 @@
 #!/usr/bin/env python3
-"""GeekNews 수집 — 새 소식 목록 + RSS 요약을 합쳐 후보를 만든다 (task-80).
+"""수집 — GeekNews 와 Hacker News 에서 후보를 만든다 (task-80, HN 은 task-106).
 
 - 목록(/new?page=N)은 추천수(points)와 노출 순서를 주고, RSS 는 항목 요약을 준다.
   RSS 만으로는 인기 순위를 알 수 없어 둘을 id 로 합친다.
+- HN 은 Algolia front_page 엔드포인트 호출 1회로 톱페이지 전원의 점수·댓글수·URL 을
+  받는다(실측: 실제 프런트페이지와 29/30 일치). Firebase 는 아이템당 요청이라 배제했다.
+- **id 는 GeekNews 만 맨 값이고 HN 은 `hn:` 을 붙인다.** 맨 id = GeekNews 라는 규약이라
+  seen.json·points-30d.jsonl·과거 selected-*.json 을 마이그레이션하지 않아도 된다.
+  양쪽을 다 접두하면 그 세 곳의 기존 데이터가 전부 미아가 되고, 그 사고는 조용하다
+  (seen 필터가 무효화돼 어제 실은 글이 다시 실릴 뿐 에러가 안 난다).
+- **추천 백분위는 소스별로 따로 매긴다.** GeekNews 추천수는 한 자리에서 56 수준이고
+  HN points 는 13-708 이라 절대값을 섞으면 GeekNews 가 전멸한다.
+- HN 수집이 통째로 실패해도 GeekNews 단독으로 진행한다. BRIEFING_HN=0 이면 아예 끈다.
 - 첫 페이지에서 끊지 않는다. 빈 페이지가 나올 때까지(또는 MAX_PAGES) 훑는다 —
   파일럿에서 추천 상위 6% 항목이 2페이지에 있었다.
 - 이미 처리한 id 는 state/seen.json 으로 거른다. 다만 그렇게 걸러 남은 신규가
@@ -21,6 +30,7 @@ import os
 import re
 import sys
 import time
+import urllib.parse
 import urllib.request
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -29,10 +39,16 @@ BASE = Path(__file__).resolve().parent
 STATE = BASE / "state"
 LIST_URL = "https://news.hada.io/new?page={}"
 RSS_URL = "https://news.hada.io/rss/news"
+HN_URL = "https://hn.algolia.com/api/v1/search?tags=front_page&hitsPerPage={}"
+HN_ITEM_URL = "https://news.ycombinator.com/item?id={}"
+HN_LIMIT = 30             # 프런트페이지 한 장
 MAX_PAGES = 4
 HISTORY_DAYS = 30
-MIN_HISTORY = 60          # 이보다 적으면 롤링 분포를 믿지 않는다
+MIN_HISTORY = 60          # 이보다 적으면 롤링 분포를 믿지 않는다. 소스별로 따로 본다
 MIN_NEW = int(os.environ.get("MIN_NEW", "5"))   # 신규가 이보다 적으면 목록 전체로 backfill
+# 킬 스위치. 아침에 HN 쪽이 이상하면 코드를 되돌리지 않고 이 값만 0 으로 두면
+# 그날부터 GeekNews 단독 발행으로 즉시 복귀한다.
+HN_ENABLED = os.environ.get("BRIEFING_HN", "1") == "1"
 UA = "Mozilla/5.0 (X11; Linux x86_64) liv-briefing/1.0 (+https://til.kil9.dev/)"
 KST = timezone(timedelta(hours=9))
 
@@ -71,6 +87,66 @@ def strip_tags(s):
     return " ".join(html.unescape(s).split())
 
 
+# 추적 파라미터. 같은 글이 소스마다 다른 꼬리표를 달고 와서 병합을 방해한다.
+TRACKING_RE = re.compile(r"^(utm_\w*|fbclid|gclid|mc_(cid|eid)|ref|source|s|igshid)$", re.I)
+
+
+def url_key(u):
+    """원문 URL 정규화 키. 못 만들면 빈 문자열이고, 그 항목은 병합 대상에서 빠진다.
+
+    Ask HN/Show HN 처럼 외부 링크가 없는 항목이 빈 키를 공유하면 서로 다른 글이
+    한 항목으로 합쳐지므로, 빈 키끼리는 절대 묶지 않는다.
+    """
+    if not u:
+        return ""
+    try:
+        p = urllib.parse.urlsplit(u)
+    except ValueError:
+        return ""
+    if p.scheme not in ("http", "https") or not p.netloc:
+        return ""
+    host = p.netloc.lower().split("@")[-1]
+    for port in (":80", ":443"):
+        if host.endswith(port):
+            host = host[: -len(port)]
+    host = host.removeprefix("www.").rstrip(".")
+    path = re.sub(r"/+$", "", p.path) or "/"
+    query = sorted((k, v) for k, v in urllib.parse.parse_qsl(p.query, keep_blank_values=True)
+                   if not TRACKING_RE.match(k))
+    return urllib.parse.urlunsplit(("https", host, path, urllib.parse.urlencode(query), ""))
+
+
+def hn_front_page():
+    """HN 프런트페이지. 호출 1회로 점수·댓글수·URL 을 받는다."""
+    data = json.loads(fetch(HN_URL.format(HN_LIMIT)))
+    items = {}
+    for h in data.get("hits", []):
+        oid = str(h.get("objectID") or "")
+        title = (h.get("title") or "").strip()
+        if not oid or not title:
+            continue
+        discussion = HN_ITEM_URL.format(oid)
+        # Ask/Show HN 은 외부 링크가 없다. 그 경우 원문 자리에 토론 페이지를 세운다.
+        source_url = h.get("url") or discussion
+        items[f"hn:{oid}"] = {
+            "id": f"hn:{oid}",
+            "source": "hn",
+            "title": title,
+            "source_url": source_url,
+            "domain": urllib.parse.urlsplit(source_url).netloc.lower().removeprefix("www.")
+                      or "news.ycombinator.com",
+            "desc": (h.get("story_text") or "")[:600],
+            "points": int(h.get("points") or 0),
+            "comments": int(h.get("num_comments") or 0),
+            "published": (h.get("created_at") or "")[:16],
+            "topic_url": discussion,
+            "list_page": 1,
+            "url_key": url_key(h.get("url")),
+        }
+    print(f"  HN 프런트페이지 {len(items)}건")
+    return items
+
+
 def list_pages():
     """목록 페이지에서 추천수·순서를 긁는다. 빈 페이지를 만나면 멈춘다."""
     items = {}
@@ -87,10 +163,14 @@ def list_pages():
                 continue
             link, domain = F_LINK_RE.search(chunk), F_DOMAIN_RE.search(chunk)
             desc, comments = F_DESC_RE.search(chunk), F_COMMENTS_RE.search(chunk)
+            source_url = link.group(1) if link else f"https://news.hada.io/topic?id={tid}"
             items[tid] = {
+                # GeekNews 는 맨 id 다. 접두하면 기존 seen·백분위 이력이 통째로 미아가 된다.
                 "id": tid,
+                "source": "gn",
                 "title": strip_tags(title.group(1)),
-                "source_url": link.group(1) if link else f"https://news.hada.io/topic?id={tid}",
+                "source_url": source_url,
+                "url_key": url_key(link.group(1)) if link else "",
                 "domain": domain.group(1) if domain else "news.hada.io",
                 "desc": strip_tags(desc.group(1)) if desc else "",
                 "points": int(points.group(1)),
@@ -125,10 +205,13 @@ def load_json(path, default):
 
 
 def points_history(now):
-    """최근 HISTORY_DAYS 일치 추천수 표본. 항목당 마지막 관측값만 쓴다."""
+    """최근 HISTORY_DAYS 일치 추천수 표본을 소스별로. 항목당 마지막 관측값만 쓴다.
+
+    source 필드가 없는 옛 레코드는 GeekNews 다(HN 이전에 쌓인 것뿐이다).
+    """
     path = STATE / "points-30d.jsonl"
     cutoff = (now - timedelta(days=HISTORY_DAYS)).date().isoformat()
-    latest, keep = {}, []
+    latest, keep = {"gn": {}, "hn": {}}, []
     if path.exists():
         for line in path.read_text(encoding="utf-8").splitlines():
             if not line.strip():
@@ -140,8 +223,26 @@ def points_history(now):
             if rec.get("date", "") < cutoff:
                 continue
             keep.append(line)
-            latest[rec["id"]] = rec["points"]
+            latest.setdefault(rec.get("source", "gn"), {})[rec["id"]] = rec["points"]
     return latest, keep, path
+
+
+def merge_duplicates(gn_items, hn_items):
+    """같은 원문이 양쪽에 오른 것을 한 항목으로 합친다. 남는 쪽은 언제나 GeekNews 다.
+
+    링크는 GeekNews 논의 페이지만 남기고 HN 쪽 점수는 `also` 로 달아 함께 보인다.
+    """
+    by_key = {it["url_key"]: it for it in gn_items if it.get("url_key")}
+    out, merged = list(gn_items), 0
+    for it in hn_items:
+        gn = by_key.get(it["url_key"]) if it.get("url_key") else None
+        if gn is None:
+            out.append(it)
+            continue
+        gn["also"] = {"source": "hn", "points": it["points"], "comments": it["comments"],
+                      "percentile": it.get("percentile"), "url": it["topic_url"]}
+        merged += 1
+    return out, merged
 
 
 def percentile_rank(points, sample):
@@ -167,46 +268,82 @@ def main():
     for tid, it in items.items():
         it["summary"] = summaries.get(tid, "")
 
-    seen = set(load_json(STATE / "seen.json", {"ids": []})["ids"])
-    fresh = [it for it in items.values() if it["id"] not in seen]
-    print(f"  훑은 {len(items)}건 중 신규 {len(fresh)}건")
+    # HN 은 있으면 좋은 것이지 없으면 안 되는 것이 아니다. 통째로 실패해도 GeekNews 로 나간다.
+    hn = {}
+    if not HN_ENABLED:
+        print("  BRIEFING_HN=0 — HN 수집을 건너뛴다")
+    else:
+        try:
+            hn = hn_front_page()
+        except Exception as e:
+            print(f"  HN 수집 실패 — GeekNews 단독으로 진행: {e}", file=sys.stderr)
+    by_source = {"gn": items, "hn": hn}
 
-    # 신규가 얇은 날엔 목록 전체로 되돌린다. 발행이 끊기는 것보다 회차 간 중복이 낫다.
-    backfilled = len(fresh) < MIN_NEW
-    if backfilled:
-        fresh = list(items.values())
-        print(f"  신규 {MIN_NEW}건 미만 — 목록 전체 {len(fresh)}건으로 backfill (중복 허용)")
-
-    # 추천 이력 갱신(오늘 관측치를 기록)한 뒤 백분위를 매긴다.
+    # 추천 이력 갱신(오늘 관측치를 기록)한 뒤 소스별로 백분위를 매긴다. 소스를 섞으면
+    # HN points(수백)가 GeekNews 추천수(한 자리)를 통째로 덮어 GeekNews 가 전멸한다.
     latest, keep, hist_path = points_history(now)
-    for it in items.values():
-        latest[it["id"]] = max(latest.get(it["id"], 0), it["points"])
-        keep.append(json.dumps({"date": today, "id": it["id"], "points": it["points"]}, ensure_ascii=False))
+    for src, group in by_source.items():
+        for it in group.values():
+            seen_pts = latest.setdefault(src, {})
+            seen_pts[it["id"]] = max(seen_pts.get(it["id"], 0), it["points"])
+            keep.append(json.dumps({"date": today, "id": it["id"], "source": src,
+                                    "points": it["points"]}, ensure_ascii=False))
     hist_path.write_text("\n".join(keep) + "\n", encoding="utf-8")
 
-    sample = list(latest.values())
-    basis = "rolling-30d"
-    if len(sample) < MIN_HISTORY:
-        sample = [it["points"] for it in items.values()]
-        basis = "today-only"
-        print(f"  이력 {len(latest)}건뿐 — 그날 수집분 내부 분위수로 폴백")
-    for it in fresh:
-        it["percentile"] = percentile_rank(it["points"], sample)
+    basis, sizes = {}, {}
+    for src, group in by_source.items():
+        if not group:
+            continue
+        sample = list(latest.get(src, {}).values())
+        basis[src] = "rolling-30d"
+        if len(sample) < MIN_HISTORY:
+            sample = [it["points"] for it in group.values()]
+            basis[src] = "today-only"
+            print(f"  {src} 이력 {len(latest.get(src, {}))}건뿐 — 그날 수집분 내부 분위수로 폴백")
+        sizes[src] = len(sample)
+        for it in group.values():
+            it["percentile"] = percentile_rank(it["points"], sample)
 
-    fresh.sort(key=lambda it: (it["percentile"], -it["points"]))
+    # 신규 판정과 backfill 은 소스별이다. 합산하면 HN 30건 때문에 GeekNews 가 얇은 날에도
+    # backfill 이 안 돌아 그날 회차가 통째로 HN 이 된다.
+    seen = set(load_json(STATE / "seen.json", {"ids": []})["ids"])
+    backfilled = []
+    fresh_by_source = {}
+    for src, group in by_source.items():
+        if not group:
+            fresh_by_source[src] = []
+            continue
+        fresh = [it for it in group.values() if it["id"] not in seen]
+        print(f"  {src}: 훑은 {len(group)}건 중 신규 {len(fresh)}건")
+        # 신규가 얇은 날엔 목록 전체로 되돌린다. 발행이 끊기는 것보다 회차 간 중복이 낫다.
+        if len(fresh) < MIN_NEW:
+            fresh = list(group.values())
+            backfilled.append(src)
+            print(f"  {src}: 신규 {MIN_NEW}건 미만 — 전체 {len(fresh)}건으로 backfill (중복 허용)")
+        fresh_by_source[src] = fresh
+
+    merged_items, merged = merge_duplicates(fresh_by_source["gn"], fresh_by_source["hn"])
+    if merged:
+        print(f"  같은 원문 {merged}건을 GeekNews 쪽으로 합쳤다")
+
+    merged_items.sort(key=lambda it: (it["percentile"], -it["points"]))
     out = {
         "date": today,
         "collected_at": now.isoformat(timespec="minutes"),
-        "scanned": len(items),
+        "scanned": sum(len(g) for g in by_source.values()),
+        "scanned_by_source": {s: len(g) for s, g in by_source.items()},
         "percentile_basis": basis,
-        "sample_size": len(sample),
+        "sample_size": sizes,
         "backfilled": backfilled,
-        "items": fresh,
+        "merged": merged,
+        "items": merged_items,
     }
     path = STATE / f"collected-{today}.json"
     path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
-    mark = " · backfill" if backfilled else ""
-    print(f"  → {path.name} ({len(fresh)}건, 백분위 기준 {basis}/{len(sample)}표본{mark})")
+    counts = {s: sum(1 for it in merged_items if it["source"] == s) for s in ("gn", "hn")}
+    mark = f" · backfill {'/'.join(backfilled)}" if backfilled else ""
+    print(f"  → {path.name} ({len(merged_items)}건 = GN {counts['gn']} + HN {counts['hn']}, "
+          f"백분위 기준 {basis}{mark})")
     return 0
 
 

@@ -51,6 +51,22 @@ def fill(tpl, mapping):
     return tpl
 
 
+LEFTOVER_RE = re.compile(r"\{\{[A-Z][A-Z0-9_]*\}\}")
+
+
+def assert_filled(page, where):
+    """미치환 토큰이 남았으면 죽는다 (task-106).
+
+    템플릿은 repo 에 있고 잡 코드는 머신 로컬이라 둘의 버전이 어긋난 상태가 실제로 존재할
+    수 있다 — 전용 클론이 매 시도 origin/main 으로 reset 하므로 템플릿만 먼저 배포되는
+    경로가 있다. fill() 은 모르는 토큰을 조용히 남기므로 그때 라이브 페이지에 리터럴
+    {{TOKEN}} 이 그대로 노출된다. 발행이 실패하고 Slack 으로 알림이 가는 편이 낫다.
+    """
+    left = sorted(set(LEFTOVER_RE.findall(page)))
+    if left:
+        raise RuntimeError(f"{where}: 치환되지 않은 토큰 {left} — 템플릿과 잡 코드 버전이 어긋났다")
+
+
 def favicon(repo):
     m = re.search(r'rel="icon" type="image/webp" href="data:image/webp;base64,([A-Za-z0-9+/=]+)"',
                   (repo / "index.html").read_text(encoding="utf-8"))
@@ -194,6 +210,38 @@ def repatch_daynav(repo, dates, date, prefix="../"):
     return "patched"
 
 
+# 배지가 이미 소스를 말하므로 라벨에 소스 이름을 되풀이하지 않는다. 다만 백분위의 뜻은
+# 소스마다 다르다 — GeekNews 는 30일 롤링 추천 분포, HN 은 프런트페이지 30건 안의 순위다.
+SOURCE_LABEL = {"gn": "추천 상위", "hn": "프런트 상위"}
+
+
+def subtitle(it):
+    """원제 병기 (task-106). 제목을 옮긴 항목에만 붙는다."""
+    if not it.get("title_orig"):
+        return ""
+    return f'\n    <p class="orig">{esc(it["title_orig"])}</p>'
+
+
+def foot(it):
+    """항목 메타 한 줄. 출처 배지 + 그 소스 기준 백분위 + 반응 온도 배지.
+
+    백분위 문구를 소스별로 다르게 쓰는 이유는 모집단이 다르기 때문이다. HN 쪽 수는
+    이미 큐레이션된 프런트페이지 30건 안의 순위라 GeekNews 의 30일 롤링 백분위와 같은
+    말이 아니다. 같은 '추천 상위' 로 찍으면 둘을 견주게 된다.
+    """
+    src = it.get("source", "gn")
+    parts = [esc(it["domain"]), esc(it["interest"]),
+             f'<span class="src">{esc(src.upper())}</span> '
+             f'{SOURCE_LABEL.get(src, "추천 상위")} {esc(it["percentile"])}%']
+    also = it.get("also")
+    if also:      # 양쪽에 오른 글 — 링크는 GeekNews 쪽만 남기고 점수는 둘 다 보인다
+        parts.append(f'<span class="src">{esc(also["source"].upper())}</span> '
+                     f'{esc(also.get("percentile", ""))}% ({esc(also["points"])}표)')
+    if it.get("heat"):
+        parts.append(f'<span class="heat">{esc(it["heat"])}</span>')
+    return " · ".join(parts)
+
+
 def render(data, repo, root_rel, dates=(), nav_prefix="../"):
     tdir = repo / "backlog/assets/briefing"
     liv_dir = repo / "backlog/assets/liv"
@@ -225,10 +273,7 @@ def render(data, repo, root_rel, dates=(), nav_prefix="../"):
             "ANCHOR": esc(it["anchor"]), "RANK": esc(it["rank"]), "URL": esc(it["url"]),
             "TITLE": esc(it["title"]), "LEDE": esc(it["lede"]),
             "BULLETS": "\n".join(f"      <li>{esc(b)}</li>" for b in it["bullets"]),
-            "DOMAIN": esc(it["domain"]), "INTEREST": esc(it["interest"]),
-            "PERCENTILE": esc(it["percentile"]),
-            # 반응 온도 배지(task-118) — 값이 없는 항목이 대부분이라 구분점까지 함께 뗀다.
-            "BADGE": (f' · <span class="heat">{esc(it["heat"])}</span>' if it.get("heat") else ""),
+            "SUBTITLE": subtitle(it), "FOOT": foot(it),
             "TIEBOX": tie, "LIV": liv,
             "ACTION_TOPIC": esc(it["action_topic"]), "ACTION_URL": esc(it["source_url"]),
             "ACTION_ANGLE": esc(it["angle"]),
@@ -242,12 +287,14 @@ def render(data, repo, root_rel, dates=(), nav_prefix="../"):
 
     toc = "\n".join(f'      <li><a href="#{esc(t["anchor"])}">{esc(t["label"])}</a></li>'
                     for t in data.get("toc", []))
+    for h in items_html:
+        assert_filled(h, "item.html")
     followup = render_followup(data.get("followup") or {})
     pick = data.get("pick") or {}
     pick_anchor = pick.get("anchor") or (data["items"][0]["anchor"] if data["items"] else "i01")
     # 이유 한 줄에서 '06 — ' 같은 번호 머리를 떼고 제목을 그 자리에 세운다 (task-103).
     pick_line = PICK_NUM_RE.sub("", pick.get("line", ""))
-    return fill(tdir.joinpath("template.html").read_text(encoding="utf-8"), {
+    page = fill(tdir.joinpath("template.html").read_text(encoding="utf-8"), {
         "DATE": esc(data["date"]), "DATE_KO": esc(data["date_ko"]),
         "DESCRIPTION": esc(data["description"]), "FAVICON_B64": favicon(repo),
         "ROOT_REL": root_rel, "ARCHIVE_REL": root_rel + "p/briefing/archive/",
@@ -260,6 +307,8 @@ def render(data, repo, root_rel, dates=(), nav_prefix="../"):
         "FOLLOWUP": followup,
         "DAYNAV": daynav(dates, data["date"], nav_prefix),
     })
+    assert_filled(page, "template.html")
+    return page
 
 
 def render_followup(fu):
