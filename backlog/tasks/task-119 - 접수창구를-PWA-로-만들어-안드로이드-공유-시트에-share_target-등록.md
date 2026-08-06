@@ -1,10 +1,10 @@
 ---
 id: TASK-119
 title: 접수창구를 PWA 로 만들어 안드로이드 공유 시트에 share_target 등록
-status: Blocked
+status: Done
 assignee: []
 created_date: '2026-08-06 12:33'
-updated_date: '2026-08-06 15:22'
+updated_date: '2026-08-06 16:05'
 labels: []
 dependencies: []
 priority: medium
@@ -35,7 +35,7 @@ priority: medium
 - [x] #6 접수창구·매니페스트·아이콘 모두 비공개 유지: noindex 그대로이고 루트 갤러리·README 표·sitemap.xml·search-index.json·feed.xml 어디에도 노출되지 않는다
 - [x] #7 AGENTS.md 에 PWA 아이콘·매니페스트 사이드카가 단일 파일 원칙의 의도적 예외임을 기록한다
 - [x] #8 site-check.py 통과
-- [ ] #9 관리자 실기 검증: 안드로이드 크롬에서 홈 화면에 추가 → 크롬에서 URL 공유 → 공유 시트에 항목이 뜨고 → 접수 폼이 프리필되고 → til-inbox 에 pending 이슈가 생기는 것까지 확인
+- [x] #9 관리자 실기 검증: 안드로이드 크롬에서 홈 화면에 추가 → 크롬에서 URL 공유 → 공유 시트에 항목이 뜨고 → 접수 폼이 프리필되고 → til-inbox 에 pending 이슈가 생기는 것까지 확인
 <!-- AC:END -->
 
 ## Implementation Notes
@@ -73,4 +73,6 @@ AC#9 실기 때 볼 것:
 AC#9 관리자 실기 검증 대기 중이라 Blocked 로 둔다. 실기가 통과하면 Done 으로 닫는다.
 
 후속 보정(2026-08-06, Fable 2차 자문): URL 꼬리 문장부호 제거를 균형 괄호 검사로 바꿨다(위키백과식 …/Foo_(bar) 가 깨지던 것). url 파라미터와 text 에 같은 주소가 함께 오는 경우(웹앱발 navigator.share) text 쪽 중복을 지운다. 페이지 원문 그대로 node 로 9케이스 재검증 통과. maskable 안전영역 지적은 오독이었다 — 잰 것이 any 판본(bbox 0-512)이고 maskable 은 51-461 로 중앙 410px 안에 들어 있다. 404 맵의 접수창구 항목 제거는 이번 범위 밖이라 draft-8 로 뺐다.
+
+AC#9 통과(2026-08-06, 관리자 실기 확인). 안드로이드 공유 시트에 항목이 뜨고 접수까지 이어지는 것을 확인했다. 태스크 완료.
 <!-- SECTION:NOTES:END -->
