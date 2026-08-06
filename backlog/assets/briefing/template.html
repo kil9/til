@@ -134,6 +134,11 @@
   /* 반응 온도 배지(task-118). 회차에 0-2개뿐이라 면·테두리·색을 새로 만들지 않아도
      이 줄에서 유일하게 굵은 글자라는 것만으로 눈에 띈다. 액센트는 상호작용 전용이다. */
   .heat { color: var(--text); font-weight: 700; letter-spacing: 0.03em; }
+  /* 출처 배지(task-106). 항목마다 있으니 배지처럼 두드러지면 안 된다 — 백분위 앞에
+     붙는 두 글자 라벨이고, 무게는 .heat 보다 한 단계 낮다. */
+  .src { font-weight: 600; letter-spacing: 0.05em; color: var(--text-muted); }
+  /* 옮긴 제목 아래의 원제 */
+  .orig { margin: -4px 0 10px; font-size: 0.8125rem; color: var(--text-faint); }
 
   /* 액션 */
   button {
