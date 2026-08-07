@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-08-07 | TRMNL — 단말은 멍청하게, 서버는 부지런하게 | [/2026/trmnl-eink-dashboard/](https://til.kil9.dev/2026/trmnl-eink-dashboard/) |
 | 2026-08-07 | 펌웨어를 직접 굽는 손바닥 컴퓨터 70종: Build in Public 가젯 카탈로그 | [/2026/flashable-little-computers/](https://til.kil9.dev/2026/flashable-little-computers/) |
 | 2026-08-06 | 안드로이드 공유 시트에서 바로 접수창구로: Web Share Target 조사 | [/2026/web-share-target/](https://til.kil9.dev/2026/web-share-target/) |
 | 2026-08-05 | OpenAI 는 그 많은 API 키를 어떻게 관리하나 | [/2026/openai-api-key-scale/](https://til.kil9.dev/2026/openai-api-key-scale/) |
