@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-08-06T02:17:00+09:00</updated>
+  <updated>2026-08-07T14:22:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>펌웨어를 직접 굽는 손바닥 컴퓨터 70종: Build in Public 가젯 카탈로그</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/flashable-little-computers/"/>
+    <id>https://til.kil9.dev/2026/flashable-little-computers/</id>
+    <published>2026-08-07T14:22:00+09:00</published>
+    <updated>2026-08-07T14:22:00+09:00</updated>
+    <category term="hardware"/>
+    <summary type="text">빌더 커뮤니티 Build in Public 의 가젯 카탈로그를 훑었습니다. 펌웨어를 갈아 끼우는 손바닥 컴퓨터 70종, 중앙값 $35. LilyGO 와 M5Stack 두 회사가 40% 를 차지하고, e-ink 대시보드와 LoRa 메시 단말이 요즘의 두꺼운 축입니다.</summary>
+  </entry>
   <entry>
     <title>안드로이드 공유 시트에서 바로 접수창구로: Web Share Target 조사</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/web-share-target/"/>
