@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-08-09T22:19:00+09:00</updated>
+  <updated>2026-08-09T23:47:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>2026년 5-8월, 개인 프로젝트 19개를 한 장에 펼쳐봤다</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/personal-projects-may-august/"/>
+    <id>https://til.kil9.dev/2026/personal-projects-may-august/</id>
+    <published>2026-08-09T23:47:00+09:00</published>
+    <updated>2026-08-09T23:47:00+09:00</updated>
+    <category term="workflow"/>
+    <summary type="text">최근 Git 활동과 nuc14의 실제 실행 상태를 대조해 에이전트 기반시설, 기억·발행, 생활 자동화, 투자·봇, 장치, 창작의 여섯 축으로 정리했습니다.</summary>
+  </entry>
   <entry>
     <title>10억 LLM 에이전트 사회의 실제: 지능은 어디까지 남았나</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/light-society-billion-agents/"/>
