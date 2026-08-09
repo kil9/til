@@ -187,6 +187,14 @@ components:
 **The Two-Mode Parity Rule.** 새 색을 추가하면 라이트·다크 값을 같은 커밋에서 함께 정한다. 다크 값이
 없는 색은 이 시스템에 존재할 수 없다 — 페이지에 테마 토글이 없어 사용자가 피해 갈 방법도 없다.
 
+**The Foreign Logo Exception.** 남의 브랜드 로고는 그 브랜드의 색을 그대로 쓴다. 위 팔레트 규칙과
+Two-Mode Parity 의 적용 대상이 아니다 — 로고의 색은 이 사이트가 정하는 값이 아니라 인용하는 값이고,
+바꾸면 식별이라는 유일한 존재 이유가 사라진다. 지금 이 예외로 존재하는 색은 아침 브리핑 출처 배지
+두 개뿐이다: GeekNews `#0000AA`, Hacker News `#FF6600`. One Blue Rule 과 충돌하지 않는다 — 그 규칙은
+액센트 블루를 상호작용 표시로 묶는 것이고, 이 남색은 액센트가 아니라 인용된 상표다. 다크 모드에서는
+색을 갈지 않고 `opacity` 로만 눌러 그 자리에서 튀지 않게 한다. 로고를 새로 들일 때는 원본을 그대로
+쓰거나(파비콘의 픽셀 글리프처럼) 원본에 최대한 가깝게 그리고, 사이트 톤에 맞추려고 재색칠하지 않는다.
+
 ## Typography
 
 **Body Font:** Pretendard (폴백 `-apple-system` → `BlinkMacSystemFont` → `Apple SD Gothic Neo` →
