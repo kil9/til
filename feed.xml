@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-08-09T13:38:00+09:00</updated>
+  <updated>2026-08-09T22:19:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>10억 LLM 에이전트 사회의 실제: 지능은 어디까지 남았나</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/light-society-billion-agents/"/>
+    <id>https://til.kil9.dev/2026/light-society-billion-agents/</id>
+    <published>2026-08-09T22:19:00+09:00</published>
+    <updated>2026-08-09T22:19:00+09:00</updated>
+    <category term="ai"/>
+    <summary type="text">Light Society의 10억 에이전트 실험을 구현과 검증 범위로 나눠 읽었습니다. 실제 규모는 10억 상태 노드지만, 판단은 Gemini 행동을 증류해 미리 만든 9억 칸 조회표가 맡았습니다.</summary>
+  </entry>
   <entry>
     <title>agent-device: ADB를 이미 쓰는 에이전트에게 필요한 것</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/agent-device/"/>

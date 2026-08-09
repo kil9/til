@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-08-09 | 10억 LLM 에이전트 사회의 실제: 지능은 어디까지 남았나 | [/2026/light-society-billion-agents/](https://til.kil9.dev/2026/light-society-billion-agents/) |
 | 2026-08-09 | agent-device: ADB를 이미 쓰는 에이전트에게 필요한 것 | [/2026/agent-device/](https://til.kil9.dev/2026/agent-device/) |
 | 2026-08-08 | 독자의 절반이 사람이 아니다: 에이전트 우선 문서 서빙 조사 | [/2026/agent-first-docs/](https://til.kil9.dev/2026/agent-first-docs/) |
 | 2026-08-07 | TRMNL — 단말은 멍청하게, 서버는 부지런하게 | [/2026/trmnl-eink-dashboard/](https://til.kil9.dev/2026/trmnl-eink-dashboard/) |
