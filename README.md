@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-08-09 | agent-device: ADB를 이미 쓰는 에이전트에게 필요한 것 | [/2026/agent-device/](https://til.kil9.dev/2026/agent-device/) |
 | 2026-08-08 | 독자의 절반이 사람이 아니다: 에이전트 우선 문서 서빙 조사 | [/2026/agent-first-docs/](https://til.kil9.dev/2026/agent-first-docs/) |
 | 2026-08-07 | TRMNL — 단말은 멍청하게, 서버는 부지런하게 | [/2026/trmnl-eink-dashboard/](https://til.kil9.dev/2026/trmnl-eink-dashboard/) |
 | 2026-08-07 | 펌웨어를 직접 굽는 손바닥 컴퓨터 70종: Build in Public 가젯 카탈로그 | [/2026/flashable-little-computers/](https://til.kil9.dev/2026/flashable-little-computers/) |

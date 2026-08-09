@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-08-08T18:31:00+09:00</updated>
+  <updated>2026-08-09T13:38:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>agent-device: ADB를 이미 쓰는 에이전트에게 필요한 것</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/agent-device/"/>
+    <id>https://til.kil9.dev/2026/agent-device/</id>
+    <published>2026-08-09T13:38:00+09:00</published>
+    <updated>2026-08-09T13:38:00+09:00</updated>
+    <category term="ai"/>
+    <summary type="text">앱을 누르는 명령보다 관찰·검증·증거·재현을 한 루프로 묶는 도구에 가깝습니다. 원시 ADB와 기존 E2E 도구 사이에서 맡는 역할, 접근성 스냅샷, replay, 플랫폼 한계와 안전한 도입 순서를 조사했습니다.</summary>
+  </entry>
   <entry>
     <title>독자의 절반이 사람이 아니다: 에이전트 우선 문서 서빙 조사</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/agent-first-docs/"/>
