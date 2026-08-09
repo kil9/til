@@ -1,0 +1,14 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>세션 폐기를 메모리에 두되, 배포 때 DB를 두들기지 않는 법</title>
+<h1>세션 폐기를 메모리에 두되, 배포 때 DB를 두들기지 않는 법</h1>
+<p>Canva는 요청마다 네트워크 저장소를 조회하지 않는 빠른 세션 검증을 유지하면서, 수백 개 gateway가 시작할 때 MySQL에서 동일한 폐기 목록을 읽는 stampede를 S3 chunk로 분리했다. 핵심은 dense representation, 시간 구간별 immutable에 가까운 object, conditional write의 조합이다. 성능 수치는 Canva Engineering의 자체 보고이며 독립 재현 결과가 아니다.</p>
+<ul>
+<li>Canva는 암호화된 세션 쿠키를 요청 경로에서 로컬 검증하고, 최근 12시간의 폐기 기록을 gateway 메모리에 유지하며 갱신 시 MySQL을 확인한다고 설명한다. <small>asserted</small></li>
+<li>Canva는 폐기 기록을 S3의 30분 chunk와 정렬된 16-byte record로 표현해 gateway가 내려받은 byte 배열을 직접 binary search하도록 설계했다고 보고한다. <small>asserted</small></li>
+<li>비동기 worker의 conditional PUT이 lost update를 막는 correctness 경계이고 ZooKeeper leader election은 충돌과 부하를 줄이는 최적화일 뿐이라고 설명한다. <small>asserted</small></li>
+<li>Canva의 자체 측정에 따르면 worker 처리량은 초당 2,000건을 넘었고 새 binary representation은 in-memory footprint를 87.5% 줄였다. <small>asserted</small></li>
+</ul>
+<h2>Sources</h2><ul>
+<li><a href="https://www.canva.dev/blog/engineering/session-revocations-at-scale/">Session revocations at scale</a></li>
+</ul>
