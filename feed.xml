@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-08-09T23:47:00+09:00</updated>
+  <updated>2026-08-10T17:15:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>같은 80%인데 색이 다른 이유</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/pace-not-percent/"/>
+    <id>https://til.kil9.dev/2026/pace-not-percent/</id>
+    <published>2026-08-10T17:15:00+09:00</published>
+    <updated>2026-08-10T17:15:00+09:00</updated>
+    <category term="terminal"/>
+    <summary type="text">AI 구독 쿼터를 절대 사용률이 아니라 앞으로 낼 수 있는 배속으로 판정한다. 기존 경계는 유지한 채 청록·초록·노랑·주황·빨강 5단계로 세분하고, 같은 80%가 시점에 따라 다른 뜻이 되는 이유를 네 곡선으로 그렸다.</summary>
+  </entry>
   <entry>
     <title>2026년 5-8월, 개인 프로젝트 19개를 한 장에 펼쳐봤다</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/personal-projects-may-august/"/>
@@ -438,15 +447,6 @@
     <updated>2026-07-19T08:17:00+09:00</updated>
     <category term="hardware"/>
     <summary type="text">키 밀림 재발을 계측으로 확정하고 허브를 탈출했더니 이번엔 마이크가 죽었다. 원인은 셋 — Windows 엔드포인트 정체성, 전역 리셋이 남긴 컨트롤러 웨지, 허브 뒤 오디오 입력이 안 되는 구조 한계. 컨트롤러 세 개를 오가며 판정하고 CPU 직결 포트에 정착했다.</summary>
-  </entry>
-  <entry>
-    <title>같은 80%인데 색이 다른 이유</title>
-    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/pace-not-percent/"/>
-    <id>https://til.kil9.dev/2026/pace-not-percent/</id>
-    <published>2026-07-19T05:15:00+09:00</published>
-    <updated>2026-07-19T05:15:00+09:00</updated>
-    <category term="terminal"/>
-    <summary type="text">AI 구독 쿼터 표시의 색 규칙을 절대 사용률 임계에서 '앞으로 낼 수 있는 배속'으로 바꿨다. 임계 두 개 대신 e의 2차 곡선 하나 — 같은 80%가 창 중반이면 빨강, 리셋 직전이면 초록이 된다. 5h 창과 7d 창은 다른 곡선을 쓴다.</summary>
   </entry>
   <entry>
     <title>키보드 글자 폭발 조사기</title>

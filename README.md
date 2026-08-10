@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-08-10 | 같은 80%인데 색이 다른 이유 | [/2026/pace-not-percent/](https://til.kil9.dev/2026/pace-not-percent/) |
 | 2026-08-09 | 2026년 5-8월, 개인 프로젝트 19개를 한 장에 펼쳐봤다 | [/2026/personal-projects-may-august/](https://til.kil9.dev/2026/personal-projects-may-august/) |
 | 2026-08-09 | 10억 LLM 에이전트 사회의 실제: 지능은 어디까지 남았나 | [/2026/light-society-billion-agents/](https://til.kil9.dev/2026/light-society-billion-agents/) |
 | 2026-08-09 | agent-device: ADB를 이미 쓰는 에이전트에게 필요한 것 | [/2026/agent-device/](https://til.kil9.dev/2026/agent-device/) |
@@ -101,7 +102,6 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 | 2026-07-20 | F13 이 조용히 죽어 있었다 | [/2026/wsl2-localhost-death/](https://til.kil9.dev/2026/wsl2-localhost-death/) |
 | 2026-07-20 | 키 밀림 사건 종결 보고 | [/2026/key-repeat-case-closed/](https://til.kil9.dev/2026/key-repeat-case-closed/) |
 | 2026-07-19 | 키보드를 살렸더니 마이크가 죽었다 | [/2026/keyboard-fixed-mic-dead/](https://til.kil9.dev/2026/keyboard-fixed-mic-dead/) |
-| 2026-07-19 | 같은 80%인데 색이 다른 이유 | [/2026/pace-not-percent/](https://til.kil9.dev/2026/pace-not-percent/) |
 | 2026-07-19 | 키보드 글자 폭발 조사기 | [/2026/key-repeat-explosion/](https://til.kil9.dev/2026/key-repeat-explosion/) |
 | 2026-07-18 | 노동 이후의 자본주의와 기본소득 | [/2026/post-labor-capitalism/](https://til.kil9.dev/2026/post-labor-capitalism/) |
 | 2026-07-18 | LingBot-Map — 폰으로 찍고, 4080 으로 돌린다 | [/2026/lingbot-map-local/](https://til.kil9.dev/2026/lingbot-map-local/) |

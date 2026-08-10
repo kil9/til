@@ -2,11 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://til.kil9.dev/</loc>
-    <lastmod>2026-08-09T23:47:00+09:00</lastmod>
+    <lastmod>2026-08-10T17:15:00+09:00</lastmod>
   </url>
   <url>
     <loc>https://til.kil9.dev/p/archive/</loc>
-    <lastmod>2026-08-09T23:47:00+09:00</lastmod>
+    <lastmod>2026-08-10T17:15:00+09:00</lastmod>
+  </url>
+  <url>
+    <loc>https://til.kil9.dev/2026/pace-not-percent/</loc>
+    <lastmod>2026-08-10T17:15:00+09:00</lastmod>
   </url>
   <url>
     <loc>https://til.kil9.dev/2026/personal-projects-may-august/</loc>
@@ -199,10 +203,6 @@
   <url>
     <loc>https://til.kil9.dev/2026/keyboard-fixed-mic-dead/</loc>
     <lastmod>2026-07-19T08:17:00+09:00</lastmod>
-  </url>
-  <url>
-    <loc>https://til.kil9.dev/2026/pace-not-percent/</loc>
-    <lastmod>2026-07-19T05:15:00+09:00</lastmod>
   </url>
   <url>
     <loc>https://til.kil9.dev/2026/key-repeat-explosion/</loc>
