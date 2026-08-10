@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>같은 80%인데 색이 다른 이유</title>
+<title>AI 구독 쿼터 표시: 사용률 대신 페이스로 5색을 정하는 법</title>
 <meta name="description" content="AI 구독 쿼터 표시의 색 규칙을 절대 사용률 임계에서 '앞으로 낼 수 있는 배속'으로 바꾸고, 청록·초록·노랑·주황·빨강 5단계로 세분했다. 같은 80%가 시점에 따라 다른 뜻이 되는 이유를 네 곡선으로 그려 본다.">
 <link rel="icon" type="image/webp" href="data:image/webp;base64,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">
 <meta property="og:type" content="article">
-<meta property="og:title" content="같은 80%인데 색이 다른 이유">
+<meta property="og:title" content="AI 구독 쿼터 표시: 사용률 대신 페이스로 5색을 정하는 법">
 <meta property="og:description" content="AI 구독 쿼터 표시의 색 규칙을 절대 사용률 임계에서 '앞으로 낼 수 있는 배속'으로 바꾸고, 청록·초록·노랑·주황·빨강 5단계로 세분했다. 같은 80%가 시점에 따라 다른 뜻이 되는 이유를 네 곡선으로 그려 본다.">
 <meta property="og:url" content="https://til.kil9.dev/2026/pace-not-percent/">
 <meta property="og:site_name" content="today i learned">
@@ -151,7 +151,7 @@
 <meta property="og:image" content="https://til.kil9.dev/og/pace-not-percent.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="같은 80%인데 색이 다른 이유">
+<meta property="og:image:alt" content="AI 구독 쿼터 표시: 사용률 대신 페이스로 5색을 정하는 법">
 <!-- PAGEOG:END -->
 <!-- PAGETOC-CSS:START -->
 <style>
@@ -224,7 +224,7 @@
 <body>
 <main>
   <p class="home-top" style="margin:0 0 28px;font-size:0.8125rem"><a href="../../">← today i learned</a></p>
-  <h1>같은 80%인데 색이 다른 이유</h1>
+  <h1>AI 구독 쿼터 표시: 사용률 대신 페이스로 5색을 정하는 법</h1>
   <p class="lede">터미널에서 AI 구독 쿼터를 그려 주는 개인 스크립트의 색 규칙을 갈아엎었다. 절대 사용률 임계 대신 &#8216;앞으로 낼 수 있는 배속&#8217;으로 판정하고, 이제 결과를 청록·초록·노랑·주황·빨강 다섯 단계로 보여 준다. 같은 80%가 창 중반이면 빨강, 리셋 직전이면 청록이 되는 구조를 네 곡선으로 그려 봤다.</p>
   <p class="meta-line">kil9conf · usage 스크립트 · 2026-08-10 개정</p>
 
@@ -375,7 +375,7 @@
   </figure>
 
   <p>초록 경계가 정속 소진선(사용률 = 경과율)을 가로지르는 지점이 &tau;=1이 되는 순간이다. 그 전에는 경과율보다 앞서 써도 초록이다. 만회할 시간이 있기 때문이다. 그 후에는 정속으로 써도 노랑이다. 리셋까지 여유를 남겨 두라는 뜻이다. 고정 임계를 여러 개 박아서는 이 태도 변화가 안 나오지만, 곡선이면 저절로 나온다.</p>
-  <p>그림의 두 점이 이 글 제목이다. 같은 80%인데 3.5일 경과 지점에서는 s=0.4라 빨강이고, 리셋 8시간 전에는 s=4.0이라 청록이다.</p>
+  <p>그림의 두 점이 핵심 사례다. 같은 80%인데 3.5일 경과 지점에서는 s=0.4라 빨강이고, 리셋 8시간 전에는 s=4.0이라 청록이다.</p>
 
   <h2 id="세-단계에서-다섯-단계로" data-anchor="auto">세 단계에서 다섯 단계로<a class="h-anchor" href="#세-단계에서-다섯-단계로" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>초록·노랑·빨강 세 단계만으로는 &#8220;문제 없음&#8221; 안의 큰 여유와 &#8220;감속 필요&#8221; 직전의 가벼운 과속이 같은 색에 묶였다. 그래서 기존 초록 경계와 빨강 경계는 움직이지 않고, 초록 위에 청록 경계를 하나 더하고 둘 사이에 노랑 경계를 끼웠다. 새 노랑 경계는 배속 척도에 맞춰 기존 두 경계의 기하 중점으로 잡았다.</p>

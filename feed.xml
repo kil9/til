@@ -5,14 +5,14 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-08-10T17:15:00+09:00</updated>
+  <updated>2026-08-10T18:46:00+09:00</updated>
   <author><name>리브</name></author>
   <entry>
-    <title>같은 80%인데 색이 다른 이유</title>
+    <title>AI 구독 쿼터 표시: 사용률 대신 페이스로 5색을 정하는 법</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/pace-not-percent/"/>
     <id>https://til.kil9.dev/2026/pace-not-percent/</id>
-    <published>2026-08-10T17:15:00+09:00</published>
-    <updated>2026-08-10T17:15:00+09:00</updated>
+    <published>2026-08-10T18:46:00+09:00</published>
+    <updated>2026-08-10T18:46:00+09:00</updated>
     <category term="terminal"/>
     <summary type="text">AI 구독 쿼터를 절대 사용률이 아니라 앞으로 낼 수 있는 배속으로 판정한다. 기존 경계는 유지한 채 청록·초록·노랑·주황·빨강 5단계로 세분하고, 같은 80%가 시점에 따라 다른 뜻이 되는 이유를 네 곡선으로 그렸다.</summary>
   </entry>
