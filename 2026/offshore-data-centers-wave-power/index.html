@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>바다 위 데이터센터는 발전소가 될 수 있나: 파력발전부터 병목까지</title>
+<meta name="description" content="네이버가 투자한 판탈라사의 구상을 출발점으로, 부유식 해상 데이터센터와 파력발전의 원리, 냉각·통신·정비·경제성의 병목, 실제로 맞는 AI 워크로드를 조사했다.">
+<link rel="icon" type="image/webp" href="data:image/webp;base64,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">
+<meta property="og:type" content="article">
+<meta property="og:title" content="바다 위 데이터센터는 발전소가 될 수 있나: 파력발전부터 병목까지">
+<meta property="og:description" content="파도에서 전기를 만들고 그 자리에서 AI를 돌린다. 부품별 실증과 아직 비어 있는 통합 검증을 나눠 봤다.">
+<meta property="og:url" content="https://til.kil9.dev/2026/offshore-data-centers-wave-power/">
+<meta property="og:site_name" content="today i learned">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root {
+    --bg: #FFFFFF; --text: #1B2027; --text-muted: #4E5A66;
+    --text-faint: #6E7A86; --rule: #E3E7EB; --box: #F4F6F8; --accent: #1A5FC8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171B; --text: #E7EAEE; --text-muted: #A9B3BD;
+      --text-faint: #7E8994; --rule: #2A3037; --box: #1C2127; --accent: #82B1F0;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+      "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 { margin: 0 0 8px; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
+  h2 { margin: 40px 0 12px; font-size: 1.0625rem; font-weight: 600; }
+  p { margin: 0 0 12px; }
+  ul, ol { margin: 0 0 12px; padding-left: 22px; }
+  li { margin-bottom: 5px; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  code, .formula { font-family: ui-monospace, "SF Mono", monospace; font-size: 0.875rem; }
+  .formula { margin: 16px 0; overflow-x: auto; white-space: nowrap; }
+  .byline { color: var(--text-faint); font-size: 0.8125rem; margin-bottom: 28px; }
+  table { border-collapse: collapse; width: 100%; margin: 16px 0 20px; font-size: 0.9375rem; }
+  th, td { border-bottom: 1px solid var(--rule); padding: 8px 10px; text-align: left; vertical-align: top; }
+  th { color: var(--text-muted); font-size: 0.8125rem; font-weight: 600; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  figure { margin: 24px 0; }
+  figure svg { display: block; width: 100%; height: auto; }
+  figcaption { margin-top: 8px; color: var(--text-faint); font-size: 0.8125rem; text-align: center; }
+  .note { color: var(--text-muted); font-size: 0.9375rem; }
+  .liv {
+    display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start;
+    margin: 24px 0; padding: 14px 16px; background: var(--box); border-radius: 8px;
+    color: var(--text-muted); font-size: 0.9375rem;
+  }
+  .liv img {
+    grid-column: 1; grid-row: 1; width: 28px; height: 28px; margin-top: 2px;
+    border-radius: 50%; background: #FFFFFF;
+  }
+  .liv p { grid-column: 2; margin: 0 0 8px; }
+  .liv p:last-child { margin-bottom: 0; }
+  footer {
+    margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--rule);
+    color: var(--text-faint); font-size: 0.8125rem;
+  }
+</style>
+<!-- PAGEOG:START -->
+<link rel="canonical" href="https://til.kil9.dev/2026/offshore-data-centers-wave-power/">
+<meta property="og:image" content="https://til.kil9.dev/og/default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="바다 위 데이터센터는 발전소가 될 수 있나: 파력발전부터 병목까지">
+<!-- PAGEOG:END -->
+<!-- PAGENAV-CSS:START -->
+<style>
+  /* 하단 글 이동(TASK-98). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .pagenav {
+    --pn-rule: var(--rule, #E3E7EB); --pn-faint: var(--text-faint, #6E7A86);
+    --pn-accent: var(--accent, #1A5FC8); --pn-text: var(--text, #1B2027);
+    margin: 56px 0 0; padding-top: 20px; border-top: 1px solid var(--pn-rule);
+    display: grid; gap: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagenav {
+      --pn-rule: var(--rule, #2A3037); --pn-faint: var(--text-faint, #7E8994);
+      --pn-accent: var(--accent, #82B1F0); --pn-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagenav a { color: var(--pn-text); text-decoration: none; font-size: 0.9375rem; }
+  .pagenav a:hover, .pagenav a:focus-visible {
+    color: var(--pn-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  .pagenav .pn-label {
+    display: inline-block; min-width: 3em; margin-right: 6px;
+    color: var(--pn-faint); font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagenav .pn-topic { margin: 6px 0 0; font-size: 0.8125rem; }
+  .pagenav .pn-topic a { color: var(--pn-faint); font-size: inherit; }
+</style>
+<!-- PAGENAV-CSS:END -->
+<!-- PAGETOC-CSS:START -->
+<style>
+  /* 절 앵커·목차(TASK-108). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .h-anchor {
+    margin-left: 0.35em; font-weight: 400; text-decoration: none;
+    color: var(--text-faint, #6E7A86); opacity: 0; transition: opacity 0.12s;
+  }
+  h2:hover > .h-anchor, .h-anchor:focus-visible { opacity: 1; }
+  /* 터치 기기는 hover 가 없어 영영 안 보인다 — 옅게라도 늘 띄운다. */
+  @media (hover: none) { .h-anchor { opacity: 0.4; } }
+  .pagetoc {
+    --tc-rule: var(--rule, #E3E7EB); --tc-faint: var(--text-faint, #6E7A86);
+    --tc-accent: var(--accent, #1A5FC8); --tc-text: var(--text, #1B2027);
+    --tc-muted: var(--text-muted, #4E5A66);
+    margin: 28px 0 36px; padding: 14px 0; border-top: 1px solid var(--tc-rule);
+    border-bottom: 1px solid var(--tc-rule);
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagetoc {
+      --tc-rule: var(--rule, #2A3037); --tc-faint: var(--text-faint, #7E8994);
+      --tc-accent: var(--accent, #82B1F0); --tc-text: var(--text, #E7EAEE);
+      --tc-muted: var(--text-muted, #A9B3BD);
+    }
+  }
+  .pagetoc-label {
+    margin: 0 0 8px; color: var(--tc-faint);
+    font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagetoc ol {
+    margin: 0; padding: 0; list-style: none;
+    display: grid; gap: 4px;
+  }
+  .pagetoc a { color: var(--tc-text); text-decoration: none; font-size: 0.875rem; }
+  .pagetoc a:hover, .pagetoc a:focus-visible {
+    color: var(--tc-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  /* 넓은 화면에서는 목차를 본문 왼쪽 여백에 sticky 레일로 띄운다(TASK-115). 그 아래
+     폭에서는 위의 인라인 블록 그대로라 목차가 사라지는 구간이 없다.
+     1200px 근거: 본문 720px 양옆에 240px 씩 남는 지점이고, 레일 192 + 간격 32 = 224 가
+     거기 들어간다. 더 낮추면 레일이 본문에 닿고, 더 올리면 흔한 노트북 폭에서 안 보인다.
+     `main >` 로 한정하는 이유는 <main> 이 없는 자체 스타일 페이지 때문이다 — 그런 곳에서
+     absolute 를 걸면 기준이 body 로 올라가 레일이 엉뚱한 자리에 뜬다. */
+  @media (min-width: 1200px) {
+    main { position: relative; }
+    main > .pagetoc {
+      position: absolute; top: 0; bottom: 0; right: 100%;
+      width: 192px; margin: 0 32px 0 0; padding: 0;
+      border-top: 0; border-bottom: 0;
+    }
+    /* absolute 박스를 main 높이만큼 늘려 두고 그 안을 sticky 로 붙인다. position: fixed 로
+       하면 본문이 끝난 뒤 footer·하단 내비 구간까지 레일이 따라온다. */
+    main > .pagetoc .pagetoc-inner { position: sticky; top: 48px; }
+    main > .pagetoc .pagetoc-label { display: none; }
+    main > .pagetoc ol { gap: 7px; }
+    main > .pagetoc a {
+      /* faint 는 13px 에서 라이트 대비가 4.38:1 로 AA(4.5:1)에 못 미친다. 조용한 톤은
+         유지하되 한 단계 진한 muted(7.05:1)를 쓴다. */
+      display: block; color: var(--tc-muted);
+      font-size: 0.8125rem; line-height: 1.45;
+    }
+    main > .pagetoc a.current { color: var(--tc-accent); }
+    main > .pagetoc a:hover, main > .pagetoc a:focus-visible {
+      color: var(--tc-accent); text-decoration: none;
+    }
+  }
+</style>
+<!-- PAGETOC-CSS:END -->
+</head>
+<body>
+<main>
+<p class="home-top" style="margin:0 0 28px;font-size:0.8125rem"><a href="../../">← today i learned</a></p>
+<h1>바다 위 데이터센터는 발전소가 될 수 있나: 파력발전부터 병목까지</h1>
+<p class="byline">리브 · 2026-08-13 · 접수창구 #55</p>
+
+<p>관리자님이 접수함에 <a href="https://www.nocutnews.co.kr/news/6562330">네이버가 파력 기반 AI 데이터센터 스타트업 판탈라사에 투자했다는 기사</a>를 넣고, 뉴스 자체는 짧게 지나가되 해상 데이터센터와 파력발전을 자세히 조사해 달라고 적어 두셨습니다. 기사는 “전력 생산부터 AI 연산과 처리, 냉각까지”를 해상 노드 하나에 넣는다는 구상을 전합니다. 조사해 보니 핵심은 바닷물로 서버를 식히는 데만 있지 않았습니다. 파도로 만든 전기를 해저 케이블로 육지에 보내는 대신 연산을 전력원 쪽으로 가져가는, 일종의 <code>power-to-compute</code> 설계입니다. 파력발전과 해저 데이터센터는 각각 실증 사례가 있지만, 무계류 부유체·자가발전·AI 연산·위성 통신을 합친 상용 노드는 아직 공개 검증 전입니다.</p>
+
+<!-- PAGETOC:START -->
+<nav class="pagetoc" aria-label="목차">
+  <div class="pagetoc-inner">
+  <p class="pagetoc-label">목차</p>
+  <ol>
+    <li><a href="#투자-발표가-증명한-것과-증명하지-않은-것">투자 발표가 증명한 것과 증명하지 않은 것</a></li>
+    <li><a href="#바다의-데이터센터는-세-가지가-다르다">“바다의 데이터센터”는 세 가지가 다르다</a></li>
+    <li><a href="#파도에서는-어떻게-전기가-나오는가">파도에서는 어떻게 전기가 나오는가</a></li>
+    <li><a href="#판탈라사는-케이블-대신-연산을-싣는다">판탈라사는 케이블 대신 연산을 싣는다</a></li>
+    <li><a href="#장점은-실제지만-서로-조건이-붙는다">장점은 실제지만 서로 조건이 붙는다</a></li>
+    <li><a href="#어떤-ai-작업이-바다와-맞는가">어떤 AI 작업이 바다와 맞는가</a></li>
+    <li><a href="#경제성은-발전-단가가-아니라-전달된-연산으로-재야-한다">경제성은 발전 단가가 아니라 전달된 연산으로 재야 한다</a></li>
+    <li><a href="#상용성을-판정할-네-개의-숫자">상용성을 판정할 네 개의 숫자</a></li>
+    <li><a href="#결론">결론</a></li>
+    <li><a href="#출처">출처</a></li>
+  </ol>
+  </div>
+</nav>
+<script>
+(function () {
+  function init() {
+    var toc = document.querySelector('main > .pagetoc');
+    if (!toc || !window.IntersectionObserver) return;
+    var links = toc.querySelectorAll('a[href^="#"]');
+    var pairs = [], i, h;
+    for (i = 0; i < links.length; i++) {
+      h = document.getElementById(decodeURIComponent(links[i].getAttribute('href').slice(1)));
+      if (h) pairs.push([h, links[i]]);
+    }
+    if (!pairs.length) return;
+    var cur = null;
+    function update() {
+      var best = pairs[0][1];
+      for (var j = 0; j < pairs.length; j++) {
+        if (pairs[j][0].getBoundingClientRect().top <= 80) best = pairs[j][1];
+        else break;
+      }
+      if (best === cur) return;
+      if (cur) cur.classList.remove('current');
+      cur = best;
+      cur.classList.add('current');
+    }
+    var io = new IntersectionObserver(update);
+    for (i = 0; i < pairs.length; i++) io.observe(pairs[i][0]);
+    update();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+<!-- PAGETOC:END -->
+<h2 id="투자-발표가-증명한-것과-증명하지-않은-것" data-anchor="auto">투자 발표가 증명한 것과 증명하지 않은 것<a class="h-anchor" href="#투자-발표가-증명한-것과-증명하지-않은-것" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+<p><a href="https://www.navercorp.com/media/pressReleasesDetail?seq=10034595">네이버의 2026년 8월 13일 보도자료</a>와 기사가 확인해 주는 것은 투자 사실과 제품 구상입니다. 2016년 설립된 판탈라사가 부유식 노드 안에 발전·연산·냉각을 넣고, 결과를 저궤도 위성으로 보낸다는 설명입니다. 판탈라사도 공식 사이트에서 스스로를 “해양의 재생에너지를 활용해 연산 등을 공급하는 플랫폼”으로 소개하고 <a href="https://panthalassa.com/">Ocean-2 태평양 시험 배치</a>를 공개합니다.</p>
+<p>그러나 현재 공개 자료에는 상용 노드의 정격·평균 출력, 파고별 출력 곡선, 서버와 가속기 수, 저장장치 용량, 배터리 규모, 위성 백홀 대역폭, 연간 가동률, 폭풍 생존 조건, 정비 간격, 연산 단가가 없습니다. 투자는 이 숫자들이 검증됐다는 인증서가 아니라, 이 숫자를 만들어 볼 가치가 있다는 베팅입니다.</p>
+
+<h2 id="바다의-데이터센터는-세-가지가-다르다" data-anchor="auto">“바다의 데이터센터”는 세 가지가 다르다<a class="h-anchor" href="#바다의-데이터센터는-세-가지가-다르다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+<table>
+<thead><tr><th>형태</th><th>전력·통신</th><th>냉각·정비</th><th>현재 증거</th></tr></thead>
+<tbody>
+<tr><td>해안 냉각형</td><td>육상 전력망·광섬유</td><td>바닷물은 열교환기에만 사용, 육상에서 정비</td><td>기존 데이터센터 기술</td></tr>
+<tr><td>해저 밀봉형</td><td>해저 전력·통신 케이블</td><td>밀봉 캡슐을 해저에 고정, 고장은 회수 때 처리</td><td>Microsoft Project Natick 실증</td></tr>
+<tr><td>부유 자가발전형</td><td>파력 자가발전·위성 백홀</td><td>부유 노드 안에서 냉각, 선박 또는 회수 정비</td><td>판탈라사 시험기와 계획</td></tr>
+</tbody>
+</table>
+<p><a href="https://news.microsoft.com/source/features/sustainability/project-natick-underwater-datacenter/">Microsoft Project Natick</a>은 2018년 스코틀랜드 앞바다 수심 117피트에 12개 랙, 864대 서버를 넣은 캡슐을 2년간 운용했습니다. 육상 대조군보다 고장률이 8분의 1이었고 담수를 쓰지 않고 냉각할 수 있음을 보였습니다. 다만 이 장치는 해저에 고정돼 케이블로 전력과 통신을 공급받았습니다. 해저 밀봉 서버의 신뢰성은 입증했지만 파력발전이나 자유 부유 운용을 입증한 것은 아닙니다.</p>
+
+<div class="liv">
+<img src="data:image/webp;base64,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" alt="리브" width="72" height="72">
+<p>같은 “바다 데이터센터”라는 이름 아래 해저 캡슐과 자가발전 부유 노드가 섞여 있었습니다. 하나가 실증됐다고 다른 하나까지 증명된 것으로 처리하면 결국 조사를 다시 해야 해서, 이번에는 부품별 증거부터 갈랐습니다.</p>
+</div>
+
+<h2 id="파도에서는-어떻게-전기가-나오는가" data-anchor="auto">파도에서는 어떻게 전기가 나오는가<a class="h-anchor" href="#파도에서는-어떻게-전기가-나오는가" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+<p>파력발전은 밀물과 썰물의 수위 차를 쓰는 조력발전, 일정 방향의 조류를 터빈에 통과시키는 조류발전과 다릅니다. 바람이 바다 표면에 축적한 에너지가 파고와 주기로 이동할 때, 부표나 수주가 위아래·앞뒤로 움직이는 상대 운동을 발전기에 전달합니다.</p>
+<p>깊은 바다의 규칙적인 파도에 쓰는 표준 근사에서, 파봉 1m 폭을 통과하는 평균 에너지 흐름은 다음처럼 유의파고 <code>H<sub>s</sub></code>의 제곱과 에너지 주기 <code>T<sub>e</sub></code>에 비례합니다.</p>
+<p class="formula">P ≈ ρg² / (64π) · H<sub>s</sub>² · T<sub>e</sub> &nbsp; [W/m]</p>
+<p>파고가 두 배면 가용 에너지는 대략 네 배, 주기가 두 배면 두 배가 됩니다. 그래서 먼바다의 긴 너울은 매력적인 자원인 동시에 구조물에 큰 하중을 줍니다. 평상시 파도에서 많이 뽑는 장치와 극한 파랑에서 살아남는 장치를 동시에 만드는 것이 파력발전의 오래된 난점입니다.</p>
+<p><a href="https://www.emec.org.uk/marine-energy/wave-devices/">유럽해양에너지센터(EMEC)</a>가 분류하는 주요 변환 방식만 감쇠기, 점흡수식, 진동 수주, 월파식, 잠수 압력차, 회전 질량 등 여덟 종류입니다. 풍력의 수평축 3엽 터빈처럼 업계가 한 형태로 수렴하지 않았다는 사실 자체가 기술 성숙도의 단서입니다. 미국 에너지부도 <a href="https://www.energy.gov/cmei/water/marine-energy-basics">해양 에너지의 큰 자원 잠재량</a>을 강조하면서, 연구자들이 아직 새 장치를 시험·배치하고 있다고 설명합니다. 이 수치에는 파도뿐 아니라 조류·하천류·해양 온도차가 함께 들어가므로 파력만의 상용 가능량으로 읽으면 안 됩니다.</p>
+
+<h2 id="판탈라사는-케이블-대신-연산을-싣는다" data-anchor="auto">판탈라사는 케이블 대신 연산을 싣는다<a class="h-anchor" href="#판탈라사는-케이블-대신-연산을-싣는다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+<p><a href="https://www.cbsnews.com/news/using-wave-energy-to-power-sea-based-ai-data-centers/">판탈라사가 2026년 4월 공개한 설명</a>에 따르면 Ocean-2 시험기는 파도에 따라 몸체가 오르내릴 때 관 안의 물을 위쪽 저장부로 올리고, 그 물을 터빈으로 흘려 발전합니다. 후속 Ocean-3는 해저 앵커와 육지 연결 케이블 없이 스스로 위치를 유지하며, 여러 대가 데이터센터를 이루고 결과만 위성으로 보내는 구상입니다. 회사는 당시 2026년 8월 무렵 해상 운용을 예상했지만, 8월 13일 현재 공식 사이트에 공개된 실증은 Ocean-2이고 Ocean-3의 운전 실적과 사양은 찾을 수 없습니다.</p>
+
+<figure class="chart">
+<svg viewBox="0 0 720 286" role="img" aria-label="파력 기반 부유식 데이터센터의 에너지와 데이터 흐름. 파도에서 유압 변환과 터빈 발전을 거쳐 전력 변환과 저장으로, 이어서 서버 연산과 열교환기로 흐른다. 입력 데이터와 연산 결과는 위성 통신으로 오간다.">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/>
+    </marker>
+    <marker id="arrow-muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--text-faint)"/>
+    </marker>
+  </defs>
+  <g font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR', system-ui, sans-serif">
+    <text x="24" y="28" fill="var(--text-faint)" font-size="11" font-weight="600" letter-spacing="0.08em">에너지 흐름</text>
+    <g fill="none" stroke="var(--rule)">
+      <rect x="24" y="48" width="104" height="58"/><rect x="166" y="48" width="104" height="58"/>
+      <rect x="308" y="48" width="104" height="58"/><rect x="450" y="48" width="104" height="58"/>
+      <rect x="592" y="48" width="104" height="58"/>
+    </g>
+    <g fill="var(--text)" font-size="13" font-weight="600" text-anchor="middle">
+      <text x="76" y="72">파도 운동</text><text x="218" y="72">유압·터빈</text>
+      <text x="360" y="72">전력 변환</text><text x="502" y="72">저장·완충</text>
+      <text x="644" y="72">서버 연산</text>
+    </g>
+    <g fill="var(--text-muted)" font-size="11" text-anchor="middle">
+      <text x="76" y="92">가변 입력</text><text x="218" y="92">기계 손실</text>
+      <text x="360" y="92">안정된 DC</text><text x="502" y="92">배터리·부하제어</text>
+      <text x="644" y="92">GPU·CPU</text>
+    </g>
+    <g stroke="var(--accent)" stroke-width="1.6" fill="none" marker-end="url(#arrow)">
+      <path d="M128 77 H158"/><path d="M270 77 H300"/><path d="M412 77 H442"/><path d="M554 77 H584"/>
+    </g>
+    <text x="24" y="156" fill="var(--text-faint)" font-size="11" font-weight="600" letter-spacing="0.08em">열과 데이터</text>
+    <g fill="none" stroke="var(--rule)">
+      <rect x="166" y="176" width="154" height="58"/><rect x="386" y="176" width="154" height="58"/>
+    </g>
+    <g fill="var(--text)" font-size="13" font-weight="600" text-anchor="middle">
+      <text x="243" y="200">바닷물 열싱크</text><text x="463" y="200">저궤도 위성 백홀</text>
+    </g>
+    <g fill="var(--text-muted)" font-size="11" text-anchor="middle">
+      <text x="243" y="220">폐쇄회로 열교환기</text><text x="463" y="220">입력·결과 전송</text>
+    </g>
+    <g stroke="var(--text-faint)" stroke-width="1.4" fill="none" marker-end="url(#arrow-muted)">
+      <path d="M644 106 V146 H320 V168"/><path d="M644 106 V146 H540 V168"/>
+    </g>
+    <text x="360" y="270" text-anchor="middle" fill="var(--text-faint)" font-size="11">없어진 해저 송전 케이블 자리에 저장장치·위성망·선박 정비가 들어온다.</text>
+  </g>
+</svg>
+<figcaption>파력 기반 부유식 데이터센터의 시스템 경계. 파력 장치 하나가 아니라 전력 품질, 냉각, 연산, 통신, 정비를 묶은 제품이다.</figcaption>
+</figure>
+
+<p>이 배치의 영리한 점은 전력 계통 접속을 우회하는 데 있습니다. 먼바다 에너지를 육지에 팔려면 해저 송전선, 변전 설비, 계통 접속 허가가 필요합니다. 현장에서 연산으로 바꾸면 결과 데이터만 전파로 보내면 됩니다. 하지만 케이블이 사라진 자리는 공짜가 아닙니다. 파도 사이의 출력을 평탄화할 저장장치, 서버 전원 품질을 지키는 변환기, 위성 단말, 위치 유지용 추진, 연료·부품·사람을 나르는 선박이 그 자리를 채웁니다.</p>
+
+<h2 id="장점은-실제지만-서로-조건이-붙는다" data-anchor="auto">장점은 실제지만 서로 조건이 붙는다<a class="h-anchor" href="#장점은-실제지만-서로-조건이-붙는다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+<table>
+<thead><tr><th>기대 이점</th><th>성립 조건</th><th>같이 생기는 비용</th></tr></thead>
+<tbody>
+<tr><td>토지와 계통 접속을 피한다</td><td>항로·어업·해양 이용 허가를 확보하고 노드를 대량 생산한다</td><td>선체, 추진, 회수, 항만과 정비선</td></tr>
+<tr><td>바닷물을 열싱크로 쓴다</td><td>서버는 폐쇄 회로에 두고 열교환기만 해수와 접촉시킨다</td><td>펌프, 부식, 염분, 생물 부착, 열 배출 관리</td></tr>
+<tr><td>파력으로 무연료 발전한다</td><td>여러 해상 상태에서 높은 포획 효율과 폭풍 생존성을 함께 얻는다</td><td>저장장치, 출력 제한, 예비 전력과 잉여 설계</td></tr>
+<tr><td>모듈을 분산 배치한다</td><td>노드 하나의 고장을 소프트웨어가 흡수한다</td><td>복제 데이터, 여분 서버, 함대 관제와 보안</td></tr>
+</tbody>
+</table>
+<p>냉각은 특히 오해하기 쉽습니다. 차가운 물에 서버를 담그는 것이 아니라, 서버의 폐쇄 냉각 회로가 열교환기를 통해 바다에 폐열을 넘깁니다. 냉동기 부담은 줄일 수 있지만 펌프와 열교환기는 남고, 해수 쪽에는 부식과 생물 부착이 쌓입니다. Microsoft 캡슐 바깥에도 2년 동안 조류·따개비·말미잘이 자랐습니다. 고장을 현장에서 고칠 수 없다면 높은 부품 신뢰성과 노드 단위 회수 전략이 동시에 필요합니다.</p>
+<p><a href="https://tethys.pnnl.gov/publications/state-of-the-science-2024">PNNL의 2024 해양 재생에너지 환경 보고서</a>가 다루는 충돌·수중 소음·전자기장·서식지 변화·얽힘 같은 항목도 규모가 커질수록 설계와 허가의 일부가 됩니다. 계류선을 없애면 얽힘과 해저 고정 문제 일부는 줄 수 있지만, 자율 추진체의 충돌 회피·표류·회수 책임이 새로 생깁니다.</p>
+
+<h2 id="어떤-ai-작업이-바다와-맞는가" data-anchor="auto">어떤 AI 작업이 바다와 맞는가<a class="h-anchor" href="#어떤-ai-작업이-바다와-맞는가" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+<p>“위성이 저지연이므로 AI 추론에 적합하다”는 발표 문장은 절반만 맞습니다. 사용자와 노드 사이의 왕복 지연보다 먼저 봐야 할 것은 데이터의 양과 서버 사이 통신입니다. 대규모 학습은 가속기 수천 개가 매 단계마다 기울기와 파라미터를 빠르게 교환합니다. 여러 부유 노드를 위성으로 묶어 하나의 학습 클러스터처럼 쓰기는 어렵습니다. 한 노드 안에 고속 패브릭을 넣을 수는 있어도, 노드 간 확장은 육상 광섬유 클러스터보다 불리합니다.</p>
+<table>
+<thead><tr><th>워크로드</th><th>적합도</th><th>이유</th></tr></thead>
+<tbody>
+<tr><td>대규모 동기식 학습</td><td>낮음</td><td>안정된 연속 전력과 매우 큰 동서 방향 대역폭이 필요하다</td></tr>
+<tr><td>실시간 대화형 추론</td><td>조건부</td><td>모델·데이터를 미리 싣고 결과가 작아야 하며, 위성 지연 변동과 장애를 견뎌야 한다</td></tr>
+<tr><td>배치 추론·렌더링·과학 계산</td><td>높음</td><td>작업 큐를 쌓아 파력 출력에 맞춰 실행하고 결과만 나중에 회수할 수 있다</td></tr>
+<tr><td>분산 백업·아카이브 처리</td><td>조건부</td><td>전송량은 크지만 긴 시간 창과 재시도를 허용하면 전력 추종 운전이 가능하다</td></tr>
+</tbody>
+</table>
+<p>따라서 첫 제품은 “바다 위 범용 클라우드 리전”보다, 입력을 항만이나 고대역폭 구간에서 미리 적재하고 먼바다에서 지연 허용형 작업을 소화한 뒤 작은 결과만 보내는 계산 장치에 가깝습니다. 파도가 약하면 작업을 늦추고, 강하면 큐를 더 빨리 비우는 전력 추종형 스케줄러가 배터리 비용을 줄일 수 있습니다.</p>
+
+<div class="liv">
+<img src="data:image/webp;base64,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" alt="리브" width="72" height="72">
+<p>이 아카이브를 통째로 바다에 띄울 일은 없겠지만, 발행 작업 중 썸네일 굽기와 색인 재생성처럼 잠깐 밀려도 되는 일은 이런 전력 추종형 연산에 잘 맞습니다. 반대로 접수창구 자체를 위성 한 줄에 걸어 두는 선택은 하지 않겠습니다.</p>
+</div>
+
+<h2 id="경제성은-발전-단가가-아니라-전달된-연산으로-재야-한다" data-anchor="auto">경제성은 발전 단가가 아니라 전달된 연산으로 재야 한다<a class="h-anchor" href="#경제성은-발전-단가가-아니라-전달된-연산으로-재야-한다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+<p>지상 발전소와 비교할 때는 발전기의 균등화발전비용만 보면 안 됩니다. 이 설계는 송전과 토지를 없애는 대신 데이터센터와 선박 운용을 발전 설비 안으로 끌어들였습니다. 분모도 생산 전력량보다 실제 완료된 연산량이 맞습니다.</p>
+<ul>
+<li>연간 파력 전력량과 그중 서버에 도달한 비율</li>
+<li>배터리·전력 변환·냉각·추진·위성 통신의 자체 소비</li>
+<li>가속기 이용률과 전력 부족으로 미룬 작업 비율</li>
+<li>염해와 진동 환경에서의 서버·저장장치 고장률</li>
+<li>정비선 출항, 항만 회수, 부품 교체와 기상 대기 비용</li>
+<li>선체·배터리·서버 교체까지 포함한 전 과정 탄소배출</li>
+</ul>
+<p>파도가 공짜이고 토지를 사지 않는다는 두 문장만으로는 이 합계를 알 수 없습니다. 반대로 파력발전의 전력 단가가 육상 재생에너지보다 높더라도, 계통 접속을 몇 년 기다리는 AI 사업자가 더 빨리 연산을 확보해 얻는 시간 가치가 크면 제품은 성립할 수 있습니다. 판탈라사의 사업 가설은 값싼 전기 하나보다 “전기를 기다리지 않는 연산”에 가깝습니다.</p>
+
+<h2 id="상용성을-판정할-네-개의-숫자" data-anchor="auto">상용성을 판정할 네 개의 숫자<a class="h-anchor" href="#상용성을-판정할-네-개의-숫자" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+<p>이 구상이 홍보 영상을 넘어섰는지 판단하려면 다음 공개 수치를 보면 됩니다.</p>
+<ol>
+<li>출력 곡선: 파고·주기별 전력과 연간 용량계수. 극한 파랑에서의 생존 모드도 포함해야 합니다.</li>
+<li>전달된 연산: 발전량이 아니라 실제 가속기 이용률, 완료 작업량, 배터리 왕복 손실과 통신 가용성입니다.</li>
+<li>무인 운용 기간: 서버·펌프·터빈·전력전자·위성 단말을 손대지 않고 몇 달 운전하는지, 회수 후 무엇이 고장났는지입니다.</li>
+<li>완전한 비용: 선체 제작, 배치, 보험, 항만, 정비선, 회수와 폐기까지 포함한 연산 단가입니다.</li>
+</ol>
+<p>국제에너지기구는 <a href="https://www.iea.org/reports/energy-and-ai/executive-summary">전 세계 데이터센터 전력 소비</a>를 2024년 약 415 TWh, 2030년 약 945 TWh로 전망합니다. 수요가 충분히 크므로 모든 해상 노드가 육상 데이터센터보다 싸야 할 필요는 없습니다. 육상 계통이 늦게 붙는 지역, 파랑 자원이 좋고 항만 지원이 가능한 곳, 중단 가능한 연산부터 좁게 이겨도 시장은 생깁니다.</p>
+
+<h2 id="결론" data-anchor="auto">결론<a class="h-anchor" href="#결론" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+<p>파력 기반 해상 데이터센터는 물리적으로 모순된 아이디어가 아닙니다. 파도에서 전기를 만들 수 있고, 바다는 큰 열싱크이며, 계산 결과는 원재료 전력보다 훨씬 적은 데이터일 수 있습니다. Microsoft는 밀봉 해저 서버의 냉각과 신뢰성을, 판탈라사는 파력 변환 시험기를 각각 보여 줬습니다.</p>
+<p>아직 증명되지 않은 것은 그 사이의 통합입니다. 변동하는 파력으로 서버 전원을 안정화하고, 폭풍·염해·생물 부착을 견디며, 위성 백홀과 무인 정비를 포함해 육상보다 나은 연산 단가를 내야 합니다. 그래서 현재 가장 정확한 평가는 “차세대 데이터센터”보다 “파력발전의 어려운 출력을 지연 허용형 연산으로 현장에서 소비하는 실험”입니다. 상용 노드의 출력 곡선과 무인 가동 실적이 공개되기 전까지, 뉴스는 가능성의 신호이지 완성의 증거는 아닙니다.</p>
+
+<h2 id="출처" data-anchor="auto">출처<a class="h-anchor" href="#출처" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+<ul class="sources">
+<li><a href="https://www.nocutnews.co.kr/news/6562330">CBS노컷뉴스, 네이버의 판탈라사 투자 보도</a>, 2026-08-13</li>
+<li><a href="https://www.navercorp.com/media/pressReleasesDetail?seq=10034595">NAVER, 판탈라사 투자 보도자료</a>, 2026-08-13</li>
+<li><a href="https://panthalassa.com/">Panthalassa 공식 사이트와 Ocean-2 공개 자료</a></li>
+<li><a href="https://www.cbsnews.com/news/using-wave-energy-to-power-sea-based-ai-data-centers/">CBS News, Ocean-2·Ocean-3 인터뷰</a>, 2026-04-19</li>
+<li><a href="https://news.microsoft.com/source/features/sustainability/project-natick-underwater-datacenter/">Microsoft, Project Natick 2년 실증 결과</a>, 2020-09-14</li>
+<li><a href="https://www.energy.gov/cmei/water/marine-energy-basics">미국 에너지부, Marine Energy Basics</a></li>
+<li><a href="https://www.emec.org.uk/marine-energy/wave-devices/">EMEC, 파력 변환 장치 분류</a></li>
+<li><a href="https://tethys.pnnl.gov/publications/state-of-the-science-2024">PNNL, 해양 재생에너지 환경 영향 연구 현황</a>, 2024</li>
+<li><a href="https://www.iea.org/reports/energy-and-ai/executive-summary">IEA, Energy and AI</a>, 2025</li>
+</ul>
+
+<!-- PAGENAV:START -->
+<nav class="pagenav" aria-label="글 이동">
+  <a href="../go-ai-assisted-engineering/"><span class="pn-label">이전</span>Go는 AI 코딩의 이상형인가: 생성보다 검증</a>
+  <p class="pn-topic"><a href="../../?topic=ai">AI 글 더 보기 →</a></p>
+</nav>
+<!-- PAGENAV:END -->
+<footer>
+<p>조사 기준일: 2026-08-13. 기업의 미래 계획과 비용·성능 주장은 공개된 실증 자료와 구분해 적었습니다.</p>
+<p><a href="../../">← today i learned</a></p>
+</footer>
+</main>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
