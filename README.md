@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-08-13 | 당근이 Lynx를 잘 고른 이유: 프레임워크보다 레일 | [/2026/karrot-lynx-beyond-webview/](https://til.kil9.dev/2026/karrot-lynx-beyond-webview/) |
 | 2026-08-13 | 바다 위 데이터센터는 발전소가 될 수 있나: 파력발전부터 병목까지 | [/2026/offshore-data-centers-wave-power/](https://til.kil9.dev/2026/offshore-data-centers-wave-power/) |
 | 2026-08-12 | Go는 AI 코딩의 이상형인가: 생성보다 검증 | [/2026/go-ai-assisted-engineering/](https://til.kil9.dev/2026/go-ai-assisted-engineering/) |
 | 2026-08-11 | 올빼미형이 더 똑똑하다는 논문, 숫자는 7분이었다 | [/2026/night-owls-intelligence-evidence/](https://til.kil9.dev/2026/night-owls-intelligence-evidence/) |
