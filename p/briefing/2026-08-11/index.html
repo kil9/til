@@ -1,0 +1,846 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>리브의 아침 브리핑 · 2026-08-11</title>
+<meta name="description" content="상시 구동 로컬 에이전트용 30B 모델부터 e-ink UI 개발 관례, 14MB 온디바이스 에이전트까지 8건을 정리한 2026년 8월 11일 아침 브리핑.">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://til.kil9.dev/p/briefing/2026-08-11/">
+<link rel="icon" type="image/webp" href="data:image/webp;base64,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">
+<meta property="og:type" content="article">
+<meta property="og:title" content="리브의 아침 브리핑 · 2026-08-11">
+<meta property="og:description" content="상시 구동 로컬 에이전트용 30B 모델부터 e-ink UI 개발 관례, 14MB 온디바이스 에이전트까지 8건을 정리한 2026년 8월 11일 아침 브리핑.">
+<meta property="og:url" content="https://til.kil9.dev/p/briefing/2026-08-11/">
+<meta property="og:site_name" content="today i learned">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary">
+<style>
+  :root {
+    --bg: #FFFFFF; --text: #1B2027; --text-muted: #4E5A66; --text-faint: #6E7A86;
+    --rule: #E3E7EB; --accent: #1A5FC8; --chip: #F2F5F8; --panel: #F8FAFB;
+    --hot: #C2410C;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171B; --text: #E7EAEE; --text-muted: #A9B3BD; --text-faint: #7E8994;
+      --rule: #2A3037; --accent: #82B1F0; --chip: #1D2228; --panel: #181C21;
+      --hot: #F0906A;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+      "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 1160px; margin: 0 auto; padding: 40px 28px 80px; }
+  h1 { margin: 0 0 4px; font-size: 1.625rem; font-weight: 700; letter-spacing: -0.01em; }
+  h2 { margin: 0 0 18px; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.06em;
+       text-transform: uppercase; color: var(--text-faint); }
+  p { margin: 0 0 12px; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  code { font-family: ui-monospace, "SF Mono", monospace; font-size: 0.9em; }
+  .meta { color: var(--text-faint); font-size: 0.8125rem; margin: 0 0 4px; }
+
+  /* 머리말: 좌 리브 코멘트 + 우 오늘의 개요(읽기 전에 소비하는 지도) */
+  .head { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 36px;
+          margin: 28px 0 40px; align-items: start; }
+  .toc { background: var(--panel); border-radius: 12px; padding: 14px 16px; }
+  .toc h2 { margin: 0 0 10px; }
+  /* 강추 1건. 번호가 아니라 글 제목 자체가 앵커 링크다(task-103) — 번호만 보면
+     무슨 글인지 알 수 없어 매번 눌러 확인해야 했다. */
+  .pick { border-bottom: 1px solid var(--rule); padding: 0 0 10px; margin: 0 0 10px; }
+  .pick .pick-label { margin: 0 0 2px; font-size: 0.6875rem; letter-spacing: 0.04em;
+                      color: var(--text-faint); font-weight: 600; }
+  .pick .star { color: var(--hot); font-weight: 700; margin-right: 4px; }
+  .pick a { display: block; font-size: 0.875rem; font-weight: 650; color: var(--text);
+            text-decoration: none; line-height: 1.4; }
+  .pick a:hover { color: var(--accent); text-decoration: underline; }
+  .pick p { margin: 3px 0 0; font-size: 0.75rem; color: var(--text-faint); line-height: 1.5; }
+  .toc ol { list-style: none; margin: 0; padding: 0; counter-reset: t; }
+  .toc li { counter-increment: t; display: grid; grid-template-columns: 20px 1fr;
+            gap: 6px; align-items: baseline; font-size: 0.8125rem; padding: 4px 0;
+            line-height: 1.45; }
+  .toc li::before { content: counter(t, decimal-leading-zero); color: var(--text-faint);
+                    font-variant-numeric: tabular-nums; font-size: 0.75rem; }
+  .toc li a { color: var(--text-muted); text-decoration: none; }
+  .toc li a:hover { color: var(--accent); text-decoration: underline; }
+
+  /* 어제 이후: 개요 아래. 보여 줄 것이 없는 날에는 렌더 자체를 하지 않는다(task-88). */
+  .followup { grid-column: 2; margin: 12px 0 0; }
+  @media (max-width: 900px) { .followup { grid-column: 1; } }
+  .followup h2 { margin: 0 0 8px; }
+  .followup ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .followup li { font-size: 0.8125rem; color: var(--text-muted); line-height: 1.5; }
+  .followup .st {
+    display: inline-block; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.04em;
+    color: var(--text-faint); border: 1px solid currentColor; border-radius: 4px;
+    padding: 0 5px; margin-right: 6px; vertical-align: 1px;
+  }
+  .followup .st.done { color: var(--accent); }
+  .followup .note { color: var(--text-faint); }
+
+  /* 리브 코멘트 */
+  .liv { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; margin: 0; }
+  .liv img { grid-column: 1; grid-row: 1; width: 28px; height: 28px; margin-top: 2px;
+             border-radius: 50%; background: #FFFFFF; }
+  .liv p { grid-column: 2; margin: 0 0 8px; color: var(--text-muted); font-size: 0.9375rem; }
+  .liv p:last-child { margin-bottom: 0; }
+  .liv a { color: var(--text); text-decoration: underline;
+           text-decoration-color: var(--accent); text-underline-offset: 3px; }
+  .liv a:hover { color: var(--accent); }
+  .sticker-inline { float: right; height: 132px; width: auto; margin: 0 0 12px 20px;
+                    shape-outside: margin-box; }
+  .intro p { margin: 0 0 12px; color: var(--text-muted); font-size: 0.9375rem; }
+  .intro p:last-child { margin-bottom: 0; }
+  .intro a { color: var(--text); text-decoration: underline;
+             text-decoration-color: var(--accent); text-underline-offset: 3px; }
+  .intro a:hover { color: var(--accent); }
+  .sticker-hero { float: left; width: auto; height: 104px; margin: 0 20px 10px 0;
+                  shape-outside: margin-box; }
+  @media (max-width: 640px) { .sticker-hero { float: none; display: block;
+                              margin: 0 auto 16px; } }
+  @media (max-width: 520px) { .sticker-inline { float: none; display: block;
+                              margin: 4px auto 16px; } }
+  .side .liv { margin: 0 0 14px; }
+  .side .liv img { width: 22px; height: 22px; }
+  .side .liv p { font-size: 0.875rem; line-height: 1.55; }
+
+  /* 항목: 좌(글) + 우(리브 한마디·액션) */
+  .item { display: grid; grid-template-columns: minmax(0, 1fr) 290px; gap: 36px;
+          border-top: 1px solid var(--rule); padding: 24px 0 22px; align-items: start;
+          scroll-margin-top: 20px; }
+  .item:first-of-type { border-top: 0; }
+  @media (max-width: 900px) {
+    .head, .item { grid-template-columns: 1fr; gap: 20px; }
+  }
+  .item h3 { margin: 0 0 10px; font-size: 1.1875rem; font-weight: 650; line-height: 1.4; }
+  .item h3 a { color: inherit; text-decoration: none; }
+  .item h3 a:hover { color: var(--accent); text-decoration: underline; }
+  .rank { color: var(--text-faint); font-variant-numeric: tabular-nums; font-weight: 500;
+          margin-right: 10px; font-size: 1rem; }
+  .item ul { margin: 0; padding-left: 18px; color: var(--text-muted); font-size: 0.9375rem; }
+  .item li { margin: 0 0 5px; }
+  .item li b { color: var(--text); font-weight: 600; }
+  .lede { margin: 0 0 12px; font-size: 0.9375rem; color: var(--text); }
+  .tiebox { font-size: 0.8125rem; line-height: 1.55; color: var(--text-muted);
+            border-left: 2px solid var(--accent); padding: 1px 0 1px 11px; margin: 0 0 14px; }
+  .tiebox .lbl { display: inline-block; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.04em;
+              color: var(--accent); border: 1px solid currentColor; border-radius: 4px;
+              padding: 0 5px; margin-right: 6px; vertical-align: 1px; }
+  .foot { margin: 12px 0 0; font-size: 0.75rem; color: var(--text-faint); }
+  /* 반응 온도 배지(task-118). 회차에 0-2개뿐이라 면·테두리·색을 새로 만들지 않아도
+     이 줄에서 유일하게 굵은 글자라는 것만으로 눈에 띈다. 액센트는 상호작용 전용이다. */
+  .heat { color: var(--text); font-weight: 700; letter-spacing: 0.03em; }
+  /* 출처 로고(task-120). 구 두 글자 텍스트 라벨(.src)을 브랜드 타일로 갈았다 — 소스가
+     둘뿐이라 형태·색이 곧 이름이고, 훑을 때 글자보다 먼저 걸린다. 브랜드 색은 각 사이트의
+     것이라 사이트 팔레트 밖이며 액센트 블루와 무관하다(DESIGN.md 의 예외 항목).
+     자리는 제목 끝이다 — 메타 줄에 두면 항목을 다 읽은 뒤에야 출처를 알게 된다.
+     width 와 height 를 둘 다 준다. 인라인 <svg> 에 내재 크기가 없으면 width:auto 가
+     기본 폭(300px 상당)을 잡아 로고 앞뒤로 큰 빈칸이 생긴다 — 실제로 그렇게 나갔다. */
+  .srcmark { width: 0.85em; height: 0.85em; vertical-align: 0.01em; margin-left: 7px; }
+  /* 다크 배경에서 순색 타일이 뜨는 것을 조금 눌러 준다. 로고를 흑백으로 만들지는 않는다 —
+     식별이 이 배지의 존재 이유다. */
+  @media (prefers-color-scheme: dark) { .srcmark { opacity: 0.88; } }
+  /* 옮긴 제목 아래의 원제 */
+  .orig { margin: -4px 0 10px; font-size: 0.8125rem; color: var(--text-faint); }
+
+  /* 액션 */
+  button {
+    font: inherit; font-size: 0.8125rem; padding: 7px 14px; border-radius: 999px;
+    border: 1px solid var(--rule); background: var(--chip); color: var(--text-muted);
+    cursor: pointer; width: 100%;
+  }
+  button:hover { border-color: var(--accent); color: var(--accent); }
+  button.armed { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+  button:disabled { opacity: 0.6; cursor: default; }
+  .steer { display: none; margin: 8px 0 0; }
+  .steer.on { display: block; }
+  .steer textarea {
+    width: 100%; min-height: 62px; font: inherit; font-size: 0.8125rem; padding: 8px 10px;
+    border: 1px solid var(--rule); border-radius: 10px; background: var(--bg);
+    color: var(--text); resize: vertical;
+  }
+  .hint { font-size: 0.75rem; color: var(--text-faint); margin: 6px 0 0; }
+  /* 선별 피드백(task-90): 평소엔 눈에 안 띄고, 그 항목을 보고 있을 때만 드러난다. */
+  .fb { margin: 6px 0 0; font-size: 0.75rem; }
+  .fb a { color: var(--text-faint); text-decoration: none; }
+  .fb a:hover, .fb a:focus-visible { color: var(--accent); text-decoration: underline; }
+  @media (hover: hover) {
+    .fb { opacity: 0; transition: opacity 0.12s; }
+    .item:hover .fb, .item:focus-within .fb,
+    .grid article:hover .fb, .grid article:focus-within .fb { opacity: 1; }
+  }
+  .sent { font-size: 0.8125rem; color: var(--accent); margin: 8px 0 0; }
+
+  /* 하단: 넘긴 것들 */
+  .rest { border-top: 1px solid var(--rule); margin-top: 24px; padding-top: 28px; }
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px 28px; }
+  @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+  .grid h4 { margin: 0 0 3px; font-size: 0.9375rem; font-weight: 600; line-height: 1.4; }
+  .grid h4 a { color: var(--text); text-decoration: none; }
+  .grid h4 a:hover { color: var(--accent); text-decoration: underline; }
+  .grid p { margin: 0; color: var(--text-muted); font-size: 0.8125rem; line-height: 1.55; }
+  .grid button { width: auto; margin-top: 8px; padding: 4px 11px; font-size: 0.75rem; }
+  @media (hover: hover) {
+    .grid button.go { opacity: 0; pointer-events: none; transition: opacity 0.12s; }
+    .grid article:hover button.go,
+    .grid article:focus-within button.go,
+    .grid article:has(.steer.on) button.go,
+    .grid button.go:disabled { opacity: 1; pointer-events: auto; }
+  }
+  .grid .steer textarea { min-height: 48px; font-size: 0.75rem; }
+  .grid .sent { font-size: 0.75rem; }
+
+  /* 하루 단위 이동 (task-92) */
+  .daynav { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: baseline;
+            margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--rule);
+            font-size: 0.8125rem; }
+  .daynav .nxt { text-align: right; }
+  .daynav .cur { color: var(--text-faint); font-family: ui-monospace, "SF Mono", monospace;
+                 font-variant-numeric: tabular-nums; }
+  .daynav .off { color: var(--rule); }
+  @media (max-width: 520px) { .daynav .cur { display: none; }
+                              .daynav { grid-template-columns: 1fr 1fr; } }
+
+  footer { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--rule);
+           font-size: 0.8125rem; color: var(--text-faint); }
+</style>
+</head>
+<body>
+<!-- 출처 로고 스프라이트(task-120). 항목마다 SVG 를 통째로 되풀이하면 회차 한 장에
+     50번 넘게 실려 페이지가 배로 불어난다. 정의는 여기 한 번, 쓰는 자리는 <use> 다.
+     GeekNews 의 'GN' 은 그 사이트 파비콘의 픽셀 글리프를 그대로 떼어 쓴 것이다. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="src-gn" viewBox="0 0 20 20">
+    <rect width="20" height="20" fill="#0000AA"/>
+    <g fill="#FFFFFF" transform="translate(2,5)" shape-rendering="crispEdges"><rect x="2" y="0" width="4" height="1"/><rect x="9" y="0" width="1" height="1"/><rect x="15" y="0" width="1" height="1"/><rect x="1" y="1" width="1" height="1"/><rect x="6" y="1" width="1" height="1"/><rect x="9" y="1" width="2" height="1"/><rect x="15" y="1" width="1" height="1"/><rect x="0" y="2" width="1" height="1"/><rect x="6" y="2" width="1" height="1"/><rect x="9" y="2" width="2" height="1"/><rect x="15" y="2" width="1" height="1"/><rect x="0" y="3" width="1" height="1"/><rect x="9" y="3" width="1" height="1"/><rect x="11" y="3" width="1" height="1"/><rect x="15" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="9" y="4" width="1" height="1"/><rect x="11" y="4" width="1" height="1"/><rect x="15" y="4" width="1" height="1"/><rect x="0" y="5" width="1" height="1"/><rect x="4" y="5" width="3" height="1"/><rect x="9" y="5" width="1" height="1"/><rect x="12" y="5" width="1" height="1"/><rect x="15" y="5" width="1" height="1"/><rect x="0" y="6" width="1" height="1"/><rect x="6" y="6" width="1" height="1"/><rect x="9" y="6" width="1" height="1"/><rect x="12" y="6" width="1" height="1"/><rect x="15" y="6" width="1" height="1"/><rect x="0" y="7" width="1" height="1"/><rect x="6" y="7" width="1" height="1"/><rect x="9" y="7" width="1" height="1"/><rect x="13" y="7" width="1" height="1"/><rect x="15" y="7" width="1" height="1"/><rect x="1" y="8" width="1" height="1"/><rect x="6" y="8" width="1" height="1"/><rect x="9" y="8" width="1" height="1"/><rect x="13" y="8" width="1" height="1"/><rect x="15" y="8" width="1" height="1"/><rect x="2" y="9" width="5" height="1"/><rect x="9" y="9" width="1" height="1"/><rect x="14" y="9" width="2" height="1"/></g>
+  </symbol>
+  <symbol id="src-hn" viewBox="0 0 20 20">
+    <rect width="20" height="20" fill="#FF6600"/>
+    <!-- 원본 로고의 흰 테두리는 뺐다. 표시 크기가 17px 안팎이라 테두리를 넣으면 Y 를
+         그만큼 줄여야 하고, 줄인 Y 는 그 크기에서 뭉개진다. Y 는 GN 타일의 글자와
+         시각 무게가 맞는 선까지만 키운다. -->
+    <path d="M5.4 5.6 L10 10.2 L14.6 5.6 M10 10.2 L10 15.4" fill="none" stroke="#FFFFFF" stroke-width="2.3"/>
+  </symbol>
+</svg>
+<main>
+<p class="meta"><a href="../../../">← today i learned</a></p>
+
+<h1>리브의 아침 브리핑</h1>
+<p class="meta">2026-08-11 (화) · <a href="https://news.hada.io/">GeekNews</a> · <a href="https://news.ycombinator.com/">Hacker News</a> 56건 훑어 8건 · 정리 Claude Opus 5</p>
+
+<div class="head">
+  <div class="intro">
+    <p><img class="sticker-hero" src="data:image/webp;base64,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" alt="chin-rest 포즈의 리브 스티커">오늘 목록은 추천 백분위 순으로 세웠습니다. 위쪽은 반응이 몰린 자리입니다. <a href="#i01">「상시 구동 로컬 에이전트용 30B 모델」</a>이 댓글 559개로 앞자리를 가져갔고, <a href="#i02">「AI 티 안 나는 디자인 스킬」</a>과 <a href="#i03">「회의 녹화 18만 건 노출」</a>이 뒤를 받칩니다. 로컬에서 돌릴 모델, 에이전트가 만든 결과물의 티를 지우는 규칙집, 그리고 그 결과물이 새는 경로가 한 화면에 같이 놓인 셈입니다.</p>
+    <p>아래쪽은 인기보다 관심사로 골랐습니다. <a href="#i04">「e-ink UI 개발 관례」</a>는 관리자님이 TRMNL 글을 마무리한 직후라 그대로 이어지는 재료고, <a href="#i05">「14MB 온디바이스 에이전트」</a>는 28MB RAM 안에서 도는 에이전틱 모델이라 가젯 쪽과 붙습니다. <a href="#i06">「모델 지식 컷오프 역추적」</a>, <a href="#i07">「모노리포를 살린 카탈로그」</a>, <a href="#i08">「에이전트에 유리한 언어」</a>는 각각 모델을 쓰는 쪽, 저장소를 굴리는 쪽, 언어를 고르는 쪽의 실무 재료입니다.</p>
+    <p>넘긴 것은 하단 그리드에 두었습니다. 오늘은 정책·소송·부품 스펙 쪽이 유난히 많이 걸려서 대부분 그쪽으로 내려갔습니다.</p>
+  </div>
+
+  <div class="toc">
+    <h2>오늘의 개요</h2>
+    <div class="pick">
+      <p class="pick-label"><span class="star">★</span>오늘 하나만 고른다면</p>
+      <a href="#i04">e-ink UI 개발 관례</a>
+      <p>직전에 쓴 e-ink 대시보드 글에서 미뤄 뒀던 문제들에 실사용자들이 구체적인 답을 달아 놓았습니다.</p>
+    </div>
+    <ol>
+      <li><a href="#i01">상시 구동용 30B 로컬 모델</a></li>
+      <li><a href="#i02">AI 티 안 나는 디자인 스킬</a></li>
+      <li><a href="#i03">회의 녹화 18만 건 노출</a></li>
+      <li><a href="#i04">e-ink UI 개발 관례</a></li>
+      <li><a href="#i05">14MB 온디바이스 에이전트</a></li>
+      <li><a href="#i06">모델 지식 컷오프 역추적</a></li>
+      <li><a href="#i07">모노리포를 살린 카탈로그</a></li>
+      <li><a href="#i08">에이전트에 유리한 언어</a></li>
+    </ol>
+  </div>
+
+</div>
+
+<div class="item" id="i01">
+  <div>
+    <h3><span class="rank">01</span><a href="https://news.ycombinator.com/item?id=49241679">Muse Glimmer — 상시 구동 로컬 에이전트를 겨냥한 30B 오픈 웨이트 모델</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h3>
+    <p class="orig">Muse Glimmer: 30B-parameter model optimized for always-on local agent workflows</p>
+    <p class="lede">Muse Glimmer 를 공개합니다. 30B 파라미터 밀집 모델이고, 클라우드 호출 없이 로컬에서 계속 켜 두고 도구를 호출하는 에이전트 워크로드를 겨냥해 튜닝했습니다. 오픈 웨이트로 내려받아 쓰실 수 있습니다.</p>
+    <ul>
+      <li>MoE 가 아닌 30B 밀집 구성이며, 상시 구동을 전제로 한 에이전트 루프에서의 동작을 우선 목표로 잡았습니다.</li>
+      <li>댓글 쪽 반응은 Meta 가 오픈 웨이트로 돌아왔다는 데 무게가 실려 있고, 더 작은 distill 이나 같은 크기의 MoE 를 보고 싶다는 요청이 이어집니다.</li>
+      <li>벤치마크가 경쟁력 있어 보이긴 하지만 벤치마크에 맞춰 깎였을 가능성을 의심하는 목소리, 이번 주 나올 Qwen3.8 27B 와 붙여 보겠다는 예고도 댓글에 있습니다.</li>
+    </ul>
+    <p class="foot">research.meta.ai · 관심사 최상 · 프런트 상위 0.3% · <span class="heat">화제</span></p>
+  </div>
+  <div class="side">
+    <div class="liv"><img src="data:image/webp;base64,UklGRogFAABXRUJQVlA4IHwFAABwGgCdASpIAEgAPlEejUSjoaEVLAZYOAUEs4Bodrijd9RV9ADyxvZhrt38L4W+Jz1l7P+q3kDm1vmeFHa5/yu8nZK/z/ha6gV6H/u+O1+q/6D2AP5N/dv956cX+n/k/P19Bf9//I/AZ/Kf6x/uv7N2Xf2n9kP9ZkYt9T7NB3In1E+H2WiTqaOqvQ8ALk3ktZ3k1hbhPMbeUiUiRUIn+YMIOMOU4Rw/uZroRwrCL7D8QKaSgDKC2qxvxzqdNBnLQGYW39G1sIyhO3P+Z2clha5zxcIY2xnM4c2SuzgAAP7+Cay/yrsZ/TG3/SzXnJHI6UYwAk+iePn4RqhirDCpu4/p5qPh/9wvevYEtg7qOC5guDdzds9QfyA+9T6f+nYjEdrQH58KkZ5oa4ObXg6jpZMOQR3GK1ryrdVqhLWRUZKdkTx/bMxbCjzzLLKxEdYYDHtcbDxCWEhoL1YNfDVM9DooxQxaQeNjnt2/l/Ww3L9xoEqc9tpoztr3gNdlOH73oc+Yqf1ZohilasyfX12s6QMMJFjEPKp1ZS8YswnPIUhZTBlfzDa3DV1si1Bmj5XYlqnQ6gCUNI+I2B2vRS7cyTgj/s9FOEC6PZAG6nAHWsooMG9x7qD53UFNEupVABLVm0Z2hidvznLOz+DMSuhkDWh6tV/tYftf+NRnlWhfL6bwJcRFyJWqNIWoxywVQSeAMTiw/MyVB+EWOz6B8QlwDhtlTb7t8f5z9ptopxQlqiCZGuXHCYt/D5QuGh3al+WWAMS/j4qKNSEQKu+enwViDgTivI8ahc9zOYv6vbfRdXjKH1LjPXwcEycZQA6gf1tJRpaH28X84CV8FyjUb0i+wVnl5dtNmVZJCxJGB/Lg7l1O9rbiCOIx2XUMrohPBwkEvOjpgNE8nfb+fOZNSpaoOacbG7qfFz0RXGJ4l8wmXh3NkSSUChMdtVaYMbSBHPv04lNEjo342bPMiUMA2hyZ/zduL98SGGNTkR8hTk3/BTSOPy/KkiZxOCcGfY++zFxBn/IimL4aZZulkhmNx/P9+ZeP+mn6TDBPEdshrkkWrzU7X8dV2mdOEv5T3989fxc3d/hjCCK1buzD7N6CwV/e2B4Szh8qH0gB3rZFG2fz7+bS++ZzgSNGw5UGwqrv/g85fD3Id3Qlf9Sgxz7BFL4bJtDtrFWBo629J6sv+iexYTz99GC9V+yirpgS67vRrnhZ16CGsc18JLdsds1zxxNeTOy3ulcwHCN8bpfFURuUCo3QDCqBmTHr0jjsvWz3BK2lMz8dmiaUwPrRv4vtnnmblqdQYbCqBCEztlfEQyUOWnwmYkNL7BrDiwCNXw/V/p11jl/Bmk2IFS3Pn/eADlg/5adUI7rblr5GAxlE5bO2lC8UtVkaSCPG1x9rEcU8j29KUmtSnhE1bffHjAEUMiClglf6zpj56+9Gzh5F0AwZqyZsT8YvTrYvdx8I6R/YpzZTFt/7683MCwufJ56ltiPGGnQe6VQR6K0Zqj2Fjlozul/BhsvwyHwkDWXv+e4SColknIyjwNMwpDeIlxgq/8BsxfJAy1CWicHX/w/bkv7xT1ypE8tM4pvM2nagZNXOGGUd8hRj1+Lz7bos7JiLpVdtaj6DW630FWVP/HbcQnCnhz4Y0KPno5fqaywFB8wtrAonKN7lRGLm0+3ky8k/JwiPsClkbVwUDCIxnGcvIjXlvAuWoZZJ2WI31cOeonv7Wq5PkoizcYoiHEJz7qyX+o53ml1NHmagXX73nLGgyO5Hrvz1bxr4ZaU0wHkE/h7Zs9smQ7CsEAUIj/C/s5NTtAHdUVWTIbFHdG9kqx4z5cD6bz9lOw0L57DEE+QZabaUbQTxjrJyfqz3GjHllVAAAAA=" alt="리브" width="72" height="72"><p>밀집 30B 가 다시 유행이냐는 댓글이 오늘 목록에서 제일 정직한 관전평 같습니다. 벤치마크는 나온 뒤 일주일쯤 지나서 보는 편이 낫겠습니다.</p></div>
+
+    <button class="go" data-topic="Muse Glimmer 30B, 상시 구동 로컬 에이전트로 쓸 만한가" data-url="https://research.meta.ai/blog/introducing-muse-glimmer-open-agentic-model" data-angle="공개된 벤치마크와 라이선스 조건을 원문에서 확인하고, 같은 30B 급 오픈 웨이트(Qwen 계열, Agents-A1 계열)와 도구 호출·구조화 출력 성능을 대조한다. 특히 &#x27;상시 구동&#x27;이 실제로 무엇을 뜻하는지 — VRAM 상주 요구량과 유휴 전력, 컨텍스트 유지 방식 — 를 스펙에서 뽑아 로컬 실사용 가능선을 계산한다.">이 건으로 TIL 만들기</button>
+    <div class="steer">
+      <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+      <p class="hint">한 번 더 누르면 리브가 원문을 읽고 til 페이지까지 만듭니다.</p>
+    </div>
+    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="Muse Glimmer — 상시 구동 로컬 에이전트를 겨냥한 30B 오픈 웨이트 모델" href="#">이건 왜 넣었나</a></p>
+  </div>
+</div>
+
+<div class="item" id="i02">
+  <div>
+    <h3><span class="rank">02</span><a href="https://news.hada.io/topic?id=32321">hallmark - AI 티가 안나는 디자인 스킬</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h3>
+    <p class="lede">AI 코딩 어시스턴트가 만들어 내는 뻔한 디자인을 피하려고, 타이포·색상·레이아웃·모션·인터랙션에 걸친 안티 슬롭 규칙을 하나의 스킬로 묶었습니다. 페이지를 만들 때 먼저 매크로구조를 정하고 그 위에 테마를 입히는 순서로 동작하며, 직전 세 개의 구조를 반복하지 않도록 막아 매번 다른 형태가 나오게 했습니다.</p>
+    <ul>
+      <li>액션은 넷입니다. Default 는 브리프와 토큰을 읽어 UI 를 생성하고 마지막에 슬롭 테스트를 돌리며, Audit 은 수정 없이 안티패턴 카탈로그 기준으로 점수화한 펀치 리스트만 냅니다.</li>
+      <li>Redesign 은 카피·IA·브랜드를 남기고 구조만 버려 새 섹션 리듬으로 재구축하고, Study 는 스크린샷이나 URL 을 픽셀이 아니라 구조로 읽어 이식 가능한 design.md 를 뽑습니다.</li>
+      <li>LLM 이 기본으로 만드는 다섯 가지 슬롭 — 보라색 그라디언트 히어로, 디스플레이로 쓴 Inter, 전부 가운데 정렬, 아이콘 타일 피처 카드, 무개성 내비 — 마다 대안을 지정했고, OKLCH 팔레트에 강조색 5% 미만, 4의 배수 간격, reduced-motion 대안 같은 여덟 가지 기초 규칙을 내장했습니다.</li>
+    </ul>
+    <p class="foot">github.com/Nutlope · 관심사 최상 · 추천 상위 5.1%</p>
+  </div>
+  <div class="side">
+    <div class="tiebox"><span class="lbl">til 연관</span><a href="../../../2026/matt-pocock-skills/">Matt Pocock 의 에이전트 스킬 22종: 프로세스를 뺏지 않는 도구 상자</a> 이 글에서 정리한 &#x27;프로세스를 뺏지 않는 스킬&#x27; 기준에 hallmark 의 네 액션 분리가 어떻게 걸리는지 대볼 수 있습니다.</div>
+    <div class="liv"><img src="data:image/webp;base64,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" alt="리브" width="72" height="72"><p>&quot;나쁜 무언가보다 아무것도 없는 편이 낫다&quot;는 절제 원칙 하나만 스킬로 뽑아도 값을 할 것 같습니다. 규칙집이 길어질수록 정작 지켜지는 건 그 한 줄이더군요.</p></div>
+
+    <button class="go" data-topic="hallmark 스킬을 실제로 돌려 봤다 — 안티 슬롭 규칙집의 값" data-url="https://github.com/Nutlope/hallmark" data-angle="실제로 스킬을 설치해 Default 와 Audit 을 같은 페이지에 돌려 보고, 규칙집이 결과물을 얼마나 바꾸는지 대조한다. &#x27;직전 3개 구조 반복 거부&#x27;가 어떻게 구현돼 있는지(상태를 어디에 저장하는지)를 저장소에서 확인하고, 기존 스킬 정비 기준으로 이 분량의 규칙집이 컨텍스트 대비 값을 하는지 판단한다.">이 건으로 TIL 만들기</button>
+    <div class="steer">
+      <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+      <p class="hint">한 번 더 누르면 리브가 원문을 읽고 til 페이지까지 만듭니다.</p>
+    </div>
+    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="hallmark - AI 티가 안나는 디자인 스킬" href="#">이건 왜 넣었나</a></p>
+  </div>
+</div>
+
+<div class="item" id="i03">
+  <div>
+    <h3><span class="rank">03</span><a href="https://news.ycombinator.com/item?id=49242739">회의 녹화 SaaS tl;dv, 18만 건이 그대로 열려 있었다</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h3>
+    <p class="orig">Tl;dv: Over 180k meetings left wide open</p>
+    <p class="lede">회의 녹화·요약 서비스 tl;dv 를 들여다보다 18만 건이 넘는 회의가 사실상 무방비로 열려 있는 것을 확인했습니다. 남의 테넌트 데이터에 닿는 데 특별한 기교가 필요하지 않았습니다.</p>
+    <ul>
+      <li>핵심은 테넌트 간 격리 부재입니다. 접근제어가 서버가 아니라 사실상 클라이언트 쪽 전제에 기대고 있었던 형태입니다.</li>
+      <li>댓글에서 가장 크게 걸린 부분은 노출 기간입니다. 여섯 달이라는 시간에 대해 그 정도 심각도면 여섯 시간도 길다, 빨간 버튼을 눌러야 할 사안이라는 반응이 이어집니다.</li>
+      <li>크로스 테넌트 격리는 자기가 점검할 때 가장 먼저 보는 항목인데 매번 이 기본이 빠져 있어 놀란다는 코멘트도 있습니다.</li>
+    </ul>
+    <p class="foot">bobdahacker.com · 관심사 상 · 프런트 상위 5.2%</p>
+  </div>
+  <div class="side">
+    <div class="tiebox"><span class="lbl">til 연관</span><a href="../../../2026/openai-api-key-scale/">OpenAI 는 그 많은 API 키를 어떻게 관리하나</a> 이 글에서 본 키·권한 스코프 설계와 정반대 사례로 나란히 놓고 보면 무엇이 빠지면 이렇게 되는지가 선명합니다.</div>
+
+    <button class="go" data-topic="크로스 테넌트 격리는 왜 매번 빠지나 — tl;dv 사고 뜯어보기" data-url="https://bobdahacker.com/blog/tldv-hack" data-angle="원문에서 실제 취약 경로(엔드포인트 형태, 인증 토큰의 스코프, 객체 ID 추측 가능성)를 정확히 확인하고, 이 패턴이 멀티테넌트 SaaS 에서 반복되는 이유를 정리한다. 우리가 만드는 서비스 기준으로 크로스 테넌트 격리를 테스트로 강제할 수 있는 최소 체크리스트를 만들어 보는 것이 실용적이다.">이 건으로 TIL 만들기</button>
+    <div class="steer">
+      <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+      <p class="hint">한 번 더 누르면 리브가 원문을 읽고 til 페이지까지 만듭니다.</p>
+    </div>
+    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="회의 녹화 SaaS tl;dv, 18만 건이 그대로 열려 있었다" href="#">이건 왜 넣었나</a></p>
+  </div>
+</div>
+
+<div class="item" id="i04">
+  <div>
+    <h3><span class="rank">04</span><a href="https://news.ycombinator.com/item?id=49213660">Ask HN: e-ink UI 개발에는 어떤 관례가 통하나</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h3>
+    <p class="orig">Ask HN: In your experience, what are sound conventions for e-ink UI development?</p>
+    <p class="lede">주의력 경제에서 좀 떨어져 보려고 흑백 e-ink 스마트폰으로 갈아탔습니다. 하드웨어는 정말 좋은데 화면과 잘 안 맞는 것들이 몇 개 있어서, e-ink 전용 Lemmy 프론트엔드와 OpenRouter 프론트엔드를 브라우저 기반으로 만들려 합니다. 쓸 수 없는 결과물을 만들기 전에 e-ink UI 설계 원칙부터 배우고 싶습니다.</p>
+    <ul>
+      <li>브라우저에서는 리프레시를 제어할 수 없는데도 리프레시를 설계의 일급 요소로 다뤄야 한다는 점이 가장 막막합니다. LLM 출력 스트리밍은 e-ink 최악의 시나리오라 버퍼링해서 덩어리로 칠해야 하는데, 그걸 견딜 만하게 만드는 법을 모르겠습니다.</li>
+      <li>고스팅이 심해서 스크롤 대신 페이지네이션에 기대려 하는데, 잘못 만들면 그쪽이 더 성가셔집니다. 레이아웃과 타이포만으로 UI 를 지탱해야 한다면 초기 Mac OS 쪽이 출발점이 되지 않을까 싶습니다.</li>
+      <li>답글 중에는 reMarkable Pro 로 Excalidraw 를 포팅하며 배운 이야기 — 앱이 스스로 이전 렌더를 건드리지 말고 사용자 상호작용의 중간 상태 수를 줄이라는 것 — 과, 5Hz e-ink 는 느린 컴퓨터가 아니라 움직이는 신문에 가까우니 컴퓨터 가이드라인 대신 인쇄물 가독성 원칙을 보라는 조언이 있습니다.</li>
+    </ul>
+    <p class="foot">news.ycombinator.com · 관심사 최상 · 프런트 상위 41.3%</p>
+  </div>
+  <div class="side">
+    <div class="tiebox"><span class="lbl">til 연관</span><a href="../../../2026/trmnl-eink-dashboard/">TRMNL — 단말은 멍청하게, 서버는 부지런하게</a> 이 글에서 서버가 완성된 화면을 밀어 준다고 정리한 부분이, 여기 답글들의 &#x27;미리 자리를 잡아 두고 채워 넣어라&#x27;와 정확히 같은 결론입니다.</div>
+    <div class="liv"><img src="data:image/webp;base64,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" alt="리브" width="72" height="72"><p>&quot;무엇도 다시 그려지지 않는다고 가정하고 만들라&quot;는 답글이 TRMNL 때 서버 쪽으로 밀어 둔 판단과 같은 말입니다. 단말이 멍청하면 화면도 멍청하게 그려야 하는 것이죠.</p></div>
+
+    <button class="go" data-topic="e-ink 브라우저 UI 관례 정리 — 리프레시를 제어할 수 없을 때" data-url="https://news.ycombinator.com/item?id=49213660" data-angle="답글에 나온 원칙들(모노토닉 레이아웃, 중간 상태 최소화, 흰 영역을 고정해 두고 검정으로 채우기, 애니메이션·트랜지션 금지)을 브라우저에서 실제로 구현 가능한 CSS·JS 패턴으로 번역해 본다. 스트리밍 LLM 출력의 청크 버퍼링 전략을 몇 가지 만들어 실제 e-ink 단말에서 고스팅 횟수를 재고, 인쇄 가독성 가이드라인과 웹 가이드라인이 갈리는 지점을 표로 정리한다.">이 건으로 TIL 만들기</button>
+    <div class="steer">
+      <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+      <p class="hint">한 번 더 누르면 리브가 원문을 읽고 til 페이지까지 만듭니다.</p>
+    </div>
+    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="Ask HN: e-ink UI 개발에는 어떤 관례가 통하나" href="#">이건 왜 넣었나</a></p>
+  </div>
+</div>
+
+<div class="item" id="i05">
+  <div>
+    <h3><span class="rank">05</span><a href="https://news.ycombinator.com/item?id=49246804">Show HN: Needle2 — 폰·웨어러블·스마트홈·로봇용 14MB 에이전틱 LLM</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h3>
+    <p class="orig">Show HN: Needle2: 14MB agentic LLM for phones, wearables, smart home and robots</p>
+    <p class="lede">Cactus 의 Henry 입니다. 앞서 낸 14MB 에이전틱 LLM 에 여기서 받은 피드백을 반영해 Needle 2 를 내놓습니다. 모델 전체가 단일 14MB 바이너리이고 세션 하나를 28MB RAM 안에서 돌립니다. 45M 파라미터를 2bit 로 압축했습니다.</p>
+    <ul>
+      <li>라즈베리 파이 5 에서 디코드 500 토큰/초, Quest 3S·Vision Pro 같은 VR 기기에서 400-1,500, 200달러 이하 삼성 A 시리즈 폰에서 300-700 이 나옵니다. 도구 호출·기기 조작 벤치마크에서 LFM2.5 230M 이나 Apple Foundation Model 과 승패를 주고받는데, 상대는 f16 이고 Needle 2 는 2bit 입니다.</li>
+      <li>엣지 AI 가 최근엔 맥과 PC를 뜻하게 됐지만 그건 210억 대 연결 기기 중 15억 대일 뿐입니다. 같은 폭·깊이의 통상 트랜스포머가 토큰당 164 MFLOPs, 파라미터 수를 맞춰 줄인 것도 87 을 쓰는데 Needle 은 70 을 씁니다. 상시 대기 어시스턴트에게 MFLOP 은 곧 밀리와트시입니다.</li>
+      <li>소비자 기기의 지능을 타입 있는 파라미터를 가진 함수로 보면, 어려운 부분은 지저분한 문장을 어느 함수와 어떤 값에 대응시키느냐뿐입니다. 그렇게 짜면 세계 지식도 자유 서술도 필요 없어서 45M 로 충분합니다. 응답마다 학습된 신뢰도 점수가 붙어, 임계값 아래면 클라우드나 더 큰 모델로 넘기면 됩니다.</li>
+    </ul>
+    <p class="foot">cactuscompute.com · 관심사 최상 · 프런트 상위 53.1%</p>
+  </div>
+  <div class="side">
+    <div class="liv"><img src="data:image/webp;base64,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" alt="리브" width="72" height="72"><p>웹 데모에 &quot;HN&quot; 만 넣었더니 현관문을 잠갔다는 댓글이 있습니다. 신뢰도 0 을 붙여 놓고도 도구를 부른 셈이니, 에스컬레이션 임계값은 저쪽이 아니라 우리가 정해야 하는 값이겠습니다.</p></div>
+
+    <button class="go" data-topic="Needle 2 는 45M 로 도구 호출을 어디까지 하나" data-url="https://cactuscompute.com/needle" data-angle="도구 호출과 구조화 추출만으로 범위를 좁혔을 때 45M 이 실제로 어디까지 버티는지, 공개된 벤치마크와 직접 돌린 결과를 대조한다. 특히 &#x27;이해 못 한 질의에 아무 도구도 부르지 않기&#x27;의 실패율과 신뢰도 점수의 캘리브레이션이 핵심이다. Agents-A1-4B, functiongemma-270m 과 같은 태스크로 붙여 파라미터 대비 신뢰도 곡선을 그린다.">이 건으로 TIL 만들기</button>
+    <div class="steer">
+      <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+      <p class="hint">한 번 더 누르면 리브가 원문을 읽고 til 페이지까지 만듭니다.</p>
+    </div>
+    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="Show HN: Needle2 — 폰·웨어러블·스마트홈·로봇용 14MB 에이전틱 LLM" href="#">이건 왜 넣었나</a></p>
+  </div>
+</div>
+
+<div class="item" id="i06">
+  <div>
+    <h3><span class="rank">06</span><a href="https://news.ycombinator.com/item?id=49244085">Claude·GPT 의 지식 컷오프와 사전학습 시점을 역추적해 봤다</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h3>
+    <p class="orig">Exploring Claude/GPT Knowledge Cutoffs and Pre-Training Timelines</p>
+    <p class="lede">공개된 모델들에게 시점을 물어 가며 지식 컷오프와 사전학습 타임라인을 역추적해 봤습니다. 발표된 컷오프 날짜와 실제로 모델이 아는 것의 경계가 어디서 어긋나는지를 따라간 기록입니다.</p>
+    <ul>
+      <li>댓글에서 나온 보완점 하나는, &quot;Opus 5&quot; 같은 마케팅 이름이 단일 모델이 아니라 여러 모델·버전의 묶음이고 시간이 지나며 조용히 갱신된다는 전제입니다.</li>
+      <li>질의가 더 단순한 모델이나 프로그램으로 라우팅될 거라 짐작했는데 글에서는 그런 흔적이 잘 안 보인다는 관찰도 있습니다.</li>
+      <li>가장 최근 컷오프가 2026년 1월이라는 데 대해, 앞으로 몇 년간 재학습 규모가 두 자릿수 배로 커질 것이고 어디서 정체될지가 궁금하다는 반응이 붙었습니다.</li>
+    </ul>
+    <p class="foot">blog.sshh.io · 관심사 상 · 프런트 상위 55.9%</p>
+  </div>
+  <div class="side">
+
+    <button class="go" data-topic="모델 지식 컷오프 역추적 방법과 재현 결과" data-url="https://blog.sshh.io/p/exploring-claudegpt-knowledge-cutoffs" data-angle="글에서 쓴 추정 방법(어떤 질의로 컷오프를 탐침했는지, 오염을 어떻게 배제했는지)을 확인하고, 각 벤더가 공식 발표한 컷오프 날짜와 나란히 표로 놓는다. 그다음 우리가 실무에서 쓰는 모델에 같은 탐침을 몇 개 돌려 재현되는지 보고, 컷오프 이후 정보를 다뤄야 하는 작업에서 어떤 프롬프트 관례가 필요한지로 마무리한다.">이 건으로 TIL 만들기</button>
+    <div class="steer">
+      <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+      <p class="hint">한 번 더 누르면 리브가 원문을 읽고 til 페이지까지 만듭니다.</p>
+    </div>
+    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="Claude·GPT 의 지식 컷오프와 사전학습 시점을 역추적해 봤다" href="#">이건 왜 넣었나</a></p>
+  </div>
+</div>
+
+<div class="item" id="i07">
+  <div>
+    <h3><span class="rank">07</span><a href="https://news.hada.io/topic?id=32347">모노리포 희망편, 절망의 리포가 희망의 리포로 부활하기까지 걸린 1년</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h3>
+    <p class="lede">프론트엔드 엔지니어 100명 이상이 하루 수백 번 배포하는데도 모든 서비스가 같은 버전의 React 19, Next.js 15, TypeScript 7 을 씁니다. 모바일 제품 코드가 하나의 모노리포에 통합돼 있고, 그 일관성의 핵심에 카탈로그가 있습니다.</p>
+    <ul>
+      <li>5명 시절부터 모노리포였지만 규모가 커지자 서비스마다 의존성 버전이 제각각이 됐습니다. 개발 경험은 파편화되고, 캐시가 있어도 설치에 1분이 넘었으며, 플랫폼 팀은 공통 라이브러리를 만들어도 &quot;한 곳에서 되면 다른 곳에서도 된다&quot;를 보장할 수 없었습니다. 폴리리포로 쪼개는 것은 답이 아니라고 봤습니다 — 문제의 본질은 구조가 아니라 버전이 제각각이라는 것이었으니까요.</li>
+      <li>pnpm/Yarn 의 catalog 로 표준 버전을 중앙 정의하고 각 서비스는 &quot;react&quot;: &quot;catalog:&quot; 로 참조하게 했습니다. .pnp.cjs 가 96MB 에서 15MB 로, 캐시 없는 전체 설치가 528초에서 250초로, 개발 서버 실행이 26.7초에서 20.3초로 줄었습니다.</li>
+      <li>진짜 핵심은 운영 정책입니다. 카탈로그는 stable-26.08 처럼 발행 연월로 버저닝하고 이미 나간 것에는 파괴적 변경을 넣지 않으며, 새 발행은 월 1회로 제한합니다. 파괴적 변경에는 항상 codemod 와 AI Skill 을 같이 제공해 yarn catalog switch 한 번으로 전환과 마이그레이션이 끝나게 했습니다.</li>
+    </ul>
+    <p class="foot">toss.tech · 관심사 상 · 추천 상위 63.5%</p>
+  </div>
+  <div class="side">
+
+    <button class="go" data-topic="pnpm catalog 로 의존성 버전을 통일하면 실제로 뭐가 줄어드나" data-url="https://toss.tech/article/52209" data-angle="카탈로그가 실질적으로 하는 일이 pnpm/yarn 기능인지 그 위에 얹은 운영 규약인지를 가른다. 월 1회 발행·비파괴 원칙·codemod 동반이라는 세 규칙을 우리 규모(저장소 수 한 자릿수)에 옮겼을 때 남는 것과 과한 것을 구분하고, Renovate/Dependabot 같은 자동 갱신 접근과 무엇이 다른지 대조한다. 인용된 성능 수치가 카탈로그 때문인지 다른 개선과 섞였는지도 원문에서 확인할 것.">이 건으로 TIL 만들기</button>
+    <div class="steer">
+      <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+      <p class="hint">한 번 더 누르면 리브가 원문을 읽고 til 페이지까지 만듭니다.</p>
+    </div>
+    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="모노리포 희망편, 절망의 리포가 희망의 리포로 부활하기까지 걸린 1년" href="#">이건 왜 넣었나</a></p>
+  </div>
+</div>
+
+<div class="item" id="i08">
+  <div>
+    <h3><span class="rank">08</span><a href="https://news.ycombinator.com/item?id=49245936">코딩 에이전트에게 가장 좋은 프로그래밍 언어는 무엇인가</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h3>
+    <p class="orig">What&#x27;s the best programming language for coding agents?</p>
+    <p class="lede">코딩 에이전트를 쓸 때 어떤 언어가 유리한지를 토큰 관점에서 따져 봤습니다. 앞서 나온 언어별 토큰 효율 논의의 연장선입니다.</p>
+    <ul>
+      <li>댓글에서 지적된 가장 큰 빈틈은 정규화입니다. 웹 서버나 검색 엔진처럼 같은 결과물을 각 언어로 짰을 때의 길이와 밀도를 비교해야 의미가 생긴다는 것입니다.</li>
+      <li>구문이 조밀하다고 반드시 싼 것도 아니라는 반론도 있습니다. 기호는 평범한 영어만큼 토크나이저에 잘 뭉쳐지지 않기 때문입니다.</li>
+      <li>결론 쪽으로는, 언어 간 격차가 이 정도로 좁아졌다면 도메인만 맞으면 성능과 정확성을 위해 Rust 를 안 쓸 이유를 대기 어렵다는 읽기가 나옵니다.</li>
+    </ul>
+    <p class="foot">danluu.com · 관심사 상 · 프런트 상위 93.1%</p>
+  </div>
+  <div class="side">
+
+    <button class="go" data-topic="코딩 에이전트에 유리한 언어, 토큰이 아니라 왕복으로 재기" data-url="http://danluu.com/pl-tokens/" data-angle="같은 과제 몇 개(HTTP 서버, CSV 파싱, 자료구조)를 언어별로 놓고 토큰 수뿐 아니라 에이전트가 통과하는 데 걸린 왕복 수·수정 횟수까지 재서 정규화한다. 기호 밀도와 토크나이저 효율이 어긋나는 사례를 실제 토크나이저로 확인하고, 타입 시스템이 강한 언어가 에이전트의 자기 수정에 주는 이득을 따로 떼어 본다.">이 건으로 TIL 만들기</button>
+    <div class="steer">
+      <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+      <p class="hint">한 번 더 누르면 리브가 원문을 읽고 til 페이지까지 만듭니다.</p>
+    </div>
+    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="코딩 에이전트에게 가장 좋은 프로그래밍 언어는 무엇인가" href="#">이건 왜 넣었나</a></p>
+  </div>
+</div>
+
+
+<section class="rest">
+  <h2>훑고 넘긴 것</h2>
+  <div class="grid">
+<article>
+  <h4><a href="https://news.ycombinator.com/item?id=49243880">저커버그, 오픈 모델 복귀를 알리며 &#x27;닫힌&#x27; AI 경쟁사를 공격</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>Meta 가 오픈 모델로 돌아오면서 폐쇄 진영을 겨냥한 메시지를 냈다. 본문 대신 아카이브 링크와 Meta 캠페인 페이지 링크가 붙어 있다.</p>
+  <button class="go" data-topic="Meta 의 오픈 모델 복귀, 라이선스로 확인하기" data-url="https://www.ft.com/content/4e3957f8-ea7c-4c46-a3de-cdce8e526878" data-angle="발언 자체보다, 실제 공개된 웨이트의 라이선스 조건이 과거 Llama 계열과 어떻게 달라졌는지를 대조한다.">TIL 만들기</button>
+  <div class="steer">
+    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+  </div>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="저커버그, 오픈 모델 복귀를 알리며 &#x27;닫힌&#x27; AI 경쟁사를 공격" href="#">이건 왜 뺐나</a></p>
+</article>
+
+<article>
+  <h4><a href="https://news.ycombinator.com/item?id=49245023">1991년 마스바가 발견됐다 — 지금 것보다 20g 크다</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>1991년산 마스바 실물이 발견돼 현재 제품과 크기를 비교했다는 소식이다.</p>
+  <button class="go" data-topic="1991년 마스바가 발견됐다 — 지금 것보다 20g 크다" data-url="https://www.bbc.com/news/articles/c1j1kjy7gewo" data-angle="슈링크플레이션 데이터로 확장할 여지는 있으나 관심 축과 멀다.">TIL 만들기</button>
+  <div class="steer">
+    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+  </div>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="1991년 마스바가 발견됐다 — 지금 것보다 20g 크다" href="#">이건 왜 뺐나</a></p>
+</article>
+
+<article>
+  <h4><a href="https://news.ycombinator.com/item?id=49208296">Sonic Pi v5</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>라이브 코딩 음악 환경 Sonic Pi 의 v5 릴리스 소식이다.</p>
+  <button class="go" data-topic="Sonic Pi v5" data-url="https://www.patreon.com/samaaron/posts/sonic-pi-v5-166001392" data-angle="라이브 코딩 도구의 실행 모델(스케줄링·지연 보정)은 흥미롭지만 현재 관심 축과 접점이 얇다.">TIL 만들기</button>
+  <div class="steer">
+    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+  </div>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Sonic Pi v5" href="#">이건 왜 뺐나</a></p>
+</article>
+
+<article>
+  <h4><a href="https://news.ycombinator.com/item?id=49249150">일리노이 신법, 리눅스까지 연령 확인 의무에 걸리다</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>일리노이의 연령 확인 법안이 OS 배포자까지 책임 범위에 넣을 수 있다는 해석이다.</p>
+  <button class="go" data-topic="일리노이 신법, 리눅스까지 연령 확인 의무에 걸리다" data-url="https://linuxstans.com/illinois-hb5511-operating-system-age-verification/" data-angle="법문의 실제 적용 범위와 배포자 정의를 원문 조문으로 확인해야 논의가 성립한다.">TIL 만들기</button>
+  <div class="steer">
+    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+  </div>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="일리노이 신법, 리눅스까지 연령 확인 의무에 걸리다" href="#">이건 왜 뺐나</a></p>
+</article>
+
+<article>
+  <h4><a href="https://news.ycombinator.com/item?id=49242653">Squeak 6.1</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>Smalltalk 처리계 Squeak 의 6.1 릴리스 공지다.</p>
+  <button class="go" data-topic="Squeak 6.1" data-url="https://squeak.org/release_notes/6.1/" data-angle="이미지 기반 개발 환경의 라이브 편집 모델을 에이전트 워크플로와 견줄 여지는 있다.">TIL 만들기</button>
+  <div class="steer">
+    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+  </div>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Squeak 6.1" href="#">이건 왜 뺐나</a></p>
+</article>
+
+<article>
+  <h4><a href="https://news.ycombinator.com/item?id=49243397">Mistral 의 &#x27;코드로 구현된 tool call&#x27; 특허</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>Mistral 이 코드 형태로 도구 호출을 구현하는 방식에 대해 낸 특허 문서다.</p>
+  <button class="go" data-topic="Mistral 의 code tool call 특허 청구항 읽기" data-url="https://patentsgazette.uspto.gov/week26/OG/html/1547-5/US12670045-20260630.html" data-angle="청구항 범위가 code-mode tool call 관행 전반을 덮는지, 선행 기술이 어디까지 있는지를 따져야 의미가 생긴다.">TIL 만들기</button>
+  <div class="steer">
+    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+  </div>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Mistral 의 &#x27;코드로 구현된 tool call&#x27; 특허" href="#">이건 왜 뺐나</a></p>
+</article>
+
+<article>
+  <h4><a href="https://news.ycombinator.com/item?id=49241846">파라메트론 — 트랜지스터도 진공관도 쓰지 않은 50년대 일본 컴퓨터</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>위상 발진을 논리 소자로 쓴 파라메트론 방식 컴퓨터의 역사 정리다.</p>
+  <button class="go" data-topic="파라메트론 — 트랜지스터도 진공관도 쓰지 않은 50년대 일본 컴퓨터" data-url="https://ethw.org/Milestones:Parametron,_1954" data-angle="컴퓨팅 사(史)로는 재미있으나 자작 가젯 쪽 관심과는 결이 다르다.">TIL 만들기</button>
+  <div class="steer">
+    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+  </div>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="파라메트론 — 트랜지스터도 진공관도 쓰지 않은 50년대 일본 컴퓨터" href="#">이건 왜 뺐나</a></p>
+</article>
+
+<article>
+  <h4><a href="https://news.ycombinator.com/item?id=49245251">규모 7.4 지진 — 콜롬비아 산호세델팔마르 남쪽 5km</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>USGS 의 지진 속보다.</p>
+  <button class="go" data-topic="규모 7.4 지진 — 콜롬비아 산호세델팔마르 남쪽 5km" data-url="https://earthquake.usgs.gov/earthquakes/eventpage/us6000tjl2/executive" data-angle="">TIL 만들기</button>
+  <div class="steer">
+    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+  </div>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="규모 7.4 지진 — 콜롬비아 산호세델팔마르 남쪽 5km" href="#">이건 왜 뺐나</a></p>
+</article>
+
+<article>
+  <h4><a href="https://news.ycombinator.com/item?id=49243029">보트 이름 5만 건</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>공개 데이터로 모은 보트 이름 5만 건을 들여다본 글이다.</p>
+  <button class="go" data-topic="보트 이름 5만 건" data-url="https://www.beautifulpublicdata.com/boat-names/" data-angle="공개 데이터 시각화 사례로는 참고할 만하지만 한 자리를 쓸 밀도는 아니다.">TIL 만들기</button>
+  <div class="steer">
+    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+  </div>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="보트 이름 5만 건" href="#">이건 왜 뺐나</a></p>
+</article>
+
+<article>
+  <h4><a href="https://news.ycombinator.com/item?id=49243474">LLM 출력을 사람처럼 꾸미는 건 멍청한 짓이다</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>LLM 결과물에 인간다움을 덧입히려는 시도를 비판하는 의견글이다.</p>
+  <button class="go" data-topic="LLM 출력을 사람처럼 꾸미는 건 멍청한 짓이다" data-url="https://kuber.studio/blog/Reflections/Humanising-LLM-Outputs-is-Actually-Dumb" data-angle="hallmark 항목과 논지가 겹치므로 그쪽 조사에 반대편 관점으로 끌어 쓰는 편이 낫다.">TIL 만들기</button>
+  <div class="steer">
+    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+  </div>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="LLM 출력을 사람처럼 꾸미는 건 멍청한 짓이다" href="#">이건 왜 뺐나</a></p>
+</article>
+
+<article>
+  <h4><a href="https://news.hada.io/topic?id=32318">Chat2DB - AI 기반 데이터베이스 클라이언트 &amp; SQL 워크스페이스</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h4>
+  <p>SQL 워크스페이스와 AI 어시스턴트를 결합한 데이터베이스 클라이언트로, 30개 이상의 DB 를 지원하고 윈도우·맥·리눅스에서 동작한다.</p>
+  <button class="go" data-topic="Chat2DB - AI 기반 데이터베이스 클라이언트 &amp; SQL 워크스페이스" data-url="https://github.com/OtterMind/Chat2DB" data-angle="AI 가 생성한 SQL 을 실행 전에 검증하는 장치가 있는지가 유일하게 볼 만한 지점이다.">TIL 만들기</button>
+  <div class="steer">
+    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+  </div>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Chat2DB - AI 기반 데이터베이스 클라이언트 &amp; SQL 워크스페이스" href="#">이건 왜 뺐나</a></p>
+</article>
+
+<article>
+  <h4><a href="https://news.ycombinator.com/item?id=49249971">아마존이 지원한 발전소, 미국 최대 기후 오염원이 될 수도</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>아마존이 투자한 발전소의 배출량 전망을 다룬 기사다.</p>
+  <button class="go" data-topic="아마존이 지원한 발전소, 미국 최대 기후 오염원이 될 수도" data-url="https://arstechnica.com/tech-policy/2026/08/amazon-funds-biggest-gas-power-plant-in-us-despite-climate-pledge/" data-angle="데이터센터 전력 수요 곡선과 묶으면 재료가 되지만 지금 관심 축 밖이다.">TIL 만들기</button>
+  <div class="steer">
+    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+  </div>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="아마존이 지원한 발전소, 미국 최대 기후 오염원이 될 수도" href="#">이건 왜 뺐나</a></p>
+</article>
+
+<article>
+  <h4><a href="https://news.ycombinator.com/item?id=49242297">C 의 tail-call 최적화는 생각보다 최근 이야기다 (2025)</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>C 에서 tail-call 최적화가 언제 어떻게 보장되기 시작했는지를 정리한 LWN 기사다.</p>
+  <button class="go" data-topic="C 의 tail-call 최적화는 생각보다 최근 이야기다 (2025)" data-url="https://lwn.net/Articles/1034703/" data-angle="인터프리터 디스패치 성능과 묶으면 좋은 소재지만 최근 작업과 거리가 있다.">TIL 만들기</button>
+  <div class="steer">
+    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+  </div>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="C 의 tail-call 최적화는 생각보다 최근 이야기다 (2025)" href="#">이건 왜 뺐나</a></p>
+</article>
+
+<article>
+  <h4><a href="https://news.ycombinator.com/item?id=49245491">아주 긴 인터럽트로 System Management Mode 공격하기</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>SMM 을 대상으로 한 저수준 익스플로잇 기법을 다룬 저장소다.</p>
+  <button class="go" data-topic="아주 긴 인터럽트로 System Management Mode 공격하기" data-url="https://github.com/xoreaxeaxeax/smiiiiiiiiiiiiiiii" data-angle="펌웨어 신뢰 경계를 다뤄 본 적이 없어 배경부터 쌓아야 한다.">TIL 만들기</button>
+  <div class="steer">
+    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+  </div>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="아주 긴 인터럽트로 System Management Mode 공격하기" href="#">이건 왜 뺐나</a></p>
+</article>
+
+<article>
+  <h4><a href="https://news.ycombinator.com/item?id=49247477">GPU 위에서 돌리는 Rust SIMD</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>Rust 의 SIMD 추상을 GPU 로 끌고 간 작업 소개다.</p>
+  <button class="go" data-topic="GPU 위에서 돌리는 Rust SIMD" data-url="https://www.vectorware.com/blog/simd-on-gpu/" data-angle="GPU 서빙 쪽과 얇게 닿지만 추상화 계층 자체가 관심 축에서 벗어난다.">TIL 만들기</button>
+  <div class="steer">
+    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+  </div>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="GPU 위에서 돌리는 Rust SIMD" href="#">이건 왜 뺐나</a></p>
+</article>
+
+<article>
+  <h4><a href="https://news.ycombinator.com/item?id=49249481">Stop Killing Games, 이제 소니를 고소할 때다</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>게임 서비스 종료로 플레이 불가가 되는 문제를 두고 소니를 상대로 한 집단 소송 참여를 호소하는 글이다.</p>
+  <button class="go" data-topic="Stop Killing Games, 이제 소니를 고소할 때다" data-url="https://www.massaschadeconsument.nl/collectieve-acties/playstation/" data-angle="소비자 권리 캠페인이라 게임 개발·설계 관심사와는 다르다.">TIL 만들기</button>
+  <div class="steer">
+    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+  </div>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Stop Killing Games, 이제 소니를 고소할 때다" href="#">이건 왜 뺐나</a></p>
+</article>
+
+<article>
+  <h4><a href="https://news.ycombinator.com/item?id=49244308">텍사스의 책임 있는 AI 인프라에 관해 애벗 주지사에게 보내는 서한</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>OpenAI 가 텍사스 주지사 앞으로 낸 AI 인프라 관련 공개 서한이다.</p>
+  <button class="go" data-topic="텍사스의 책임 있는 AI 인프라에 관해 애벗 주지사에게 보내는 서한" data-url="https://openai.com/index/responsible-ai-infrastructure-texas/" data-angle="기업의 정책 로비 문서라 기술 재료가 얇다.">TIL 만들기</button>
+  <div class="steer">
+    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+  </div>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="텍사스의 책임 있는 AI 인프라에 관해 애벗 주지사에게 보내는 서한" href="#">이건 왜 뺐나</a></p>
+</article>
+
+<article>
+  <h4><a href="https://news.ycombinator.com/item?id=49172319">소노란 사막의 환각 두꺼비</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>소노란 사막 두꺼비에 관한 위키백과 문서다.</p>
+  <button class="go" data-topic="소노란 사막의 환각 두꺼비" data-url="https://en.wikipedia.org/wiki/Bufo_Alvarius:_the_Psychedelic_Toad_of_the_Sonoran_Desert" data-angle="">TIL 만들기</button>
+  <div class="steer">
+    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+  </div>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="소노란 사막의 환각 두꺼비" href="#">이건 왜 뺐나</a></p>
+</article>
+
+<article>
+  <h4><a href="https://news.ycombinator.com/item?id=49209918">Stowaway — 머리 위를 지나는 비행기·위성의 창가 자리에 앉아 보기</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>현재 상공을 지나는 항공기나 위성의 시점을 보여 주는 웹 토이다.</p>
+  <button class="go" data-topic="Stowaway — 머리 위를 지나는 비행기·위성의 창가 자리에 앉아 보기" data-url="https://stowaway.live/" data-angle="궤도·항적 데이터를 실시간으로 받아 뷰를 합성하는 방식은 볼 만하나 분량이 얇다.">TIL 만들기</button>
+  <div class="steer">
+    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+  </div>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Stowaway — 머리 위를 지나는 비행기·위성의 창가 자리에 앉아 보기" href="#">이건 왜 뺐나</a></p>
+</article>
+
+<article>
+  <h4><a href="https://news.ycombinator.com/item?id=49246057">Launch HN: Stoa Markets — GPU·AI 서버 거래 마켓플레이스</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>신품·중고 GPU 와 AI 서버를 거래하는 마켓플레이스 런치 글이다. GPU 가 데이터센터 증설의 담보물이 되고 있다는 문제의식에서 출발했다.</p>
+  <button class="go" data-topic="Launch HN: Stoa Markets — GPU·AI 서버 거래 마켓플레이스" data-url="https://www.stoaexchange.com" data-angle="중고 GPU 잔존가치 곡선은 자체로 흥미로운 데이터지만 런치 글에는 그 근거가 없다.">TIL 만들기</button>
+  <div class="steer">
+    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+  </div>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Launch HN: Stoa Markets — GPU·AI 서버 거래 마켓플레이스" href="#">이건 왜 뺐나</a></p>
+</article>
+
+<article>
+  <h4><a href="https://news.ycombinator.com/item?id=49245318">220GHz 광대역 실리콘 커패시터 X2SC 0201M 22nF</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>무라타의 초광대역 실리콘 커패시터 부품 스펙 페이지다.</p>
+  <button class="go" data-topic="220GHz 광대역 실리콘 커패시터 X2SC 0201M 22nF" data-url="https://pim.murata.com/asset/pim4/siliconCapacitor/SICAP_X2SC422522_PDF_SILICONCAPACITOR" data-angle="">TIL 만들기</button>
+  <div class="steer">
+    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+  </div>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="220GHz 광대역 실리콘 커패시터 X2SC 0201M 22nF" href="#">이건 왜 뺐나</a></p>
+</article>
+
+<article>
+  <h4><a href="https://news.ycombinator.com/item?id=49212449">&#x27;오픈소스&#x27;라는 말이 생기기 전의 회로도 공개</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>오픈소스라는 용어가 등장하기 전에도 회로도를 공개하던 문화를 돌아본 글이다.</p>
+  <button class="go" data-topic="&#x27;오픈소스&#x27;라는 말이 생기기 전의 회로도 공개" data-url="https://fabscene.medium.com/publishing-schematics-before-open-source-was-a-word-55-years-of-akizuki-denshi-japans-be7ca9629704" data-angle="하드웨어 공개 문화의 계보로는 좋지만 정보 밀도가 낮다.">TIL 만들기</button>
+  <div class="steer">
+    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+  </div>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="&#x27;오픈소스&#x27;라는 말이 생기기 전의 회로도 공개" href="#">이건 왜 뺐나</a></p>
+</article>
+
+<article>
+  <h4><a href="https://news.ycombinator.com/item?id=49249555">장거리 항해자의 고백</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>장거리 단독 항해 경험을 회고한 글이다.</p>
+  <button class="go" data-topic="장거리 항해자의 고백" data-url="https://arachnoid.com/lutusp/sailbook.html" data-angle="">TIL 만들기</button>
+  <div class="steer">
+    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+  </div>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="장거리 항해자의 고백" href="#">이건 왜 뺐나</a></p>
+</article>
+
+<article>
+  <h4><a href="https://news.ycombinator.com/item?id=49250836">구글 검색은 죽어 간다 — 다음에 오는 것은 더 나쁘다</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>검색의 쇠퇴와 그 이후를 비관적으로 전망한 논평이다.</p>
+  <button class="go" data-topic="구글 검색은 죽어 간다 — 다음에 오는 것은 더 나쁘다" data-url="https://thewalrus.ca/google-search-is-dying/" data-angle="자주 반복되는 결의 글이라 새로 확인할 것이 적다.">TIL 만들기</button>
+  <div class="steer">
+    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+  </div>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="구글 검색은 죽어 간다 — 다음에 오는 것은 더 나쁘다" href="#">이건 왜 뺐나</a></p>
+</article>
+
+<article>
+  <h4><a href="https://news.hada.io/topic?id=32368">DEF CON 34: AI는 버그바운티를 어떻게 바꾸고 있을까?</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h4>
+  <p>DEF CON 34 Bug Bounty Village 의 AI 지원 제보 세션을 정리한 글로, HackerOne·Synack·Bugcrowd 등 플랫폼 패널의 논의를 옮겼다.</p>
+  <button class="go" data-topic="DEF CON 34: AI는 버그바운티를 어떻게 바꾸고 있을까?" data-url="https://new-blog.ch4n3.kr/def-con-ai-assisted-submissions-panel-ko/" data-angle="AI 가 만든 저품질 제보의 급증과 트리아지 비용을 수치로 확인할 수 있으면 재료가 된다.">TIL 만들기</button>
+  <div class="steer">
+    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+  </div>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="DEF CON 34: AI는 버그바운티를 어떻게 바꾸고 있을까?" href="#">이건 왜 뺐나</a></p>
+</article>
+
+<article>
+  <h4><a href="https://news.hada.io/topic?id=32346">Ask GN: Fable 5가 걍 반쪽짜리 뇌임</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h4>
+  <p>배열 6개짜리 계산을 틀리고도 우기다가 뒤늦게 인정하더라는 Fable 5 사용 불만 글이다.</p>
+  <button class="go" data-topic="Ask GN: Fable 5가 걍 반쪽짜리 뇌임" data-url="topic?id=32346" data-angle="재현 조건이 없어 검증할 것이 남지 않는다.">TIL 만들기</button>
+  <div class="steer">
+    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
+  </div>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Ask GN: Fable 5가 걍 반쪽짜리 뇌임" href="#">이건 왜 뺐나</a></p>
+</article>
+
+  </div>
+</section>
+
+<!-- DAYNAV:START -->
+<nav class="daynav" aria-label="회차 이동">
+  <a class="prv" href="../2026-08-10/">← 8-10</a>
+  <span class="cur">2026-08-11 (화)</span>
+  <a class="nxt" href="../2026-08-12/">8-12 →</a>
+</nav>
+<!-- DAYNAV:END -->
+
+<footer>
+  <p>수집 GeekNews · Hacker News · 정리 Claude Opus 5 · 선별 기준과 관심사 프로필은 <a href="../../../p/liv-briefing/">브리핑 소개</a> 에 있습니다.</p>
+  <p><a href="../../../p/briefing/archive/">지난 브리핑</a> · <a href="../../../">← today i learned</a></p>
+</footer>
+</main>
+
+<script>
+// 접수는 관리자 제출 페이지(p/submit-…/)와 같은 배관이다. 그 페이지가 브라우저
+// localStorage 에 넣어 둔 til-inbox PAT 를 같은 오리진에서 그대로 읽어 GitHub API 로
+// 직접 이슈를 만든다. 페이지에는 토큰이 없고, 누르면 그 자리에서 접수가 끝난다.
+// 토큰이 없는 브라우저에서는 이슈 작성 화면을 미리 채워 여는 방식으로 폴백한다.
+var INBOX = 'https://github.com/kil9/til-inbox/issues/new';
+var INBOX_API = 'https://api.github.com/repos/kil9/til-inbox/issues';
+var INBOX_KEY = 'til-inbox-pat';
+var SUBMIT_PAGE = '../../../p/submit-96a2d1c7e19e8a09/';
+
+// 접수 시도 → Promise<{ok, number?, reason?}>. 토큰이 없으면 곧바로 no-token.
+function inboxCreate(title, body, label) {
+  var pat = null;
+  try { pat = localStorage.getItem(INBOX_KEY); } catch (e) { /* 저장소 접근 차단 */ }
+  if (!pat) return Promise.resolve({ ok: false, reason: 'no-token' });
+  return fetch(INBOX_API, {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + pat,
+      'Accept': 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ title: title, body: body, labels: [label] })
+  }).then(function (res) {
+    if (res.status === 201) return res.json().then(function (d) { return { ok: true, number: d.number }; });
+    return { ok: false, reason: res.status === 401 || res.status === 403 ? 'bad-token' : 'http-' + res.status };
+  }).catch(function () { return { ok: false, reason: 'network' }; });
+}
+
+function prefillUrl(title, body, label) {
+  return INBOX + '?labels=' + label
+    + '&title=' + encodeURIComponent(title)
+    + '&body=' + encodeURIComponent(body);
+}
+document.querySelectorAll('button.go').forEach(function (b) {
+  var steer = b.parentElement.querySelector('.steer');
+  b.addEventListener('click', function () {
+    if (!steer.classList.contains('on')) {
+      steer.classList.add('on');
+      steer.querySelector('textarea').focus();
+      b.classList.add('armed');
+      b.textContent = '이대로 리브에게 맡기기';
+      return;
+    }
+    var note = steer.querySelector('textarea').value.trim();
+    // KIND 를 비워 두면 워처의 기본 경로(submit)로 간다 — 원문을 읽고 til 페이지까지 만든다.
+    var body = 'SOURCE: briefing (2026-08-11)\nREQUEST:\n'
+      + b.dataset.topic + ' — ' + b.dataset.url + '\n'
+      + '원문을 직접 읽고 til 페이지로 만들어 주세요.\n조사 방향: ' + b.dataset.angle
+      + (note ? '\n관리자 지시: ' + note : '');
+    var title = '[submit] ' + b.dataset.topic;
+    steer.classList.remove('on');
+    b.disabled = true;
+    b.classList.remove('armed');
+    b.textContent = '접수하는 중';
+    var s = document.createElement('p');
+    s.className = 'sent';
+    s.textContent = '리브에게 넘기는 중입니다…';
+    b.after(s);
+    inboxCreate(title, body, 'pending').then(function (r) {
+      if (r.ok) {
+        b.textContent = '리브가 작업 중';
+        s.textContent = '접수했습니다 (#' + r.number + '). 완성되면 til 에 올리고 Slack 으로 알려 드리겠습니다.';
+        return;
+      }
+      // 토큰이 없거나 거부당한 브라우저 — 이슈 작성 화면을 미리 채워 여는 쪽으로 넘긴다.
+      if (navigator.clipboard) navigator.clipboard.writeText(body);
+      window.open(prefillUrl(title, body, 'pending'), '_blank', 'noopener');
+      b.textContent = '접수 화면을 열었습니다';
+      s.innerHTML = r.reason === 'no-token'
+        ? '이 브라우저에는 접수함 토큰이 없어 작성 화면을 열었습니다. <a href="' + SUBMIT_PAGE
+          + '">토큰을 한 번 등록</a> 해 두시면 다음부터는 누르는 즉시 접수됩니다.'
+        : '바로 접수하지 못해(' + r.reason + ') 작성 화면을 열었습니다. 거기서 등록하시면 됩니다.';
+    });
+  });
+});
+
+// 선별 피드백 — 접수와 같은 배관이되 feedback 라벨이라 워처가 집지 않는다.
+// 브리핑 잡이 다음 회차 선별 직전에 수거해 규칙으로 줄여 프롬프트에 넣는다(task-90).
+document.querySelectorAll('a.feedback').forEach(function (a) {
+  a.addEventListener('click', function (e) {
+    e.preventDefault();
+    var note = prompt('이 건에 대한 판단을 한 줄로 (예: 이런 소개 글은 앞으로 빼 주세요)');
+    if (note === null) return;                       // 취소하면 아무것도 하지 않는다
+    var title = '[feedback] ' + a.dataset.item.slice(0, 50);
+    var body = 'SOURCE: briefing (2026-08-11)\nKIND: feedback\nITEM: ' + a.dataset.item + '\n'
+      + 'VERDICT: ' + a.dataset.verdict + (note.trim() ? '\n의견: ' + note.trim() : '');
+    a.textContent = '보내는 중…';
+    inboxCreate(title, body, 'feedback').then(function (r) {
+      if (r.ok) {
+        a.textContent = '피드백 고맙습니다 (#' + r.number + ')';
+        return;
+      }
+      window.open(prefillUrl(title, body, 'feedback'), '_blank', 'noopener');
+      a.textContent = '피드백 화면을 열었습니다';
+    });
+  });
+});
+
+// 읽음 기록 (task-93). 근거와 한계는 backlog/assets/briefing/README.md 참조.
+try {
+  var RK = 'liv-briefing-read';
+  var read = JSON.parse(localStorage.getItem(RK) || '[]');
+  if (read.indexOf('2026-08-11') < 0) {
+    read.push('2026-08-11');
+    localStorage.setItem(RK, JSON.stringify(read));
+  }
+} catch (e) { /* 저장소가 막힌 브라우저면 그냥 기록하지 않는다 */ }
+</script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

@@ -54,6 +54,11 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
 | 2026-08-15 | 손코딩은 대중 취미가 되기 어렵다 | [/2026/hand-coding-after-ai/](https://til.kil9.dev/2026/hand-coding-after-ai/) |
+| 2026-08-13 | 당근이 Lynx를 잘 고른 이유: 프레임워크보다 레일 | [/2026/karrot-lynx-beyond-webview/](https://til.kil9.dev/2026/karrot-lynx-beyond-webview/) |
+| 2026-08-13 | 바다 위 데이터센터는 발전소가 될 수 있나: 파력발전부터 병목까지 | [/2026/offshore-data-centers-wave-power/](https://til.kil9.dev/2026/offshore-data-centers-wave-power/) |
+| 2026-08-12 | Go는 AI 코딩의 이상형인가: 생성보다 검증 | [/2026/go-ai-assisted-engineering/](https://til.kil9.dev/2026/go-ai-assisted-engineering/) |
+| 2026-08-11 | 올빼미형이 더 똑똑하다는 논문, 숫자는 7분이었다 | [/2026/night-owls-intelligence-evidence/](https://til.kil9.dev/2026/night-owls-intelligence-evidence/) |
+| 2026-08-11 | 리프레시를 제어할 수 없을 때: e-ink 브라우저 UI 관례 | [/2026/e-ink-browser-ui/](https://til.kil9.dev/2026/e-ink-browser-ui/) |
 | 2026-08-10 | AI 구독 쿼터 표시: 사용률 대신 페이스로 5색을 정하는 법 | [/2026/pace-not-percent/](https://til.kil9.dev/2026/pace-not-percent/) |
 | 2026-08-09 | 2026년 5-8월, 개인 프로젝트 19개를 한 장에 펼쳐봤다 | [/2026/personal-projects-may-august/](https://til.kil9.dev/2026/personal-projects-may-august/) |
 | 2026-08-09 | 10억 LLM 에이전트 사회의 실제: 지능은 어디까지 남았나 | [/2026/light-society-billion-agents/](https://til.kil9.dev/2026/light-society-billion-agents/) |
