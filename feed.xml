@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-08-17T14:36:00+09:00</updated>
+  <updated>2026-08-17T14:45:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>AI 토큰 재판매 시장: 90% 할인의 실제 대가</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/ai-token-resale-market/"/>
+    <id>https://til.kil9.dev/2026/ai-token-resale-market/</id>
+    <published>2026-08-17T14:45:00+09:00</published>
+    <updated>2026-08-17T14:45:00+09:00</updated>
+    <category term="ai"/>
+    <summary type="text">할인 릴레이와 계정·키 마켓의 단가, 지연, 데이터 경로를 확인했다. 가장 싼 경로에서는 프롬프트와 코드를 읽는 중간자와 약관상 중단 위험도 함께 산다.</summary>
+  </entry>
   <entry>
     <title>Claude 4.8→5 시스템 프롬프트 diff: 3,000단어가 늘지 않았다</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/claude-system-prompt-5-diff/"/>

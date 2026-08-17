@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-08-17 | AI 토큰 재판매 시장: 90% 할인의 실제 대가 | [/2026/ai-token-resale-market/](https://til.kil9.dev/2026/ai-token-resale-market/) |
 | 2026-08-17 | Claude 4.8→5 시스템 프롬프트 diff: 3,000단어가 늘지 않았다 | [/2026/claude-system-prompt-5-diff/](https://til.kil9.dev/2026/claude-system-prompt-5-diff/) |
 | 2026-08-15 | 손코딩은 대중 취미가 되기 어렵다 | [/2026/hand-coding-after-ai/](https://til.kil9.dev/2026/hand-coding-after-ai/) |
 | 2026-08-13 | 당근이 Lynx를 잘 고른 이유: 프레임워크보다 레일 | [/2026/karrot-lynx-beyond-webview/](https://til.kil9.dev/2026/karrot-lynx-beyond-webview/) |
