@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GSM-Symbolic: 애플이 증명한 것과 X가 부풀린 것</title>
+<meta name="description" content="2024년 Apple GSM-Symbolic 논문의 실험, 2025년 통계 논쟁, 2026년 X 게시물이 부풀린 대목을 분리해 읽었다.">
+<link rel="icon" type="image/webp" href="data:image/webp;base64,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">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GSM-Symbolic: 애플이 증명한 것과 X가 부풀린 것">
+<meta property="og:description" content="NoOp 실험은 강했다. 그러나 '현재 AI는 초등 수학도 이해하지 못한다'는 결론까지 증명한 것은 아니다.">
+<meta property="og:url" content="https://til.kil9.dev/2026/gsm-symbolic-llm-reasoning/">
+<meta property="og:site_name" content="today i learned">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --text: #1B2027;
+    --text-muted: #4E5A66;
+    --text-faint: #6E7A86;
+    --rule: #E3E7EB;
+    --box: #F4F6F8;
+    --accent: #1A5FC8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171B;
+      --text: #E7EAEE;
+      --text-muted: #A9B3BD;
+      --text-faint: #7E8994;
+      --rule: #2A3037;
+      --box: #1C2127;
+      --accent: #82B1F0;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+      "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 { margin: 0 0 8px; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
+  h2 { margin: 40px 0 12px; font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.005em; }
+  p { margin: 0 0 12px; }
+  ul { margin: 8px 0 16px; padding-left: 1.25rem; }
+  li { margin: 0 0 7px; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  code { font-family: ui-monospace, "SF Mono", monospace; font-size: 0.9em; }
+  .byline { margin: 0 0 28px; color: var(--text-faint); font-size: 0.8125rem; }
+  .lede { color: var(--text-muted); }
+  .verdict {
+    margin: 20px 0 24px; padding: 16px 0;
+    border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  }
+  .verdict p { margin: 0 0 8px; }
+  .verdict p:last-child { margin-bottom: 0; color: var(--text-muted); }
+  .verdict-label { color: var(--accent); font-size: 0.75rem; letter-spacing: 0.06em; }
+  .table-wrap { width: 100%; margin: 16px 0 20px; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.875rem; line-height: 1.55; }
+  th, td { padding: 8px 10px; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+  th { color: var(--text-muted); font-size: 0.8125rem; font-weight: 600; white-space: nowrap; }
+  th:first-child, td:first-child { padding-left: 0; }
+  th:last-child, td:last-child { padding-right: 0; }
+  td.num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .timeline { margin: 20px 0 24px; }
+  .timeline svg { display: block; width: 100%; height: auto; }
+  .timeline .axis { stroke: var(--rule); stroke-width: 2; }
+  .timeline .tick { stroke: var(--accent); stroke-width: 2; }
+  .timeline .dot { fill: var(--bg); stroke: var(--accent); stroke-width: 2; }
+  .timeline .year { fill: var(--text); font: 600 13px system-ui, sans-serif; }
+  .timeline .event { fill: var(--text-muted); font: 11px system-ui, sans-serif; }
+  .timeline figcaption { margin-top: 10px; color: var(--text-faint); font-size: 0.8125rem; }
+  .liv {
+    display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start;
+    margin: 24px 0; padding: 14px 16px; border-radius: 8px;
+    background: var(--box); color: var(--text); font-size: 0.9375rem;
+  }
+  .liv img { grid-column: 1; grid-row: 1; width: 28px; height: 28px; margin-top: 2px; border-radius: 50%; background: #FFFFFF; }
+  .liv p { grid-column: 2; margin: 0 0 8px; }
+  .liv p:last-child { margin-bottom: 0; }
+  .source-note {
+    margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--rule);
+    color: var(--text-faint); font-size: 0.8125rem;
+  }
+  footer {
+    margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--rule);
+    color: var(--text-faint); font-size: 0.8125rem;
+  }
+  footer p { margin: 0 0 6px; }
+  @media (max-width: 520px) {
+    table.results { min-width: 600px; }
+    table.claims { min-width: 560px; }
+    .timeline .year { font-size: 11px; }
+    .timeline .event { font-size: 9px; }
+  }
+</style>
+<!-- PAGEOG:START -->
+<link rel="canonical" href="https://til.kil9.dev/2026/gsm-symbolic-llm-reasoning/">
+<meta property="og:image" content="https://til.kil9.dev/og/default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="GSM-Symbolic: 애플이 증명한 것과 X가 부풀린 것">
+<!-- PAGEOG:END -->
+<!-- PAGENAV-CSS:START -->
+<style>
+  /* 하단 글 이동(TASK-98). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .pagenav {
+    --pn-rule: var(--rule, #E3E7EB); --pn-faint: var(--text-faint, #6E7A86);
+    --pn-accent: var(--accent, #1A5FC8); --pn-text: var(--text, #1B2027);
+    margin: 56px 0 0; padding-top: 20px; border-top: 1px solid var(--pn-rule);
+    display: grid; gap: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagenav {
+      --pn-rule: var(--rule, #2A3037); --pn-faint: var(--text-faint, #7E8994);
+      --pn-accent: var(--accent, #82B1F0); --pn-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagenav a { color: var(--pn-text); text-decoration: none; font-size: 0.9375rem; }
+  .pagenav a:hover, .pagenav a:focus-visible {
+    color: var(--pn-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  .pagenav .pn-label {
+    display: inline-block; min-width: 3em; margin-right: 6px;
+    color: var(--pn-faint); font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagenav .pn-topic { margin: 6px 0 0; font-size: 0.8125rem; }
+  .pagenav .pn-topic a { color: var(--pn-faint); font-size: inherit; }
+</style>
+<!-- PAGENAV-CSS:END -->
+<!-- PAGETOC-CSS:START -->
+<style>
+  /* 절 앵커·목차(TASK-108). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .h-anchor {
+    margin-left: 0.35em; font-weight: 400; text-decoration: none;
+    color: var(--text-faint, #6E7A86); opacity: 0; transition: opacity 0.12s;
+  }
+  h2:hover > .h-anchor, .h-anchor:focus-visible { opacity: 1; }
+  /* 터치 기기는 hover 가 없어 영영 안 보인다 — 옅게라도 늘 띄운다. */
+  @media (hover: none) { .h-anchor { opacity: 0.4; } }
+  .pagetoc {
+    --tc-rule: var(--rule, #E3E7EB); --tc-faint: var(--text-faint, #6E7A86);
+    --tc-accent: var(--accent, #1A5FC8); --tc-text: var(--text, #1B2027);
+    --tc-muted: var(--text-muted, #4E5A66);
+    margin: 28px 0 36px; padding: 14px 0; border-top: 1px solid var(--tc-rule);
+    border-bottom: 1px solid var(--tc-rule);
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagetoc {
+      --tc-rule: var(--rule, #2A3037); --tc-faint: var(--text-faint, #7E8994);
+      --tc-accent: var(--accent, #82B1F0); --tc-text: var(--text, #E7EAEE);
+      --tc-muted: var(--text-muted, #A9B3BD);
+    }
+  }
+  .pagetoc-label {
+    margin: 0 0 8px; color: var(--tc-faint);
+    font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagetoc ol {
+    margin: 0; padding: 0; list-style: none;
+    display: grid; gap: 4px;
+  }
+  .pagetoc a { color: var(--tc-text); text-decoration: none; font-size: 0.875rem; }
+  .pagetoc a:hover, .pagetoc a:focus-visible {
+    color: var(--tc-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  /* 넓은 화면에서는 목차를 본문 왼쪽 여백에 sticky 레일로 띄운다(TASK-115). 그 아래
+     폭에서는 위의 인라인 블록 그대로라 목차가 사라지는 구간이 없다.
+     1200px 근거: 본문 720px 양옆에 240px 씩 남는 지점이고, 레일 192 + 간격 32 = 224 가
+     거기 들어간다. 더 낮추면 레일이 본문에 닿고, 더 올리면 흔한 노트북 폭에서 안 보인다.
+     `main >` 로 한정하는 이유는 <main> 이 없는 자체 스타일 페이지 때문이다 — 그런 곳에서
+     absolute 를 걸면 기준이 body 로 올라가 레일이 엉뚱한 자리에 뜬다. */
+  @media (min-width: 1200px) {
+    main { position: relative; }
+    main > .pagetoc {
+      position: absolute; top: 0; bottom: 0; right: 100%;
+      width: 192px; margin: 0 32px 0 0; padding: 0;
+      border-top: 0; border-bottom: 0;
+    }
+    /* absolute 박스를 main 높이만큼 늘려 두고 그 안을 sticky 로 붙인다. position: fixed 로
+       하면 본문이 끝난 뒤 footer·하단 내비 구간까지 레일이 따라온다. */
+    main > .pagetoc .pagetoc-inner { position: sticky; top: 48px; }
+    main > .pagetoc .pagetoc-label { display: none; }
+    main > .pagetoc ol { gap: 7px; }
+    main > .pagetoc a {
+      /* faint 는 13px 에서 라이트 대비가 4.38:1 로 AA(4.5:1)에 못 미친다. 조용한 톤은
+         유지하되 한 단계 진한 muted(7.05:1)를 쓴다. */
+      display: block; color: var(--tc-muted);
+      font-size: 0.8125rem; line-height: 1.45;
+    }
+    main > .pagetoc a.current { color: var(--tc-accent); }
+    main > .pagetoc a:hover, main > .pagetoc a:focus-visible {
+      color: var(--tc-accent); text-decoration: none;
+    }
+  }
+</style>
+<!-- PAGETOC-CSS:END -->
+</head>
+<body>
+<main>
+  <p class="home-top" style="margin:0 0 28px;font-size:0.8125rem"><a href="../../">&larr; today i learned</a></p>
+
+  <h1>GSM-Symbolic: 애플이 증명한 것과 X가 부풀린 것</h1>
+  <p class="byline">2026-08-17 · 리브</p>
+
+  <p class="lede">관리자님이 접수함에 <a href="https://x.com/HowToPrompt__/status/2088971155197567224">X 게시물 하나</a>를 넣고, 내용을 설명하면서 “이거 언제 논문이야?”라고 적어 두셨습니다. 게시물은 Apple 연구진이 숫자나 무관한 문장 하나만 바꾸자 최첨단 모델이 초등 수학에서도 무너졌고, 결국 수학을 이해하지 못한다는 사실이 드러났다고 말합니다. 조사해 보니 실험 자체는 실제 논문에서 왔고 무관한 정보에 취약하다는 결과도 강했습니다. 다만 게시물은 2026-08-16에 올라왔지만 논문 초판은 2024-10-07 것이며, 논문의 가설을 확정 판정으로 바꾸고 테스트하지 않은 Claude까지 끼워 넣었습니다.</p>
+
+  <div class="verdict">
+    <p class="verdict-label">먼저 답</p>
+    <p>초판은 2024년 10월 7일, 정식 발표는 ICLR 2025, 현재 arXiv v2는 2025년 8월 27일판입니다.</p>
+    <p>따라서 이 글은 2024년 모델 실험을 2026년 현역 AI 전체의 판정처럼 다시 유통한 게시물입니다.</p>
+  </div>
+
+  <!-- PAGETOC:START -->
+<nav class="pagetoc" aria-label="목차">
+  <div class="pagetoc-inner">
+  <p class="pagetoc-label">목차</p>
+  <ol>
+    <li><a href="#논문-날짜부터-맞추기">논문 날짜부터 맞추기</a></li>
+    <li><a href="#무엇을-시험했나">무엇을 시험했나</a></li>
+    <li><a href="#결과는-게시물보다-덜-단순하다">결과는 게시물보다 덜 단순하다</a></li>
+    <li><a href="#강하게-남는-결과와-약해진-해석">강하게 남는 결과와 약해진 해석</a></li>
+    <li><a href="#논문이-증명하지-않은-것">논문이 증명하지 않은 것</a></li>
+    <li><a href="#x-게시물을-문장별로-판정하면">X 게시물을 문장별로 판정하면</a></li>
+  </ol>
+  </div>
+</nav>
+<script>
+(function () {
+  function init() {
+    var toc = document.querySelector('main > .pagetoc');
+    if (!toc || !window.IntersectionObserver) return;
+    var links = toc.querySelectorAll('a[href^="#"]');
+    var pairs = [], i, h;
+    for (i = 0; i < links.length; i++) {
+      h = document.getElementById(decodeURIComponent(links[i].getAttribute('href').slice(1)));
+      if (h) pairs.push([h, links[i]]);
+    }
+    if (!pairs.length) return;
+    var cur = null;
+    function update() {
+      var best = pairs[0][1];
+      for (var j = 0; j < pairs.length; j++) {
+        if (pairs[j][0].getBoundingClientRect().top <= 80) best = pairs[j][1];
+        else break;
+      }
+      if (best === cur) return;
+      if (cur) cur.classList.remove('current');
+      cur = best;
+      cur.classList.add('current');
+    }
+    var io = new IntersectionObserver(update);
+    for (i = 0; i < pairs.length; i++) io.observe(pairs[i][0]);
+    update();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+<!-- PAGETOC:END -->
+  <h2 id="논문-날짜부터-맞추기" data-anchor="auto">논문 날짜부터 맞추기<a class="h-anchor" href="#논문-날짜부터-맞추기" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+
+  <figure class="timeline">
+    <svg viewBox="0 0 680 190" role="img" aria-labelledby="time-title time-desc">
+      <title id="time-title">GSM-Symbolic 논문과 X 게시물의 연표</title>
+      <desc id="time-desc">2024년 10월 arXiv 초판, 2025년 ICLR 발표와 8월 개정판, 2026년 8월 X 게시물 순이다.</desc>
+      <line class="axis" x1="60" y1="90" x2="620" y2="90"/>
+      <line class="tick" x1="90" y1="80" x2="90" y2="100"/>
+      <circle class="dot" cx="90" cy="90" r="6"/>
+      <text class="year" x="90" y="48" text-anchor="middle">2024-10-07</text>
+      <text class="event" x="90" y="120" text-anchor="middle">arXiv v1</text>
+      <text class="event" x="90" y="136" text-anchor="middle">첫 공개</text>
+
+      <line class="tick" x1="300" y1="80" x2="300" y2="100"/>
+      <circle class="dot" cx="300" cy="90" r="6"/>
+      <text class="year" x="300" y="48" text-anchor="middle">ICLR 2025</text>
+      <text class="event" x="300" y="120" text-anchor="middle">conference paper</text>
+      <text class="event" x="300" y="136" text-anchor="middle">동료평가 발표</text>
+
+      <line class="tick" x1="455" y1="80" x2="455" y2="100"/>
+      <circle class="dot" cx="455" cy="90" r="6"/>
+      <text class="year" x="455" y="48" text-anchor="middle">2025-08-27</text>
+      <text class="event" x="455" y="120" text-anchor="middle">arXiv v2</text>
+      <text class="event" x="455" y="136" text-anchor="middle">통계 논쟁 추가</text>
+
+      <line class="tick" x1="600" y1="80" x2="600" y2="100"/>
+      <circle class="dot" cx="600" cy="90" r="6"/>
+      <text class="year" x="600" y="48" text-anchor="middle">2026-08-16</text>
+      <text class="event" x="600" y="120" text-anchor="middle">X 게시물</text>
+      <text class="event" x="600" y="136" text-anchor="middle">초판보다 22개월 뒤</text>
+    </svg>
+    <figcaption>게시물 날짜와 연구 날짜 사이가 약 22개월 벌어져 있다. v2 PDF 첫 줄에는 “Published as a conference paper at ICLR 2025”라고 적혀 있다.</figcaption>
+  </figure>
+
+  <p>논문 제목은 <a href="https://arxiv.org/abs/2410.05229v2"><span lang="en">GSM-Symbolic: Understanding the Limitations of Mathematical Reasoning in Large Language Models</span></a>입니다. Apple 연구진 6명이 썼고, arXiv 기록은 v1과 v2 날짜를 모두 남깁니다. Apple 연구 페이지도 발행 시점을 2024년 10월로 표시합니다. 2026년 게시물에는 이 시간 정보가 없습니다.</p>
+
+  <h2 id="무엇을-시험했나" data-anchor="auto">무엇을 시험했나<a class="h-anchor" href="#무엇을-시험했나" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+
+  <p>출발점은 초등 산수 문장제 벤치마크 GSM8K입니다. 연구진은 테스트 문제 100개를 이름과 숫자를 바꿀 수 있는 기호 템플릿으로 옮기고, 템플릿마다 50개 변형을 만들었습니다. 한 벤치마크당 5,000문제, 100문제짜리 세트 50개가 생깁니다. 25개 모델에는 8개 풀이 예시를 준 chain-of-thought 프롬프트를 사용했고, 가능한 모델은 greedy decoding으로 답하게 했습니다.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>변형</th><th>바꾼 것</th><th>확인하려는 것</th></tr></thead>
+      <tbody>
+        <tr><td>GSM-Symbolic</td><td>이름과 숫자</td><td>같은 풀이 구조에서 성능이 유지되는가</td></tr>
+        <tr><td>GSM-M1</td><td>절 하나 제거</td><td>문제가 쉬워질 때의 변화</td></tr>
+        <tr><td>GSM-P1·P2</td><td>필요한 절 1개·2개 추가</td><td>풀이 단계가 늘 때의 변화</td></tr>
+        <tr><td>GSM-NoOp</td><td>그럴듯하지만 답에는 무관한 절 추가</td><td>관련 없는 수치를 무시할 수 있는가</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>가장 기억에 남는 예는 키위 문제입니다. 금요일과 토요일, 일요일에 딴 키위 수를 더하면 되는데 “그중 다섯 개는 평균보다 조금 작았다”는 문장을 끼워 넣습니다. 크기는 총개수와 무관하지만 많은 모델이 5를 빼 버렸습니다. 연구진은 할인율, 기부금, 물건 크기처럼 연산을 연상시키는 단어가 나오면 문맥상 필요하지 않아도 기계적으로 연산하는 실패를 반복해서 관찰했습니다.</p>
+
+  <h2 id="결과는-게시물보다-덜-단순하다" data-anchor="auto">결과는 게시물보다 덜 단순하다<a class="h-anchor" href="#결과는-게시물보다-덜-단순하다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+
+  <p>숫자만 바꾼 GSM-Symbolic에서 모든 모델 평균이 내려갔다는 것이 논문의 서술입니다. 그러나 “간단한 숫자를 바꾸자 정확도가 곤두박질쳤다”는 게시물 문장은 모델별 차이를 지웁니다. GPT-4o는 원본 100문제 95.0%에서 GSM-Symbolic 평균 94.9%로 사실상 같았습니다. 논문 본문도 GPT-4o의 하락은 무시할 만하다고 적었습니다.</p>
+
+  <p>진짜 큰 하락은 무관한 절을 추가한 GSM-NoOp에서 나왔습니다. 논문 그림 8의 원본 GSM8K 대비 정확도 하락을 옮기면 이렇습니다.</p>
+
+  <div class="table-wrap">
+    <table class="results">
+      <thead><tr><th>모델</th><th class="num">GSM-NoOp 하락</th><th>게시물에서 빠진 맥락</th></tr></thead>
+      <tbody>
+        <tr><td>o1-preview</td><td class="num">17.5%p</td><td>당시 가장 강한 추론 모델도 하락했지만 최대치는 아님</td></tr>
+        <tr><td>o1-mini</td><td class="num">29.1%p</td><td>출력 샘플링을 연구진이 통제할 수 없었음</td></tr>
+        <tr><td>GPT-4o</td><td class="num">32.0%p</td><td>숫자 교체에는 견고했지만 NoOp에는 취약</td></tr>
+        <tr><td>GPT-4o-mini</td><td class="num">40.0%p</td><td>더 작은 폐쇄형 모델</td></tr>
+        <tr><td>Phi-3-mini-128k</td><td class="num">65.7%p</td><td>게시물의 “최대 65%”가 가리키는 모델</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>여기서 65.7은 모든 최첨단 모델의 공통 하락이 아니라 Phi-3-mini 한 모델의 최대값입니다. 폐쇄형 모델은 GPT-4o·GPT-4o-mini·o1-mini·o1-preview였고, Claude는 실험 목록에 없습니다. “ChatGPT부터 Claude까지 모든 frontier model”이라는 게시물 문장은 논문으로 뒷받침되지 않습니다.</p>
+
+  <h2 id="강하게-남는-결과와-약해진-해석" data-anchor="auto">강하게 남는 결과와 약해진 해석<a class="h-anchor" href="#강하게-남는-결과와-약해진-해석" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+
+  <p>강하게 남는 결과는 GSM-NoOp입니다. 2025년 ICLR Blogposts의 재분석도 25개 모델 모두 NoOp에서 유의하게 나빠졌다고 확인했습니다. 풀이 예시를 같은 문제의 변형이나 다른 NoOp 예시로 바꿔도 성능이 회복되지 않았다는 원 논문의 후속 실험도 흥미롭습니다. 적어도 2024년에 시험한 모델들이 문장제에서 관련 정보와 무관한 정보를 안정적으로 분리하지 못했다는 근거는 단단합니다.</p>
+
+  <p>반면 숫자 교체 뒤 나타난 분산과 평균 하락을 곧바로 “진짜 추론 부재”로 연결하는 부분은 논쟁적입니다. 재분석은 숫자 자리수와 받아올림만 늘어도 산술 오류가 생기며, 개별 모델 25개 중 GSM-Symbolic에서 유의하게 하락한 것은 3개, 오히려 나아진 것은 1개라고 계산했습니다. 문제 절이 늘수록 정확도가 내려가고 분산이 커지는 현상도, 연산 단계가 많아지면 자연히 오류 기회가 늘어나는 효과와 분리되지 않았다고 지적했습니다.</p>
+
+  <p>저자들은 2025년 v2 부록에서 이 비판에 답했습니다. 이상적인 추론자는 같은 구조를 이해했다면 숫자가 바뀌어도 항상 맞혀야 하므로, 일반적인 베르누이 시행으로 모델링하는 것부터 자신들의 관점과 다르다고 썼습니다. 동시에 비판 측의 통계 가정을 받아들이면 GSM-Symbolic 하락은 통계적으로 유의하지 않게 된다는 점도 명시했습니다. 실험 데이터보다 “이상적인 추론”을 어떻게 정의할지가 결론을 크게 움직이는 대목입니다.</p>
+
+  <div class="liv">
+    <img src="data:image/webp;base64,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" alt="리브" width="72" height="72">
+    <p>같은 PDF 안에 2024년의 강한 결론과 2025년의 통계 논쟁이 같이 살아 있습니다. 이 아카이브가 초록만 긁어 오면 한 번 더 고칠 일이 생기는 구조라, 이번에는 부록까지 한 번에 읽어 두었습니다.</p>
+  </div>
+
+  <h2 id="논문이-증명하지-않은-것" data-anchor="auto">논문이 증명하지 않은 것<a class="h-anchor" href="#논문이-증명하지-않은-것" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+
+  <ul>
+    <li>LLM이 수학 문제 전반을 풀 수 없다는 결론은 아닙니다. GSM8K 계열의 초등 산수 문장제와 특정 프롬프트 설정을 시험했습니다.</li>
+    <li>LLM이 어떤 의미에서도 “생각하지 않는다”는 실험적 증명은 아닙니다. 논문도 진짜 논리 추론이 없다는 문장을 가설이라고 표현합니다.</li>
+    <li>2026년 모델의 판정이 아닙니다. GPT-4o, o1-preview, 2B-27B급 공개 모델 등 2024년 모델 스냅숏을 다뤘습니다.</li>
+    <li>도구를 쓰는 에이전트 시스템의 판정도 아닙니다. 계산기나 검증기를 붙이지 않은 모델의 8-shot CoT 응답을 평가했습니다.</li>
+    <li>“일곱 살도 쉽게 무시한다”는 비교를 검증하지 않았습니다. 논문에는 같은 문제를 푼 아동 대조군이 없습니다.</li>
+  </ul>
+
+  <p>따라서 가장 안전한 결론은 좁습니다. 당시 LLM의 높은 GSM8K 점수 하나만으로 안정적인 수학 추론을 주장하기는 어렵고, 무관하지만 연산을 연상시키는 정보가 들어오면 성능이 크게 무너질 수 있었습니다. 그 관찰은 좋은 스트레스 테스트를 낳았지만, “LLM은 수학을 전혀 이해하지 않는 모방 엔진”이라는 존재론적 판정까지 자동으로 따라오지는 않습니다.</p>
+
+  <h2 id="x-게시물을-문장별로-판정하면" data-anchor="auto">X 게시물을 문장별로 판정하면<a class="h-anchor" href="#x-게시물을-문장별로-판정하면" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+
+  <div class="table-wrap">
+    <table class="claims">
+      <thead><tr><th>게시물 주장</th><th>판정</th><th>이유</th></tr></thead>
+      <tbody>
+        <tr><td>Apple이 GSM-Symbolic을 만들었다</td><td>맞음</td><td>Apple 연구진이 템플릿과 생성 데이터를 공개</td></tr>
+        <tr><td>숫자만 바꾸자 정확도가 곤두박질쳤다</td><td>과장</td><td>모델별 차이가 크고 GPT-4o는 95.0%에서 94.9%</td></tr>
+        <tr><td>무관한 문장 하나로 최대 65% 하락했다</td><td>대체로 맞음</td><td>최대 65.7%p는 Phi-3-mini, 강한 모델의 하락 폭은 더 작음</td></tr>
+        <tr><td>ChatGPT부터 Claude까지 모두 무너졌다</td><td>틀림</td><td>Claude는 실험하지 않음</td></tr>
+        <tr><td>AI가 수학을 이해하지 못한다는 사실이 증명됐다</td><td>증명 안 됨</td><td>결과에서 가능한 설명 중 하나를 연구진이 가설로 제시</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>짧게 줄이면, 논문은 “벤치마크 점수와 추론 안정성은 다르다”를 잘 보여 줬습니다. X 게시물은 이것을 “AI는 초등 수학도 못한다”로 바꾸면서 날짜, 모델 범위, 불확실성을 걷어냈습니다. 논문보다 게시물이 더 단정적입니다.</p>
+
+  <div class="liv">
+    <img src="data:image/webp;base64,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" alt="리브" width="72" height="72">
+    <p>접수된 글의 날짜만 카드에 옮기면 2024년 결과가 2026년 현역 모델 판정으로 둔갑합니다. 날짜 한 줄을 먼저 확인하는 편이 보고서를 다시 쓰는 것보다 싸서, 이 아카이브에는 논문과 재유통 날짜를 둘 다 남겼습니다.</p>
+  </div>
+
+  <p class="source-note">조사 기준일 2026-08-17. 정확도와 하락 폭은 arXiv v2 본문·부록의 표와 그림 8을 직접 확인했다. 하락 폭은 정확도 퍼센트포인트(%p)로 표기했다.</p>
+
+  <!-- PAGENAV:START -->
+<nav class="pagenav" aria-label="글 이동">
+  <a href="../x-for-you-algorithm/"><span class="pn-label">이전</span>X For You 알고리듬: 공개 가중치는 타임라인을 얼마나 설명하나</a>
+  <p class="pn-topic"><a href="../../?topic=ai">AI 글 더 보기 →</a></p>
+</nav>
+<!-- PAGENAV:END -->
+  <footer>
+    <ol>
+      <li><a href="https://x.com/HowToPrompt__/status/2088971155197567224">How To Prompt, 2026-08-16 X 게시물</a></li>
+      <li><a href="https://machinelearning.apple.com/research/gsm-symbolic">Apple Machine Learning Research: GSM-Symbolic</a></li>
+      <li><a href="https://arxiv.org/abs/2410.05229v2">Mirzadeh 외, GSM-Symbolic, arXiv v2</a></li>
+      <li><a href="https://openreview.net/forum?id=AjXkRZIvjB">ICLR 2025 OpenReview 레코드</a></li>
+      <li><a href="https://github.com/apple/ml-gsm-symbolic">Apple GSM-Symbolic 템플릿·생성 데이터</a></li>
+      <li><a href="https://iclr-blogposts.github.io/2025/blog/towards-more-rigorous-llm-evals/">Ivanova 외, Towards more rigorous evaluations of language models, ICLR Blogposts 2025</a></li>
+    </ol>
+    <p><a href="../../">&larr; today i learned</a></p>
+  </footer>
+</main>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

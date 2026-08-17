@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-08-17 | GSM-Symbolic: 애플이 증명한 것과 X가 부풀린 것 | [/2026/gsm-symbolic-llm-reasoning/](https://til.kil9.dev/2026/gsm-symbolic-llm-reasoning/) |
 | 2026-08-17 | X For You 알고리듬: 공개 가중치는 타임라인을 얼마나 설명하나 | [/2026/x-for-you-algorithm/](https://til.kil9.dev/2026/x-for-you-algorithm/) |
 | 2026-08-17 | LLM 텍스트 워터마크: 짧은 답과 코드에는 얼마나 남나 | [/2026/llm-text-watermark-survival/](https://til.kil9.dev/2026/llm-text-watermark-survival/) |
 | 2026-08-17 | AI 토큰 재판매 시장: 90% 할인의 실제 대가 | [/2026/ai-token-resale-market/](https://til.kil9.dev/2026/ai-token-resale-market/) |

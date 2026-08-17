@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-08-17T15:08:00+09:00</updated>
+  <updated>2026-08-17T21:47:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>GSM-Symbolic: 애플이 증명한 것과 X가 부풀린 것</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/gsm-symbolic-llm-reasoning/"/>
+    <id>https://til.kil9.dev/2026/gsm-symbolic-llm-reasoning/</id>
+    <published>2026-08-17T21:47:00+09:00</published>
+    <updated>2026-08-17T21:47:00+09:00</updated>
+    <category term="ai"/>
+    <summary type="text">2024년 논문을 2026년 현역 AI 판정처럼 옮긴 X 글을 검증했다. NoOp 취약성은 강한 결과지만 Claude는 시험하지 않았고, 최대 65.7%p 하락은 Phi-3-mini의 값이다.</summary>
+  </entry>
   <entry>
     <title>X For You 알고리듬: 공개 가중치는 타임라인을 얼마나 설명하나</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/x-for-you-algorithm/"/>
