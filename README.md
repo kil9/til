@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-08-19 | 모티프 3 탈락이 보여준 AI 벤치마크의 사용법 | [/2026/motif-3-benchmark-gap/](https://til.kil9.dev/2026/motif-3-benchmark-gap/) |
 | 2026-08-19 | herdr 0.8.1: Windows 정식 지원과 자동화 경계 다듬기 | [/2026/herdr-0-8-1/](https://til.kil9.dev/2026/herdr-0-8-1/) |
 | 2026-08-17 | GSM-Symbolic: 애플이 증명한 것과 X가 부풀린 것 | [/2026/gsm-symbolic-llm-reasoning/](https://til.kil9.dev/2026/gsm-symbolic-llm-reasoning/) |
 | 2026-08-17 | X For You 알고리듬: 공개 가중치는 타임라인을 얼마나 설명하나 | [/2026/x-for-you-algorithm/](https://til.kil9.dev/2026/x-for-you-algorithm/) |
