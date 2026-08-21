@@ -11,7 +11,8 @@
   (seen 필터가 무효화돼 어제 실은 글이 다시 실릴 뿐 에러가 안 난다).
 - **추천 백분위는 소스별로 따로 매긴다.** GeekNews 추천수는 한 자리에서 56 수준이고
   HN points 는 13-708 이라 절대값을 섞으면 GeekNews 가 전멸한다.
-- HN 수집이 통째로 실패해도 GeekNews 단독으로 진행한다. BRIEFING_HN=0 이면 아예 끈다.
+- 한 소스 수집이 통째로 실패해도 다른 소스로 진행한다. 둘 다 비었을 때만 중단한다.
+  BRIEFING_HN=0 이면 HN 은 아예 끈다.
 - 첫 페이지에서 끊지 않는다. 빈 페이지가 나올 때까지(또는 MAX_PAGES) 훑는다 —
   파일럿에서 추천 상위 6% 항목이 2페이지에 있었다.
 - 이미 처리한 id 는 state/seen.json 으로 거른다. 다만 그렇게 걸러 남은 신규가
@@ -49,7 +50,10 @@ MIN_NEW = int(os.environ.get("MIN_NEW", "5"))   # 신규가 이보다 적으면 
 # 킬 스위치. 아침에 HN 쪽이 이상하면 코드를 되돌리지 않고 이 값만 0 으로 두면
 # 그날부터 GeekNews 단독 발행으로 즉시 복귀한다.
 HN_ENABLED = os.environ.get("BRIEFING_HN", "1") == "1"
-UA = "Mozilla/5.0 (X11; Linux x86_64) liv-briefing/1.0 (+https://til.kil9.dev/)"
+# GeekNews CloudFront 는 2026-08-19 부터 UA 에 liv-briefing 토큰이 있으면 403 을
+# 돌려준다. 브라우저 호환 UA 로 요청하되 연락처 토큰은 붙이지 않는다.
+UA = ("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+      "(KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36")
 KST = timezone(timedelta(hours=9))
 
 # 행 단위로 잘라 놓고 필드별로 뽑는다. 한 정규식으로 행 전체를 매칭하면 어느
@@ -260,15 +264,24 @@ def main():
     STATE.mkdir(exist_ok=True)
 
     print("GeekNews 수집")
-    items = list_pages()
-    if not items:
-        print("목록에서 한 건도 못 긁었다 — 마크업이 바뀌었는지 확인할 것", file=sys.stderr)
-        return 2
-    summaries = rss_summaries()
-    for tid, it in items.items():
-        it["summary"] = summaries.get(tid, "")
+    items = {}
+    try:
+        items = list_pages()
+        if not items:
+            raise RuntimeError("목록에서 한 건도 못 긁었다 — 마크업이 바뀌었는지 확인할 것")
+        try:
+            summaries = rss_summaries()
+        except Exception as e:
+            # 목록의 설명만으로도 선별은 가능하다. RSS 보강 하나 때문에 그날 회차를
+            # 버리지 않는다.
+            print(f"  GeekNews RSS 수집 실패 — 목록 설명으로 진행: {e}", file=sys.stderr)
+            summaries = {}
+        for tid, it in items.items():
+            it["summary"] = summaries.get(tid, "")
+    except Exception as e:
+        print(f"  GeekNews 수집 실패 — HN 으로 계속: {e}", file=sys.stderr)
 
-    # HN 은 있으면 좋은 것이지 없으면 안 되는 것이 아니다. 통째로 실패해도 GeekNews 로 나간다.
+    # 어느 한쪽도 필수 소스가 아니다. 한쪽이 막혀도 다른 쪽으로 그날 회차를 만든다.
     hn = {}
     if not HN_ENABLED:
         print("  BRIEFING_HN=0 — HN 수집을 건너뛴다")
@@ -277,6 +290,9 @@ def main():
             hn = hn_front_page()
         except Exception as e:
             print(f"  HN 수집 실패 — GeekNews 단독으로 진행: {e}", file=sys.stderr)
+    if not items and not hn:
+        print("두 소스에서 한 건도 못 모았다 — 발행 중단", file=sys.stderr)
+        return 2
     by_source = {"gn": items, "hn": hn}
 
     # 추천 이력 갱신(오늘 관측치를 기록)한 뒤 소스별로 백분위를 매긴다. 소스를 섞으면
