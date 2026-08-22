@@ -7,8 +7,8 @@
   관심사 축 til 분포에서 뽑은 관심사 프로필(interest-profile.py)과의 매칭.
            모델이 나머지 자리를 채운다.
 
-정렬은 추천 백분위가 1순위다. 관심사는 동률·인접 보정에만 쓴다 — 관심사가 맞아도
-추천이 낮으면 아래로 내려간다(파일럿 v6 확정).
+정렬은 출처가 1순위다. 관리자의 2026-08-22 결정으로 GeekNews 를 HN 보다 먼저 두고,
+같은 출처 안에서 추천 백분위와 관심사 보정을 쓴다. 품질보다 출처를 우선하는 의도적 편향이다.
 
 입력: state/collected-<날짜>.json    출력: state/selected-<날짜>.json
 """
@@ -40,6 +40,7 @@ CANDIDATE_LIMIT = 55      # 프롬프트에 싣는 후보 수 상한. 소스가 
 
 # 관심사 등급이 순위에 끼치는 보정폭(백분위 포인트). 인접한 항목끼리만 뒤집히도록 작게 둔다.
 INTEREST_BONUS = {"최상": 2.0, "상": 1.2, "중": 0.4, "밖": 0.0}
+GN_PRIORITY_MIN = 3       # 새 GN 후보가 있으면 품질과 무관하게 상위 3건을 본문에 확정한다
 
 AIRED_LOOKBACK = 30       # 재등장 판정에 볼 지난 회차 범위(일)
 REAIR_PENALTY = 40.0      # 이전 회차에 실린 항목의 백분위 패널티. 관심사 보정(최대 2.0)과
@@ -98,10 +99,72 @@ def interest_profile():
     return p.stdout.strip()
 
 
-def build_prompt(profile, candidates, forced_ids, aired, want, rules):
+def source_order(it):
+    """작을수록 먼저다. 2026-08-22 부터 출처가 품질보다 앞선다."""
+    return 0 if it.get("source", "gn") == "gn" else 1
+
+
+def ask_complete_verdict(prompt, candidate_ids):
+    """모델 판정이 후보 전체를 정확히 한 번씩 다룰 때까지 한 번 재시도한다.
+
+    두 번째도 불완전하면 발행을 버리지 않고 selected 를 우선해 중복·미지 id 를 걷고,
+    누락 후보는 rest 로 정규화한다. 이전에는 작은 GN 묶음이 통째로 빠져도 조용히 `중`으로
+    떨어져 출처 쏠림을 키웠다.
+    """
+    expected = set(candidate_ids)
+    verdict = {}
+    for attempt in range(2):
+        suffix = ""
+        if attempt:
+            suffix = ("\n\n직전 응답은 후보 일부를 누락하거나 중복했다. 이번에는 위 후보 id를 "
+                      "selected와 rest에 정확히 한 번씩 전부 넣어라.")
+        raw = llm.ask_json(prompt + suffix)
+        verdict = {"selected": [], "rest": []}
+        for name in verdict:
+            rows = raw.get(name, []) if isinstance(raw, dict) else []
+            if not isinstance(rows, list):
+                continue
+            for row in rows:
+                if not isinstance(row, dict):
+                    continue
+                clean = dict(row)
+                clean["id"] = str(row.get("id", ""))
+                verdict[name].append(clean)
+        rows = verdict.get("selected", []) + verdict.get("rest", [])
+        ids = [r["id"] for r in rows]
+        got = set(ids)
+        missing = expected - got
+        unknown = got - expected
+        duplicate = len(ids) != len(set(ids))
+        if not missing and not unknown and not duplicate:
+            return verdict
+        print(f"  모델 판정 불완전 (시도 {attempt + 1}/2): "
+              f"누락 {len(missing)} · 미지 {len(unknown)} · 중복 {int(duplicate)}", file=sys.stderr)
+
+    selected, rest, seen = [], [], set()
+    for bucket, target in ((verdict.get("selected", []), selected),
+                           (verdict.get("rest", []), rest)):
+        for row in bucket:
+            item_id = str(row.get("id", ""))
+            if item_id not in expected or item_id in seen:
+                continue
+            clean = dict(row)
+            clean["id"] = item_id
+            target.append(clean)
+            seen.add(item_id)
+    for item_id in candidate_ids:
+        if item_id not in seen:
+            rest.append({"id": item_id, "interest": "중", "why": ""})
+    print(f"  모델 판정 정규화 — 누락 {len(expected - seen)}건을 rest 로 보냄", file=sys.stderr)
+    return {"selected": selected, "rest": rest}
+
+
+def build_prompt(profile, candidates, popular_ids, gn_priority_ids, aired, want, rules):
     lines = []
     for it in candidates:
-        mark = " [인기축 확정]" if it["id"] in forced_ids else ""
+        mark = " [인기축 확정]" if it["id"] in popular_ids else ""
+        if it["id"] in gn_priority_ids:
+            mark += " [GN 출처 우선 확정]"
         if aired.get(it["id"]):
             mark += f" [{aired[it['id']]} 브리핑에 이미 실림]"
         if it.get("also"):
@@ -126,6 +189,8 @@ def build_prompt(profile, candidates, forced_ids, aired, want, rules):
 
 # 규칙
 - [인기축 확정] 표시가 붙은 것은 관심사와 무관해도 반드시 포함한다(이미 확정이니 다시 고르지 않아도 된다).
+- [GN 출처 우선 확정] 표시가 붙은 것도 품질과 무관하게 반드시 포함한다.
+- 출처 우선순위는 GN > HN 이다. 품질·추천 백분위·관심사가 다소 낮아도 GN 후보를 HN보다 먼저 고른다.
 - 확정분을 포함해 총 {want}건 안팎이 되도록 나머지를 관심사 프로필 매칭으로 고른다.
   재료가 빈약하면 {TOTAL_MIN}건, 좋으면 {TOTAL_MAX}건까지 그날 사정에 맞춰 정하라.
 - 같은 사건을 다룬 중복 항목은 하나만 남긴다. 원문 URL 이 같은 것은 이미 합쳐 두었지만,
@@ -171,7 +236,7 @@ def main():
         """정렬·컷에 쓰는 백분위. 재등장 항목은 크게 뒤로 민다(낮을수록 앞)."""
         return it["percentile"] + (REAIR_PENALTY if aired_by_item.get(it["id"]) else 0.0)
 
-    ranked = sorted(items.values(), key=lambda it: (effective(it), -it["points"]))
+    ranked = sorted(items.values(), key=lambda it: (source_order(it), effective(it), -it["points"]))
     fresh = [it for it in ranked if not aired_by_item.get(it["id"])]
     # 인기 축은 새 항목에서만 뽑는다. 재등장 항목이 추천수만으로 다시 확정되면
     # 위 패널티가 무의미해진다. 소스별 상한을 함께 걸어 한쪽이 확정 슬롯을 독점하지 못하게 한다.
@@ -186,16 +251,24 @@ def main():
         taken[isrc] = taken.get(isrc, 0) + 1
     if len(popular) < POPULAR_MIN:
         popular = (fresh or ranked)[:POPULAR_MIN]   # 컷을 넘긴 게 없으면 상위 2건으로 폴백
-    forced = {it["id"] for it in popular}
-    print(f"인기 축 확정 {len(forced)}건 {taken or ''} "
+    popular_ids = {it["id"] for it in popular}
+    gn_priority = [it for it in fresh if it.get("source", "gn") == "gn"][:GN_PRIORITY_MIN]
+    gn_priority_ids = {it["id"] for it in gn_priority}
+    forced = popular_ids | gn_priority_ids
+    print(f"인기 축 확정 {len(popular_ids)}건 {taken or ''} "
           f"(백분위 컷 {POPULAR_CUT}%, 기준 {data['percentile_basis']})")
+    print(f"GN 출처 우선 확정 {len(gn_priority_ids)}건 (목표 {GN_PRIORITY_MIN}건)")
 
     candidates = ranked[:CANDIDATE_LIMIT]
     want = min(TOTAL_MAX, max(TOTAL_MIN, len(forced) + 5))
     rules = feedback.active_rules(today)
     if rules:
         print(f'  선별 규칙 {len(rules)}개 적용')
-    verdict = llm.ask_json(build_prompt(interest_profile(), candidates, forced, aired_by_item, want, rules))
+    verdict = ask_complete_verdict(
+        build_prompt(interest_profile(), candidates, popular_ids, gn_priority_ids,
+                     aired_by_item, want, rules),
+        [it["id"] for it in candidates],
+    )
 
     grades = {r["id"]: r.get("interest", "중") for r in verdict.get("selected", []) + verdict.get("rest", [])}
     whys = {r["id"]: r.get("why", "") for r in verdict.get("selected", []) + verdict.get("rest", [])}
@@ -203,11 +276,13 @@ def main():
     chosen_ids = {i for i in chosen_ids if i in items}
     if len(chosen_ids) > TOTAL_MAX:      # 넘치게 골랐으면 인기 확정분 먼저, 그다음 백분위 순으로 자른다
         keep = sorted((items[i] for i in chosen_ids),
-                      key=lambda it: (it["id"] not in forced, effective(it)))[:TOTAL_MAX]
+                      key=lambda it: (it["id"] not in forced, source_order(it), effective(it)))[:TOTAL_MAX]
         chosen_ids = {it["id"] for it in keep}
 
     def sort_key(it):
-        return (effective(it) - INTEREST_BONUS.get(grades.get(it["id"], "중"), 0.0), -it["points"])
+        return (source_order(it),
+                effective(it) - INTEREST_BONUS.get(grades.get(it["id"], "중"), 0.0),
+                -it["points"])
 
     def decorate(it):
         it = dict(it)
@@ -223,6 +298,7 @@ def main():
     out = dict(data)
     out.pop("items")                        # 선별 결과(selected/rest)로 대체한다
     out.update({"selected": selected, "rest": rest, "popular_cut": POPULAR_CUT,
+                "source_priority": ["gn", "hn"], "gn_priority_min": GN_PRIORITY_MIN,
                 "selected_at": datetime.now(KST).isoformat(timespec="minutes")})
     path = STATE / f"selected-{today}.json"
     path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """수집 — GeekNews 와 Hacker News 에서 후보를 만든다 (task-80, HN 은 task-106).
 
-- 목록(/new?page=N)은 추천수(points)와 노출 순서를 주고, RSS 는 항목 요약을 준다.
-  RSS 만으로는 인기 순위를 알 수 없어 둘을 id 로 합친다.
+- GeekNews 메인 피드와 신규 목록(/new?page=N)을 합쳐 후보를 만든다. 메인 피드는 이미
+  한번 걸러진 글을, 신규 목록은 막 올라온 글을 보완한다. RSS 는 항목 요약을 준다.
 - HN 은 Algolia front_page 엔드포인트 호출 1회로 톱페이지 전원의 점수·댓글수·URL 을
   받는다(실측: 실제 프런트페이지와 29/30 일치). Firebase 는 아이템당 요청이라 배제했다.
 - **id 는 GeekNews 만 맨 값이고 HN 은 `hn:` 을 붙인다.** 맨 id = GeekNews 라는 규약이라
@@ -38,7 +38,8 @@ from pathlib import Path
 
 BASE = Path(__file__).resolve().parent
 STATE = BASE / "state"
-LIST_URL = "https://news.hada.io/new?page={}"
+NEW_LIST_URL = "https://news.hada.io/new?page={}"
+MAIN_LIST_URL = "https://news.hada.io/?page={}"
 RSS_URL = "https://news.hada.io/rss/news"
 HN_URL = "https://hn.algolia.com/api/v1/search?tags=front_page&hitsPerPage={}"
 HN_ITEM_URL = "https://news.ycombinator.com/item?id={}"
@@ -47,6 +48,9 @@ MAX_PAGES = 4
 HISTORY_DAYS = 30
 MIN_HISTORY = 60          # 이보다 적으면 롤링 분포를 믿지 않는다. 소스별로 따로 본다
 MIN_NEW = int(os.environ.get("MIN_NEW", "5"))   # 신규가 이보다 적으면 목록 전체로 backfill
+# GeekNews 는 HN 프런트페이지보다 천천히 갈린다. 미선정 글도 seen 에 들어가므로
+# 신규가 한 자릿수인 날에는 지난 후보를 다시 열어 두어야 한 번의 판정 누락으로 사라지지 않는다.
+MIN_NEW_BY_SOURCE = {"gn": int(os.environ.get("MIN_NEW_GN", "10")), "hn": MIN_NEW}
 # 킬 스위치. 아침에 HN 쪽이 이상하면 코드를 되돌리지 않고 이 값만 0 으로 두면
 # 그날부터 GeekNews 단독 발행으로 즉시 복귀한다.
 HN_ENABLED = os.environ.get("BRIEFING_HN", "1") == "1"
@@ -151,11 +155,11 @@ def hn_front_page():
     return items
 
 
-def list_pages():
+def list_pages(url_template=NEW_LIST_URL, max_pages=MAX_PAGES, label="신규 목록"):
     """목록 페이지에서 추천수·순서를 긁는다. 빈 페이지를 만나면 멈춘다."""
     items = {}
-    for page in range(1, MAX_PAGES + 1):
-        html = fetch(LIST_URL.format(page))
+    for page in range(1, max_pages + 1):
+        html = fetch(url_template.format(page))
         marks = list(ROW_SPLIT_RE.finditer(html))
         if not marks:
             break
@@ -182,8 +186,9 @@ def list_pages():
                 "published": datetime.fromtimestamp(int(ts.group(1)), KST).isoformat(timespec="minutes"),
                 "topic_url": f"https://news.hada.io/topic?id={tid}",
                 "list_page": page,
+                "list_kind": label,
             }
-        print(f"  목록 {page}쪽: {len(marks)}건")
+        print(f"  {label} {page}쪽: {len(marks)}건")
     return items
 
 
@@ -266,9 +271,18 @@ def main():
     print("GeekNews 수집")
     items = {}
     try:
-        items = list_pages()
+        groups = []
+        for label, url, pages in (("신규 목록", NEW_LIST_URL, MAX_PAGES),
+                                  ("메인 피드", MAIN_LIST_URL, 1)):
+            try:
+                groups.append(list_pages(url, pages, label))
+            except Exception as e:
+                print(f"  GeekNews {label} 실패 — 다른 목록으로 계속: {e}", file=sys.stderr)
+        for group in groups:
+            items.update(group)
         if not items:
-            raise RuntimeError("목록에서 한 건도 못 긁었다 — 마크업이 바뀌었는지 확인할 것")
+            raise RuntimeError("두 목록에서 한 건도 못 긁었다 — 마크업이 바뀌었는지 확인할 것")
+        print(f"  GeekNews 중복 제거 후 {len(items)}건")
         try:
             summaries = rss_summaries()
         except Exception as e:
@@ -332,10 +346,11 @@ def main():
         fresh = [it for it in group.values() if it["id"] not in seen]
         print(f"  {src}: 훑은 {len(group)}건 중 신규 {len(fresh)}건")
         # 신규가 얇은 날엔 목록 전체로 되돌린다. 발행이 끊기는 것보다 회차 간 중복이 낫다.
-        if len(fresh) < MIN_NEW:
+        min_new = MIN_NEW_BY_SOURCE.get(src, MIN_NEW)
+        if len(fresh) < min_new:
             fresh = list(group.values())
             backfilled.append(src)
-            print(f"  {src}: 신규 {MIN_NEW}건 미만 — 전체 {len(fresh)}건으로 backfill (중복 허용)")
+            print(f"  {src}: 신규 {min_new}건 미만 — 전체 {len(fresh)}건으로 backfill (중복 허용)")
         fresh_by_source[src] = fresh
 
     merged_items, merged = merge_duplicates(fresh_by_source["gn"], fresh_by_source["hn"])
