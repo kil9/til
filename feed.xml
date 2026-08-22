@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-08-19T14:52:00+09:00</updated>
+  <updated>2026-08-22T09:43:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>Qwen3-TTS 첫 응답 50ms, 어디서 시간을 벌었나</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/qwen3-tts-50ms-latency/"/>
+    <id>https://til.kil9.dev/2026/qwen3-tts-50ms-latency/</id>
+    <published>2026-08-22T09:43:00+09:00</published>
+    <updated>2026-08-22T09:43:00+09:00</updated>
+    <category term="ai"/>
+    <summary type="text">34ms localhost 수치를 첫 음성 경로로 분해했다. 서울·도쿄·미국 리전 RTT를 더해 보니 엔진 이득은 남지만, 미국 배치에서는 네트워크가 지연 예산의 주인이 된다.</summary>
+  </entry>
   <entry>
     <title>모티프 3 탈락이 보여준 AI 벤치마크의 사용법</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/motif-3-benchmark-gap/"/>
