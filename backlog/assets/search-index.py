@@ -54,9 +54,14 @@ WS_RE = re.compile(r"\s+")
 def body_text(page: Path) -> str:
     """페이지 HTML 에서 색인할 평문을 뽑는다."""
     raw = page.read_text(encoding="utf-8")
-    m = MAIN_RE.search(raw) or BODY_RE.search(raw)
-    text = m.group(1) if m else raw
-    text = COMMENT_RE.sub(" ", text)
+    # 생성된 목차 CSS 주석에는 설명용 리터럴 `<main>` 이 들어 있다. 문서 전체에서
+    # MAIN_RE 를 먼저 찾으면 그 문자열부터 실제 </main> 까지를 본문으로 오인하므로,
+    # 먼저 실제 body 로 범위를 좁힌 뒤 그 안에서 main 을 찾는다.
+    raw = COMMENT_RE.sub(" ", raw)
+    body = BODY_RE.search(raw)
+    scope = body.group(1) if body else raw
+    main = MAIN_RE.search(scope)
+    text = main.group(1) if main else scope
     text = HOME_TOP_RE.sub(" ", text)
     text = H_ANCHOR_RE.sub(" ", text)
     text = DROP_EL_RE.sub(" ", text)

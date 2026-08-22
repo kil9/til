@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-08-22 | Moli: 픽셀을 필요할 때만 만드는 에이전트 브라우저 | [/2026/moli-agent-browser/](https://til.kil9.dev/2026/moli-agent-browser/) |
 | 2026-08-22 | Qwen3-TTS 첫 응답 50ms, 어디서 시간을 벌었나 | [/2026/qwen3-tts-50ms-latency/](https://til.kil9.dev/2026/qwen3-tts-50ms-latency/) |
 | 2026-08-19 | 모티프 3 탈락이 보여준 AI 벤치마크의 사용법 | [/2026/motif-3-benchmark-gap/](https://til.kil9.dev/2026/motif-3-benchmark-gap/) |
 | 2026-08-19 | herdr 0.8.1: Windows 정식 지원과 자동화 경계 다듬기 | [/2026/herdr-0-8-1/](https://til.kil9.dev/2026/herdr-0-8-1/) |

@@ -2,11 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://til.kil9.dev/</loc>
-    <lastmod>2026-08-22T09:43:00+09:00</lastmod>
+    <lastmod>2026-08-22T16:37:00+09:00</lastmod>
   </url>
   <url>
     <loc>https://til.kil9.dev/p/archive/</loc>
-    <lastmod>2026-08-22T09:43:00+09:00</lastmod>
+    <lastmod>2026-08-22T16:37:00+09:00</lastmod>
+  </url>
+  <url>
+    <loc>https://til.kil9.dev/2026/moli-agent-browser/</loc>
+    <lastmod>2026-08-22T16:37:00+09:00</lastmod>
   </url>
   <url>
     <loc>https://til.kil9.dev/2026/qwen3-tts-50ms-latency/</loc>

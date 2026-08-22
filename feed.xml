@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-08-22T09:43:00+09:00</updated>
+  <updated>2026-08-22T16:37:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>Moli: 픽셀을 필요할 때만 만드는 에이전트 브라우저</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/moli-agent-browser/"/>
+    <id>https://til.kil9.dev/2026/moli-agent-browser/</id>
+    <published>2026-08-22T16:37:00+09:00</published>
+    <updated>2026-08-22T16:37:00+09:00</updated>
+    <category term="system"/>
+    <summary type="text">Chromium 래퍼가 아닌 Rust 독립 브라우저다. 구조 우선·온디맨드 렌더링의 비용 모델과 공개 벤치마크, Chrome을 남겨야 하는 경계를 함께 검토했다.</summary>
+  </entry>
   <entry>
     <title>Qwen3-TTS 첫 응답 50ms, 어디서 시간을 벌었나</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/qwen3-tts-50ms-latency/"/>
