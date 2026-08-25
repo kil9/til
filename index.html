@@ -16,6 +16,7 @@
 <link rel="alternate" type="application/atom+xml" title="today i learned" href="/feed.xml">
 <style>
   :root {
+    color-scheme: light dark;
     --bg: #FFFFFF;
     --text: #1B2027;
     --text-muted: #4E5A66;
@@ -33,6 +34,17 @@
       --rule: #2A3037;
       --accent: #82B1F0;
       --accent-strong: #A9CBF7;
+    }
+  }
+  @supports (color: light-dark(#000000, #FFFFFF)) {
+    :root {
+      --bg: light-dark(#FFFFFF, #14171B);
+      --text: light-dark(#1B2027, #E7EAEE);
+      --text-muted: light-dark(#4E5A66, #A9B3BD);
+      --text-faint: light-dark(#6E7A86, #7E8994);
+      --rule: light-dark(#E3E7EB, #2A3037);
+      --accent: light-dark(#1A5FC8, #82B1F0);
+      --accent-strong: light-dark(#12459A, #A9CBF7);
     }
   }
 
@@ -60,7 +72,7 @@
 
   header.hero { border-bottom: 1px solid var(--rule); }
   .hero-inner { max-width: 1000px; margin: 0 auto; padding: 48px 24px 32px; }
-  h1 { margin: 0; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
+  h1 { margin: 0; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; text-wrap: balance; }
   .site-intro {
     margin: 10px 0 0; max-width: 46ch; color: var(--text-muted);
     font-size: 0.9375rem; line-height: 1.6;
@@ -194,7 +206,7 @@
   .card h2 {
     grid-column: 2; grid-row: 1;
     margin: 0; font-size: 1.0625rem; font-weight: 600;
-    line-height: 1.5; letter-spacing: -0.005em;
+    line-height: 1.5; letter-spacing: -0.005em; text-wrap: balance;
   }
   .card p {
     grid-column: 2; grid-row: 2;
@@ -284,9 +296,18 @@
 
   <p class="search"><input id="search" type="search" placeholder="검색" aria-label="갤러리 검색" autocomplete="off"></p>
 
-  <p class="count">Published · 89</p>
+  <p class="count">Published · 90</p>
 
   <div class="grid">
+
+    <a class="card" href="./2026/native-web-baseline/" data-date="2026-08-25T09:32" data-topic="site">
+      <div class="meta">
+        <span class="date">2026-08-25 09:32</span>
+        <span class="tag">사이트 · 네이티브 웹</span>
+      </div>
+      <h2>네이티브 웹 41개, Baseline으로 지금 쓸 것 가르기</h2>
+      <p>HTMLcat의 기능 목록을 24개 바로 사용·8개 점진적 향상·9개 폴백으로 나눴다. scroll-margin·text-wrap·light-dark()는 이 사이트에 직접 적용했다.</p>
+    </a>
 
     <a class="card" href="./2026/product-engineer-hiring-data/" data-date="2026-08-25T09:18" data-topic="economy">
       <div class="meta">

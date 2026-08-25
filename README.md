@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-08-25 | 네이티브 웹 41개, Baseline으로 지금 쓸 것 가르기 | [/2026/native-web-baseline/](https://til.kil9.dev/2026/native-web-baseline/) |
 | 2026-08-25 | 프로덕트 엔지니어 채용 붐: 실제로 늘었나 | [/2026/product-engineer-hiring-data/](https://til.kil9.dev/2026/product-engineer-hiring-data/) |
 | 2026-08-23 | 백로그 에이전트 파이프라인 | [/2026/backlog-agent-pipeline/](https://til.kil9.dev/2026/backlog-agent-pipeline/) |
 | 2026-08-22 | Moli: 픽셀을 필요할 때만 만드는 에이전트 브라우저 | [/2026/moli-agent-browser/](https://til.kil9.dev/2026/moli-agent-browser/) |

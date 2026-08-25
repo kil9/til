@@ -231,6 +231,11 @@ Two-Mode Parity 의 적용 대상이 아니다 — 로고의 색은 이 사이�
 
 **The Quiet Bold Rule.** 본문 안에서 굵게 강조하지 않는다. 위계는 크기·색·여백으로 이미 다 났다.
 
+**The Progressive Native Rule.** Baseline Newly available 기능은 지원이 없어도 내용과 조작이 그대로
+남는 점진적 향상에만 쓴다. 제목의 `text-wrap: balance` 는 미지원 브라우저에서 보통 줄바꿈으로
+돌아가므로 허용한다. `light-dark()` 는 정적 라이트 값과 `prefers-color-scheme` 다크 폴백을 유지한
+상태에서만 색 토큰에 쓴다.
+
 ## Layout
 
 컨테이너는 두 폭뿐이다. **아티클은 `max-width: 720px` 한 단**(`padding: 48px 24px 80px`), **갤러리·
@@ -361,6 +366,8 @@ Two-Mode Parity 의 적용 대상이 아니다 — 로고의 색은 이 사이�
 - **`position: fixed` 를 쓰지 않는다.** `main` 을 좌표 기준으로 삼는 `absolute` 박스를 본문 높이만큼
   늘리고 그 안을 `sticky`(`top: 48px`)로 붙인다. fixed 는 본문이 끝난 뒤 footer·하단 내비 구간까지
   레일을 끌고 온다.
+- 절 제목에는 `scroll-margin-block-start: 1rem` 을 둔다. 목차·딥링크 이동 뒤 제목이 뷰포트 상단에
+  달라붙지 않게 하는 읽기 여백이며, 논리 속성으로 쓰기 방향을 따른다.
 - **셀렉터는 `main > .pagetoc` 으로 한정한다.** `<main>` 이 없는 자체 스타일 페이지에서 `absolute`
   를 걸면 기준이 `body` 로 올라가 레일이 엉뚱한 자리에 뜬다. 그런 페이지는 인라인 목차로 남는다.
 - **레일 링크에 `text-faint` 를 쓰지 않는다.** `0.8125rem` 에서 라이트 대비가 4.38:1 로 AA 에 못

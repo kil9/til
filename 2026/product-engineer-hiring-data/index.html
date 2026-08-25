@@ -122,6 +122,8 @@
 <!-- PAGETOC-CSS:START -->
 <style>
   /* 절 앵커·목차(TASK-108). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  h2 { text-wrap: balance; }
+  h2[id] { scroll-margin-block-start: 1rem; }
   .h-anchor {
     margin-left: 0.35em; font-weight: 400; text-decoration: none;
     color: var(--text-faint, #6E7A86); opacity: 0; transition: opacity 0.12s;
@@ -392,6 +394,7 @@
 <!-- PAGENAV:START -->
 <nav class="pagenav" aria-label="글 이동">
   <a href="../backlog-agent-pipeline/"><span class="pn-label">이전</span>백로그 에이전트 파이프라인</a>
+  <a href="../native-web-baseline/"><span class="pn-label">다음</span>네이티브 웹 41개, Baseline으로 지금 쓸 것 가르기</a>
   <p class="pn-topic"><a href="../../?topic=economy">경제 글 더 보기 →</a></p>
 </nav>
 <!-- PAGENAV:END -->
