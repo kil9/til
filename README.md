@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-08-25 | 같은 로컬 모델, 엔진이 바뀌면 어디서 갈리나 | [/2026/local-llm-engine-divergence/](https://til.kil9.dev/2026/local-llm-engine-divergence/) |
 | 2026-08-25 | Fable 5 채택 11%, 무엇이 정체했나 | [/2026/fable-5-ramp-spend-signal/](https://til.kil9.dev/2026/fable-5-ramp-spend-signal/) |
 | 2026-08-25 | 네이티브 웹 41개, Baseline으로 지금 쓸 것 가르기 | [/2026/native-web-baseline/](https://til.kil9.dev/2026/native-web-baseline/) |
 | 2026-08-25 | 프로덕트 엔지니어 채용 붐: 실제로 늘었나 | [/2026/product-engineer-hiring-data/](https://til.kil9.dev/2026/product-engineer-hiring-data/) |
