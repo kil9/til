@@ -8,6 +8,10 @@
 # 무슨 일이 있었는지 한 줄씩 남기고, 실패는 Slack #til 로도 알린다.
 set -euo pipefail
 export PATH="$HOME/.local/bin:/usr/local/bin:/usr/bin:/bin"
+# claude 자격증명은 대화형 세션과 같은 것을 쓴다. cron 은 CLAUDE_CONFIG_DIR 를
+# 물려받지 못해 기본 ~/.claude 를 보는데, 그쪽 OAuth 가 조용히 만료돼 2026-08-26
+# 발행이 통째로 죽었다(claude 가 만료 메시지를 stdout 으로 뱉어 stderr 로그도 비었다).
+export CLAUDE_CONFIG_DIR="${CLAUDE_CONFIG_DIR:-$HOME/.ccs/instances/personal}"
 
 BASE="$HOME/jobs/liv-briefing"
 STATE="$BASE/state"
