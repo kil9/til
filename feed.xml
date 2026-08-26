@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-08-25T10:12:00+09:00</updated>
+  <updated>2026-08-26T11:16:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>Codex를 더 많이 쓴 일주일: 도구보다 흐름이 갈랐다</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/week-with-codex/"/>
+    <id>https://til.kil9.dev/2026/week-with-codex/</id>
+    <published>2026-08-26T11:16:00+09:00</published>
+    <updated>2026-08-26T11:16:00+09:00</updated>
+    <category term="workflow"/>
+    <summary type="text">한 주 사용기의 범위 준수, 단순한 코드, 총시간, 브랜치 실수를 모델·하네스·맥락·익숙함으로 분해하고 재현 가능한 비교법을 정리했다.</summary>
+  </entry>
   <entry>
     <title>같은 로컬 모델, 엔진이 바뀌면 어디서 갈리나</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/local-llm-engine-divergence/"/>
