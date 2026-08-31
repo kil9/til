@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-08-31 | 도구를 고르면 조직도 따라온다 | [/2026/tools-are-organizational-decisions/](https://til.kil9.dev/2026/tools-are-organizational-decisions/) |
 | 2026-08-28 | PaperMono: e-ink 대시보드 계보의 개발자 단말 | [/2026/papermono-eink-dashboard/](https://til.kil9.dev/2026/papermono-eink-dashboard/) |
 | 2026-08-26 | Codex를 더 많이 쓴 일주일: 도구보다 흐름이 갈랐다 | [/2026/week-with-codex/](https://til.kil9.dev/2026/week-with-codex/) |
 | 2026-08-25 | 같은 로컬 모델, 엔진이 바뀌면 어디서 갈리나 | [/2026/local-llm-engine-divergence/](https://til.kil9.dev/2026/local-llm-engine-divergence/) |
