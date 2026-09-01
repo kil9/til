@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-09-02 | Claude Fable 5.1, 무엇이 깨지고 무엇이 얹혔나 | [/2026/claude-fable-5-1-overview/](https://til.kil9.dev/2026/claude-fable-5-1-overview/) |
 | 2026-09-01 | 다익스트라의 정렬 장벽을 깨는 법 | [/2026/breaking-dijkstra-sorting-barrier/](https://til.kil9.dev/2026/breaking-dijkstra-sorting-barrier/) |
 | 2026-08-31 | 도구를 고르면 조직도 따라온다 | [/2026/tools-are-organizational-decisions/](https://til.kil9.dev/2026/tools-are-organizational-decisions/) |
 | 2026-08-28 | PaperMono: e-ink 대시보드 계보의 개발자 단말 | [/2026/papermono-eink-dashboard/](https://til.kil9.dev/2026/papermono-eink-dashboard/) |
