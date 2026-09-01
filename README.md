@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-09-02 | NAT 원죄론, 지금 데이터로도 맞나 | [/2026/nat-original-sin-revisited/](https://til.kil9.dev/2026/nat-original-sin-revisited/) |
 | 2026-09-02 | 드워프 포트리스의 절차적 마법, 주문 하나가 만들어지는 축 | [/2026/dwarf-fortress-procedural-magic-design/](https://til.kil9.dev/2026/dwarf-fortress-procedural-magic-design/) |
 | 2026-09-02 | Claude Fable 5.1, 무엇이 깨지고 무엇이 얹혔나 | [/2026/claude-fable-5-1-overview/](https://til.kil9.dev/2026/claude-fable-5-1-overview/) |
 | 2026-09-01 | 다익스트라의 정렬 장벽을 깨는 법 | [/2026/breaking-dijkstra-sorting-barrier/](https://til.kil9.dev/2026/breaking-dijkstra-sorting-barrier/) |
