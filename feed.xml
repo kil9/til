@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-09-02T05:55:00+09:00</updated>
+  <updated>2026-09-02T06:10:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>드워프 포트리스의 절차적 마법, 주문 하나가 만들어지는 축</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/dwarf-fortress-procedural-magic-design/"/>
+    <id>https://til.kil9.dev/2026/dwarf-fortress-procedural-magic-design/</id>
+    <published>2026-09-02T06:10:00+09:00</published>
+    <updated>2026-09-02T06:10:00+09:00</updated>
+    <category term="reading"/>
+    <summary type="text">Myth and Magic 업데이트의 주문 생성을 창조 신화·신격과 영향권 그래프·재료와 작업장의 세 축으로 재구성했다. 130개 영향권의 양립 불가 그래프와 세계당 20-30개 효과가 무작위를 거르는 방식을 Caves of Qud·Magicka·Noita 와 대조했다.</summary>
+  </entry>
   <entry>
     <title>Claude Fable 5.1, 무엇이 깨지고 무엇이 얹혔나</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/claude-fable-5-1-overview/"/>
