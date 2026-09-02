@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-09-02 | 쿼터 페이스로 Claude 프로필 고르기 | [/2026/claude-auto-profile-pick/](https://til.kil9.dev/2026/claude-auto-profile-pick/) |
 | 2026-09-02 | Fable 5.1 프롬프팅 가이드, 열여섯 증상과 처방 | [/2026/prompting-claude-fable-5-1/](https://til.kil9.dev/2026/prompting-claude-fable-5-1/) |
 | 2026-09-02 | NAT 원죄론, 지금 데이터로도 맞나 | [/2026/nat-original-sin-revisited/](https://til.kil9.dev/2026/nat-original-sin-revisited/) |
 | 2026-09-02 | 드워프 포트리스의 절차적 마법, 주문 하나가 만들어지는 축 | [/2026/dwarf-fortress-procedural-magic-design/](https://til.kil9.dev/2026/dwarf-fortress-procedural-magic-design/) |
