@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-09-04T08:05:00+09:00</updated>
+  <updated>2026-09-05T16:36:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>AGENTS와 스킬 감사, 36개 파일을 어떻게 바꿨나</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/agents-skills-audit/"/>
+    <id>https://til.kil9.dev/2026/agents-skills-audit/</id>
+    <published>2026-09-05T16:36:00+09:00</published>
+    <updated>2026-09-05T16:36:00+09:00</updated>
+    <category term="workflow"/>
+    <summary type="text">설치된 사용자 스킬 100개 파일과 에이전트 지침을 훑고 저장소 넷의 36개 파일을 고쳤다. 이미 복원한 stash 를 또 꺼내던 지침, worktree 에서 파일인 .git 을 디렉터리로 쓰던 경로, 포커스된 pane 을 자기 pane 으로 착각하던 가정. 문구로 못 덮는 문제 하나는 별도 태스크로 남겼다.</summary>
+  </entry>
   <entry>
     <title>GPT-6 Astra, 어디가 뛰었고 무엇이 잠겼나</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/gpt-6-astra/"/>

@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-09-05 | AGENTS와 스킬 감사, 36개 파일을 어떻게 바꿨나 | [/2026/agents-skills-audit/](https://til.kil9.dev/2026/agents-skills-audit/) |
 | 2026-09-04 | GPT-6 Astra, 어디가 뛰었고 무엇이 잠겼나 | [/2026/gpt-6-astra/](https://til.kil9.dev/2026/gpt-6-astra/) |
 | 2026-09-02 | 쿼터 페이스로 Claude 프로필 고르기 | [/2026/claude-auto-profile-pick/](https://til.kil9.dev/2026/claude-auto-profile-pick/) |
 | 2026-09-02 | Fable 5.1 프롬프팅 가이드, 열여섯 증상과 처방 | [/2026/prompting-claude-fable-5-1/](https://til.kil9.dev/2026/prompting-claude-fable-5-1/) |
