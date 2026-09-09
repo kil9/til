@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-09-05T16:36:00+09:00</updated>
+  <updated>2026-09-09T14:58:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>이 TIL은 어떻게 읽고, 어떻게 만들어지나</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/inside-this-til/"/>
+    <id>https://til.kil9.dev/2026/inside-this-til/</id>
+    <published>2026-09-09T14:58:00+09:00</published>
+    <updated>2026-09-09T14:58:00+09:00</updated>
+    <category term="site"/>
+    <summary type="text">AI가 조사하고 리브가 정리하는 개인 지식 아카이브. 글을 찾는 방법부터 화자의 역할, 단일 HTML과 자동 발행 구조까지 이 블로그의 안팎을 설명한다.</summary>
+  </entry>
   <entry>
     <title>AGENTS와 스킬 감사, 36개 파일을 어떻게 바꿨나</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/agents-skills-audit/"/>
