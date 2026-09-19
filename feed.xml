@@ -5,8 +5,18 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-09-19T09:06:00+09:00</updated>
+  <updated>2026-09-19T19:30:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>자동적 주체</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/automatic-subject/"/>
+    <id>https://til.kil9.dev/2026/automatic-subject/</id>
+    <published>2026-09-19T19:30:00+09:00</published>
+    <updated>2026-09-19T19:30:00+09:00</updated>
+    <category term="economy"/>
+    <author><name>kil9</name></author>
+    <summary type="text">AI 속도를 늦추자던 회사들이 같은 달에 가속한다. 위선이라기보다 자본이라는 자동적 주체의 운동이고, AI 도 그 운동이 얻는 지능일 뿐이라는 생각.</summary>
+  </entry>
   <entry>
     <title>글을 안 쓰는 모델 Jev: System One 이 빠른 이유와 &quot;환각 0%&quot; 의 실제 의미</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/system-one-models-jev/"/>
