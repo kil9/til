@@ -52,6 +52,7 @@ def atom(cards):
             f"    <published>{c.rfc3339}</published>",
             f"    <updated>{c.rfc3339}</updated>",
             f'    <category term="{xml_escape(c.topic)}"/>',
+        ] + ([f"    <author><name>{xml_escape(c.author)}</name></author>"] if c.author else []) + [
             f'    <summary type="text">{xml_escape(c.summary)}</summary>',
             "  </entry>",
         ]

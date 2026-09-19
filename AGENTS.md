@@ -206,6 +206,7 @@ til/
   - 카드 `<a class="card">` 의 `href` 는 새 경로(`./<YYYY>/<slug>/` 또는 `./p/<slug>/`)로 넣는다.
   - 사이드바 월별 목차와 `/p/archive/`(전체 목록 페이지)는 루트 카드를 진실원본 삼아 JS 로 자동 생성된다(전자는 인라인 스크립트, 후자는 루트 index.html 을 fetch). 카드 추가·카운트 증가 외에 따로 갱신할 것이 없다. 격자 커버는 실제 썸네일이 기본이다: `python3 backlog/assets/archive-thumbs.py` 가 각 페이지의 임베드 삽화(최대 이미지)를 대표 이미지로 뽑아 `p/archive/thumbs/<slug>.webp`(480x172, 격자 커버)와 `og/<slug>.jpg`(1200x630, 공유 미리보기)를 함께 굽고 페이지의 THUMBS 매니페스트를 갱신한다. 썸네일 없는 글은 주제 타일(색조+아이콘, 새 주제는 해시 색·기본 아이콘) 폴백이고 OG 는 사이트 공통 `og/default.jpg` 를 공유한다. 카드 `data-thumb`(data URI) 훅은 격자 커버에 한해 최우선이고, 대표 이미지 자체를 갈아끼우려면 `backlog/assets/page-image-override/<slug>.<확장자>`(썸네일·OG 공통 훅, 그 디렉터리의 README 참조)에 파일을 둔다. **TASK-100 이후로 이 스크립트 실행은 선택이 아니다** — 안 돌리면 새 글의 공유 미리보기가 공통 폴백 이미지로 나간다. `thumbs/`·`og/` 사이드카는 단일 파일 원칙(§2-1)의 의도적 예외다 — 30장+를 인라인하면 페이지가 수백 KB 로 불어나고, `og:image` 는 애초에 `data:` URI 를 못 쓴다.
   - 카드 `<a class="card">` 에 `data-date="YYYY-MM-DDTHH:MM"`(정렬·아카이브용, 퍼블리시 시각까지 넣는다 — `.date` 표시는 JS 가 이 값에서 렌더링하므로 `span.date` 텍스트는 무엇을 넣어도 덮어써진다)와 `data-topic="<주제키>"`(필터 칩용, 영문 kebab-case)를 반드시 넣는다. 기존 키는 `index.html` 을 grep 해 확인하고, 새 주제면 새 키를 만든다.
+  - **사용자 본인이 쓴 글이면 `data-topic` 뒤에 `data-author="kil9"` 를 붙인다**(TASK-128). 속성이 없으면 저자는 리브다. 이 속성 하나로 갤러리·`/p/archive/` 의 태그 줄 앞에 kil9 도트 아바타가 붙고(JS 가 사이드바 `.human img` 를 복제한다) `feed.xml` 의 해당 entry author 가 kil9 로 나간다. 속성 순서는 `href`·`data-date`·`data-topic`·`data-author` 를 지킨다.
   - `.tag` 는 `<칩 라벨> · <세부 주제>` 형식이고 **한국어로 쓴다**. 제품명·고유명사·정착된 약어(`Claude Code`, `SRE` 등)만 원형을 유지한다.
   - **칩 라벨은 한 단어여야 한다.** 칩은 `.tag` 를 `"·"` 로 split 한 첫 세그먼트에서 자동 생성되므로(`index.html` 의 `topics[key] = ...split("·")[0].trim()`), 칩 이름 자체에 `·` 를 넣으면 앞부분만 잘려 칩이 된다.
 - `README.md`: "퍼블리시된 페이지" 표 **맨 위**에 행을 추가한다. 표는 갤러리와 같은 **최신이 위** 정렬이다(갤러리는 JS 가 `data-date` 로 런타임 정렬하지만 README 는 정적이라 손으로 순서를 지켜야 한다 — 과거에 오래된 것이 위인 채로 어긋나 있었다). 표에는 주제 열이 없으므로 재분류는 README 를 건드리지 않는다.
@@ -272,6 +273,7 @@ drafts/<slug>.md   대화 로그 + 작성 중인 초안.
 ### 화자: 본인 목소리 vs 리브
 
 - 글쓰기 워크플로에서 나온 글의 **본문 화자는 사용자 본인**이다. 리브(§2-2)는 이 사이트의 큐레이터 자아이지 사용자의 대역이 아니므로, 개인 에세이 본문을 리브 문체로 쓰지 않는다.
+- **본인 글의 표시(TASK-128)**: 바이라인은 `<p class="byline"><img class="byline-avatar" src="(루트 index.html 의 .human img 데이터 URI)" alt="" width="16" height="16">YYYY-MM-DD · kil9</p>` 이고 CSS 는 `.byline-avatar { width: 16px; height: 16px; margin-right: 6px; vertical-align: -3px; border-radius: 50%; background: #FFFFFF; image-rendering: pixelated; }` 다. 갤러리 카드에는 `data-author="kil9"` 를 붙인다(§4). 정본은 `DESIGN.md` 의 "저자 표시".
 - 리브 코멘트(`.liv`)·삽화·스티커를 얹을지는 글마다 재량이다. 본인 목소리가 전면에 선 글에는 **얹지 않는 것이 기본**이고, 얹더라도 곁다리 코멘트 한둘까지다. 반대로 기존처럼 정보 전달이 주인 보고서형 TIL 페이지는 종전대로 리브가 화자다.
 - 본인 문체의 진실원본은 이 저장소에 두지 않는다. **`~/work/kil9log/archived/` 의 로컬 파일을 참조**한다(개인 글 인용이 public repo 로 새지 않게 하기 위함 — 아래 경로의 내용을 til 에 복사·인용하지 않는다).
   - 공통 목소리 규칙: `~/work/kil9log/archived/STYLE_GUIDE.md` (모든 글에 적용, 하우스 톤보다 우선)

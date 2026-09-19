@@ -35,15 +35,16 @@ REQUIRED_ATTRS = ("href", "data-date", "data-topic")
 
 
 class Card:
-    __slots__ = ("href", "date", "topic", "title", "summary", "tag")
+    __slots__ = ("href", "date", "topic", "title", "summary", "tag", "author")
 
-    def __init__(self, href, date, topic, title, summary, tag):
+    def __init__(self, href, date, topic, title, summary, tag, author=None):
         self.href = href          # "./2026/<slug>/"
         self.date = date          # "YYYY-MM-DDTHH:MM"
         self.topic = topic        # "ai"
         self.title = title
         self.summary = summary
         self.tag = tag            # "AI · Human-in-the-Loop"
+        self.author = author      # data-author. 없으면 None = 리브(TASK-128)
 
     @property
     def path(self):
@@ -89,7 +90,7 @@ def gallery_cards(index_html=None):
         summary = _text(body, r"<p>(.*?)</p>")
         tag = _text(body, r'<span class="tag">(.*?)</span>')
         cards.append(Card(attrs["href"], attrs["data-date"], attrs["data-topic"],
-                          title, summary, tag))
+                          title, summary, tag, attrs.get("data-author")))
     # 여는 태그 수와 대조해 조용한 누락을 잡는다. 여기서 죽는 편이 생성물에서
     # 글 하나가 아무 말 없이 빠지는 것보다 낫다.
     seen = len(CARD_TAG_RE.findall(text))

@@ -299,6 +299,15 @@ Two-Mode Parity 의 적용 대상이 아니다 — 로고의 색은 이 사이�
 - **검색 스니펫:** 3행에 `0.8125rem`/`text-faint` 로 붙고, 매치 어절은 `mark` 로 감싸되 배경을 없애고
   액센트 + `600` 으로만 표시한다(형광펜을 쓰지 않는다).
 
+### 저자 표시 (본인 글, TASK-128)
+
+- **성격:** 기본 저자는 리브이고 표시가 없다. 사용자 본인(kil9)이 쓴 글에만 붙는 작은 표식이다.
+- **갤러리·아카이브:** 카드 `data-author="kil9"` → 태그 줄 앞에 kil9 도트 아바타. `14px` 원형,
+  `background: #FFFFFF`, `image-rendering: pixelated`, `margin-right: 5px`, `vertical-align: -2px`.
+  이미지는 사이드바 `.human img` 를 JS 가 복제한다(카드마다 data URI 를 되풀이 임베드하지 않는다).
+- **페이지 바이라인:** `.byline` 첫머리에 같은 아바타를 `16px` 로 넣고 `YYYY-MM-DD · kil9` 로 쓴다.
+- **금지:** 색·배지·테두리로 강조하지 않는다. 아바타 하나가 전부다.
+
 ### Chips (주제 필터)
 
 - **Style:** `<button>` 이지만 버튼처럼 보이지 않는다. 배경·테두리·반경 없음, `padding: 2px 0`,

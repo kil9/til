@@ -102,6 +102,11 @@
   }
   .cell-title { margin: 0; font-size: 0.9375rem; font-weight: 600; line-height: 1.45; flex: 1; }
   .cell-tag { font-size: 0.75rem; color: var(--text-faint); }
+  /* 본인(kil9) 글 표시 (TASK-128). 루트 사이드바 .human 아바타를 복제해 .cell-tag 앞에 넣는다. */
+  .cell-author {
+    width: 14px; height: 14px; margin-right: 5px; vertical-align: -2px;
+    border-radius: 50%; background: #FFFFFF; image-rendering: pixelated;
+  }
 
   .status { margin: 40px 0; color: var(--text-muted); font-size: 0.9375rem; }
 
@@ -264,6 +269,15 @@
               var tag = document.createElement("span");
               tag.className = "cell-tag";
               tag.textContent = t.textContent;
+              var humanImg = doc.querySelector(".human img");
+              if (card.dataset.author === "kil9" && humanImg) {
+                var av = document.createElement("img");
+                av.className = "cell-author";
+                av.src = humanImg.getAttribute("src");
+                av.alt = "kil9 작성";
+                av.width = 14; av.height = 14;
+                tag.insertBefore(av, tag.firstChild);
+              }
               body.appendChild(tag);
             }
             cell.appendChild(body);

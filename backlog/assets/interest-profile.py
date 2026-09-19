@@ -35,7 +35,7 @@ KST = timezone(timedelta(hours=9))
 
 CARD_RE = re.compile(
     r'<a class="card"\s+href="(?P<href>[^"]+)"\s+data-date="(?P<date>[^"]+)"'
-    r'\s+data-topic="(?P<topic>[^"]+)">(?P<body>.*?)</a>',
+    r'\s+data-topic="(?P<topic>[^"]+)"[^>]*>(?P<body>.*?)</a>',
     re.S,
 )
 TAG_RE = re.compile(r'<span class="tag">(.*?)</span>', re.S)

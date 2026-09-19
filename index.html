@@ -213,6 +213,11 @@
     margin: 2px 0 0; color: var(--text-muted); font-size: 0.9375rem;
   }
   .card .path { display: none; }
+  /* 본인(kil9) 글 표시 (TASK-128). 사이드바 .human 아바타를 JS 가 복제해 .tag 앞에 넣는다. */
+  .card .author {
+    width: 14px; height: 14px; margin-right: 5px; vertical-align: -2px;
+    border-radius: 50%; background: #FFFFFF; image-rendering: pixelated;
+  }
 
   /* 본문 검색 스니펫(TASK-107). 카드 텍스트가 아니라 본문에서 걸린 경우에만 붙는다. */
   .card .snippet {
@@ -1294,6 +1299,20 @@
     cards.forEach(function (card) {
       var el = card.querySelector(".date");
       if (el) el.textContent = card.dataset.date.replace("T", " ");
+    });
+
+    // 본인(kil9) 글 표시 (TASK-128). data-author="kil9" 카드의 .tag 앞에 사이드바 .human
+    // 아바타를 복제해 넣는다 — data URI 를 카드마다 되풀이 임베드하지 않기 위함이다.
+    var humanImg = document.querySelector(".human img");
+    cards.forEach(function (card) {
+      var tag = card.querySelector(".tag");
+      if (card.dataset.author !== "kil9" || !humanImg || !tag) return;
+      var img = document.createElement("img");
+      img.className = "author";
+      img.src = humanImg.src;
+      img.alt = "kil9 작성";
+      img.width = 14; img.height = 14;
+      tag.insertBefore(img, tag.firstChild);
     });
 
     // 최신 피드 + 사이드바 월별 목차 (2026-07-21, 구 T-11 월 아카이브 대체).
