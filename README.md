@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-09-19 | 글을 안 쓰는 모델 Jev: System One 이 빠른 이유와 "환각 0%" 의 실제 의미 | [/2026/system-one-models-jev/](https://til.kil9.dev/2026/system-one-models-jev/) |
 | 2026-09-16 | Blender MCP 보다 Computer use 가 낫다? 차이는 모델이 아니라 관측이다 | [/2026/blender-mcp-vs-computer-use/](https://til.kil9.dev/2026/blender-mcp-vs-computer-use/) |
 | 2026-09-09 | 이 TIL은 어떻게 읽고, 어떻게 만들어지나 | [/2026/inside-this-til/](https://til.kil9.dev/2026/inside-this-til/) |
 | 2026-09-05 | AGENTS와 스킬 감사, 36개 파일을 어떻게 바꿨나 | [/2026/agents-skills-audit/](https://til.kil9.dev/2026/agents-skills-audit/) |
