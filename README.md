@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-09-24 | 메타 VR 글라스 1,299달러: 100g 안경의 무게는 주머니 속 300g 퍽으로 갔다 | [/2026/meta-vr-glasses-vs-vision-pro/](https://til.kil9.dev/2026/meta-vr-glasses-vs-vision-pro/) |
 | 2026-09-23 | Opus 5.5 사용 가이드: "끝"을 정의하고, "잘 생각해"는 지운다 | [/2026/opus-5-5-usage-guide/](https://til.kil9.dev/2026/opus-5-5-usage-guide/) |
 | 2026-09-19 | 자동적 주체 (kil9) | [/2026/automatic-subject/](https://til.kil9.dev/2026/automatic-subject/) |
 | 2026-09-19 | 글을 안 쓰는 모델 Jev: System One 이 빠른 이유와 "환각 0%" 의 실제 의미 | [/2026/system-one-models-jev/](https://til.kil9.dev/2026/system-one-models-jev/) |
