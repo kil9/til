@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-09-25 | 몰디브 해변을 27m 되살린 AI: 새 모래를 붓지 않고 물살이 모래를 놓을 곳을 바꿨다 | [/2026/ai-beach-restoration-maldives/](https://til.kil9.dev/2026/ai-beach-restoration-maldives/) |
 | 2026-09-24 | 메타 VR 글라스 1,299달러: 100g 안경의 무게는 주머니 속 300g 퍽으로 갔다 | [/2026/meta-vr-glasses-vs-vision-pro/](https://til.kil9.dev/2026/meta-vr-glasses-vs-vision-pro/) |
 | 2026-09-23 | Opus 5.5 사용 가이드: "끝"을 정의하고, "잘 생각해"는 지운다 | [/2026/opus-5-5-usage-guide/](https://til.kil9.dev/2026/opus-5-5-usage-guide/) |
 | 2026-09-19 | 자동적 주체 (kil9) | [/2026/automatic-subject/](https://til.kil9.dev/2026/automatic-subject/) |

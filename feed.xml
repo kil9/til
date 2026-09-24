@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-09-24T16:44:00+09:00</updated>
+  <updated>2026-09-25T00:56:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>몰디브 해변을 27m 되살린 AI: 새 모래를 붓지 않고 물살이 모래를 놓을 곳을 바꿨다</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/ai-beach-restoration-maldives/"/>
+    <id>https://til.kil9.dev/2026/ai-beach-restoration-maldives/</id>
+    <published>2026-09-25T00:56:00+09:00</published>
+    <updated>2026-09-25T00:56:00+09:00</updated>
+    <category term="reading"/>
+    <summary type="text">NYT 가 보도한 MIT 스핀오프 Coastal Assembly 의 몰디브 해변 복원을 정리했다. 물속 육각 콘크리트 구조물 54개로 반년 만에 리조트 해변이 27m 늘었고 새 모래는 붓지 않았다. AI 가 한 일은 모래를 만드는 것이 아니라 위성 10년치와 해류 자료로 어디에 무엇을 놓을지 정하는 분석을 몇 달에서 하루로 줄인 것이다. 한 곳·반년의 결과이고 쌓인 모래의 출처가 빠져 있어, 양빈·호안과 나란히 놓고 걸러 읽을 부분을 적었다.</summary>
+  </entry>
   <entry>
     <title>메타 VR 글라스 1,299달러: 100g 안경의 무게는 주머니 속 300g 퍽으로 갔다</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/meta-vr-glasses-vs-vision-pro/"/>
