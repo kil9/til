@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-09-25T00:56:00+09:00</updated>
+  <updated>2026-09-30T17:20:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>통신사를 옮기기 전에 요금제부터 다시 고르기</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/telecom-plan-review/"/>
+    <id>https://til.kil9.dev/2026/telecom-plan-review/</id>
+    <published>2026-09-30T17:20:00+09:00</published>
+    <updated>2026-09-30T17:20:00+09:00</updated>
+    <category term="economy"/>
+    <summary type="text">석 달 치 실측 사용량으로 알뜰폰 세 망과 통신 3사 요금제 21개를 비교했다. 기존 가입자도 받는 프로모션가, 7개월 뒤 3배가 되는 요금, 소진 후 속도 400Kbps 와 1Mbps 의 차이, 주3일 출근 뒤 필요량까지 차트로 정리.</summary>
+  </entry>
   <entry>
     <title>몰디브 해변을 27m 되살린 AI: 새 모래를 붓지 않고 물살이 모래를 놓을 곳을 바꿨다</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/ai-beach-restoration-maldives/"/>
