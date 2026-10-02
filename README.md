@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-10-03 | 바이브 코딩한 사이트가 디자이너 작품처럼 보인 이유는 버린 시안의 양이었다 | [/2026/vibe-coded-site-design-process/](https://til.kil9.dev/2026/vibe-coded-site-design-process/) |
 | 2026-10-01 | Opus 4.5 가 쓸 만하다고 느낀 1월, 그 앞뒤로 프론티어 모델은 얼마나 달라졌나 | [/2026/frontier-benchmarks-since-opus-45/](https://til.kil9.dev/2026/frontier-benchmarks-since-opus-45/) |
 | 2026-09-30 | 여섯 달마다 통신사를 옮기면 통신비가 얼마나 줄어드나 | [/2026/telecom-plan-review/](https://til.kil9.dev/2026/telecom-plan-review/) |
 | 2026-09-25 | 몰디브 해변을 27m 되살린 AI: 새 모래를 붓지 않고 물살이 모래를 놓을 곳을 바꿨다 | [/2026/ai-beach-restoration-maldives/](https://til.kil9.dev/2026/ai-beach-restoration-maldives/) |
