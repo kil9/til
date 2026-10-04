@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-10-04 | AI 가 인류를 지배하려면 필요한 것 | [/2026/ai-takeover-checklist/](https://til.kil9.dev/2026/ai-takeover-checklist/) |
 | 2026-10-04 | 뿌요뿌요의 재촉은 이기려고 쏘는 연쇄가 아니라 상대를 먼저 쏘게 만드는 연쇄다 | [/2026/puyo-saisoku/](https://til.kil9.dev/2026/puyo-saisoku/) |
 | 2026-10-03 | 모던 워페어 4 의 Server Culling 은 월핵을 잡지 않고 월핵이 읽을 정보를 안 보낸다 | [/2026/mw4-server-culling/](https://til.kil9.dev/2026/mw4-server-culling/) |
 | 2026-10-03 | 바이브 코딩한 사이트가 디자이너 작품처럼 보인 이유는 버린 시안의 양이었다 | [/2026/vibe-coded-site-design-process/](https://til.kil9.dev/2026/vibe-coded-site-design-process/) |

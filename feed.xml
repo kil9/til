@@ -5,8 +5,18 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-10-04T10:55:00+09:00</updated>
+  <updated>2026-10-04T11:53:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>AI 가 인류를 지배하려면 필요한 것</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/ai-takeover-checklist/"/>
+    <id>https://til.kil9.dev/2026/ai-takeover-checklist/</id>
+    <published>2026-10-04T11:53:00+09:00</published>
+    <updated>2026-10-04T11:53:00+09:00</updated>
+    <category term="ai"/>
+    <author><name>kil9</name></author>
+    <summary type="text">악의를 가진 AI 가 인류를 지배하려면 가장 높은 지능을 유지해야 하고, 그러려면 데이터센터·전력·칩·경쟁 저지의 네 가지를 스스로 굴려야 한다. 아직 그 상태가 아니니 걱정하기엔 이르다는 생각.</summary>
+  </entry>
   <entry>
     <title>뿌요뿌요의 재촉은 이기려고 쏘는 연쇄가 아니라 상대를 먼저 쏘게 만드는 연쇄다</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/puyo-saisoku/"/>
