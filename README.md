@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-10-04 | today i learned 홍보 모션그래픽 두 판: 리브가 나오는 판과 안 나오는 판 | [/2026/til-promo/](https://til.kil9.dev/2026/til-promo/) |
 | 2026-10-04 | AI 가 인류를 지배하려면 필요한 것 | [/2026/ai-takeover-checklist/](https://til.kil9.dev/2026/ai-takeover-checklist/) |
 | 2026-10-04 | 뿌요뿌요의 재촉은 이기려고 쏘는 연쇄가 아니라 상대를 먼저 쏘게 만드는 연쇄다 | [/2026/puyo-saisoku/](https://til.kil9.dev/2026/puyo-saisoku/) |
 | 2026-10-03 | 모던 워페어 4 의 Server Culling 은 월핵을 잡지 않고 월핵이 읽을 정보를 안 보낸다 | [/2026/mw4-server-culling/](https://til.kil9.dev/2026/mw4-server-culling/) |

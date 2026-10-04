@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-10-04T11:53:00+09:00</updated>
+  <updated>2026-10-04T21:12:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>today i learned 홍보 모션그래픽 두 판: 리브가 나오는 판과 안 나오는 판</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/til-promo/"/>
+    <id>https://til.kil9.dev/2026/til-promo/</id>
+    <published>2026-10-04T21:12:00+09:00</published>
+    <updated>2026-10-04T21:12:00+09:00</updated>
+    <category term="site"/>
+    <summary type="text">이 아카이브를 15초로 소개하는 16:9 모션그래픽을 두 판으로 만들었다. 사이트만 보여 주는 판과 리브가 머그잔·돋보기·도장을 들고 조사부터 발행까지 맡는 판. 영상 파일이 아니라 페이지 안의 HTML 애니메이션이라 바로 재생된다.</summary>
+  </entry>
   <entry>
     <title>AI 가 인류를 지배하려면 필요한 것</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/ai-takeover-checklist/"/>
