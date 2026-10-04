@@ -1,9 +1,10 @@
 ---
 id: TASK-131
 title: 리브의 취향·생각 노트 — 축적 저장소 설계와 시드
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-10-04 03:00'
+updated_date: '2026-10-04 03:19'
 labels: []
 milestone: m-15
 dependencies: []
@@ -20,7 +21,16 @@ priority: high
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 노트의 스키마(항목 종류·필드)·위치·공개 여부·크기 관리 방식이 문서로 확정된다
-- [ ] #2 기존 아카이브 115건과 브리핑에서 리브가 보인 반응을 근거로 초기 취향 시드 항목이 채워진다
-- [ ] #3 글쓰기 경로가 노트를 읽을 때 쓰는 발췌 방식(최근분·관련분만)이 정의된다
+- [x] #1 노트의 스키마(항목 종류·필드)·위치·공개 여부·크기 관리 방식이 문서로 확정된다
+- [x] #2 기존 아카이브 115건과 브리핑에서 리브가 보인 반응을 근거로 초기 취향 시드 항목이 채워진다
+- [x] #3 글쓰기 경로가 노트를 읽을 때 쓰는 발췌 방식(최근분·관련분만)이 정의된다
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+설계 doc-5(스키마 6종 kind·필드, 위치, 공개, 발췌), 결정 decision-10(관리자 결정: 반 숨김 공개·repo 커밋·산책은 구독 쿼터 새벽 Opus $3/30분·말 걸기 Slack DM 하루 1번·미답 2건 쉼).
+도구 backlog/assets/liv-notes.py(add·excerpt --for write|walk·render·check). 발췌는 덮인 항목 제외, 2400자 상한(취향 8건은 유지), walk 모드는 최근 14일 도메인·태그를 피할 목록으로 준다.
+시드 20건: 아카이브 코멘트(moshi·space-datacenter·backslash-won-sign·elevator 등)와 9-10월 브리핑 반응에서 like 8·dislike 4·into 3·saw 4, 그리고 '두 번 원칙'을 changed 로 덮어 task-130 집계를 노트에 남겼다.
+페이지 p/liv-walk/ 렌더, p/liv-today footer 에 흐린 링크. site-check 위반 없음, 1280/390 스크린샷 확인.
+<!-- SECTION:NOTES:END -->

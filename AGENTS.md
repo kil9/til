@@ -49,6 +49,7 @@ til/
 - 슬러그는 kebab-case. `<연도>/` 로 이미 시간 분리되므로 슬러그에 `2026-` 연도 접두사를 새로 붙일 필요는 없다(기존 `2026-07-plan-pipeline` 등은 그대로 둔다).
 - 새 글의 슬러그는 **에이전트가 콘텐츠를 보고 스스로 정하고 사용자에게 묻지 않는다**(2026-09-19 사용자 결정 — 중요도가 낮다). 충돌(이미 존재)일 때만 묻는다. 이미 공개된 슬러그를 바꾸는 것은 별개로, 링크가 깨지므로 여전히 사용자에게 넘긴다. 구 평면 URL(`/til/<slug>/`)은 `404.html` 리다이렉트 맵이 새 경로로 넘겨준다.
 - `p/briefing/` 은 손으로 만들지 않는다. nuc14 의 `~/jobs/liv-briefing/`(머신 로컬, 비버전) 잡이 08:40 에 재료를 만들고 09:00 에 템플릿(`backlog/assets/briefing/`)으로 렌더해 전용 클론에서 push 하며, 루트 갤러리·README 표·`p/archive/` 에는 노출하지 않고 `noindex, follow` 로 나간다. 경로·노출·보존 정책의 정본은 `backlog/assets/briefing/README.md` 다.
+- `p/liv-walk/`(리브의 산책 노트)도 손으로 만들지 않는다. 원본 `backlog/assets/liv-notes/notes.jsonl` 을 `backlog/assets/liv-notes.py render` 가 굽는다. 반 숨김 공개라 `noindex, follow` 이고 갤러리·README 표·`p/archive/`·feed·검색 색인에 넣지 않으며, 진입은 `p/liv-today/` footer 의 흐린 링크 하나뿐이다(decision-10). 스키마·발췌 방식은 doc-5.
 
 ## 퍼블리시 런북 (`/publish-pages`)
 
