@@ -137,6 +137,12 @@ def tokens(s):
     return {t.lower() for t in TOKEN_RE.findall(s or "")}
 
 
+def place(url):
+    """'이미 간 곳' 의 단위. 보통은 도메인이지만 위키백과는 문서마다 다른 곳이라 경로까지 본다."""
+    u = urlparse(url)
+    return u.netloc + u.path if u.netloc.endswith("wikipedia.org") else u.netloc
+
+
 def line(n):
     s = f"- ({n['date']}, {KINDS[n['kind']]}) {n['text']}"
     if n.get("source"):
@@ -179,11 +185,11 @@ def excerpt(notes, mode, topic="", ref=None, max_chars=MAX_CHARS):
             if xs:
                 parts.append(f"[{title}]\n" + "\n".join(line(n) for n in xs))
         if mode == "walk":
-            seen_domains = sorted({urlparse(n["source"]["url"]).netloc
-                                   for n in notes if n["kind"] == "saw" and within(n, 14, ref)
-                                   and n.get("source", {}).get("url")})
-            seen_tags = sorted({t for n in notes if n["kind"] == "saw" and within(n, 14, ref)
-                                for t in n["tags"]})
+            # 종류와 무관하게 최근 14일에 바깥 출처를 단 항목 전부. 사이트 내부 링크(시드)는 뺀다.
+            went = [n for n in notes if within(n, 14, ref)
+                    and urlparse((n.get("source") or {}).get("url") or "").netloc]
+            seen_domains = sorted({place(n["source"]["url"]) for n in went})
+            seen_tags = sorted({t for n in went for t in n["tags"]})
             if seen_domains or seen_tags:
                 parts.append("[최근 14일에 이미 간 곳 — 되도록 피한다]\n"
                              f"도메인: {', '.join(seen_domains) or '없음'}\n"
