@@ -88,7 +88,17 @@
     background: hsl(var(--h) 42% 95.5%); color: hsl(var(--h) 40% 46%);
   }
   .cover svg { width: 26px; height: 26px; }
-  .cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .cover img.thumb { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  /* 썸네일 없는 글은 카드 data-icon(TASK-135)을 원형 배지로 크게 얹는다(TASK-136).
+     로고에 검정이 많아 배지 바탕은 두 모드 모두 밝게 둔다 — 루트 목록 배지와 같은 결. */
+  .cover .ico {
+    width: 46px; height: 46px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: #FFFFFF; font-size: 24px; line-height: 1;
+  }
+  .cover .ico img { width: 26px; height: 26px; display: block; }
+  .cover .ico img.photo { width: 46px; height: 46px; border-radius: 50%; }
+  @media (prefers-color-scheme: dark) { .cover .ico { background: #D9DEE3; } }
   a.cell:hover .cover { background: hsl(var(--h) 45% 92.5%); }
   @media (prefers-color-scheme: dark) {
     .cover { background: hsl(var(--h) 22% 16.5%); color: hsl(var(--h) 42% 72%); }
@@ -141,6 +151,7 @@
 
     // 주제별 커버 색조(hue)·아이콘. 새 주제 키는 해시로 HUE_POOL 에서 색을 받고
     // 아이콘은 기본(문서)으로 폴백하므로, 주제가 늘어도 여기를 안 고쳐도 된다.
+    // 카드에 data-icon 이 있으면 주제 아이콘 대신 그 글의 아이콘을 쓴다(TASK-136).
     var HUES = { hardware: 215, ai: 252, workflow: 192, games: 262, system: 172, terminal: 205, economy: 232, site: 185 };
     var HUE_POOL = [215, 252, 192, 262, 172, 205, 232, 185];
     function hueFor(key) {
@@ -161,7 +172,7 @@
       site: '<path d="M7 4.5h10V20l-5-3.4L7 20V4.5z"/>'
     };
     // THUMBS:START
-    var THUMBS = {"2026-07-agent-workflow":1,"agent-device":1,"agent-first-docs":1,"agent-teams-in-process":1,"agents-a1-4b":1,"ai-beach-restoration-maldives":1,"ai-trading-backtest-vs-live":1,"anthropic-open-weights":1,"backlog-md-vs-plan-md":1,"blender-mcp-vs-computer-use":1,"citrini-2028-gic":1,"claude-fable-5-1-overview":1,"claude-system-prompt-5-diff":1,"claude5-context-engineering":1,"codex-code-mode-batching":1,"dwarf-fortress-procedural-magic-design":1,"e-ink-browser-ui":1,"elevator-algorithms":1,"flashable-little-computers":1,"frontier-benchmarks-since-opus-45":1,"gemini-3-6-flash":1,"go-1-27":1,"go-ai-assisted-engineering":1,"gpt-6-astra":1,"gpu-serving-primer":1,"graph-engineering":1,"harness-vs-autonomy":1,"herdr-0-8-0-release":1,"herdr-0-8-1":1,"herdr-pane-tradeoffs":1,"herdr-vs-orca":1,"inside-this-til":1,"jacobian-conjecture-counterexample":1,"karrot-lynx-beyond-webview":1,"kb16-bootloop-usb-power":1,"kb16-firmware-diy":1,"kb16-ghost-maple":1,"kb16-qmk-layer-stack":1,"key-repeat-case-closed":1,"key-repeat-explosion":1,"keyboard-fixed-mic-dead":1,"kil9conf-14-years":1,"kimi-k3":1,"langgraph-empty-shell":1,"light-society-billion-agents":1,"lingbot-map-local":1,"liv-today":1,"llm-distillation":1,"matt-pocock-skills":1,"meta-vr-glasses-vs-vision-pro":1,"moshi-voice-ai":1,"motif-3-benchmark-gap":1,"mw4-server-culling":1,"nat-original-sin-revisited":1,"netflix-llm-serving":1,"nintendo-actions-runner":1,"notosanskr-nfc-fixed":1,"openai-api-key-scale":1,"opus-5-5-usage-guide":1,"opus5-model-choice":1,"opus5-skill-rework":1,"pace-not-percent":1,"paperclip-maximizer":1,"post-labor-capitalism":1,"product-engineer-hiring-data":1,"prompting-claude-fable-5-1":1,"push-to-talk-edge-cases":1,"puyo-saisoku":1,"raon-speech-vs-whisper":1,"rift-vs-git-worktree":1,"sad-light-therapy":1,"space-datacenter-cooling":1,"system-one-models-jev":1,"telecom-plan-review":1,"trmnl-eink-dashboard":1,"upcoming-games-2026h2":1,"vibe-coded-site-design-process":1,"voice-prompting-cost":1,"web-share-target":1,"week-with-codex":1,"wsl2-localhost-death":1};
+    var THUMBS = {"2026-07-agent-workflow":1,"agent-teams-in-process":1,"ai-beach-restoration-maldives":1,"anthropic-open-weights":1,"backlog-md-vs-plan-md":1,"blender-mcp-vs-computer-use":1,"citrini-2028-gic":1,"claude-fable-5-1-overview":1,"claude5-context-engineering":1,"codex-code-mode-batching":1,"dwarf-fortress-procedural-magic-design":1,"flashable-little-computers":1,"gemini-3-6-flash":1,"gpt-6-astra":1,"gpu-serving-primer":1,"graph-engineering":1,"harness-vs-autonomy":1,"herdr-pane-tradeoffs":1,"herdr-vs-orca":1,"jacobian-conjecture-counterexample":1,"kb16-bootloop-usb-power":1,"kb16-firmware-diy":1,"kb16-ghost-maple":1,"kb16-qmk-layer-stack":1,"key-repeat-case-closed":1,"key-repeat-explosion":1,"keyboard-fixed-mic-dead":1,"kil9conf-14-years":1,"kimi-k3":1,"langgraph-empty-shell":1,"lingbot-map-local":1,"liv-today":1,"llm-distillation":1,"matt-pocock-skills":1,"meta-vr-glasses-vs-vision-pro":1,"moshi-voice-ai":1,"mw4-server-culling":1,"nat-original-sin-revisited":1,"netflix-llm-serving":1,"nintendo-actions-runner":1,"notosanskr-nfc-fixed":1,"opus-5-5-usage-guide":1,"opus5-model-choice":1,"opus5-skill-rework":1,"pace-not-percent":1,"paperclip-maximizer":1,"post-labor-capitalism":1,"prompting-claude-fable-5-1":1,"push-to-talk-edge-cases":1,"sad-light-therapy":1,"system-one-models-jev":1,"telecom-plan-review":1,"upcoming-games-2026h2":1,"voice-prompting-cost":1,"wsl2-localhost-death":1};
     // THUMBS:END
     // 실제 썸네일 매니페스트. backlog/assets/archive-thumbs.py 가 각 페이지의
     // 임베드 삽화를 추출해 thumbs/<slug>.webp 를 만들고 위 THUMBS 한 줄을
@@ -174,11 +185,31 @@
       // 바탕에는 항상 주제 타일을 깔고, 썸네일이 있으면 위에 덮는다(로딩 중·실패 시 타일 노출).
       var key = card.dataset.topic || "";
       cover.style.setProperty("--h", hueFor(key));
-      cover.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (ICONS[key] || ICON_DEFAULT) + "</svg>";
+      var icon = card.dataset.icon;
+      if (icon) {
+        // 글 아이콘(TASK-135·136): 이모지면 글자, "<이름>.svg|webp" 면 p/icons/ 의 그림.
+        var badge = document.createElement("span");
+        badge.className = "ico";
+        badge.setAttribute("aria-hidden", "true");
+        if (/^[a-z0-9-]+\.(svg|webp|png)$/.test(icon)) {
+          var pic = document.createElement("img");
+          pic.alt = "";
+          pic.loading = "lazy";
+          pic.src = "../icons/" + icon;
+          if (!/\.svg$/.test(icon)) pic.className = "photo";
+          badge.appendChild(pic);
+        } else {
+          badge.textContent = icon;
+        }
+        cover.appendChild(badge);
+      } else {
+        cover.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (ICONS[key] || ICON_DEFAULT) + "</svg>";
+      }
       var slug = href.replace(/\/+$/, "").split("/").pop();
       var src = card.dataset.thumb || (THUMBS[slug] ? "thumbs/" + slug + ".webp" : null);
       if (src) {
         var img = document.createElement("img");
+        img.className = "thumb";
         img.alt = "";
         img.loading = "lazy";
         img.decoding = "async";

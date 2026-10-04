@@ -11,6 +11,9 @@
 
 - 큰 이미지가 없는 페이지(파비콘뿐)는 건너뛴다 → 격자에서 주제 타일 폴백, OG 는
   사이트 공통 1장(og/default.jpg)을 공유한다. 글마다 만들지 않는다.
+- 격자 썸네일은 알파가 큰 이미지(리브 스티커류)를 후보에서 뺀다(TASK-136). 삽화 없는
+  글이 죄다 리브 스티커로 덮이던 것을 막기 위함이고, 그런 글은 격자에서 카드 data-icon
+  을 얹은 주제 타일로 대신한다. OG 는 공유 미리보기라 종전대로 스티커도 쓴다.
 - 대표 이미지가 부적절하면 backlog/assets/page-image-override/<slug>.<확장자> 로
   갈아끼운다(썸네일·OG 공통 훅).
 - 알파가 큰 이미지(스티커류)는 흰 배경에 contain, 그 외는 위쪽 바이어스 crop.
@@ -39,6 +42,7 @@ OG_W, OG_H = 1200, 630   # og:image 표준 비율(1.91:1)
 OG_QUALITY = 82          # OG 는 JPEG 다 — 아래 OG_EXT 주석 참조
 MIN_SRC_BYTES = 8_000    # 이보다 작으면 파비콘/아바타로 보고 썸네일 없음 처리
 QUALITY = 72
+STICKER_ALPHA = 0.15     # 투명 픽셀 비율이 이보다 크면 스티커류(리브 스티커·아바타)로 본다
 OG_FALLBACK = "default"  # 대표 이미지가 없는 글이 공유할 사이트 공통 1장
 # OG 이미지만 JPEG 로 굽는다. 사이트의 다른 이미지는 전부 WebP 지만, og:image 는
 # 우리가 아니라 남의 크롤러(카카오톡·X·Slack)가 읽는다. Slack·Facebook 은 WebP 를
@@ -67,13 +71,20 @@ def override_src(slug):
     return None
 
 
-def largest_image(page_html):
+def largest_image(page_html, allow_sticker=True):
     best = None
     for m in re.finditer(r"data:image/(?:webp|png|jpeg);base64,([A-Za-z0-9+/=]+)", page_html):
         raw = base64.b64decode(m.group(1))
-        if best is None or len(raw) > len(best):
-            best = raw
-    return best if best and len(best) >= MIN_SRC_BYTES else None
+        if len(raw) < MIN_SRC_BYTES or (best is not None and len(raw) <= len(best)):
+            continue
+        if not allow_sticker and is_sticker(raw):
+            continue
+        best = raw
+    return best
+
+
+def is_sticker(raw):
+    return alpha_ratio(Image.open(io.BytesIO(raw))) > STICKER_ALPHA
 
 
 def alpha_ratio(img):
@@ -88,7 +99,7 @@ def fit(raw, w, h, pad):
     """대표 이미지를 w x h 로 맞춘다. 알파가 큰 스티커류는 흰 배경에 contain,
     그 외 삽화류는 채워서 자르되 위쪽 바이어스(인물이 대개 상단 중앙에 있다)."""
     img = Image.open(io.BytesIO(raw))
-    if alpha_ratio(img) > 0.15:
+    if alpha_ratio(img) > STICKER_ALPHA:
         # 스티커류: crop 하면 머리/발이 잘린다
         canvas = Image.new("RGB", (w, h), "#FFFFFF")
         img = img.convert("RGBA")
@@ -150,30 +161,36 @@ def main():
     OG_DIR.mkdir(parents=True, exist_ok=True)
     done, skipped, og_done = [], [], []
     for slug, page in gallery_cards():
-        raw = override_src(slug) or largest_image(page.read_text(encoding="utf-8"))
-        if raw is None:
+        override = override_src(slug)
+        page_html = page.read_text(encoding="utf-8")
+        og_raw = override or largest_image(page_html)
+        thumb_raw = override or largest_image(page_html, allow_sticker=False)
+        note = []
+        if thumb_raw is not None:
+            thumb, mode = make_thumb(thumb_raw)
+            out = THUMB_DIR / f"{slug}.webp"
+            thumb.save(out, "WEBP", quality=QUALITY)
+            done.append(slug)
+            note.append(f"썸네일 {out.stat().st_size//1024:3d}KB ({mode})")
+        else:
             skipped.append(slug)
-            continue
-        thumb, mode = make_thumb(raw)
-        out = THUMB_DIR / f"{slug}.webp"
-        thumb.save(out, "WEBP", quality=QUALITY)
-        og_out = OG_DIR / f"{slug}.{OG_EXT}"
-        save_og(make_og(raw)[0], og_out)
-        done.append(slug)
-        og_done.append(slug)
-        print(f"  {slug:36s} {len(raw)//1024:4d}KB → 썸네일 {out.stat().st_size//1024:3d}KB"
-              f" · OG {og_out.stat().st_size//1024:3d}KB ({mode})")
+        if og_raw is not None:
+            og_out = OG_DIR / f"{slug}.{OG_EXT}"
+            save_og(make_og(og_raw)[0], og_out)
+            og_done.append(slug)
+            note.append(f"OG {og_out.stat().st_size//1024:3d}KB")
+        if note:
+            print(f"  {slug:36s} " + " · ".join(note))
 
     fallback = OG_DIR / f"{OG_FALLBACK}.{OG_EXT}"
     save_og(make_og_fallback(), fallback)
 
     # 대상에서 빠진 슬러그(카드가 사라졌거나 대표 이미지가 없어진 경우)의 생성물은
     # 남겨 두면 아무도 안 가리키는 유령 파일이 된다.
-    keep = set(done)
-    for stale in sorted(set(p.stem for p in OG_DIR.glob(f"*.{OG_EXT}")) - keep - {OG_FALLBACK}):
+    for stale in sorted(set(p.stem for p in OG_DIR.glob(f"*.{OG_EXT}")) - set(og_done) - {OG_FALLBACK}):
         (OG_DIR / f"{stale}.{OG_EXT}").unlink()
         print(f"  삭제(대상 아님) og/{stale}.{OG_EXT}")
-    for stale in sorted(set(p.stem for p in THUMB_DIR.glob("*.webp")) - keep):
+    for stale in sorted(set(p.stem for p in THUMB_DIR.glob("*.webp")) - set(done)):
         (THUMB_DIR / f"{stale}.webp").unlink()
         print(f"  삭제(대상 아님) thumbs/{stale}.webp")
 
