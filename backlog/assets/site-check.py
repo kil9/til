@@ -32,7 +32,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from sitelib import ROOT, SITE, gallery_cards  # noqa: E402
+from sitelib import ATTR_RE, CARD_OPEN_RE, ROOT, SITE, gallery_cards  # noqa: E402
 
 # relink-pages.py 의 SIZE_WARN_BYTES 와 같은 값(TASK-99). 그쪽은 발행 흐름에서 경고만
 # 하고, 여기서는 같은 임계를 위반으로 세어 무인 발행도 걸리게 한다.
@@ -139,6 +139,23 @@ def check_404_map(cards, problems):
             )
 
 
+ICON_FILE_RE = re.compile(r"^[a-z0-9-]+\.(svg|webp|png)$")
+
+
+def check_icons(problems):
+    """루트 카드마다 data-icon(이모지 또는 p/icons/<파일>)이 있어야 한다(TASK-135).
+    없으면 목록에서 그 글만 아이콘 칸이 비고, /p/archive/ 커버도 기본 타일로 떨어진다."""
+    text = (ROOT / "index.html").read_text(encoding="utf-8")
+    for attrs_src, _ in CARD_OPEN_RE.findall(text):
+        attrs = dict(ATTR_RE.findall(attrs_src))
+        icon = attrs.get("data-icon", "").strip()
+        href = attrs.get("href", "?")
+        if not icon:
+            problems.append(f"카드에 data-icon 없음: {href}")
+        elif ICON_FILE_RE.match(icon) and not (ROOT / "p" / "icons" / icon).is_file():
+            problems.append(f"data-icon 파일이 없다: p/icons/{icon} ({href})")
+
+
 def check_size(problems):
     biggest = (None, 0)
     for page in pages():
@@ -200,6 +217,7 @@ def main():
     check_canonical(cards, problems)
     links = check_links(problems)
     check_404_map(cards, problems)
+    check_icons(problems)
     biggest = check_size(problems)
 
     page_count = sum(1 for _ in pages())

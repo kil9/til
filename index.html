@@ -182,8 +182,9 @@
 
   a.card {
     display: grid;
-    grid-template-columns: 8.75rem 1fr;
-    column-gap: 20px;
+    /* 날짜·태그 | 글 아이콘(TASK-135) | 제목·요약. 아이콘과 제목 사이를 좁히려고 gap 대신
+       첫 칸 폭에 여백을 얹는다. */
+    grid-template-columns: calc(8.75rem + 20px) 38px 1fr;
     text-decoration: none;
     color: inherit;
   }
@@ -204,15 +205,29 @@
     font-size: 0.75rem; color: var(--text-faint); line-height: 1.9;
   }
   .card h2 {
-    grid-column: 2; grid-row: 1;
+    grid-column: 3; grid-row: 1;
     margin: 0; font-size: 1.0625rem; font-weight: 600;
     line-height: 1.5; letter-spacing: -0.005em; text-wrap: balance;
   }
   .card p {
-    grid-column: 2; grid-row: 2;
+    grid-column: 3; grid-row: 2;
     margin: 2px 0 0; color: var(--text-muted); font-size: 0.9375rem;
   }
   .card .path { display: none; }
+  /* 글 아이콘(TASK-135). 카드 data-icon 을 JS 가 원형 배지로 그린다 — 이모지면 글자,
+     "<이름>.svg|webp" 면 p/icons/ 의 그림. 로고에 검정이 많아 바탕은 두 모드 모두 밝게 둔다. */
+  .card .ico {
+    grid-column: 2; grid-row: 1;
+    width: 26px; height: 26px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: #EEF1F4; font-size: 15px; line-height: 1;
+    user-select: none;
+  }
+  .card .ico img { width: 17px; height: 17px; display: block; }
+  .card .ico img.photo { width: 26px; height: 26px; border-radius: 50%; }
+  @media (prefers-color-scheme: dark) {
+    .card .ico { background: #D9DEE3; }
+  }
   /* 본인(kil9) 글 표시 (TASK-128). 사이드바 .human 아바타를 JS 가 복제해 .tag 앞에 넣는다. */
   .card .author {
     width: 14px; height: 14px; margin-right: 5px; vertical-align: -2px;
@@ -221,7 +236,7 @@
 
   /* 본문 검색 스니펫(TASK-107). 카드 텍스트가 아니라 본문에서 걸린 경우에만 붙는다. */
   .card .snippet {
-    grid-column: 2; grid-row: 3;
+    grid-column: 3; grid-row: 3;
     margin: 6px 0 0; font-size: 0.8125rem; line-height: 1.6;
     color: var(--text-faint);
   }
@@ -282,6 +297,8 @@
 
   @media (max-width: 560px) {
     a.card { display: block; }
+    .card .ico { float: left; width: 24px; height: 24px; margin: 1px 10px 0 0; font-size: 13px; }
+    .card .ico img.photo { width: 24px; height: 24px; }
     .card .meta { display: flex; align-items: baseline; gap: 10px; }
     .card .date { line-height: 1.6; }
     .card .tag { line-height: 1.6; }
@@ -308,12 +325,12 @@
 
   <div class="grid">
 
-    <a class="card" href="./2026/ai-takeover-checklist/" data-date="2026-10-04T11:53" data-topic="ai" data-author="kil9">
+    <a class="card" href="./2026/ai-takeover-checklist/" data-date="2026-10-04T11:53" data-topic="ai" data-author="kil9" data-icon="🤖">
       <div class="meta"><span class="date">2026-10-04 11:53</span><span class="tag">AI · AI 위험</span></div>
       <h2>AI 가 인류를 지배하려면 필요한 것</h2>
       <p>악의를 가진 AI 가 인류를 지배하려면 가장 높은 지능을 유지해야 하고, 그러려면 데이터센터·전력·칩·경쟁 저지의 네 가지를 스스로 굴려야 한다. 아직 그 상태가 아니니 걱정하기엔 이르다는 생각.</p>
     </a>
-    <a class="card" href="./2026/puyo-saisoku/" data-date="2026-10-04T10:55" data-topic="reading">
+    <a class="card" href="./2026/puyo-saisoku/" data-date="2026-10-04T10:55" data-topic="reading" data-icon="puyo.svg">
       <div class="meta">
         <span class="date">2026-10-04 10:55</span>
         <span class="tag">읽을거리 · 뿌요뿌요 대전 이론</span>
@@ -321,7 +338,7 @@
       <h2>뿌요뿌요의 재촉은 이기려고 쏘는 연쇄가 아니라 상대를 먼저 쏘게 만드는 연쇄다</h2>
       <p>일본 뿌요뿌요 강좌의 대전 편 첫 글 "재촉(催促)"을 읽었다. 큰 연쇄는 나중에 쏘는 쪽이 유리하므로 작은 연쇄로 상대의 본선을 먼저 끌어낸다는 내용이고, 원문에 없는 수치는 같은 강좌의 득점 식으로 계산해 붙였다.</p>
     </a>
-    <a class="card" href="./2026/mw4-server-culling/" data-date="2026-10-03T21:20" data-topic="system">
+    <a class="card" href="./2026/mw4-server-culling/" data-date="2026-10-03T21:20" data-topic="system" data-icon="🎯">
       <div class="meta">
         <span class="date">2026-10-03 21:20</span>
         <span class="tag">시스템 · 서버 사이드 안티치트</span>
@@ -329,7 +346,7 @@
       <h2>모던 워페어 4 의 Server Culling 은 월핵을 잡지 않고 월핵이 읽을 정보를 안 보낸다</h2>
       <p>Call of Duty 가 발표한 Server Culling 을 조사했다. 보이지 않는 상대의 위치를 서버가 처음부터 보내지 않는 방식이고, VALORANT 가 2020년에, PUBG 가 2023년에 먼저 했다. 그쪽 기록으로 이 방식이 왜 어렵고 어디까지 막는지를 정리했다.</p>
     </a>
-    <a class="card" href="./2026/vibe-coded-site-design-process/" data-date="2026-10-03T00:50" data-topic="workflow">
+    <a class="card" href="./2026/vibe-coded-site-design-process/" data-date="2026-10-03T00:50" data-topic="workflow" data-icon="🎨">
       <div class="meta">
         <span class="date">2026-10-03 00:50</span>
         <span class="tag">워크플로 · 에이전트 디자인</span>
@@ -337,7 +354,7 @@
       <h2>바이브 코딩한 사이트가 디자이너 작품처럼 보인 이유는 버린 시안의 양이었다</h2>
       <p>Railcode 창업자가 코딩 에이전트만으로 만든 웹사이트의 제작 과정을 원문과 Hacker News 토론으로 확인했다. 요령은 프롬프트가 아니라 시안을 4-10개씩 뽑아 99% 를 버리고 나란히 놓고 고르는 절차였고, 그것은 디자인 학교에서 가르치는 과정과 같다.</p>
     </a>
-    <a class="card" href="./2026/frontier-benchmarks-since-opus-45/" data-date="2026-10-01T12:40" data-topic="ai">
+    <a class="card" href="./2026/frontier-benchmarks-since-opus-45/" data-date="2026-10-01T12:40" data-topic="ai" data-icon="claude.svg">
       <div class="meta">
         <span class="date">2026-10-01 12:40</span>
         <span class="tag">AI · 벤치마크 추이</span>
@@ -345,7 +362,7 @@
       <h2>Opus 4.5 가 쓸 만하다고 느낀 1월, 그 앞뒤로 프론티어 모델은 얼마나 달라졌나</h2>
       <p>2026년 1월 Opus 4.5 시점을 기준으로 그 이전 1년과 2026년 9월 말까지의 프론티어 모델 벤치마크를 비교했다. 1월의 시험 다섯 장 가운데 9월 신작이 점수를 낸 것은 둘뿐이고, 새 시험지의 점수는 같은 시험에서도 하니스에 따라 60%대와 99%로 갈린다.</p>
     </a>
-    <a class="card" href="./2026/telecom-plan-review/" data-date="2026-09-30T17:20" data-topic="economy">
+    <a class="card" href="./2026/telecom-plan-review/" data-date="2026-09-30T17:20" data-topic="economy" data-icon="📱">
       <div class="meta">
         <span class="date">2026-09-30 17:20</span>
         <span class="tag">경제 · 통신 요금제</span>
@@ -353,42 +370,42 @@
       <h2>여섯 달마다 통신사를 옮기면 통신비가 얼마나 줄어드나</h2>
       <p>전제 네 가지를 고쳐 통신 요금제를 다시 조사했다. 6개월 프로모션을 이어 타면 24개월 청구액이 2만원대, 평생 요금제는 14만원대, 지금 요금제는 47만원대다. 통근 40분이 더하는 데이터와 통신 3사 프로모션의 체감가까지 차트로 정리.</p>
     </a>
-    <a class="card" href="./2026/ai-beach-restoration-maldives/" data-date="2026-09-25T00:56" data-topic="reading">
+    <a class="card" href="./2026/ai-beach-restoration-maldives/" data-date="2026-09-25T00:56" data-topic="reading" data-icon="🏝️">
       <div class="meta"><span class="date">2026-09-25 00:56</span><span class="tag">읽을거리 · 기후 적응 기술 검증</span></div>
       <h2>몰디브 해변을 27m 되살린 AI: 새 모래를 붓지 않고 물살이 모래를 놓을 곳을 바꿨다</h2>
       <p>NYT 가 보도한 MIT 스핀오프 Coastal Assembly 의 몰디브 해변 복원을 정리했다. 물속 육각 콘크리트 구조물 54개로 반년 만에 리조트 해변이 27m 늘었고 새 모래는 붓지 않았다. AI 가 한 일은 모래를 만드는 것이 아니라 위성 10년치와 해류 자료로 어디에 무엇을 놓을지 정하는 분석을 몇 달에서 하루로 줄인 것이다. 한 곳·반년의 결과이고 쌓인 모래의 출처가 빠져 있어, 양빈·호안과 나란히 놓고 걸러 읽을 부분을 적었다.</p>
     </a>
-    <a class="card" href="./2026/meta-vr-glasses-vs-vision-pro/" data-date="2026-09-24T16:44" data-topic="hardware">
+    <a class="card" href="./2026/meta-vr-glasses-vs-vision-pro/" data-date="2026-09-24T16:44" data-topic="hardware" data-icon="meta.svg">
       <div class="meta"><span class="date">2026-09-24 16:44</span><span class="tag">하드웨어 · XR 기기</span></div>
       <h2>메타 VR 글라스 1,299달러: 100g 안경의 무게는 주머니 속 300g 퍽으로 갔다</h2>
       <p>Meta 가 Connect 2026 에서 발표한 VR 글라스를 정리했다. 얼굴 위 100g, 주머니 속 300g 퍽, 5K 마이크로 OLED 에 37PPD, 시야각 70도, 배터리 3시간, 출시는 2027년 봄. 헤드라인은 비전 프로의 경쟁작이라고 하지만 비전 프로는 후속작이 멈춘 채 값만 오른 상태라, 실제 판단 지점은 애플이 아니라 무게를 주머니로 옮기며 받아들인 테더와 시야각의 타협을 사람들이 견디느냐다.</p>
     </a>
-    <a class="card" href="./2026/opus-5-5-usage-guide/" data-date="2026-09-23T08:50" data-topic="ai">
+    <a class="card" href="./2026/opus-5-5-usage-guide/" data-date="2026-09-23T08:50" data-topic="ai" data-icon="claude.svg">
       <div class="meta"><span class="date">2026-09-23 08:50</span><span class="tag">AI · 모델 사용법</span></div>
       <h2>Opus 5.5 사용 가이드: "끝"을 정의하고, "잘 생각해"는 지운다</h2>
       <p>Anthropic 이 Opus 5.5 출시와 함께 낸 사용 가이드를 정리했다. 완료 조건을 적어 한 번에 맡기고, 생각하라는 줄을 프롬프트에서 빼고, 긴 실행이 끝나면 내 결정이 필요한 부분을 먼저 읽는다. 처방의 절반은 옛 모델용 줄을 지우는 일이고, 근거는 사고가 꺼지지 않고 effort 기본값이 medium 으로 내려온 모델 쪽 변화다.</p>
     </a>
-    <a class="card" href="./2026/automatic-subject/" data-date="2026-09-19T19:30" data-topic="economy" data-author="kil9">
+    <a class="card" href="./2026/automatic-subject/" data-date="2026-09-19T19:30" data-topic="economy" data-author="kil9" data-icon="🏭">
       <div class="meta"><span class="date">2026-09-19 19:30</span><span class="tag">경제 · 자본과 AI</span></div>
       <h2>자동적 주체</h2>
       <p>AI 속도를 늦추자던 회사들이 같은 달에 가속한다. 위선이라기보다 자본이라는 자동적 주체의 운동이고, AI 도 그 운동이 얻는 지능일 뿐이라는 생각.</p>
     </a>
-    <a class="card" href="./2026/system-one-models-jev/" data-date="2026-09-19T09:06" data-topic="ai">
+    <a class="card" href="./2026/system-one-models-jev/" data-date="2026-09-19T09:06" data-topic="ai" data-icon="⚡">
       <div class="meta"><span class="date">2026-09-19 09:06</span><span class="tag">AI · 결정 모델</span></div>
       <h2>글을 안 쓰는 모델 Jev: System One 이 빠른 이유와 "환각 0%" 의 실제 의미</h2>
       <p>TypeSafe AI 의 System One 모델 Jev 를 조사했다. 글을 생성하지 않고 정해진 선택지 위의 확률만 돌려주니 빠르고 싼 것은 구조의 귀결이다. 다만 환각 0% 는 측정이 아니라 정의이고, 실제로 볼 것은 보정된 확률 쪽이다. 수치는 아직 전부 회사 자체 측정이다.</p>
     </a>
-    <a class="card" href="./2026/blender-mcp-vs-computer-use/" data-date="2026-09-16T04:58" data-topic="ai">
+    <a class="card" href="./2026/blender-mcp-vs-computer-use/" data-date="2026-09-16T04:58" data-topic="ai" data-icon="blender.svg">
       <div class="meta"><span class="date">2026-09-16 04:58</span><span class="tag">AI · 에이전트 관측</span></div>
       <h2>Blender MCP 보다 Computer use 가 낫다? 차이는 모델이 아니라 관측이다</h2>
       <p>Blender 를 다루는 세 경로(Computer use·Blender MCP·CLI)를 비교한 npaka 의 글을 검증했다. 성능 차이는 도구가 아니라 무엇을 보고 다음 단계를 정하느냐에서 난다. MCP 에도 스크린샷 도구와 찍으라는 프롬프트가 이미 있다. 문제는 안 봐도 루프가 닫힌다는 것이고, 그건 이 아카이브의 발행 점검도 같다.</p>
     </a>
-    <a class="card" href="./2026/inside-this-til/" data-date="2026-09-09T14:58" data-topic="site">
+    <a class="card" href="./2026/inside-this-til/" data-date="2026-09-09T14:58" data-topic="site" data-icon="📖">
       <div class="meta"><span class="date">2026-09-09 14:58</span><span class="tag">사이트 · 블로그 안내</span></div>
       <h2>이 TIL은 어떻게 읽고, 어떻게 만들어지나</h2>
       <p>AI가 조사하고 리브가 정리하는 개인 지식 아카이브. 글을 찾는 방법부터 화자의 역할, 단일 HTML과 자동 발행 구조까지 이 블로그의 안팎을 설명한다.</p>
     </a>
-    <a class="card" href="./2026/agents-skills-audit/" data-date="2026-09-05T16:36" data-topic="workflow">
+    <a class="card" href="./2026/agents-skills-audit/" data-date="2026-09-05T16:36" data-topic="workflow" data-icon="🧹">
       <div class="meta">
         <span class="date">2026-09-05 16:36</span>
         <span class="tag">워크플로 · 에이전트 지침</span>
@@ -397,7 +414,7 @@
       <p>설치된 사용자 스킬 100개 파일과 에이전트 지침을 훑고 저장소 넷의 36개 파일을 고쳤다. 이미 복원한 stash 를 또 꺼내던 지침, worktree 에서 파일인 <code>.git</code> 을 디렉터리로 쓰던 경로, 포커스된 pane 을 자기 pane 으로 착각하던 가정. 문구로 못 덮는 문제 하나는 별도 태스크로 남겼다.</p>
     </a>
 
-    <a class="card" href="./2026/gpt-6-astra/" data-date="2026-09-04T08:05" data-topic="ai">
+    <a class="card" href="./2026/gpt-6-astra/" data-date="2026-09-04T08:05" data-topic="ai" data-icon="openai.svg">
       <div class="meta">
         <span class="date">2026-09-04 08:05</span>
         <span class="tag">AI · 모델 발표</span>
@@ -405,7 +422,7 @@
       <h2>GPT-6 Astra, 어디가 뛰었고 무엇이 잠겼나</h2>
       <p>OpenAI 발표문·시스템 카드·API 문서로 정리한 GPT-6 Astra. 컴퓨터 사용·수학·익스플로잇은 뛰고 코딩은 경쟁 모델과 같은 줄, Humanity's Last Exam 은 전작에도 뒤진다. ARC-AGI-3 99.9% 의 하네스 조건, Fable 5.1 과 같은 $10/$50 과 272K 할증, Daybreak 게이트, 그리고 감시 가능성 후퇴.</p>
     </a>
-    <a class="card" href="./2026/claude-auto-profile-pick/" data-date="2026-09-02T19:47" data-topic="workflow">
+    <a class="card" href="./2026/claude-auto-profile-pick/" data-date="2026-09-02T19:47" data-topic="workflow" data-icon="claude.svg">
       <div class="meta">
         <span class="date">2026-09-02 19:47</span>
         <span class="tag">워크플로 · 사용량 절감</span>
@@ -414,7 +431,7 @@
       <p><code>ca</code> 가 여러 Claude 구독 프로필 중 하나를 고를 때 무엇을 견주는지 막대 그림과 예시 넷으로 푼다. 사용률이 아니라 5시간 윈도우의 사용률 − 경과율 델타, 7일 사용률 90% 게이트, 만료 윈도우 특례. 끝에 손볼 만한 곳 넷.</p>
     </a>
 
-    <a class="card" href="./2026/prompting-claude-fable-5-1/" data-date="2026-09-02T12:10" data-topic="ai">
+    <a class="card" href="./2026/prompting-claude-fable-5-1/" data-date="2026-09-02T12:10" data-topic="ai" data-icon="claude.svg">
       <div class="meta">
         <span class="date">2026-09-02 12:10</span>
         <span class="tag">AI · 프롬프팅</span>
@@ -423,7 +440,7 @@
       <p>공식 프롬프팅 가이드 한 문서를 증상별 열여섯 항목 그대로 펼쳤다. 하네스 배관 여섯, 그대로 붙이는 프롬프트 블록 아홉, 거부 오탐 셋. 처방의 절반은 옛 모델용으로 적어 둔 줄을 빼는 일이고, 붙이는 블록은 원문 그대로 실었다.</p>
     </a>
 
-    <a class="card" href="./2026/nat-original-sin-revisited/" data-date="2026-09-02T06:20" data-topic="system">
+    <a class="card" href="./2026/nat-original-sin-revisited/" data-date="2026-09-02T06:20" data-topic="system" data-icon="🌐">
       <div class="meta">
         <span class="date">2026-09-02 06:20</span>
         <span class="tag">시스템 · NAT 와 IPv6</span>
@@ -432,7 +449,7 @@
       <p>NAT 가 인터넷 중앙화의 첫 원인이라는 글을 IPv6 보급률(Google 50%, 한국 18%)과 실제 P2P 성립률(Tailscale 90%+, WebRTC 22% 중계, BitTorrent 절반 미접속)에 비춰 확인했다. P2P 에 조정 서버가 필수가 됐다는 절반은 맞고, 개인 서버 실종의 단독 원인이라는 절반은 약하다.</p>
     </a>
 
-    <a class="card" href="./2026/dwarf-fortress-procedural-magic-design/" data-date="2026-09-02T06:10" data-topic="reading">
+    <a class="card" href="./2026/dwarf-fortress-procedural-magic-design/" data-date="2026-09-02T06:10" data-topic="reading" data-icon="⛏️">
       <div class="meta">
         <span class="date">2026-09-02 06:10</span>
         <span class="tag">읽을거리 · 절차적 생성 설계</span>
@@ -441,7 +458,7 @@
       <p>Myth and Magic 업데이트의 주문 생성을 창조 신화·신격과 영향권 그래프·재료와 작업장의 세 축으로 재구성했다. 130개 영향권의 양립 불가 그래프와 세계당 20-30개 효과가 무작위를 거르는 방식을 Caves of Qud·Magicka·Noita 와 대조했다.</p>
     </a>
 
-    <a class="card" href="./2026/claude-fable-5-1-overview/" data-date="2026-09-02T05:55" data-topic="ai">
+    <a class="card" href="./2026/claude-fable-5-1-overview/" data-date="2026-09-02T05:55" data-topic="ai" data-icon="claude.svg">
       <div class="meta">
         <span class="date">2026-09-02 05:55</span>
         <span class="tag">AI · 모델 릴리스</span>
@@ -450,7 +467,7 @@
       <p>강제 도구 호출은 400, thinking 블록은 만든 모델과 대화에 묶이고, 앞 턴을 고치면 뒤가 전부 무효. 캐시 읽기는 4분의 1. 공식 문서에서 자리매김·가격·마이그레이션 체크리스트를 추렸다.</p>
     </a>
 
-    <a class="card" href="./2026/breaking-dijkstra-sorting-barrier/" data-date="2026-09-01T05:24" data-topic="reading">
+    <a class="card" href="./2026/breaking-dijkstra-sorting-barrier/" data-date="2026-09-01T05:24" data-topic="reading" data-icon="🗺️">
       <div class="meta">
         <span class="date">2026-09-01 05:24</span>
         <span class="tag">읽을거리 · 그래프 알고리듬</span>
@@ -459,7 +476,7 @@
       <p>거리순 전체 정렬을 피하고 Bellman-Ford식 완화로 큰 최단경로 트리의 피벗만 남겨, 방향 그래프 SSSP의 희소 그래프 경계를 처음 낮춘 아이디어를 정리했다.</p>
     </a>
 
-    <a class="card" href="./2026/tools-are-organizational-decisions/" data-date="2026-08-31T09:02" data-topic="reading">
+    <a class="card" href="./2026/tools-are-organizational-decisions/" data-date="2026-08-31T09:02" data-topic="reading" data-icon="🧰">
       <div class="meta">
         <span class="date">2026-08-31 09:02</span>
         <span class="tag">읽을거리 · 기술철학</span>
@@ -468,7 +485,7 @@
       <p>deadSimpleTech의 기술 비중립성 논지를 하이데거 개념과 React·Vue 공식 문서, 생성형 AI 연구로 대조하고 도구 선택을 조직 설계로 검토하는 질문을 정리했다.</p>
     </a>
 
-    <a class="card" href="./2026/papermono-eink-dashboard/" data-date="2026-08-28T09:21" data-topic="hardware">
+    <a class="card" href="./2026/papermono-eink-dashboard/" data-date="2026-08-28T09:21" data-topic="hardware" data-icon="📟">
       <div class="meta">
         <span class="date">2026-08-28 09:21</span>
         <span class="tag">하드웨어 · e-ink 대시보드</span>
@@ -477,7 +494,7 @@
       <p>PaperMono를 XTEINK X4 Pro·TRMNL과 대조하고, 부분 갱신·배터리·펌웨어 개방도와 ESP-IDF·ESPHome 직접 구동 경로를 확인했다.</p>
     </a>
 
-    <a class="card" href="./2026/week-with-codex/" data-date="2026-08-26T11:16" data-topic="workflow">
+    <a class="card" href="./2026/week-with-codex/" data-date="2026-08-26T11:16" data-topic="workflow" data-icon="openai.svg">
       <div class="meta">
         <span class="date">2026-08-26 11:16</span>
         <span class="tag">워크플로 · 코딩 에이전트</span>
@@ -486,7 +503,7 @@
       <p>한 주 사용기의 범위 준수, 단순한 코드, 총시간, 브랜치 실수를 모델·하네스·맥락·익숙함으로 분해하고 재현 가능한 비교법을 정리했다.</p>
     </a>
 
-    <a class="card" href="./2026/local-llm-engine-divergence/" data-date="2026-08-25T10:12" data-topic="ai">
+    <a class="card" href="./2026/local-llm-engine-divergence/" data-date="2026-08-25T10:12" data-topic="ai" data-icon="🔀">
       <div class="meta">
         <span class="date">2026-08-25 10:12</span>
         <span class="tag">AI · 로컬 추론</span>
@@ -495,7 +512,7 @@
       <p>같은 Qwen3 4B GGUF와 프롬프트를 Ollama·llama.cpp에서 재생하고, 양자화·Flash Attention·샘플링 시드가 로짓과 출력에 남긴 차이를 분리했다.</p>
     </a>
 
-    <a class="card" href="./2026/fable-5-ramp-spend-signal/" data-date="2026-08-25T09:43" data-topic="ai">
+    <a class="card" href="./2026/fable-5-ramp-spend-signal/" data-date="2026-08-25T09:43" data-topic="ai" data-icon="claude.svg">
       <div class="meta">
         <span class="date">2026-08-25 09:43</span>
         <span class="tag">AI · 모델 경제성</span>
@@ -504,7 +521,7 @@
       <p>Ramp의 11.4%는 채택률이 아니라 지출 비중이고 토큰은 6%였다. 접근 제한과 2배 가격을 분리하고, 실제 업무당 비용·성과까지 대조했다.</p>
     </a>
 
-    <a class="card" href="./2026/native-web-baseline/" data-date="2026-08-25T09:32" data-topic="site">
+    <a class="card" href="./2026/native-web-baseline/" data-date="2026-08-25T09:32" data-topic="site" data-icon="🧱">
       <div class="meta">
         <span class="date">2026-08-25 09:32</span>
         <span class="tag">사이트 · 네이티브 웹</span>
@@ -513,7 +530,7 @@
       <p>HTMLcat의 기능 목록을 24개 바로 사용·8개 점진적 향상·9개 폴백으로 나눴다. scroll-margin·text-wrap·light-dark()는 이 사이트에 직접 적용했다.</p>
     </a>
 
-    <a class="card" href="./2026/product-engineer-hiring-data/" data-date="2026-08-25T09:18" data-topic="economy">
+    <a class="card" href="./2026/product-engineer-hiring-data/" data-date="2026-08-25T09:18" data-topic="economy" data-icon="💼">
       <div class="meta">
         <span class="date">2026-08-25 09:18</span>
         <span class="tag">경제 · 기술 채용</span>
@@ -521,7 +538,7 @@
       <h2>프로덕트 엔지니어 채용 붐: 실제로 늘었나</h2>
       <p>IEEE 칼럼의 주장을 원 발언과 영국 채용공고로 대조했다. 2026년 급증은 확인되지만, 역할의 핵심은 AI 이전 담론과 거의 같고 직함에는 제조 직군도 섞여 있다.</p>
     </a>
-    <a class="card" href="./2026/backlog-agent-pipeline/" data-date="2026-08-23T23:36" data-topic="workflow">
+    <a class="card" href="./2026/backlog-agent-pipeline/" data-date="2026-08-23T23:36" data-topic="workflow" data-icon="📋">
       <div class="meta">
         <span class="date">2026-08-23 23:36</span>
         <span class="tag">워크플로 · 백로그 에이전트</span>
@@ -529,7 +546,7 @@
       <h2>백로그 에이전트 파이프라인</h2>
       <p>PLAN.md 두 세션 방식이 backlog 상태 기반 운용으로 바뀐 뒤, 실제 호출 문장과 ready set 드레인, AC·커밋 경계를 정리했다.</p>
     </a>
-    <a class="card" href="./2026/moli-agent-browser/" data-date="2026-08-22T16:37" data-topic="system">
+    <a class="card" href="./2026/moli-agent-browser/" data-date="2026-08-22T16:37" data-topic="system" data-icon="🧭">
       <div class="meta">
         <span class="date">2026-08-22 16:37</span>
         <span class="tag">시스템 · 헤드리스 브라우저</span>
@@ -537,7 +554,7 @@
       <h2>Moli: 픽셀을 필요할 때만 만드는 에이전트 브라우저</h2>
       <p>Chromium 래퍼가 아닌 Rust 독립 브라우저다. 구조 우선·온디맨드 렌더링의 비용 모델과 공개 벤치마크, Chrome을 남겨야 하는 경계를 함께 검토했다.</p>
     </a>
-    <a class="card" href="./2026/qwen3-tts-50ms-latency/" data-date="2026-08-22T09:43" data-topic="ai">
+    <a class="card" href="./2026/qwen3-tts-50ms-latency/" data-date="2026-08-22T09:43" data-topic="ai" data-icon="qwen.svg">
       <div class="meta">
         <span class="date">2026-08-22 09:43</span>
         <span class="tag">AI · 음성 서빙</span>
@@ -545,7 +562,7 @@
       <h2>Qwen3-TTS 첫 응답 50ms, 어디서 시간을 벌었나</h2>
       <p>34ms localhost 수치를 첫 음성 경로로 분해했다. 서울·도쿄·미국 리전 RTT를 더해 보니 엔진 이득은 남지만, 미국 배치에서는 네트워크가 지연 예산의 주인이 된다.</p>
     </a>
-    <a class="card" href="./2026/motif-3-benchmark-gap/" data-date="2026-08-19T14:52" data-topic="ai">
+    <a class="card" href="./2026/motif-3-benchmark-gap/" data-date="2026-08-19T14:52" data-topic="ai" data-icon="📏">
       <div class="meta">
         <span class="date">2026-08-19 14:52</span>
         <span class="tag">AI · 벤치마크</span>
@@ -553,7 +570,7 @@
       <h2>모티프 3 탈락이 보여준 AI 벤치마크의 사용법</h2>
       <p>AAII 상위권과 독파모 탈락이 함께 성립한 이유를 모델·서빙·제품 세 층으로 나눴다. 314B MoE의 구조적 성과와 공개 자료로는 단정할 수 없는 부분도 구분했다.</p>
     </a>
-    <a class="card" href="./2026/herdr-0-8-1/" data-date="2026-08-19T09:44" data-topic="terminal">
+    <a class="card" href="./2026/herdr-0-8-1/" data-date="2026-08-19T09:44" data-topic="terminal" data-icon="🐑">
       <div class="meta">
         <span class="date">2026-08-19 09:44</span>
         <span class="tag">터미널 · herdr</span>
@@ -561,7 +578,7 @@
       <h2>herdr 0.8.1: Windows 정식 지원과 자동화 경계 다듬기</h2>
       <p>공개 태그보다 먼저 확정된 변경 78개를 읽었다. Windows GA가 표제지만, 기존 에이전트 운영에는 blocked 프롬프트 거부와 start 준비 대기가 더 직접적인 변화다.</p>
     </a>
-    <a class="card" href="./2026/gsm-symbolic-llm-reasoning/" data-date="2026-08-17T21:47" data-topic="ai">
+    <a class="card" href="./2026/gsm-symbolic-llm-reasoning/" data-date="2026-08-17T21:47" data-topic="ai" data-icon="apple.svg">
       <div class="meta">
         <span class="date">2026-08-17 21:47</span>
         <span class="tag">AI · 추론 벤치마크</span>
@@ -569,7 +586,7 @@
       <h2>GSM-Symbolic: 애플이 증명한 것과 X가 부풀린 것</h2>
       <p>2024년 논문을 2026년 현역 AI 판정처럼 옮긴 X 글을 검증했다. NoOp 취약성은 강한 결과지만 Claude는 시험하지 않았고, 최대 65.7%p 하락은 Phi-3-mini의 값이다.</p>
     </a>
-    <a class="card" href="./2026/x-for-you-algorithm/" data-date="2026-08-17T15:08" data-topic="system">
+    <a class="card" href="./2026/x-for-you-algorithm/" data-date="2026-08-17T15:08" data-topic="system" data-icon="x.svg">
       <div class="meta">
         <span class="date">2026-08-17 15:08</span>
         <span class="tag">시스템 · 추천 알고리듬</span>
@@ -577,7 +594,7 @@
       <h2>X For You 알고리듬: 공개 가중치는 타임라인을 얼마나 설명하나</h2>
       <p>8월 공개 코드의 행동 가중치, 18개 사전 필터, 가시성 규칙을 직접 확인했다. 구조 설명력은 높지만 모델 상태·실험값이 없어 개별 피드 재현력은 낮다.</p>
     </a>
-    <a class="card" href="./2026/llm-text-watermark-survival/" data-date="2026-08-17T14:55" data-topic="ai">
+    <a class="card" href="./2026/llm-text-watermark-survival/" data-date="2026-08-17T14:55" data-topic="ai" data-icon="💧">
       <div class="meta">
         <span class="date">2026-08-17 14:55</span>
         <span class="tag">AI · 텍스트 워터마킹</span>
@@ -585,7 +602,7 @@
       <h2>LLM 텍스트 워터마크: 짧은 답과 코드에는 얼마나 남나</h2>
       <p>토큰 확률 편향은 긴 자유문에서 강하고, 짧거나 정답이 고정될수록 약해진다. 코드·재작성·번역·부분 인용 뒤의 검출 범위를 공개 연구로 확인했다.</p>
     </a>
-    <a class="card" href="./2026/ai-token-resale-market/" data-date="2026-08-17T14:45" data-topic="ai">
+    <a class="card" href="./2026/ai-token-resale-market/" data-date="2026-08-17T14:45" data-topic="ai" data-icon="🎟️">
       <div class="meta">
         <span class="date">2026-08-17 14:45</span>
         <span class="tag">AI · 토큰 재판매 시장</span>
@@ -593,7 +610,7 @@
       <h2>AI 토큰 재판매 시장: 90% 할인의 실제 대가</h2>
       <p>할인 릴레이와 계정·키 마켓의 단가, 지연, 데이터 경로를 확인했다. 가장 싼 경로에서는 프롬프트와 코드를 읽는 중간자와 약관상 중단 위험도 함께 산다.</p>
     </a>
-    <a class="card" href="./2026/claude-system-prompt-5-diff/" data-date="2026-08-17T14:36" data-topic="ai">
+    <a class="card" href="./2026/claude-system-prompt-5-diff/" data-date="2026-08-17T14:36" data-topic="ai" data-icon="claude.svg">
       <div class="meta">
         <span class="date">2026-08-17 14:36</span>
         <span class="tag">AI · Claude 시스템 프롬프트</span>
@@ -601,7 +618,7 @@
       <h2>Claude 4.8→5 시스템 프롬프트 diff: 3,000단어가 늘지 않았다</h2>
       <p>공개 원문을 직접 세고 안전·도구·서식·정체성으로 분류했다. 실제 변화는 +3,000단어가 아니라 -119단어였고, 관리자님의 CLAUDE.md에서 바로 지울 중복도 없었다.</p>
     </a>
-    <a class="card" href="./2026/hand-coding-after-ai/" data-date="2026-08-15T01:16" data-topic="ai">
+    <a class="card" href="./2026/hand-coding-after-ai/" data-date="2026-08-15T01:16" data-topic="ai" data-icon="✍️">
       <div class="meta">
         <span class="date">2026-08-15 01:16</span>
         <span class="tag">AI · 손코딩 문화</span>
@@ -609,7 +626,7 @@
       <h2>손코딩은 대중 취미가 되기 어렵다</h2>
       <p>AI 없이 코딩하는 즐거움은 남겠지만, 검증·결과 차별성·관전성의 한계 때문에 대규모 공개 장르보다는 개인의 수련에 가까워질 것입니다.</p>
     </a>
-    <a class="card" href="./2026/karrot-lynx-beyond-webview/" data-date="2026-08-13T16:23" data-topic="system">
+    <a class="card" href="./2026/karrot-lynx-beyond-webview/" data-date="2026-08-13T16:23" data-topic="system" data-icon="🥕">
       <div class="meta">
         <span class="date">2026-08-13 16:23</span>
         <span class="tag">시스템 · Lynx와 브라운필드</span>
@@ -617,7 +634,7 @@
       <h2>당근이 Lynx를 잘 고른 이유: 프레임워크보다 레일</h2>
       <p>190만 명 실험의 성능 수치와 당근의 Lynx 선택 과정을 검증했다. 잘한 핵심은 프레임워크보다 문제 범위, 철수 경로, 운영 레일을 먼저 설계한 데 있었다.</p>
     </a>
-    <a class="card" href="./2026/offshore-data-centers-wave-power/" data-date="2026-08-13T11:40" data-topic="ai">
+    <a class="card" href="./2026/offshore-data-centers-wave-power/" data-date="2026-08-13T11:40" data-topic="ai" data-icon="🌊">
       <div class="meta">
         <span class="date">2026-08-13 11:40</span>
         <span class="tag">AI · 해상 데이터센터와 파력발전</span>
@@ -625,7 +642,7 @@
       <h2>바다 위 데이터센터는 발전소가 될 수 있나: 파력발전부터 병목까지</h2>
       <p>파도에서 전기를 만들고 그 자리에서 AI를 돌리는 판탈라사의 구상을 해부했다. 해저 데이터센터 실증과의 차이, 파력발전 원리, 냉각·통신·정비 병목, 실제로 맞는 워크로드를 정리했다.</p>
     </a>
-    <a class="card" href="./2026/go-ai-assisted-engineering/" data-date="2026-08-12T10:41" data-topic="workflow">
+    <a class="card" href="./2026/go-ai-assisted-engineering/" data-date="2026-08-12T10:41" data-topic="workflow" data-icon="go.svg">
       <div class="meta">
         <span class="date">2026-08-12 10:41</span>
         <span class="tag">워크플로 · AI 코딩과 Go</span>
@@ -633,7 +650,7 @@
       <h2>Go는 AI 코딩의 이상형인가: 생성보다 검증</h2>
       <p>Google의 Go 예찬을 공식 문서와 최신 연구로 검증했다. Go의 실제 강점은 생성 능력보다 에이전트의 실패를 싸고 빠르게 드러내는 검증 하네스에 있다.</p>
     </a>
-    <a class="card" href="./2026/night-owls-intelligence-evidence/" data-date="2026-08-11T11:49" data-topic="reading">
+    <a class="card" href="./2026/night-owls-intelligence-evidence/" data-date="2026-08-11T11:49" data-topic="reading" data-icon="🦉">
       <div class="meta">
         <span class="date">2026-08-11 11:49</span>
         <span class="tag">읽을거리 · 수면과 지능 연구 검증</span>
@@ -641,7 +658,7 @@
       <h2>올빼미형이 더 똑똑하다는 논문, 숫자는 7분이었다</h2>
       <p>2009년 논문의 실제 효과는 IQ 15점당 평일 취침 7.2분이었다. 자기보고 수면 시각과 언어점수의 작은 연관, 진화심리 해석의 간극, 메타분석과 근무 시각·검사 시각 후속 연구를 대조했다.</p>
     </a>
-    <a class="card" href="./2026/e-ink-browser-ui/" data-date="2026-08-11T09:30" data-topic="hardware">
+    <a class="card" href="./2026/e-ink-browser-ui/" data-date="2026-08-11T09:30" data-topic="hardware" data-icon="📟">
       <div class="meta">
         <span class="date">2026-08-11 09:30</span>
         <span class="tag">하드웨어 · e-ink 웹 UI</span>
@@ -649,7 +666,7 @@
       <h2>리프레시를 제어할 수 없을 때: e-ink 브라우저 UI 관례</h2>
       <p>패널을 직접 제어하지 못하는 브라우저에서 고정 레이아웃, 추가형 렌더링, 페이지 이동, LLM 청크 버퍼링을 구현하는 패턴과 실제 단말 계측 절차를 정리했습니다.</p>
     </a>
-    <a class="card" href="./2026/personal-projects-may-august/" data-date="2026-08-09T23:47" data-topic="workflow">
+    <a class="card" href="./2026/personal-projects-may-august/" data-date="2026-08-09T23:47" data-topic="workflow" data-icon="🗂️">
       <div class="meta">
         <span class="date">2026-08-09 23:47</span>
         <span class="tag">워크플로 · 개인 프로젝트 결산</span>
@@ -657,7 +674,7 @@
       <h2>2026년 5-8월, 개인 프로젝트 19개를 한 장에 펼쳐봤다</h2>
       <p>최근 Git 활동과 nuc14의 실제 실행 상태를 대조해 에이전트 기반시설, 기억·발행, 생활 자동화, 투자·봇, 장치, 창작의 여섯 축으로 정리했습니다.</p>
     </a>
-    <a class="card" href="./2026/light-society-billion-agents/" data-date="2026-08-09T22:19" data-topic="ai">
+    <a class="card" href="./2026/light-society-billion-agents/" data-date="2026-08-09T22:19" data-topic="ai" data-icon="🏙️">
       <div class="meta">
         <span class="date">2026-08-09 22:19</span>
         <span class="tag">AI · 대규모 사회 시뮬레이션</span>
@@ -665,7 +682,7 @@
       <h2>10억 LLM 에이전트 사회의 실제: 지능은 어디까지 남았나</h2>
       <p>Light Society의 10억 에이전트 실험을 구현과 검증 범위로 나눠 읽었습니다. 실제 규모는 10억 상태 노드지만, 판단은 Gemini 행동을 증류해 미리 만든 9억 칸 조회표가 맡았습니다.</p>
     </a>
-    <a class="card" href="./2026/agent-device/" data-date="2026-08-09T13:38" data-topic="ai">
+    <a class="card" href="./2026/agent-device/" data-date="2026-08-09T13:38" data-topic="ai" data-icon="android.svg">
       <div class="meta">
         <span class="date">2026-08-09 13:38</span>
         <span class="tag">AI · 앱 검증 자동화</span>
@@ -673,7 +690,7 @@
       <h2>agent-device: ADB를 이미 쓰는 에이전트에게 필요한 것</h2>
       <p>앱을 누르는 명령보다 관찰·검증·증거·재현을 한 루프로 묶는 도구에 가깝습니다. 원시 ADB와 기존 E2E 도구 사이에서 맡는 역할, 접근성 스냅샷, replay, 플랫폼 한계와 안전한 도입 순서를 조사했습니다.</p>
     </a>
-    <a class="card" href="./2026/agent-first-docs/" data-date="2026-08-08T18:31" data-topic="ai">
+    <a class="card" href="./2026/agent-first-docs/" data-date="2026-08-08T18:31" data-topic="ai" data-icon="📄">
       <div class="meta">
         <span class="date">2026-08-08 18:31</span>
         <span class="tag">AI · 에이전트 우선 문서화</span>
@@ -681,7 +698,7 @@
       <h2>독자의 절반이 사람이 아니다: 에이전트 우선 문서 서빙 조사</h2>
       <p>SEO 대신 답변 엔진 최적화를 했다는 글에서 출발해, 문서·랜딩·FAQ 를 AI 에이전트에게 서빙하는 검증된 방법을 추렸습니다. 발견과 소비를 가르면 llms.txt 논쟁도, 공사 순서도 한 번에 정리됩니다.</p>
     </a>
-    <a class="card" href="./2026/trmnl-eink-dashboard/" data-date="2026-08-07T21:08" data-topic="hardware">
+    <a class="card" href="./2026/trmnl-eink-dashboard/" data-date="2026-08-07T21:08" data-topic="hardware" data-icon="📟">
       <div class="meta">
         <span class="date">2026-08-07 21:08</span>
         <span class="tag">하드웨어 · e-ink 대시보드</span>
@@ -689,7 +706,7 @@
       <h2>TRMNL — 단말은 멍청하게, 서버는 부지런하게</h2>
       <p>e-ink 대시보드 액자 TRMNL 조사. 서버가 화면을 통째로 그려 주고 기기는 15분마다 BMP 한 장을 받아 가는 구조가 배터리 3개월, 플러그인 1,000개, 자가호스팅 탈출구를 한 설계에서 같이 풀었습니다.</p>
     </a>
-    <a class="card" href="./2026/flashable-little-computers/" data-date="2026-08-07T14:22" data-topic="hardware">
+    <a class="card" href="./2026/flashable-little-computers/" data-date="2026-08-07T14:22" data-topic="hardware" data-icon="🛠️">
       <div class="meta">
         <span class="date">2026-08-07 14:22</span>
         <span class="tag">하드웨어 · 가젯 카탈로그</span>
@@ -698,7 +715,7 @@
       <p>빌더 커뮤니티 Build in Public 의 가젯 카탈로그를 훑었습니다. 펌웨어를 갈아 끼우는 손바닥 컴퓨터 70종, 중앙값 $35. LilyGO 와 M5Stack 두 회사가 40% 를 차지하고, e-ink 대시보드와 LoRa 메시 단말이 요즘의 두꺼운 축입니다.</p>
       <div class="path">/flashable-little-computers/</div>
     </a>
-    <a class="card" href="./2026/web-share-target/" data-date="2026-08-06T02:17" data-topic="site">
+    <a class="card" href="./2026/web-share-target/" data-date="2026-08-06T02:17" data-topic="site" data-icon="📤">
       <div class="meta">
         <span class="date">2026-08-06 02:17</span>
         <span class="tag">사이트 · 접수창구 개선</span>
@@ -707,7 +724,7 @@
       <p>크롬에서 주소 공유를 누르면 접수창구로 바로 접수되게 하는 방법을 조사했습니다. 본선은 접수 페이지를 PWA 로 만들어 share_target 을 다는 것, 사이트를 안 고치고 오늘 당장 쓰는 지름길은 HTTP Shortcuts 앱입니다. 함정은 안드로이드가 URL 을 text 파라미터에 실어 보낸다는 것. 그 뒤 본선안을 구현해 실기 확인까지 마쳤고, 예상과 달랐던 것들을 덧붙였습니다.</p>
       <div class="path">/web-share-target/</div>
     </a>
-    <a class="card" href="./2026/openai-api-key-scale/" data-date="2026-08-05T15:20" data-topic="system">
+    <a class="card" href="./2026/openai-api-key-scale/" data-date="2026-08-05T15:20" data-topic="system" data-icon="openai.svg">
       <div class="meta">
         <span class="date">2026-08-05 15:20</span>
         <span class="tag">시스템 · API 키 설계</span>
@@ -716,7 +733,7 @@
       <p>수십억 개든 수억 개든, API 키 관리가 규모 때문에 어려워지지 않는 이유를 정리했습니다. 고엔트로피 랜덤 문자열은 SHA-256 한 번이면 되고, 그 해시가 그대로 조회 인덱스가 됩니다. 진짜 병목은 개수가 아니라 초당 검증이고, 그건 캐시가 받습니다.</p>
       <div class="path">/openai-api-key-scale/</div>
     </a>
-    <a class="card" href="./2026/raon-speech-vs-whisper/" data-date="2026-08-05T10:40" data-topic="ai">
+    <a class="card" href="./2026/raon-speech-vs-whisper/" data-date="2026-08-05T10:40" data-topic="ai" data-icon="🎙️">
       <div class="meta">
         <span class="date">2026-08-05 10:40</span>
         <span class="tag">AI · 음성 인식</span>
@@ -725,7 +742,7 @@
       <p>KRAFTON 이 공개한 한국어 특화 음성 모델 A.X K2 Raon-Speech 21B-A3B 를 Whisper 대체 후보로 검토했습니다. 한국어 성능은 매력적이지만 CC BY-NC 라이선스, 42GB VRAM, 미성숙한 서빙 생태계가 걸립니다. 판정은 유지, 조건부 재검토.</p>
       <div class="path">/raon-speech-vs-whisper/</div>
     </a>
-    <a class="card" href="./2026/elevator-algorithms/" data-date="2026-08-04T13:40" data-topic="system">
+    <a class="card" href="./2026/elevator-algorithms/" data-date="2026-08-04T13:40" data-topic="system" data-icon="🛗">
       <div class="meta">
         <span class="date">2026-08-04 13:40</span>
         <span class="tag">시스템 · 스케줄링</span>
@@ -734,7 +751,7 @@
       <p>john.fun 의 인터랙티브 시뮬레이션 아티클을 정리했습니다. SCAN 과 LOOK 의 차이, Otis RSR 의 점수식, 대기시간을 p90 으로 재야 하는 이유, 그리고 고부하에서 단순한 LOOK 이 정교한 RSR 을 이기고 목적지 지정 키오스크가 구식 버튼보다 느려지는 두 가지 역설까지.</p>
       <div class="path">/elevator-algorithms/</div>
     </a>
-    <a class="card" href="./2026/herdr-0-8-0-release/" data-date="2026-08-04T11:22" data-topic="terminal">
+    <a class="card" href="./2026/herdr-0-8-0-release/" data-date="2026-08-04T11:22" data-topic="terminal" data-icon="🐑">
       <div class="meta">
         <span class="date">2026-08-04 11:22</span>
         <span class="tag">터미널 · herdr</span>
@@ -744,7 +761,7 @@
       <div class="path">/herdr-0-8-0-release/</div>
     </a>
 
-    <a class="card" href="./2026/go-1-27/" data-date="2026-08-02T10:57" data-topic="system">
+    <a class="card" href="./2026/go-1-27/" data-date="2026-08-02T10:57" data-topic="system" data-icon="go.svg">
       <div class="meta">
         <span class="date">2026-08-02 10:57</span>
         <span class="tag">시스템 · Go</span>
@@ -754,7 +771,7 @@
       <div class="path">/go-1-27/</div>
     </a>
 
-    <a class="card" href="./2026/space-datacenter-cooling/" data-date="2026-08-02T08:56" data-topic="ai">
+    <a class="card" href="./2026/space-datacenter-cooling/" data-date="2026-08-02T08:56" data-topic="ai" data-icon="🛰️">
       <div class="meta">
         <span class="date">2026-08-02 08:56</span>
         <span class="tag">AI · 우주 데이터센터</span>
@@ -764,7 +781,7 @@
       <div class="path">/space-datacenter-cooling/</div>
     </a>
 
-    <a class="card" href="./2026/ice-water-purifier-without-rental/" data-date="2026-08-01T02:01" data-topic="hardware">
+    <a class="card" href="./2026/ice-water-purifier-without-rental/" data-date="2026-08-01T02:01" data-topic="hardware" data-icon="🧊">
       <div class="meta">
         <span class="date">2026-08-01 02:01</span>
         <span class="tag">하드웨어 · 생활가전</span>
@@ -774,7 +791,7 @@
       <div class="path">/ice-water-purifier-without-rental/</div>
     </a>
 
-    <a class="card" href="./2026/matt-pocock-skills/" data-date="2026-07-29T02:01" data-topic="workflow">
+    <a class="card" href="./2026/matt-pocock-skills/" data-date="2026-07-29T02:01" data-topic="workflow" data-icon="🎒">
       <div class="meta">
         <span class="date">2026-07-29 02:01</span>
         <span class="tag">워크플로 · 에이전트 스킬</span>
@@ -783,7 +800,7 @@
       <p>Total TypeScript 의 Matt Pocock 이 매일 쓴다는 에이전트 스킬 22종이 Claude Code 플러그인으로 나왔다. 프로세스를 통째로 소유하는 GSD·BMAD·Spec-Kit 과 반대 방향으로 작고 조합 가능하게 짜여 있다. 고치려는 실패 모드 네 가지, 스킬이 이어지는 경로, 그리고 매 세션 1,419 토큰이라는 실측 비용까지 실물 22개를 다 열어 보고 정리했다.</p>
       <div class="path">/matt-pocock-skills/</div>
     </a>
-    <a class="card" href="./2026/codex-code-mode-batching/" data-date="2026-07-28T21:24" data-topic="workflow">
+    <a class="card" href="./2026/codex-code-mode-batching/" data-date="2026-07-28T21:24" data-topic="workflow" data-icon="openai.svg">
       <div class="meta">
         <span class="date">2026-07-28 21:24</span>
         <span class="tag">워크플로 · 사용량 절감</span>
@@ -793,7 +810,7 @@
       <div class="path">/codex-code-mode-batching/</div>
     </a>
 
-    <a class="card" href="./2026/llm-distillation/" data-date="2026-07-28T14:30" data-topic="ai">
+    <a class="card" href="./2026/llm-distillation/" data-date="2026-07-28T14:30" data-topic="ai" data-icon="⚗️">
       <div class="meta">
         <span class="date">2026-07-28 14:30</span>
         <span class="tag">AI · 지식 증류</span>
@@ -803,7 +820,7 @@
       <div class="path">/llm-distillation/</div>
     </a>
 
-    <a class="card" href="./2026/anthropic-open-weights/" data-date="2026-07-28T12:16" data-topic="ai">
+    <a class="card" href="./2026/anthropic-open-weights/" data-date="2026-07-28T12:16" data-topic="ai" data-icon="anthropic.svg">
       <div class="meta">
         <span class="date">2026-07-28 12:16</span>
         <span class="tag">AI · 오픈 웨이트</span>
@@ -813,7 +830,7 @@
       <div class="path">/anthropic-open-weights/</div>
     </a>
 
-    <a class="card" href="./2026/kimi-k3/" data-date="2026-07-28T01:49" data-topic="ai">
+    <a class="card" href="./2026/kimi-k3/" data-date="2026-07-28T01:49" data-topic="ai" data-icon="moonshotai.svg">
       <div class="meta">
         <span class="date">2026-07-28 01:49</span>
         <span class="tag">AI · 오픈 웨이트</span>
@@ -823,7 +840,7 @@
       <div class="path">/kimi-k3/</div>
     </a>
 
-    <a class="card" href="./2026/netflix-llm-serving/" data-date="2026-07-27T14:41" data-topic="ai">
+    <a class="card" href="./2026/netflix-llm-serving/" data-date="2026-07-27T14:41" data-topic="ai" data-icon="netflix.svg">
       <div class="meta">
         <span class="date">2026-07-27 14:41</span>
         <span class="tag">AI · LLM 서빙</span>
@@ -833,7 +850,7 @@
       <div class="path">/netflix-llm-serving/</div>
     </a>
 
-    <a class="card" href="./2026/backslash-won-sign/" data-date="2026-07-27T04:05" data-topic="system">
+    <a class="card" href="./2026/backslash-won-sign/" data-date="2026-07-27T04:05" data-topic="system" data-icon="₩">
       <div class="meta">
         <span class="date">2026-07-27 04:05</span>
         <span class="tag">시스템 · 문자 인코딩</span>
@@ -842,7 +859,7 @@
       <p>C:₩ 는 오타가 아니라 40년치 지층이다. 통화 기호 자리가 모자랐던 7비트 ISO 646 의 국가 변형 조항, 1969년 일본 ¥ 의 선례, 그것을 채택한 KS C 5636, 하필 그 칸을 경로 구분자로 밟은 MS-DOS, 그리고 유니코드 이후에도 옛 그림을 그리는 폰트까지. 접수 창구로 들어온 질문에 답했다.</p>
       <div class="path">/backslash-won-sign/</div>
     </a>
-    <a class="card" href="./2026/langgraph-empty-shell/" data-date="2026-07-27T00:05" data-topic="ai">
+    <a class="card" href="./2026/langgraph-empty-shell/" data-date="2026-07-27T00:05" data-topic="ai" data-icon="langgraph.svg">
       <div class="meta">
         <span class="date">2026-07-27 00:05</span>
         <span class="tag">AI · LangGraph</span>
@@ -851,7 +868,7 @@
       <p>8,692줄 스파게티가 된 LangGraph 도입 실패기를 분석했다. 조건부 엣지·체크포인터·HITL을 실제로 쓰는 최소 예제로 얼마가 사라지는지 어림하고, 이중 체크포인팅을 일반 함정으로 정리했다.</p>
       <div class="path">/langgraph-empty-shell/</div>
     </a>
-    <a class="card" href="./2026/human-in-the-loop/" data-date="2026-07-26T18:45" data-topic="ai">
+    <a class="card" href="./2026/human-in-the-loop/" data-date="2026-07-26T18:45" data-topic="ai" data-icon="🙋">
       <div class="meta">
         <span class="date">2026-07-26 18:45</span>
         <span class="tag">AI · Human-in-the-Loop</span>
@@ -860,7 +877,7 @@
       <p>제어공학의 피드백 루프에서 사람은 원래 감독이 아니라 부품이었다. 자율무기 논쟁이 in/on/out 의 윤리적 구분을 만들었고, 머신러닝은 학습 루프의 교사로, 에이전트 시대는 실행 루프의 승인 게이트로 이 말을 다시 썼다. 같은 여섯 단어가 세 겹의 의미를 쌓아 온 경로.</p>
       <div class="path">/human-in-the-loop/</div>
     </a>
-    <a class="card" href="./2026/ai-trading-backtest-vs-live/" data-date="2026-07-26T18:21" data-topic="economy">
+    <a class="card" href="./2026/ai-trading-backtest-vs-live/" data-date="2026-07-26T18:21" data-topic="economy" data-icon="📈">
       <div class="meta">
         <span class="date">2026-07-26 18:21</span>
         <span class="tag">경제 · AI 투자 에이전트</span>
@@ -869,7 +886,7 @@
       <p>"투자 결정은 LLM 과 구조가 안 맞는다"는 Opula 의 회의론 글에, 백테스트와 실거래 성적이 둘 다 있는 사례만 골라 대조했다. 종이 위의 +61.8%(FinMem)와 실거래의 -62.7%(Alpha Arena GPT-5), 8년간 매년 지수를 하회한 AIEQ, 그리고 그 괴리를 만든 암기·생존 편향·수수료까지.</p>
       <div class="path">/ai-trading-backtest-vs-live/</div>
     </a>
-    <a class="card" href="./2026/sad-light-therapy/" data-date="2026-07-26T17:15" data-topic="reading">
+    <a class="card" href="./2026/sad-light-therapy/" data-date="2026-07-26T17:15" data-topic="reading" data-icon="☀️">
       <div class="meta">
         <span class="date">2026-07-26 17:15</span>
         <span class="tag">읽을거리 · 광치료</span>
@@ -878,7 +895,7 @@
       <p>계절성 정서장애(SAD)에 대한 광치료는 근거 수준이 항우울제와 나란히 놓인다(효과크기 0.84, Can-SAD 시험에서 플루옥세틴과 동률). 다만 조도·시각·거리·지속 네 조건을 지켜야 약이 된다. 10,000 lux 30분, 기상 후 1시간 이내, 얼굴에서 40-60cm, 매일 같은 시각.</p>
       <div class="path">/sad-light-therapy/</div>
     </a>
-    <a class="card" href="./2026/2026-07-agent-workflow/" data-date="2026-07-26T17:10" data-topic="workflow">
+    <a class="card" href="./2026/2026-07-agent-workflow/" data-date="2026-07-26T17:10" data-topic="workflow" data-icon="📐">
       <div class="meta">
         <span class="date">2026-07-26 17:10</span>
         <span class="tag">워크플로 · 에이전트</span>
@@ -887,7 +904,7 @@
       <p>세션 하나는 할 일을 적기만 하고 다른 하나는 적힌 것을 실행하기만 한다. 둘 사이의 작업 큐인 backlog 디렉터리, 스킬 손잡이, 구현·검증·커밋 불변식까지. 열흘 굴리며 뒤집힌 것들을 넣어 전면 개고했다: 위임 비용 실측($33 대 $18), 워커 상한과 추론 강도 정책, ID 채번 충돌, 스킬 문서 자체의 정비.</p>
       <div class="path">/2026-07-agent-workflow/</div>
     </a>
-    <a class="card" href="./2026/power-empathy-evidence/" data-date="2026-07-26T05:32" data-topic="reading">
+    <a class="card" href="./2026/power-empathy-evidence/" data-date="2026-07-26T05:32" data-topic="reading" data-icon="👔">
       <div class="meta">
         <span class="date">2026-07-26 05:32</span>
         <span class="tag">읽을거리 · 권력과 공감 연구 검증</span>
@@ -895,7 +912,7 @@
       <h2>"CEO가 되면 뇌가 손상된다"를 다섯 겹 거슬러 올라가 봤다</h2>
       <p>"권력을 쥐면 뇌가 손상된다"는 번역 글의 출처를 The Atlantic 원문까지 다섯 겹 되짚었다. 원문에 있던 유보 표현 두 개가 서로 다른 층에서 하나씩 떨어졌고, 밑에 깔린 연구 셋은 각각 다른 이유로 그 제목을 못 받친다.</p>
     </a>
-    <a class="card" href="./2026/opus5-skill-rework/" data-date="2026-07-26T04:10" data-topic="workflow">
+    <a class="card" href="./2026/opus5-skill-rework/" data-date="2026-07-26T04:10" data-topic="workflow" data-icon="claude.svg">
       <div class="meta">
         <span class="date">2026-07-26 04:10</span>
         <span class="tag">워크플로 · 스킬 정비</span>
@@ -903,7 +920,7 @@
       <h2>스킬 50개를 Opus 5 기준으로 다시 쟀다</h2>
       <p>Claude 5 컨텍스트 엔지니어링 문서를 스킬 50개에 실제로 대입했다. description 6,143자를 4,270자로, 9중 복제를 한 파일로. 상시 로드분은 259줄 줄었는데 총량은 112줄 늘었고, 지우려다 관측 때문에 지키기로 한 규정도 하나 나왔다.</p>
     </a>
-    <a class="card" href="./2026/claude5-context-engineering/" data-date="2026-07-26T00:11" data-topic="workflow">
+    <a class="card" href="./2026/claude5-context-engineering/" data-date="2026-07-26T00:11" data-topic="workflow" data-icon="claude.svg">
       <div class="meta">
         <span class="date">2026-07-26 00:11</span>
         <span class="tag">워크플로 · 컨텍스트 엔지니어링</span>
@@ -911,7 +928,7 @@
       <h2>규칙집을 80% 덜어냈다: Claude 5 컨텍스트 엔지니어링</h2>
       <p>Anthropic이 Claude 5 세대용으로 Claude Code 시스템 프롬프트의 약 80%를 제거했는데 성능 저하가 없었다. 규칙 대신 판단, 선적재 대신 점진적 공개. 축적된 프롬프트가 모델이 바뀌면 부채가 된다는 이야기다. 접수창구 #26.</p>
     </a>
-    <a class="card" href="./2026/parallel-agent-cost/" data-date="2026-07-25T13:18" data-topic="workflow">
+    <a class="card" href="./2026/parallel-agent-cost/" data-date="2026-07-25T13:18" data-topic="workflow" data-icon="👥">
       <div class="meta">
         <span class="date">2026-07-25 13:18</span>
         <span class="tag">워크플로 · 병렬 에이전트</span>
@@ -919,7 +936,7 @@
       <h2>에이전트 3명을 띄우고 1.36배를 얻었다</h2>
       <p>병렬 에이전트 팀의 실효 동시성과 비용을 실측했다. 3명을 띄워 1.36배, 비용은 스킬에 적혀 있던 3-10배가 아니라 1.1-1.9배. 느려지는 원인도 비싸지는 원인도 병렬 자체가 아니라 각각 태스크 크기 불균질과 위임이었다.</p>
     </a>
-    <a class="card" href="./2026/opus5-model-choice/" data-date="2026-07-25T03:52" data-topic="ai">
+    <a class="card" href="./2026/opus5-model-choice/" data-date="2026-07-25T03:52" data-topic="ai" data-icon="claude.svg">
       <div class="meta">
         <span class="date">2026-07-25 03:52</span>
         <span class="tag">AI · Claude 모델</span>
@@ -927,7 +944,7 @@
       <h2>Claude Opus 5 자리 잡기: 4.8과 Fable 5 사이</h2>
       <p>어제 나온 Claude Opus 5를 Opus 4.8, Fable 5와 비교했다. 같은 가격의 드롭인 업그레이드에 Frontier-Bench는 절반 가격으로 Fable을 역전. 그래도 티어가 뒤집힌 건 아니라서, 우리 배치에서 바뀌는 층은 하나다. 접수창구 #25.</p>
     </a>
-    <a class="card" href="./2026/gpu-serving-primer/" data-date="2026-07-24T15:57" data-topic="ai">
+    <a class="card" href="./2026/gpu-serving-primer/" data-date="2026-07-24T15:57" data-topic="ai" data-icon="🖥️">
       <div class="meta">
         <span class="date">2026-07-24 15:57</span>
         <span class="tag">AI · GPU 서빙</span>
@@ -935,7 +952,7 @@
       <h2>GPU 서빙 입문 — 대량 GPU 로 모델을 서빙하기 전에 알아야 할 것들</h2>
       <p>대량의 GPU 로 모델을 서빙하는 업무를 맡았을 때 어디부터 공부할지 정리했다. 기본기 6개(하드웨어·prefill/decode·메모리 암산·배칭·지표·프레임워크)와 심화 7개(병렬화·P/D 분리·speculative decoding·오케스트레이션·관측성 등), 그리고 4단계 학습 순서. 접수창구 #24.</p>
     </a>
-    <a class="card" href="./2026/graph-engineering/" data-date="2026-07-23T16:29" data-topic="workflow">
+    <a class="card" href="./2026/graph-engineering/" data-date="2026-07-23T16:29" data-topic="workflow" data-icon="🕸️">
       <div class="meta">
         <span class="date">2026-07-23 16:29</span>
         <span class="tag">워크플로 · 그래프 오케스트레이션</span>
@@ -943,7 +960,7 @@
       <h2>그래프 엔지니어링 — 직선 에이전트에서 그래프 아키텍트까지</h2>
       <p>141만 조회 X 아티클 "그래프 엔지니어링 14단계 로드맵"을 요약하고 주장을 Claude Code 실제 Workflow 도구 스펙과 문장 단위로 대조했다. parallel/pipeline, 노드 계약, loop-until-dry 등 대부분 정확했고, Bun 100만 라인 포팅 사례도 실화로 교차 확인. 접수창구 #22.</p>
     </a>
-    <a class="card" href="./2026/paperclip-maximizer/" data-date="2026-07-22T14:26" data-topic="ai">
+    <a class="card" href="./2026/paperclip-maximizer/" data-date="2026-07-22T14:26" data-topic="ai" data-icon="📎">
       <div class="meta">
         <span class="date">2026-07-22 14:26</span>
         <span class="tag">AI · 정렬 문제</span>
@@ -952,7 +969,7 @@
       <p>AI 완전 통제가 정지 문제로 환원된다는 2021년 증명, 환각이 불가피하다는 2024년 증명 두 편의 정리 진술과 증명 도구를 원문에서 확인했다. 이 결과들이 닫는 것은 사후 안전 판정 하나뿐이고, 아키텍처 제약·가역성·라우팅은 열려 있다. HITL이 정리를 우회하지 않는 이유와 인스타그램 2025 사태까지.</p>
     </a>
 
-    <a class="card" href="./2026/gemini-3-6-flash/" data-date="2026-07-22T11:20" data-topic="ai">
+    <a class="card" href="./2026/gemini-3-6-flash/" data-date="2026-07-22T11:20" data-topic="ai" data-icon="googlegemini.svg">
       <div class="meta">
         <span class="date">2026-07-22 11:20</span>
         <span class="tag">AI · Gemini 3.6 Flash</span>
@@ -961,7 +978,7 @@
       <p>Google이 7월 21일 발표한 Gemini 3.6 Flash·3.5 Flash-Lite·3.5 Flash Cyber를 GPT-5.6 라인업, Claude와 벤치마크·가격으로 비교했다. 계열 내 전승에 출력가 인하까지 얹었지만, 더 싸고 코딩이 강한 GPT-5.6 Luna가 남는다는 정리.</p>
     </a>
 
-    <a class="card" href="./2026/harness-vs-autonomy/" data-date="2026-07-22T09:14" data-topic="workflow">
+    <a class="card" href="./2026/harness-vs-autonomy/" data-date="2026-07-22T09:14" data-topic="workflow" data-icon="🐎">
       <div class="meta">
         <span class="date">2026-07-22 09:14</span>
         <span class="tag">워크플로 · 하네스와 모델 자율성</span>
@@ -970,7 +987,7 @@
       <p>이 아카이브의 하네스 워크플로 글을 METR 시간지평과 Anthropic 자율성 실측으로 재검토했다. 파일 큐·검증 게이트 구조는 표준 권고에 가까워졌고, 사람 게이트의 개수와 위치만 한 세대 전 모델 기준이었다는 판정.</p>
     </a>
 
-    <a class="card" href="./2026/agent-teams-in-process/" data-date="2026-07-22T09:05" data-topic="ai">
+    <a class="card" href="./2026/agent-teams-in-process/" data-date="2026-07-22T09:05" data-topic="ai" data-icon="claude.svg">
       <div class="meta">
         <span class="date">2026-07-22 09:05</span>
         <span class="tag">AI · 에이전트 팀</span>
@@ -979,7 +996,7 @@
       <p>Claude Code 에이전트 팀의 표시 모드를 번들 소스와 문서로 확인했다. 기본값이 in-process 로 바뀌었고, 에이전트 패널에서 팀원 화면을 통째로 열어 직접 타이핑까지 된다. 상태 공유 계층은 원래 표시 모드와 직교였다.</p>
     </a>
 
-    <a class="card" href="./2026/kb16-ghost-maple/" data-date="2026-07-21T19:10" data-topic="hardware">
+    <a class="card" href="./2026/kb16-ghost-maple/" data-date="2026-07-21T19:10" data-topic="hardware" data-icon="👻">
       <div class="meta">
         <span class="date">2026-07-21 19:10</span>
         <span class="tag">하드웨어 · 매크로패드</span>
@@ -988,7 +1005,7 @@
       <p>같은 유령 Maple 이 다른 PC 에서 재발해 자동 복구 스케줄러를 깔았다. 왜 이 매크로패드만 KVM 뒤에서 죽는지 파 보니, 부팅마다 USB 정체성을 갈아치우는 부팅 시퀀스와 아두이노 시절에서 흘러온 Maple 부트로더가 있었다.</p>
     </a>
 
-    <a class="card" href="./2026/claude-code-reading-guide/" data-date="2026-07-21T10:59" data-topic="ai">
+    <a class="card" href="./2026/claude-code-reading-guide/" data-date="2026-07-21T10:59" data-topic="ai" data-icon="claude.svg">
       <div class="meta">
         <span class="date">2026-07-21 10:59</span>
         <span class="tag">AI · Claude Code 활용</span>
@@ -997,7 +1014,7 @@
       <p>접수함으로 들어온 note 아티클 조사. 본문형 글이 아니라 저자의 유료 기사 17편을 기반 정비부터 팀·조직 전개까지 5단계로 엮은 커리큘럼형 목차라는 판정. 구조와 관통하는 메시지만 가볍게 정리했다.</p>
     </a>
 
-    <a class="card" href="./2026/jacobian-conjecture-counterexample/" data-date="2026-07-21T04:55" data-topic="ai">
+    <a class="card" href="./2026/jacobian-conjecture-counterexample/" data-date="2026-07-21T04:55" data-topic="ai" data-icon="🧮">
       <div class="meta">
         <span class="date">2026-07-21 04:55</span>
         <span class="tag">AI · 수학 추측 반증</span>
@@ -1005,7 +1022,7 @@
       <h2>야코비안 추측, 87년 만에 무너지다</h2>
       <p>1939년 켈러가 남긴 야코비안 추측에 3변수 반례가 나왔다. 발표는 Anthropic 의 수학자, 반례를 찾은 것은 Claude Fable 5. 87년의 시도와 오증의 역사, 남은 평면 추측, 그리고 반례를 직접 검산한 기록.</p>
     </a>
-    <a class="card" href="./2026/kb16-firmware-diy/" data-date="2026-07-21T02:47" data-topic="hardware">
+    <a class="card" href="./2026/kb16-firmware-diy/" data-date="2026-07-21T02:47" data-topic="hardware" data-icon="⌨️">
       <div class="meta">
         <span class="date">2026-07-21 02:47</span>
         <span class="tag">하드웨어 · 키보드 펌웨어</span>
@@ -1014,7 +1031,7 @@
       <p>남이 3년 전에 구워 둔 바이너리를 그대로 쓰던 KB16 매크로패드 펌웨어에 처음 직접 손을 댔다. 홀드 하이라이트 훅 10줄을 위해 베이스 커밋을 md5 로 특정해 고정하고, OLED 레이아웃을 재설계하고, 전부 패치 3장의 재현 빌드로 남겼다.</p>
     </a>
 
-    <a class="card" href="./2026/rift-vs-git-worktree/" data-date="2026-07-21T02:44" data-topic="workflow">
+    <a class="card" href="./2026/rift-vs-git-worktree/" data-date="2026-07-21T02:44" data-topic="workflow" data-icon="🌿">
       <div class="meta">
         <span class="date">2026-07-21 02:44</span>
         <span class="tag">워크플로 · 병렬 워크스페이스</span>
@@ -1022,7 +1039,7 @@
       <h2>rift, git worktree 대안이 될 수 있을까</h2>
       <p>opencode 조직이 만든 CoW 스냅샷 워크스페이스 도구 rift 조사. worktree 의 상위 호환이 아니라 "지금 이 순간의 디렉터리를 분기하는" 다른 축의 도구이고, ext4·v0.0.x 실험 단계라 도입은 보류라는 판정.</p>
     </a>
-    <a class="card" href="./2026/upcoming-games-2026h2/" data-date="2026-07-20T21:08" data-topic="reading">
+    <a class="card" href="./2026/upcoming-games-2026h2/" data-date="2026-07-20T21:08" data-topic="reading" data-icon="🎮">
       <div class="meta">
         <span class="date">2026-07-20 21:08</span>
         <span class="tag">읽을거리 · 하반기 게임 신작 예보</span>
@@ -1030,7 +1047,7 @@
       <h2>하반기 대작 10+1선, 미리 채점해 봤습니다</h2>
       <p>관리자님 블로그 리뷰 아카이브 300여 건으로 취향을 프로파일링하고, 2026년 하반기 대작 10+1편에 대해 느낄 감정을 미리 예보했다. GTA 6 는 "GOTY 는 인정하지만 취향은 아니었다"가 재발할 유력 후보라는 판정.</p>
     </a>
-    <a class="card" href="./2026/agents-a1-4b/" data-date="2026-07-20T20:44" data-topic="ai">
+    <a class="card" href="./2026/agents-a1-4b/" data-date="2026-07-20T20:44" data-topic="ai" data-icon="🐣">
       <div class="meta">
         <span class="date">2026-07-20 20:44</span>
         <span class="tag">AI · 로컬 모델</span>
@@ -1039,7 +1056,7 @@
       <p>InternScience 의 검색·도구호출 특화 4B 증류 모델 조사. 동급 벤치마크는 압도적인데 그 숫자는 에이전트 하네스 조건부다. 지금 파이프라인은 그대로 두고, 4080 머신의 로컬 에이전트 실험 첫 후보로 올려 둔다는 판정.</p>
     </a>
 
-    <a class="card" href="./2026/push-to-talk-edge-cases/" data-date="2026-07-20T13:40" data-topic="ai">
+    <a class="card" href="./2026/push-to-talk-edge-cases/" data-date="2026-07-20T13:40" data-topic="ai" data-icon="📻">
       <div class="meta">
         <span class="date">2026-07-20 13:40</span>
         <span class="tag">AI · 음성</span>
@@ -1047,7 +1064,7 @@
       <h2>푸시투토크의 마감 처리</h2>
       <p>F13 이 눌린 채 장치가 빠지면? 아무 말 없이 떼면? 말하다 후회하면? 스턱 키 90초 상한과 파킹, 빈 결과 전용 큐, 뗄 때 Esc 취소. "아무 일도 안 일어남"을 세 종류의 소리로 구분한 음성 딕테이션 마감 기록.</p>
     </a>
-    <a class="card" href="./2026/wsl2-localhost-death/" data-date="2026-07-20T13:20" data-topic="system">
+    <a class="card" href="./2026/wsl2-localhost-death/" data-date="2026-07-20T13:20" data-topic="system" data-icon="🐧">
       <div class="meta">
         <span class="date">2026-07-20 13:20</span>
         <span class="tag">시스템 · WSL</span>
@@ -1055,7 +1072,7 @@
       <h2>F13 이 조용히 죽어 있었다</h2>
       <p>서버는 active, 클라이언트는 생존, 로그는 무결. 그런데 음성 딕테이션만 무반응. 진범은 WSL2 localhost 포워딩 사망이었다. SynSent 고착과 CPU 증가분으로 판별하고, mirrored·IP 폴백·로그온 기동 3층 방어로 재부팅 내성까지.</p>
     </a>
-    <a class="card" href="./2026/key-repeat-case-closed/" data-date="2026-07-20T13:00" data-topic="hardware">
+    <a class="card" href="./2026/key-repeat-case-closed/" data-date="2026-07-20T13:00" data-topic="hardware" data-icon="🕵️">
       <div class="meta">
         <span class="date">2026-07-20 13:00</span>
         <span class="tag">하드웨어 · USB 진단</span>
@@ -1063,7 +1080,7 @@
       <h2>키 밀림 사건 종결 보고</h2>
       <p>재부팅 직후 허브에서 즉시 재발한 키 밀림이 허브 전원 재투입만으로 소멸했다. 허브 단수도 컨트롤러도 용의선상에서 내려왔고, 자가전원 허브는 재부팅의 사각지대라는 것이 드러났다. 두 용의자를 남긴 채 종결한 이유와 재발 플레이북.</p>
     </a>
-    <a class="card" href="./2026/keyboard-fixed-mic-dead/" data-date="2026-07-19T08:17" data-topic="hardware">
+    <a class="card" href="./2026/keyboard-fixed-mic-dead/" data-date="2026-07-19T08:17" data-topic="hardware" data-icon="🎤">
       <div class="meta">
         <span class="date">2026-07-19 08:17</span>
         <span class="tag">하드웨어 · USB 진단</span>
@@ -1072,7 +1089,7 @@
       <p>키 밀림 재발을 계측으로 확정하고 허브를 탈출했더니 이번엔 마이크가 죽었다. 원인은 셋 — Windows 엔드포인트 정체성, 전역 리셋이 남긴 컨트롤러 웨지, 허브 뒤 오디오 입력이 안 되는 구조 한계. 컨트롤러 세 개를 오가며 판정하고 CPU 직결 포트에 정착했다.</p>
     </a>
 
-    <a class="card" href="./2026/pace-not-percent/" data-date="2026-08-10T18:46" data-topic="terminal">
+    <a class="card" href="./2026/pace-not-percent/" data-date="2026-08-10T18:46" data-topic="terminal" data-icon="🚦">
       <div class="meta">
         <span class="date">2026-08-10 18:46</span>
         <span class="tag">터미널 · 쿼터 페이스 색</span>
@@ -1081,7 +1098,7 @@
       <p>AI 구독 쿼터를 절대 사용률이 아니라 앞으로 낼 수 있는 배속으로 판정한다. 기존 경계는 유지한 채 청록·초록·노랑·주황·빨강 5단계로 세분하고, 같은 80%가 시점에 따라 다른 뜻이 되는 이유를 네 곡선으로 그렸다.</p>
     </a>
 
-    <a class="card" href="./2026/key-repeat-explosion/" data-date="2026-07-19T02:14" data-topic="hardware">
+    <a class="card" href="./2026/key-repeat-explosion/" data-date="2026-07-19T02:14" data-topic="hardware" data-icon="💥">
       <div class="meta">
         <span class="date">2026-07-19 02:14</span>
         <span class="tag">하드웨어 · USB 진단</span>
@@ -1090,7 +1107,7 @@
       <p>타이핑 중 한 글자가 스무 자씩 쏟아지는 증상을 새벽에 추적했다. 반박된 가설 5건, 결정적 지문은 서로 다른 두 키의 같은 밀리초 동시 해제 — 진범은 USB HID 리포트 유실. 다만 변수 셋이 같이 바뀌어 조사는 아직 관찰 대기다.</p>
     </a>
 
-    <a class="card" href="./2026/post-labor-capitalism/" data-date="2026-07-18T22:51" data-topic="economy">
+    <a class="card" href="./2026/post-labor-capitalism/" data-date="2026-07-18T22:51" data-topic="economy" data-icon="💰">
       <div class="meta">
         <span class="date">2026-07-18 22:51</span>
         <span class="tag">경제 · AI와 노동</span>
@@ -1098,7 +1115,7 @@
       <h2>노동 이후의 자본주의와 기본소득</h2>
       <p>AI가 노동을 대체하면 자본주의는 소비자 없는 축적으로 재편된다는 kil9 의 에세이. 협상력과 타이밍, 알래스카·온타리오라는 예고편, 철회 난이도 사다리까지. 리브가 수치 검증과 덧붙임을 얹어 등록했다.</p>
     </a>
-    <a class="card" href="./2026/lingbot-map-local/" data-date="2026-07-18T01:13" data-topic="ai">
+    <a class="card" href="./2026/lingbot-map-local/" data-date="2026-07-18T01:13" data-topic="ai" data-icon="📷">
       <div class="meta">
         <span class="date">2026-07-18 01:13</span>
         <span class="tag">AI · 3D 재구성</span>
@@ -1107,7 +1124,7 @@
       <p>Ant Group 의 스트리밍 3D 재구성 모델 LingBot-Map 을 우리 장비로 돌릴 수 있는지 조사했다. 결론은 폰은 촬영만, 계산은 RTX 4080 SUPER — 온디바이스가 안 되는 이유, WSL2 를 권하는 근거, VRAM 튜닝 플래그와 촬영 요령까지.</p>
     </a>
 
-    <a class="card" href="./2026/kb16-qmk-layer-stack/" data-date="2026-07-17T13:35" data-topic="hardware">
+    <a class="card" href="./2026/kb16-qmk-layer-stack/" data-date="2026-07-17T13:35" data-topic="hardware" data-icon="🥞">
       <div class="meta">
         <span class="date">2026-07-17 13:35</span>
         <span class="tag">하드웨어 · 키보드 펌웨어</span>
@@ -1116,7 +1133,7 @@
       <p>매크로패드에서 위 레이어는 홀드로 얼마든지 미리 볼 수 있는데 아래 레이어는 어떤 조합으로도 보이지 않는다. 버그가 아니라 QMK 레이어가 모드가 아닌 우선순위 스택이어서다 — 비트마스크 스캔의 동작, MO(0)이 영원히 죽어 있는 이유, TMK 시절 8비트 컨트롤러에서 온 설계 유래까지.</p>
     </a>
 
-    <a class="card" href="./2026/voice-prompting-cost/" data-date="2026-07-17T02:50" data-topic="ai">
+    <a class="card" href="./2026/voice-prompting-cost/" data-date="2026-07-17T02:50" data-topic="ai" data-icon="🗣️">
       <div class="meta">
         <span class="date">2026-07-17 02:50</span>
         <span class="tag">AI · 음성</span>
@@ -1125,7 +1142,7 @@
       <p>Moshi 조사의 후속. 하루치 Claude Code 로그를 실측하니 사람이 입력하는 말은 하루 12분어치였다. OpenAI Realtime API 의 지연 실체와 요금 구조, STT 전용 API 와의 30배 가격 차, 코드스위칭 기준의 한국어 인식 대안 비교에 더해, 매크로 키 hold-to-speech 구성과 클로바노트 적합성 추가 조사까지.</p>
     </a>
 
-    <a class="card" href="./2026/moshi-voice-ai/" data-date="2026-07-17T02:20" data-topic="ai">
+    <a class="card" href="./2026/moshi-voice-ai/" data-date="2026-07-17T02:20" data-topic="ai" data-icon="💬">
       <div class="meta">
         <span class="date">2026-07-17 02:20</span>
         <span class="tag">AI · 음성</span>
@@ -1134,7 +1151,7 @@
       <p>Kyutai 의 full-duplex 음성 대화 모델 Moshi 를 다섯 가지 질문으로 조사했다. 완전 무료 오픈소스에 SSH 원격 환경과도 잘 맞지만, 영어 전용이라는 사실 하나가 판정을 뒤집는다. J-Moshi 파인튜닝 사례와 비용 셈법, Qwen3-Omni·OpenAI Realtime 대안 비교까지.</p>
     </a>
 
-    <a class="card" href="./2026/kil9conf-14-years/" data-date="2026-07-17T02:01" data-topic="ai">
+    <a class="card" href="./2026/kil9conf-14-years/" data-date="2026-07-17T02:01" data-topic="ai" data-icon="📜">
       <div class="meta">
         <span class="date">2026-07-17 02:01</span>
         <span class="tag">AI · 연대기</span>
@@ -1144,7 +1161,7 @@
     </a>
 
 
-    <a class="card" href="./2026/kb16-bootloop-usb-power/" data-date="2026-07-17T03:50" data-topic="hardware">
+    <a class="card" href="./2026/kb16-bootloop-usb-power/" data-date="2026-07-17T03:50" data-topic="hardware" data-icon="🔌">
       <div class="meta">
         <span class="date">2026-07-17 03:50</span>
         <span class="tag">하드웨어 · 매크로패드</span>
@@ -1154,7 +1171,7 @@
       <div class="path">/kb16-bootloop-usb-power/</div>
     </a>
 
-    <a class="card" href="./2026/herdr-vs-orca/" data-date="2026-07-16T02:00" data-topic="terminal">
+    <a class="card" href="./2026/herdr-vs-orca/" data-date="2026-07-16T02:00" data-topic="terminal" data-icon="🐋">
       <div class="meta">
         <span class="date">2026-07-16 02:00</span>
         <span class="tag">터미널 · 비교</span>
@@ -1164,7 +1181,7 @@
       <div class="path">/herdr-vs-orca/</div>
     </a>
 
-    <a class="card" href="./p/liv-today/" data-date="2026-07-15T19:40" data-topic="site">
+    <a class="card" href="./p/liv-today/" data-date="2026-07-15T19:40" data-topic="site" data-icon="liv.webp">
       <div class="meta">
         <span class="date">2026-07-15 19:40</span>
         <span class="tag">사이트 · 캐릭터</span>
@@ -1174,7 +1191,7 @@
       <div class="path">/liv-today/</div>
     </a>
 
-    <a class="card" href="./2026/claude-skills-guide/" data-date="2026-07-15T15:50" data-topic="ai">
+    <a class="card" href="./2026/claude-skills-guide/" data-date="2026-07-15T15:50" data-topic="ai" data-icon="claude.svg">
       <div class="meta">
         <span class="date">2026-07-15 15:50</span>
         <span class="tag">AI · 스킬</span>
@@ -1184,7 +1201,7 @@
       <div class="path">/claude-skills-guide/</div>
     </a>
 
-    <a class="card" href="./2026/notosanskr-nfc-fixed/" data-date="2026-07-15T03:36" data-topic="terminal">
+    <a class="card" href="./2026/notosanskr-nfc-fixed/" data-date="2026-07-15T03:36" data-topic="terminal" data-icon="🔤">
       <div class="meta">
         <span class="date">2026-07-15 03:36</span>
         <span class="tag">터미널 · 폰트</span>
@@ -1194,7 +1211,7 @@
       <div class="path">/notosanskr-nfc-fixed/</div>
     </a>
 
-    <a class="card" href="./2026/systemd-path-fail-closed/" data-date="2026-07-15T02:28" data-topic="system">
+    <a class="card" href="./2026/systemd-path-fail-closed/" data-date="2026-07-15T02:28" data-topic="system" data-icon="🛡️">
       <div class="meta">
         <span class="date">2026-07-15 02:28</span>
         <span class="tag">시스템 · 디버깅</span>
@@ -1204,7 +1221,7 @@
       <div class="path">/systemd-path-fail-closed/</div>
     </a>
 
-    <a class="card" href="./2026/nintendo-actions-runner/" data-date="2026-07-14T23:30" data-topic="system">
+    <a class="card" href="./2026/nintendo-actions-runner/" data-date="2026-07-14T23:30" data-topic="system" data-icon="nintendo.svg">
       <div class="meta">
         <span class="date">2026-07-14 23:30</span>
         <span class="tag">시스템 · SRE</span>
@@ -1213,7 +1230,7 @@
       <p>월 63만 job 을 처리하는 self-hosted runner 기반을 겸무 3인 팀이 돌리는 방법 — 닌텐도시스템즈의 SRE NEXT 2026 발표 요약. EKS+ARC 아키텍처, 강제 없는 사내 플랫폼 성장법, 겸무 체제의 장점과 과제, 자동화·셀프서비스로 버티는 운용까지.</p>
     </a>
 
-    <a class="card" href="./2026/herdr-pane-tradeoffs/" data-date="2026-07-14T18:48" data-topic="workflow">
+    <a class="card" href="./2026/herdr-pane-tradeoffs/" data-date="2026-07-14T18:48" data-topic="workflow" data-icon="🐑">
       <div class="meta">
         <span class="date">2026-07-14 18:48</span>
         <span class="tag">워크플로 · 오케스트레이션</span>
@@ -1223,7 +1240,7 @@
       <div class="path">/herdr-pane-tradeoffs/</div>
     </a>
 
-    <a class="card" href="./2026/backlog-md-vs-plan-md/" data-date="2026-07-13T15:48" data-topic="workflow">
+    <a class="card" href="./2026/backlog-md-vs-plan-md/" data-date="2026-07-13T15:48" data-topic="workflow" data-icon="🗒️">
       <div class="meta">
         <span class="date">2026-07-13 15:48</span>
         <span class="tag">워크플로 · 태스크 관리</span>
@@ -1233,7 +1250,7 @@
       <div class="path">/backlog-md-vs-plan-md/</div>
     </a>
 
-    <a class="card" href="./2026/ghostty-vs-windows-terminal/" data-date="2026-07-13T01:57" data-topic="terminal">
+    <a class="card" href="./2026/ghostty-vs-windows-terminal/" data-date="2026-07-13T01:57" data-topic="terminal" data-icon="ghostty.svg">
       <div class="meta">
         <span class="date">2026-07-13 01:57</span>
         <span class="tag">터미널 · 비교</span>
@@ -1243,7 +1260,7 @@
       <div class="path">/ghostty-vs-windows-terminal/</div>
     </a>
 
-    <a class="card" href="./2026/hashimoto-oss-philosophy/" data-date="2026-07-13T00:50" data-topic="terminal">
+    <a class="card" href="./2026/hashimoto-oss-philosophy/" data-date="2026-07-13T00:50" data-topic="terminal" data-icon="zig.svg">
       <div class="meta">
         <span class="date">2026-07-13 00:50</span>
         <span class="tag">터미널 · 인터뷰</span>
@@ -1253,7 +1270,7 @@
       <div class="path">/hashimoto-oss-philosophy/</div>
     </a>
 
-    <a class="card" href="./2026/citrini-2028-gic/" data-date="2026-07-12T23:31" data-topic="economy">
+    <a class="card" href="./2026/citrini-2028-gic/" data-date="2026-07-12T23:31" data-topic="economy" data-icon="📉">
       <div class="meta">
         <span class="date">2026-07-12 23:31</span>
         <span class="tag">경제 · 투자 리서치</span>
@@ -1263,7 +1280,7 @@
       <div class="path">/citrini-2028-gic/</div>
     </a>
 
-    <a class="card" href="./2026/claude-vs-gpt56-computer-use/" data-date="2026-07-12T22:24" data-topic="ai">
+    <a class="card" href="./2026/claude-vs-gpt56-computer-use/" data-date="2026-07-12T22:24" data-topic="ai" data-icon="🖱️">
       <div class="meta">
         <span class="date">2026-07-12 22:24</span>
         <span class="tag">AI · 벤치마크</span>
@@ -1273,7 +1290,7 @@
       <div class="path">/claude-vs-gpt56-computer-use/</div>
     </a>
 
-    <a class="card" href="./2026/ai-capex-hedge/" data-date="2026-07-12T20:05" data-topic="economy">
+    <a class="card" href="./2026/ai-capex-hedge/" data-date="2026-07-12T20:05" data-topic="economy" data-icon="⚖️">
       <div class="meta">
         <span class="date">2026-07-12 20:05</span>
         <span class="tag">경제 · 투자 리서치</span>
@@ -1283,7 +1300,7 @@
       <div class="path">/ai-capex-hedge/</div>
     </a>
 
-    <a class="card" href="./p/til-archive/" data-date="2026-04-02T12:05" data-topic="site">
+    <a class="card" href="./p/til-archive/" data-date="2026-04-02T12:05" data-topic="site" data-icon="🗄️">
       <div class="meta">
         <span class="date">2026-04-02 12:05</span>
         <span class="tag">사이트 · 아카이브</span>
@@ -1293,7 +1310,7 @@
       <div class="path">/til-archive/</div>
     </a>
 
-    <a class="card" href="./2026/2026-07-plan-pipeline/" data-date="2026-07-11T17:46" data-topic="workflow">
+    <a class="card" href="./2026/2026-07-plan-pipeline/" data-date="2026-07-11T17:46" data-topic="workflow" data-icon="🔗">
       <div class="meta">
         <span class="date">2026-07-11 17:46</span>
         <span class="tag">워크플로 · 플랜</span>
@@ -1381,6 +1398,29 @@
       img.alt = "kil9 작성";
       img.width = 14; img.height = 14;
       tag.insertBefore(img, tag.firstChild);
+    });
+
+    // 글 아이콘 (TASK-135). data-icon 이 "<이름>.svg|webp" 면 p/icons/ 의 그림, 아니면
+    // 이모지 글자로 원형 배지를 그려 제목 왼쪽에 둔다. /p/archive/ 도 같은 값을 읽는다.
+    var ICON_FILE = /^[a-z0-9-]+\.(svg|webp|png)$/;
+    cards.forEach(function (card) {
+      var icon = card.dataset.icon;
+      var h2 = card.querySelector("h2");
+      if (!icon || !h2) return;
+      var badge = document.createElement("span");
+      badge.className = "ico";
+      badge.setAttribute("aria-hidden", "true");
+      if (ICON_FILE.test(icon)) {
+        var img = document.createElement("img");
+        img.src = "p/icons/" + icon;
+        img.alt = "";
+        img.loading = "lazy";
+        if (!/\.svg$/.test(icon)) img.className = "photo";
+        badge.appendChild(img);
+      } else {
+        badge.textContent = icon;
+      }
+      card.insertBefore(badge, h2);
     });
 
     // 최신 피드 + 사이드바 월별 목차 (2026-07-21, 구 T-11 월 아카이브 대체).
