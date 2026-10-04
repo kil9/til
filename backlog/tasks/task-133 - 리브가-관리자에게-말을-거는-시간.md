@@ -1,10 +1,10 @@
 ---
 id: TASK-133
 title: 리브가 관리자에게 말을 거는 시간
-status: In Progress
+status: Done
 assignee: []
 created_date: '2026-10-04 03:00'
-updated_date: '2026-10-04 03:31'
+updated_date: '2026-10-04 06:15'
 labels: []
 milestone: m-15
 dependencies:
@@ -33,4 +33,6 @@ dependencies:
 - collect: 스레드 답(없으면 3시간 안의 DM 최상위)을 읽고 마지막 답 후 30분이 지나면 Sonnet(도구 없음, 잠금 동일)이 공개용 요약 1-2문장으로 바꿔 kind=talk 로 노트에 add·render·push. 개인 경험·회사 일화·이름은 빼고 관점만 — 가짜 대화로 요약 시험 시 이름은 빠졌고 회사 일화가 남아 규칙을 조였다.
 - 첫 전송: 2026-10-04 12:30 (멱등성 키 얘기, ts=1791084602.747039). 중복 send 거부·답 없을 때 collect 무동작 확인. cron 최소 PATH 에서 claude 호출 확인.
 남은 것: AC2 — 관리자님 답이 실제로 노트에 기록되는 것을 확인해야 닫는다.
+
+2026-10-04 15시 중지: 관리자 요청 — 리브는 먼저 말을 걸지 않고, 관리자가 직접 말을 걸 때만 응답한다. talk.py send·collect cron 2줄 삭제(백업 state/crontab.bak), walk.py 프롬프트에서 talk 지시·스키마 제거(백업 state/walk.py.bak-talk), 열린 첫 talk 은 closed 처리. AC2 는 기능 중지로 폐기. talk.py 파일은 남겨 둔다.
 <!-- SECTION:NOTES:END -->
