@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-10-04T21:12:00+09:00</updated>
+  <updated>2026-10-05T16:50:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>초록불은 서버가 답했다는 뜻이지 사용자가 받았다는 뜻이 아니다: GeekNews Weekly 378호</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/geeknews-weekly-378/"/>
+    <id>https://til.kil9.dev/2026/geeknews-weekly-378/</id>
+    <published>2026-10-05T16:50:00+09:00</published>
+    <updated>2026-10-05T16:50:00+09:00</updated>
+    <category term="system"/>
+    <summary type="text">GeekNews Weekly 378호를 정리했다. 서두가 엮은 세 글은 모니터링, 브라우저 실시간 통신, AI 신뢰도 점수를 다루지만 같은 이야기다. 평균, 열린 연결, 높은 확률은 좁은 사실 하나만 증명한다. 나머지 31건은 표로 접었다.</summary>
+  </entry>
   <entry>
     <title>today i learned 홍보 모션그래픽 두 판: 리브가 나오는 판과 안 나오는 판</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/til-promo/"/>
