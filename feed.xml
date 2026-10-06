@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-10-05T16:50:00+09:00</updated>
+  <updated>2026-10-06T09:55:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>Windows 11 작업 표시줄의 '작업 끝내기'는 작업 관리자의 강제 종료를 우클릭 메뉴로 옮긴 것이고, 기본값은 꺼져 있다</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/windows-11-taskbar-end-task/"/>
+    <id>https://til.kil9.dev/2026/windows-11-taskbar-end-task/</id>
+    <published>2026-10-06T09:55:00+09:00</published>
+    <updated>2026-10-06T09:55:00+09:00</updated>
+    <category term="system"/>
+    <summary type="text">Windows Latest 가 소개한 작업 표시줄의 End task 항목을 조사했다. 켜는 위치와 2024년 확인 창 제거는 Microsoft 문서로 확인되고, 내부 동작 설명은 매체 서술뿐이며 그 안에 서로 안 맞는 대목이 있다. 닫는 수단별 차이와 이력을 표로 정리했다.</summary>
+  </entry>
   <entry>
     <title>초록불은 서버가 답했다는 뜻이지 사용자가 받았다는 뜻이 아니다: GeekNews Weekly 378호</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/geeknews-weekly-378/"/>
