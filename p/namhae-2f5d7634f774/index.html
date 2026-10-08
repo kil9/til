@@ -124,7 +124,7 @@
   .note { border-radius: 18px; padding: 16px 18px 16px 54px; margin: 18px 0; font-size: 0.9375rem; position: relative; }
   .note::before { position: absolute; left: 16px; top: 14px; font-size: 1.375rem; }
   .note.warn { background: var(--warn-soft); } .note.warn::before { content: "🍳"; }
-  .note.info { background: var(--sea-soft); } .note.info::before { content: "🍺"; }
+  .note.info { background: var(--sea-soft); } .note.info::before { content: "📌"; }
   .note.tip { background: var(--leaf-soft); } .note.tip::before { content: "💡"; }
   .note.kids { background: var(--sun-soft); } .note.kids::before { content: "🧸"; }
   .note b:first-child { display: block; margin-bottom: 4px; }
@@ -354,11 +354,6 @@
   </div>
   <p class="wnote">10/8 기준 Open-Meteo 모델 예보입니다. 출발 전날 기상청 예보를 다시 봅니다. 저녁엔 15도 안팎이라 겉옷이 필요합니다.</p>
 
-  <div class="note info">
-    <b>연휴 첫날 = 독일마을 맥주축제 (10/9-10/11)</b>
-    제14회 남해 독일마을 맥주축제가 여행 기간과 정확히 겹칩니다. 키즈존과 가족 체험이 있지만 삼동면 일대가 내내 붐빌 겁니다. 간다면 낮에 잠깐 들르고, 저녁 공연 시간은 피하는 쪽을 추천합니다.
-  </div>
-
   <div class="day d1">
     <img class="illust" src="img/roadtrip.webp" alt="가을 단풍 속 남해대교를 건너는 차 두 대 삽화 (실제 사진을 참고해 그림)" loading="lazy">
     <div class="day-body">
@@ -390,7 +385,6 @@
       <li><time>18:30</time><div><div class="what">🍖 저녁: 이터널저니 또는 포장 파티</div><div class="how">BBQ 세트는 우리 객실이 안 돼서 빠졌습니다. 이터널저니는 미리 예약해야 하고, 예약이 안 되면 남해읍 <b>한촌설렁탕</b>(어린이 설렁탕, 아기의자 넉넉), 독일마을 <b>도우</b> 피자 포장으로 갑니다.</div></div></li>
     </ol>
     <div class="alt"><b>비가 제대로 오면:</b> 오전에 워터하우스를 먼저 가고, 점심은 남면 <b>다랭이맛집</b>이나 <b>복만식당</b>에서 먹고, 오후엔 숙소에서 쉽니다. 실내 구경을 원하면 남해읍 <b>남해유배문학관</b>(6세 이하, 65세 이상 무료)도 있습니다.</div>
-    <div class="alt"><b>맥주축제를 꼭 보고 싶으면:</b> 상주 대신 독일마을 쪽으로 갑니다. 오전 일찍 <b>할로브리즈</b>(유모차 OK, 아기의자 있음, 바다 전망) → <b>당케슈니첼</b> 점심 → 축제장 키즈존 순서로 돌고, 차가 막히기 전인 점심 무렵에 빠져나옵니다.</div>
     </div>
   </div>
 
@@ -573,15 +567,15 @@
     </div>
     <div class="card">
       <img src="img/p-german.webp" alt="남해 독일마을 입구의 붉은 지붕 건물 사진" loading="lazy">
-      <h4>독일마을 맥주축제</h4>
-      <div class="meta">약 35분 · 10/9-10/11 · 입장 무료</div>
-      <p>키즈존, 가족 체험(꽃팔찌, 인생네컷), 퍼레이드가 있습니다. 9일은 17시 퍼레이드, 18시 개막식입니다. 주차와 셔틀 공지가 아직 없어서 낮에 짧게 들르는 걸 추천합니다.</p>
-      <div class="chips"><span class="chip kid">키즈존</span><span class="chip no">매우 붐빔</span></div>
+      <h4>독일마을</h4>
+      <div class="meta">약 35분 · 입장 무료</div>
+      <p>붉은 지붕 집들이 바다를 내려다보는 마을입니다. 근처 <b>할로브리즈</b>(유모차 OK, 바다 전망)에서 쉬고 <b>당케슈니첼</b>에서 슈니첼을 먹는 코스로 묶기 좋습니다. 연휴엔 주차가 붐비니 오전에 갑니다.</p>
+      <div class="chips"><span class="chip kid">아이 OK</span><span class="chip">오전 추천</span></div>
     </div>
     <div class="card">
       <h4>원예예술촌 · 미국마을</h4>
       <div class="meta">30-35분 · 무료 (원예예술촌은 변동 가능)</div>
-      <p>독일마을 바로 위의 정원 마을입니다. 축제 인파를 피해 조용히 걷기 좋습니다. 미국마을은 작은 산책 코스입니다.</p>
+      <p>독일마을 바로 위의 정원 마을입니다. 조용히 걷기 좋습니다. 미국마을은 작은 산책 코스입니다.</p>
       <div class="chips"><span class="chip gm">어른도 좋아함</span></div>
     </div>
   </div>
@@ -669,7 +663,7 @@
       <label><input type="checkbox" data-k="fd-open"><span>와인 오프너, 병따개</span></label>
       <label><input type="checkbox" data-k="fd-cooler"><span>아이스박스, 아이스팩</span></label>
       <label><input type="checkbox" data-k="fd-trash"><span>쓰레기봉투, 키친타월, 물티슈</span></label>
-      <label><input type="checkbox" data-k="fd-drink"><span>생수, 음료, 맥주·와인</span></label>
+      <label><input type="checkbox" data-k="fd-drink"><span>생수, 음료, 와인</span></label>
       <label><input type="checkbox" data-k="fd-light"><span>캠핑 랜턴 <small>저녁 데크용</small></span></label>
     </div>
 
