@@ -219,11 +219,6 @@
   .ckbox input:checked + span { color: var(--text-faint); text-decoration: line-through; }
   .ckbox small { color: var(--text-faint); }
 
-  table.calls { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.9375rem; background: var(--surface); border-radius: 20px; box-shadow: var(--shadow); overflow: hidden; }
-  table.calls th, table.calls td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--rule); vertical-align: top; }
-  table.calls tr:last-child td { border-bottom: 0; }
-  table.calls th { font-size: 0.8125rem; color: var(--text-faint); font-weight: 700; background: var(--surface-2); }
-  table.calls td:first-child { font-weight: 700; white-space: nowrap; }
   .tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
 
   footer { margin: 64px 0 0; padding: 24px 0 56px; border-top: 2px dotted var(--rule); font-size: 0.8125rem; color: var(--text-faint); text-align: center; }
@@ -241,7 +236,6 @@
     .tl time { justify-self: start; }
     .r { padding-left: 66px; }
     .r::before { left: 12px; width: 40px; height: 40px; }
-    table.calls td:first-child { white-space: normal; }
   }
 </style>
 </head>
@@ -279,7 +273,6 @@
       <li><a href="#eat">🍽️ 밖에서 한 끼</a></li>
       <li><a href="#play">🚗 나가볼 곳</a></li>
       <li><a href="#pack">🎒 준비물</a></li>
-      <li><a href="#calls">📞 미리 전화</a></li>
       <li><a href="#info">🧭 교통·병원</a></li>
     </ul>
   </div>
@@ -744,38 +737,6 @@
       <label><input type="checkbox" data-k="vp-speaker"><span>블루투스 스피커</span></label>
     </div>
   </div>
-</section>
-
-<!-- ============ 미리 전화 ============ -->
-<section id="calls">
-  <h2><span class="h-ic" aria-hidden="true">📞</span>출발 전 전화로 확인할 것</h2>
-  <p class="sub">아난티에 물어봐서 답을 받은 것과 아직 남은 것입니다.</p>
-  <div class="note tip">
-    <b>아난티에 물어본 결과 (10/8)</b>
-    <ul>
-      <li>얼리체크인: 당일 상황에 따라 다르고, 된다면 1시간에 3만원 추가</li>
-      <li>침대가드: 전부 예약 마감</li>
-      <li>전자레인지: 객실에 있음. 간단한 앞접시도 있지만 과도·식칼은 없음</li>
-      <li>BBQ 세트: 가든동 전용이라 우리 객실(개인동)은 예약 불가</li>
-    </ul>
-  </div>
-  <h3>아직 확인 안 된 것</h3>
-  <table class="calls">
-    <thead><tr><th>어디</th><th>물어볼 것</th></tr></thead>
-    <tbody>
-      <tr><td>아난티 대표<br><a class="tel" href="tel:0558600100">055-860-0100</a></td><td>
-        <ul class="plain">
-          <li>포장한 회와 음식을 객실·데크에서 먹어도 되는지</li>
-          <li>전기포트, 세탁기가 있는지</li>
-          <li>룸서비스 시간과 메뉴</li>
-        </ul></td></tr>
-      <tr><td>워터하우스<br><a class="tel" href="tel:0558600407">055-860-0407</a></td><td>회원 무료 입장 인원, 예약이 필요한지, 유아 구명조끼 대여</td></tr>
-      <tr><td>르블랑<br><a class="tel" href="tel:0558600403">055-860-0403</a></td><td>10/9 (금) 디너 뷔페 7명 예약 (일찍 마감)</td></tr>
-      <tr><td>이터널저니<br><a class="tel" href="tel:0558600688">055-860-0688</a></td><td>점심·저녁 예약이 필요하면, 아이 메뉴</td></tr>
-      <tr><td>카트 투어 · 키즈 클래스<br><a class="tel" href="tel:0558600689">055-860-0689</a></td><td>카트 투어 시간 예약(대표번호 0100), 키즈 클래스에 36개월 넘은 아이가 되는지</td></tr>
-      <tr><td>유서방 회 떠가시다</td><td>당일 낮에 7명분 모듬회 주문, 픽업 시간</td></tr>
-    </tbody>
-  </table>
 </section>
 
 <!-- ============ 교통·병원 ============ -->
