@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-10-09 | 매튜 그린의 '공개키 암호를 잃을지도 모른다'는 답글은 깨졌다는 뜻이 아니라, 수십 명이 40년 들여다본 분석이 최선이라는 가정을 의심한 것이다 | [/2026/matthew-green-lose-public-key-crypto/](https://til.kil9.dev/2026/matthew-green-lose-public-key-crypto/) |
 | 2026-10-06 | Windows 11 작업 표시줄의 '작업 끝내기'는 작업 관리자의 강제 종료를 우클릭 메뉴로 옮긴 것이고, 기본값은 꺼져 있다 | [/2026/windows-11-taskbar-end-task/](https://til.kil9.dev/2026/windows-11-taskbar-end-task/) |
 | 2026-10-05 | 초록불은 서버가 답했다는 뜻이지 사용자가 받았다는 뜻이 아니다: GeekNews Weekly 378호 | [/2026/geeknews-weekly-378/](https://til.kil9.dev/2026/geeknews-weekly-378/) |
 | 2026-10-04 | today i learned 홍보 모션그래픽 두 판: 리브가 나오는 판과 안 나오는 판 | [/2026/til-promo/](https://til.kil9.dev/2026/til-promo/) |

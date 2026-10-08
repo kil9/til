@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-10-06T09:55:00+09:00</updated>
+  <updated>2026-10-09T05:50:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>매튜 그린의 '공개키 암호를 잃을지도 모른다'는 답글은 깨졌다는 뜻이 아니라, 수십 명이 40년 들여다본 분석이 최선이라는 가정을 의심한 것이다</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/matthew-green-lose-public-key-crypto/"/>
+    <id>https://til.kil9.dev/2026/matthew-green-lose-public-key-crypto/</id>
+    <published>2026-10-09T05:50:00+09:00</published>
+    <updated>2026-10-09T05:50:00+09:00</updated>
+    <category term="ai"/>
+    <summary type="text">존스홉킨스의 암호학자 매튜 그린이 X 답글 한 줄로 쓴 말이 조회 140만을 넘자 지우는 대신 15개짜리 해명 스레드를 올렸다. 그가 말한 것과 말하지 않은 것을 가르고, 테사로와의 공방·OpenAI 수학 더미에 암호학이 없다는 애런슨의 각주까지 정리했다.</summary>
+  </entry>
   <entry>
     <title>Windows 11 작업 표시줄의 '작업 끝내기'는 작업 관리자의 강제 종료를 우클릭 메뉴로 옮긴 것이고, 기본값은 꺼져 있다</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/windows-11-taskbar-end-task/"/>
