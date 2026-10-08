@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>남해 가족여행 안내서</title>
+<meta name="description" content="2026년 10월 9일부터 11일까지, 아난티 남해 더하우스 2박 3일 일정과 맛집, 놀거리, 준비물">
+<meta property="og:type" content="website">
+<meta property="og:title" content="남해 가족여행 안내서 (10/9-10/11)">
+<meta property="og:description" content="아난티 남해 2박 3일 일정, 맛집, 놀거리, 준비물 체크리스트">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8C%8A%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #FBF8F3;
+    --surface: #FFFFFF;
+    --surface-2: #F3EEE6;
+    --text: #1F2A2E;
+    --text-muted: #4F5D62;
+    --text-faint: #7A8589;
+    --rule: #E4DDD2;
+    --sea: #1E6B7B;
+    --sea-soft: #DCEBEE;
+    --sun: #C96F2D;
+    --sun-soft: #F7E6D8;
+    --leaf: #4D7A3A;
+    --leaf-soft: #E3EEDC;
+    --warn: #A8462F;
+    --warn-soft: #F6E1DA;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12181A;
+      --surface: #1A2225;
+      --surface-2: #202A2D;
+      --text: #E6ECEC;
+      --text-muted: #AAB7B9;
+      --text-faint: #7F8C8F;
+      --rule: #2C3739;
+      --sea: #6FB8C6;
+      --sea-soft: #1C3439;
+      --sun: #E8A06A;
+      --sun-soft: #3A2A1E;
+      --leaf: #95C47F;
+      --leaf-soft: #22301D;
+      --warn: #E58B74;
+      --warn-soft: #3A221C;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+      "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    font-size: 16px; line-height: 1.65; -webkit-font-smoothing: antialiased;
+    word-break: keep-all; overflow-wrap: anywhere;
+  }
+  a { color: var(--sea); text-underline-offset: 3px; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 16px; }
+
+  /* hero */
+  header.hero { padding: 56px 0 36px; border-bottom: 1px solid var(--rule); }
+  .eyebrow { font-size: 0.8125rem; color: var(--sun); font-weight: 600; letter-spacing: 0.02em; margin: 0 0 10px; }
+  h1 { margin: 0 0 12px; font-size: clamp(1.75rem, 5vw, 2.5rem); line-height: 1.2; letter-spacing: -0.02em; }
+  .lede { color: var(--text-muted); font-size: 1.0625rem; margin: 0 0 24px; max-width: 40em; }
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin: 0; padding: 0; list-style: none; }
+  .facts li { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 12px 14px; }
+  .facts b { display: block; font-size: 0.75rem; color: var(--text-faint); font-weight: 600; margin-bottom: 2px; }
+  .facts span { font-size: 0.9375rem; }
+
+  /* nav */
+  nav.toc { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--rule); }
+  nav.toc ul { display: flex; gap: 4px; margin: 0; padding: 8px 0; list-style: none; overflow-x: auto; scrollbar-width: none; }
+  nav.toc a { display: block; padding: 6px 12px; border-radius: 999px; text-decoration: none; color: var(--text-muted); font-size: 0.875rem; white-space: nowrap; }
+  nav.toc a:hover { background: var(--surface-2); color: var(--text); }
+
+  section { padding: 48px 0 8px; }
+  h2 { font-size: 1.5rem; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .sub { color: var(--text-muted); margin: 0 0 24px; }
+  h3 { font-size: 1.125rem; margin: 28px 0 10px; }
+  p { margin: 0 0 12px; }
+  ul.plain { margin: 0 0 12px; padding-left: 1.2em; }
+  ul.plain li { margin-bottom: 4px; }
+
+  .note { border-radius: 10px; padding: 14px 16px; margin: 16px 0; font-size: 0.9375rem; }
+  .note.warn { background: var(--warn-soft); }
+  .note.info { background: var(--sea-soft); }
+  .note.tip { background: var(--leaf-soft); }
+  .note b:first-child { display: block; margin-bottom: 4px; }
+  .note ul { margin: 6px 0 0; padding-left: 1.2em; }
+
+  /* weather */
+  .weather { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 8px 0 16px; }
+  .wday { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 12px; text-align: center; }
+  .wday .d { font-size: 0.8125rem; color: var(--text-faint); }
+  .wday .ic { font-size: 1.6rem; line-height: 1.4; }
+  .wday .t { font-weight: 600; }
+  .wday .r { font-size: 0.8125rem; color: var(--text-muted); }
+
+  /* timeline */
+  .day { background: var(--surface); border: 1px solid var(--rule); border-radius: 14px; padding: 20px 20px 8px; margin: 0 0 20px; }
+  .day-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin-bottom: 12px; }
+  .day-head h3 { margin: 0; }
+  .day-head .tag { font-size: 0.8125rem; color: var(--sun); font-weight: 600; }
+  .tl { list-style: none; margin: 0; padding: 0; }
+  .tl li { display: grid; grid-template-columns: 64px 1fr; gap: 12px; padding: 10px 0; border-top: 1px dashed var(--rule); }
+  .tl li:first-child { border-top: 0; }
+  .tl time { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--sea); font-size: 0.9375rem; }
+  .tl .what { font-weight: 600; }
+  .tl .how { color: var(--text-muted); font-size: 0.9375rem; }
+  .alt { margin: 4px 0 12px; padding: 12px 14px; background: var(--surface-2); border-radius: 10px; font-size: 0.9375rem; }
+  .alt b { color: var(--text); }
+
+  /* places */
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
+  .card { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+  .card h4 { margin: 0; font-size: 1rem; }
+  .card .meta { font-size: 0.8125rem; color: var(--text-faint); }
+  .card p { margin: 0; font-size: 0.9375rem; color: var(--text-muted); }
+  .chips { display: flex; flex-wrap: wrap; gap: 4px; }
+  .chip { font-size: 0.75rem; padding: 2px 8px; border-radius: 999px; background: var(--surface-2); color: var(--text-muted); }
+  .chip.kid { background: var(--leaf-soft); color: var(--leaf); }
+  .chip.gm { background: var(--sun-soft); color: var(--sun); }
+  .chip.no { background: var(--warn-soft); color: var(--warn); }
+  .card .links { margin-top: auto; font-size: 0.8125rem; }
+
+  /* restaurants */
+  .filters { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; }
+  .filters button { font: inherit; font-size: 0.875rem; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--rule); background: var(--surface); color: var(--text-muted); cursor: pointer; }
+  .filters button[aria-pressed="true"] { background: var(--sea); border-color: var(--sea); color: var(--bg); }
+  .rlist { display: grid; gap: 10px; }
+  .r { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 14px 16px; }
+  .r-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+  .r h3 { margin: 0; font-size: 1.0625rem; }
+  .r .dist { font-size: 0.8125rem; color: var(--sea); font-weight: 600; }
+  .r .area { font-size: 0.8125rem; color: var(--text-faint); }
+  .r .menu { margin: 6px 0 4px; font-size: 0.9375rem; }
+  .r .why { margin: 0 0 6px; font-size: 0.9375rem; color: var(--text-muted); }
+  .r .foot { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; font-size: 0.8125rem; color: var(--text-faint); }
+  .star { color: var(--sun); font-weight: 700; }
+  .r[hidden] { display: none; }
+
+  /* checklist */
+  .ck-tools { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 0 0 16px; font-size: 0.875rem; color: var(--text-muted); }
+  .ck-tools button { font: inherit; font-size: 0.8125rem; padding: 4px 10px; border-radius: 8px; border: 1px solid var(--rule); background: var(--surface); color: var(--text-muted); cursor: pointer; }
+  .progress { flex: 1 1 160px; height: 8px; background: var(--surface-2); border-radius: 999px; overflow: hidden; }
+  .progress i { display: block; height: 100%; width: 100%; background: var(--leaf); transform: scaleX(0); transform-origin: left; transition: transform .2s; }
+  .ckgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+  .ckbox { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 14px 16px; }
+  .ckbox h3 { margin: 0 0 8px; font-size: 1rem; }
+  .ckbox label { display: flex; gap: 8px; align-items: flex-start; padding: 4px 0; font-size: 0.9375rem; cursor: pointer; }
+  .ckbox input { margin-top: 5px; accent-color: var(--leaf); flex: none; }
+  .ckbox input:checked + span { color: var(--text-faint); text-decoration: line-through; }
+  .ckbox small { color: var(--text-faint); }
+
+  table.calls { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
+  table.calls th, table.calls td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  table.calls th { font-size: 0.8125rem; color: var(--text-faint); font-weight: 600; }
+  .tel { white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+  footer { margin: 56px 0 0; padding: 20px 0 48px; border-top: 1px solid var(--rule); font-size: 0.8125rem; color: var(--text-faint); }
+
+  @media (max-width: 560px) {
+    .weather { grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+    .wday { padding: 10px 6px; }
+    .day { padding: 16px 14px 6px; }
+    .tl li { grid-template-columns: 52px 1fr; gap: 8px; }
+    table.calls { font-size: 0.875rem; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">2026. 10. 9 (금) - 10. 11 (일) · 2박 3일</p>
+    <h1>남해 가족여행 안내서</h1>
+    <p class="lede">아난티 남해 더하우스에서 일곱 명이 보내는 한글날 연휴입니다. 일정 초안, 근처 맛집, 아이랑 놀 곳, 준비물을 한 페이지에 모았습니다. 모두 초안이니 단톡방에서 의견 주면 고쳐 나갑니다.</p>
+    <ul class="facts">
+      <li><b>누가</b><span>하담이네 3명 · 우연이네 3명 · 할머니</span></li>
+      <li><b>어디서</b><span>아난티 남해 더하우스 (구 그랜드빌라)</span></li>
+      <li><b>객실</b><span>78평 · 룸 4 · 욕실 4 · 정원 8명</span></li>
+      <li><b>이동</b><span>차 2대 (카시트 각 1개)</span></li>
+      <li><b>체크인 / 아웃</b><span>15:00 / 11:00</span></li>
+      <li><b>대표번호</b><span class="tel"><a href="tel:0558600100">055-860-0100</a></span></li>
+    </ul>
+  </div>
+</header>
+
+<nav class="toc" aria-label="목차">
+  <div class="wrap">
+    <ul>
+      <li><a href="#room">숙소</a></li>
+      <li><a href="#plan">일정</a></li>
+      <li><a href="#eat">맛집</a></li>
+      <li><a href="#play">놀거리</a></li>
+      <li><a href="#pack">준비물</a></li>
+      <li><a href="#calls">미리 전화</a></li>
+      <li><a href="#info">교통·병원</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ============ 숙소 ============ -->
+<section id="room">
+  <h2>숙소: 더하우스 (구 그랜드빌라)</h2>
+  <p class="sub">회원 보유 객실이라 공식 홈페이지의 리뉴얼된 더하우스와는 인테리어가 다릅니다. 가든형과 방·욕실 수는 같고, 자쿠지와 프라이빗 풀은 없습니다.</p>
+
+  <div class="note warn">
+    <b>객실 안에서는 요리가 안 됩니다 (2025년부터)</b>
+    그래서 끼니는 외식, 포장해 와서 먹기, 리조트 식당 셋 중에 고릅니다. 회를 떠 와서 데크에서 먹는 그림이 현실적입니다. 다만 포장 음식 반입, 데크 그릴 사용, 전자레인지·전기포트 유무는 후기로 확인되지 않았습니다. <a href="#calls">미리 전화</a>에 넣어 뒀습니다.
+  </div>
+
+  <h3>객실에 대해 알려진 것</h3>
+  <ul class="plain">
+    <li>2층 독채이고, 1층에 방 2개, 2층에 방 2개가 있습니다. 방마다 킹 침대이고, 3면이 유리인 1층 방이 특히 좋다는 후기가 있습니다. 위아래로 오르내리는 계단이 있으니 아이들 숨바꼭질은 확정이고, 계단에서는 눈을 떼지 않는 게 좋겠습니다.</li>
+    <li>정원과 데크가 있어 아이들이 마당에서 뛰어놀기 좋았다는 후기가 있습니다.</li>
+    <li>히노키탕은 물을 받는 데 40분쯤 걸린다고 합니다. 저녁에 쓸 거면 미리 틀어 둡니다.</li>
+    <li>미니바, 냉장고, 차와 커피, 욕실용품, 로션, 샤워캡, 순면 타월이 있습니다.</li>
+    <li>무료로 빌릴 수 있는 유아용품은 침대가드, 아기욕조, 변기 시트, 아기 침구, 젖병 소독기, 가습기입니다. 아기침대는 선착순이고, 아기의자와 유모차는 대여가 안 된다고 합니다.</li>
+  </ul>
+
+  <h3>리조트 안에서 놀기</h3>
+  <div class="cards">
+    <div class="card">
+      <h4>워터하우스 (실내 수영장)</h4>
+      <div class="meta">09:00-20:00 · 마지막 입장 19:30</div>
+      <p>오너 회원은 더하우스 8명까지 무료라고 안내돼 있습니다. 수영복이나 래쉬가드를 입어야 하고 수영모는 필수가 아닙니다. 안에 키즈풀이 새로 생겼습니다.</p>
+      <div class="chips"><span class="chip kid">아이 최고</span><span class="chip">비 와도 OK</span></div>
+      <p class="links">36개월 미만은 방수 기저귀가 필수입니다. 목튜브, 팔튜브, 구명조끼는 되고 일반 튜브, 물총, 공은 안 됩니다. 음식물 반입도 금지입니다. 문의 <a class="tel" href="tel:0558600407">055-860-0407</a></p>
+    </div>
+    <div class="card">
+      <h4>야외 가든 수영장</h4>
+      <div class="meta">10월 12:00-17:00 · 올해 마지막 운영일 10/11</div>
+      <p>날씨에 따라 닫습니다. 낮 기온이 22-24도라 아이들은 잠깐 발 담그는 정도일 것 같습니다. 아이는 구명조끼를 입어야 하고 안내소에서 빌릴 수 있습니다.</p>
+      <div class="chips"><span class="chip">날씨 보고 결정</span></div>
+    </div>
+    <div class="card">
+      <h4>해안 산책로</h4>
+      <div class="meta">약 1km · 30분</div>
+      <p>바위 위에 깔린 나무 데크 길이고, 끝에 잔디광장이 있습니다. 해 질 녘(10/10 일몰 18:00)이 제일 예쁘다고 합니다. 지정된 길 밖으로는 나가지 않습니다.</p>
+      <div class="chips"><span class="chip kid">아이 OK</span><span class="chip gm">할머니 OK</span></div>
+    </div>
+    <div class="card">
+      <h4>식당과 카페</h4>
+      <div class="meta">대부분 예약 필수</div>
+      <p><b>르블랑</b>(조식 뷔페 07:30-, 성인 77,000원, 소인 45,000원), <b>이터널저니</b>(점심·저녁, 전화 예약 필수, <a class="tel" href="tel:0558600688">055-860-0688</a>), <b>모비딕 야식당</b>(금·토 18-23시), <b>모비딕 마켓</b>(식료품), 워터하우스 안 베이커리 카페가 있습니다.</p>
+    </div>
+    <div class="card">
+      <h4>셀프 BBQ 세트</h4>
+      <div class="meta">더하우스 가든 · 4인 35만원 (리뉴얼 당시 기사)</div>
+      <p>비싸지만 데크에서 고기를 구워 먹는 그림이 가능합니다. 지금 가격과 구성, 우리 객실도 되는지는 전화로 물어봐야 합니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 일정 ============ -->
+<section id="plan">
+  <h2>일정 초안</h2>
+  <p class="sub">큰 틀은 "아난티에서 놀다가, 한두 번 나가서 구경하고 밥 먹고 오기"입니다. 이동은 하루 한 방향, 편도 30분 안쪽으로 묶었습니다.</p>
+
+  <div class="weather" aria-label="날씨 예보">
+    <div class="wday"><div class="d">10/9 금</div><div class="ic">☀️</div><div class="t">16-23°</div><div class="r">비 0%</div></div>
+    <div class="wday"><div class="d">10/10 토</div><div class="ic">🌦️</div><div class="t">19-24°</div><div class="r">비 69% · 1.5mm</div></div>
+    <div class="wday"><div class="d">10/11 일</div><div class="ic">⛅</div><div class="t">19-25°</div><div class="r">비 35% · 오전</div></div>
+  </div>
+  <p style="font-size:.8125rem;color:var(--text-faint)">10/8 기준 Open-Meteo 모델 예보입니다. 출발 전날 기상청 예보를 다시 봅니다. 저녁엔 15도 안팎이라 겉옷이 필요합니다.</p>
+
+  <div class="note info">
+    <b>연휴 첫날 = 독일마을 맥주축제 (10/9-10/11)</b>
+    제14회 남해 독일마을 맥주축제가 여행 기간과 정확히 겹칩니다. 키즈존과 가족 체험이 있지만 삼동면 일대가 내내 붐빌 겁니다. 간다면 낮에 잠깐 들르고, 저녁 공연 시간은 피하는 쪽을 추천합니다.
+  </div>
+
+  <div class="day">
+    <div class="day-head"><h3>1일차 · 10/9 (금) 도착</h3><span class="tag">맑음 · 따로 출발해 남면에서 모이기</span></div>
+    <ol class="tl">
+      <li><time>05:30-06:00</time><div><div class="what">우연이네 + 할머니 출발</div><div class="how">평시 4시간 30분이고, 연휴 첫날이라 6시간 이상도 각오합니다. 경부 → 대전통영 → 남해고속도로가 기본 경로입니다. 휴게소는 인삼랜드(대전통영)를 추천합니다. 수변공원과 작은 동물농장이 무료입니다.</div></div></li>
+      <li><time>08:00-09:00</time><div><div class="what">하담이네 출발</div><div class="how">15-16시 도착 목표입니다. 중간중간 단톡방에 위치를 공유합니다.</div></div></li>
+      <li><time>11:30-12:30</time><div><div class="what">먼저 온 팀 점심 (남면)</div><div class="how"><b>복만식당</b>(바다 보이는 창가, 통갈치구이) 또는 <b>다랭이맛집</b>(파전, 멸치쌈밥). 둘 다 아난티에서 10분 안쪽입니다.</div></div></li>
+      <li><time>13:00</time><div><div class="what">설리스카이워크 또는 다랭이마을 산책</div><div class="how">스카이워크는 엘리베이터가 있어 유모차와 할머니 모두 편합니다. 다랭이마을은 계단이 많아 위쪽 전망만 봐도 충분합니다. 아니면 카페 <b>남해라운지32</b>에서 쉬다가 체크인합니다.</div></div></li>
+      <li><time>15:00</time><div><div class="what">체크인, 짐 풀기, 낮잠</div><div class="how">새벽에 출발한 팀은 여기서 한숨 잡니다. 아기침대와 침대가드를 이때 요청합니다.</div></div></li>
+      <li><time>16:00</time><div><div class="what">워터하우스</div><div class="how">하담이네가 도착하면 바로 합류합니다. 아이들 첫 물놀이입니다.</div></div></li>
+      <li><time>17:30</time><div><div class="what">회 포장 (장보기 팀 2명, 차 1대)</div><div class="how">미조항 <b>유서방 회 떠가시다</b>는 3-4시간 전에 전화로 주문해야 하니 낮에 미리 걸어 둡니다. 대안은 남해읍 <b>남해시장회센터</b>(연중무휴, 포장 가능)입니다. 아이들 몫으로 통닭(<b>가마치통닭 남해점</b>)이나 김밥을 같이 사 옵니다.</div></div></li>
+      <li><time>18:00</time><div><div class="what">해안 산책로에서 일몰</div><div class="how">숙소에 남은 팀은 아이들과 산책로 데크까지 걸어갑니다.</div></div></li>
+      <li><time>19:00</time><div><div class="what">데크에서 회 파티</div><div class="how">히노키탕은 이때 물을 받기 시작하면 아이들 씻길 때 맞춰집니다.</div></div></li>
+    </ol>
+  </div>
+
+  <div class="day">
+    <div class="day-head"><h3>2일차 · 10/10 (토) 동쪽 바다</h3><span class="tag">비 가능성 높음 · 두 가지 버전</span></div>
+    <ol class="tl">
+      <li><time>08:00</time><div><div class="what">아침</div><div class="how">르블랑 조식 뷔페, 아니면 전날 사 둔 빵(<b>브레드멜</b> 마늘빵)과 숙소 커피로 해결합니다.</div></div></li>
+      <li><time>10:00</time><div><div class="what">상주은모래비치 + 동동 빵집</div><div class="how">아난티에서 20분입니다. 모래가 고와 아이들 모래놀이에 좋고 주차장도 넓습니다. 조개껍데기가 있으니 아쿠아슈즈를 신깁니다. <b>남해마을빵집 동동</b>은 오후면 빵이 다 팔리니 오전에 들릅니다.</div></div></li>
+      <li><time>11:00</time><div><div class="what">점심: 힙한식 (미조) 개점 시간에 맞춰</div><div class="how">전복솥밥이라 할머니와 아이 모두 잘 먹습니다. 연휴엔 대기가 길어 11시 개점에 맞춰 갑니다. 대안은 <b>재두식당</b>(상주, 멸치쌈밥, 재료 떨어지면 마감)입니다.</div></div></li>
+      <li><time>13:00</time><div><div class="what">숙소 복귀, 낮잠</div><div class="how">아이들 낮잠 시간입니다. 어른들은 물미해안도로를 따라 드라이브하며 돌아옵니다.</div></div></li>
+      <li><time>15:30</time><div><div class="what">워터하우스 또는 야외 수영장</div><div class="how">해가 나면 야외 가든 수영장(17시까지), 흐리면 실내로 갑니다.</div></div></li>
+      <li><time>18:30</time><div><div class="what">저녁: BBQ 세트 또는 이터널저니</div><div class="how">둘 다 미리 예약해야 합니다. 예약이 안 되면 남해읍 <b>한촌설렁탕</b>(어린이 설렁탕, 아기의자 넉넉), 독일마을 <b>도우</b> 피자 포장으로 갑니다.</div></div></li>
+    </ol>
+    <div class="alt"><b>비가 제대로 오면:</b> 오전에 워터하우스를 먼저 가고, 점심은 남면 <b>시골할매막걸리</b>나 <b>복만식당</b>에서 먹고, 오후엔 숙소에서 쉽니다. 실내 구경을 원하면 남해읍 <b>남해유배문학관</b>(6세 이하, 65세 이상 무료)도 있습니다.</div>
+    <div class="alt"><b>맥주축제를 꼭 보고 싶으면:</b> 상주 대신 독일마을 쪽으로 갑니다. 오전 일찍 <b>할로브리즈</b>(유모차 OK, 아기의자 있음, 바다 전망) → <b>부어스트라덴</b> 소시지 → 축제장 키즈존 순서로 돌고, 차가 막히기 전인 점심 무렵에 빠져나옵니다.</div>
+  </div>
+
+  <div class="day">
+    <div class="day-head"><h3>3일차 · 10/11 (일) 귀경</h3><span class="tag">상행 정체 15-18시가 절정</span></div>
+    <ol class="tl">
+      <li><time>08:00</time><div><div class="what">아침, 짐 싸기</div><div class="how">아이들은 마지막으로 정원에서 뛰어놉니다. 단체 사진을 찍기 좋은 시간입니다.</div></div></li>
+      <li><time>10:30</time><div><div class="what">체크아웃 (11:00까지)</div><div class="how"></div></div></li>
+      <li><time>11:00</time><div><div class="what">남면에서 이른 점심 후 바로 출발</div><div class="how"><b>복만식당</b>이나 <b>다랭이맛집</b>에서 먹고 12시쯤 출발하면 정체 절정 전에 꽤 올라갈 수 있습니다.</div></div></li>
+    </ol>
+    <div class="alt"><b>여유 있게 놀다 가려면:</b> 체크아웃 후 삼천포-창선대교로 나가 <b>사천바다케이블카</b>(온라인 예매 필수, 아쿠아리움과 동물원이 같은 구역)를 타고, <b>용궁수산시장</b>에서 점심을 먹은 뒤 저녁 8시 넘어 출발합니다. 아이들은 차에서 자면서 가는 시나리오입니다.</div>
+  </div>
+</section>
+
+<!-- ============ 맛집 ============ -->
+<section id="eat">
+  <h2>근처 맛집 (차로 1시간 안쪽)</h2>
+  <p class="sub">이동 시간은 아난티 기준 추정치입니다. 평점은 표본이 작은 사이트 집계라 참고만 하고, 가기 전날 지도 앱에서 영업 여부를 꼭 확인합니다. 10/9-10/11과 겹치는 정기 휴무는 아래 목록에 없습니다.</p>
+
+  <div class="filters" role="group" aria-label="분류">
+    <button type="button" data-f="all" aria-pressed="true">전체</button>
+    <button type="button" data-f="local" aria-pressed="false">남해 향토</button>
+    <button type="button" data-f="sea" aria-pressed="false">회·해산물</button>
+    <button type="button" data-f="kid" aria-pressed="false">아이랑 무난</button>
+    <button type="button" data-f="cafe" aria-pressed="false">카페·빵·독일마을</button>
+    <button type="button" data-f="togo" aria-pressed="false">포장해서 숙소로</button>
+  </div>
+
+  <div class="rlist" id="rlist">
+    <article class="r" data-c="local kid">
+      <div class="r-top"><h3>복만식당</h3><span class="dist">5-10분</span><span class="area">남면</span></div>
+      <p class="menu">통갈치구이정식 2인 69,000원 · 전복갈치조림정식 79,000원 · 멍게비빔밥 15,000원</p>
+      <p class="why">바다가 보이는 창가 자리에 주차도 편합니다. 통갈치구이 평이 좋아서 아이와 할머니 몫으로 구이를 시키면 무난합니다. 도착 시간에 맞춰 예약할 수 있습니다.</p>
+      <div class="foot"><span>09:00-20:00 · 연중무휴</span><a href="https://map.naver.com/p/search/%EB%82%A8%ED%95%B4%20%EB%B3%B5%EB%A7%8C%EC%8B%9D%EB%8B%B9" target="_blank" rel="noopener">지도</a></div>
+    </article>
+    <article class="r" data-c="local kid">
+      <div class="r-top"><h3>다랭이맛집</h3><span class="dist">10분</span><span class="area">남면 · 다랭이마을 초입</span></div>
+      <p class="menu">해물파전 15,000원 · 멸치쌈밥 13,000원 · 갈치조림 17,000원</p>
+      <p class="why">얇고 바삭한 파전이 대표 메뉴라 아이들도 잘 먹습니다. 마을 입구라 주차가 비교적 쉽습니다.</p>
+      <div class="foot"><span>08:30-19:00 · 수요일 휴무</span><a href="https://map.naver.com/p/search/%EB%8B%A4%EB%9E%AD%EC%9D%B4%EB%A7%9B%EC%A7%91" target="_blank" rel="noopener">지도</a></div>
+    </article>
+    <article class="r" data-c="local">
+      <div class="r-top"><h3>시골할매막걸리</h3><span class="dist">10분</span><span class="area">남면 · 다랭이마을</span></div>
+      <p class="menu">멸치쌈밥정식 13,000원 · 갈치조림정식 17,000원 · 생선구이정식 15,000원 · 유자잎 막걸리</p>
+      <p class="why">다랭이마을 토박이 가족이 하는 집입니다. 바다를 보며 먹는 정식 구성이라 할머니께 잘 맞습니다. <span class="star">구글 3.8</span></p>
+      <div class="foot"><span>09:00-20:00 (주문 마감 19:00)</span><a href="https://map.naver.com/p/search/%EC%8B%9C%EA%B3%A8%ED%95%A0%EB%A7%A4%EB%A7%89%EA%B1%B8%EB%A6%AC%20%EB%82%A8%ED%95%B4" target="_blank" rel="noopener">지도</a></div>
+    </article>
+    <article class="r" data-c="local">
+      <div class="r-top"><h3>재두식당</h3><span class="dist">20-25분</span><span class="area">상주면</span></div>
+      <p class="menu">멸치조림쌈밥 소 23,000원 / 대 40,000원 · 도토리묵 · 갈릭파전 12,000원</p>
+      <p class="why">멸치쌈밥이 비리지 않다는 평이 많고 TV에도 나온 집입니다. 반찬이 정성스럽습니다. <span class="star">구글 4.7</span></p>
+      <div class="foot"><span>점심 장사 (~15:00) · 월·화 휴무 · 재료 떨어지면 마감</span><a href="https://map.naver.com/p/search/%EB%82%A8%ED%95%B4%20%EC%9E%AC%EB%91%90%EC%8B%9D%EB%8B%B9" target="_blank" rel="noopener">지도</a></div>
+    </article>
+    <article class="r" data-c="local kid">
+      <div class="r-top"><h3>힙한식</h3><span class="dist">15-20분</span><span class="area">미조면</span></div>
+      <p class="menu">전복솥밥 2인 30,000원 · 해물파전 18,000원</p>
+      <p class="why">솥밥이라 할머니와 아이 모두 편하게 먹습니다. 대기가 긴 집이라 연휴엔 개점 시간에 맞춰 가는 게 좋습니다. <span class="star">구글 4.5</span></p>
+      <div class="foot"><span>11:00-16:00 · 화요일 휴무</span><a href="https://map.naver.com/p/search/%EB%82%A8%ED%95%B4%20%ED%9E%99%ED%95%9C%EC%8B%9D" target="_blank" rel="noopener">지도</a></div>
+    </article>
+    <article class="r" data-c="local">
+      <div class="r-top"><h3>진이식당</h3><span class="dist">15-20분</span><span class="area">미조면</span></div>
+      <p class="menu">갈치조림 소 40,000원 · 멸치쌈밥 소 30,000원 · 멸치회무침</p>
+      <p class="why">생선구이가 두툼하고 사장님이 친절하다는 평입니다. 예약과 주차가 됩니다.</p>
+      <div class="foot"><span>명절 외 연중무휴</span><a href="https://map.naver.com/p/search/%EB%82%A8%ED%95%B4%20%EC%A7%84%EC%9D%B4%EC%8B%9D%EB%8B%B9" target="_blank" rel="noopener">지도</a></div>
+    </article>
+    <article class="r" data-c="local kid">
+      <div class="r-top"><h3>풍운정</h3><span class="dist">약 35분</span><span class="area">삼동면</span></div>
+      <p class="menu">멸치쌈밥 · 멸치회무침 · 생선구이 세트</p>
+      <p class="why">음식이 빨리 나와서 어린아이와 부모님을 모시고 가기 좋다는 소개가 있습니다. 독일마을 가는 길에 들르기 좋습니다.</p>
+      <div class="foot"><span>매일 09:00-20:00</span><a href="https://map.naver.com/p/search/%EB%82%A8%ED%95%B4%20%ED%92%8D%EC%9A%B4%EC%A0%95" target="_blank" rel="noopener">지도</a></div>
+    </article>
+    <article class="r" data-c="local">
+      <div class="r-top"><h3>동천식당</h3><span class="dist">약 35분</span><span class="area">삼동면</span></div>
+      <p class="menu">멸치쌈밥 2인 34,000원부터 · 해물전골 · 찌개류 9,000원</p>
+      <p class="why">양이 많고 가성비가 좋다는 평입니다. 찌개가 있어 아이 메뉴를 맞추기 쉽습니다. 예약과 주차가 됩니다. <span class="star">구글 4.2</span></p>
+      <div class="foot"><a href="https://map.naver.com/p/search/%EB%82%A8%ED%95%B4%20%EB%8F%99%EC%B2%9C%EC%8B%9D%EB%8B%B9" target="_blank" rel="noopener">지도</a></div>
+    </article>
+    <article class="r" data-c="local">
+      <div class="r-top"><h3>우리식당</h3><span class="dist">약 40분</span><span class="area">삼동면 지족항</span></div>
+      <p class="menu">갈치찌개 20,000원 · 갈치구이 25,000원 · 멸치쌈밥 13,000원</p>
+      <p class="why">40년 된 노포입니다. 지족해협의 죽방렴 구경과 묶기 좋습니다.</p>
+      <div class="foot"><a href="https://map.naver.com/p/search/%EB%82%A8%ED%95%B4%20%EC%9A%B0%EB%A6%AC%EC%8B%9D%EB%8B%B9%20%EC%A7%80%EC%A1%B1" target="_blank" rel="noopener">지도</a></div>
+    </article>
+    <article class="r" data-c="local">
+      <div class="r-top"><h3>달반늘</h3><span class="dist">약 40분</span><span class="area">삼동면 죽방로</span></div>
+      <p class="menu">장어 돌판구이 1인 15,000원 (3인분부터) · 장어탕 정식 11,000원</p>
+      <p class="why">장어가 부드럽고 비린내가 없다는 평입니다. 바로 앞 방파제에서 보는 노을이 좋습니다. 장어탕은 방아잎 향 때문에 호불호가 갈립니다.</p>
+      <div class="foot"><span>11:00-19:30 · 15-17시 쉬는 시간</span><a href="https://map.naver.com/p/search/%EB%82%A8%ED%95%B4%20%EB%8B%AC%EB%B0%98%EB%8A%98" target="_blank" rel="noopener">지도</a></div>
+    </article>
+    <article class="r" data-c="local kid">
+      <div class="r-top"><h3>남해정식당</h3><span class="dist">약 35분</span><span class="area">남해읍</span></div>
+      <p class="menu">전복솥밥 18,000원 · 전복리조또 16,000원 · 전복물회 18,000원</p>
+      <p class="why">한 상 차림이라 할머니께 좋고, 솥밥은 아이도 먹기 쉽습니다. <span class="star">구글 4.7</span></p>
+      <div class="foot"><a href="https://map.naver.com/p/search/%EB%82%A8%ED%95%B4%EC%A0%95%EC%8B%9D%EB%8B%B9" target="_blank" rel="noopener">지도</a></div>
+    </article>
+    <article class="r" data-c="local">
+      <div class="r-top"><h3>남해그집</h3><span class="dist">35-40분</span><span class="area">남해읍</span></div>
+      <p class="menu">멸치쌈밥세트 24,000원 · 갈치조림세트 27,000원 · 통갈치구이정찬 75,000원</p>
+      <p class="why">현지인 추천이 많은 대신 주말 대기도 깁니다. 7명이면 대기 등록할 때 자리를 붙여 달라고 말합니다. 휴무일이 출처마다 달라 전화로 확인합니다.</p>
+      <div class="foot"><span class="tel">0507-1330-3918</span><span>15-17시 쉬는 시간</span><a href="https://map.naver.com/p/search/%EB%82%A8%ED%95%B4%EA%B7%B8%EC%A7%91" target="_blank" rel="noopener">지도</a></div>
+    </article>
+    <article class="r" data-c="local kid">
+      <div class="r-top"><h3>선소바다</h3><span class="dist">약 35분</span><span class="area">남해읍</span></div>
+      <p class="menu">바다장어 샤브샤브 · 칼국수 · 죽</p>
+      <p class="why">국물이 진한 현지인 맛집입니다. 칼국수와 죽이 있어 할머니와 아이에게 무난합니다.</p>
+      <div class="foot"><span>매일 11:00-22:00</span><a href="https://map.naver.com/p/search/%EB%82%A8%ED%95%B4%20%EC%84%A0%EC%86%8C%EB%B0%94%EB%8B%A4" target="_blank" rel="noopener">지도</a></div>
+    </article>
+
+    <article class="r" data-c="sea togo">
+      <div class="r-top"><h3>유서방 회 떠가시다</h3><span class="dist">15-20분</span><span class="area">미조면</span></div>
+      <p class="menu">모듬회 2인 40,000-50,000원 · 3인 60,000원 · 5인 100,000원</p>
+      <p class="why">포장 전문점이라 숙소 데크에서 먹을 회로 1순위입니다. 포장이 깔끔하고 고등어회 평이 좋습니다. 픽업 3-4시간 전에 전화로 주문해야 하고 매장 식사는 안 됩니다.</p>
+      <div class="foot"><span>예약 필수</span><a href="https://map.naver.com/p/search/%EC%9C%A0%EC%84%9C%EB%B0%A9%20%ED%9A%8C%20%EB%96%A0%EA%B0%80%EC%8B%9C%EB%8B%A4" target="_blank" rel="noopener">지도</a></div>
+    </article>
+    <article class="r" data-c="sea togo">
+      <div class="r-top"><h3>남해시장회센터</h3><span class="dist">약 35분</span><span class="area">남해읍 · 전통시장 입구</span></div>
+      <p class="menu">활어회 포장</p>
+      <p class="why">대화에 나온 "남해시장 가서 회 떠다 먹기"는 이곳을 말합니다. 포장이 되고 연중무휴로 소개돼 있습니다. 5일장(2·7일)은 여행 기간과 안 겹치지만 상설 가게는 엽니다.</p>
+      <div class="foot"><span>10:00-22:00</span><a href="https://map.naver.com/p/search/%EB%82%A8%ED%95%B4%EC%8B%9C%EC%9E%A5%ED%9A%8C%EC%84%BC%ED%84%B0" target="_blank" rel="noopener">지도</a></div>
+    </article>
+    <article class="r" data-c="sea kid">
+      <div class="r-top"><h3>남해촌놈횟집</h3><span class="dist">15-20분</span><span class="area">미조면</span></div>
+      <p class="menu">모듬회 50,000원 · 회덮밥 · 물회 15,000원</p>
+      <p class="why">미조항에서 앉아서 회를 먹을 곳입니다. 회덮밥이 있어 할머니 메뉴로도 괜찮습니다.</p>
+      <div class="foot"><span>11:30-21:00 · 14:30-16:00 쉬는 시간 · 수요일 휴무</span><a href="https://map.naver.com/p/search/%EB%82%A8%ED%95%B4%EC%B4%8C%EB%86%88%ED%9A%9F%EC%A7%91" target="_blank" rel="noopener">지도</a></div>
+    </article>
+    <article class="r" data-c="sea kid">
+      <div class="r-top"><h3>해사랑전복마을</h3><span class="dist">15-20분</span><span class="area">미조면</span></div>
+      <p class="menu">전복회 40,000원 · 치즈전복구이 세트 26,000원 · 전복죽</p>
+      <p class="why">수요미식회에 나온 집입니다. 전복죽은 할머니와 아이 모두에게 좋습니다. 점심에는 붐빕니다.</p>
+      <div class="foot"><a href="https://map.naver.com/p/search/%ED%95%B4%EC%82%AC%EB%9E%91%EC%A0%84%EB%B3%B5%EB%A7%88%EC%9D%84" target="_blank" rel="noopener">지도</a></div>
+    </article>
+    <article class="r" data-c="sea">
+      <div class="r-top"><h3>삼천포 용궁수산시장</h3><span class="dist">55-70분</span><span class="area">사천시</span></div>
+      <p class="menu">활어를 골라 kg 단위로 계산 · 호떡, 어묵 같은 시장 간식</p>
+      <p class="why">해산물 종류가 많고 호객이 심하지 않다는 평입니다. 고른 회를 맞은편 횟집에서 상차림비를 내고 먹거나 포장합니다. 귀경길에 사천케이블카와 묶기 좋습니다. 갈매기를 조심합니다. 주차는 무료입니다. <span class="star">polle 4.2</span></p>
+      <div class="foot"><span>05:00-22:00 (가게마다 다름)</span><a href="https://map.naver.com/p/search/%EC%82%BC%EC%B2%9C%ED%8F%AC%20%EC%9A%A9%EA%B6%81%EC%88%98%EC%82%B0%EC%8B%9C%EC%9E%A5" target="_blank" rel="noopener">지도</a></div>
+    </article>
+    <article class="r" data-c="sea togo">
+      <div class="r-top"><h3>목섬회센터</h3><span class="dist">55-70분</span><span class="area">용궁수산시장 안</span></div>
+      <p class="menu">광어 30,000-35,000원 · 돌돔 40,000원 · 우럭 25,000원</p>
+      <p class="why">양이 많고 매운탕거리를 넉넉히 준다는 후기입니다. 포장과 초장 세트도 됩니다.</p>
+      <div class="foot"><span>08:30-21:30</span><span class="tel">055-832-8366</span><a href="https://map.naver.com/p/search/%EB%AA%A9%EC%84%AC%ED%9A%8C%EC%84%BC%ED%84%B0" target="_blank" rel="noopener">지도</a></div>
+    </article>
+
+    <article class="r" data-c="kid">
+      <div class="r-top"><h3>한촌설렁탕 남해점</h3><span class="dist">약 35분</span><span class="area">남해읍</span></div>
+      <p class="menu">설렁탕 11,000-13,000원 · 어린이 설렁탕 7,000원 (식판) · 갈비탕</p>
+      <p class="why">아기의자가 넉넉하고 주차장이 큽니다. 아이와 할머니 모두에게 가장 실패가 적은 곳입니다.</p>
+      <div class="foot"><span>매일 10:00-22:00 · 예약 불가</span><a href="https://map.naver.com/p/search/%ED%95%9C%EC%B4%8C%EC%84%A4%EB%A0%81%ED%83%95%20%EB%82%A8%ED%95%B4%EC%A0%90" target="_blank" rel="noopener">지도</a></div>
+    </article>
+    <article class="r" data-c="kid cafe togo">
+      <div class="r-top"><h3>도우</h3><span class="dist">약 30분</span><span class="area">삼동면 · 독일마을 근처</span></div>
+      <p class="menu">피자 19,000-25,000원 · 파스타 17,000-20,000원</p>
+      <p class="why">아기의자와 유아 식기가 있습니다. 피자는 포장도 돼서 숙소 저녁으로 좋습니다. 네이버 예약이 됩니다.</p>
+      <div class="foot"><span>11:00-19:30 (금·토 20:00) · 목요일 휴무</span><a href="https://map.naver.com/p/search/%EB%82%A8%ED%95%B4%20%EB%8F%84%EC%9A%B0%20%ED%94%BC%EC%9E%90" target="_blank" rel="noopener">지도</a></div>
+    </article>
+    <article class="r" data-c="kid">
+      <div class="r-top"><h3>난향</h3><span class="dist">25-30분</span><span class="area">이동면</span></div>
+      <p class="menu">황태칼국수</p>
+      <p class="why">국물이 순해서 할머니와 아이에게 무난합니다. 유자단무지가 인상적이라는 평입니다. 정보가 적어 가기 전에 확인이 필요합니다.</p>
+      <div class="foot"><a href="https://map.naver.com/p/search/%EB%82%A8%ED%95%B4%20%EB%82%9C%ED%96%A5%20%EC%B9%BC%EA%B5%AD%EC%88%98" target="_blank" rel="noopener">지도</a></div>
+    </article>
+
+    <article class="r" data-c="cafe">
+      <div class="r-top"><h3>남해라운지32</h3><span class="dist">5-10분</span><span class="area">남면 · 두곡해변</span></div>
+      <p class="menu">음료 5,500-8,000원 · 디저트 · 아이스크림</p>
+      <p class="why">오션뷰에 3층 루프탑이 있습니다. 숙소에서 가까워 첫날 체크인 전에 쉬기 좋습니다.</p>
+      <div class="foot"><span>09:00-20:30 (주말)</span><a href="https://map.naver.com/p/search/%EB%82%A8%ED%95%B4%EB%9D%BC%EC%9A%B4%EC%A7%8032" target="_blank" rel="noopener">지도</a></div>
+    </article>
+    <article class="r" data-c="cafe togo">
+      <div class="r-top"><h3>브레드멜</h3><span class="dist">5-10분</span><span class="area">남면</span></div>
+      <p class="menu">마늘빵 · 마들렌 · 유자 샌드</p>
+      <p class="why">숙소에서 가까운 빵집입니다. 다음 날 아침거리로 사 두기 좋습니다. 인기 메뉴는 오후에 떨어집니다.</p>
+      <div class="foot"><a href="https://map.naver.com/p/search/%EB%B8%8C%EB%A0%88%EB%93%9C%EB%A9%9C%20%EB%82%A8%ED%95%B4" target="_blank" rel="noopener">지도</a></div>
+    </article>
+    <article class="r" data-c="cafe togo">
+      <div class="r-top"><h3>남해마을빵집 동동</h3><span class="dist">20-25분</span><span class="area">상주면</span></div>
+      <p class="menu">사워도우 7,500원 · 소금빵 3,500원 · 젤라또</p>
+      <p class="why">매장이 넓고 주차가 됩니다. 상주은모래비치와 같이 들르기 좋습니다. 오후 2시면 빵이 거의 다 팔린다고 합니다.</p>
+      <div class="foot"><span class="tel">055-863-0702</span><a href="https://map.naver.com/p/search/%EB%82%A8%ED%95%B4%EB%A7%88%EC%9D%84%EB%B9%B5%EC%A7%91%20%EB%8F%99%EB%8F%99" target="_blank" rel="noopener">지도</a></div>
+    </article>
+    <article class="r" data-c="cafe kid">
+      <div class="r-top"><h3>할로브리즈</h3><span class="dist">약 30분</span><span class="area">삼동면</span></div>
+      <p class="menu">빵 2,800-7,500원 · 음료 6,500-8,000원</p>
+      <p class="why">아기의자가 있고 유모차로 들어갈 수 있으며 테이블 간격이 넓습니다. 바다와 독일마을이 함께 보이고 무료 주차장도 넓습니다.</p>
+      <div class="foot"><span>매일 10:00-18:00</span><a href="https://map.naver.com/p/search/%ED%95%A0%EB%A1%9C%EB%B8%8C%EB%A6%AC%EC%A6%88" target="_blank" rel="noopener">지도</a></div>
+    </article>
+    <article class="r" data-c="cafe togo">
+      <div class="r-top"><h3>부어스트라덴</h3><span class="dist">약 30분</span><span class="area">독일마을</span></div>
+      <p class="menu">수제 소시지 9,500-10,900원 · 학센 약 36,000원</p>
+      <p class="why">직접 만든 소시지가 맛있고 바다 쪽 창가 자리가 좋다는 평입니다. 키오스크 셀프 주문 방식이고 연휴엔 붐빕니다. 소시지를 포장해 숙소에서 먹는 것도 방법입니다. <span class="star">polle 4.0</span></p>
+      <div class="foot"><a href="https://map.naver.com/p/search/%EB%B6%80%EC%96%B4%EC%8A%A4%ED%8A%B8%EB%9D%BC%EB%8D%B4" target="_blank" rel="noopener">지도</a></div>
+    </article>
+    <article class="r" data-c="cafe kid">
+      <div class="r-top"><h3>쿤스트 라운지</h3><span class="dist">약 30분</span><span class="area">독일마을</span></div>
+      <p class="menu">슈니첼 19,000원 · 소시지 16,500원 · 맥주 7,500-9,500원</p>
+      <p class="why">넓고 층고가 높으며 아기의자가 있습니다. 전망과 맥주는 평이 좋고, 음식은 호불호가 있어 카페나 맥주 한잔 용도로 추천합니다.</p>
+      <div class="foot"><span>연중무휴</span><a href="https://map.naver.com/p/search/%EC%BF%A4%EC%8A%A4%ED%8A%B8%20%EB%9D%BC%EC%9A%B4%EC%A7%80%20%EB%82%A8%ED%95%B4" target="_blank" rel="noopener">지도</a></div>
+    </article>
+    <article class="r" data-c="cafe kid">
+      <div class="r-top"><h3>당케슈니첼</h3><span class="dist">약 30분</span><span class="area">독일마을</span></div>
+      <p class="menu">슈니첼 21,000원 · 슈페츨레 19,000원</p>
+      <p class="why">슈니첼은 사실상 돈가스라 아이들이 제일 잘 먹을 독일 음식입니다. <span class="star">구글 4.3</span></p>
+      <div class="foot"><a href="https://map.naver.com/p/search/%EB%8B%B9%EC%BC%80%EC%8A%88%EB%8B%88%EC%B2%BC" target="_blank" rel="noopener">지도</a></div>
+    </article>
+
+    <article class="r" data-c="togo kid">
+      <div class="r-top"><h3>가마치통닭 남해점</h3><span class="dist">약 35분</span><span class="area">남해읍</span></div>
+      <p class="menu">한 마리 10,000원 · 두 마리 19,000원 · 누룽지통닭 22,000원</p>
+      <p class="why">회를 사러 남해읍에 갈 때 아이들 몫으로 같이 사 오기 좋습니다.</p>
+      <div class="foot"><span>매일 14:00-24:00</span><a class="tel" href="tel:0558635454">055-863-5454</a></div>
+    </article>
+    <article class="r" data-c="togo">
+      <div class="r-top"><h3>다길김밥</h3><span class="dist">약 35분</span><span class="area">삼동면</span></div>
+      <p class="menu">유자단무지 김밥</p>
+      <p class="why">하루 100줄 정도만 팔아 오전에 끝나는 날도 있습니다. 아침 일찍 가야 합니다.</p>
+      <div class="foot"><a href="https://map.naver.com/p/search/%EB%8B%A4%EA%B8%B8%EA%B9%80%EB%B0%A5" target="_blank" rel="noopener">지도</a></div>
+    </article>
+  </div>
+
+  <div class="note tip">
+    <b>할머니와 아이 둘이 함께라면 부담이 적은 곳</b>
+    복만식당, 다랭이맛집, 시골할매막걸리(셋 다 남면이라 가깝습니다), 힙한식, 한촌설렁탕, 도우, 풍운정(음식이 빨리 나옵니다).
+  </div>
+</section>
+
+<!-- ============ 놀거리 ============ -->
+<section id="play">
+  <h2>어디 가서 놀까</h2>
+  <p class="sub">3세 아이 둘, 유모차, 할머니 기준으로 골랐습니다. 숙소에서 가까운 순서입니다.</p>
+
+  <h3>숙소 근처 (남면, 20분 안쪽)</h3>
+  <div class="cards">
+    <div class="card">
+      <h4>설리스카이워크</h4>
+      <div class="meta">약 10분 · 09:00-18:00 · 7세 이하 1,000원</div>
+      <p>바다 위로 뻗은 전망대입니다. 엘리베이터가 있어 유모차로도 올라갑니다. 바닥 일부가 유리라 아이들이 신기해합니다. 하늘그네는 키 140cm 이상만 탑니다.</p>
+      <div class="chips"><span class="chip kid">아이 OK</span><span class="chip gm">할머니 OK</span><span class="chip">주차 넓음</span></div>
+    </div>
+    <div class="card">
+      <h4>다랭이마을 (가천)</h4>
+      <div class="meta">약 10분 · 무료 · 1시간</div>
+      <p>바다로 쏟아지는 계단식 논입니다. 길이 좁고 가팔라서 유모차보다 아기띠가 낫습니다. 할머니는 위쪽 전망만 보시는 걸 권합니다. 마을 안에는 화장실이 드물어 주차장에서 먼저 들릅니다.</p>
+      <div class="chips"><span class="chip no">유모차 힘듦</span><span class="chip gm">위쪽만</span></div>
+    </div>
+    <div class="card">
+      <h4>사촌·송정 해변</h4>
+      <div class="meta">10-15분 · 무료</div>
+      <p>사촌해변은 650m로 작아서 아이들을 한눈에 볼 수 있고 소나무 그늘이 있습니다. 송정솔바람해변은 솔숲 산책과 넓은 주차장이 장점입니다.</p>
+      <div class="chips"><span class="chip kid">모래놀이</span><span class="chip gm">그늘 산책</span></div>
+    </div>
+    <div class="card">
+      <h4>앵강다숲</h4>
+      <div class="meta">약 20분 · 무료 · 상시 개방</div>
+      <p>바닷가 숲 공원입니다. 꽃무릇은 10월 초면 끝물입니다. 입구 일대만 가볍게 걷는 정도가 맞습니다.</p>
+      <div class="chips"><span class="chip gm">할머니 OK</span></div>
+    </div>
+  </div>
+
+  <h3>동쪽 (상주·미조·삼동, 20-40분)</h3>
+  <div class="cards">
+    <div class="card">
+      <h4>상주은모래비치</h4>
+      <div class="meta">약 20분 · 무료</div>
+      <p>2km 백사장에 모래가 고와 남해에서 모래놀이로는 최고입니다. 조개껍데기가 있으니 아쿠아슈즈를 신깁니다. 근처에 동동 빵집이 있습니다.</p>
+      <div class="chips"><span class="chip kid">아이 최고</span><span class="chip">주차 넓음</span></div>
+    </div>
+    <div class="card">
+      <h4>물미해안도로 드라이브</h4>
+      <div class="meta">상주 → 미조 → 삼동</div>
+      <p>차창으로 보는 해안 절경입니다. 아이들이 차에서 잘 때 이동하면서 보기 딱 좋습니다.</p>
+      <div class="chips"><span class="chip gm">할머니 편함</span></div>
+    </div>
+    <div class="card">
+      <h4>보리암 (금산)</h4>
+      <div class="meta">약 30분 · 입장 1,000원 (현금) · 셔틀 왕복 3,400원</div>
+      <p>남해 제일의 전망입니다. 다만 마지막 구간에 오르막 계단이 있고, 연휴엔 주차 줄이 깁니다. 가려면 이른 아침에 가고, 할머니 컨디션을 보고 정합니다.</p>
+      <div class="chips"><span class="chip no">유모차 힘듦</span><span class="chip">아침 일찍</span></div>
+    </div>
+    <div class="card">
+      <h4>독일마을 맥주축제</h4>
+      <div class="meta">약 35분 · 10/9-10/11 · 입장 무료</div>
+      <p>키즈존, 가족 체험(꽃팔찌, 인생네컷), 퍼레이드가 있습니다. 9일은 17시 퍼레이드, 18시 개막식입니다. 주차와 셔틀 공지가 아직 없어서 낮에 짧게 들르는 걸 추천합니다.</p>
+      <div class="chips"><span class="chip kid">키즈존</span><span class="chip no">매우 붐빔</span></div>
+    </div>
+    <div class="card">
+      <h4>원예예술촌 · 미국마을</h4>
+      <div class="meta">30-35분 · 무료 (원예예술촌은 변동 가능)</div>
+      <p>독일마을 바로 위의 정원 마을입니다. 축제 인파를 피해 조용히 걷기 좋습니다. 미국마을은 작은 산책 코스입니다.</p>
+      <div class="chips"><span class="chip gm">할머니 OK</span></div>
+    </div>
+  </div>
+
+  <h3>동물과 체험</h3>
+  <div class="cards">
+    <div class="card">
+      <h4>양모리학교 (남해 양떼목장)</h4>
+      <div class="meta">09:00-18:00 · 대인 5,000원 · 5세 미만 무료</div>
+      <p>양에게 먹이를 주는 목장입니다. 가족당 먹이 바구니 1개를 줍니다. 주말과 공휴일엔 양몰이 공연도 있습니다. 진입로가 좁고 가파르니 운전에 주의합니다.</p>
+      <div class="chips"><span class="chip kid">아이 최고</span></div>
+    </div>
+    <div class="card">
+      <h4>사천바다케이블카 + 초양도</h4>
+      <div class="meta">약 1시간 · 대인 15,000원 · 소인(만 3세-) 12,000원</div>
+      <p>바다 위를 지나는 케이블카입니다. 초양 정류장에 아라마루 아쿠아리움(36개월 미만 무료, 유모차 무료 대여)과 작은 동물원이 붙어 있습니다. 연휴엔 현장 줄이 길어서 온라인 예매가 필수입니다. 유모차는 일반 캐빈만 탈 수 있습니다.</p>
+      <div class="chips"><span class="chip kid">아이 최고</span><span class="chip">비 와도 OK</span><span class="chip">귀경길</span></div>
+    </div>
+    <div class="card">
+      <h4>남해유배문학관</h4>
+      <div class="meta">약 35분 · 6세 이하·65세 이상 무료</div>
+      <p>비 올 때 갈 실내 공간입니다. 주차장이 넓습니다. 휴관일이 출처마다 달라(월 또는 화) 확인이 필요합니다.</p>
+      <div class="chips"><span class="chip">비 와도 OK</span></div>
+    </div>
+  </div>
+
+  <div class="note info">
+    <b>남해에는 이름난 키즈카페가 없습니다</b>
+    조사로 확인되는 실내 키즈카페가 없었습니다. 비가 오면 워터하우스가 사실상 키즈카페 역할을 합니다. 아라마루 아쿠아리움(사천)이 그다음 대안입니다.
+  </div>
+</section>
+
+<!-- ============ 준비물 ============ -->
+<section id="pack">
+  <h2>준비물 체크리스트</h2>
+  <p class="sub">체크하면 이 기기에 저장됩니다. 가족마다 각자 폰에서 체크하면 됩니다.</p>
+  <div class="ck-tools">
+    <span id="ck-count">0 / 0</span>
+    <div class="progress" aria-hidden="true"><i id="ck-bar"></i></div>
+    <button type="button" id="ck-reset">모두 해제</button>
+  </div>
+
+  <div class="ckgrid" id="ck">
+    <div class="ckbox"><h3>🧒 아이 (가족마다)</h3>
+      <label><input type="checkbox" data-k="kid-carseat"><span>카시트 <small>차마다 1개, 현지에서 못 구함</small></span></label>
+      <label><input type="checkbox" data-k="kid-stroller"><span>유모차 <small>리조트 대여 없음</small></span></label>
+      <label><input type="checkbox" data-k="kid-carrier"><span>아기띠 <small>다랭이마을·보리암용</small></span></label>
+      <label><input type="checkbox" data-k="kid-diaper"><span>기저귀, 물티슈, 비닐봉지</span></label>
+      <label><input type="checkbox" data-k="kid-clothes"><span>여벌 옷 넉넉히, 잠옷</span></label>
+      <label><input type="checkbox" data-k="kid-jacket"><span>얇은 패딩·바람막이 <small>저녁 15도</small></span></label>
+      <label><input type="checkbox" data-k="kid-snack"><span>간식, 빨대컵, 물병</span></label>
+      <label><input type="checkbox" data-k="kid-dish"><span>아이 식기, 수저, 턱받이</span></label>
+      <label><input type="checkbox" data-k="kid-thermos"><span>보온병 <small>객실에 전자레인지가 없을 수 있음</small></span></label>
+      <label><input type="checkbox" data-k="kid-toys"><span>차에서 볼 책, 장난감, 태블릿</span></label>
+      <label><input type="checkbox" data-k="kid-tag"><span>미아방지 팔찌·이름표 <small>숨바꼭질 대비</small></span></label>
+      <label><input type="checkbox" data-k="kid-sand"><span>모래놀이 세트, 아쿠아슈즈</span></label>
+      <label><input type="checkbox" data-k="kid-doc"><span>아이 나이 증빙 <small>등본 사진, 36개월 전후면 요금이 다름</small></span></label>
+    </div>
+
+    <div class="ckbox"><h3>🏊 물놀이</h3>
+      <label><input type="checkbox" data-k="sw-rash"><span>래쉬가드·수영복 (전원)</span></label>
+      <label><input type="checkbox" data-k="sw-diaper"><span>방수 기저귀 <small>36개월 미만 필수</small></span></label>
+      <label><input type="checkbox" data-k="sw-vest"><span>유아 구명조끼 또는 목·팔 튜브 <small>일반 튜브 금지</small></span></label>
+      <label><input type="checkbox" data-k="sw-goggle"><span>물안경</span></label>
+      <label><input type="checkbox" data-k="sw-towel"><span>아이 비치타월, 판초</span></label>
+      <label><input type="checkbox" data-k="sw-bag"><span>젖은 옷 담을 방수 가방</span></label>
+    </div>
+
+    <div class="ckbox"><h3>💊 상비약 · 건강</h3>
+      <label><input type="checkbox" data-k="md-fever"><span>아이 해열제 2종 (교차 복용용)</span></label>
+      <label><input type="checkbox" data-k="md-thermo"><span>체온계</span></label>
+      <label><input type="checkbox" data-k="md-band"><span>밴드, 소독약, 연고</span></label>
+      <label><input type="checkbox" data-k="md-motion"><span>멀미약 (어른·아이)</span></label>
+      <label><input type="checkbox" data-k="md-bug"><span>모기 기피제, 버물리</span></label>
+      <label><input type="checkbox" data-k="md-sun"><span>선크림, 모자</span></label>
+      <label><input type="checkbox" data-k="md-gm"><span>할머니 복용약 (3일분 + 여유)</span></label>
+      <label><input type="checkbox" data-k="md-card"><span>건강보험증·신분증</span></label>
+    </div>
+
+    <div class="ckbox"><h3>🍣 데크 파티 (취사 불가 대비)</h3>
+      <label><input type="checkbox" data-k="fd-plate"><span>일회용 접시, 컵, 젓가락, 숟가락</span></label>
+      <label><input type="checkbox" data-k="fd-sauce"><span>초장, 간장, 와사비, 쌈장 <small>포장 때 안 줄 수 있음</small></span></label>
+      <label><input type="checkbox" data-k="fd-cut"><span>과도, 작은 도마</span></label>
+      <label><input type="checkbox" data-k="fd-open"><span>와인 오프너, 병따개</span></label>
+      <label><input type="checkbox" data-k="fd-cooler"><span>아이스박스, 아이스팩</span></label>
+      <label><input type="checkbox" data-k="fd-trash"><span>쓰레기봉투, 키친타월, 물티슈</span></label>
+      <label><input type="checkbox" data-k="fd-drink"><span>생수, 음료, 맥주·와인</span></label>
+      <label><input type="checkbox" data-k="fd-light"><span>캠핑 랜턴 <small>저녁 데크용</small></span></label>
+    </div>
+
+    <div class="ckbox"><h3>🚗 이동 (차마다)</h3>
+      <label><input type="checkbox" data-k="cr-hipass"><span>하이패스 카드 잔액</span></label>
+      <label><input type="checkbox" data-k="cr-charger"><span>차량 충전기, 보조배터리</span></label>
+      <label><input type="checkbox" data-k="cr-pillow"><span>목베개, 담요</span></label>
+      <label><input type="checkbox" data-k="cr-potty"><span>휴대용 변기 <small>정체 구간 대비</small></span></label>
+      <label><input type="checkbox" data-k="cr-cash"><span>현금 조금 <small>보리암은 카드 안 됨</small></span></label>
+      <label><input type="checkbox" data-k="cr-umb"><span>우산, 우비 <small>토요일 비 예보</small></span></label>
+    </div>
+
+    <div class="ckbox"><h3>👵 할머니</h3>
+      <label><input type="checkbox" data-k="gm-shoes"><span>미끄럽지 않은 편한 신발</span></label>
+      <label><input type="checkbox" data-k="gm-coat"><span>가디건이나 얇은 점퍼</span></label>
+      <label><input type="checkbox" data-k="gm-cushion"><span>장거리 차량용 방석·쿠션</span></label>
+      <label><input type="checkbox" data-k="gm-glass"><span>안경, 선글라스</span></label>
+      <label><input type="checkbox" data-k="gm-swim"><span>수영복 (워터하우스 가실 경우)</span></label>
+    </div>
+
+    <div class="ckbox"><h3>📷 기타</h3>
+      <label><input type="checkbox" data-k="et-album"><span>구글포토 공유 앨범 가입</span></label>
+      <label><input type="checkbox" data-k="et-tripod"><span>삼각대 <small>단체사진</small></span></label>
+      <label><input type="checkbox" data-k="et-multi"><span>멀티탭</span></label>
+      <label><input type="checkbox" data-k="et-laundry"><span>세탁망·빨래 봉투 <small>객실 세탁기 여부 미확인</small></span></label>
+      <label><input type="checkbox" data-k="et-slipper"><span>아이 실내화 <small>계단 미끄럼 방지</small></span></label>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 미리 전화 ============ -->
+<section id="calls">
+  <h2>출발 전 전화로 확인할 것</h2>
+  <p class="sub">조사로 답을 찾지 못한 것들입니다. 한 통이면 대부분 정리됩니다.</p>
+  <table class="calls">
+    <thead><tr><th>어디</th><th>물어볼 것</th></tr></thead>
+    <tbody>
+      <tr><td>아난티 대표<br><a class="tel" href="tel:0558600100">055-860-0100</a></td><td>
+        <ul class="plain">
+          <li>포장한 회와 음식을 객실·데크에서 먹어도 되는지</li>
+          <li>데크 그릴을 쓸 수 있는지, 우리 객실도 BBQ 세트를 신청할 수 있는지, 가격과 구성</li>
+          <li>전자레인지, 전기포트, 식기가 있는지, 세탁기가 있는지</li>
+          <li>얼리체크인이 되는지, 아기침대 2개 확보</li>
+          <li>르블랑 디너 뷔페가 10/9-10/10에 운영하는지</li>
+          <li>룸서비스 시간과 메뉴</li>
+        </ul></td></tr>
+      <tr><td>워터하우스<br><a class="tel" href="tel:0558600407">055-860-0407</a></td><td>회원 무료 입장 인원, 예약이 필요한지, 유아 구명조끼 대여</td></tr>
+      <tr><td>이터널저니<br><a class="tel" href="tel:0558600688">055-860-0688</a></td><td>7명(유아 2) 저녁 예약, 아이 메뉴</td></tr>
+      <tr><td>유서방 회 떠가시다</td><td>당일 낮에 7명분 모듬회 주문, 픽업 시간</td></tr>
+      <tr><td>사천바다케이블카</td><td>3일차에 갈 거면 온라인 예매</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ 교통·병원 ============ -->
+<section id="info">
+  <h2>교통 · 장보기 · 병원</h2>
+
+  <h3>오가는 길</h3>
+  <ul class="plain">
+    <li><b>경로</b>: 경부 → 대전통영 → 남해고속도로를 타고, 남해대교나 노량대교로 섬에 들어갑니다. 평시 4시간 30분입니다. 삼천포-창선대교 쪽은 사천에 들를 때 씁니다.</li>
+    <li><b>내려가는 날</b>: 최근 연휴들은 하행이 비교적 원활했습니다. 그래도 단풍철이라 이른 출발이 맞습니다. 로드플러스나 고속도로 교통정보 앱의 교통예보를 전날 밤에 봅니다.</li>
+    <li><b>올라오는 날</b>: 지난 개천절과 작년 한글날 모두 상행 정체가 오후 4-5시에 절정이었고 밤 10-11시에 풀렸습니다. 점심 전에 출발하거나 저녁 8시 이후에 출발합니다.</li>
+    <li><b>차 두 대 팁</b>: 현지에선 "장보기 팀 차"와 "아이 낮잠 팀 차"로 나누면 편합니다. 한 차가 회를 사러 간 동안 다른 팀은 숙소에서 아이들을 재웁니다.</li>
+  </ul>
+
+  <h3>장보기</h3>
+  <ul class="plain">
+    <li><b>남해전통시장</b>(남해읍): 5일장은 2·7일이라 이번엔 안 겹칩니다. 상설 점포와 회센터는 엽니다. 매월 1일, 16일이 휴일입니다.</li>
+    <li><b>리조트 안 모비딕 마켓</b>: 식료품 코너가 있습니다. 생수나 음료 정도는 여기서 해결됩니다.</li>
+    <li><b>하나로마트·편의점</b>: 연휴 영업시간을 확인하지 못했습니다. 남면엔 큰 마트가 없으니 생수, 음료, 간식은 내려가는 길에 사 두는 게 안전합니다.</li>
+  </ul>
+
+  <h3>아플 때</h3>
+  <ul class="plain">
+    <li><b>남해병원</b>(남해읍 화전로 169): 응급실을 운영하고 소아청소년과가 있습니다. 아난티에서 30-40분 걸립니다.</li>
+    <li>연휴 중 문 연 약국과 병원은 <a href="https://www.e-gen.or.kr" target="_blank" rel="noopener">응급의료포털 E-Gen</a>에서 찾거나 119에 물어봅니다.</li>
+  </ul>
+</section>
+
+<footer>
+  2026년 10월 8일에 웹 검색으로 정리했습니다. 가격과 영업시간은 바뀔 수 있으니 가기 전에 한 번 더 확인해 주세요.
+</footer>
+
+</main>
+
+<script>
+(function () {
+  // restaurant filter
+  var btns = document.querySelectorAll('.filters button');
+  var items = document.querySelectorAll('#rlist .r');
+  btns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var f = b.getAttribute('data-f');
+      btns.forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      items.forEach(function (it) {
+        var cats = (it.getAttribute('data-c') || '').split(' ');
+        it.hidden = !(f === 'all' || cats.indexOf(f) !== -1);
+      });
+    });
+  });
+
+  // checklist with per-device storage
+  var KEY = 'namhae-2026-pack';
+  var boxes = document.querySelectorAll('#ck input[type=checkbox]');
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { state = {}; }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+  function render() {
+    var n = 0;
+    boxes.forEach(function (b) { if (b.checked) n++; });
+    document.getElementById('ck-count').textContent = n + ' / ' + boxes.length;
+    document.getElementById('ck-bar').style.transform = 'scaleX(' + (boxes.length ? n / boxes.length : 0) + ')';
+  }
+  boxes.forEach(function (b) {
+    var k = b.getAttribute('data-k');
+    b.checked = !!state[k];
+    b.addEventListener('change', function () { state[k] = b.checked; save(); render(); });
+  });
+  document.getElementById('ck-reset').addEventListener('click', function () {
+    boxes.forEach(function (b) { b.checked = false; });
+    state = {}; save(); render();
+  });
+  render();
+})();
+</script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
