@@ -31,6 +31,7 @@
     --berry-soft: #FCE3EC;
     --warn: #B4442C;
     --warn-soft: #FDE5DD;
+    --on-accent: #FFFFFF;
     --shadow: 0 1px 2px rgba(120, 80, 30, .06), 0 6px 18px rgba(120, 80, 30, .08);
   }
   @media (prefers-color-scheme: dark) {
@@ -40,7 +41,7 @@
       --surface-2: #252E33;
       --text: #ECEFF0;
       --text-muted: #B2BCC0;
-      --text-faint: #858F94;
+      --text-faint: #9AA4A9;
       --rule: #2E383D;
       --sea: #63C3CF;
       --sea-soft: #173539;
@@ -52,6 +53,7 @@
       --berry-soft: #3A2030;
       --warn: #F0937B;
       --warn-soft: #3B231D;
+      --on-accent: #10181B;
       --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 18px rgba(0,0,0,.25);
     }
     :root:not([data-theme="light"]) img.illust, :root:not([data-theme="light"]) .hero-img img { filter: brightness(.9); }
@@ -73,7 +75,7 @@
   header.hero { padding: 20px 0 8px; }
   .hero-img { position: relative; border-radius: 28px; overflow: hidden; box-shadow: var(--shadow); aspect-ratio: 3 / 2; max-height: 520px; width: 100%; }
   .hero-img img { width: 100%; height: 100%; object-fit: cover; }
-  .dday { position: absolute; top: 16px; left: 16px; background: var(--sun); color: #fff; font-weight: 800; font-size: 1.125rem; padding: 6px 14px; border-radius: 999px; box-shadow: 0 4px 12px rgba(0,0,0,.18); transform: rotate(-4deg); }
+  .dday { position: absolute; top: 16px; left: 16px; background: var(--sun); color: var(--on-accent); font-weight: 800; font-size: 1.125rem; padding: 6px 14px; border-radius: 999px; box-shadow: 0 4px 12px rgba(0,0,0,.18); transform: rotate(-4deg); }
   .hero-card { position: relative; margin: -72px 12px 0; background: var(--surface); border-radius: 24px; padding: 24px 22px 22px; box-shadow: var(--shadow); }
   .eyebrow { font-size: 0.875rem; color: var(--sun); font-weight: 700; margin: 0 0 6px; }
   h1 { margin: 0 0 10px; font-size: clamp(1.875rem, 6vw, 2.75rem); line-height: 1.15; letter-spacing: -0.03em; font-weight: 800; }
@@ -91,17 +93,10 @@
   nav.toc { position: sticky; top: 0; z-index: 5; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
   nav.toc ul { display: flex; gap: 6px; margin: 0; padding: 10px 0; list-style: none; overflow-x: auto; scrollbar-width: none; }
   nav.toc a { display: block; padding: 6px 14px; border-radius: 999px; text-decoration: none; color: var(--text); background: var(--surface); box-shadow: var(--shadow); font-size: 0.875rem; font-weight: 600; white-space: nowrap; }
-  nav.toc a:hover { background: var(--sun); color: #fff; }
+  nav.toc a:hover { background: var(--sun); color: var(--on-accent); }
 
   section { padding: 56px 0 8px; }
-  .sec-badge { display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 16px; font-size: 1.75rem; margin-bottom: 10px; transform: rotate(-6deg); }
-  #room .sec-badge { background: var(--sea-soft); }
-  #plan .sec-badge { background: var(--sun-soft); }
-  #eat .sec-badge { background: var(--berry-soft); }
-  #play .sec-badge { background: var(--leaf-soft); }
-  #pack .sec-badge { background: var(--sea-soft); }
-  #calls .sec-badge { background: var(--sun-soft); }
-  #info .sec-badge { background: var(--berry-soft); }
+  .h-ic { margin-right: 8px; }
   h2 { font-size: clamp(1.5rem, 4vw, 1.875rem); margin: 0 0 6px; letter-spacing: -0.02em; font-weight: 800; }
   .sub { color: var(--text-muted); margin: 0 0 22px; }
   h3 { font-size: 1.1875rem; margin: 32px 0 12px; font-weight: 800; }
@@ -140,7 +135,7 @@
   .day > img { width: 100%; aspect-ratio: 16 / 6; object-fit: cover; }
   .day-body { padding: 18px 20px 10px; }
   .day-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin-bottom: 10px; }
-  .day-head .num { background: var(--dc); color: #fff; font-weight: 800; font-size: 0.8125rem; padding: 4px 12px; border-radius: 999px; }
+  .day-head .num { background: var(--dc); color: var(--on-accent); font-weight: 800; font-size: 0.8125rem; padding: 4px 12px; border-radius: 999px; }
   .day-head h3 { margin: 0; }
   .day-head .tag { font-size: 0.8125rem; color: var(--dc); font-weight: 700; background: var(--dcs); padding: 2px 10px; border-radius: 999px; }
   .tl { list-style: none; margin: 0; padding: 0; position: relative; }
@@ -169,7 +164,7 @@
   /* restaurants */
   .filters { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 16px; }
   .filters button { font: inherit; font-size: 0.875rem; font-weight: 700; padding: 7px 14px; border-radius: 999px; border: 0; background: var(--surface); box-shadow: var(--shadow); color: var(--text-muted); cursor: pointer; }
-  .filters button[aria-pressed="true"] { background: var(--berry); color: #fff; }
+  .filters button[aria-pressed="true"] { background: var(--berry); color: var(--on-accent); }
   .rlist { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
   .r { background: var(--surface); border-radius: 20px; padding: 16px 18px 14px 74px; position: relative; box-shadow: var(--shadow); transition: transform .2s; }
   .r:hover { transform: translateY(-3px); }
@@ -182,7 +177,7 @@
   .r.schnitzel::before { content: "🥨"; }
   .r-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; }
   .r h3 { margin: 0; font-size: 1.0625rem; font-weight: 800; }
-  .r .dist { font-size: 0.75rem; color: #fff; background: var(--sea); font-weight: 700; padding: 1px 8px; border-radius: 999px; }
+  .r .dist { font-size: 0.75rem; color: var(--on-accent); background: var(--sea); font-weight: 700; padding: 1px 8px; border-radius: 999px; }
   .r .area { font-size: 0.8125rem; color: var(--text-faint); }
   .r .menu { margin: 6px 0 4px; font-size: 0.9375rem; font-weight: 600; }
   .r .why { margin: 0 0 8px; font-size: 0.9375rem; color: var(--text-muted); }
@@ -202,7 +197,7 @@
   .ckbox h3 { margin: 0 0 8px; font-size: 1.0625rem; }
   .ckbox label { display: flex; gap: 10px; align-items: flex-start; padding: 5px 0; font-size: 0.9375rem; cursor: pointer; }
   .ckbox input { appearance: none; -webkit-appearance: none; flex: none; width: 22px; height: 22px; margin: 1px 0 0; border-radius: 8px; border: 2px solid var(--rule); background: var(--surface); display: grid; place-items: center; cursor: pointer; transition: background .15s, border-color .15s; }
-  .ckbox input::after { content: "✓"; color: #fff; font-size: 14px; font-weight: 900; transform: scale(0); transition: transform .15s; }
+  .ckbox input::after { content: "✓"; color: var(--on-accent); font-size: 14px; font-weight: 900; transform: scale(0); transition: transform .15s; }
   .ckbox input:checked { background: var(--leaf); border-color: var(--leaf); }
   .ckbox input:checked::after { transform: scale(1); }
   .ckbox input:focus-visible { outline: 3px solid var(--sea); outline-offset: 2px; }
@@ -274,8 +269,7 @@
 
 <!-- ============ 숙소 ============ -->
 <section id="room">
-  <div class="sec-badge" aria-hidden="true">🏡</div>
-  <h2>우리 집: 더하우스 (구 그랜드빌라)</h2>
+  <h2><span class="h-ic" aria-hidden="true">🏡</span>우리 집: 더하우스 (구 그랜드빌라)</h2>
   <p class="sub">회원 보유 객실이라 공식 홈페이지의 리뉴얼된 더하우스와는 인테리어가 다릅니다. 가든형과 방·욕실 수는 같고, 자쿠지와 프라이빗 풀은 없습니다.</p>
 
   <div class="note warn">
@@ -332,8 +326,7 @@
 
 <!-- ============ 일정 ============ -->
 <section id="plan">
-  <div class="sec-badge" aria-hidden="true">🗓️</div>
-  <h2>2박 3일 일정 초안</h2>
+  <h2><span class="h-ic" aria-hidden="true">🗓️</span>2박 3일 일정 초안</h2>
   <p class="sub">큰 틀은 "아난티에서 놀다가, 한두 번 나가서 구경하고 밥 먹고 오기"입니다. 이동은 하루 한 방향, 편도 30분 안쪽으로 묶었습니다.</p>
 
   <div class="weather" aria-label="날씨 예보">
@@ -399,8 +392,7 @@
 
 <!-- ============ 맛집 ============ -->
 <section id="eat">
-  <div class="sec-badge" aria-hidden="true">🍽️</div>
-  <h2>뭐 먹지? 근처 맛집</h2>
+  <h2><span class="h-ic" aria-hidden="true">🍽️</span>뭐 먹지? 근처 맛집</h2>
   <p class="sub">아이와 가기 편하고 가족 단위 후기가 좋은 곳만 14곳 남겼습니다. 이동 시간은 아난티 기준 추정치입니다. 평점은 표본이 작은 사이트 집계라 참고만 하고, 가기 전날 지도 앱에서 영업 여부를 꼭 확인합니다. 10/9-10/11과 겹치는 정기 휴무는 아래 목록에 없습니다.</p>
 
   <figure class="banner"><img class="illust" src="img/food.webp" alt="모듬회, 전복솥밥, 갈치구이, 해물파전, 멸치쌈밥이 차려진 남해 한상 삽화" loading="lazy" width="1000" height="667"></figure>
@@ -507,8 +499,7 @@
 
 <!-- ============ 놀거리 ============ -->
 <section id="play">
-  <div class="sec-badge" aria-hidden="true">🎈</div>
-  <h2>어디 가서 놀까?</h2>
+  <h2><span class="h-ic" aria-hidden="true">🎈</span>어디 가서 놀까?</h2>
   <p class="sub">3세 아이 둘, 유모차, 할머니 기준으로 골랐습니다. 숙소에서 가까운 순서입니다.</p>
 
   <h3>숙소 근처 (남면, 20분 안쪽)</h3>
@@ -609,8 +600,7 @@
 
 <!-- ============ 준비물 ============ -->
 <section id="pack">
-  <div class="sec-badge" aria-hidden="true">🎒</div>
-  <h2>짐 싸기 체크리스트</h2>
+  <h2><span class="h-ic" aria-hidden="true">🎒</span>짐 싸기 체크리스트</h2>
   <p class="sub">체크하면 이 기기에 저장됩니다. 가족마다 각자 폰에서 체크하면 됩니다.</p>
   <figure class="banner"><img class="illust" src="img/packing.webp" alt="래쉬가드, 모래놀이 양동이, 유아 구명조끼, 선크림, 빨대컵을 담은 여행 가방 삽화" loading="lazy" width="1000" height="667"></figure>
   <div class="ck-tools">
@@ -696,8 +686,7 @@
 
 <!-- ============ 미리 전화 ============ -->
 <section id="calls">
-  <div class="sec-badge" aria-hidden="true">📞</div>
-  <h2>출발 전 전화로 확인할 것</h2>
+  <h2><span class="h-ic" aria-hidden="true">📞</span>출발 전 전화로 확인할 것</h2>
   <p class="sub">조사로 답을 찾지 못한 것들입니다. 한 통이면 대부분 정리됩니다.</p>
   <table class="calls">
     <thead><tr><th>어디</th><th>물어볼 것</th></tr></thead>
@@ -721,8 +710,7 @@
 
 <!-- ============ 교통·병원 ============ -->
 <section id="info">
-  <div class="sec-badge" aria-hidden="true">🚗</div>
-  <h2>교통 · 장보기 · 병원</h2>
+  <h2><span class="h-ic" aria-hidden="true">🚗</span>교통 · 장보기 · 병원</h2>
 
   <h3>오가는 길</h3>
   <ul class="plain">
