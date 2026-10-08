@@ -95,6 +95,20 @@
   nav.toc a { display: block; padding: 6px 14px; border-radius: 999px; text-decoration: none; color: var(--text); background: var(--surface); box-shadow: var(--shadow); font-size: 0.875rem; font-weight: 600; white-space: nowrap; }
   nav.toc a:hover { background: var(--sun); color: var(--on-accent); }
 
+  .layout { max-width: 880px; margin: 0 auto; padding: 0 16px; }
+  main { min-width: 0; }
+  .toc-title { display: none; }
+  @media (min-width: 1100px) {
+    .wrap { max-width: 1180px; }
+    header.hero .wrap { padding-left: 236px; }
+    .layout { max-width: 1180px; display: grid; grid-template-columns: 196px minmax(0, 1fr); gap: 40px; align-items: start; }
+    nav.toc { position: sticky; top: 24px; background: none; backdrop-filter: none; -webkit-backdrop-filter: none; margin-top: 56px; }
+    .toc-title { display: block; margin: 0 0 8px 12px; font-size: 0.8125rem; font-weight: 800; color: var(--text-faint); }
+    nav.toc ul { flex-direction: column; gap: 4px; padding: 0; overflow: visible; }
+    nav.toc a { box-shadow: none; background: none; border-radius: 12px; padding: 8px 12px; font-size: 0.9375rem; }
+    nav.toc a:hover { background: var(--surface); color: var(--text); }
+    nav.toc a.on { background: var(--surface); box-shadow: var(--shadow); color: var(--sun); }
+  }
   section { padding: 56px 0 8px; }
   .h-ic { margin-right: 8px; }
   h2 { font-size: clamp(1.5rem, 4vw, 1.875rem); margin: 0 0 6px; letter-spacing: -0.02em; font-weight: 800; }
@@ -165,7 +179,8 @@
   .filters { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 16px; }
   .filters button { font: inherit; font-size: 0.875rem; font-weight: 700; padding: 7px 14px; border-radius: 999px; border: 0; background: var(--surface); box-shadow: var(--shadow); color: var(--text-muted); cursor: pointer; }
   .filters button[aria-pressed="true"] { background: var(--berry); color: var(--on-accent); }
-  .rlist { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
+  .rlist { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  @media (min-width: 1100px) { .rlist { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   .r { background: var(--surface); border-radius: 20px; padding: 16px 18px 14px 74px; position: relative; box-shadow: var(--shadow); transition: transform .2s; }
   .r:hover { transform: translateY(-3px); }
   .r::before { content: "🍚"; position: absolute; left: 16px; top: 16px; width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; font-size: 1.5rem; background: var(--sun-soft); }
@@ -251,8 +266,10 @@
   </div>
 </header>
 
+<div class="layout">
 <nav class="toc" aria-label="목차">
-  <div class="wrap">
+  <div class="toc-in">
+    <p class="toc-title">목차</p>
     <ul>
       <li><a href="#room">🏡 숙소</a></li>
       <li><a href="#plan">🗓️ 일정</a></li>
@@ -265,7 +282,7 @@
   </div>
 </nav>
 
-<main class="wrap">
+<main>
 
 <!-- ============ 숙소 ============ -->
 <section id="room">
@@ -748,6 +765,7 @@
 </footer>
 
 </main>
+</div>
 
 <script>
 (function () {
@@ -788,6 +806,19 @@
     state = {}; save(); render();
   });
   render();
+
+  // highlight current section in toc
+  var links = {};
+  document.querySelectorAll('nav.toc a').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        Object.keys(links).forEach(function (k) { links[k].classList.toggle('on', k === e.target.id); });
+      });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    document.querySelectorAll('main section[id]').forEach(function (sec) { io.observe(sec); });
+  }
 
   // D-day badge
   var start = new Date(2026, 9, 9), end = new Date(2026, 9, 11);
