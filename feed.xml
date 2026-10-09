@@ -17,6 +17,15 @@
     <summary type="text">OpenAI 가 10월 6일 올린 수학 원고 719편을 두고 스콧 애런슨이 '수학사에서 가장 큰 날'이라 쓴 글을 정리했다. 저장소를 직접 세어 Lean 인증 비율(원고 42%·결과군 65%)을 확인하고, UGC·L=BPL 의 형식 검증 범위와 철회된 세 편의 공통점, '사람이 읽을 수 있는 증명을 요구하자'는 HN 반응을 타오의 Math 2.0 과 야코비안 반례 글에 대조했다.</summary>
   </entry>
   <entry>
+    <title>Lean 은 '정리는 타입, 증명은 그 타입의 값'이라는 한 줄 위에 서 있는 언어다: 컴파일러가 증명을 검사하는 원리를 기초부터</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/lean-proof-assistant-basics/"/>
+    <id>https://til.kil9.dev/2026/lean-proof-assistant-basics/</id>
+    <published>2026-10-09T13:34:00+09:00</published>
+    <updated>2026-10-09T13:34:00+09:00</updated>
+    <category term="reading"/>
+    <summary type="text">직전 페이지에서 '기계가 검증한 300편'이라 쓴 그 기계, Lean 을 기초부터 풀었다. 명제를 타입으로, 증명을 그 타입의 값으로 적으면 타입 검사가 곧 증명 검사가 된다는 원리, 큰 자동화는 믿지 않고 작은 커널만 믿는 신뢰 구조와 7월의 커널 버그 사례, 29만 정리짜리 mathlib, 그리고 OpenAI 저장소의 Comparator 가 보증하는 세 가지와 보증하지 않는 두 가지를 정리했다.</summary>
+  </entry>
+  <entry>
     <title>매튜 그린의 '공개키 암호를 잃을지도 모른다'는 답글은 깨졌다는 뜻이 아니라, 수십 명이 40년 들여다본 분석이 최선이라는 가정을 의심한 것이다</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/matthew-green-lose-public-key-crypto/"/>
     <id>https://til.kil9.dev/2026/matthew-green-lose-public-key-crypto/</id>
