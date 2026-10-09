@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-10-09T05:50:00+09:00</updated>
+  <updated>2026-10-09T13:40:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>AI 가 쏟아 낸 수학 증명 719편 중 기계가 검증한 것은 300편, 사람이 이해한 것은 아직 거의 없다: 애런슨의 'The Mathocalypse' 정리</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/ai-math-proofs-verified-vs-understood/"/>
+    <id>https://til.kil9.dev/2026/ai-math-proofs-verified-vs-understood/</id>
+    <published>2026-10-09T13:40:00+09:00</published>
+    <updated>2026-10-09T13:40:00+09:00</updated>
+    <category term="ai"/>
+    <summary type="text">OpenAI 가 10월 6일 올린 수학 원고 719편을 두고 스콧 애런슨이 '수학사에서 가장 큰 날'이라 쓴 글을 정리했다. 저장소를 직접 세어 Lean 인증 비율(원고 42%·결과군 65%)을 확인하고, UGC·L=BPL 의 형식 검증 범위와 철회된 세 편의 공통점, '사람이 읽을 수 있는 증명을 요구하자'는 HN 반응을 타오의 Math 2.0 과 야코비안 반례 글에 대조했다.</summary>
+  </entry>
   <entry>
     <title>매튜 그린의 '공개키 암호를 잃을지도 모른다'는 답글은 깨졌다는 뜻이 아니라, 수십 명이 40년 들여다본 분석이 최선이라는 가정을 의심한 것이다</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/matthew-green-lose-public-key-crypto/"/>
