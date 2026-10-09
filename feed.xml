@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-10-09T13:40:00+09:00</updated>
+  <updated>2026-10-09T21:36:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>조너선 블로의 10년짜리 신작 『Order of the Sinking Star』는 남이 만든 프리웨어 소코반 네 개를 한 지도에 합친 게임이고, 첫날 Steam 평가는 96-97% 긍정으로 출발했다</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/order-of-the-sinking-star-launch/"/>
+    <id>https://til.kil9.dev/2026/order-of-the-sinking-star-launch/</id>
+    <published>2026-10-09T21:36:00+09:00</published>
+    <updated>2026-10-09T21:36:00+09:00</updated>
+    <category term="reading"/>
+    <summary type="text">電ファミニコゲーマー가 전한 'The Witness 개발자 신작, 非常に好評 출발' 기사를 받아 Steam 페이지와 영어권 인터뷰·리뷰까지 읽었다. 1,400개 넘는 퍼즐은 네 개의 프리웨어 소코반 게임을 원작자들과 함께 한 지도에 합친 것이고, 10년이 걸린 이유의 절반은 자작 프로그래밍 언어 Jai 에 있었다. 기사 시점 470건 97% 가 같은 날 저녁 500건 96% 로 등급이 한 칸 오른 이유, 비평 40점과 100점이 같은 사실(양)을 가리키는 구조, 한국어 지원·가격까지 정리했다.</summary>
+  </entry>
   <entry>
     <title>AI 가 쏟아 낸 수학 증명 719편 중 기계가 검증한 것은 300편, 사람이 이해한 것은 아직 거의 없다: 애런슨의 'The Mathocalypse' 정리</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/ai-math-proofs-verified-vs-understood/"/>

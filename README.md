@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-10-09 | 조너선 블로의 10년짜리 신작 『Order of the Sinking Star』는 남이 만든 프리웨어 소코반 네 개를 한 지도에 합친 게임이고, 첫날 Steam 평가는 96-97% 긍정으로 출발했다 | [/2026/order-of-the-sinking-star-launch/](https://til.kil9.dev/2026/order-of-the-sinking-star-launch/) |
 | 2026-10-09 | Lean 은 '정리는 타입, 증명은 그 타입의 값'이라는 한 줄 위에 서 있는 언어다: 컴파일러가 증명을 검사하는 원리를 기초부터 | [/2026/lean-proof-assistant-basics/](https://til.kil9.dev/2026/lean-proof-assistant-basics/) |
 | 2026-10-09 | AI 가 쏟아 낸 수학 증명 719편 중 기계가 검증한 것은 300편, 사람이 이해한 것은 아직 거의 없다: 애런슨의 'The Mathocalypse' 정리 | [/2026/ai-math-proofs-verified-vs-understood/](https://til.kil9.dev/2026/ai-math-proofs-verified-vs-understood/) |
 | 2026-10-09 | 매튜 그린의 '공개키 암호를 잃을지도 모른다'는 답글은 깨졌다는 뜻이 아니라, 수십 명이 40년 들여다본 분석이 최선이라는 가정을 의심한 것이다 | [/2026/matthew-green-lose-public-key-crypto/](https://til.kil9.dev/2026/matthew-green-lose-public-key-crypto/) |
