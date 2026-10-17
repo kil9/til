@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-10-09T21:36:00+09:00</updated>
+  <updated>2026-10-17T10:23:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>26년 묵은 NIST 타원곡선 시드의 수수께끼를 Claude 가 30분 만에 풀었다: 답은 숨긴 문장의 해시가 아니라 1997년 유닉스 시계로 돌린 lrand48 이었다</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/ecdsa-curve-seeds-lrand48/"/>
+    <id>https://til.kil9.dev/2026/ecdsa-curve-seeds-lrand48/</id>
+    <published>2026-10-17T10:23:00+09:00</published>
+    <updated>2026-10-17T10:23:00+09:00</updated>
+    <category term="ai"/>
+    <summary type="text">Anthropic Frontier Red Team 의 10월 16일 글을 받아 원문의 재현 코드, 바운티를 걸었던 Valsorda 의 종결 글, Weis 의 2023년 조사까지 읽었다. P-256 을 비롯한 NIST 소수체 곡선 다섯 개와 ANSI X9.62 곡선 다섯 개의 시드는 srand48(time()) 으로 초기화한 C 라이브러리 난수를 20바이트씩 끊은 후보 중 곡선 조건을 통과한 n번째였고, P-256 은 1997년 8월 16일의 1,842번째다. 생성 레시피와 곡선별 타임스탬프 표, 최상위 비트 0 패턴에서 LLL 격자 축소까지의 발견 과정, 건너뛴 후보 876 같은 남은 의문, 시드 선택 자유도가 30비트 남짓이라 백도어 가설이 배제되는 계산을 정리했다.</summary>
+  </entry>
   <entry>
     <title>조너선 블로의 10년짜리 신작 『Order of the Sinking Star』는 남이 만든 프리웨어 소코반 네 개를 한 지도에 합친 게임이고, 첫날 Steam 평가는 96-97% 긍정으로 출발했다</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/order-of-the-sinking-star-launch/"/>
