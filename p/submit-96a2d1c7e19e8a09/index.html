@@ -64,6 +64,23 @@
   }
   input:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-color: transparent; }
   textarea { min-height: 84px; resize: vertical; }
+  textarea#source { min-height: 0; }
+
+  .received { padding: 2px 0 2px 14px; border-left: 2px solid var(--rule); }
+  .received p { margin: 0 0 4px; overflow-wrap: anywhere; }
+  .received-title { font-weight: 600; }
+  .received-text {
+    font-size: 0.9375rem; color: var(--text-muted); white-space: pre-line; cursor: pointer;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .received-text.expanded { display: block; }
+  .received-url { font-family: ui-monospace, "SF Mono", monospace; font-size: 0.8125rem; color: var(--text-faint); word-break: break-all; }
+  .received-actions { display: flex; gap: 14px; margin-top: 6px; }
+  .link-btn {
+    background: transparent; border: 0; padding: 2px 0; border-radius: 0;
+    color: var(--text-faint); font-size: 0.8125rem; font-weight: 500;
+  }
+  .link-btn:hover, .link-btn:focus-visible { color: var(--accent); }
   button {
     justify-self: start; padding: 9px 22px; border: 0; border-radius: 8px;
     background: var(--accent); color: #FFFFFF; font: inherit; font-size: 0.9375rem; font-weight: 600;
@@ -142,8 +159,21 @@
   <section id="submit-panel" class="hidden" aria-label="URL 제출">
     <form id="submit-form">
       <div>
-        <label for="request">요청</label>
-        <textarea id="request" placeholder="조사할 주제나 URL 을 적어 주세요. 원하는 관점이나 배경을 곁들여도 좋습니다." required></textarea>
+        <label for="source">받은 내용</label>
+        <div id="received" class="received hidden">
+          <p class="received-title" id="received-title"></p>
+          <p class="received-text" id="received-text" title="눌러서 펼치기"></p>
+          <p class="received-url" id="received-url"></p>
+          <div class="received-actions">
+            <button type="button" class="link-btn" id="received-edit">고치기</button>
+            <button type="button" class="link-btn" id="received-clear">비우기</button>
+          </div>
+        </div>
+        <textarea id="source" rows="2" placeholder="조사할 URL 이나 주제를 적어 주세요."></textarea>
+      </div>
+      <div>
+        <label for="note">조사 방향</label>
+        <textarea id="note" placeholder="어떻게 조사하면 좋을지 적어 주세요. 예: 실무 적용 사례 위주로, 반론도 함께"></textarea>
       </div>
       <button type="submit" id="submit-btn">접수</button>
     </form>
@@ -209,6 +239,7 @@
         setStatus(patStatus, '');
         refresh();
         setStatus(submitStatus, '토큰을 등록했습니다. 이제 접수만 하시면 됩니다.', 'ok');
+        focusNote();
       } else {
         setStatus(patStatus, '토큰이 거부당했습니다 (HTTP ' + res.status + '). 저장소 지정과 Issues 권한을 확인해 주세요.', 'err');
       }
@@ -257,6 +288,61 @@
     return u;
   }
 
+  var sourceEl = document.getElementById('source');
+  var noteEl = document.getElementById('note');
+  var received = document.getElementById('received');
+  var receivedText = document.getElementById('received-text');
+  // 조사 방향을 받은 내용 뒤에 붙일 때 쓰는 라벨. 받은 내용은 라벨 없이 맨 앞에 둔다 —
+  // 워처의 Slack 알림이 REQUEST 블록의 첫 줄을 요약으로 쓰기 때문이다(til-inbox watcher/run.sh).
+  var NOTE_LABEL = '관리자가 원하는 조사 방향:';
+
+  // 주소를 도메인+경로로 줄여 보여 준다. 스킴 없는 주소처럼 URL 로 못 읽으면 원문 그대로 둔다.
+  function displayUrl(u) {
+    try {
+      var p = new URL(u);
+      return p.host + (p.pathname === '/' ? '' : p.pathname) + p.search;
+    } catch (err) { return u; }
+  }
+
+  function fillLine(id, value) {
+    var el = document.getElementById(id);
+    el.textContent = value;
+    if (value) show(el); else hide(el);
+  }
+
+  // 공유로 받은 내용은 고정 카드로 보여 준다. 접수에 실리는 값은 언제나 #source 이고,
+  // 카드는 그 값을 읽기 좋게 펼쳐 놓은 것이다. 고치기를 누르면 카드를 걷고 #source 를 연다.
+  function showReceived(title, text, url) {
+    fillLine('received-title', title);
+    fillLine('received-text', text);
+    fillLine('received-url', url ? displayUrl(url) : '');
+    receivedText.classList.remove('expanded');
+    show(received);
+    hide(sourceEl);
+  }
+
+  function openSource(clear) {
+    if (clear) sourceEl.value = '';
+    hide(received);
+    show(sourceEl);
+    sourceEl.focus();
+  }
+
+  receivedText.addEventListener('click', function () { receivedText.classList.toggle('expanded'); });
+  document.getElementById('received-edit').addEventListener('click', function () { openSource(false); });
+  document.getElementById('received-clear').addEventListener('click', function () { openSource(true); });
+
+  function resetForm() {
+    document.getElementById('submit-form').reset();
+    hide(received);
+    show(sourceEl);
+    // 공유 쿼리를 지운다. 남겨 두면 새로고침에 같은 내용이 다시 채워져 중복 접수를 부른다.
+    if (shareEntry) {
+      shareEntry = false;
+      history.replaceState(null, '', location.pathname);
+    }
+  }
+
   function prefillFromShare() {
     var q = new URLSearchParams(location.search);
     var title = (q.get('title') || '').trim();
@@ -285,13 +371,19 @@
     if (title) lines.push(title);
     if (text) lines.push(text);
     if (url) lines.push(url);
-    document.getElementById('request').value = lines.join('\n');
+    sourceEl.value = lines.join('\n');
+    showReceived(title, text, url);
   }
 
   document.getElementById('submit-form').addEventListener('submit', function (e) {
     e.preventDefault();
-    var request = document.getElementById('request').value.trim();
-    if (!request) return;
+    var source = sourceEl.value.trim();
+    var note = noteEl.value.trim();
+    if (!source && !note) {
+      setStatus(submitStatus, '받은 내용이나 조사 방향 중 하나는 적어 주세요.', 'err');
+      return;
+    }
+    var request = source && note ? source + '\n\n' + NOTE_LABEL + '\n' + note : source || note;
     var pat = localStorage.getItem(KEY);
     if (!pat) { refresh(); return; }
     var btn = document.getElementById('submit-btn');
@@ -307,12 +399,7 @@
     }).then(function (res) {
       if (res.status === 201) {
         return res.json().then(function (data) {
-          document.getElementById('submit-form').reset();
-          // 공유 쿼리를 지운다. 남겨 두면 새로고침에 같은 내용이 다시 채워져 중복 접수를 부른다.
-          if (shareEntry) {
-            shareEntry = false;
-            history.replaceState(null, '', location.pathname);
-          }
+          resetForm();
           setStatus(submitStatus, '접수했습니다 (#' + data.number + '). 처리되는 대로 Slack 으로 알려 드리겠습니다.', 'ok');
         });
       }
@@ -326,8 +413,15 @@
     }).finally(function () { btn.disabled = false; });
   });
 
+  // 공유로 들어오면 받은 내용은 채워져 있으니 조사 방향 칸에서 바로 쓰게 한다.
+  // 접수 패널이 보일 때만 옮긴다 — 토큰 등록 화면에서 숨은 칸으로 가면 안 된다.
+  function focusNote() {
+    if (shareEntry && !submitPanel.classList.contains('hidden')) noteEl.focus({ preventScroll: true });
+  }
+
   prefillFromShare();
   refresh();
+  focusNote();
   if (shareEntry && !localStorage.getItem(KEY)) {
     setStatus(patStatus, '공유한 내용은 담아 뒀습니다. 토큰을 등록하면 그대로 접수하실 수 있습니다.');
   }
