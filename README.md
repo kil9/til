@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-10-19 | 에이전트 메모리는 무엇을 저장하고 언제 꺼내나: Mem0 는 사실 문장을, Zep 은 날짜 붙은 그래프를, OpenViking 은 파일 트리를 쌓고, 같은 제품의 LoCoMo 점수는 재는 사람에 따라 58 에서 95 까지 벌어진다 | [/2026/agent-memory-service-vector-file-skill/](https://til.kil9.dev/2026/agent-memory-service-vector-file-skill/) |
 | 2026-10-19 | 다익스트라의 '수학 주식회사'는 AI 예언이 아니라 증명 줄 수로 생산성을 재던 1970년대 소프트웨어 산업의 풍자였고, OpenAI 원고 722편과 719편은 하루 차이로 둘 다 맞다 | [/2026/dijkstra-mathematics-inc-ai-proof-factory/](https://til.kil9.dev/2026/dijkstra-mathematics-inc-ai-proof-factory/) |
 | 2026-10-17 | 26년 묵은 NIST 타원곡선 시드의 수수께끼를 Claude 가 30분 만에 풀었다: 답은 숨긴 문장의 해시가 아니라 1997년 유닉스 시계로 돌린 lrand48 이었다 | [/2026/ecdsa-curve-seeds-lrand48/](https://til.kil9.dev/2026/ecdsa-curve-seeds-lrand48/) |
 | 2026-10-09 | 조너선 블로의 10년짜리 신작 『Order of the Sinking Star』는 남이 만든 프리웨어 소코반 네 개를 한 지도에 합친 게임이고, 첫날 Steam 평가는 96-97% 긍정으로 출발했다 | [/2026/order-of-the-sinking-star-launch/](https://til.kil9.dev/2026/order-of-the-sinking-star-launch/) |
