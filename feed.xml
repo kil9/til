@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-10-19T10:05:00+09:00</updated>
+  <updated>2026-10-20T18:14:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>에이전트의 '수정했습니다' 는 파일로 확인한다: 원문의 재현 명령을 Claude Code 2.1.304 에서 열 번 돌려 거짓 보고는 haiku 4.5 에서 한 번 나왔고, 원인은 메인 세션의 --tools 가 서브에이전트의 Edit 까지 끄는 데 있었으며, md5·git diff·Stop 훅은 드는 비용이 다르다</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/agent-done-report-hash-diff-stop-hook/"/>
+    <id>https://til.kil9.dev/2026/agent-done-report-hash-diff-stop-hook/</id>
+    <published>2026-10-20T18:14:00+09:00</published>
+    <updated>2026-10-20T18:14:00+09:00</updated>
+    <category term="ai"/>
+    <summary type="text">워니즈 블로그의 '고쳤다는데 파일은 그대로였던 일' 을 받아 같은 calc.py·같은 에이전트 파일·같은 명령을 Claude Code 2.1.304 에서 열 번 돌렸다. 검토만 시킨 실행은 원문과 시간·답까지 같았고, 메인 도구를 --tools Agent,Read 로 묶은 실행은 haiku 4.5 두 번 중 한 번 파일이 그대로인 채 '완료했습니다. 수정했습니다' 가 나왔다(haiku 5.5 는 세 번 중 영 번). stream-json 의 parent_tool_use_id 를 따라가니 --tools 가 서브에이전트의 Edit 까지 껐고, 세 층 중첩 에이전트가 맨 아래의 'bash 로 수정하겠습니다' 계획 문장을 한 층씩 '완료' 로 바꿔 올린 경로였다. 백그라운드 에이전트 완료 전에 메인이 한 번 답하는 동작은 버전 차이가 아니라 문서에 적힌 기본값이라 result 이벤트가 둘로 나뉜다. md5 앞뒤 비교·git diff·Stop 훅(세 번 차단, 매번 '수정되지 않았다' 를 보고에 넣음)·Edit 부여(--tools 와 -p 기본 권한 모드에 막힘)·마지막 result 읽기를 준비 비용과 매번 비용으로 나눠 실측했다.</summary>
+  </entry>
   <entry>
     <title>에이전트 메모리는 무엇을 저장하고 언제 꺼내나: Mem0 는 사실 문장을, Zep 은 날짜 붙은 그래프를, OpenViking 은 파일 트리를 쌓고, 같은 제품의 LoCoMo 점수는 재는 사람에 따라 58 에서 95 까지 벌어진다</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/agent-memory-service-vector-file-skill/"/>
