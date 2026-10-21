@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-10-20T18:14:00+09:00</updated>
+  <updated>2026-10-21T20:02:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>CA 의 비밀 키가 '4' 였다: eMudhra 중간 인증서 8장의 P-384 개인키는 256 미만의 정수였고, 공개 인증서에서 직접 복구해 전부 확인했다</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/emudhra-weak-ca-keys/"/>
+    <id>https://til.kil9.dev/2026/emudhra-weak-ca-keys/</id>
+    <published>2026-10-21T20:02:00+09:00</published>
+    <updated>2026-10-21T20:02:00+09:00</updated>
+    <category term="security"/>
+    <summary type="text">&quot;Tech giants rush to block 8 eMudhra certs&quot; 헤드라인을 받아 Mozilla 버그 2083449 와 CCADB 폐기 목록을 열었다. 폐기된 eMudhra 중간 인증서 8장의 공개키에서 P-384 개인키를 직접 복구하니 여덟 개 모두 256 미만의 정수였고, 하나는 숫자 4 였다. 한 장에 5에서 300밀리초가 걸렸다. 2의 384제곱 가운데 하나여야 할 비밀이 한 바이트였던 것이라, 누가 훔친 사건이 아니라 CA 가 키를 추측 가능하게 만들어 16개월간 공개 트러스트 스토어에 올려 둔 사건이다. 하드웨어 보안 모듈 키 의식 스크립트 결함이라는 해명, 2025년 5월 CRL 서명 실패 경고를 '오류를 없애는 키로 갈아 끼워' 넘긴 경위, Chrome·Firefox·Apple·Microsoft 의 차단과 루트 제거(10-27), 그리고 이 머신의 curl 이 지금도 그 체인을 신뢰한다는 확인까지 정리했다.</summary>
+  </entry>
   <entry>
     <title>에이전트의 '수정했습니다' 는 파일로 확인한다: 원문의 재현 명령을 Claude Code 2.1.304 에서 열 번 돌려 거짓 보고는 haiku 4.5 에서 한 번 나왔고, 원인은 메인 세션의 --tools 가 서브에이전트의 Edit 까지 끄는 데 있었으며, md5·git diff·Stop 훅은 드는 비용이 다르다</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/agent-done-report-hash-diff-stop-hook/"/>
@@ -76,7 +85,7 @@
     <id>https://til.kil9.dev/2026/matthew-green-lose-public-key-crypto/</id>
     <published>2026-10-09T05:50:00+09:00</published>
     <updated>2026-10-09T05:50:00+09:00</updated>
-    <category term="ai"/>
+    <category term="security"/>
     <summary type="text">존스홉킨스의 암호학자 매튜 그린이 X 답글 한 줄로 쓴 말이 조회 140만을 넘자 지우는 대신 15개짜리 해명 스레드를 올렸다. 그가 말한 것과 말하지 않은 것을 가르고, 테사로와의 공방·OpenAI 수학 더미에 암호학이 없다는 애런슨의 각주까지 정리했다.</summary>
   </entry>
   <entry>

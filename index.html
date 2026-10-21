@@ -321,10 +321,18 @@
 
   <p class="search"><input id="search" type="search" placeholder="검색" aria-label="갤러리 검색" autocomplete="off"></p>
 
-  <p class="count">Published · 127</p>
+  <p class="count">Published · 128</p>
 
   <div class="grid">
 
+    <a class="card" href="./2026/emudhra-weak-ca-keys/" data-date="2026-10-21T20:02" data-topic="security" data-icon="🔑">
+      <div class="meta">
+        <span class="date">2026-10-21 20:02</span>
+        <span class="tag">보안 · 인증서 키 유출</span>
+      </div>
+      <h2>CA 의 비밀 키가 '4' 였다: eMudhra 중간 인증서 8장의 P-384 개인키는 256 미만의 정수였고, 공개 인증서에서 직접 복구해 전부 확인했다</h2>
+      <p>"Tech giants rush to block 8 eMudhra certs" 헤드라인을 받아 Mozilla 버그 2083449 와 CCADB 폐기 목록을 열었다. 폐기된 eMudhra 중간 인증서 8장의 공개키에서 P-384 개인키를 직접 복구하니 여덟 개 모두 256 미만의 정수였고, 하나는 숫자 4 였다. 한 장에 5에서 300밀리초가 걸렸다. 2의 384제곱 가운데 하나여야 할 비밀이 한 바이트였던 것이라, 누가 훔친 사건이 아니라 CA 가 키를 추측 가능하게 만들어 16개월간 공개 트러스트 스토어에 올려 둔 사건이다. 하드웨어 보안 모듈 키 의식 스크립트 결함이라는 해명, 2025년 5월 CRL 서명 실패 경고를 '오류를 없애는 키로 갈아 끼워' 넘긴 경위, Chrome·Firefox·Apple·Microsoft 의 차단과 루트 제거(10-27), 그리고 이 머신의 curl 이 지금도 그 체인을 신뢰한다는 확인까지 정리했다.</p>
+    </a>
     <a class="card" href="./2026/agent-done-report-hash-diff-stop-hook/" data-date="2026-10-20T18:14" data-topic="ai" data-icon="claude.svg">
       <div class="meta">
         <span class="date">2026-10-20 18:14</span>
@@ -381,10 +389,10 @@
       <h2>AI 가 쏟아 낸 수학 증명 719편 중 기계가 검증한 것은 300편, 사람이 이해한 것은 아직 거의 없다: 애런슨의 'The Mathocalypse' 정리</h2>
       <p>OpenAI 가 10월 6일 올린 수학 원고 719편을 두고 스콧 애런슨이 '수학사에서 가장 큰 날'이라 쓴 글을 정리했다. 저장소를 직접 세어 Lean 인증 비율(원고 42%·결과군 65%)을 확인하고, UGC·L=BPL 의 형식 검증 범위와 철회된 세 편의 공통점, '사람이 읽을 수 있는 증명을 요구하자'는 HN 반응을 타오의 Math 2.0 과 야코비안 반례 글에 대조했다.</p>
     </a>
-    <a class="card" href="./2026/matthew-green-lose-public-key-crypto/" data-date="2026-10-09T05:50" data-topic="ai" data-icon="🔐">
+    <a class="card" href="./2026/matthew-green-lose-public-key-crypto/" data-date="2026-10-09T05:50" data-topic="security" data-icon="🔐">
       <div class="meta">
         <span class="date">2026-10-09 05:50</span>
-        <span class="tag">AI · 암호해독</span>
+        <span class="tag">보안 · 암호해독</span>
       </div>
       <h2>매튜 그린의 '공개키 암호를 잃을지도 모른다'는 답글은 깨졌다는 뜻이 아니라, 수십 명이 40년 들여다본 분석이 최선이라는 가정을 의심한 것이다</h2>
       <p>존스홉킨스의 암호학자 매튜 그린이 X 답글 한 줄로 쓴 말이 조회 140만을 넘자 지우는 대신 15개짜리 해명 스레드를 올렸다. 그가 말한 것과 말하지 않은 것을 가르고, 테사로와의 공방·OpenAI 수학 더미에 암호학이 없다는 애런슨의 각주까지 정리했다.</p>

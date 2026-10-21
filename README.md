@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-10-21 | CA 의 비밀 키가 '4' 였다: eMudhra 중간 인증서 8장의 P-384 개인키는 256 미만의 정수였고, 공개 인증서에서 직접 복구해 전부 확인했다 | [/2026/emudhra-weak-ca-keys/](https://til.kil9.dev/2026/emudhra-weak-ca-keys/) |
 | 2026-10-20 | 에이전트의 '수정했습니다' 는 파일로 확인한다: 원문의 재현 명령을 Claude Code 2.1.304 에서 열 번 돌려 거짓 보고는 haiku 4.5 에서 한 번 나왔고, 원인은 메인 세션의 --tools 가 서브에이전트의 Edit 까지 끄는 데 있었으며, md5·git diff·Stop 훅은 드는 비용이 다르다 | [/2026/agent-done-report-hash-diff-stop-hook/](https://til.kil9.dev/2026/agent-done-report-hash-diff-stop-hook/) |
 | 2026-10-19 | 에이전트 메모리는 무엇을 저장하고 언제 꺼내나: Mem0 는 사실 문장을, Zep 은 날짜 붙은 그래프를, OpenViking 은 파일 트리를 쌓고, 같은 제품의 LoCoMo 점수는 재는 사람에 따라 58 에서 95 까지 벌어진다 | [/2026/agent-memory-service-vector-file-skill/](https://til.kil9.dev/2026/agent-memory-service-vector-file-skill/) |
 | 2026-10-19 | 다익스트라의 '수학 주식회사'는 AI 예언이 아니라 증명 줄 수로 생산성을 재던 1970년대 소프트웨어 산업의 풍자였고, OpenAI 원고 722편과 719편은 하루 차이로 둘 다 맞다 | [/2026/dijkstra-mathematics-inc-ai-proof-factory/](https://til.kil9.dev/2026/dijkstra-mathematics-inc-ai-proof-factory/) |
