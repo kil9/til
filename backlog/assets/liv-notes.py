@@ -12,6 +12,11 @@
   python3 backlog/assets/liv-notes.py excerpt --for walk
   python3 backlog/assets/liv-notes.py render
   python3 backlog/assets/liv-notes.py check
+  python3 backlog/assets/liv-notes.py apply-walk <state/walk-D.json>   # 산책 잡(run.sh)이 부른다
+
+페이지 꾸밈(취향 문장 속 링크 구절·이모지, 날마다의 그림·사진, 리브가 고쳐 가는 CSS)은 원본이
+아니라 사이드카 liv-notes/decor.json·liv.css 에 둔다 — 원본은 덧붙이기 전용이고 꾸밈은 뒤에
+얼마든지 다시 칠할 수 있어야 해서다(task-139·140·141).
 
 --notes·--out 으로 경로를 바꿀 수 있다(테스트·전용 클론용).
 """
@@ -21,6 +26,8 @@ import html
 import json
 import re
 import sys
+import unicodedata
+import xml.etree.ElementTree as ET
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urlparse
@@ -28,6 +35,9 @@ from urllib.parse import urlparse
 ROOT = Path(__file__).resolve().parents[2]
 NOTES = ROOT / "backlog" / "assets" / "liv-notes" / "notes.jsonl"
 PAGE = ROOT / "p" / "liv-walk" / "index.html"
+DECOR = ROOT / "backlog" / "assets" / "liv-notes" / "decor.json"
+LIV_CSS = ROOT / "backlog" / "assets" / "liv-notes" / "liv.css"
+DRAW = PAGE.parent / "draw"
 KST = timezone(timedelta(hours=9))
 
 KINDS = {
@@ -217,6 +227,178 @@ def cmd_excerpt(a):
     print(excerpt(load(a.notes), a.mode, a.topic or "", max_chars=a.max_chars))
 
 
+# ── 꾸밈 ────────────────────────────────────────────────────────────────
+# decor.json = {"notes": {id: {anchor, emoji, emoji_pos}},
+#               "days": {date: {"drawing": {file, caption}, "photos": [{src, page, caption, credit, license}]}},
+#               "design": [{date, note}]}
+# 전부 산책 모델의 출력에서 오므로 공개 페이지에 싣기 전에 여기서 틀을 엄격히 본다.
+
+MAX_CSS = 8000
+MAX_SVG = 12000
+CSS_BANNED = re.compile(r"url\s*\(|@import|@font-face|expression|javascript|behavior|[<\\]", re.I)
+SVG_NS = "{http://www.w3.org/2000/svg}"
+SVG_ELEMS = set("""svg g path circle ellipse rect line polyline polygon text tspan title desc defs
+    linearGradient radialGradient stop clipPath""".split())
+SVG_ATTRS = set("""viewBox width height d cx cy r rx ry x y x1 y1 x2 y2 dx dy points fill stroke
+    stroke-width stroke-linecap stroke-linejoin stroke-dasharray stroke-opacity fill-opacity fill-rule
+    opacity transform font-size font-family font-weight font-style text-anchor letter-spacing id offset
+    stop-color stop-opacity gradientUnits gradientTransform fx fy clip-path preserveAspectRatio""".split())
+SVG_VALUE = re.compile(r"^(url\(#[A-Za-z][\w-]*\)|[^():;<>&\\]*)$")
+PHOTO_SRC = re.compile(r"^https://(upload|thumb)\.wikimedia\.org/wikipedia/commons/[\w%./()~+,!'-]+$")
+PHOTO_PAGE = re.compile(r"^https://commons\.wikimedia\.org/wiki/File:[^\s\"<>]+$")
+
+
+def load_decor():
+    d = json.loads(DECOR.read_text(encoding="utf-8")) if DECOR.exists() else {}
+    return {"notes": d.get("notes", {}), "days": d.get("days", {}), "design": d.get("design", [])}
+
+
+def save_decor(d):
+    DECOR.write_text(json.dumps(d, ensure_ascii=False, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def clean(s, limit):
+    s = " ".join(str(s or "").split())
+    return s if 0 < len(s) <= limit else ""
+
+
+def ok_emoji(s):
+    s = str(s or "").strip()
+    if not 1 <= len(s) <= 8:
+        return ""
+    cats = [unicodedata.category(c) for c in s]
+    if "So" not in cats or any(c not in ("So", "Sk", "Mn", "Me", "Cf") for c in cats):
+        return ""
+    return s
+
+
+def note_decor(n, text):
+    """산책 출력의 노트 하나에서 링크 구절·이모지를 꺼낸다. 구절은 원문에 그대로 있어야 한다."""
+    out = {}
+    anchor = clean(n.get("link"), 40)
+    if len(anchor) >= 2 and anchor in text:
+        out["anchor"] = anchor
+    emoji = ok_emoji(n.get("emoji"))
+    if emoji:
+        out["emoji"] = emoji
+        out["emoji_pos"] = "front" if n.get("emoji_pos") == "front" else "back"
+    return out
+
+
+def sanitize_svg(src):
+    """허용 요소·속성만 남겨 새로 쓴다. 실패하면 ''. 페이지에는 <img> 로만 실어 스크립트가 돌 길이 없지만,
+    파일을 직접 열 수도 있으니 파일 자체도 깨끗해야 한다."""
+    src = str(src or "").strip()
+    src = re.sub(r"^<\?xml[^>]*\?>", "", src).strip()
+    if not src or len(src.encode()) > MAX_SVG or "<!" in src or "<?" in src:
+        return ""
+    try:
+        root = ET.fromstring(src)
+    except ET.ParseError:
+        return ""
+    count = 0
+
+    def tag(el):
+        t = el.tag
+        if t.startswith(SVG_NS):
+            t = t[len(SVG_NS):]
+        return t if t in SVG_ELEMS and "}" not in t else None
+
+    def emit(el):
+        nonlocal count
+        count += 1
+        if count > 600:
+            raise ValueError
+        t = tag(el)
+        if t is None:  # 허용 밖 요소(script·a·foreignObject 등)는 하위째 버린다
+            return ""
+        attrs = []
+        for k, v in el.attrib.items():
+            if k not in SVG_ATTRS or not SVG_VALUE.match(v):
+                continue
+            attrs.append(f' {k}="{html.escape(v, quote=True)}"')
+        if t == "svg":
+            attrs.insert(0, ' xmlns="http://www.w3.org/2000/svg"')
+        body = html.escape(el.text or "", quote=False) if t in ("text", "tspan", "title", "desc") else ""
+        for c in el:
+            body += emit(c)
+            if t in ("text", "tspan"):
+                body += html.escape(c.tail or "", quote=False)
+        return f"<{t}{''.join(attrs)}>{body}</{t}>"
+
+    if tag(root) != "svg" or "viewBox" not in root.attrib:
+        return ""
+    try:
+        return emit(root)
+    except (ValueError, RecursionError):
+        return ""
+
+
+def ok_photo(ph):
+    src, page = str(ph.get("src") or ""), str(ph.get("page") or "")
+    if not PHOTO_SRC.match(src) or not PHOTO_PAGE.match(page):
+        return None
+    return {"src": src, "page": page, "caption": clean(ph.get("caption"), 80),
+            "credit": clean(ph.get("credit"), 120), "license": clean(ph.get("license"), 40)}
+
+
+def ok_css(css):
+    css = str(css or "").strip()
+    if not css or len(css) > MAX_CSS or CSS_BANNED.search(css) or css.count("{") != css.count("}"):
+        return ""
+    return css + "\n"
+
+
+def cmd_apply_walk(a):
+    """산책 결과 하나를 노트·꾸밈에 반영하고 페이지를 굽는다. 한 부분이 거부돼도 나머지는 남긴다."""
+    walk = json.loads(a.walk.read_text(encoding="utf-8"))
+    day = a.date or walk.get("date") or today()
+    decor = load_decor()
+    for n in walk.get("notes") or []:
+        notes = load(a.notes)
+        note = {"id": next_id(notes), "date": day, "kind": n["kind"], "text": n["text"].strip(),
+                "tags": [t.strip().lower() for t in n["tags"] if t.strip()], "origin": "walk",
+                "source": {"title": n["source"]["title"], "url": n["source"].get("url") or ""}}
+        if n.get("supersedes"):
+            note["supersedes"] = n["supersedes"]
+        errs = validate(notes + [note])
+        if errs:
+            print("노트 거부: " + "; ".join(errs))
+            continue
+        with a.notes.open("a", encoding="utf-8") as f:
+            f.write(json.dumps(note, ensure_ascii=False) + "\n")
+        extra = note_decor(n, note["text"])
+        if extra:
+            decor["notes"][note["id"]] = extra
+        print(note["id"])
+
+    today_decor = {}
+    dr = walk.get("drawing") or {}
+    svg = sanitize_svg(dr.get("svg"))
+    if svg:
+        DRAW.mkdir(parents=True, exist_ok=True)
+        (DRAW / f"{day}.svg").write_text(svg + "\n", encoding="utf-8")
+        today_decor["drawing"] = {"file": f"draw/{day}.svg", "caption": clean(dr.get("caption"), 80)}
+    elif dr:
+        print("그림 거부 — 허용 틀 밖")
+    photos = [p for p in (ok_photo(p) for p in (walk.get("photos") or [])[:3]) if p]
+    if photos:
+        today_decor["photos"] = photos
+    if today_decor:
+        decor["days"][day] = today_decor
+
+    design = walk.get("design") or {}
+    css = ok_css(design.get("css"))
+    if css:
+        LIV_CSS.write_text(css, encoding="utf-8")
+        decor["design"] = [d for d in decor["design"] if d.get("date") != day]
+        decor["design"].append({"date": day, "note": clean(design.get("note"), 160) or "조금 고쳤습니다."})
+    elif design:
+        print("디자인 거부 — CSS 가 허용 틀 밖")
+    save_decor(decor)
+    cmd_render(a)
+
+
 # ── 렌더 ────────────────────────────────────────────────────────────────
 
 def favicon():
@@ -231,7 +413,27 @@ def esc(s):
     return html.escape(s, quote=True)
 
 
-def item_html(n, by_id):
+def with_emoji(body, d):
+    e = d.get("emoji")
+    if not e:
+        return body
+    mark = f'<span class="emoji" aria-hidden="true">{esc(e)}</span>'
+    return f"{mark} {body}" if d.get("emoji_pos") == "front" else f"{body} {mark}"
+
+
+def taste_text(n, d):
+    """취향 문장에 출처 링크를 문장 속 구절 하나로 단다 — 출처 표기를 따로 붙이지 않는다."""
+    text, url = n["text"], (n.get("source") or {}).get("url") or ""
+    anchor = d.get("anchor") or ""
+    if url and anchor and anchor in text:
+        i = text.index(anchor)
+        body = f'{esc(text[:i])}<a href="{esc(url)}">{esc(anchor)}</a>{esc(text[i + len(anchor):])}'
+    else:
+        body = esc(text)
+    return with_emoji(body, d)
+
+
+def item_html(n, by_id, d):
     src = ""
     if n.get("source"):
         t, u = esc(n["source"]["title"]), n["source"].get("url") or ""
@@ -240,10 +442,29 @@ def item_html(n, by_id):
     before = ""
     if n.get("supersedes") and n["supersedes"] in by_id:
         before = f'<p class="before">전에는: {esc(by_id[n["supersedes"]]["text"])}</p>'
-    return f'<span class="kind">{KINDS[n["kind"]]}</span><p>{esc(n["text"])}{src}</p>{before}'
+    return (f'<span class="kind">{KINDS[n["kind"]]}</span>'
+            f'<p>{with_emoji(esc(n["text"]), d)}{src}</p>{before}')
 
 
-def render(notes):
+def album_html(day):
+    figs = []
+    dr = day.get("drawing")
+    if dr:
+        cap = esc(dr.get("caption") or "")
+        figs.append(f'<figure class="drawing"><img src="{esc(dr["file"])}" alt="{cap or "리브의 그림"}" '
+                    f'loading="lazy" width="240" height="180"><figcaption>{cap}</figcaption></figure>')
+    for ph in day.get("photos") or []:
+        cap = esc(ph.get("caption") or "")
+        credit = " · ".join(esc(x) for x in (ph.get("credit"), ph.get("license")) if x)
+        figs.append(f'<figure class="photo"><a href="{esc(ph["page"])}"><img src="{esc(ph["src"])}" '
+                    f'alt="{cap}" loading="lazy"></a><figcaption>{cap}'
+                    f'{f"<small>{credit}</small>" if credit else ""}</figcaption></figure>')
+    return f'<div class="album">{"".join(figs)}</div>' if figs else ""
+
+
+def render(notes, decor=None):
+    decor = decor or load_decor()
+    nd = decor["notes"]
     by_id = {n["id"]: n for n in notes}
     gone = superseded(notes)
     live = [n for n in notes if n["id"] not in gone]
@@ -251,31 +472,46 @@ def render(notes):
     taste = [n for n in sorted(live, key=lambda n: (n["date"], n["id"]), reverse=True)
              if n["kind"] in ("like", "dislike", "into")]
 
-    log, cur = [], None
+    # 기록은 달 → 날 → 노트. 날마다 리브의 그림·사진이 있으면 그 날 묶음 머리에 그림첩으로 싣는다.
+    log, month, day = [], None, None
     for n in newest:
-        month = n["date"][:7]
-        if month != cur:
-            if cur:
-                log.append("</ul>")
-            y, m = month.split("-")
-            log.append(f'<h3>{y}년 {int(m)}월</h3>\n<ul class="log">')
-            cur = month
-        log.append(f'<li><time datetime="{n["date"]}">{n["date"][5:].replace("-", ".")}</time>'
-                   f'{item_html(n, by_id)}</li>')
-    if cur:
-        log.append("</ul>")
+        if n["date"] != day:
+            if day:
+                log.append("</ul></section>")
+            if n["date"][:7] != month:
+                month = n["date"][:7]
+                y, m = month.split("-")
+                log.append(f'<h3>{y}년 {int(m)}월</h3>')
+            day = n["date"]
+            log.append(f'<section class="day"><time datetime="{day}">{day[5:].replace("-", ".")}</time>'
+                       f'{album_html(decor["days"].get(day, {}))}<ul class="log">')
+        log.append(f'<li>{item_html(n, by_id, nd.get(n["id"], {}))}</li>')
+    if day:
+        log.append("</ul></section>")
 
     groups = []
     for kind in ("like", "dislike", "into"):
         xs = [n for n in taste if n["kind"] == kind]
         if xs:
-            groups.append(f'<h2>{KINDS[kind]}</h2>\n<ul class="taste">\n'
-                          + "\n".join(f"<li>{esc(n['text'])}</li>" for n in xs) + "\n</ul>")
-    taste_html = "\n".join(groups)
+            groups.append(f'<section class="taste-group taste-{kind}"><h2>{KINDS[kind]}</h2>\n<ul class="taste">\n'
+                          + "\n".join(f"<li>{taste_text(n, nd.get(n['id'], {}))}</li>" for n in xs)
+                          + "\n</ul></section>")
+    design = sorted(decor["design"], key=lambda d: d["date"], reverse=True)
+    design_html = ""
+    if design:
+        design_html = ('<details class="design-log"><summary>리브가 이 페이지를 고친 기록</summary><ul>'
+                       + "".join(f'<li><time datetime="{esc(d["date"])}">{esc(d["date"][5:].replace("-", "."))}</time>'
+                                 f'<p>{esc(d["note"])}</p></li>' for d in design)
+                       + "</ul></details>")
+    liv_css = LIV_CSS.read_text(encoding="utf-8") if LIV_CSS.exists() else ""
+    if liv_css and not ok_css(liv_css):
+        raise SystemExit(f"{LIV_CSS} 가 허용 틀 밖이다")
     updated = max((n["date"] for n in notes), default=today())
     return TEMPLATE.replace("{{FAVICON_B64}}", favicon()) \
-        .replace("{{TASTE}}", taste_html) \
+        .replace("{{LIV_CSS}}", liv_css) \
+        .replace("{{TASTE}}", "\n".join(groups)) \
         .replace("{{LOG}}", "\n".join(log)) \
+        .replace("{{DESIGN}}", design_html) \
         .replace("{{COUNT}}", str(len(notes))) \
         .replace("{{UPDATED}}", updated)
 
@@ -327,7 +563,7 @@ TEMPLATE = """<!doctype html>
     font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
     word-break: keep-all; overflow-wrap: anywhere;
   }
-  main { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+  main { max-width: 760px; margin: 0 auto; padding: 48px 24px 80px; }
   h1 { margin: 0 0 8px; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
   h2 { margin: 40px 0 12px; font-size: 1.0625rem; font-weight: 600; }
   p { margin: 0; }
@@ -336,20 +572,40 @@ TEMPLATE = """<!doctype html>
   ul { list-style: none; margin: 0; padding: 0; }
   li { padding: 12px 0; border-top: 1px solid var(--rule); }
   .taste li { padding: 8px 0; }
-  h3 { margin: 24px 0 8px; font-size: 0.9375rem; font-weight: 600; color: var(--text-muted); }
+  h3 { margin: 32px 0 4px; font-size: 0.9375rem; font-weight: 600; color: var(--text-muted); }
   .log-title { margin-top: 56px; }
-  .log li { display: grid; grid-template-columns: 3.5em 1fr; gap: 12px; }
-  .log li > :nth-child(n+2) { grid-column: 2; }
-  .kind { color: var(--text-faint); font-size: 0.8125rem; padding-top: 2px; }
-  time { color: var(--text-faint); font-size: 0.8125rem; padding-top: 2px; font-variant-numeric: tabular-nums; }
-  .log .kind { display: block; grid-column: 2; padding: 0; }
+  .taste a { color: inherit; text-decoration-color: var(--accent); text-decoration-thickness: 1px; }
+  .taste a:hover { color: var(--accent); }
+  .emoji { font-style: normal; }
+  .day { display: grid; grid-template-columns: 3.5em 1fr; column-gap: 12px; padding-top: 16px; }
+  .day > time { grid-row: 1 / span 2; padding-top: 14px; }
+  .day > .album, .day > .log { grid-column: 2; }
+  .album {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(min(150px, 42%), 1fr));
+    gap: 12px; margin: 12px 0 4px;
+  }
+  figure { margin: 0; }
+  figure img {
+    display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover;
+    border-radius: 6px; background: var(--rule);
+  }
+  .drawing img { object-fit: contain; background: transparent; border: 1px solid var(--rule); }
+  figcaption { margin-top: 6px; font-size: 0.8125rem; color: var(--text-muted); line-height: 1.45; }
+  figcaption small { display: block; color: var(--text-faint); font-size: 0.75rem; }
+  .log li { padding: 12px 0; }
+  .kind { display: block; color: var(--text-faint); font-size: 0.8125rem; }
+  time { color: var(--text-faint); font-size: 0.8125rem; font-variant-numeric: tabular-nums; }
   .src { color: var(--text-muted); }
   .before { color: var(--text-faint); font-size: 0.875rem; margin-top: 4px; }
+  .design-log { margin-top: 48px; font-size: 0.875rem; color: var(--text-muted); }
+  .design-log summary { cursor: pointer; color: var(--text-faint); }
+  .design-log li { display: grid; grid-template-columns: 3.5em 1fr; gap: 12px; padding: 8px 0; }
   footer {
     margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--rule);
     font-size: 0.8125rem; color: var(--text-faint);
   }
-</style>
+  /* ── 여기서부터 리브의 몫(backlog/assets/liv-notes/liv.css) — 산책 때마다 조금씩 고친다 ── */
+{{LIV_CSS}}</style>
 </head>
 <body>
 <main>
@@ -358,6 +614,7 @@ TEMPLATE = """<!doctype html>
 {{TASTE}}
 <h2 class="log-title">기록</h2>
 {{LOG}}
+{{DESIGN}}
 <footer><a href="../liv-today/">리브</a> · <a href="../../">today i learned</a></footer>
 </main>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
@@ -391,6 +648,12 @@ def main():
     s = sub.add_parser("render")
     s.add_argument("--out", type=Path, default=PAGE)
     s.set_defaults(fn=cmd_render)
+
+    s = sub.add_parser("apply-walk")
+    s.add_argument("walk", type=Path)
+    s.add_argument("--date")
+    s.add_argument("--out", type=Path, default=PAGE)
+    s.set_defaults(fn=cmd_apply_walk)
 
     s = sub.add_parser("check")
     s.set_defaults(fn=cmd_check)

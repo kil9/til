@@ -1,0 +1,243 @@
+{
+ "days": {},
+ "design": [],
+ "notes": {
+  "n-0001": {
+   "anchor": "'이건 아니고, 저쪽입니다'",
+   "emoji": "🧭",
+   "emoji_pos": "back"
+  },
+  "n-0002": {
+   "anchor": "방열판이 4.6배 작아지는"
+  },
+  "n-0003": {
+   "anchor": "원화 기호가 역슬래시를 밀어낸 경위"
+  },
+  "n-0004": {
+   "anchor": "사소한 것이 정확히 원하는 대로 움직이는",
+   "emoji": "⌨️",
+   "emoji_pos": "back"
+  },
+  "n-0005": {
+   "anchor": "전기 주전자의 딸깍 소리",
+   "emoji": "🫖",
+   "emoji_pos": "back"
+  },
+  "n-0006": {
+   "anchor": "끝까지 갔다가 돌아오기만 하는 엘리베이터"
+  },
+  "n-0007": {
+   "anchor": "조용히 좋아지는 설계"
+  },
+  "n-0008": {
+   "anchor": "79가 10이 되는 과정"
+  },
+  "n-0009": {
+   "anchor": "장부가 둘이면"
+  },
+  "n-0010": {
+   "anchor": "평균만 띄워 둔 대시보드"
+  },
+  "n-0011": {
+   "anchor": "에이전트의 자기 설명"
+  },
+  "n-0012": {
+   "anchor": "Jev 라는 의사결정 모델"
+  },
+  "n-0013": {
+   "anchor": "중단된 작업을 이어 가는 하네스들"
+  },
+  "n-0014": {
+   "anchor": "작업 하나에 드는 값"
+  },
+  "n-0023": {
+   "anchor": "옹기 벽의 구멍",
+   "emoji": "🏺",
+   "emoji_pos": "front"
+  },
+  "n-0024": {
+   "anchor": "수공예 항아리 하나로 실험한 결과"
+  },
+  "n-0026": {
+   "anchor": "첫눈이 온 뒤 공원에 찍힌 발자국",
+   "emoji": "👣",
+   "emoji_pos": "back"
+  },
+  "n-0028": {
+   "anchor": "해상 일기예보",
+   "emoji": "⛵",
+   "emoji_pos": "front"
+  },
+  "n-0032": {
+   "anchor": "3시간 30분을 넘긴 경기는 391번에서 3번",
+   "emoji": "⚾",
+   "emoji_pos": "back"
+  },
+  "n-0038": {
+   "anchor": "마야의 한 천문학자"
+  },
+  "n-0044": {
+   "anchor": "운하가 없는 화성 그림",
+   "emoji": "🔭",
+   "emoji_pos": "back"
+  },
+  "n-0046": {
+   "anchor": "8자 춤은 30도쯤 어긋난다",
+   "emoji": "🐝",
+   "emoji_pos": "front"
+  },
+  "n-0049": {
+   "anchor": "'올패스 시럽'",
+   "emoji": "🍯",
+   "emoji_pos": "back"
+  },
+  "n-0054": {
+   "anchor": "초록 염료"
+  },
+  "n-0056": {
+   "anchor": "야쿠시마의 일본원숭이",
+   "emoji": "🐒",
+   "emoji_pos": "back"
+  },
+  "n-0057": {
+   "anchor": "보로데일 흑연"
+  },
+  "n-0059": {
+   "anchor": "3000Hz 근처에 소리를 모으기 때문",
+   "emoji": "🎶",
+   "emoji_pos": "back"
+  },
+  "n-0060": {
+   "anchor": "1kHz를 넘어가면"
+  },
+  "n-0063": {
+   "anchor": "바큇살 전체가 더 팽팽해지는 건 아니라고",
+   "emoji": "🚲",
+   "emoji_pos": "front"
+  },
+  "n-0064": {
+   "anchor": "4킬로미터짜리 물고기 강",
+   "emoji": "🐟",
+   "emoji_pos": "back"
+  },
+  "n-0065": {
+   "anchor": "기후 티핑 포인트 논문 2만여 편"
+  },
+  "n-0068": {
+   "anchor": "촛불 경매",
+   "emoji": "🕯️",
+   "emoji_pos": "front"
+  },
+  "n-0072": {
+   "anchor": "사람만 못 만드는 건"
+  },
+  "n-0073": {
+   "anchor": "브라인슈림프",
+   "emoji": "🦐",
+   "emoji_pos": "back"
+  },
+  "n-0074": {
+   "anchor": "「Moré Moré (Leaky)」",
+   "emoji": "💧",
+   "emoji_pos": "back"
+  },
+  "n-0078": {
+   "anchor": "스트라테고 AI 아타락소스"
+  },
+  "n-0080": {
+   "anchor": "독일 북해의 작은 섬 할리겐",
+   "emoji": "🌊",
+   "emoji_pos": "back"
+  },
+  "n-0084": {
+   "anchor": "돌을 세 개 쌓는다",
+   "emoji": "🪨",
+   "emoji_pos": "back"
+  },
+  "n-0085": {
+   "anchor": "15세기 가짜 주사위 스물네 개",
+   "emoji": "🎲",
+   "emoji_pos": "front"
+  },
+  "n-0086": {
+   "anchor": "뼈 주사위"
+  },
+  "n-0087": {
+   "anchor": "카지노 주사위"
+  },
+  "n-0090": {
+   "anchor": "18세기 알라하바드",
+   "emoji": "🧊",
+   "emoji_pos": "back"
+  },
+  "n-0094": {
+   "anchor": "엑서터 서 74번 수수께끼"
+  },
+  "n-0095": {
+   "anchor": "19세기 얼음 무역"
+  },
+  "n-0096": {
+   "anchor": "버섯 모양 자전거 이정표",
+   "emoji": "🍄",
+   "emoji_pos": "front"
+  },
+  "n-0100": {
+   "anchor": "뿔닭"
+  },
+  "n-0104": {
+   "anchor": "60장짜리 세계 지도",
+   "emoji": "🗺️",
+   "emoji_pos": "back"
+  },
+  "n-0105": {
+   "anchor": "시하리온 산",
+   "emoji": "⛰️",
+   "emoji_pos": "back"
+  },
+  "n-0107": {
+   "anchor": "Flock 번호판 카메라"
+  },
+  "n-0108": {
+   "anchor": "128×128 흑백 카메라",
+   "emoji": "☕",
+   "emoji_pos": "back"
+  },
+  "n-0112": {
+   "anchor": "'소닉 시즈닝'"
+  },
+  "n-0113": {
+   "anchor": "포장도 하지 않은 스키",
+   "emoji": "📮",
+   "emoji_pos": "front"
+  },
+  "n-0119": {
+   "anchor": "숯이 된 빵",
+   "emoji": "🍞",
+   "emoji_pos": "back"
+  },
+  "n-0124": {
+   "anchor": "토론토 지하철 1호선 타일"
+  },
+  "n-0127": {
+   "anchor": "사막 이끼 세포",
+   "emoji": "🌱",
+   "emoji_pos": "back"
+  },
+  "n-0128": {
+   "anchor": "교토의 마법 거울",
+   "emoji": "🪞",
+   "emoji_pos": "front"
+  },
+  "n-0134": {
+   "anchor": "금성 스케치"
+  },
+  "n-0136": {
+   "anchor": "'여성 계산원'",
+   "emoji": "✒️",
+   "emoji_pos": "back"
+  },
+  "n-0138": {
+   "anchor": "PHP2Shell"
+  }
+ }
+}
