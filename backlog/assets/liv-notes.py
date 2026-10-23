@@ -8,7 +8,7 @@
 사용법(repo 루트에서):
   python3 backlog/assets/liv-notes.py add --kind saw --text "..." --tags a,b \\
       [--origin walk] [--source-title T --source-url U] [--supersedes n-0003] [--date D]
-  python3 backlog/assets/liv-notes.py excerpt --for write --topic "제목이나 요청 원문"
+  python3 backlog/assets/liv-notes.py excerpt --for write --topic "제목이나 요청 원문" [--avoid-recent 3]
   python3 backlog/assets/liv-notes.py excerpt --for walk
   python3 backlog/assets/liv-notes.py render
   python3 backlog/assets/liv-notes.py check
@@ -24,6 +24,7 @@
 import argparse
 import html
 import json
+import math
 import re
 import sys
 import unicodedata
@@ -160,10 +161,51 @@ def line(n):
     return s
 
 
-def excerpt(notes, mode, topic="", ref=None, max_chars=MAX_CHARS):
+LIV_RE = re.compile(r'class="[^"]*\bliv\b[^"]*"[^>]*>(.*?)</(?:aside|div|p)>', re.S)
+REUSE_SCORE = 26   # 2026-10 브리핑 실측: 실제 재사용 28-53, 우연히 겹친 것 25 이하
+
+
+def recent_liv_text(count, before=None):
+    """최근 발행분(브리핑 count 회 + 아티클 count 편)에 실린 리브 코멘트 목록. before 를 주면 그 날짜 전 브리핑만."""
+    briefs = sorted((d for d in (ROOT / "p" / "briefing").glob("20*-*-*") if not before or d.name < before),
+                    reverse=True)[:count]
+    pages = [d / "index.html" for d in briefs]
+    if not before:
+        hrefs = re.findall(r'<a class="card" href="([^"]+)"', (ROOT / "index.html").read_text(encoding="utf-8"))
+        pages += [ROOT / h.strip("/") / "index.html" for h in hrefs[:count]]
+    out = []
+    for f in pages:
+        if f.exists():
+            out += [" ".join(html.unescape(re.sub(r"<[^>]+>", "", x)).split())
+                    for x in LIV_RE.findall(f.read_text(encoding="utf-8"))]
+    return [x for x in out if x]
+
+
+def stems(text):
+    # 조사·어미가 붙은 꼴도 맞도록 세 글자 이상은 끝 글자를 뗀다(꿀벌은 → 꿀벌).
+    return {w if len(w) <= 2 else w[:-1] for w in TOKEN_RE.findall(text or "")}
+
+
+def reused(notes, comments):
+    """최근 리브 코멘트와 겹치는 노트 id. 흔한 말보다 그 노트에만 있는 말이 겹칠 때 점수가 크다(IDF).
+    코멘트를 하나로 이어 붙이면 길이만큼 우연한 겹침이 늘어서, 코멘트마다 따로 재고 가장 큰 값을 본다."""
+    if not comments:
+        return set()
+    df = {}
+    for n in notes:
+        for x in stems(n["text"]):
+            df[x] = df.get(x, 0) + 1
+    total = len(notes)
+    return {n["id"] for n in notes
+            if max(sum(math.log(total / df[x]) for x in stems(n["text"]) if x in c) for c in comments)
+            >= REUSE_SCORE}
+
+
+def excerpt(notes, mode, topic="", ref=None, max_chars=MAX_CHARS, avoid=frozenset()):
     ref = ref or date.fromisoformat(today())
     gone = superseded(notes)
-    live = [n for n in notes if n["id"] not in gone]
+    # avoid: 최근 발행분에서 이미 쓴 노트(TASK-144). 문체 규칙만으로는 연속 사용이 안 막혀 발췌에서 뺀다.
+    live = [n for n in notes if n["id"] not in gone and n["id"] not in avoid]
     newest = lambda xs: sorted(xs, key=lambda n: (n["date"], n["id"]), reverse=True)  # noqa: E731
 
     taste = newest([n for n in live if n["kind"] in ("like", "dislike", "changed")])[:8]
@@ -224,7 +266,11 @@ def excerpt(notes, mode, topic="", ref=None, max_chars=MAX_CHARS):
 
 
 def cmd_excerpt(a):
-    print(excerpt(load(a.notes), a.mode, a.topic or "", max_chars=a.max_chars))
+    notes = load(a.notes)
+    avoid = reused(notes, recent_liv_text(a.avoid_recent, a.avoid_before)) if a.avoid_recent else set()
+    if avoid:
+        print(f"최근 발행분에서 쓴 노트 제외: {', '.join(sorted(avoid))}", file=sys.stderr)
+    print(excerpt(notes, a.mode, a.topic or "", max_chars=a.max_chars, avoid=avoid))
 
 
 # ── 꾸밈 ────────────────────────────────────────────────────────────────
@@ -727,6 +773,9 @@ def main():
     s.add_argument("--for", dest="mode", choices=("write", "walk"), default="write")
     s.add_argument("--topic")
     s.add_argument("--max-chars", type=int, default=MAX_CHARS)
+    s.add_argument("--avoid-recent", type=int, default=0, metavar="N",
+                   help="최근 브리핑 N회·아티클 N편의 리브 문장과 겹치는 노트를 뺀다")
+    s.add_argument("--avoid-before", metavar="YYYY-MM-DD", help="재현용 — 이 날짜 전 브리핑만 본다")
     s.set_defaults(fn=cmd_excerpt)
 
     s = sub.add_parser("render")
