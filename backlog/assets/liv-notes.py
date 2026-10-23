@@ -233,7 +233,7 @@ def cmd_excerpt(a):
 #               "design": [{date, note}]}
 # 전부 산책 모델의 출력에서 오므로 공개 페이지에 싣기 전에 여기서 틀을 엄격히 본다.
 
-MAX_CSS = 8000
+MAX_CSS = 16000   # 주간 개편(task-142)에서 크게 다시 쓴 CSS 도 다음 날 조금씩 고칠 때 그대로 통과해야 한다
 MAX_SVG = 12000
 CSS_BANNED = re.compile(r"url\s*\(|@import|@font-face|expression|javascript|behavior|[<\\]", re.I)
 SVG_NS = "{http://www.w3.org/2000/svg}"
@@ -392,7 +392,11 @@ def cmd_apply_walk(a):
     if css:
         LIV_CSS.write_text(css, encoding="utf-8")
         decor["design"] = [d for d in decor["design"] if d.get("date") != day]
-        decor["design"].append({"date": day, "note": clean(design.get("note"), 160) or "조금 고쳤습니다."})
+        entry = {"date": day, "note": clean(design.get("note"), 400 if design.get("redesign") else 160)
+                 or "조금 고쳤습니다."}
+        if design.get("redesign") is True:
+            entry["redesign"] = True
+        decor["design"].append(entry)
     elif design:
         print("디자인 거부 — CSS 가 허용 틀 밖")
     save_decor(decor)
@@ -551,7 +555,8 @@ def render(notes, decor=None):
     if design:
         design_html = ('<details class="design-log"><summary>리브가 이 페이지를 고친 기록</summary><ul>'
                        + "".join(f'<li><time datetime="{esc(d["date"])}">{esc(d["date"][5:].replace("-", "."))}</time>'
-                                 f'<p>{esc(d["note"])}</p></li>' for d in design)
+                                 f'<p>{"<span class=\"redesign\">개편</span> " if d.get("redesign") else ""}{esc(d["note"])}</p></li>'
+                                 for d in design)
                        + "</ul></details>")
     updated = max((n["date"] for n in notes), default=today())
     main = ('<div class="tastes">' + "\n".join(groups) + '</div>\n<h2 class="log-title">기록</h2>\n'
@@ -671,6 +676,7 @@ TEMPLATE = """<!doctype html>
   .archive ul { display: flex; flex-wrap: wrap; gap: 8px 20px; }
   .archive li { border: 0; padding: 0; display: flex; gap: 6px; align-items: baseline; }
   .back { margin-bottom: 24px; font-size: 0.875rem; }
+  .redesign { font-size: 0.75rem; color: var(--accent); border: 1px solid currentColor; border-radius: 4px; padding: 0 4px; }
   .taste li { break-inside: avoid; }
   .more > summary { cursor: pointer; color: var(--text-faint); font-size: 0.875rem; padding: 8px 0; }
   /* 넓은 화면은 칸을 나눠 한 화면에 더 많이 보이게 한다 */
