@@ -446,12 +446,12 @@ def item_html(n, by_id, d):
             f'<p>{with_emoji(esc(n["text"]), d)}{src}</p>{before}')
 
 
-def album_html(day):
+def album_html(day, up=""):
     figs = []
     dr = day.get("drawing")
     if dr:
         cap = esc(dr.get("caption") or "")
-        figs.append(f'<figure class="drawing"><img src="{esc(dr["file"])}" alt="{cap or "리브의 그림"}" '
+        figs.append(f'<figure class="drawing"><img src="{up}{esc(dr["file"])}" alt="{cap or "리브의 그림"}" '
                     f'loading="lazy" width="240" height="180"><figcaption>{cap}</figcaption></figure>')
     for ph in day.get("photos") or []:
         cap = esc(ph.get("caption") or "")
@@ -462,40 +462,90 @@ def album_html(day):
     return f'<div class="album">{"".join(figs)}</div>' if figs else ""
 
 
+TASTE_SHOWN = {"like": 8, "dislike": 4, "into": 4}   # 취향 목록에서 펼쳐 두는 최근 항목 수
+OPEN_DAYS = 7      # 본 페이지에서 펼쳐 두는 최근 날 수
+FOLD_DAYS = 30     # 그 뒤로 접어서 본 페이지에 남기는 날 수. 더 오래된 날은 달별 아카이브에만 있다
+
+
+EMOJI_SPAN = '<span class="emoji" aria-hidden="true">{}</span> '
+
+
+def day_html(day, xs, by_id, decor, up="", folded=False):
+    nd = decor["notes"]
+    stamp = f'<time datetime="{day}">{day[5:].replace("-", ".")}</time>'
+    body = (album_html(decor["days"].get(day, {}), up) + '<ul class="log">'
+            + "".join(f'<li>{item_html(n, by_id, nd.get(n["id"], {}))}</li>' for n in xs) + "</ul>")
+    if not folded:
+        return f'<section class="day">{stamp}{body}</section>'
+    # 접힌 날의 머리에는 그날 붙은 이모지와 첫 노트 첫머리를 보여 무엇을 봤는지 짐작하게 한다.
+    marks = "".join(esc(nd[n["id"]]["emoji"]) for n in xs if nd.get(n["id"], {}).get("emoji"))
+    lead = esc(xs[0]["text"][:48].rstrip()) + "…"
+    return (f'<details class="day folded"><summary>{stamp}<span class="peek">'
+            f'{EMOJI_SPAN.format(marks) if marks else ""}{lead}'
+            f'</span><span class="count">{len(xs)}건</span></summary>{body}</details>')
+
+
+def by_day(notes):
+    days = {}
+    for n in sorted(notes, key=lambda n: (n["date"], n["id"]), reverse=True):
+        days.setdefault(n["date"], []).append(n)
+    return days
+
+
+def month_label(month):
+    y, m = month.split("-")
+    return f"{y}년 {int(m)}월"
+
+
+def page(body_title, meta, main, canonical, up, decor):
+    liv_css = LIV_CSS.read_text(encoding="utf-8") if LIV_CSS.exists() else ""
+    if liv_css and not ok_css(liv_css):
+        raise SystemExit(f"{LIV_CSS} 가 허용 틀 밖이다")
+    return TEMPLATE.replace("{{FAVICON_B64}}", favicon()) \
+        .replace("{{LIV_CSS}}", liv_css) \
+        .replace("{{TITLE}}", body_title) \
+        .replace("{{CANONICAL}}", canonical) \
+        .replace("{{META}}", meta) \
+        .replace("{{MAIN}}", main) \
+        .replace("{{UP}}", up)
+
+
 def render(notes, decor=None):
+    """본 페이지 HTML 과 달별 아카이브 {YYYY-MM: HTML} 을 돌려준다."""
     decor = decor or load_decor()
     nd = decor["notes"]
     by_id = {n["id"]: n for n in notes}
     gone = superseded(notes)
     live = [n for n in notes if n["id"] not in gone]
-    newest = sorted(notes, key=lambda n: (n["date"], n["id"]), reverse=True)
     taste = [n for n in sorted(live, key=lambda n: (n["date"], n["id"]), reverse=True)
              if n["kind"] in ("like", "dislike", "into")]
-
-    # 기록은 달 → 날 → 노트. 날마다 리브의 그림·사진이 있으면 그 날 묶음 머리에 그림첩으로 싣는다.
-    log, month, day = [], None, None
-    for n in newest:
-        if n["date"] != day:
-            if day:
-                log.append("</ul></section>")
-            if n["date"][:7] != month:
-                month = n["date"][:7]
-                y, m = month.split("-")
-                log.append(f'<h3>{y}년 {int(m)}월</h3>')
-            day = n["date"]
-            log.append(f'<section class="day"><time datetime="{day}">{day[5:].replace("-", ".")}</time>'
-                       f'{album_html(decor["days"].get(day, {}))}<ul class="log">')
-        log.append(f'<li>{item_html(n, by_id, nd.get(n["id"], {}))}</li>')
-    if day:
-        log.append("</ul></section>")
+    days = by_day(notes)
+    order = list(days)
+    months = sorted({d[:7] for d in order}, reverse=True)
 
     groups = []
     for kind in ("like", "dislike", "into"):
         xs = [n for n in taste if n["kind"] == kind]
         if xs:
+            lis = [f"<li>{taste_text(n, nd.get(n['id'], {}))}</li>" for n in xs]
+            keep = TASTE_SHOWN[kind]
+            more = (f'<details class="more"><summary>더 보기 ({len(lis) - keep})</summary><ul class="taste">'
+                    + "\n".join(lis[keep:]) + "</ul></details>") if len(lis) > keep else ""
             groups.append(f'<section class="taste-group taste-{kind}"><h2>{KINDS[kind]}</h2>\n<ul class="taste">\n'
-                          + "\n".join(f"<li>{taste_text(n, nd.get(n['id'], {}))}</li>" for n in xs)
-                          + "\n</ul></section>")
+                          + "\n".join(lis[:keep]) + "\n</ul>" + more + "</section>")
+
+    # 기록: 최근 OPEN_DAYS 일은 펼치고, 그 뒤 FOLD_DAYS 일은 접어 두고, 더 오래된 날은 달별 아카이브로.
+    log, month = [], None
+    for i, day in enumerate(order[:OPEN_DAYS + FOLD_DAYS]):
+        if day[:7] != month:
+            month = day[:7]
+            log.append(f'<h3>{month_label(month)}</h3>')
+        log.append(day_html(day, days[day], by_id, decor, folded=i >= OPEN_DAYS))
+    archive_nav = ('<nav class="archive"><h2>지난 달</h2><ul>'
+                   + "".join(f'<li><a href="{m}/">{month_label(m)}</a>'
+                             f'<span class="count">{sum(len(days[d]) for d in order if d[:7] == m)}건</span></li>'
+                             for m in months) + "</ul></nav>")
+
     design = sorted(decor["design"], key=lambda d: d["date"], reverse=True)
     design_html = ""
     if design:
@@ -503,17 +553,21 @@ def render(notes, decor=None):
                        + "".join(f'<li><time datetime="{esc(d["date"])}">{esc(d["date"][5:].replace("-", "."))}</time>'
                                  f'<p>{esc(d["note"])}</p></li>' for d in design)
                        + "</ul></details>")
-    liv_css = LIV_CSS.read_text(encoding="utf-8") if LIV_CSS.exists() else ""
-    if liv_css and not ok_css(liv_css):
-        raise SystemExit(f"{LIV_CSS} 가 허용 틀 밖이다")
     updated = max((n["date"] for n in notes), default=today())
-    return TEMPLATE.replace("{{FAVICON_B64}}", favicon()) \
-        .replace("{{LIV_CSS}}", liv_css) \
-        .replace("{{TASTE}}", "\n".join(groups)) \
-        .replace("{{LOG}}", "\n".join(log)) \
-        .replace("{{DESIGN}}", design_html) \
-        .replace("{{COUNT}}", str(len(notes))) \
-        .replace("{{UPDATED}}", updated)
+    main = ('<div class="tastes">' + "\n".join(groups) + '</div>\n<h2 class="log-title">기록</h2>\n'
+            + "\n".join(log) + "\n" + archive_nav + "\n" + design_html)
+    index = page("산책 노트", f"{len(notes)}건 · 마지막 기록 {updated}", main,
+                 "https://til.kil9.dev/p/liv-walk/", "", decor)
+
+    archives = {}
+    for m in months:
+        ds = [d for d in order if d[:7] == m]
+        body = (f'<p class="back"><a href="../">← 산책 노트</a></p>\n'
+                + "\n".join(day_html(d, days[d], by_id, decor, up="../") for d in ds))
+        archives[m] = page(f"산책 노트 · {month_label(m)}",
+                           f"{sum(len(days[d]) for d in ds)}건 · {len(ds)}일", body,
+                           f"https://til.kil9.dev/p/liv-walk/{m}/", "../", decor)
+    return index, archives
 
 
 def cmd_render(a):
@@ -521,9 +575,13 @@ def cmd_render(a):
     errs = validate(notes)
     if errs:
         raise SystemExit("렌더 거부 — 원본 위반:\n  " + "\n  ".join(errs))
+    index, archives = render(notes)
     a.out.parent.mkdir(parents=True, exist_ok=True)
-    a.out.write_text(render(notes), encoding="utf-8")
-    print(f"{a.out} ({len(notes)}건)")
+    a.out.write_text(index, encoding="utf-8")
+    for m, body in archives.items():
+        (a.out.parent / m).mkdir(exist_ok=True)
+        (a.out.parent / m / "index.html").write_text(body, encoding="utf-8")
+    print(f"{a.out} ({len(notes)}건, 달별 아카이브 {len(archives)}개)")
 
 
 def cmd_check(a):
@@ -539,10 +597,10 @@ TEMPLATE = """<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>산책 노트 · today i learned</title>
+<title>{{TITLE}} · today i learned</title>
 <meta name="description" content="리브가 구경하다 본 것과 좋아하게 된 것">
 <meta name="robots" content="noindex, follow">
-<link rel="canonical" href="https://til.kil9.dev/p/liv-walk/">
+<link rel="canonical" href="{{CANONICAL}}">
 <link rel="icon" type="image/webp" href="data:image/webp;base64,{{FAVICON_B64}}">
 <style>
   :root {
@@ -600,6 +658,29 @@ TEMPLATE = """<!doctype html>
   .design-log { margin-top: 48px; font-size: 0.875rem; color: var(--text-muted); }
   .design-log summary { cursor: pointer; color: var(--text-faint); }
   .design-log li { display: grid; grid-template-columns: 3.5em 1fr; gap: 12px; padding: 8px 0; }
+  .day.folded { display: block; border-top: 1px solid var(--rule); }
+  .day.folded > summary {
+    display: grid; grid-template-columns: 3.5em 1fr auto; gap: 12px; align-items: baseline;
+    padding: 10px 0; cursor: pointer; list-style: none;
+  }
+  .day.folded > summary::-webkit-details-marker { display: none; }
+  .day.folded .peek { color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .day.folded[open] .peek { visibility: hidden; }
+  .count { color: var(--text-faint); font-size: 0.8125rem; font-variant-numeric: tabular-nums; }
+  .day.folded > .album, .day.folded > .log { margin-left: calc(3.5em + 12px); }
+  .archive ul { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+  .archive li { border: 0; padding: 0; display: flex; gap: 6px; align-items: baseline; }
+  .back { margin-bottom: 24px; font-size: 0.875rem; }
+  .taste li { break-inside: avoid; }
+  .more > summary { cursor: pointer; color: var(--text-faint); font-size: 0.875rem; padding: 8px 0; }
+  /* 넓은 화면은 칸을 나눠 한 화면에 더 많이 보이게 한다 */
+  @media (min-width: 1100px) {
+    main { max-width: 1120px; }
+    .tastes { display: grid; grid-template-columns: 2fr 1fr; column-gap: 40px; align-items: start; }
+    .tastes .taste-like { grid-row: span 2; }
+    .tastes .taste-like .taste { columns: 2; column-gap: 32px; }
+    .log { display: grid; grid-template-columns: 1fr 1fr; column-gap: 32px; }
+  }
   footer {
     margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--rule);
     font-size: 0.8125rem; color: var(--text-faint);
@@ -609,13 +690,10 @@ TEMPLATE = """<!doctype html>
 </head>
 <body>
 <main>
-<h1>산책 노트</h1>
-<p class="meta">{{COUNT}}건 · 마지막 기록 {{UPDATED}}</p>
-{{TASTE}}
-<h2 class="log-title">기록</h2>
-{{LOG}}
-{{DESIGN}}
-<footer><a href="../liv-today/">리브</a> · <a href="../../">today i learned</a></footer>
+<h1>{{TITLE}}</h1>
+<p class="meta">{{META}}</p>
+{{MAIN}}
+<footer><a href="{{UP}}../liv-today/">리브</a> · <a href="{{UP}}../../">today i learned</a></footer>
 </main>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
 </body>

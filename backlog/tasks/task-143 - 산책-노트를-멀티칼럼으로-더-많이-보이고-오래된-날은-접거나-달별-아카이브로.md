@@ -1,9 +1,10 @@
 ---
 id: TASK-143
 title: 산책 노트를 멀티칼럼으로 더 많이 보이고 오래된 날은 접거나 달별 아카이브로
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-10-23 16:35'
+updated_date: '2026-10-23 17:13'
 labels: []
 milestone: m-15
 dependencies: []
@@ -17,7 +18,13 @@ dependencies: []
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 넓은 화면에서 기록이 여러 칸으로 놓여 한 화면에 보이는 날 묶음이 지금보다 많다
-- [ ] #2 최근 기간 밖의 날은 접히거나 달별 아카이브 페이지로 옮겨지고 본 페이지에서 링크된다
-- [ ] #3 walk 프롬프트의 페이지 구조 설명이 새 구조와 맞고, 리브의 기존 liv.css 가 깨지지 않는지 렌더로 확인한다
+- [x] #1 넓은 화면에서 기록이 여러 칸으로 놓여 한 화면에 보이는 날 묶음이 지금보다 많다
+- [x] #2 최근 기간 밖의 날은 접히거나 달별 아카이브 페이지로 옮겨지고 본 페이지에서 링크된다
+- [x] #3 walk 프롬프트의 페이지 구조 설명이 새 구조와 맞고, 리브의 기존 liv.css 가 깨지지 않는지 렌더로 확인한다
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+1100px 이상에서 main 1120px, 취향은 2fr/1fr 칸(좋아하게 된 것은 다시 2단), 기록 ul.log 두 칸. 취향 목록은 최근 8·4·4건만 펼치고 나머지는 '더 보기'. 기록은 최근 7일 펼침, 그 뒤 30일은 details 로 접고(머리에 그날 이모지·첫 노트 첫머리·건수), 전 기간을 p/liv-walk/<YYYY-MM>/ 달별 아카이브로 굽는다(noindex·canonical·같은 CSS, 그림은 ../draw/). 본 페이지 nav.archive 에서 링크. walk 프롬프트의 페이지 구조 설명을 새 클래스로 갱신(nuc14 walk.py, 백업 state/walk.py.bak-archive). 검증: site-check 위반 없음, 1280·390 렌더 확인 — 리브의 기존 liv.css(그림첩 flex·둥근 꼬리표)가 그대로 먹는다.
+<!-- SECTION:NOTES:END -->
