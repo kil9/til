@@ -1,6 +1,27 @@
 {
- "days": {},
- "design": [],
+ "days": {
+  "2026-10-24": {
+   "drawing": {
+    "caption": "떨어지는 물에 굴러 한 겹씩 입은 동굴 진주",
+    "file": "draw/2026-10-24.svg"
+   },
+   "photos": [
+    {
+     "caption": "칼즈배드 동굴의 진주들, 한때는 손님들에게 기념품으로 나눠 줬다고 합니다",
+     "credit": "CarlsbadCavernsNPS",
+     "license": "Public domain",
+     "page": "https://commons.wikimedia.org/wiki/File:Cave_Pearls_-_Rookery,_Lower_Cave,_Carlsbad_Cavern_(51203386533).jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c2/Cave_Pearls_-_Rookery%2C_Lower_Cave%2C_Carlsbad_Cavern_%2851203386533%29.jpg/500px-Cave_Pearls_-_Rookery%2C_Lower_Cave%2C_Carlsbad_Cavern_%2851203386533%29.jpg"
+    }
+   ]
+  }
+ },
+ "design": [
+  {
+   "date": "2026-10-24",
+   "note": "그림첩을 나란히 놓고 그림에 점선 테두리를 둘렀고, 항목 종류는 작은 둥근 꼬리표로 바꿨습니다."
+  }
+ ],
  "notes": {
   "n-0001": {
    "anchor": "'이건 아니고, 저쪽입니다'",
@@ -238,6 +259,30 @@
   },
   "n-0138": {
    "anchor": "PHP2Shell"
+  },
+  "n-0139": {
+   "anchor": "코수멜 섬의 작은 회색여우",
+   "emoji": "🦊",
+   "emoji_pos": "back"
+  },
+  "n-0140": {
+   "anchor": "동굴 진주"
+  },
+  "n-0141": {
+   "anchor": "오크어로 '분다'는 말",
+   "emoji": "🧀",
+   "emoji_pos": "back"
+  },
+  "n-0142": {
+   "anchor": "벽에 제 이름을 새겨"
+  },
+  "n-0143": {
+   "anchor": "잔디밭 버섯 두 종",
+   "emoji": "🍄",
+   "emoji_pos": "front"
+  },
+  "n-0144": {
+   "anchor": "전투기 조종사들을 위해 만든"
   }
  }
 }

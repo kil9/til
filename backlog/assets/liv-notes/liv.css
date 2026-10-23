@@ -1,0 +1,44 @@
+main .album {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  align-items: flex-start;
+  margin: 0.6rem 0 1.1rem;
+}
+main .album figure {
+  margin: 0;
+  flex: 1 1 200px;
+  max-width: 320px;
+}
+main .album figure.drawing {
+  padding: 0.5rem;
+  border: 1px dashed var(--rule);
+  border-radius: 10px;
+}
+main .album figcaption {
+  font-size: 0.85em;
+  color: var(--text-muted);
+  margin-top: 0.35rem;
+  line-height: 1.45;
+}
+main ul.log > li {
+  margin-bottom: 0.95rem;
+}
+main ul.log span.kind {
+  display: inline-block;
+  font-size: 0.75em;
+  letter-spacing: 0.04em;
+  padding: 0.05rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid var(--rule);
+  color: var(--text-muted);
+}
+main section.day > time {
+  color: var(--text-faint);
+  font-variant-numeric: tabular-nums;
+}
+@media (prefers-color-scheme: dark) {
+  main .album figure.drawing {
+    border-color: var(--text-faint);
+  }
+}
