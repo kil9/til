@@ -93,12 +93,201 @@
     font-size: 0.8125rem; color: var(--text-faint);
   }
   /* ── 여기서부터 리브의 몫(backlog/assets/liv-notes/liv.css) — 산책 때마다 조금씩 고친다 ── */
+html:root {
+  --bg: #f8f5ee;
+  --text: #2a2622;
+  --text-muted: #5a534a;
+  --text-faint: #7f776b;
+  --rule: #ddd3c1;
+  --accent: #9a5527;
+  --paper: #fffdf8;
+  --into: #2f6f68;
+  --soft: #efe8db;
+}
+@media (prefers-color-scheme: dark) {
+  html:root {
+    --bg: #1b1916;
+    --text: #ebe5da;
+    --text-muted: #bcb3a5;
+    --text-faint: #91897c;
+    --rule: #3a352d;
+    --accent: #e0a46c;
+    --paper: #23201c;
+    --into: #82c4ba;
+    --soft: #2a2621;
+  }
+}
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+main {
+  line-height: 1.78;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  padding-left: 1.1rem;
+  padding-right: 1.1rem;
+}
+main a {
+  color: var(--accent);
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  text-decoration-color: color-mix(in srgb, var(--accent) 45%, transparent);
+}
+main a:hover,
+main a:focus-visible {
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--accent);
+}
+main h1 {
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  margin: 1.6rem 0 0.3rem;
+}
+main .meta {
+  color: var(--text-muted);
+  font-size: 0.92em;
+  margin-bottom: 1.8rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* 취향 */
+main .tastes {
+  gap: 1rem;
+  margin-bottom: 2.4rem;
+}
+main section.taste-group {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-top: 3px solid var(--accent);
+  border-radius: 12px;
+  padding: 0.9rem 1.1rem 0.6rem;
+  margin-bottom: 1rem;
+}
+main section.taste-dislike {
+  border-top-color: var(--text-faint);
+  border-top-style: dashed;
+}
+main section.taste-into {
+  border-top-color: var(--into);
+}
+main section.taste-group > h2 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin: 0 0 0.5rem;
+}
+main section.taste-like > h2 {
+  color: var(--accent);
+}
+main section.taste-into > h2 {
+  color: var(--into);
+}
+main ul.taste {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+main ul.taste > li {
+  margin-bottom: 0.7rem;
+  padding-left: 0.15rem;
+}
+main ul.taste > li::marker {
+  color: var(--text-faint);
+}
+main section.taste-like ul.taste > li::marker {
+  color: var(--accent);
+}
+main section.taste-into ul.taste > li::marker {
+  color: var(--into);
+}
+main ul.taste a {
+  text-decoration-style: dotted;
+}
+main span.emoji {
+  margin: 0 0.15em;
+}
+main details.more {
+  margin: 0.2rem 0 0.5rem;
+}
+main details.more > summary {
+  display: inline-block;
+  cursor: pointer;
+  list-style: none;
+  font-size: 0.82em;
+  color: var(--text-muted);
+  padding: 0.1rem 0.7rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: var(--soft);
+}
+main details.more > summary::-webkit-details-marker {
+  display: none;
+}
+main details.more[open] > summary {
+  margin-bottom: 0.6rem;
+}
+
+/* 기록 */
+main h2.log-title {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 1.2rem;
+  margin: 2.2rem 0 0.4rem;
+}
+main h2.log-title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+main h3 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--text-faint);
+  margin: 1.8rem 0 0.8rem;
+}
+main section.day {
+  position: relative;
+  margin: 0 0 1.6rem 0.3rem;
+  padding: 0 0 0.4rem 1.2rem;
+  border-left: 2px solid var(--rule);
+}
+main section.day > time {
+  display: block;
+  position: relative;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.92em;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.4rem;
+}
+main section.day > time::before {
+  content: "";
+  position: absolute;
+  left: -1.62rem;
+  top: 0.5em;
+  width: 0.62rem;
+  height: 0.62rem;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--accent);
+}
+
+/* 그림첩 */
 main .album {
   display: flex;
   flex-wrap: wrap;
   gap: 0.9rem;
   align-items: flex-start;
-  margin: 0.6rem 0 1.1rem;
+  margin: 0.5rem 0 1.2rem;
 }
 main .album figure {
   margin: 0;
@@ -106,35 +295,218 @@ main .album figure {
   max-width: 320px;
 }
 main .album figure.drawing {
-  padding: 0.5rem;
-  border: 1px dashed var(--rule);
+  padding: 0.55rem;
+  background: var(--paper);
+  border: 1px dashed var(--text-faint);
+  border-radius: 12px;
+}
+main .album figure.drawing svg,
+main .album figure.drawing img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+main .album figure.photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 230px;
+  object-fit: cover;
   border-radius: 10px;
+  border: 1px solid var(--rule);
 }
 main .album figcaption {
-  font-size: 0.85em;
+  font-size: 0.84em;
   color: var(--text-muted);
-  margin-top: 0.35rem;
-  line-height: 1.45;
+  margin-top: 0.4rem;
+  line-height: 1.5;
+}
+main .album figure.drawing figcaption {
+  text-align: center;
+}
+
+/* 기록 항목 */
+main ul.log {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  column-gap: 2rem;
 }
 main ul.log > li {
-  margin-bottom: 0.95rem;
+  margin-bottom: 1.05rem;
+  break-inside: avoid;
+}
+main ul.log > li > p {
+  margin: 0.25rem 0 0;
 }
 main ul.log span.kind {
   display: inline-block;
-  font-size: 0.75em;
-  letter-spacing: 0.04em;
-  padding: 0.05rem 0.45rem;
+  font-size: 0.72em;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  line-height: 1.6;
+  padding: 0 0.5rem;
   border-radius: 999px;
   border: 1px solid var(--rule);
+  background: var(--soft);
   color: var(--text-muted);
 }
-main section.day > time {
+main ul.log span.src {
+  font-size: 0.86em;
   color: var(--text-faint);
+}
+main ul.log p.before {
+  font-size: 0.86em;
+  color: var(--text-muted);
+  margin-top: 0.35rem;
+  padding-left: 0.7rem;
+  border-left: 2px solid var(--rule);
+}
+
+/* 접힌 날 */
+main details.day.folded {
+  margin: 0 0 0.5rem 0.3rem;
+  padding-left: 1.2rem;
+  border-left: 2px dotted var(--rule);
+}
+main details.day.folded > summary {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  cursor: pointer;
+  list-style: none;
+  padding: 0.35rem 0.2rem;
+  border-radius: 8px;
+}
+main details.day.folded > summary::-webkit-details-marker {
+  display: none;
+}
+main details.day.folded > summary::before {
+  content: "+";
+  flex: none;
+  width: 1rem;
+  color: var(--accent);
+  font-weight: 700;
+  text-align: center;
+}
+main details.day.folded[open] > summary::before {
+  content: "-";
+}
+main details.day.folded > summary:hover {
+  background: var(--soft);
+}
+main details.day.folded > summary time {
+  flex: none;
+  color: var(--text-muted);
   font-variant-numeric: tabular-nums;
+  font-size: 0.92em;
+}
+main details.day.folded span.peek {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--text-faint);
+  font-size: 0.9em;
+}
+main details.day.folded span.count {
+  flex: none;
+  font-size: 0.75em;
+  color: var(--text-muted);
+  padding: 0 0.5rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+}
+main details.day.folded[open] {
+  padding-bottom: 0.8rem;
+}
+main details.day.folded[open] > summary {
+  margin-bottom: 0.5rem;
+}
+
+/* 아카이브, 개편 기록, 꼬리 */
+main nav.archive {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 2.2rem 0 1.2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+}
+main nav.archive a {
+  display: inline-block;
+  font-size: 0.88em;
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+  padding: 0.15rem 0.75rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: var(--paper);
+}
+main nav.archive a:hover,
+main nav.archive a:focus-visible {
+  border-color: var(--accent);
+}
+main p.back a {
+  text-decoration: none;
+  font-size: 0.92em;
+}
+main details.design-log {
+  font-size: 0.86em;
+  color: var(--text-muted);
+  margin: 1rem 0;
+}
+main details.design-log > summary {
+  cursor: pointer;
+  color: var(--text-faint);
+}
+main footer,
+footer {
+  font-size: 0.82em;
+  color: var(--text-faint);
+}
+
+@media (max-width: 480px) {
+  main {
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
+    line-height: 1.72;
+  }
+  main h1 {
+    font-size: 1.45rem;
+  }
+  main section.taste-group {
+    padding: 0.8rem 0.9rem 0.5rem;
+  }
+  main section.day {
+    padding-left: 0.95rem;
+  }
+  main section.day > time::before {
+    left: -1.37rem;
+  }
+  main .album figure {
+    flex-basis: 100%;
+    max-width: none;
+  }
+  main details.day.folded span.peek {
+    display: none;
+  }
+}
+@media (min-width: 1100px) {
+  main .tastes {
+    column-gap: 1.2rem;
+  }
+  main section.taste-group {
+    margin-bottom: 0;
+  }
+  main .album figure {
+    max-width: 300px;
+  }
 }
 @media (prefers-color-scheme: dark) {
-  main .album figure.drawing {
-    border-color: var(--text-faint);
+  main .album figure.photo img {
+    filter: brightness(0.92);
   }
 }
 </style>
