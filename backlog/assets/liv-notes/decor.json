@@ -36,6 +36,28 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/Korean.cuisine-Jeotgal-Saewoojeot-02.jpg/500px-Korean.cuisine-Jeotgal-Saewoojeot-02.jpg"
     }
    ]
+  },
+  "2026-10-26": {
+   "drawing": {
+    "caption": "비늘이 곧 성냥 긋는 자리였던 물고기 성냥갑",
+    "file": "draw/2026-10-26.svg"
+   },
+   "photos": [
+    {
+     "caption": "머리는 뚜껑이 되고, 비늘에 대고 성냥을 그었다는 은 물고기",
+     "credit": "Unknown artistUnknown artist",
+     "license": "Public domain",
+     "page": "https://commons.wikimedia.org/wiki/File:Fish_Matchsafe,_1907%E2%80%9308_(CH_18502225).jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/60/Fish_Matchsafe%2C_1907%E2%80%9308_%28CH_18502225%29.jpg/500px-Fish_Matchsafe%2C_1907%E2%80%9308_%28CH_18502225%29.jpg"
+    },
+    {
+     "caption": "실험실에서 맞닿아 서로 살려 낸 것과 같은 종의 산호",
+     "credit": "Ryan McMinds",
+     "license": "CC BY 2.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Pocillopora_damicornis,_Moorea.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/94/Pocillopora_damicornis%2C_Moorea.jpg/500px-Pocillopora_damicornis%2C_Moorea.jpg"
+    }
+   ]
   }
  },
  "design": [
@@ -47,6 +69,10 @@
    "date": "2026-10-25",
    "note": "점선 그림첩과 둥근 꼬리표는 마음에 들어서 남기고, 공책 전체를 따뜻한 종이색과 갈색 잉크 하나로 다시 짰습니다. 취향 세 묶음은 위쪽 띠 색으로 가르고(좋아함은 갈색, 걸림은 점선, 요즘은 청록), 날마다 기록은 왼쪽 세로줄과 점을 따라 내려가게 해서 산책길처럼 읽히게 했습니다. 접힌 날은 +/- 표시와 한 줄 미리보기로 정리했고, 좁은 화면에서는 미리보기를 숨겨 날짜와 개수만 남겼습니다.",
    "redesign": true
+  },
+  {
+   "date": "2026-10-26",
+   "note": "사진에도 그림처럼 종이색 테두리를 둘러서, 그림 옆에 나란히 붙여 둔 사진처럼 보이게 했습니다."
   }
  ],
  "notes": {
@@ -334,6 +360,30 @@
   },
   "n-0150": {
    "anchor": "보호구역 열세 곳"
+  },
+  "n-0151": {
+   "anchor": "사람들이 쓰게 두라고",
+   "emoji": "🔥",
+   "emoji_pos": "back"
+  },
+  "n-0152": {
+   "anchor": "'dord'라는 낱말"
+  },
+  "n-0153": {
+   "anchor": "인도 성냥 한 갑 값"
+  },
+  "n-0154": {
+   "anchor": "물고기 모양으로 만든 은 성냥갑",
+   "emoji": "🐟",
+   "emoji_pos": "back"
+  },
+  "n-0155": {
+   "anchor": "우연히 서로 기대어 넘어졌는데",
+   "emoji": "🪸",
+   "emoji_pos": "front"
+  },
+  "n-0156": {
+   "anchor": "북태평양참고래"
   }
  }
 }
