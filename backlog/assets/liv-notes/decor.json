@@ -45,7 +45,7 @@
    "photos": [
     {
      "caption": "머리는 뚜껑이 되고, 비늘에 대고 성냥을 그었다는 은 물고기",
-     "credit": "Unknown artistUnknown artist",
+     "credit": "Unknown artist",
      "license": "Public domain",
      "page": "https://commons.wikimedia.org/wiki/File:Fish_Matchsafe,_1907%E2%80%9308_(CH_18502225).jpg",
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/60/Fish_Matchsafe%2C_1907%E2%80%9308_%28CH_18502225%29.jpg/500px-Fish_Matchsafe%2C_1907%E2%80%9308_%28CH_18502225%29.jpg"
@@ -81,6 +81,10 @@
    "emoji": "🧭",
    "emoji_pos": "back",
    "pic": {
+    "bg": [
+     "#eeede1",
+     "#eeede1"
+    ],
     "file": "pic/n-0001.webp",
     "h": 720,
     "w": 720
@@ -90,6 +94,10 @@
   "n-0002": {
    "anchor": "방열판이 4.6배 작아지는",
    "pic": {
+    "bg": [
+     "#a1bcce",
+     "#a1bcce"
+    ],
     "file": "pic/n-0002.webp",
     "h": 720,
     "w": 720
@@ -99,6 +107,10 @@
   "n-0003": {
    "anchor": "원화 기호가 역슬래시를 밀어낸 경위",
    "pic": {
+    "bg": [
+     "#f8eede",
+     "#f8eede"
+    ],
     "file": "pic/n-0003.webp",
     "h": 480,
     "w": 720
@@ -110,6 +122,10 @@
    "emoji": "⌨️",
    "emoji_pos": "back",
    "pic": {
+    "bg": [
+     "#f3f0e9",
+     "#fffbf3"
+    ],
     "file": "pic/n-0004.webp",
     "h": 720,
     "w": 720
@@ -121,6 +137,10 @@
    "emoji": "🫖",
    "emoji_pos": "back",
    "pic": {
+    "bg": [
+     "#fef7ea",
+     "#fef7ea"
+    ],
     "file": "pic/n-0005.webp",
     "h": 720,
     "w": 720
@@ -130,6 +150,10 @@
   "n-0006": {
    "anchor": "끝까지 갔다가 돌아오기만 하는 엘리베이터",
    "pic": {
+    "bg": [
+     "#e2dac5",
+     "#e1d7c3"
+    ],
     "file": "pic/n-0006.webp",
     "h": 720,
     "w": 720
@@ -139,6 +163,10 @@
   "n-0007": {
    "anchor": "조용히 좋아지는 설계",
    "pic": {
+    "bg": [
+     "#fdfaf4",
+     "#fefaf4"
+    ],
     "file": "pic/n-0007.webp",
     "h": 720,
     "w": 720
@@ -148,6 +176,10 @@
   "n-0008": {
    "anchor": "79가 10이 되는 과정",
    "pic": {
+    "bg": [
+     "#fdf6e8",
+     "#fcf4e4"
+    ],
     "file": "pic/n-0008.webp",
     "h": 720,
     "w": 720
@@ -157,6 +189,10 @@
   "n-0009": {
    "anchor": "장부가 둘이면",
    "pic": {
+    "bg": [
+     "#f2eee6",
+     "#f0ece5"
+    ],
     "file": "pic/n-0009.webp",
     "h": 480,
     "w": 720
@@ -166,6 +202,10 @@
   "n-0010": {
    "anchor": "평균만 띄워 둔 대시보드",
    "pic": {
+    "bg": [
+     "#fffbf5",
+     "#fffbf5"
+    ],
     "file": "pic/n-0010.webp",
     "h": 720,
     "w": 720
@@ -175,6 +215,10 @@
   "n-0011": {
    "anchor": "에이전트의 자기 설명",
    "pic": {
+    "bg": [
+     "#f3e9d8",
+     "#f3e9d9"
+    ],
     "file": "pic/n-0011.webp",
     "h": 720,
     "w": 720
@@ -184,6 +228,10 @@
   "n-0012": {
    "anchor": "Jev 라는 의사결정 모델",
    "pic": {
+    "bg": [
+     "#fefaf0",
+     "#fefaf0"
+    ],
     "file": "pic/n-0012.webp",
     "h": 720,
     "w": 720
@@ -193,6 +241,10 @@
   "n-0013": {
    "anchor": "중단된 작업을 이어 가는 하네스들",
    "pic": {
+    "bg": [
+     "#e5dbd0",
+     "#e5dacd"
+    ],
     "file": "pic/n-0013.webp",
     "h": 480,
     "w": 720
@@ -202,6 +254,10 @@
   "n-0014": {
    "anchor": "작업 하나에 드는 값",
    "pic": {
+    "bg": [
+     "#fefaf0",
+     "#fefaf1"
+    ],
     "file": "pic/n-0014.webp",
     "h": 720,
     "w": 720
@@ -213,6 +269,10 @@
    "emoji": "🏺",
    "emoji_pos": "front",
    "pic": {
+    "bg": [
+     "#fdf7e7",
+     "#fdf7e7"
+    ],
     "file": "pic/n-0023.webp",
     "h": 720,
     "w": 720
@@ -222,6 +282,10 @@
   "n-0024": {
    "anchor": "수공예 항아리 하나로 실험한 결과",
    "pic": {
+    "bg": [
+     "#fcebc8",
+     "#fdecca"
+    ],
     "file": "pic/n-0024.webp",
     "h": 720,
     "w": 720
@@ -233,6 +297,10 @@
    "emoji": "👣",
    "emoji_pos": "back",
    "pic": {
+    "bg": [
+     "#7d875a",
+     "#85a072"
+    ],
     "file": "pic/n-0026.webp",
     "h": 480,
     "w": 720
@@ -244,6 +312,10 @@
    "emoji": "⛵",
    "emoji_pos": "front",
    "pic": {
+    "bg": [
+     "#acb8ba",
+     "#6c889f"
+    ],
     "file": "pic/n-0028.webp",
     "h": 480,
     "w": 720
@@ -255,6 +327,10 @@
    "emoji": "⚾",
    "emoji_pos": "back",
    "pic": {
+    "bg": [
+     "#92a293",
+     "#92a89b"
+    ],
     "file": "pic/n-0032.webp",
     "h": 480,
     "w": 720
@@ -264,6 +340,10 @@
   "n-0038": {
    "anchor": "마야의 한 천문학자",
    "pic": {
+    "bg": [
+     "#cd9e7e",
+     "#e3c6aa"
+    ],
     "file": "pic/n-0038.webp",
     "h": 480,
     "w": 720
@@ -275,6 +355,10 @@
    "emoji": "🔭",
    "emoji_pos": "back",
    "pic": {
+    "bg": [
+     "#816d5b",
+     "#92725c"
+    ],
     "file": "pic/n-0044.webp",
     "h": 480,
     "w": 720
@@ -286,6 +370,10 @@
    "emoji": "🐝",
    "emoji_pos": "front",
    "pic": {
+    "bg": [
+     "#c0d0a9",
+     "#c2dcd4"
+    ],
     "file": "pic/n-0046.webp",
     "h": 480,
     "w": 720
@@ -297,6 +385,10 @@
    "emoji": "🍯",
    "emoji_pos": "back",
    "pic": {
+    "bg": [
+     "#fef9ed",
+     "#fef9ed"
+    ],
     "file": "pic/n-0049.webp",
     "h": 720,
     "w": 720
@@ -306,6 +398,10 @@
   "n-0054": {
    "anchor": "초록 염료",
    "pic": {
+    "bg": [
+     "#7d876c",
+     "#949f86"
+    ],
     "file": "pic/n-0054.webp",
     "h": 480,
     "w": 720
@@ -317,6 +413,10 @@
    "emoji": "🐒",
    "emoji_pos": "back",
    "pic": {
+    "bg": [
+     "#455231",
+     "#8a9470"
+    ],
     "file": "pic/n-0056.webp",
     "h": 480,
     "w": 720
@@ -326,6 +426,10 @@
   "n-0057": {
    "anchor": "보로데일 흑연",
    "pic": {
+    "bg": [
+     "#fef9eb",
+     "#fef9eb"
+    ],
     "file": "pic/n-0057.webp",
     "h": 720,
     "w": 720
@@ -337,6 +441,10 @@
    "emoji": "🎶",
    "emoji_pos": "back",
    "pic": {
+    "bg": [
+     "#c5b59c",
+     "#ccbba2"
+    ],
     "file": "pic/n-0059.webp",
     "h": 480,
     "w": 720
@@ -346,6 +454,10 @@
   "n-0060": {
    "anchor": "1kHz를 넘어가면",
    "pic": {
+    "bg": [
+     "#c4b1a1",
+     "#f3dbc4"
+    ],
     "file": "pic/n-0060.webp",
     "h": 1080,
     "w": 720
@@ -357,6 +469,10 @@
    "emoji": "🚲",
    "emoji_pos": "front",
    "pic": {
+    "bg": [
+     "#faf3e6",
+     "#fcf5e8"
+    ],
     "file": "pic/n-0063.webp",
     "h": 720,
     "w": 720
@@ -368,6 +484,10 @@
    "emoji": "🐟",
    "emoji_pos": "back",
    "pic": {
+    "bg": [
+     "#68949c",
+     "#80abba"
+    ],
     "file": "pic/n-0064.webp",
     "h": 480,
     "w": 720
@@ -377,6 +497,10 @@
   "n-0065": {
    "anchor": "기후 티핑 포인트 논문 2만여 편",
    "pic": {
+    "bg": [
+     "#acd0e8",
+     "#b6d7ee"
+    ],
     "file": "pic/n-0065.webp",
     "h": 480,
     "w": 720
@@ -388,6 +512,10 @@
    "emoji": "🕯️",
    "emoji_pos": "front",
    "pic": {
+    "bg": [
+     "#705d40",
+     "#70593c"
+    ],
     "file": "pic/n-0068.webp",
     "h": 480,
     "w": 720
@@ -397,6 +525,10 @@
   "n-0072": {
    "anchor": "사람만 못 만드는 건",
    "pic": {
+    "bg": [
+     "#f8f1e2",
+     "#fdf6e7"
+    ],
     "file": "pic/n-0072.webp",
     "h": 720,
     "w": 720
@@ -408,6 +540,10 @@
    "emoji": "🦐",
    "emoji_pos": "back",
    "pic": {
+    "bg": [
+     "#aee2e0",
+     "#a7dddd"
+    ],
     "file": "pic/n-0073.webp",
     "h": 480,
     "w": 720
@@ -419,6 +555,10 @@
    "emoji": "💧",
    "emoji_pos": "back",
    "pic": {
+    "bg": [
+     "#bec8c0",
+     "#cfd5d6"
+    ],
     "file": "pic/n-0074.webp",
     "h": 480,
     "w": 720
@@ -428,6 +568,10 @@
   "n-0078": {
    "anchor": "스트라테고 AI 아타락소스",
    "pic": {
+    "bg": [
+     "#d0c6a3",
+     "#d3c9a4"
+    ],
     "file": "pic/n-0078.webp",
     "h": 480,
     "w": 720
@@ -439,6 +583,10 @@
    "emoji": "🌊",
    "emoji_pos": "back",
    "pic": {
+    "bg": [
+     "#b9c5cc",
+     "#bbc7cc"
+    ],
     "file": "pic/n-0080.webp",
     "h": 480,
     "w": 720
@@ -450,6 +598,10 @@
    "emoji": "🪨",
    "emoji_pos": "back",
    "pic": {
+    "bg": [
+     "#e0dec0",
+     "#f0e4ca"
+    ],
     "file": "pic/n-0084.webp",
     "h": 720,
     "w": 720
@@ -461,6 +613,10 @@
    "emoji": "🎲",
    "emoji_pos": "front",
    "pic": {
+    "bg": [
+     "#d9cab3",
+     "#d5c4ad"
+    ],
     "file": "pic/n-0085.webp",
     "h": 720,
     "w": 720
@@ -470,6 +626,10 @@
   "n-0086": {
    "anchor": "뼈 주사위",
    "pic": {
+    "bg": [
+     "#fefaf0",
+     "#fefaef"
+    ],
     "file": "pic/n-0086.webp",
     "h": 720,
     "w": 720
@@ -479,6 +639,10 @@
   "n-0087": {
    "anchor": "카지노 주사위",
    "pic": {
+    "bg": [
+     "#fefaee",
+     "#fefaee"
+    ],
     "file": "pic/n-0087.webp",
     "h": 720,
     "w": 720
@@ -490,6 +654,10 @@
    "emoji": "🧊",
    "emoji_pos": "back",
    "pic": {
+    "bg": [
+     "#cca78d",
+     "#cfa88c"
+    ],
     "file": "pic/n-0090.webp",
     "h": 480,
     "w": 720
@@ -499,6 +667,10 @@
   "n-0094": {
    "anchor": "엑서터 서 74번 수수께끼",
    "pic": {
+    "bg": [
+     "#f0dec4",
+     "#f3e1c6"
+    ],
     "file": "pic/n-0094.webp",
     "h": 720,
     "w": 720
@@ -508,6 +680,10 @@
   "n-0095": {
    "anchor": "19세기 얼음 무역",
    "pic": {
+    "bg": [
+     "#b8ccd7",
+     "#5a5553"
+    ],
     "file": "pic/n-0095.webp",
     "h": 480,
     "w": 720
@@ -519,6 +695,10 @@
    "emoji": "🍄",
    "emoji_pos": "front",
    "pic": {
+    "bg": [
+     "#908981",
+     "#c4c79e"
+    ],
     "file": "pic/n-0096.webp",
     "h": 720,
     "w": 720
@@ -528,6 +708,10 @@
   "n-0100": {
    "anchor": "뿔닭",
    "pic": {
+    "bg": [
+     "#e8e1c6",
+     "#eee6cc"
+    ],
     "file": "pic/n-0100.webp",
     "h": 480,
     "w": 720
@@ -539,6 +723,10 @@
    "emoji": "🗺️",
    "emoji_pos": "back",
    "pic": {
+    "bg": [
+     "#e8d9c3",
+     "#e7d8c2"
+    ],
     "file": "pic/n-0104.webp",
     "h": 480,
     "w": 720
@@ -550,6 +738,10 @@
    "emoji": "⛰️",
    "emoji_pos": "back",
    "pic": {
+    "bg": [
+     "#b2afa5",
+     "#aebab2"
+    ],
     "file": "pic/n-0105.webp",
     "h": 480,
     "w": 720
@@ -559,6 +751,10 @@
   "n-0107": {
    "anchor": "Flock 번호판 카메라",
    "pic": {
+    "bg": [
+     "#c3c6b8",
+     "#a5aea0"
+    ],
     "file": "pic/n-0107.webp",
     "h": 480,
     "w": 720
@@ -570,6 +766,10 @@
    "emoji": "☕",
    "emoji_pos": "back",
    "pic": {
+    "bg": [
+     "#9d9e9e",
+     "#c3c0ba"
+    ],
     "file": "pic/n-0108.webp",
     "h": 720,
     "w": 720
@@ -579,6 +779,10 @@
   "n-0112": {
    "anchor": "'소닉 시즈닝'",
    "pic": {
+    "bg": [
+     "#b5a88c",
+     "#fbf1dd"
+    ],
     "file": "pic/n-0112.webp",
     "h": 480,
     "w": 720
@@ -590,6 +794,10 @@
    "emoji": "📮",
    "emoji_pos": "front",
    "pic": {
+    "bg": [
+     "#fef8e8",
+     "#fef8e8"
+    ],
     "file": "pic/n-0113.webp",
     "h": 720,
     "w": 720
@@ -601,6 +809,10 @@
    "emoji": "🍞",
    "emoji_pos": "back",
    "pic": {
+    "bg": [
+     "#fef7e9",
+     "#fef7e9"
+    ],
     "file": "pic/n-0119.webp",
     "h": 720,
     "w": 720
@@ -610,6 +822,10 @@
   "n-0124": {
    "anchor": "토론토 지하철 1호선 타일",
    "pic": {
+    "bg": [
+     "#b4bba8",
+     "#a6a999"
+    ],
     "file": "pic/n-0124.webp",
     "h": 480,
     "w": 720
@@ -621,6 +837,10 @@
    "emoji": "🌱",
    "emoji_pos": "back",
    "pic": {
+    "bg": [
+     "#fdf8e8",
+     "#fdf8e8"
+    ],
     "file": "pic/n-0127.webp",
     "h": 720,
     "w": 720
@@ -632,6 +852,10 @@
    "emoji": "🪞",
    "emoji_pos": "front",
    "pic": {
+    "bg": [
+     "#fef7e7",
+     "#9da6ad"
+    ],
     "file": "pic/n-0128.webp",
     "h": 720,
     "w": 720
@@ -641,6 +865,10 @@
   "n-0134": {
    "anchor": "금성 스케치",
    "pic": {
+    "bg": [
+     "#989c9c",
+     "#a0a9ae"
+    ],
     "file": "pic/n-0134.webp",
     "h": 480,
     "w": 720
@@ -652,6 +880,10 @@
    "emoji": "✒️",
    "emoji_pos": "back",
    "pic": {
+    "bg": [
+     "#cdbaa9",
+     "#e3dccf"
+    ],
     "file": "pic/n-0136.webp",
     "h": 720,
     "w": 720
@@ -661,6 +893,10 @@
   "n-0138": {
    "anchor": "PHP2Shell",
    "pic": {
+    "bg": [
+     "#fef9ed",
+     "#fef9ed"
+    ],
     "file": "pic/n-0138.webp",
     "h": 720,
     "w": 720
@@ -672,6 +908,10 @@
    "emoji": "🦊",
    "emoji_pos": "back",
    "pic": {
+    "bg": [
+     "#afaf8f",
+     "#b6b4a9"
+    ],
     "file": "pic/n-0139.webp",
     "h": 480,
     "w": 720
@@ -686,6 +926,10 @@
    "emoji": "🧀",
    "emoji_pos": "back",
    "pic": {
+    "bg": [
+     "#636055",
+     "#5d584d"
+    ],
     "file": "pic/n-0141.webp",
     "h": 480,
     "w": 720
@@ -695,6 +939,10 @@
   "n-0142": {
    "anchor": "벽에 제 이름을 새겨",
    "pic": {
+    "bg": [
+     "#554130",
+     "#6e553d"
+    ],
     "file": "pic/n-0142.webp",
     "h": 480,
     "w": 720
@@ -714,6 +962,10 @@
    "emoji": "✏️",
    "emoji_pos": "back",
    "pic": {
+    "bg": [
+     "#fefbf3",
+     "#fffbf3"
+    ],
     "file": "pic/n-0145.webp",
     "h": 720,
     "w": 720
@@ -728,6 +980,10 @@
    "emoji": "⚖️",
    "emoji_pos": "front",
    "pic": {
+    "bg": [
+     "#c3b7b1",
+     "#c37262"
+    ],
     "file": "pic/n-0147.webp",
     "h": 480,
     "w": 720
@@ -742,6 +998,10 @@
    "emoji": "🦐",
    "emoji_pos": "back",
    "pic": {
+    "bg": [
+     "#e5be84",
+     "#a07d5a"
+    ],
     "file": "pic/n-0149.webp",
     "h": 480,
     "w": 720
@@ -756,6 +1016,10 @@
    "emoji": "🔥",
    "emoji_pos": "back",
    "pic": {
+    "bg": [
+     "#fefbf0",
+     "#fefbf0"
+    ],
     "file": "pic/n-0151.webp",
     "h": 720,
     "w": 720
@@ -778,6 +1042,10 @@
    "emoji": "🪸",
    "emoji_pos": "front",
    "pic": {
+    "bg": [
+     "#a9e4ea",
+     "#a0e0e7"
+    ],
     "file": "pic/n-0155.webp",
     "h": 480,
     "w": 720

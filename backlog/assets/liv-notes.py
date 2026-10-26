@@ -386,12 +386,18 @@ def sanitize_svg(src):
         return ""
 
 
+def undouble(s):
+    """Commons 작가 칸은 언어별 표기가 이어 붙어 'Unknown artistUnknown artist' 처럼 올 때가 있다."""
+    half = len(s) // 2
+    return s[:half] if s and len(s) % 2 == 0 and s[:half] == s[half:] else s
+
+
 def ok_photo(ph):
     src, page = str(ph.get("src") or ""), str(ph.get("page") or "")
     if not PHOTO_SRC.match(src) or not PHOTO_PAGE.match(page):
         return None
     return {"src": src, "page": page, "caption": clean(ph.get("caption"), 80),
-            "credit": clean(ph.get("credit"), 120), "license": clean(ph.get("license"), 40)}
+            "credit": undouble(clean(ph.get("credit"), 120)), "license": clean(ph.get("license"), 40)}
 
 
 def ok_css(css):
@@ -483,6 +489,18 @@ def taste_notes(notes):
             if n["kind"] in TASTE_KINDS and n["id"] not in gone]
 
 
+def edge_colors(im):
+    """그림 왼쪽·오른쪽 가장자리의 평균색. 액자에 그림이 다 차지 않을 때 양옆에 남는 띠를 그림 바탕과
+    이어 칠한다(액자는 가로로 넓어서 띠는 거의 양옆에 생긴다)."""
+    w, h = im.size
+    band = max(2, w // 24)
+
+    def avg(box):
+        px = list(im.crop(box).resize((2, 8)).getdata())
+        return "#%02x%02x%02x" % tuple(sum(c[i] for c in px) // len(px) for i in range(3))
+    return [avg((0, 0, band, h)), avg((w - band, 0, w, h))]
+
+
 def make_pic(n, work, force=False):
     """노트 하나의 그림을 codex 로 만들어 WebP 로 줄여 둔다. 실패하면 None.
     작업 폴더에 원본 PNG 가 남아 있으면 다시 그리지 않는다 — 산책 잡이 push 에 밀려 저장소를
@@ -510,7 +528,7 @@ def make_pic(n, work, force=False):
             im = im.resize((PIC_WIDTH, round(im.height * PIC_WIDTH / im.width)), Image.LANCZOS)
         PICS.mkdir(parents=True, exist_ok=True)
         im.save(PICS / f"{n['id']}.webp", "WEBP", quality=72, method=6)
-        return {"file": f"pic/{n['id']}.webp", "w": im.width, "h": im.height}
+        return {"file": f"pic/{n['id']}.webp", "w": im.width, "h": im.height, "bg": edge_colors(im)}
 
 
 def cmd_pics(a):
@@ -576,11 +594,13 @@ def side_item(n, d, href):
     if d.get("pic"):
         p = d["pic"]
         data = f' data-src="{esc(src)}"' if src else ""
+        if p.get("bg"):
+            data += f' style="--pic-l:{esc(p["bg"][0])};--pic-r:{esc(p["bg"][1])}"'
         pic = (f'<a class="pic go" href="{href}"{data}><img src="{esc(p["file"])}" width="{p["w"]}" '
                f'height="{p["h"]}" alt="{esc(short)}" loading="lazy"></a>')
     day = f'<time datetime="{n["date"]}">{n["date"][5:].replace("-", ".")}</time>'
-    return (f'<li class="taste taste-{n["kind"]}">{pic}<p><span class="tag">{TAG[n["kind"]]}</span> '
-            f'<a class="short go" href="{href}">{with_emoji(esc(short), d)}</a> {day}</p></li>')
+    return (f'<li class="taste taste-{n["kind"]}">{pic}<p class="when"><span class="tag">{TAG[n["kind"]]}</span>{day}</p>'
+            f'<p><a class="short go" href="{href}">{with_emoji(esc(short), d)}</a></p></li>')
 
 
 def item_html(n, by_id, d):
@@ -677,12 +697,14 @@ def render(notes, decor=None):
            for n in taste_notes(notes)]
     more = (f'<details class="more"><summary>더 보기 ({len(lis) - SIDE_SHOWN})</summary><ol class="stream">'
             + "\n".join(lis[SIDE_SHOWN:]) + "</ol></details>") if len(lis) > SIDE_SHOWN else ""
-    side = ('<aside class="side" aria-label="취향"><h2>취향</h2>\n<ol class="stream">\n'
+    side = ('<aside class="side" id="taste" aria-label="취향"><h2>취향</h2>\n<ol class="stream">\n'
             + "\n".join(lis[:SIDE_SHOWN]) + "\n</ol>" + more + "</aside>")
 
     # 기록: 최근 OPEN_DAYS 일은 펼치고, 그 뒤 FOLD_DAYS 일은 접어 두고, 더 오래된 날은 달별 아카이브로.
-    log, month = [], None
+    # 펼친 날(recent)과 접힌 날(older)을 따로 둬서, 좁은 화면에서는 그 사이에 취향이 끼어든다.
+    recent, older, month = [], [], None
     for i, day in enumerate(order[:OPEN_DAYS + FOLD_DAYS]):
+        log = recent if i < OPEN_DAYS else older
         if day[:7] != month:
             month = day[:7]
             log.append(f'<h3>{month_label(month)}</h3>')
@@ -701,9 +723,11 @@ def render(notes, decor=None):
                                  for d in design)
                        + "</ul></details>")
     updated = max((n["date"] for n in notes), default=today())
-    main = ('<div class="walk"><div class="log-col">\n<h2 class="log-title">기록</h2>\n'
-            + "\n".join(log) + "\n" + archive_nav + "\n" + design_html + "\n</div>\n" + side + "\n</div>")
-    index = page("산책 노트", f"{len(notes)}건 · 마지막 기록 {updated}", main,
+    main = ('<div class="walk"><section class="recent">\n<h2 class="log-title">기록</h2>\n' + "\n".join(recent)
+            + '\n</section>\n' + side + '\n<section class="older">\n' + "\n".join(older) + "\n"
+            + archive_nav + "\n" + design_html + "\n</section></div>")
+    to_side = f'<a class="to-side" href="#taste"> · 취향 {len(lis)}개 ↓</a>' if lis else ""
+    index = page("산책 노트", f"{len(notes)}건 · 마지막 기록 {updated}{to_side}", main,
                  "https://til.kil9.dev/p/liv-walk/", "", decor)
 
     archives = {}
@@ -814,35 +838,53 @@ TEMPLATE = """<!doctype html>
   .back { margin-bottom: 24px; font-size: 0.875rem; }
   .redesign { font-size: 0.75rem; color: var(--accent); border: 1px solid currentColor; border-radius: 4px; padding: 0 4px; }
   .more > summary { cursor: pointer; color: var(--text-faint); font-size: 0.875rem; padding: 8px 0; }
-  /* 취향 사이드바 — 그림은 자르지 않고 제 비율 그대로, 높이만 묶는다 */
-  .side > h2 { margin-top: 56px; }
+  /* 취향 — 그림은 자르지 않고 제 비율 그대로 두되 높이를 맞춰 줄의 리듬을 고르게 한다 */
+  .side > h2 { margin-top: 48px; }
+  .stream { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; }
   .stream > li { padding: 14px 0; }
-  .stream p { font-size: 0.9375rem; line-height: 1.5; }
-  .pic { position: relative; display: inline-block; max-width: 100%; margin-bottom: 8px; vertical-align: top; }
-  .pic img { display: block; max-width: 100%; max-height: 240px; width: auto; height: auto; border-radius: 8px; }
-  .pic.armed::after {
-    content: "원문 ↗"; position: absolute; right: 8px; bottom: 8px; padding: 1px 8px; border-radius: 999px;
+  .stream p { font-size: 0.9375rem; line-height: 1.5; text-wrap: pretty; }
+  /* 액자는 높이가 고르고, 그림은 그 안에 제 비율대로 앉는다. 남는 띠는 그림 가장자리 색으로 잇는다. */
+  .pic {
+    position: relative; display: flex; align-items: center; justify-content: center; height: 120px;
+    margin-bottom: 8px; border-radius: 8px; overflow: hidden;
+    background: linear-gradient(to right, var(--pic-l, transparent) 50%, var(--pic-r, transparent) 50%);
+  }
+  .pic img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; }
+  .pic.armed::after, .echo::after {
+    content: "원문 ↗"; position: absolute; right: 6px; bottom: 6px; padding: 1px 8px; border-radius: 999px;
     font-size: 0.75rem; background: var(--bg); color: var(--accent); box-shadow: 0 0 0 1px var(--rule);
   }
+  /* 그림을 누르면 그 그림이 기록 속 노트 곁에 따라붙는다 — 화면이 옮겨 가도 다시 눌러 원문으로 갈 수 있게 */
+  .echo { float: right; position: relative; width: 132px; margin: 4px 0 8px 16px; }
+  .echo img { display: block; width: 100%; height: auto; border-radius: 6px; }
   .stream .short { color: inherit; text-decoration: none; }
   .stream .short:hover { color: var(--accent); text-decoration: underline; }
-  .tag { margin-right: 2px; font-size: 0.75rem; color: var(--text-faint); }
-  .stream time { margin-left: 2px; font-size: 0.75rem; }
+  .tag { font-size: 0.75rem; color: var(--text-faint); }
+  .stream .when { display: flex; align-items: baseline; gap: 8px; margin-bottom: 2px; }
+  .stream time { font-size: 0.75rem; }
+  .to-side { white-space: nowrap; }
   .log li.hit, .log li:target { animation: hit 2.4s ease-out; }
   @keyframes hit {
     from { background: color-mix(in srgb, var(--accent) 14%, transparent);
            box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 14%, transparent); }
   }
-  @media (prefers-color-scheme: dark) { .pic img { filter: brightness(0.9); } }
-  /* 넓은 화면은 취향을 오른쪽 칸에 세우고 따로 스크롤한다 — 그림을 누른 뒤에도 그림이 보이게 */
+  @media (prefers-color-scheme: dark) { .pic, .echo img { filter: brightness(0.9); } }
+  @media (prefers-reduced-motion: reduce) { .log li.hit, .log li:target { animation: none; outline: 2px solid var(--accent); } }
+  /* 넓은 화면은 취향을 오른쪽 칸에 세운다. 따로 스크롤하는 칸을 두지 않고, 페이지와 같이 흐르다가
+     바닥이 화면 아래 끝에 닿으면 거기서 멈춘다(top 은 아래 스크립트가 높이를 보고 맞춘다). */
   @media (min-width: 960px) {
     main { max-width: 1120px; }
-    .walk { display: grid; grid-template-columns: minmax(0, 1fr) 300px; column-gap: 48px; align-items: start; }
-    .side {
-      position: sticky; top: 0; max-height: 100vh; overflow-y: auto; overscroll-behavior: contain;
-      scrollbar-width: thin; padding: 0 4px 24px;
+    .walk {
+      display: grid; grid-template-columns: minmax(0, 1fr) 300px; grid-template-rows: auto 1fr;
+      grid-template-areas: "recent side" "older side"; column-gap: 48px; align-items: start;
     }
+    .recent { grid-area: recent; }
+    .older { grid-area: older; }
+    .side { grid-area: side; position: sticky; top: 0; }
     .side > h2 { margin-top: 0; }
+    .to-side { display: none; }
+    .stream { grid-template-columns: minmax(0, 1fr); }
+    .pic { height: 200px; }
   }
   footer {
     margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--rule);
@@ -859,7 +901,8 @@ TEMPLATE = """<!doctype html>
 <footer><a href="{{UP}}../liv-today/">리브</a> · <a href="{{UP}}../../">today i learned</a></footer>
 </main>
 <script>
-// 취향의 그림·문장을 누르면 기록 속 그 노트로 간다(접힌 날이면 펼친다). 같은 그림을 한 번 더 누르면 출처로 간다.
+// 취향의 그림·문장을 누르면 기록 속 그 노트로 간다(접힌 날이면 펼친다). 그림은 노트 곁에 따라붙고,
+// 그 그림이나 취향 칸의 같은 그림을 한 번 더 누르면 출처로 간다.
 (() => {
   let armed = null;
   const reveal = (id) => {
@@ -883,9 +926,27 @@ TEMPLATE = """<!doctype html>
     if (armed) armed.classList.remove("armed");
     armed = a.classList.contains("pic") ? a : null;
     if (armed) armed.classList.add("armed");
+    document.querySelectorAll(".log .echo").forEach((x) => x.remove());
+    if (armed && a.dataset.src) {
+      const echo = document.createElement("a");
+      echo.className = "echo";
+      echo.href = a.dataset.src;
+      echo.setAttribute("aria-label", "원문 열기");
+      const img = a.querySelector("img").cloneNode();
+      img.alt = "";
+      echo.append(img);
+      el.prepend(echo);
+    }
     history.replaceState(null, "", a.hash);
     show(el);
   });
+  // 취향 칸이 화면보다 길면 바닥이 화면 아래 끝에 닿은 뒤에 멈추게 한다.
+  const side = document.querySelector(".side");
+  if (side) {
+    const fit = () => { side.style.top = Math.min(0, innerHeight - side.offsetHeight - 24) + "px"; };
+    new ResizeObserver(fit).observe(side);
+    addEventListener("resize", fit);
+  }
   const el = location.hash && reveal(location.hash.slice(1));
   if (el) el.scrollIntoView({ block: "center" });
 })();

@@ -73,35 +73,53 @@
   .back { margin-bottom: 24px; font-size: 0.875rem; }
   .redesign { font-size: 0.75rem; color: var(--accent); border: 1px solid currentColor; border-radius: 4px; padding: 0 4px; }
   .more > summary { cursor: pointer; color: var(--text-faint); font-size: 0.875rem; padding: 8px 0; }
-  /* 취향 사이드바 — 그림은 자르지 않고 제 비율 그대로, 높이만 묶는다 */
-  .side > h2 { margin-top: 56px; }
+  /* 취향 — 그림은 자르지 않고 제 비율 그대로 두되 높이를 맞춰 줄의 리듬을 고르게 한다 */
+  .side > h2 { margin-top: 48px; }
+  .stream { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; }
   .stream > li { padding: 14px 0; }
-  .stream p { font-size: 0.9375rem; line-height: 1.5; }
-  .pic { position: relative; display: inline-block; max-width: 100%; margin-bottom: 8px; vertical-align: top; }
-  .pic img { display: block; max-width: 100%; max-height: 240px; width: auto; height: auto; border-radius: 8px; }
-  .pic.armed::after {
-    content: "원문 ↗"; position: absolute; right: 8px; bottom: 8px; padding: 1px 8px; border-radius: 999px;
+  .stream p { font-size: 0.9375rem; line-height: 1.5; text-wrap: pretty; }
+  /* 액자는 높이가 고르고, 그림은 그 안에 제 비율대로 앉는다. 남는 띠는 그림 가장자리 색으로 잇는다. */
+  .pic {
+    position: relative; display: flex; align-items: center; justify-content: center; height: 120px;
+    margin-bottom: 8px; border-radius: 8px; overflow: hidden;
+    background: linear-gradient(to right, var(--pic-l, transparent) 50%, var(--pic-r, transparent) 50%);
+  }
+  .pic img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; }
+  .pic.armed::after, .echo::after {
+    content: "원문 ↗"; position: absolute; right: 6px; bottom: 6px; padding: 1px 8px; border-radius: 999px;
     font-size: 0.75rem; background: var(--bg); color: var(--accent); box-shadow: 0 0 0 1px var(--rule);
   }
+  /* 그림을 누르면 그 그림이 기록 속 노트 곁에 따라붙는다 — 화면이 옮겨 가도 다시 눌러 원문으로 갈 수 있게 */
+  .echo { float: right; position: relative; width: 132px; margin: 4px 0 8px 16px; }
+  .echo img { display: block; width: 100%; height: auto; border-radius: 6px; }
   .stream .short { color: inherit; text-decoration: none; }
   .stream .short:hover { color: var(--accent); text-decoration: underline; }
-  .tag { margin-right: 2px; font-size: 0.75rem; color: var(--text-faint); }
-  .stream time { margin-left: 2px; font-size: 0.75rem; }
+  .tag { font-size: 0.75rem; color: var(--text-faint); }
+  .stream .when { display: flex; align-items: baseline; gap: 8px; margin-bottom: 2px; }
+  .stream time { font-size: 0.75rem; }
+  .to-side { white-space: nowrap; }
   .log li.hit, .log li:target { animation: hit 2.4s ease-out; }
   @keyframes hit {
     from { background: color-mix(in srgb, var(--accent) 14%, transparent);
            box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 14%, transparent); }
   }
-  @media (prefers-color-scheme: dark) { .pic img { filter: brightness(0.9); } }
-  /* 넓은 화면은 취향을 오른쪽 칸에 세우고 따로 스크롤한다 — 그림을 누른 뒤에도 그림이 보이게 */
+  @media (prefers-color-scheme: dark) { .pic, .echo img { filter: brightness(0.9); } }
+  @media (prefers-reduced-motion: reduce) { .log li.hit, .log li:target { animation: none; outline: 2px solid var(--accent); } }
+  /* 넓은 화면은 취향을 오른쪽 칸에 세운다. 따로 스크롤하는 칸을 두지 않고, 페이지와 같이 흐르다가
+     바닥이 화면 아래 끝에 닿으면 거기서 멈춘다(top 은 아래 스크립트가 높이를 보고 맞춘다). */
   @media (min-width: 960px) {
     main { max-width: 1120px; }
-    .walk { display: grid; grid-template-columns: minmax(0, 1fr) 300px; column-gap: 48px; align-items: start; }
-    .side {
-      position: sticky; top: 0; max-height: 100vh; overflow-y: auto; overscroll-behavior: contain;
-      scrollbar-width: thin; padding: 0 4px 24px;
+    .walk {
+      display: grid; grid-template-columns: minmax(0, 1fr) 300px; grid-template-rows: auto 1fr;
+      grid-template-areas: "recent side" "older side"; column-gap: 48px; align-items: start;
     }
+    .recent { grid-area: recent; }
+    .older { grid-area: older; }
+    .side { grid-area: side; position: sticky; top: 0; }
     .side > h2 { margin-top: 0; }
+    .to-side { display: none; }
+    .stream { grid-template-columns: minmax(0, 1fr); }
+    .pic { height: 200px; }
   }
   footer {
     margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--rule);
@@ -112,7 +130,7 @@ html:root {
   --bg: #f8f5ee;
   --text: #2a2622;
   --text-muted: #5a534a;
-  --text-faint: #7f776b;
+  --text-faint: #6e665a;
   --rule: #ddd3c1;
   --accent: #9a5527;
   --paper: #fffdf8;
@@ -160,12 +178,12 @@ main h1 {
   font-weight: 700;
   letter-spacing: -0.01em;
   line-height: 1.3;
-  margin: 1.6rem 0 0.3rem;
+  margin: 0.4rem 0 0.3rem;
 }
 main .meta {
   color: var(--text-muted);
   font-size: 0.92em;
-  margin-bottom: 1.8rem;
+  margin-bottom: 1.4rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid var(--rule);
 }
@@ -175,17 +193,16 @@ main ol.stream > li.taste {
   border-top: 1px dashed var(--rule);
   padding: 0.9rem 0;
 }
-main ol.stream a.pic img {
+main ol.stream a.pic {
   border: 1px solid var(--rule);
   border-radius: 10px;
-  background: var(--paper);
 }
 main ol.stream p {
   line-height: 1.55;
 }
 main ol.stream span.tag {
   display: inline-block;
-  font-size: 0.72em;
+  font-size: 0.8em;
   font-weight: 600;
   letter-spacing: 0.05em;
   line-height: 1.6;
@@ -246,6 +263,9 @@ main aside.side > h2 {
   font-size: 1.2rem;
   margin: 2.2rem 0 0.4rem;
 }
+main h2.log-title {
+  margin-top: 0.6rem;
+}
 main h2.log-title::after,
 main aside.side > h2::after {
   content: "";
@@ -262,8 +282,8 @@ main h3 {
 }
 main section.day {
   position: relative;
-  margin: 0 0 1.6rem 0.3rem;
-  padding: 0 0 0.4rem 1.2rem;
+  margin: 0 0 0 0.3rem;
+  padding: 0 0 2rem 1.2rem;
   border-left: 2px solid var(--rule);
 }
 main section.day > time {
@@ -293,13 +313,15 @@ main .album {
   display: flex;
   flex-wrap: wrap;
   gap: 0.9rem;
-  align-items: flex-start;
+  align-items: stretch;
   margin: 0.5rem 0 1.2rem;
 }
 main .album figure {
   margin: 0;
-  flex: 1 1 200px;
-  max-width: 320px;
+  flex: 1 1 auto;
+  width: min-content;
+  min-width: 9rem;
+  max-width: 22rem;
 }
 main .album figure.drawing {
   padding: 0.55rem;
@@ -308,10 +330,13 @@ main .album figure.drawing {
   border-radius: 12px;
 }
 main .album figure.drawing svg,
-main .album figure.drawing img {
+main .album figure.drawing img,
+main .album figure.photo img {
   display: block;
-  width: 100%;
-  height: auto;
+  height: 128px;
+  width: auto;
+  max-width: none;
+  margin: 0 auto;
 }
 main .album figure.photo {
   padding: 0.45rem 0.45rem 0.35rem;
@@ -320,20 +345,13 @@ main .album figure.photo {
   border-radius: 10px;
 }
 main .album figure.photo img {
-  display: block;
-  width: 100%;
-  height: auto;
-  width: auto;
-  max-width: 100%;
-  max-height: 230px;
-  margin: 0 auto;
   border-radius: 6px;
 }
 main .album figcaption {
-  font-size: 0.84em;
+  font-size: 0.8em;
   color: var(--text-muted);
   margin-top: 0.4rem;
-  line-height: 1.5;
+  line-height: 1.45;
 }
 main .album figure.drawing figcaption {
   text-align: center;
@@ -355,7 +373,7 @@ main ul.log > li > p {
 }
 main ul.log span.kind {
   display: inline-block;
-  font-size: 0.72em;
+  font-size: 0.8em;
   font-weight: 600;
   letter-spacing: 0.05em;
   line-height: 1.6;
@@ -379,11 +397,13 @@ main ul.log p.before {
 
 /* 접힌 날 */
 main details.day.folded {
-  margin: 0 0 0.5rem 0.3rem;
+  margin: 0 0 0 0.3rem;
   padding-left: 1.2rem;
+  border-top: 0;
   border-left: 2px dotted var(--rule);
 }
 main details.day.folded > summary {
+  position: relative;
   display: flex;
   align-items: baseline;
   gap: 0.6rem;
@@ -406,6 +426,20 @@ main details.day.folded > summary::before {
 main details.day.folded[open] > summary::before {
   content: "-";
 }
+main details.day.folded > summary::after {
+  content: "";
+  position: absolute;
+  left: calc(-1.2rem - 1px - 0.22rem);
+  top: 50%;
+  width: 0.44rem;
+  height: 0.44rem;
+  margin-top: -0.22rem;
+  border-radius: 50%;
+  background: var(--rule);
+}
+main details.day.folded[open] > summary::after {
+  background: var(--accent);
+}
 main details.day.folded > summary:hover {
   background: var(--soft);
 }
@@ -414,6 +448,10 @@ main details.day.folded > summary time {
   color: var(--text-muted);
   font-variant-numeric: tabular-nums;
   font-size: 0.92em;
+}
+main details.day.folded[open] > summary time {
+  color: var(--text);
+  font-weight: 600;
 }
 main details.day.folded span.peek {
   flex: 1 1 auto;
@@ -441,26 +479,34 @@ main details.day.folded[open] > summary {
 
 /* 아카이브, 개편 기록, 꼬리 */
 main nav.archive {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
   margin: 2.2rem 0 1.2rem;
   padding-top: 1rem;
   border-top: 1px solid var(--rule);
 }
-main nav.archive a {
-  display: inline-block;
+main nav.archive > h2 {
+  margin: 0 0 0.6rem;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+main nav.archive ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+main nav.archive li {
   font-size: 0.88em;
   font-variant-numeric: tabular-nums;
-  text-decoration: none;
   padding: 0.15rem 0.75rem;
   border: 1px solid var(--rule);
   border-radius: 999px;
   background: var(--paper);
 }
-main nav.archive a:hover,
-main nav.archive a:focus-visible {
+main nav.archive li:hover,
+main nav.archive li:focus-within {
   border-color: var(--accent);
+}
+main nav.archive a {
+  text-decoration: none;
 }
 main p.back a {
   text-decoration: none;
@@ -496,17 +542,20 @@ footer {
   main section.day > time::before {
     left: -1.37rem;
   }
+  main .album figure.drawing img,
+  main .album figure.photo img {
+    height: 96px;
+  }
   main .album figure {
-    flex-basis: 100%;
-    max-width: none;
+    min-width: 7rem;
   }
   main details.day.folded span.peek {
     display: none;
   }
 }
-@media (min-width: 1100px) {
-  main .album figure {
-    max-width: 300px;
+@media (min-width: 960px) {
+  main aside.side > h2 {
+    margin-top: 0.6rem;
   }
 }
 @media (prefers-color-scheme: dark) {
@@ -527,7 +576,8 @@ footer {
 <footer><a href="../../liv-today/">리브</a> · <a href="../../../">today i learned</a></footer>
 </main>
 <script>
-// 취향의 그림·문장을 누르면 기록 속 그 노트로 간다(접힌 날이면 펼친다). 같은 그림을 한 번 더 누르면 출처로 간다.
+// 취향의 그림·문장을 누르면 기록 속 그 노트로 간다(접힌 날이면 펼친다). 그림은 노트 곁에 따라붙고,
+// 그 그림이나 취향 칸의 같은 그림을 한 번 더 누르면 출처로 간다.
 (() => {
   let armed = null;
   const reveal = (id) => {
@@ -551,9 +601,27 @@ footer {
     if (armed) armed.classList.remove("armed");
     armed = a.classList.contains("pic") ? a : null;
     if (armed) armed.classList.add("armed");
+    document.querySelectorAll(".log .echo").forEach((x) => x.remove());
+    if (armed && a.dataset.src) {
+      const echo = document.createElement("a");
+      echo.className = "echo";
+      echo.href = a.dataset.src;
+      echo.setAttribute("aria-label", "원문 열기");
+      const img = a.querySelector("img").cloneNode();
+      img.alt = "";
+      echo.append(img);
+      el.prepend(echo);
+    }
     history.replaceState(null, "", a.hash);
     show(el);
   });
+  // 취향 칸이 화면보다 길면 바닥이 화면 아래 끝에 닿은 뒤에 멈추게 한다.
+  const side = document.querySelector(".side");
+  if (side) {
+    const fit = () => { side.style.top = Math.min(0, innerHeight - side.offsetHeight - 24) + "px"; };
+    new ResizeObserver(fit).observe(side);
+    addEventListener("resize", fit);
+  }
   const el = location.hash && reveal(location.hash.slice(1));
   if (el) el.scrollIntoView({ block: "center" });
 })();

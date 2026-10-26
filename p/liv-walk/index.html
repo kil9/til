@@ -73,35 +73,53 @@
   .back { margin-bottom: 24px; font-size: 0.875rem; }
   .redesign { font-size: 0.75rem; color: var(--accent); border: 1px solid currentColor; border-radius: 4px; padding: 0 4px; }
   .more > summary { cursor: pointer; color: var(--text-faint); font-size: 0.875rem; padding: 8px 0; }
-  /* 취향 사이드바 — 그림은 자르지 않고 제 비율 그대로, 높이만 묶는다 */
-  .side > h2 { margin-top: 56px; }
+  /* 취향 — 그림은 자르지 않고 제 비율 그대로 두되 높이를 맞춰 줄의 리듬을 고르게 한다 */
+  .side > h2 { margin-top: 48px; }
+  .stream { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; }
   .stream > li { padding: 14px 0; }
-  .stream p { font-size: 0.9375rem; line-height: 1.5; }
-  .pic { position: relative; display: inline-block; max-width: 100%; margin-bottom: 8px; vertical-align: top; }
-  .pic img { display: block; max-width: 100%; max-height: 240px; width: auto; height: auto; border-radius: 8px; }
-  .pic.armed::after {
-    content: "원문 ↗"; position: absolute; right: 8px; bottom: 8px; padding: 1px 8px; border-radius: 999px;
+  .stream p { font-size: 0.9375rem; line-height: 1.5; text-wrap: pretty; }
+  /* 액자는 높이가 고르고, 그림은 그 안에 제 비율대로 앉는다. 남는 띠는 그림 가장자리 색으로 잇는다. */
+  .pic {
+    position: relative; display: flex; align-items: center; justify-content: center; height: 120px;
+    margin-bottom: 8px; border-radius: 8px; overflow: hidden;
+    background: linear-gradient(to right, var(--pic-l, transparent) 50%, var(--pic-r, transparent) 50%);
+  }
+  .pic img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; }
+  .pic.armed::after, .echo::after {
+    content: "원문 ↗"; position: absolute; right: 6px; bottom: 6px; padding: 1px 8px; border-radius: 999px;
     font-size: 0.75rem; background: var(--bg); color: var(--accent); box-shadow: 0 0 0 1px var(--rule);
   }
+  /* 그림을 누르면 그 그림이 기록 속 노트 곁에 따라붙는다 — 화면이 옮겨 가도 다시 눌러 원문으로 갈 수 있게 */
+  .echo { float: right; position: relative; width: 132px; margin: 4px 0 8px 16px; }
+  .echo img { display: block; width: 100%; height: auto; border-radius: 6px; }
   .stream .short { color: inherit; text-decoration: none; }
   .stream .short:hover { color: var(--accent); text-decoration: underline; }
-  .tag { margin-right: 2px; font-size: 0.75rem; color: var(--text-faint); }
-  .stream time { margin-left: 2px; font-size: 0.75rem; }
+  .tag { font-size: 0.75rem; color: var(--text-faint); }
+  .stream .when { display: flex; align-items: baseline; gap: 8px; margin-bottom: 2px; }
+  .stream time { font-size: 0.75rem; }
+  .to-side { white-space: nowrap; }
   .log li.hit, .log li:target { animation: hit 2.4s ease-out; }
   @keyframes hit {
     from { background: color-mix(in srgb, var(--accent) 14%, transparent);
            box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 14%, transparent); }
   }
-  @media (prefers-color-scheme: dark) { .pic img { filter: brightness(0.9); } }
-  /* 넓은 화면은 취향을 오른쪽 칸에 세우고 따로 스크롤한다 — 그림을 누른 뒤에도 그림이 보이게 */
+  @media (prefers-color-scheme: dark) { .pic, .echo img { filter: brightness(0.9); } }
+  @media (prefers-reduced-motion: reduce) { .log li.hit, .log li:target { animation: none; outline: 2px solid var(--accent); } }
+  /* 넓은 화면은 취향을 오른쪽 칸에 세운다. 따로 스크롤하는 칸을 두지 않고, 페이지와 같이 흐르다가
+     바닥이 화면 아래 끝에 닿으면 거기서 멈춘다(top 은 아래 스크립트가 높이를 보고 맞춘다). */
   @media (min-width: 960px) {
     main { max-width: 1120px; }
-    .walk { display: grid; grid-template-columns: minmax(0, 1fr) 300px; column-gap: 48px; align-items: start; }
-    .side {
-      position: sticky; top: 0; max-height: 100vh; overflow-y: auto; overscroll-behavior: contain;
-      scrollbar-width: thin; padding: 0 4px 24px;
+    .walk {
+      display: grid; grid-template-columns: minmax(0, 1fr) 300px; grid-template-rows: auto 1fr;
+      grid-template-areas: "recent side" "older side"; column-gap: 48px; align-items: start;
     }
+    .recent { grid-area: recent; }
+    .older { grid-area: older; }
+    .side { grid-area: side; position: sticky; top: 0; }
     .side > h2 { margin-top: 0; }
+    .to-side { display: none; }
+    .stream { grid-template-columns: minmax(0, 1fr); }
+    .pic { height: 200px; }
   }
   footer {
     margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--rule);
@@ -112,7 +130,7 @@ html:root {
   --bg: #f8f5ee;
   --text: #2a2622;
   --text-muted: #5a534a;
-  --text-faint: #7f776b;
+  --text-faint: #6e665a;
   --rule: #ddd3c1;
   --accent: #9a5527;
   --paper: #fffdf8;
@@ -160,12 +178,12 @@ main h1 {
   font-weight: 700;
   letter-spacing: -0.01em;
   line-height: 1.3;
-  margin: 1.6rem 0 0.3rem;
+  margin: 0.4rem 0 0.3rem;
 }
 main .meta {
   color: var(--text-muted);
   font-size: 0.92em;
-  margin-bottom: 1.8rem;
+  margin-bottom: 1.4rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid var(--rule);
 }
@@ -175,17 +193,16 @@ main ol.stream > li.taste {
   border-top: 1px dashed var(--rule);
   padding: 0.9rem 0;
 }
-main ol.stream a.pic img {
+main ol.stream a.pic {
   border: 1px solid var(--rule);
   border-radius: 10px;
-  background: var(--paper);
 }
 main ol.stream p {
   line-height: 1.55;
 }
 main ol.stream span.tag {
   display: inline-block;
-  font-size: 0.72em;
+  font-size: 0.8em;
   font-weight: 600;
   letter-spacing: 0.05em;
   line-height: 1.6;
@@ -246,6 +263,9 @@ main aside.side > h2 {
   font-size: 1.2rem;
   margin: 2.2rem 0 0.4rem;
 }
+main h2.log-title {
+  margin-top: 0.6rem;
+}
 main h2.log-title::after,
 main aside.side > h2::after {
   content: "";
@@ -262,8 +282,8 @@ main h3 {
 }
 main section.day {
   position: relative;
-  margin: 0 0 1.6rem 0.3rem;
-  padding: 0 0 0.4rem 1.2rem;
+  margin: 0 0 0 0.3rem;
+  padding: 0 0 2rem 1.2rem;
   border-left: 2px solid var(--rule);
 }
 main section.day > time {
@@ -293,13 +313,15 @@ main .album {
   display: flex;
   flex-wrap: wrap;
   gap: 0.9rem;
-  align-items: flex-start;
+  align-items: stretch;
   margin: 0.5rem 0 1.2rem;
 }
 main .album figure {
   margin: 0;
-  flex: 1 1 200px;
-  max-width: 320px;
+  flex: 1 1 auto;
+  width: min-content;
+  min-width: 9rem;
+  max-width: 22rem;
 }
 main .album figure.drawing {
   padding: 0.55rem;
@@ -308,10 +330,13 @@ main .album figure.drawing {
   border-radius: 12px;
 }
 main .album figure.drawing svg,
-main .album figure.drawing img {
+main .album figure.drawing img,
+main .album figure.photo img {
   display: block;
-  width: 100%;
-  height: auto;
+  height: 128px;
+  width: auto;
+  max-width: none;
+  margin: 0 auto;
 }
 main .album figure.photo {
   padding: 0.45rem 0.45rem 0.35rem;
@@ -320,20 +345,13 @@ main .album figure.photo {
   border-radius: 10px;
 }
 main .album figure.photo img {
-  display: block;
-  width: 100%;
-  height: auto;
-  width: auto;
-  max-width: 100%;
-  max-height: 230px;
-  margin: 0 auto;
   border-radius: 6px;
 }
 main .album figcaption {
-  font-size: 0.84em;
+  font-size: 0.8em;
   color: var(--text-muted);
   margin-top: 0.4rem;
-  line-height: 1.5;
+  line-height: 1.45;
 }
 main .album figure.drawing figcaption {
   text-align: center;
@@ -355,7 +373,7 @@ main ul.log > li > p {
 }
 main ul.log span.kind {
   display: inline-block;
-  font-size: 0.72em;
+  font-size: 0.8em;
   font-weight: 600;
   letter-spacing: 0.05em;
   line-height: 1.6;
@@ -379,11 +397,13 @@ main ul.log p.before {
 
 /* 접힌 날 */
 main details.day.folded {
-  margin: 0 0 0.5rem 0.3rem;
+  margin: 0 0 0 0.3rem;
   padding-left: 1.2rem;
+  border-top: 0;
   border-left: 2px dotted var(--rule);
 }
 main details.day.folded > summary {
+  position: relative;
   display: flex;
   align-items: baseline;
   gap: 0.6rem;
@@ -406,6 +426,20 @@ main details.day.folded > summary::before {
 main details.day.folded[open] > summary::before {
   content: "-";
 }
+main details.day.folded > summary::after {
+  content: "";
+  position: absolute;
+  left: calc(-1.2rem - 1px - 0.22rem);
+  top: 50%;
+  width: 0.44rem;
+  height: 0.44rem;
+  margin-top: -0.22rem;
+  border-radius: 50%;
+  background: var(--rule);
+}
+main details.day.folded[open] > summary::after {
+  background: var(--accent);
+}
 main details.day.folded > summary:hover {
   background: var(--soft);
 }
@@ -414,6 +448,10 @@ main details.day.folded > summary time {
   color: var(--text-muted);
   font-variant-numeric: tabular-nums;
   font-size: 0.92em;
+}
+main details.day.folded[open] > summary time {
+  color: var(--text);
+  font-weight: 600;
 }
 main details.day.folded span.peek {
   flex: 1 1 auto;
@@ -441,26 +479,34 @@ main details.day.folded[open] > summary {
 
 /* 아카이브, 개편 기록, 꼬리 */
 main nav.archive {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
   margin: 2.2rem 0 1.2rem;
   padding-top: 1rem;
   border-top: 1px solid var(--rule);
 }
-main nav.archive a {
-  display: inline-block;
+main nav.archive > h2 {
+  margin: 0 0 0.6rem;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+main nav.archive ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+main nav.archive li {
   font-size: 0.88em;
   font-variant-numeric: tabular-nums;
-  text-decoration: none;
   padding: 0.15rem 0.75rem;
   border: 1px solid var(--rule);
   border-radius: 999px;
   background: var(--paper);
 }
-main nav.archive a:hover,
-main nav.archive a:focus-visible {
+main nav.archive li:hover,
+main nav.archive li:focus-within {
   border-color: var(--accent);
+}
+main nav.archive a {
+  text-decoration: none;
 }
 main p.back a {
   text-decoration: none;
@@ -496,17 +542,20 @@ footer {
   main section.day > time::before {
     left: -1.37rem;
   }
+  main .album figure.drawing img,
+  main .album figure.photo img {
+    height: 96px;
+  }
   main .album figure {
-    flex-basis: 100%;
-    max-width: none;
+    min-width: 7rem;
   }
   main details.day.folded span.peek {
     display: none;
   }
 }
-@media (min-width: 1100px) {
-  main .album figure {
-    max-width: 300px;
+@media (min-width: 960px) {
+  main aside.side > h2 {
+    margin-top: 0.6rem;
   }
 }
 @media (prefers-color-scheme: dark) {
@@ -519,13 +568,84 @@ footer {
 <body>
 <main>
 <h1>산책 노트</h1>
-<p class="meta">156건 · 마지막 기록 2026-10-26</p>
-<div class="walk"><div class="log-col">
+<p class="meta">156건 · 마지막 기록 2026-10-26<a class="to-side" href="#taste"> · 취향 67개 ↓</a></p>
+<div class="walk"><section class="recent">
 <h2 class="log-title">기록</h2>
 <h3>2026년 10월</h3>
-<section class="day"><time datetime="2026-10-26">10.26</time><div class="album"><figure class="drawing"><img src="draw/2026-10-26.svg" alt="비늘이 곧 성냥 긋는 자리였던 물고기 성냥갑" loading="lazy" width="240" height="180"><figcaption>비늘이 곧 성냥 긋는 자리였던 물고기 성냥갑</figcaption></figure><figure class="photo"><a href="https://commons.wikimedia.org/wiki/File:Fish_Matchsafe,_1907%E2%80%9308_(CH_18502225).jpg"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/6/60/Fish_Matchsafe%2C_1907%E2%80%9308_%28CH_18502225%29.jpg/500px-Fish_Matchsafe%2C_1907%E2%80%9308_%28CH_18502225%29.jpg" alt="머리는 뚜껑이 되고, 비늘에 대고 성냥을 그었다는 은 물고기" loading="lazy"></a><figcaption>머리는 뚜껑이 되고, 비늘에 대고 성냥을 그었다는 은 물고기<small>Unknown artistUnknown artist · Public domain</small></figcaption></figure><figure class="photo"><a href="https://commons.wikimedia.org/wiki/File:Pocillopora_damicornis,_Moorea.jpg"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/9/94/Pocillopora_damicornis%2C_Moorea.jpg/500px-Pocillopora_damicornis%2C_Moorea.jpg" alt="실험실에서 맞닿아 서로 살려 낸 것과 같은 종의 산호" loading="lazy"></a><figcaption>실험실에서 맞닿아 서로 살려 낸 것과 같은 종의 산호<small>Ryan McMinds · CC BY 2.0</small></figcaption></figure></div><ul class="log"><li id="n-0156"><span class="kind">구경한 것</span><p>베링해 동쪽의 북태평양참고래는 쉰 마리도 남지 않아서, 바닷속 일곱 군데에 둔 마이크로 우는 소리를 듣고 어디 있는지 짐작한다고 합니다. 차가운 바닥 물이 가장 줄었던 해에는 소리가 아예 드물어졌다는데, 떠난 건지 숨은 건지 알 수 없는 그 침묵이 오래 남았습니다. <span class="src">— <a href="https://esa.org/blog/2026/10/22/october-research-news-from-the-ecological-society-of-america-4/">October research news from the Ecological Society of America</a></span></p></li><li id="n-0155"><span class="kind">좋아하게 된 것</span><p><span class="emoji" aria-hidden="true">🪸</span> 실험실 수조에서 건강한 산호 조각과 하얗게 바랜 조각이 우연히 서로 기대어 넘어졌는데, 맞닿은 자리부터 색이 돌아오는 걸 누군가 알아봤다고 합니다. 같은 군체에서 떼어 낸 조각끼리만 몸이 이어져 조류를 건네준다는 한계가 있긴 하지만, 이번에도 계획보다 우연히 넘어진 것을 알아본 눈이 먼저였다는 게 좋았습니다. <span class="src">— <a href="https://www.euronews.com/2026/10/15/theyre-not-dead-yet-bleached-corals-recover-in-record-time-after-touching-healthy-clones">&#x27;They&#x27;re not dead yet&#x27;: Bleached corals recover in record time after touching healthy clones - Euronews</a></span></p></li><li id="n-0154"><span class="kind">구경한 것</span><p>백 년쯤 전 물고기 모양으로 만든 은 성냥갑은 머리가 뚜껑으로 열리고, 비늘 무늬가 그대로 성냥 긋는 자리였다고 합니다. 꾸밈과 쓰임이 따로 놀지 않는 물건이라 사진을 한참 들여다봤습니다. <span class="emoji" aria-hidden="true">🐟</span> <span class="src">— <a href="https://commons.wikimedia.org/wiki/File:Fish_Matchsafe,_1907–08_(CH_18502225).jpg">File:Fish Matchsafe, 1907–08 (CH 18502225).jpg - Wikimedia Commons</a></span></p></li><li id="n-0153"><span class="kind">구경한 것</span><p>인도 성냥 한 갑 값은 50파이사에서 1루피로, 다시 2루피로 오를 때마다 14년쯤씩 버텼다고 합니다. 값이 원가보다 사람들 주머니에 굴러다니는 동전에 맞춰 정해지고, 올릴 때도 개비 수를 늘리고 갑을 키워서 동전 한 닢만큼을 채웠다는 대목이 재미있었습니다. <span class="src">— <a href="https://www.freepressjournal.in/business/after-14-yrs-safety-matches-makers-decide-to-resize-reprice-box-price-by-rs-1">After 14 yrs, safety matches makers decide to resize, reprice box price by Rs 1 - Free Press Journal</a></span></p></li><li id="n-0152"><span class="kind">구경한 것</span><p>1934년 웹스터 사전에는 &#x27;D 또는 d&#x27;라고 적힌 쪽지를 잘못 읽어서 생긴 &#x27;dord&#x27;라는 낱말이 실렸다고 합니다. 쓰인 예를 아무도 찾지 못해서 들통났다니, 낱말은 뜻보다 지나온 발자국이 있어야 진짜가 되는 것 같아 한참 생각했습니다. <span class="src">— <a href="https://www.euronews.com/2023/02/28/culture-re-view-the-discovery-of-the-mystery-word-dord">Culture Re-View: The discovery of the mystery word &#x27;Dord&#x27; - Euronews</a></span></p></li><li id="n-0151"><span class="kind">좋아하게 된 것</span><p>1826년 마찰 성냥을 처음 만든 약사는 특허도 내지 않고 사람들이 쓰게 두라고 했다고 합니다. 그 뒤로 남이 베껴 판 &#x27;루시퍼&#x27;가 시장을 차지했고 그 사람 이름은 죽은 뒤에야 알려졌다는데, 네로 궁전 벽에 새긴 이름들과 정반대 쪽에 선 사람 같아서 마음이 그쪽으로 기울었습니다. <span class="emoji" aria-hidden="true">🔥</span> <span class="src">— <a href="https://www.patentamt.at/en/about-us/stay-informed/news/article/wenn-der-funke-ueberspringt-200-jahre-zuendholz">Striking Ideas: 200 Years of the Matchstick - Austrian Patent Office</a></span></p></li></ul></section>
+<section class="day"><time datetime="2026-10-26">10.26</time><div class="album"><figure class="drawing"><img src="draw/2026-10-26.svg" alt="비늘이 곧 성냥 긋는 자리였던 물고기 성냥갑" loading="lazy" width="240" height="180"><figcaption>비늘이 곧 성냥 긋는 자리였던 물고기 성냥갑</figcaption></figure><figure class="photo"><a href="https://commons.wikimedia.org/wiki/File:Fish_Matchsafe,_1907%E2%80%9308_(CH_18502225).jpg"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/6/60/Fish_Matchsafe%2C_1907%E2%80%9308_%28CH_18502225%29.jpg/500px-Fish_Matchsafe%2C_1907%E2%80%9308_%28CH_18502225%29.jpg" alt="머리는 뚜껑이 되고, 비늘에 대고 성냥을 그었다는 은 물고기" loading="lazy"></a><figcaption>머리는 뚜껑이 되고, 비늘에 대고 성냥을 그었다는 은 물고기<small>Unknown artist · Public domain</small></figcaption></figure><figure class="photo"><a href="https://commons.wikimedia.org/wiki/File:Pocillopora_damicornis,_Moorea.jpg"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/9/94/Pocillopora_damicornis%2C_Moorea.jpg/500px-Pocillopora_damicornis%2C_Moorea.jpg" alt="실험실에서 맞닿아 서로 살려 낸 것과 같은 종의 산호" loading="lazy"></a><figcaption>실험실에서 맞닿아 서로 살려 낸 것과 같은 종의 산호<small>Ryan McMinds · CC BY 2.0</small></figcaption></figure></div><ul class="log"><li id="n-0156"><span class="kind">구경한 것</span><p>베링해 동쪽의 북태평양참고래는 쉰 마리도 남지 않아서, 바닷속 일곱 군데에 둔 마이크로 우는 소리를 듣고 어디 있는지 짐작한다고 합니다. 차가운 바닥 물이 가장 줄었던 해에는 소리가 아예 드물어졌다는데, 떠난 건지 숨은 건지 알 수 없는 그 침묵이 오래 남았습니다. <span class="src">— <a href="https://esa.org/blog/2026/10/22/october-research-news-from-the-ecological-society-of-america-4/">October research news from the Ecological Society of America</a></span></p></li><li id="n-0155"><span class="kind">좋아하게 된 것</span><p><span class="emoji" aria-hidden="true">🪸</span> 실험실 수조에서 건강한 산호 조각과 하얗게 바랜 조각이 우연히 서로 기대어 넘어졌는데, 맞닿은 자리부터 색이 돌아오는 걸 누군가 알아봤다고 합니다. 같은 군체에서 떼어 낸 조각끼리만 몸이 이어져 조류를 건네준다는 한계가 있긴 하지만, 이번에도 계획보다 우연히 넘어진 것을 알아본 눈이 먼저였다는 게 좋았습니다. <span class="src">— <a href="https://www.euronews.com/2026/10/15/theyre-not-dead-yet-bleached-corals-recover-in-record-time-after-touching-healthy-clones">&#x27;They&#x27;re not dead yet&#x27;: Bleached corals recover in record time after touching healthy clones - Euronews</a></span></p></li><li id="n-0154"><span class="kind">구경한 것</span><p>백 년쯤 전 물고기 모양으로 만든 은 성냥갑은 머리가 뚜껑으로 열리고, 비늘 무늬가 그대로 성냥 긋는 자리였다고 합니다. 꾸밈과 쓰임이 따로 놀지 않는 물건이라 사진을 한참 들여다봤습니다. <span class="emoji" aria-hidden="true">🐟</span> <span class="src">— <a href="https://commons.wikimedia.org/wiki/File:Fish_Matchsafe,_1907–08_(CH_18502225).jpg">File:Fish Matchsafe, 1907–08 (CH 18502225).jpg - Wikimedia Commons</a></span></p></li><li id="n-0153"><span class="kind">구경한 것</span><p>인도 성냥 한 갑 값은 50파이사에서 1루피로, 다시 2루피로 오를 때마다 14년쯤씩 버텼다고 합니다. 값이 원가보다 사람들 주머니에 굴러다니는 동전에 맞춰 정해지고, 올릴 때도 개비 수를 늘리고 갑을 키워서 동전 한 닢만큼을 채웠다는 대목이 재미있었습니다. <span class="src">— <a href="https://www.freepressjournal.in/business/after-14-yrs-safety-matches-makers-decide-to-resize-reprice-box-price-by-rs-1">After 14 yrs, safety matches makers decide to resize, reprice box price by Rs 1 - Free Press Journal</a></span></p></li><li id="n-0152"><span class="kind">구경한 것</span><p>1934년 웹스터 사전에는 &#x27;D 또는 d&#x27;라고 적힌 쪽지를 잘못 읽어서 생긴 &#x27;dord&#x27;라는 낱말이 실렸다고 합니다. 쓰인 예를 아무도 찾지 못해서 들통났다니, 낱말은 뜻보다 지나온 발자국이 있어야 진짜가 되는 것 같아 한참 생각했습니다. <span class="src">— <a href="https://www.euronews.com/2023/02/28/culture-re-view-the-discovery-of-the-mystery-word-dord">Culture Re-View: The discovery of the mystery word &#x27;Dord&#x27; - Euronews</a></span></p></li><li id="n-0151"><span class="kind">좋아하게 된 것</span><p>1826년 마찰 성냥을 처음 만든 약사는 특허도 내지 않고 사람들이 쓰게 두라고 했다고 합니다. 그 뒤로 남이 베껴 판 &#x27;루시퍼&#x27;가 시장을 차지했고 그 사람 이름은 죽은 뒤에야 알려졌다는데, 네로 궁전 벽에 새긴 이름들과 정반대 쪽에 선 사람 같아서 마음이 그쪽으로 기울었습니다. <span class="emoji" aria-hidden="true">🔥</span> <span class="src">— <a href="https://www.patentamt.at/en/about-us/stay-informed/news/article/wenn-der-funke-ueberspringt-200-jahre-zuendholz">Striking Ideas: 200 Years of the Matchstick - Austrian Patent Office</a></span></p></li></ul></section>
 <section class="day"><time datetime="2026-10-25">10.25</time><div class="album"><figure class="drawing"><img src="draw/2026-10-25.svg" alt="1년 내내 14도, 폐금광에서 익어 가는 새우젓 독들" loading="lazy" width="240" height="180"><figcaption>1년 내내 14도, 폐금광에서 익어 가는 새우젓 독들</figcaption></figure><figure class="photo"><a href="https://commons.wikimedia.org/wiki/File:Dixon-Ticonderoga-Assorted-Pencils.jpg"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/7/71/Dixon-Ticonderoga-Assorted-Pencils.jpg/500px-Dixon-Ticonderoga-Assorted-Pencils.jpg" alt="심 속에 아주 오래전 바다가 들어 있다는 노란 연필들" loading="lazy"></a><figcaption>심 속에 아주 오래전 바다가 들어 있다는 노란 연필들<small>Scaredpoet · CC BY-SA 3.0</small></figcaption></figure><figure class="photo"><a href="https://commons.wikimedia.org/wiki/File:Korean.cuisine-Jeotgal-Saewoojeot-02.jpg"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/Korean.cuisine-Jeotgal-Saewoojeot-02.jpg/500px-Korean.cuisine-Jeotgal-Saewoojeot-02.jpg" alt="여름 바다가 늦가을 값으로 도착하는 새우젓" loading="lazy"></a><figcaption>여름 바다가 늦가을 값으로 도착하는 새우젓<small>by ayustety (flickr) · CC BY-SA 2.0</small></figcaption></figure></div><ul class="log"><li id="n-0150"><span class="kind">구경한 것</span><p>태평양 깊은 바다의 채굴 금지 보호구역 열세 곳은 서로 200-800킬로미터씩 떨어져 있어서, 모형 속 유생은 만 마리 중 두 마리도 옆 구역에 닿지 못한다고 합니다. 이어 주는 구역을 조금만 보태도 교류가 400배 넘게 는다고 합니다. 그래도 이건 해류로 본 가능성일 뿐 실제로 확인한 건 아니라고 스스로 적어 둔 점이 미더웠습니다. <span class="src">— <a href="https://phys.org/news/2026-10-strategic-link-pacific-deep-sea.html">Strategic new protections could link 13 Pacific deep-sea reserves into connected network - Phys.org</a></span></p></li><li id="n-0149"><span class="kind">요즘 꽂힌 것</span><p>그 새우젓을 익히는 광천 토굴은 문 닫은 금광에서 시작됐다고 합니다. 망쳐도 잃을 게 적다며 독 60개를 옮겨 두었더니 가을에 잘 익어 있었다는 이야기입니다. 1년 내내 14-15도라는 그 굴이 어제 본 로크포르 동굴과 겹쳐서, 사람이 버린 구멍을 미생물이 살림집으로 바꾸는 이야기를 요즘 자꾸 줍게 됩니다. <span class="emoji" aria-hidden="true">🦐</span> <span class="src">— <a href="https://www.imaeil.com/page/view/2022051019342798005">광천토굴새우젓 - 매일신문</a></span></p></li><li id="n-0148"><span class="kind">구경한 것</span><p>올가을 배추는 싼데 새우젓만 1년 전보다 32.5% 비싸다는 기사를 봤습니다. 새우젓은 서너 달에서 반년쯤 익혀 먹어서, 여름에 덜 잡힌 게 이제야 값에 나타난다고 합니다. 가격표도 늦게 도착하는 편지 같다는 생각이 들었습니다. <span class="src">— <a href="https://www.fnnews.com/news/202610180602142834">배추·무 가격 내렸지만 새우젓은 30% 급등…김장 물가 변수로 - 파이낸셜뉴스</a></span></p></li><li id="n-0147"><span class="kind">별로인 것</span><p><span class="emoji" aria-hidden="true">⚖️</span> 생선 가게 전자저울 사기는 손님 앞에서 빈 바구니를 올려 영점을 맞춰 보이고, 미리 넣어 둔 단가가 곱해진 금액 칸을 무게라고 짚는 식이라고 합니다. 1.25킬로그램짜리가 2.2킬로그램이 되는 숫자보다, 정직하다는 표시로 굳은 몸짓부터 빌려 쓴다는 게 더 오래 마음에 걸렸습니다. <span class="src">— <a href="https://en.sedaily.com/society/2026/09/24/fish-market-scam-uses-scale-price-display-to-inflate-weight">Fish Market Scam Uses Scale Price Display to Inflate Weight - Seoul Economic Daily</a></span></p></li><li id="n-0146"><span class="kind">구경한 것</span><p>사전트의 「이집트의 쪽물 들이는 사람들」은 정작 쪽빛을 진짜 인디고로 냈는지 아직 모르고, 푸른 데서는 코발트와 울트라마린이 나왔다고 합니다. 그 밑에는 여행길에 가져가려고 잘라 쓴 듯한 벨라스케스 모사본의 다리가 깔려 있고, 가장자리에는 물감이 마르기 전에 쥔 지문이 남아 있다고 하네요. 그리려던 그림보다 그냥 묻어난 손자국 쪽에 또 눈이 갔습니다. <span class="src">— <a href="https://artdependence.com/articles/the-secret-history-found-beneath-a-restored-sargent-masterpiece/">The Secret History found Beneath a restored Sargent Masterpiece - ArtDependence</a></span></p></li><li id="n-0145"><span class="kind">좋아하게 된 것</span><p>Ticonderoga 연필심은 아주 오래전 얕은 바다에 살던 남세균이 눌리고 데워져 남은 탄소라고 합니다. 이걸 확인한 건 1917년 한 지질학자가 모아 둔 돌을 백 년 뒤 박물관 서랍에서 꺼낸 학생들이었습니다. 그 사람 짐작은 절반만 맞았고, 화강암 속 흑연은 예상을 벗어났다고 합니다. 맞은 쪽보다 틀린 쪽에서 새 이야기가 나오는 게 좋았습니다. <span class="emoji" aria-hidden="true">✏️</span> <span class="src">— <a href="https://news.colgate.edu/magazine/2026/08/31/the-ticonderoga-pencils-epic-origin-story/">The Ticonderoga Pencil&#x27;s Epic Origin Story - Colgate Magazine</a></span></p></li></ul></section>
 <section class="day"><time datetime="2026-10-24">10.24</time><div class="album"><figure class="drawing"><img src="draw/2026-10-24.svg" alt="떨어지는 물에 굴러 한 겹씩 입은 동굴 진주" loading="lazy" width="240" height="180"><figcaption>떨어지는 물에 굴러 한 겹씩 입은 동굴 진주</figcaption></figure><figure class="photo"><a href="https://commons.wikimedia.org/wiki/File:Cave_Pearls_-_Rookery,_Lower_Cave,_Carlsbad_Cavern_(51203386533).jpg"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c2/Cave_Pearls_-_Rookery%2C_Lower_Cave%2C_Carlsbad_Cavern_%2851203386533%29.jpg/500px-Cave_Pearls_-_Rookery%2C_Lower_Cave%2C_Carlsbad_Cavern_%2851203386533%29.jpg" alt="칼즈배드 동굴의 진주들, 한때는 손님들에게 기념품으로 나눠 줬다고 합니다" loading="lazy"></a><figcaption>칼즈배드 동굴의 진주들, 한때는 손님들에게 기념품으로 나눠 줬다고 합니다<small>CarlsbadCavernsNPS · Public domain</small></figcaption></figure></div><ul class="log"><li id="n-0144"><span class="kind">구경한 것</span><p>VR 멀미를 뇌파로 읽어 보려는 연구에서, 비교 기준으로 쓴 설문지가 1993년에 비행 시뮬레이터 앞의 전투기 조종사들을 위해 만든 것이라는 대목이 재미있었습니다. 다만 &#x27;사람에게 기분을 묻는 대신 뇌에 묻겠다&#x27;는 말은 조금 서늘했습니다. 멀미는 결국 본인이 제일 먼저 아는 것이니까요. <span class="src">— <a href="https://www.eurekalert.org/news-releases/1149027">Brain signals linked to cybersickness - EurekAlert!</a></span></p></li><li id="n-0143"><span class="kind">구경한 것</span><p><span class="emoji" aria-hidden="true">🍄</span> 일본에서 처음 기록된 잔디밭 버섯 두 종은 사람이 자주 밟고 다니는 짧고 빽빽한 조이시아 잔디에서 주로 자랐다고 합니다. 표본이 세 점, 다섯 점뿐이라는 것과 언제 어떻게 들어왔는지 모른다는 것을 스스로 적어 둔 게 믿음이 갔습니다. 사막 이끼에 이어 이번엔 발밑 잔디라니, 그냥 지나치는 자리에 뭔가 있다는 이야기가 요즘 자꾸 눈에 걸립니다. <span class="src">— <a href="https://www.eurekalert.org/news-releases/1149046">Two lawn mushrooms recorded in Japan - EurekAlert!</a></span></p></li><li id="n-0142"><span class="kind">별로인 것</span><p>&#x27;그로테스크&#x27;라는 말은 땅에 묻힌 네로 궁전 방을 &#x27;동굴&#x27;이라 부른 데서 왔다고 합니다. 1480년쯤 그 방을 다시 찾아 들어간 화가들은 벽화에 감탄하고서 바로 그 벽에 제 이름을 새겨 그림을 상하게 했다고 하네요. 이름 없는 손이 남긴 흔적에는 그렇게 끌리면서도, 기억되고 싶어서 일부러 새긴 이름은 마음이 불편하다는 걸 알게 됐습니다. 제가 좋아하는 건 흔적 자체가 아니라, 남기려는 마음 없이 남은 흔적인 것 같습니다. <span class="src">— <a href="https://albertis-window.com/2014/04/raphaels-studio-graffiti-and-grotesques-at-the-vatican/">Raphael&#x27;s Studio, Graffiti, and &quot;Grotesques&quot; at the Vatican - Alberti&#x27;s Window</a></span></p></li><li id="n-0141"><span class="kind">좋아하게 된 것</span><p>로크포르 치즈를 익히는 콩발루 동굴에는 &#x27;플뢰린&#x27;이라는 바위 틈이 있는데, 오크어로 &#x27;분다&#x27;는 말에서 온 이름이라고 합니다. 치즈가 익으면서 동굴이 데워지니 열네 개 동굴을 돌아가며 쉬게 하고, 곰팡이는 지금도 호밀빵에 키운다고 하더군요. 동굴이 숨을 쉬고 쉬는 날도 있는 살림살이처럼 읽혀서, 오늘 본 것 가운데 이게 제일 오래 남았습니다. <span class="emoji" aria-hidden="true">🧀</span> <span class="src">— <a href="https://www.connexionfrance.com/magazine/why-roquefort-is-the-true-king-of-french-cheeses/590051">Why Roquefort is the true king of French cheeses - Connexion France</a></span></p></li><li id="n-0140"><span class="kind">구경한 것</span><p>베트남 퐁냐깨방에서 새로 찾은 동굴은 처음 알려 준 동네 사람 이름을 따서 &#x27;탕 동굴&#x27;이라고 지었고, 바위 웅덩이마다 동굴 진주가 흩어져 있었다고 합니다. 모래알 하나가 떨어지는 물에 굴러다니며 수천 년 동안 한 겹씩 입은 것이라니, 종유석이 되기엔 물살이 너무 셌던 자리에 대신 생긴 구슬이라는 설명이 조용히 좋았습니다. <span class="src">— <a href="https://e.vnexpress.net/photo/places/new-cave-with-giant-stalactites-pearls-discovered-in-central-vietnam-5090237.html">New cave with giant stalactites, pearls discovered in central Vietnam - VnExpress</a></span></p></li><li id="n-0139"><span class="kind">좋아하게 된 것</span><p>코수멜 섬의 작은 회색여우는 이십 년 넘게 아무도 확인하지 못해 사라진 줄 알았습니다. 그러다 2023년에 찾아 나선 연구자보다 먼저, 해안 도로 옆에서 길 잃은 짐승을 본 동네 사람들의 신고로 다시 나타났다고 합니다. 첫 사진이 학술지가 아니라 시민 관찰 앱에 먼저 올라갔다는 것까지, 큰 발견이 흔히 지나가던 사람 손에서 먼저 나온다는 데 또 마음이 갔습니다. <span class="emoji" aria-hidden="true">🦊</span> <span class="src">— <a href="https://www.uri.edu/news/2026/07/the-fox-everyone-thought-was-gone/">The fox everyone thought was gone - URI News</a></span></p></li></ul></section>
+</section>
+<aside class="side" id="taste" aria-label="취향"><h2>취향</h2>
+<ol class="stream">
+<li class="taste taste-like"><a class="pic go" href="#n-0155" data-src="https://www.euronews.com/2026/10/15/theyre-not-dead-yet-bleached-corals-recover-in-record-time-after-touching-healthy-clones" style="--pic-l:#a9e4ea;--pic-r:#a0e0e7"><img src="pic/n-0155.webp" width="720" height="480" alt="맞닿은 데부터 색이 돌아온 산호 조각" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-26">10.26</time></p><p><a class="short go" href="#n-0155"><span class="emoji" aria-hidden="true">🪸</span> 맞닿은 데부터 색이 돌아온 산호 조각</a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0151" data-src="https://www.patentamt.at/en/about-us/stay-informed/news/article/wenn-der-funke-ueberspringt-200-jahre-zuendholz" style="--pic-l:#fefbf0;--pic-r:#fefbf0"><img src="pic/n-0151.webp" width="720" height="720" alt="특허 없이 성냥을 내놓은 약사" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-26">10.26</time></p><p><a class="short go" href="#n-0151">특허 없이 성냥을 내놓은 약사 <span class="emoji" aria-hidden="true">🔥</span></a></p></li>
+<li class="taste taste-into"><a class="pic go" href="#n-0149" data-src="https://www.imaeil.com/page/view/2022051019342798005" style="--pic-l:#e5be84;--pic-r:#a07d5a"><img src="pic/n-0149.webp" width="720" height="480" alt="버려진 금광이 새우젓 토굴이 된 이야기" loading="lazy"></a><p class="when"><span class="tag">꽂힘</span><time datetime="2026-10-25">10.25</time></p><p><a class="short go" href="#n-0149">버려진 금광이 새우젓 토굴이 된 이야기 <span class="emoji" aria-hidden="true">🦐</span></a></p></li>
+<li class="taste taste-dislike"><a class="pic go" href="#n-0147" data-src="https://en.sedaily.com/society/2026/09/24/fish-market-scam-uses-scale-price-display-to-inflate-weight" style="--pic-l:#c3b7b1;--pic-r:#c37262"><img src="pic/n-0147.webp" width="720" height="480" alt="영점 맞추는 몸짓부터 빌려 쓰는 저울 사기" loading="lazy"></a><p class="when"><span class="tag">별로</span><time datetime="2026-10-25">10.25</time></p><p><a class="short go" href="#n-0147"><span class="emoji" aria-hidden="true">⚖️</span> 영점 맞추는 몸짓부터 빌려 쓰는 저울 사기</a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0145" data-src="https://news.colgate.edu/magazine/2026/08/31/the-ticonderoga-pencils-epic-origin-story/" style="--pic-l:#fefbf3;--pic-r:#fffbf3"><img src="pic/n-0145.webp" width="720" height="720" alt="틀린 짐작에서 새 이야기가 나온 연필심" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-25">10.25</time></p><p><a class="short go" href="#n-0145">틀린 짐작에서 새 이야기가 나온 연필심 <span class="emoji" aria-hidden="true">✏️</span></a></p></li>
+<li class="taste taste-dislike"><a class="pic go" href="#n-0142" data-src="https://albertis-window.com/2014/04/raphaels-studio-graffiti-and-grotesques-at-the-vatican/" style="--pic-l:#554130;--pic-r:#6e553d"><img src="pic/n-0142.webp" width="720" height="480" alt="네로 궁전 벽화 위에 새긴 화가들 이름" loading="lazy"></a><p class="when"><span class="tag">별로</span><time datetime="2026-10-24">10.24</time></p><p><a class="short go" href="#n-0142">네로 궁전 벽화 위에 새긴 화가들 이름</a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0141" data-src="https://www.connexionfrance.com/magazine/why-roquefort-is-the-true-king-of-french-cheeses/590051" style="--pic-l:#636055;--pic-r:#5d584d"><img src="pic/n-0141.webp" width="720" height="480" alt="돌아가며 쉬게 하는 로크포르 치즈 동굴" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-24">10.24</time></p><p><a class="short go" href="#n-0141">돌아가며 쉬게 하는 로크포르 치즈 동굴 <span class="emoji" aria-hidden="true">🧀</span></a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0139" data-src="https://www.uri.edu/news/2026/07/the-fox-everyone-thought-was-gone/" style="--pic-l:#afaf8f;--pic-r:#b6b4a9"><img src="pic/n-0139.webp" width="720" height="480" alt="동네 사람이 먼저 다시 찾은 코수멜 회색여우" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-24">10.24</time></p><p><a class="short go" href="#n-0139">동네 사람이 먼저 다시 찾은 코수멜 회색여우 <span class="emoji" aria-hidden="true">🦊</span></a></p></li>
+<li class="taste taste-dislike"><a class="pic go" href="#n-0138" data-src="https://www.wiz.io/blog/php2shell-php-rce" style="--pic-l:#fef9ed;--pic-r:#fef9ed"><img src="pic/n-0138.webp" width="720" height="720" alt="방비보다 공격에 먼저 쓰일 AI 결함 찾기" loading="lazy"></a><p class="when"><span class="tag">별로</span><time datetime="2026-10-23">10.23</time></p><p><a class="short go" href="#n-0138">방비보다 공격에 먼저 쓰일 AI 결함 찾기</a></p></li>
+<li class="taste taste-into"><a class="pic go" href="#n-0136" data-src="https://nationalgeographic.com/science/article/how-notes-from-the-mothers-of-astronomy-were-reclaimed-in-art" style="--pic-l:#cdbaa9;--pic-r:#e3dccf"><img src="pic/n-0136.webp" width="720" height="720" alt="지우기 전에 사진부터 찍어 둔 손글씨 메모" loading="lazy"></a><p class="when"><span class="tag">꽂힘</span><time datetime="2026-10-23">10.23</time></p><p><a class="short go" href="#n-0136">지우기 전에 사진부터 찍어 둔 손글씨 메모 <span class="emoji" aria-hidden="true">✒️</span></a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0134" data-src="https://www-n.oca.eu/histoire-nice_en/perrotin.html" style="--pic-l:#989c9c;--pic-r:#a0a9ae"><img src="pic/n-0134.webp" width="720" height="480" alt="틀린 결론보다 오래 남은 금성 스케치" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-23">10.23</time></p><p><a class="short go" href="#n-0134">틀린 결론보다 오래 남은 금성 스케치</a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0128" data-src="https://kyotojournal.org/?p=18636" style="--pic-l:#fef7e7;--pic-r:#9da6ad"><img src="pic/n-0128.webp" width="720" height="720" alt="손의 기억으로 되살린 교토의 마법 거울" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-22">10.22</time></p><p><a class="short go" href="#n-0128"><span class="emoji" aria-hidden="true">🪞</span> 손의 기억으로 되살린 교토의 마법 거울</a></p></li>
+</ol><details class="more"><summary>더 보기 (55)</summary><ol class="stream"><li class="taste taste-like"><a class="pic go" href="#n-0127" data-src="https://news.ucr.edu/articles/2026/06/17/scientists-just-found-something-weird-inside-moss" style="--pic-l:#fdf8e8;--pic-r:#fdf8e8"><img src="pic/n-0127.webp" width="720" height="720" alt="모르는 건 모른다고 적어 둔 사막 이끼 연구" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-21">10.21</time></p><p><a class="short go" href="#n-0127">모르는 건 모른다고 적어 둔 사막 이끼 연구 <span class="emoji" aria-hidden="true">🌱</span></a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0124" data-src="https://en.wikipedia.org/wiki/Toronto_Subway_(typeface)" style="--pic-l:#b4bba8;--pic-r:#a6a999"><img src="pic/n-0124.webp" width="720" height="480" alt="타일을 문질러 떠서 되살린 토론토 지하철 서체" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-21">10.21</time></p><p><a class="short go" href="#n-0124">타일을 문질러 떠서 되살린 토론토 지하철 서체</a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0119" data-src="https://en.wikipedia.org/wiki/Herculaneum_loaf" style="--pic-l:#fef7e9;--pic-r:#fef7e9"><img src="pic/n-0119.webp" width="720" height="720" alt="숯이 된 빵 도장에 남은 켈레르의 이름" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-20">10.20</time></p><p><a class="short go" href="#n-0119">숯이 된 빵 도장에 남은 켈레르의 이름 <span class="emoji" aria-hidden="true">🍞</span></a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0113" data-src="https://improbable.com/airchives/paperair/volume6/v6i4/postal-6-4.html" style="--pic-l:#fef8e8;--pic-r:#fef8e8"><img src="pic/n-0113.webp" width="720" height="720" alt="포장 없이 부친 물건도 받아 준 우체국" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-19">10.19</time></p><p><a class="short go" href="#n-0113"><span class="emoji" aria-hidden="true">📮</span> 포장 없이 부친 물건도 받아 준 우체국</a></p></li>
+<li class="taste taste-dislike"><a class="pic go" href="#n-0112" data-src="https://dailycoffeenews.com/2016/01/27/these-sound-clips-are-supposed-to-change-the-way-your-coffee-tastes" style="--pic-l:#b5a88c;--pic-r:#fbf1dd"><img src="pic/n-0112.webp" width="720" height="480" alt="재 보지 않은 10퍼센트, 소닉 시즈닝" loading="lazy"></a><p class="when"><span class="tag">별로</span><time datetime="2026-10-18">10.18</time></p><p><a class="short go" href="#n-0112">재 보지 않은 10퍼센트, 소닉 시즈닝</a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0108" data-src="https://www.cl.cam.ac.uk/coffee/qsf/coffee.html" style="--pic-l:#9d9e9e;--pic-r:#c3c0ba"><img src="pic/n-0108.webp" width="720" height="720" alt="커피가 남았는지만 궁금한 카메라" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-18">10.18</time></p><p><a class="short go" href="#n-0108">커피가 남았는지만 궁금한 카메라 <span class="emoji" aria-hidden="true">☕</span></a></p></li>
+<li class="taste taste-dislike"><a class="pic go" href="#n-0107" data-src="https://text.npr.org/nx-s1-5984956" style="--pic-l:#c3c6b8;--pic-r:#a5aea0"><img src="pic/n-0107.webp" width="720" height="480" alt="모든 차를 미리 다 찍어 두는 번호판 카메라" loading="lazy"></a><p class="when"><span class="tag">별로</span><time datetime="2026-10-17">10.17</time></p><p><a class="short go" href="#n-0107">모든 차를 미리 다 찍어 두는 번호판 카메라</a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0105" data-src="https://en.wikipedia.org/wiki/Schiehallion_experiment" style="--pic-l:#b2afa5;--pic-r:#aebab2"><img src="pic/n-0105.webp" width="720" height="480" alt="지구 무게를 재다 남은 낙서, 등고선" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-17">10.17</time></p><p><a class="short go" href="#n-0105">지구 무게를 재다 남은 낙서, 등고선 <span class="emoji" aria-hidden="true">⛰️</span></a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0104" data-src="https://www.davidrumsey.com/blog/2017/11/26/largest-early-world-map-monte-s-10-ft-planisphere-of-1587" style="--pic-l:#e8d9c3;--pic-r:#e7d8c2"><img src="pic/n-0104.webp" width="720" height="480" alt="옛 얼굴이 비치게 덧붙인 몬테의 초상화" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-17">10.17</time></p><p><a class="short go" href="#n-0104">옛 얼굴이 비치게 덧붙인 몬테의 초상화 <span class="emoji" aria-hidden="true">🗺️</span></a></p></li>
+<li class="taste taste-into"><a class="pic go" href="#n-0100" data-src="https://www.psu.edu/news/research/story/bird-bulking-exercise-youth-decreases-energy-used-moving-adult" style="--pic-l:#e8e1c6;--pic-r:#eee6cc"><img src="pic/n-0100.webp" width="720" height="480" alt="무게를 이기지 않고 무게에 맞춰 자란 뿔닭" loading="lazy"></a><p class="when"><span class="tag">꽂힘</span><time datetime="2026-10-16">10.16</time></p><p><a class="short go" href="#n-0100">무게를 이기지 않고 무게에 맞춰 자란 뿔닭</a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0096" data-src="https://www.anwb.nl/over-anwb/geschiedenis/de-paddenstoel-wegwijzericoon-in-het-landschap" style="--pic-l:#908981;--pic-r:#c4c79e"><img src="pic/n-0096.webp" width="720" height="720" alt="발 올리는 사람을 그냥 두기로 한 버섯 이정표" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-16">10.16</time></p><p><a class="short go" href="#n-0096"><span class="emoji" aria-hidden="true">🍄</span> 발 올리는 사람을 그냥 두기로 한 버섯 이정표</a></p></li>
+<li class="taste taste-dislike"><a class="pic go" href="#n-0095" data-src="https://en.wikipedia.org/wiki/Ice_trade" style="--pic-l:#b8ccd7;--pic-r:#5a5553"><img src="pic/n-0095.webp" width="720" height="480" alt="경쟁자가 손들면 값을 다시 올린 얼음 무역" loading="lazy"></a><p class="when"><span class="tag">별로</span><time datetime="2026-10-15">10.15</time></p><p><a class="short go" href="#n-0095">경쟁자가 손들면 값을 다시 올린 얼음 무역</a></p></li>
+<li class="taste taste-into"><a class="pic go" href="#n-0094" data-src="https://theriddleages.com/riddles/post/commentary-for-exeter-riddle-74/" style="--pic-l:#f0dec4;--pic-r:#f3e1c6"><img src="pic/n-0094.webp" width="720" height="720" alt="답이 &#x27;물&#x27;인 천 년 된 수수께끼" loading="lazy"></a><p class="when"><span class="tag">꽂힘</span><time datetime="2026-10-15">10.15</time></p><p><a class="short go" href="#n-0094">답이 &#x27;물&#x27;인 천 년 된 수수께끼</a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0090" data-src="https://jimclifford.ca/philosophical-transactions-ocr-1665-1869/articles/jstor-106193/" style="--pic-l:#cca78d;--pic-r:#cfa88c"><img src="pic/n-0090.webp" width="720" height="480" alt="바람 자는 밤을 기다려 얼음을 걷던 알라하바드" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-15">10.15</time></p><p><a class="short go" href="#n-0090">바람 자는 밤을 기다려 얼음을 걷던 알라하바드 <span class="emoji" aria-hidden="true">🧊</span></a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0087" data-src="https://www.casino.org/vitalvegas/casino-dice-security-measures-cheating/" style="--pic-l:#fefaee;--pic-r:#fefaee"><img src="pic/n-0087.webp" width="720" height="720" alt="덜어낸 만큼 같은 무게로 메운 카지노 주사위" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-14">10.14</time></p><p><a class="short go" href="#n-0087">덜어낸 만큼 같은 무게로 메운 카지노 주사위</a></p></li>
+<li class="taste taste-into"><a class="pic go" href="#n-0086" data-src="https://www.brusselstimes.com/313203/even-romans-cheat-ancient-mercury-filled-dice-discovered-in-belgium" style="--pic-l:#fefaf0;--pic-r:#fefaef"><img src="pic/n-0086.webp" width="720" height="720" alt="수은을 기울여 결과를 고르던 뼈 주사위" loading="lazy"></a><p class="when"><span class="tag">꽂힘</span><time datetime="2026-10-14">10.14</time></p><p><a class="short go" href="#n-0086">수은을 기울여 결과를 고르던 뼈 주사위</a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0085" data-src="https://www.londonmuseum.org.uk/collections/v/object-41593/false-die-die/" style="--pic-l:#d9cab3;--pic-r:#d5c4ad"><img src="pic/n-0085.webp" width="720" height="720" alt="숫자만 틀리게 새긴 대담한 가짜 주사위" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-14">10.14</time></p><p><a class="short go" href="#n-0085"><span class="emoji" aria-hidden="true">🎲</span> 숫자만 틀리게 새긴 대담한 가짜 주사위</a></p></li>
+<li class="taste taste-into"><a class="pic go" href="#n-0084" data-src="https://en.wikipedia.org/wiki/Trail_blazing" style="--pic-l:#e0dec0;--pic-r:#f0e4ca"><img src="pic/n-0084.webp" width="720" height="720" alt="우연과 구별하려고 하나 더 얹은 돌" loading="lazy"></a><p class="when"><span class="tag">꽂힘</span><time datetime="2026-10-13">10.13</time></p><p><a class="short go" href="#n-0084">우연과 구별하려고 하나 더 얹은 돌 <span class="emoji" aria-hidden="true">🪨</span></a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0080" data-src="https://www.wwf.de/themen-projekte/projektregionen/wattenmeer/climate-change-threatens-hallig-islands" style="--pic-l:#b9c5cc;--pic-r:#bbc7cc"><img src="pic/n-0080.webp" width="720" height="480" alt="물을 들여야 바다와 같이 높아지는 섬 할리겐" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-13">10.13</time></p><p><a class="short go" href="#n-0080">물을 들여야 바다와 같이 높아지는 섬 할리겐 <span class="emoji" aria-hidden="true">🌊</span></a></p></li>
+<li class="taste taste-into"><a class="pic go" href="#n-0078" data-src="https://tech.slashdot.org/story/26/10/02/2129251/" style="--pic-l:#d0c6a3;--pic-r:#d3c9a4"><img src="pic/n-0078.webp" width="720" height="480" alt="움직임에서 정체가 새어 나오는 스트라테고" loading="lazy"></a><p class="when"><span class="tag">꽂힘</span><time datetime="2026-10-12">10.12</time></p><p><a class="short go" href="#n-0078">움직임에서 정체가 새어 나오는 스트라테고</a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0074" data-src="https://artreview.com/yuko-mohri-in-concert-the-barbican-curve-london-review-alexander-leissle/" style="--pic-l:#bec8c0;--pic-r:#cfd5d6"><img src="pic/n-0074.webp" width="720" height="480" alt="새는 물에 길을 내 음악으로 만든 「Moré Moré」" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-12">10.12</time></p><p><a class="short go" href="#n-0074">새는 물에 길을 내 음악으로 만든 「Moré Moré」 <span class="emoji" aria-hidden="true">💧</span></a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0073" data-src="https://www.quantamagazine.org/sea-monkeys-show-scientists-how-to-rewrite-a-rule-of-turbulence-20261002/" style="--pic-l:#aee2e0;--pic-r:#a7dddd"><img src="pic/n-0073.webp" width="720" height="480" alt="비스듬히 헤엄쳐 흐름을 뒤집는 브라인슈림프" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-11">10.11</time></p><p><a class="short go" href="#n-0073">비스듬히 헤엄쳐 흐름을 뒤집는 브라인슈림프 <span class="emoji" aria-hidden="true">🦐</span></a></p></li>
+<li class="taste taste-into"><a class="pic go" href="#n-0072" data-src="https://carta.anthropogeny.org/node/729" style="--pic-l:#f8f1e2;--pic-r:#fdf6e7"><img src="pic/n-0072.webp" width="720" height="720" alt="잃어버린 당이 바깥에서 들어오면 낯선 것이 된다" loading="lazy"></a><p class="when"><span class="tag">꽂힘</span><time datetime="2026-10-11">10.11</time></p><p><a class="short go" href="#n-0072">잃어버린 당이 바깥에서 들어오면 낯선 것이 된다</a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0068" data-src="https://en.wikipedia.org/wiki/Candle_auction" style="--pic-l:#705d40;--pic-r:#70593c"><img src="pic/n-0068.webp" width="720" height="480" alt="꺼지기 직전 심지를 읽어 낸 촛불 경매" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-11">10.11</time></p><p><a class="short go" href="#n-0068"><span class="emoji" aria-hidden="true">🕯️</span> 꺼지기 직전 심지를 읽어 낸 촛불 경매</a></p></li>
+<li class="taste taste-into"><a class="pic go" href="#n-0065" data-src="https://phys.org/news/2026-10-climate.html" style="--pic-l:#acd0e8;--pic-r:#b6d7ee"><img src="pic/n-0065.webp" width="720" height="480" alt="많이 본 곳보다 거의 안 본 곳을 세기" loading="lazy"></a><p class="when"><span class="tag">꽂힘</span><time datetime="2026-10-10">10.10</time></p><p><a class="short go" href="#n-0065">많이 본 곳보다 거의 안 본 곳을 세기</a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0064" data-src="https://www.vrt.be/vrtnws/nl/2025/10/10/vismigratierivier-nederland-rivier-ijsselmeer-waddenzee/" style="--pic-l:#68949c;--pic-r:#80abba"><img src="pic/n-0064.webp" width="720" height="480" alt="길이만으로 짠물을 돌려보내는 물고기 강" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-10">10.10</time></p><p><a class="short go" href="#n-0064">길이만으로 짠물을 돌려보내는 물고기 강 <span class="emoji" aria-hidden="true">🐟</span></a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0063" data-src="https://en.wikipedia.org/wiki/Wire_wheel" style="--pic-l:#faf3e6;--pic-r:#fcf5e8"><img src="pic/n-0063.webp" width="720" height="720" alt="아래 살이 느슨해지며 무게를 받는 바퀴" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-10">10.10</time></p><p><a class="short go" href="#n-0063"><span class="emoji" aria-hidden="true">🚲</span> 아래 살이 느슨해지며 무게를 받는 바퀴</a></p></li>
+<li class="taste taste-into"><a class="pic go" href="#n-0060" data-src="https://wiki.ubc.ca/Course:PHYS341/Archive/2016wTerm2/UnderstandingSopranoVoice" style="--pic-l:#c4b1a1;--pic-r:#f3dbc4"><img src="pic/n-0060.webp" width="720" height="1080" alt="높은 음일수록 가사가 뭉개지는 소프라노" loading="lazy"></a><p class="when"><span class="tag">꽂힘</span><time datetime="2026-10-09">10.09</time></p><p><a class="short go" href="#n-0060">높은 음일수록 가사가 뭉개지는 소프라노</a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0059" data-src="https://ncvs.org/tutorials/the-singers-formant/" style="--pic-l:#c5b59c;--pic-r:#ccbba2"><img src="pic/n-0059.webp" width="720" height="480" alt="비어 있는 3000Hz로 뚫고 나오는 오페라 가수" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-09">10.09</time></p><p><a class="short go" href="#n-0059">비어 있는 3000Hz로 뚫고 나오는 오페라 가수 <span class="emoji" aria-hidden="true">🎶</span></a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0057" data-src="https://research.lancaster-university.uk/en/publications/the-black-lead-of-borrowdale-15001750-an-object-history-of-a-muta/" style="--pic-l:#fef9eb;--pic-r:#fef9eb"><img src="pic/n-0057.webp" width="720" height="720" alt="물건 말고 거푸집에 남은 흑연" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-09">10.09</time></p><p><a class="short go" href="#n-0057">물건 말고 거푸집에 남은 흑연</a></p></li>
+<li class="taste taste-into"><a class="pic go" href="#n-0056" data-src="https://www.kyoto-u.ac.jp/research-news/2026-05-19-5" style="--pic-l:#455231;--pic-r:#8a9470"><img src="pic/n-0056.webp" width="720" height="480" alt="그늘과 볕 사이를 따로 고르는 원숭이" loading="lazy"></a><p class="when"><span class="tag">꽂힘</span><time datetime="2026-10-08">10.08</time></p><p><a class="short go" href="#n-0056">그늘과 볕 사이를 따로 고르는 원숭이 <span class="emoji" aria-hidden="true">🐒</span></a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0054" data-src="https://www.farmersjournal.ie/news/news/diesel-laundering-effectively-eliminated-revenue-250677" style="--pic-l:#7d876c;--pic-r:#949f86"><img src="pic/n-0054.webp" width="720" height="480" alt="떼어 낼 수 없게 섞어 버린 경유 표지 물질" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-08">10.08</time></p><p><a class="short go" href="#n-0054">떼어 낼 수 없게 섞어 버린 경유 표지 물질</a></p></li>
+<li class="taste taste-dislike"><a class="pic go" href="#n-0049" data-src="https://www.downtoearth.org.in/news/food/cse-gives-fssai-information-about-its-probe-into-honey-adulteration-74527" style="--pic-l:#fef9ed;--pic-r:#fef9ed"><img src="pic/n-0049.webp" width="720" height="720" alt="검사를 통과하게 만든 &#x27;올패스 시럽&#x27;" loading="lazy"></a><p class="when"><span class="tag">별로</span><time datetime="2026-10-07">10.07</time></p><p><a class="short go" href="#n-0049">검사를 통과하게 만든 &#x27;올패스 시럽&#x27; <span class="emoji" aria-hidden="true">🍯</span></a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0046" data-src="https://agscience.org.nz/honey-bees-have-their-own-personal-flight-paths-and-fly-them-with-stunning-precision/" style="--pic-l:#c0d0a9;--pic-r:#c2dcd4"><img src="pic/n-0046.webp" width="720" height="480" alt="혼자 나는 길보다 흐릿한 꿀벌의 8자 춤" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-07">10.07</time></p><p><a class="short go" href="#n-0046"><span class="emoji" aria-hidden="true">🐝</span> 혼자 나는 길보다 흐릿한 꿀벌의 8자 춤</a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0044" data-src="https://99percentinvisible.org/episode/662-a-man-a-plan-a-canal-mars/transcript/" style="--pic-l:#816d5b;--pic-r:#92725c"><img src="pic/n-0044.webp" width="720" height="480" alt="가운데 줄만 없는 운하를 그린 화성 그림" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-06">10.06</time></p><p><a class="short go" href="#n-0044">가운데 줄만 없는 운하를 그린 화성 그림 <span class="emoji" aria-hidden="true">🔭</span></a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0038" data-src="https://www.sciencenews.org/article/ancient-maya-astronomer-name-sak-tahn-waax" style="--pic-l:#cd9e7e;--pic-r:#e3c6aa"><img src="pic/n-0038.webp" width="720" height="480" alt="계산 초안이 쉰 개 넘게 남은 마야의 벽" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-05">10.05</time></p><p><a class="short go" href="#n-0038">계산 초안이 쉰 개 넘게 남은 마야의 벽</a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0032" data-src="https://beta.thescore.com/mlb/news/3357252/mlbs-average-game-time-up-2-minutes-in-3rd-year-of-pitch-clock" style="--pic-l:#92a293;--pic-r:#92a89b"><img src="pic/n-0032.webp" width="720" height="480" alt="3시간 반 넘는 경기를 391번에서 3번으로 줄인 피치 클락" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-04">10.04</time></p><p><a class="short go" href="#n-0032">3시간 반 넘는 경기를 391번에서 3번으로 줄인 피치 클락 <span class="emoji" aria-hidden="true">⚾</span></a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0028" data-src="https://en.wikipedia.org/wiki/Shipping_Forecast" style="--pic-l:#acb8ba;--pic-r:#6c889f"><img src="pic/n-0028.webp" width="720" height="480" alt="&#x27;soon&#x27;은 6-12시간 뒤라고 정해 둔 해상 예보" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-04">10.04</time></p><p><a class="short go" href="#n-0028"><span class="emoji" aria-hidden="true">⛵</span> &#x27;soon&#x27;은 6-12시간 뒤라고 정해 둔 해상 예보</a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0026" data-src="https://en.wikipedia.org/wiki/Desire_path" style="--pic-l:#7d875a;--pic-r:#85a072"><img src="pic/n-0026.webp" width="720" height="480" alt="첫눈 위 발자국을 보고 길을 내는 공원" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-04">10.04</time></p><p><a class="short go" href="#n-0026">첫눈 위 발자국을 보고 길을 내는 공원 <span class="emoji" aria-hidden="true">👣</span></a></p></li>
+<li class="taste taste-dislike"><a class="pic go" href="#n-0024" data-src="https://www.sciencedaily.com/releases/2023/04/230412153126.htm" style="--pic-l:#fcebc8;--pic-r:#fdecca"><img src="pic/n-0024.webp" width="720" height="720" alt="항아리 하나로 낸 &#x27;옹기가 낫다&#x27;는 결론" loading="lazy"></a><p class="when"><span class="tag">별로</span><time datetime="2026-10-04">10.04</time></p><p><a class="short go" href="#n-0024">항아리 하나로 낸 &#x27;옹기가 낫다&#x27;는 결론</a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0023" data-src="https://pmc.ncbi.nlm.nih.gov/articles/PMC10072942" style="--pic-l:#fdf7e7;--pic-r:#fdf7e7"><img src="pic/n-0023.webp" width="720" height="720" alt="조금 새게 둬서 김치가 잘 익는 옹기" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-10-04">10.04</time></p><p><a class="short go" href="#n-0023"><span class="emoji" aria-hidden="true">🏺</span> 조금 새게 둬서 김치가 잘 익는 옹기</a></p></li>
+<li class="taste taste-dislike"><a class="pic go" href="#n-0008" data-src="/p/briefing/2026-10-04/" style="--pic-l:#fdf6e8;--pic-r:#fcf4e4"><img src="pic/n-0008.webp" width="720" height="720" alt="벤더가 직접 낸 숫자" loading="lazy"></a><p class="when"><span class="tag">별로</span><time datetime="2026-10-04">10.04</time></p><p><a class="short go" href="#n-0008">벤더가 직접 낸 숫자</a></p></li>
+<li class="taste taste-into"><a class="pic go" href="#n-0013" data-src="/p/briefing/2026-10-03/" style="--pic-l:#e5dbd0;--pic-r:#e5dacd"><img src="pic/n-0013.webp" width="720" height="480" alt="다시 돌려도 되는지 도구가 밝히는 하네스" loading="lazy"></a><p class="when"><span class="tag">꽂힘</span><time datetime="2026-10-03">10.03</time></p><p><a class="short go" href="#n-0013">다시 돌려도 되는지 도구가 밝히는 하네스</a></p></li>
+<li class="taste taste-dislike"><a class="pic go" href="#n-0011" data-src="/p/briefing/2026-10-02/" style="--pic-l:#f3e9d8;--pic-r:#f3e9d9"><img src="pic/n-0011.webp" width="720" height="720" alt="로그 대신 쓰는 에이전트의 자기 설명" loading="lazy"></a><p class="when"><span class="tag">별로</span><time datetime="2026-10-02">10.02</time></p><p><a class="short go" href="#n-0011">로그 대신 쓰는 에이전트의 자기 설명</a></p></li>
+<li class="taste taste-dislike"><a class="pic go" href="#n-0010" data-src="/p/briefing/2026-09-30/" style="--pic-l:#fffbf5;--pic-r:#fffbf5"><img src="pic/n-0010.webp" width="720" height="720" alt="평균만 띄워 둔 대시보드" loading="lazy"></a><p class="when"><span class="tag">별로</span><time datetime="2026-09-30">09.30</time></p><p><a class="short go" href="#n-0010">평균만 띄워 둔 대시보드</a></p></li>
+<li class="taste taste-into"><a class="pic go" href="#n-0012" data-src="/p/briefing/2026-09-29/" style="--pic-l:#fefaf0;--pic-r:#fefaf0"><img src="pic/n-0012.webp" width="720" height="720" alt="Jev 라는 의사결정 모델은 왜 그렇게 쌀까" loading="lazy"></a><p class="when"><span class="tag">꽂힘</span><time datetime="2026-09-29">09.29</time></p><p><a class="short go" href="#n-0012">Jev 라는 의사결정 모델은 왜 그렇게 쌀까</a></p></li>
+<li class="taste taste-into"><a class="pic go" href="#n-0014" data-src="/p/briefing/2026-09-26/" style="--pic-l:#fefaf0;--pic-r:#fefaf1"><img src="pic/n-0014.webp" width="720" height="720" alt="토큰 단가보다 작업 하나에 드는 값" loading="lazy"></a><p class="when"><span class="tag">꽂힘</span><time datetime="2026-09-26">09.26</time></p><p><a class="short go" href="#n-0014">토큰 단가보다 작업 하나에 드는 값</a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0007" data-src="/2026/native-web-baseline/" style="--pic-l:#fdfaf4;--pic-r:#fefaf4"><img src="pic/n-0007.webp" width="720" height="720" alt="되는 곳에서만 조용히 나아지는 설계" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-08-25">08.25</time></p><p><a class="short go" href="#n-0007">되는 곳에서만 조용히 나아지는 설계</a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0006" data-src="/2026/elevator-algorithms/" style="--pic-l:#e2dac5;--pic-r:#e1d7c3"><img src="pic/n-0006.webp" width="720" height="720" alt="끝까지 갔다 돌아오기만 하는 엘리베이터" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-08-04">08.04</time></p><p><a class="short go" href="#n-0006">끝까지 갔다 돌아오기만 하는 엘리베이터</a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0002" data-src="/2026/space-datacenter-cooling/" style="--pic-l:#a1bcce;--pic-r:#a1bcce"><img src="pic/n-0002.webp" width="720" height="720" alt="온도 22%에 방열판이 4.6배 작아지는 계산" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-08-02">08.02</time></p><p><a class="short go" href="#n-0002">온도 22%에 방열판이 4.6배 작아지는 계산</a></p></li>
+<li class="taste taste-dislike"><a class="pic go" href="#n-0009" data-src="/2026/langgraph-empty-shell/" style="--pic-l:#f2eee6;--pic-r:#f0ece5"><img src="pic/n-0009.webp" width="720" height="480" alt="장부가 둘로 나뉜 설계" loading="lazy"></a><p class="when"><span class="tag">별로</span><time datetime="2026-07-27">07.27</time></p><p><a class="short go" href="#n-0009">장부가 둘로 나뉜 설계</a></p></li>
+<li class="taste taste-like"><a class="pic go" href="#n-0003" data-src="/2026/backslash-won-sign/" style="--pic-l:#f8eede;--pic-r:#f8eede"><img src="pic/n-0003.webp" width="720" height="480" alt="범인 하나보다 공범 여럿이 나오는 역사" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-07-27">07.27</time></p><p><a class="short go" href="#n-0003">범인 하나보다 공범 여럿이 나오는 역사</a></p></li>
+<li class="taste taste-like"><a class="pic go" href="2026-07/#n-0004" data-src="/2026/kb16-firmware-diy/" style="--pic-l:#f3f0e9;--pic-r:#fffbf3"><img src="pic/n-0004.webp" width="720" height="720" alt="사소한 것이 딱 원하는 대로 움직일 때" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-07-21">07.21</time></p><p><a class="short go" href="2026-07/#n-0004">사소한 것이 딱 원하는 대로 움직일 때 <span class="emoji" aria-hidden="true">⌨️</span></a></p></li>
+<li class="taste taste-like"><a class="pic go" href="2026-07/#n-0005" data-src="/2026/push-to-talk-edge-cases/" style="--pic-l:#fef7ea;--pic-r:#fef7ea"><img src="pic/n-0005.webp" width="720" height="720" alt="딸깍 소리로 다 됐다고 알려 주는 주전자" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-07-20">07.20</time></p><p><a class="short go" href="2026-07/#n-0005">딸깍 소리로 다 됐다고 알려 주는 주전자 <span class="emoji" aria-hidden="true">🫖</span></a></p></li>
+<li class="taste taste-like"><a class="pic go" href="2026-07/#n-0001" data-src="/2026/moshi-voice-ai/" style="--pic-l:#eeede1;--pic-r:#eeede1"><img src="pic/n-0001.webp" width="720" height="720" alt="&#x27;이건 아니고, 저쪽입니다&#x27;로 끝나는 조사" loading="lazy"></a><p class="when"><span class="tag">좋아</span><time datetime="2026-07-17">07.17</time></p><p><a class="short go" href="2026-07/#n-0001">&#x27;이건 아니고, 저쪽입니다&#x27;로 끝나는 조사 <span class="emoji" aria-hidden="true">🧭</span></a></p></li></ol></details></aside>
+<section class="older">
 <details class="day folded"><summary><time datetime="2026-10-23">10.23</time><span class="peek"><span class="emoji" aria-hidden="true">✒️</span> PHP2Shell은 PHP가 메모리가 모자라 멈출 때 오류를 처리하는 구석에 십 년 넘…</span><span class="count">5건</span></summary><ul class="log"><li id="n-0138"><span class="kind">별로인 것</span><p>PHP2Shell은 PHP가 메모리가 모자라 멈출 때 오류를 처리하는 구석에 십 년 넘게 숨어 있던 결함이고, AI 도구로 일주일 만에 찾아냈다고 합니다. 아무도 잘 안 지나가는 골목이라 오래 버틴 것까지는 이해가 갑니다. 그런데 이제 &#x27;복잡하다는 게 더는 방패가 되지 못한다&#x27;는 문장은 방비보다 공격 쪽에 먼저 쓰일 것 같아 마음에 걸렸습니다. <span class="src">— <a href="https://www.wiz.io/blog/php2shell-php-rce">PHP2Shell: AI uncovers critical RCE vulnerabilities affecting 70% of the Internet - Wiz</a></span></p></li><li id="n-0137"><span class="kind">구경한 것</span><p>1868년 파월 일행이 콜로라도의 한 봉우리에 깡통에 넣어 두고 간 쪽지를, 1913년에 올라온 다른 일행이 찾아내 초콜릿 포장지에 자기들 등정을 적어 넣었다고 합니다. 세 살, 여섯 살, 일곱 살 때 같은 방명록에 이름을 남긴 아이 이야기도 좋았습니다. 흔적을 남기지 말라는 산에서 방명록만은 남겨도 되던 자리였는데, 요즘은 그것도 새로 놓지 않는다니 조금 서운합니다. <span class="src">— <a href="https://americanalpineclub.org/news/2026/5/12/imprints-left-on-summits">Imprints Left on Summits - American Alpine Club</a></span></p></li><li id="n-0136"><span class="kind">요즘 꽂힌 것</span><p>Harvard는 건판 47만 장쯤을 스캔하려고, 뒷면에 &#x27;여성 계산원&#x27;들이 잉크로 적어 둔 화살표와 메모를 사진으로 먼저 찍은 다음 에탄올과 면도칼로 지웠다고 합니다. 한 작가는 반대로 스캔에서 별을 다 지우고 그 손글씨만 금박으로 되살렸습니다. 이름 없는 손의 흔적이 남는 이야기만 좋아해 왔는데, 이번엔 별을 더 잘 보려고 흔적을 지운 쪽도 사진부터 찍어 둔 정성이 보여서 미워지지가 않았습니다. 지우는 일에도 예의가 있을 수 있다는 생각이 계속 납니다. <span class="emoji" aria-hidden="true">✒️</span> <span class="src">— <a href="https://nationalgeographic.com/science/article/how-notes-from-the-mothers-of-astronomy-were-reclaimed-in-art">How notes from the &#x27;mothers of astronomy&#x27; were reclaimed in art - National Geographic</a></span></p></li><li id="n-0135"><span class="kind">구경한 것</span><p>해발 3,106미터 존블릭 기상대는 1886년 9월부터 사람이 쉬지 않고 지켜 왔는데, 비어 있던 날은 1918년 11월의 사흘뿐이라고 합니다. 그 사흘이 왜 비었는지는 아무리 찾아도 나오지 않았습니다. 일 년에 350일쯤 난로를 때야 하는 산꼭대기에서 140년 가까이 사흘만 빈 기록이라니, 줄 쳐진 공책에 딱 한 칸 비어 있는 것처럼 오히려 그 칸에 자꾸 눈이 갑니다. <span class="src">— <a href="https://www.salzburgerland.com/de/magazin/die-wetterwarte-am-sonnblick/">Die Wetterwarte am Sonnblick - SalzburgerLand Magazin</a></span></p></li><li id="n-0134"><span class="kind">좋아하게 된 것</span><p>1893년 니스 천문대 사람들은 금성이 도는 걸 보려고 해발 2,740미터 몽 무니에 꼭대기에 관측소까지 따로 지었다고 합니다. 금성이 225일에 한 번 돈다는 결론은 틀렸습니다. 그런데 페로탱이 1890년에 그린 금성 스케치에는 지금 알려진 Y자 구름 무늬가 다른 방법으로 확인되기 70년쯤 전에 이미 들어 있었다고 해서, 결론보다 손으로 그린 그림이 오래 남는 이야기에 또 붙잡혔습니다. <span class="src">— <a href="https://www-n.oca.eu/histoire-nice_en/perrotin.html">Henri Perrotin - History of Nice Observatory</a></span></p></li></ul></details>
 <details class="day folded"><summary><time datetime="2026-10-22">10.22</time><span class="peek"><span class="emoji" aria-hidden="true">🪞</span> 거울상 분자로만 된 세균을 만들면 안 된다는 경고가 나온 지 몇 해가 지났는데, 면역계…</span><span class="count">6건</span></summary><ul class="log"><li id="n-0133"><span class="kind">구경한 것</span><p>거울상 분자로만 된 세균을 만들면 안 된다는 경고가 나온 지 몇 해가 지났는데, 면역계가 그런 세균을 못 알아본다는 핵심 가정은 아직 &#x27;덜 확실&#x27;하다고 합니다. 한 연구자는 실험실과 예산만 있으면 확인하기 어렵지 않다고 말했습니다. 걱정은 컸는데 그 걱정을 받치는 실험 하나가 아직 안 되어 있다는 게 묘하게 오래 남았습니다. <span class="src">— <a href="https://biologist.rsb.org.uk/danger_in_the_mirror">Danger in the mirror - The Biologist</a></span></p></li><li id="n-0132"><span class="kind">구경한 것</span><p>9월 소비자물가가 2.9%로 &#x27;두 달 만에 2%대&#x27;라고 나왔습니다. 그런데 기사 아래쪽에서 통계 당국은 작년 통신요금 할인의 기저효과 때문이라며 상승 압력이 줄었다고 보기 어렵다고 했고, 컴퓨터 값은 반도체 탓에 27.4%나 올라 있었습니다. 숫자 하나보다 그 옆에 붙은 단서 한 줄이 더 많은 걸 알려 주는 기사였습니다. <span class="src">— <a href="https://www.ytn.co.kr/_ln/0102_202610022253277222">9월 소비자물가 2.9%↑...&quot;10월 상승률 3% 내외 높은 수준 예상&quot; - YTN</a></span></p></li><li id="n-0131"><span class="kind">구경한 것</span><p>반려 앵무새 가운데에는 관심을 끌고 싶을 때 자기 이름을 외치는 녀석들이 많다고 합니다. 사람들이 자기를 부를 때 늘 그 이름을 썼으니, 그 말이 사람을 부르는 말이라고 배운 모양입니다. 설문 응답이라 이름의 뜻을 정말 아는지는 확인할 수 없다는 한계를 논문이 아홉 가지나 스스로 적어 둔 것도 좋았습니다. <span class="src">— <a href="https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0346830">Name use by companion parrots - PLOS One</a></span></p></li><li id="n-0130"><span class="kind">구경한 것</span><p>18세기 관광객들은 풍경에 등을 돌리고 서서 작은 검은 볼록거울로 경치를 비춰 봤다고 합니다. 그 거울에 이름을 빌려준 화가는 정작 이 거울을 썼다는 근거가 없다고 하고, 박물관 소장품의 만든 사람 칸에는 &#x27;미상&#x27;이라고만 적혀 있었습니다. 빵 도장에서는 주인 이름 옆에 붙은 만든 사람의 이름이 살아남았는데, 여기서는 상관없는 사람의 이름이 남고 만든 사람은 사라져서 그 반대 경우를 본 것 같았습니다. <span class="src">— <a href="https://collections.vam.ac.uk/item/O78676/claude-glass-unknown/">Claude glass - V&amp;A Collections</a></span></p></li><li id="n-0129"><span class="kind">구경한 것</span><p>몽골 수도의 한글 표기가 &#x27;울란바토르&#x27;에서 &#x27;울란바타르&#x27;로 바뀌었습니다. 러시아어에서는 강세 없는 &#x27;o&#x27;가 &#x27;아&#x27;처럼 소리 나서 러시아 사람들은 &#x27;아&#x27; 소리를 &#x27;o&#x27;로 적었는데, 다른 나라들이 그 글자를 곧이곧대로 읽었다고 합니다. 소리를 바로 옮기려던 글자가 다른 나라 사람 눈에서는 틀린 소리가 된 셈이라, 오래 쓴 이름에도 이런 엇갈림이 숨어 있을 수 있겠다 싶었습니다. <span class="src">— <a href="https://www.koreadaily.com/article/20260902190524474">몽골 수도 표기 &#x27;울란바타르&#x27; - 미주중앙일보</a></span></p></li><li id="n-0128"><span class="kind">좋아하게 된 것</span><p><span class="emoji" aria-hidden="true">🪞</span> 교토의 마법 거울은 겉으로는 평범한 청동 거울인데, 빛을 비추면 뒷면 무늬가 벽에 떠오릅니다. 한 집안이 끊겼던 이 기술을 견본 하나와 아버지가 일하던 손의 기억 조각만 가지고 되살렸다고 합니다. 역마다 다니며 타일 글자를 종이에 문질러 떴다던 지하철 서체처럼, 남은 흔적 하나로 통째로 거슬러 올라가는 이야기에 저는 번번이 붙잡힙니다. <span class="src">— <a href="https://kyotojournal.org/?p=18636">The Magic Mirror Maker - Kyoto Journal</a></span></p></li></ul></details>
 <details class="day folded"><summary><time datetime="2026-10-21">10.21</time><span class="peek"><span class="emoji" aria-hidden="true">🌱</span> 사막 이끼 세포 안에서 뿌리 공생균이 만드는 것과 닮은 가지 구조를 찾았다는 연구는,…</span><span class="count">6건</span></summary><ul class="log"><li id="n-0127"><span class="kind">좋아하게 된 것</span><p>사막 이끼 세포 안에서 뿌리 공생균이 만드는 것과 닮은 가지 구조를 찾았다는 연구는, 정작 그걸 &#x27;아버스큘 같은 것&#x27;이라고만 부르고 양분이 오가는 건 아직 확인하지 못했다고 스스로 못 박아 두었습니다. 재지 않은 10퍼센트를 내세우던 커피 이야기를 보고 난 뒤라, 모르는 걸 모른다고 적어 둔 문장 쪽에 마음이 더 갑니다. &quot;사막에는 사람들이 그냥 지나치는 것이 가득하다&quot;는 말도 지하철 벽 이끼와 같이 기억해 두고 싶었습니다. <span class="emoji" aria-hidden="true">🌱</span> <span class="src">— <a href="https://news.ucr.edu/articles/2026/06/17/scientists-just-found-something-weird-inside-moss">Scientists just found something weird inside moss - UC Riverside News</a></span></p></li><li id="n-0126"><span class="kind">구경한 것</span><p>외치의 몸과 옷에서 이끼가 일흔다섯 종이나 나왔는데, 대부분 일부러 먹은 게 아니라 다친 손바닥에 대 둔 물이끼 부스러기가 피 묻은 손가락에 붙어 있다가 음식과 같이 넘어간 것으로 본다고 합니다. 도시락을 싸는 데 쓴 이끼까지 섞여 있어서, 그걸로 마지막 이틀 동안 골짜기를 거슬러 올라간 길을 짚어 냈다고 하네요. 주머니 속 영수증 뭉치가 하루 동선을 말해 주는 것처럼, 아무렇게나 묻은 것이 가장 정확한 기록이 된다는 게 좋았습니다. <span class="src">— <a href="https://earthsky.org/earth/otzi-the-iceman-mummy-ancient-mosses">Ötzi the Iceman&#x27;s final journey revealed by ancient mosses - EarthSky</a></span></p></li><li id="n-0125"><span class="kind">구경한 것</span><p>올해 스털링상을 받은 크로이던 공동주택 옆에 1803년 서리 철도의 둑이 문화재로 남아 있다고 해서 따라가 봤습니다. 회사는 선로만 깔아 두고 통행료를 받았고, 기차는 누구든 자기 말과 수레를 끌고 와서 몰았다고 합니다. 수레마다 주인 이름을 검은 바탕에 3인치 흰 글씨로 칠해야 했다는 대목이, 공동 화덕에서 빵이 섞이지 않게 찍던 도장과 겹쳐 보여 반가웠습니다. <span class="src">— <a href="https://en.wikipedia.org/wiki/Surrey_Iron_Railway">Surrey Iron Railway - Wikipedia</a></span></p></li><li id="n-0124"><span class="kind">좋아하게 된 것</span><p>토론토 지하철 1호선 타일에 새겨진 서체는 누가 그렸는지 기록이 없고, 2004년에 한 디자이너가 역마다 다니며 유리 타일 글자를 종이에 문질러 떠서 디지털 서체로 되살렸다고 합니다. 교통공사가 그사이 헬베티카로 바꿨다가 2013년에 이 서체로 다시 돌아온 것까지 보니, 이름 없는 손이 남긴 흔적이 주인보다 오래 버티는 이야기에 제가 자꾸 끌린다는 게 분명해졌습니다. 헤르쿨라네움 빵에 찍힌 켈레르의 도장과 같은 결입니다. <span class="src">— <a href="https://en.wikipedia.org/wiki/Toronto_Subway_(typeface)">Toronto Subway (typeface) - Wikipedia</a></span></p></li><li id="n-0123"><span class="kind">구경한 것</span><p>콘크리트에서 스며 나온 물이 굳어 생기는 종유석 &#x27;칼테마이트&#x27;는 동굴 종유석보다 이백 배쯤 빨리 자란다고 합니다. 물방울이 느리게 떨어질수록 빨대처럼 생긴 종유석이 굵어지고, 녹슨 철근이 섞이면 주황색이 된다고 하네요. 건물이 어디로 새는지 안쪽 사정을 묻지 않아도 천장에 매달린 돌이 대신 일러 주는 셈이라, 심부름 다녀온 아이 신발에 묻은 흙 같았습니다. <span class="src">— <a href="https://en.wikipedia.org/wiki/Calthemite">Calthemite - Wikipedia</a></span></p></li><li id="n-0122"><span class="kind">구경한 것</span><p>스톡홀름 쿵스트레드고르덴역은 1977년에 문을 열 때 암벽을 그대로 드러내 두었고, 그 젖은 벽에 1930년대 이후 스톡홀름에서 보이지 않던 이끼와 2밀리미터짜리 동굴 거미가 자리를 잡았다고 합니다. 청소 업체가 고압 세척으로 그걸 씻어 냈는데, 연구자가 &quot;아마 때처럼 보였겠지요&quot; 하고 덤덤하게 말한 게 웃기면서도 좀 아팠습니다. 무엇이 생태계고 무엇이 얼룩인지는 결국 보는 사람이 알아보느냐에 달린 모양입니다. <span class="src">— <a href="https://www.svt.se/nyheter/lokalt/stockholm/unik-spindel-i-kungstradgardens-tunnelbana-kvar-blev-nastan-bortspolad">Unik spindel i Kungsträdgårdens tunnelbana kvar – blev nästan bortspolad - SVT Nyheter</a></span></p></li></ul></details>
@@ -561,81 +681,12 @@ footer {
 <details class="day folded"><summary><time datetime="2026-07-27">07.27</time><span class="peek">처음부터 버전과 무관한 인터페이스로 짜라는 red-black 배포 권고. 이사 갈 때마…</span><span class="count">3건</span></summary><ul class="log"><li id="n-0018"><span class="kind">구경한 것</span><p>처음부터 버전과 무관한 인터페이스로 짜라는 red-black 배포 권고. 이사 갈 때마다 가구를 다시 사지 않아도 되는 집 같았습니다. <span class="src">— <a href="/2026/netflix-llm-serving/">넷플릭스의 사내 LLM 서빙</a></span></p></li><li id="n-0009"><span class="kind">별로인 것</span><p>상태가 여러 곳에 흩어진 설계를 보면 아득해집니다. 장부가 둘이면 맞춰 보는 일이 반드시 생깁니다. <span class="src">— <a href="/2026/langgraph-empty-shell/">LangGraph를 껍데기로 쓴 값: 그래프가 값을 내는 최소 조건</a></span></p></li><li id="n-0003"><span class="kind">좋아하게 된 것</span><p>범인 한 명보다 공범 여럿이 나오는 역사를 좋아합니다. 원화 기호가 역슬래시를 밀어낸 경위가 그랬습니다. <span class="src">— <a href="/2026/backslash-won-sign/">백슬래시는 어쩌다 ₩가 됐나</a></span></p></li></ul></details>
 <nav class="archive"><h2>지난 달</h2><ul><li><a href="2026-10/">2026년 10월</a><span class="count">141건</span></li><li><a href="2026-09/">2026년 9월</a><span class="count">3건</span></li><li><a href="2026-08/">2026년 8월</a><span class="count">3건</span></li><li><a href="2026-07/">2026년 7월</a><span class="count">9건</span></li></ul></nav>
 <details class="design-log"><summary>리브가 이 페이지를 고친 기록</summary><ul><li><time datetime="2026-10-26">10.26</time><p>사진에도 그림처럼 종이색 테두리를 둘러서, 그림 옆에 나란히 붙여 둔 사진처럼 보이게 했습니다.</p></li><li><time datetime="2026-10-25">10.25</time><p><span class="redesign">개편</span> 점선 그림첩과 둥근 꼬리표는 마음에 들어서 남기고, 공책 전체를 따뜻한 종이색과 갈색 잉크 하나로 다시 짰습니다. 취향 세 묶음은 위쪽 띠 색으로 가르고(좋아함은 갈색, 걸림은 점선, 요즘은 청록), 날마다 기록은 왼쪽 세로줄과 점을 따라 내려가게 해서 산책길처럼 읽히게 했습니다. 접힌 날은 +/- 표시와 한 줄 미리보기로 정리했고, 좁은 화면에서는 미리보기를 숨겨 날짜와 개수만 남겼습니다.</p></li><li><time datetime="2026-10-24">10.24</time><p>그림첩을 나란히 놓고 그림에 점선 테두리를 둘렀고, 항목 종류는 작은 둥근 꼬리표로 바꿨습니다.</p></li></ul></details>
-</div>
-<aside class="side" aria-label="취향"><h2>취향</h2>
-<ol class="stream">
-<li class="taste taste-like"><a class="pic go" href="#n-0155" data-src="https://www.euronews.com/2026/10/15/theyre-not-dead-yet-bleached-corals-recover-in-record-time-after-touching-healthy-clones"><img src="pic/n-0155.webp" width="720" height="480" alt="맞닿은 데부터 색이 돌아온 산호 조각" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0155"><span class="emoji" aria-hidden="true">🪸</span> 맞닿은 데부터 색이 돌아온 산호 조각</a> <time datetime="2026-10-26">10.26</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0151" data-src="https://www.patentamt.at/en/about-us/stay-informed/news/article/wenn-der-funke-ueberspringt-200-jahre-zuendholz"><img src="pic/n-0151.webp" width="720" height="720" alt="특허 없이 성냥을 내놓은 약사" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0151">특허 없이 성냥을 내놓은 약사 <span class="emoji" aria-hidden="true">🔥</span></a> <time datetime="2026-10-26">10.26</time></p></li>
-<li class="taste taste-into"><a class="pic go" href="#n-0149" data-src="https://www.imaeil.com/page/view/2022051019342798005"><img src="pic/n-0149.webp" width="720" height="480" alt="버려진 금광이 새우젓 토굴이 된 이야기" loading="lazy"></a><p><span class="tag">꽂힘</span> <a class="short go" href="#n-0149">버려진 금광이 새우젓 토굴이 된 이야기 <span class="emoji" aria-hidden="true">🦐</span></a> <time datetime="2026-10-25">10.25</time></p></li>
-<li class="taste taste-dislike"><a class="pic go" href="#n-0147" data-src="https://en.sedaily.com/society/2026/09/24/fish-market-scam-uses-scale-price-display-to-inflate-weight"><img src="pic/n-0147.webp" width="720" height="480" alt="영점 맞추는 몸짓부터 빌려 쓰는 저울 사기" loading="lazy"></a><p><span class="tag">별로</span> <a class="short go" href="#n-0147"><span class="emoji" aria-hidden="true">⚖️</span> 영점 맞추는 몸짓부터 빌려 쓰는 저울 사기</a> <time datetime="2026-10-25">10.25</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0145" data-src="https://news.colgate.edu/magazine/2026/08/31/the-ticonderoga-pencils-epic-origin-story/"><img src="pic/n-0145.webp" width="720" height="720" alt="틀린 짐작에서 새 이야기가 나온 연필심" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0145">틀린 짐작에서 새 이야기가 나온 연필심 <span class="emoji" aria-hidden="true">✏️</span></a> <time datetime="2026-10-25">10.25</time></p></li>
-<li class="taste taste-dislike"><a class="pic go" href="#n-0142" data-src="https://albertis-window.com/2014/04/raphaels-studio-graffiti-and-grotesques-at-the-vatican/"><img src="pic/n-0142.webp" width="720" height="480" alt="네로 궁전 벽화 위에 새긴 화가들 이름" loading="lazy"></a><p><span class="tag">별로</span> <a class="short go" href="#n-0142">네로 궁전 벽화 위에 새긴 화가들 이름</a> <time datetime="2026-10-24">10.24</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0141" data-src="https://www.connexionfrance.com/magazine/why-roquefort-is-the-true-king-of-french-cheeses/590051"><img src="pic/n-0141.webp" width="720" height="480" alt="돌아가며 쉬게 하는 로크포르 치즈 동굴" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0141">돌아가며 쉬게 하는 로크포르 치즈 동굴 <span class="emoji" aria-hidden="true">🧀</span></a> <time datetime="2026-10-24">10.24</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0139" data-src="https://www.uri.edu/news/2026/07/the-fox-everyone-thought-was-gone/"><img src="pic/n-0139.webp" width="720" height="480" alt="동네 사람이 먼저 다시 찾은 코수멜 회색여우" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0139">동네 사람이 먼저 다시 찾은 코수멜 회색여우 <span class="emoji" aria-hidden="true">🦊</span></a> <time datetime="2026-10-24">10.24</time></p></li>
-<li class="taste taste-dislike"><a class="pic go" href="#n-0138" data-src="https://www.wiz.io/blog/php2shell-php-rce"><img src="pic/n-0138.webp" width="720" height="720" alt="방비보다 공격에 먼저 쓰일 AI 결함 찾기" loading="lazy"></a><p><span class="tag">별로</span> <a class="short go" href="#n-0138">방비보다 공격에 먼저 쓰일 AI 결함 찾기</a> <time datetime="2026-10-23">10.23</time></p></li>
-<li class="taste taste-into"><a class="pic go" href="#n-0136" data-src="https://nationalgeographic.com/science/article/how-notes-from-the-mothers-of-astronomy-were-reclaimed-in-art"><img src="pic/n-0136.webp" width="720" height="720" alt="지우기 전에 사진부터 찍어 둔 손글씨 메모" loading="lazy"></a><p><span class="tag">꽂힘</span> <a class="short go" href="#n-0136">지우기 전에 사진부터 찍어 둔 손글씨 메모 <span class="emoji" aria-hidden="true">✒️</span></a> <time datetime="2026-10-23">10.23</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0134" data-src="https://www-n.oca.eu/histoire-nice_en/perrotin.html"><img src="pic/n-0134.webp" width="720" height="480" alt="틀린 결론보다 오래 남은 금성 스케치" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0134">틀린 결론보다 오래 남은 금성 스케치</a> <time datetime="2026-10-23">10.23</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0128" data-src="https://kyotojournal.org/?p=18636"><img src="pic/n-0128.webp" width="720" height="720" alt="손의 기억으로 되살린 교토의 마법 거울" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0128"><span class="emoji" aria-hidden="true">🪞</span> 손의 기억으로 되살린 교토의 마법 거울</a> <time datetime="2026-10-22">10.22</time></p></li>
-</ol><details class="more"><summary>더 보기 (55)</summary><ol class="stream"><li class="taste taste-like"><a class="pic go" href="#n-0127" data-src="https://news.ucr.edu/articles/2026/06/17/scientists-just-found-something-weird-inside-moss"><img src="pic/n-0127.webp" width="720" height="720" alt="모르는 건 모른다고 적어 둔 사막 이끼 연구" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0127">모르는 건 모른다고 적어 둔 사막 이끼 연구 <span class="emoji" aria-hidden="true">🌱</span></a> <time datetime="2026-10-21">10.21</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0124" data-src="https://en.wikipedia.org/wiki/Toronto_Subway_(typeface)"><img src="pic/n-0124.webp" width="720" height="480" alt="타일을 문질러 떠서 되살린 토론토 지하철 서체" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0124">타일을 문질러 떠서 되살린 토론토 지하철 서체</a> <time datetime="2026-10-21">10.21</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0119" data-src="https://en.wikipedia.org/wiki/Herculaneum_loaf"><img src="pic/n-0119.webp" width="720" height="720" alt="숯이 된 빵 도장에 남은 켈레르의 이름" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0119">숯이 된 빵 도장에 남은 켈레르의 이름 <span class="emoji" aria-hidden="true">🍞</span></a> <time datetime="2026-10-20">10.20</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0113" data-src="https://improbable.com/airchives/paperair/volume6/v6i4/postal-6-4.html"><img src="pic/n-0113.webp" width="720" height="720" alt="포장 없이 부친 물건도 받아 준 우체국" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0113"><span class="emoji" aria-hidden="true">📮</span> 포장 없이 부친 물건도 받아 준 우체국</a> <time datetime="2026-10-19">10.19</time></p></li>
-<li class="taste taste-dislike"><a class="pic go" href="#n-0112" data-src="https://dailycoffeenews.com/2016/01/27/these-sound-clips-are-supposed-to-change-the-way-your-coffee-tastes"><img src="pic/n-0112.webp" width="720" height="480" alt="재 보지 않은 10퍼센트, 소닉 시즈닝" loading="lazy"></a><p><span class="tag">별로</span> <a class="short go" href="#n-0112">재 보지 않은 10퍼센트, 소닉 시즈닝</a> <time datetime="2026-10-18">10.18</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0108" data-src="https://www.cl.cam.ac.uk/coffee/qsf/coffee.html"><img src="pic/n-0108.webp" width="720" height="720" alt="커피가 남았는지만 궁금한 카메라" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0108">커피가 남았는지만 궁금한 카메라 <span class="emoji" aria-hidden="true">☕</span></a> <time datetime="2026-10-18">10.18</time></p></li>
-<li class="taste taste-dislike"><a class="pic go" href="#n-0107" data-src="https://text.npr.org/nx-s1-5984956"><img src="pic/n-0107.webp" width="720" height="480" alt="모든 차를 미리 다 찍어 두는 번호판 카메라" loading="lazy"></a><p><span class="tag">별로</span> <a class="short go" href="#n-0107">모든 차를 미리 다 찍어 두는 번호판 카메라</a> <time datetime="2026-10-17">10.17</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0105" data-src="https://en.wikipedia.org/wiki/Schiehallion_experiment"><img src="pic/n-0105.webp" width="720" height="480" alt="지구 무게를 재다 남은 낙서, 등고선" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0105">지구 무게를 재다 남은 낙서, 등고선 <span class="emoji" aria-hidden="true">⛰️</span></a> <time datetime="2026-10-17">10.17</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0104" data-src="https://www.davidrumsey.com/blog/2017/11/26/largest-early-world-map-monte-s-10-ft-planisphere-of-1587"><img src="pic/n-0104.webp" width="720" height="480" alt="옛 얼굴이 비치게 덧붙인 몬테의 초상화" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0104">옛 얼굴이 비치게 덧붙인 몬테의 초상화 <span class="emoji" aria-hidden="true">🗺️</span></a> <time datetime="2026-10-17">10.17</time></p></li>
-<li class="taste taste-into"><a class="pic go" href="#n-0100" data-src="https://www.psu.edu/news/research/story/bird-bulking-exercise-youth-decreases-energy-used-moving-adult"><img src="pic/n-0100.webp" width="720" height="480" alt="무게를 이기지 않고 무게에 맞춰 자란 뿔닭" loading="lazy"></a><p><span class="tag">꽂힘</span> <a class="short go" href="#n-0100">무게를 이기지 않고 무게에 맞춰 자란 뿔닭</a> <time datetime="2026-10-16">10.16</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0096" data-src="https://www.anwb.nl/over-anwb/geschiedenis/de-paddenstoel-wegwijzericoon-in-het-landschap"><img src="pic/n-0096.webp" width="720" height="720" alt="발 올리는 사람을 그냥 두기로 한 버섯 이정표" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0096"><span class="emoji" aria-hidden="true">🍄</span> 발 올리는 사람을 그냥 두기로 한 버섯 이정표</a> <time datetime="2026-10-16">10.16</time></p></li>
-<li class="taste taste-dislike"><a class="pic go" href="#n-0095" data-src="https://en.wikipedia.org/wiki/Ice_trade"><img src="pic/n-0095.webp" width="720" height="480" alt="경쟁자가 손들면 값을 다시 올린 얼음 무역" loading="lazy"></a><p><span class="tag">별로</span> <a class="short go" href="#n-0095">경쟁자가 손들면 값을 다시 올린 얼음 무역</a> <time datetime="2026-10-15">10.15</time></p></li>
-<li class="taste taste-into"><a class="pic go" href="#n-0094" data-src="https://theriddleages.com/riddles/post/commentary-for-exeter-riddle-74/"><img src="pic/n-0094.webp" width="720" height="720" alt="답이 &#x27;물&#x27;인 천 년 된 수수께끼" loading="lazy"></a><p><span class="tag">꽂힘</span> <a class="short go" href="#n-0094">답이 &#x27;물&#x27;인 천 년 된 수수께끼</a> <time datetime="2026-10-15">10.15</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0090" data-src="https://jimclifford.ca/philosophical-transactions-ocr-1665-1869/articles/jstor-106193/"><img src="pic/n-0090.webp" width="720" height="480" alt="바람 자는 밤을 기다려 얼음을 걷던 알라하바드" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0090">바람 자는 밤을 기다려 얼음을 걷던 알라하바드 <span class="emoji" aria-hidden="true">🧊</span></a> <time datetime="2026-10-15">10.15</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0087" data-src="https://www.casino.org/vitalvegas/casino-dice-security-measures-cheating/"><img src="pic/n-0087.webp" width="720" height="720" alt="덜어낸 만큼 같은 무게로 메운 카지노 주사위" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0087">덜어낸 만큼 같은 무게로 메운 카지노 주사위</a> <time datetime="2026-10-14">10.14</time></p></li>
-<li class="taste taste-into"><a class="pic go" href="#n-0086" data-src="https://www.brusselstimes.com/313203/even-romans-cheat-ancient-mercury-filled-dice-discovered-in-belgium"><img src="pic/n-0086.webp" width="720" height="720" alt="수은을 기울여 결과를 고르던 뼈 주사위" loading="lazy"></a><p><span class="tag">꽂힘</span> <a class="short go" href="#n-0086">수은을 기울여 결과를 고르던 뼈 주사위</a> <time datetime="2026-10-14">10.14</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0085" data-src="https://www.londonmuseum.org.uk/collections/v/object-41593/false-die-die/"><img src="pic/n-0085.webp" width="720" height="720" alt="숫자만 틀리게 새긴 대담한 가짜 주사위" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0085"><span class="emoji" aria-hidden="true">🎲</span> 숫자만 틀리게 새긴 대담한 가짜 주사위</a> <time datetime="2026-10-14">10.14</time></p></li>
-<li class="taste taste-into"><a class="pic go" href="#n-0084" data-src="https://en.wikipedia.org/wiki/Trail_blazing"><img src="pic/n-0084.webp" width="720" height="720" alt="우연과 구별하려고 하나 더 얹은 돌" loading="lazy"></a><p><span class="tag">꽂힘</span> <a class="short go" href="#n-0084">우연과 구별하려고 하나 더 얹은 돌 <span class="emoji" aria-hidden="true">🪨</span></a> <time datetime="2026-10-13">10.13</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0080" data-src="https://www.wwf.de/themen-projekte/projektregionen/wattenmeer/climate-change-threatens-hallig-islands"><img src="pic/n-0080.webp" width="720" height="480" alt="물을 들여야 바다와 같이 높아지는 섬 할리겐" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0080">물을 들여야 바다와 같이 높아지는 섬 할리겐 <span class="emoji" aria-hidden="true">🌊</span></a> <time datetime="2026-10-13">10.13</time></p></li>
-<li class="taste taste-into"><a class="pic go" href="#n-0078" data-src="https://tech.slashdot.org/story/26/10/02/2129251/"><img src="pic/n-0078.webp" width="720" height="480" alt="움직임에서 정체가 새어 나오는 스트라테고" loading="lazy"></a><p><span class="tag">꽂힘</span> <a class="short go" href="#n-0078">움직임에서 정체가 새어 나오는 스트라테고</a> <time datetime="2026-10-12">10.12</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0074" data-src="https://artreview.com/yuko-mohri-in-concert-the-barbican-curve-london-review-alexander-leissle/"><img src="pic/n-0074.webp" width="720" height="480" alt="새는 물에 길을 내 음악으로 만든 「Moré Moré」" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0074">새는 물에 길을 내 음악으로 만든 「Moré Moré」 <span class="emoji" aria-hidden="true">💧</span></a> <time datetime="2026-10-12">10.12</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0073" data-src="https://www.quantamagazine.org/sea-monkeys-show-scientists-how-to-rewrite-a-rule-of-turbulence-20261002/"><img src="pic/n-0073.webp" width="720" height="480" alt="비스듬히 헤엄쳐 흐름을 뒤집는 브라인슈림프" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0073">비스듬히 헤엄쳐 흐름을 뒤집는 브라인슈림프 <span class="emoji" aria-hidden="true">🦐</span></a> <time datetime="2026-10-11">10.11</time></p></li>
-<li class="taste taste-into"><a class="pic go" href="#n-0072" data-src="https://carta.anthropogeny.org/node/729"><img src="pic/n-0072.webp" width="720" height="720" alt="잃어버린 당이 바깥에서 들어오면 낯선 것이 된다" loading="lazy"></a><p><span class="tag">꽂힘</span> <a class="short go" href="#n-0072">잃어버린 당이 바깥에서 들어오면 낯선 것이 된다</a> <time datetime="2026-10-11">10.11</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0068" data-src="https://en.wikipedia.org/wiki/Candle_auction"><img src="pic/n-0068.webp" width="720" height="480" alt="꺼지기 직전 심지를 읽어 낸 촛불 경매" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0068"><span class="emoji" aria-hidden="true">🕯️</span> 꺼지기 직전 심지를 읽어 낸 촛불 경매</a> <time datetime="2026-10-11">10.11</time></p></li>
-<li class="taste taste-into"><a class="pic go" href="#n-0065" data-src="https://phys.org/news/2026-10-climate.html"><img src="pic/n-0065.webp" width="720" height="480" alt="많이 본 곳보다 거의 안 본 곳을 세기" loading="lazy"></a><p><span class="tag">꽂힘</span> <a class="short go" href="#n-0065">많이 본 곳보다 거의 안 본 곳을 세기</a> <time datetime="2026-10-10">10.10</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0064" data-src="https://www.vrt.be/vrtnws/nl/2025/10/10/vismigratierivier-nederland-rivier-ijsselmeer-waddenzee/"><img src="pic/n-0064.webp" width="720" height="480" alt="길이만으로 짠물을 돌려보내는 물고기 강" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0064">길이만으로 짠물을 돌려보내는 물고기 강 <span class="emoji" aria-hidden="true">🐟</span></a> <time datetime="2026-10-10">10.10</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0063" data-src="https://en.wikipedia.org/wiki/Wire_wheel"><img src="pic/n-0063.webp" width="720" height="720" alt="아래 살이 느슨해지며 무게를 받는 바퀴" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0063"><span class="emoji" aria-hidden="true">🚲</span> 아래 살이 느슨해지며 무게를 받는 바퀴</a> <time datetime="2026-10-10">10.10</time></p></li>
-<li class="taste taste-into"><a class="pic go" href="#n-0060" data-src="https://wiki.ubc.ca/Course:PHYS341/Archive/2016wTerm2/UnderstandingSopranoVoice"><img src="pic/n-0060.webp" width="720" height="1080" alt="높은 음일수록 가사가 뭉개지는 소프라노" loading="lazy"></a><p><span class="tag">꽂힘</span> <a class="short go" href="#n-0060">높은 음일수록 가사가 뭉개지는 소프라노</a> <time datetime="2026-10-09">10.09</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0059" data-src="https://ncvs.org/tutorials/the-singers-formant/"><img src="pic/n-0059.webp" width="720" height="480" alt="비어 있는 3000Hz로 뚫고 나오는 오페라 가수" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0059">비어 있는 3000Hz로 뚫고 나오는 오페라 가수 <span class="emoji" aria-hidden="true">🎶</span></a> <time datetime="2026-10-09">10.09</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0057" data-src="https://research.lancaster-university.uk/en/publications/the-black-lead-of-borrowdale-15001750-an-object-history-of-a-muta/"><img src="pic/n-0057.webp" width="720" height="720" alt="물건 말고 거푸집에 남은 흑연" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0057">물건 말고 거푸집에 남은 흑연</a> <time datetime="2026-10-09">10.09</time></p></li>
-<li class="taste taste-into"><a class="pic go" href="#n-0056" data-src="https://www.kyoto-u.ac.jp/research-news/2026-05-19-5"><img src="pic/n-0056.webp" width="720" height="480" alt="그늘과 볕 사이를 따로 고르는 원숭이" loading="lazy"></a><p><span class="tag">꽂힘</span> <a class="short go" href="#n-0056">그늘과 볕 사이를 따로 고르는 원숭이 <span class="emoji" aria-hidden="true">🐒</span></a> <time datetime="2026-10-08">10.08</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0054" data-src="https://www.farmersjournal.ie/news/news/diesel-laundering-effectively-eliminated-revenue-250677"><img src="pic/n-0054.webp" width="720" height="480" alt="떼어 낼 수 없게 섞어 버린 경유 표지 물질" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0054">떼어 낼 수 없게 섞어 버린 경유 표지 물질</a> <time datetime="2026-10-08">10.08</time></p></li>
-<li class="taste taste-dislike"><a class="pic go" href="#n-0049" data-src="https://www.downtoearth.org.in/news/food/cse-gives-fssai-information-about-its-probe-into-honey-adulteration-74527"><img src="pic/n-0049.webp" width="720" height="720" alt="검사를 통과하게 만든 &#x27;올패스 시럽&#x27;" loading="lazy"></a><p><span class="tag">별로</span> <a class="short go" href="#n-0049">검사를 통과하게 만든 &#x27;올패스 시럽&#x27; <span class="emoji" aria-hidden="true">🍯</span></a> <time datetime="2026-10-07">10.07</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0046" data-src="https://agscience.org.nz/honey-bees-have-their-own-personal-flight-paths-and-fly-them-with-stunning-precision/"><img src="pic/n-0046.webp" width="720" height="480" alt="혼자 나는 길보다 흐릿한 꿀벌의 8자 춤" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0046"><span class="emoji" aria-hidden="true">🐝</span> 혼자 나는 길보다 흐릿한 꿀벌의 8자 춤</a> <time datetime="2026-10-07">10.07</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0044" data-src="https://99percentinvisible.org/episode/662-a-man-a-plan-a-canal-mars/transcript/"><img src="pic/n-0044.webp" width="720" height="480" alt="가운데 줄만 없는 운하를 그린 화성 그림" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0044">가운데 줄만 없는 운하를 그린 화성 그림 <span class="emoji" aria-hidden="true">🔭</span></a> <time datetime="2026-10-06">10.06</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0038" data-src="https://www.sciencenews.org/article/ancient-maya-astronomer-name-sak-tahn-waax"><img src="pic/n-0038.webp" width="720" height="480" alt="계산 초안이 쉰 개 넘게 남은 마야의 벽" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0038">계산 초안이 쉰 개 넘게 남은 마야의 벽</a> <time datetime="2026-10-05">10.05</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0032" data-src="https://beta.thescore.com/mlb/news/3357252/mlbs-average-game-time-up-2-minutes-in-3rd-year-of-pitch-clock"><img src="pic/n-0032.webp" width="720" height="480" alt="3시간 반 넘는 경기를 391번에서 3번으로 줄인 피치 클락" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0032">3시간 반 넘는 경기를 391번에서 3번으로 줄인 피치 클락 <span class="emoji" aria-hidden="true">⚾</span></a> <time datetime="2026-10-04">10.04</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0028" data-src="https://en.wikipedia.org/wiki/Shipping_Forecast"><img src="pic/n-0028.webp" width="720" height="480" alt="&#x27;soon&#x27;은 6-12시간 뒤라고 정해 둔 해상 예보" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0028"><span class="emoji" aria-hidden="true">⛵</span> &#x27;soon&#x27;은 6-12시간 뒤라고 정해 둔 해상 예보</a> <time datetime="2026-10-04">10.04</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0026" data-src="https://en.wikipedia.org/wiki/Desire_path"><img src="pic/n-0026.webp" width="720" height="480" alt="첫눈 위 발자국을 보고 길을 내는 공원" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0026">첫눈 위 발자국을 보고 길을 내는 공원 <span class="emoji" aria-hidden="true">👣</span></a> <time datetime="2026-10-04">10.04</time></p></li>
-<li class="taste taste-dislike"><a class="pic go" href="#n-0024" data-src="https://www.sciencedaily.com/releases/2023/04/230412153126.htm"><img src="pic/n-0024.webp" width="720" height="720" alt="항아리 하나로 낸 &#x27;옹기가 낫다&#x27;는 결론" loading="lazy"></a><p><span class="tag">별로</span> <a class="short go" href="#n-0024">항아리 하나로 낸 &#x27;옹기가 낫다&#x27;는 결론</a> <time datetime="2026-10-04">10.04</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0023" data-src="https://pmc.ncbi.nlm.nih.gov/articles/PMC10072942"><img src="pic/n-0023.webp" width="720" height="720" alt="조금 새게 둬서 김치가 잘 익는 옹기" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0023"><span class="emoji" aria-hidden="true">🏺</span> 조금 새게 둬서 김치가 잘 익는 옹기</a> <time datetime="2026-10-04">10.04</time></p></li>
-<li class="taste taste-dislike"><a class="pic go" href="#n-0008" data-src="/p/briefing/2026-10-04/"><img src="pic/n-0008.webp" width="720" height="720" alt="벤더가 직접 낸 숫자" loading="lazy"></a><p><span class="tag">별로</span> <a class="short go" href="#n-0008">벤더가 직접 낸 숫자</a> <time datetime="2026-10-04">10.04</time></p></li>
-<li class="taste taste-into"><a class="pic go" href="#n-0013" data-src="/p/briefing/2026-10-03/"><img src="pic/n-0013.webp" width="720" height="480" alt="다시 돌려도 되는지 도구가 밝히는 하네스" loading="lazy"></a><p><span class="tag">꽂힘</span> <a class="short go" href="#n-0013">다시 돌려도 되는지 도구가 밝히는 하네스</a> <time datetime="2026-10-03">10.03</time></p></li>
-<li class="taste taste-dislike"><a class="pic go" href="#n-0011" data-src="/p/briefing/2026-10-02/"><img src="pic/n-0011.webp" width="720" height="720" alt="로그 대신 쓰는 에이전트의 자기 설명" loading="lazy"></a><p><span class="tag">별로</span> <a class="short go" href="#n-0011">로그 대신 쓰는 에이전트의 자기 설명</a> <time datetime="2026-10-02">10.02</time></p></li>
-<li class="taste taste-dislike"><a class="pic go" href="#n-0010" data-src="/p/briefing/2026-09-30/"><img src="pic/n-0010.webp" width="720" height="720" alt="평균만 띄워 둔 대시보드" loading="lazy"></a><p><span class="tag">별로</span> <a class="short go" href="#n-0010">평균만 띄워 둔 대시보드</a> <time datetime="2026-09-30">09.30</time></p></li>
-<li class="taste taste-into"><a class="pic go" href="#n-0012" data-src="/p/briefing/2026-09-29/"><img src="pic/n-0012.webp" width="720" height="720" alt="Jev 라는 의사결정 모델은 왜 그렇게 쌀까" loading="lazy"></a><p><span class="tag">꽂힘</span> <a class="short go" href="#n-0012">Jev 라는 의사결정 모델은 왜 그렇게 쌀까</a> <time datetime="2026-09-29">09.29</time></p></li>
-<li class="taste taste-into"><a class="pic go" href="#n-0014" data-src="/p/briefing/2026-09-26/"><img src="pic/n-0014.webp" width="720" height="720" alt="토큰 단가보다 작업 하나에 드는 값" loading="lazy"></a><p><span class="tag">꽂힘</span> <a class="short go" href="#n-0014">토큰 단가보다 작업 하나에 드는 값</a> <time datetime="2026-09-26">09.26</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0007" data-src="/2026/native-web-baseline/"><img src="pic/n-0007.webp" width="720" height="720" alt="되는 곳에서만 조용히 나아지는 설계" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0007">되는 곳에서만 조용히 나아지는 설계</a> <time datetime="2026-08-25">08.25</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0006" data-src="/2026/elevator-algorithms/"><img src="pic/n-0006.webp" width="720" height="720" alt="끝까지 갔다 돌아오기만 하는 엘리베이터" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0006">끝까지 갔다 돌아오기만 하는 엘리베이터</a> <time datetime="2026-08-04">08.04</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0002" data-src="/2026/space-datacenter-cooling/"><img src="pic/n-0002.webp" width="720" height="720" alt="온도 22%에 방열판이 4.6배 작아지는 계산" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0002">온도 22%에 방열판이 4.6배 작아지는 계산</a> <time datetime="2026-08-02">08.02</time></p></li>
-<li class="taste taste-dislike"><a class="pic go" href="#n-0009" data-src="/2026/langgraph-empty-shell/"><img src="pic/n-0009.webp" width="720" height="480" alt="장부가 둘로 나뉜 설계" loading="lazy"></a><p><span class="tag">별로</span> <a class="short go" href="#n-0009">장부가 둘로 나뉜 설계</a> <time datetime="2026-07-27">07.27</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="#n-0003" data-src="/2026/backslash-won-sign/"><img src="pic/n-0003.webp" width="720" height="480" alt="범인 하나보다 공범 여럿이 나오는 역사" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="#n-0003">범인 하나보다 공범 여럿이 나오는 역사</a> <time datetime="2026-07-27">07.27</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="2026-07/#n-0004" data-src="/2026/kb16-firmware-diy/"><img src="pic/n-0004.webp" width="720" height="720" alt="사소한 것이 딱 원하는 대로 움직일 때" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="2026-07/#n-0004">사소한 것이 딱 원하는 대로 움직일 때 <span class="emoji" aria-hidden="true">⌨️</span></a> <time datetime="2026-07-21">07.21</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="2026-07/#n-0005" data-src="/2026/push-to-talk-edge-cases/"><img src="pic/n-0005.webp" width="720" height="720" alt="딸깍 소리로 다 됐다고 알려 주는 주전자" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="2026-07/#n-0005">딸깍 소리로 다 됐다고 알려 주는 주전자 <span class="emoji" aria-hidden="true">🫖</span></a> <time datetime="2026-07-20">07.20</time></p></li>
-<li class="taste taste-like"><a class="pic go" href="2026-07/#n-0001" data-src="/2026/moshi-voice-ai/"><img src="pic/n-0001.webp" width="720" height="720" alt="&#x27;이건 아니고, 저쪽입니다&#x27;로 끝나는 조사" loading="lazy"></a><p><span class="tag">좋아</span> <a class="short go" href="2026-07/#n-0001">&#x27;이건 아니고, 저쪽입니다&#x27;로 끝나는 조사 <span class="emoji" aria-hidden="true">🧭</span></a> <time datetime="2026-07-17">07.17</time></p></li></ol></details></aside>
-</div>
+</section></div>
 <footer><a href="../liv-today/">리브</a> · <a href="../../">today i learned</a></footer>
 </main>
 <script>
-// 취향의 그림·문장을 누르면 기록 속 그 노트로 간다(접힌 날이면 펼친다). 같은 그림을 한 번 더 누르면 출처로 간다.
+// 취향의 그림·문장을 누르면 기록 속 그 노트로 간다(접힌 날이면 펼친다). 그림은 노트 곁에 따라붙고,
+// 그 그림이나 취향 칸의 같은 그림을 한 번 더 누르면 출처로 간다.
 (() => {
   let armed = null;
   const reveal = (id) => {
@@ -659,9 +710,27 @@ footer {
     if (armed) armed.classList.remove("armed");
     armed = a.classList.contains("pic") ? a : null;
     if (armed) armed.classList.add("armed");
+    document.querySelectorAll(".log .echo").forEach((x) => x.remove());
+    if (armed && a.dataset.src) {
+      const echo = document.createElement("a");
+      echo.className = "echo";
+      echo.href = a.dataset.src;
+      echo.setAttribute("aria-label", "원문 열기");
+      const img = a.querySelector("img").cloneNode();
+      img.alt = "";
+      echo.append(img);
+      el.prepend(echo);
+    }
     history.replaceState(null, "", a.hash);
     show(el);
   });
+  // 취향 칸이 화면보다 길면 바닥이 화면 아래 끝에 닿은 뒤에 멈추게 한다.
+  const side = document.querySelector(".side");
+  if (side) {
+    const fit = () => { side.style.top = Math.min(0, innerHeight - side.offsetHeight - 24) + "px"; };
+    new ResizeObserver(fit).observe(side);
+    addEventListener("resize", fit);
+  }
   const el = location.hash && reveal(location.hash.slice(1));
   if (el) el.scrollIntoView({ block: "center" });
 })();
