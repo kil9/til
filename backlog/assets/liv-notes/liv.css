@@ -60,58 +60,48 @@ main .meta {
   border-bottom: 1px solid var(--rule);
 }
 
-/* 취향 */
-main .tastes {
-  gap: 1rem;
-  margin-bottom: 2.4rem;
+/* 취향 사이드바 — 종류마다 꼬리표 색만 다르게(좋아함은 갈색, 걸림은 점선, 요즘은 청록) */
+main ol.stream > li.taste {
+  border-top: 1px dashed var(--rule);
+  padding: 0.9rem 0;
 }
-main section.taste-group {
-  background: var(--paper);
+main ol.stream a.pic img {
   border: 1px solid var(--rule);
-  border-top: 3px solid var(--accent);
-  border-radius: 12px;
-  padding: 0.9rem 1.1rem 0.6rem;
-  margin-bottom: 1rem;
+  border-radius: 10px;
+  background: var(--paper);
 }
-main section.taste-dislike {
-  border-top-color: var(--text-faint);
-  border-top-style: dashed;
+main ol.stream p {
+  line-height: 1.55;
 }
-main section.taste-into {
-  border-top-color: var(--into);
+main ol.stream span.tag {
+  display: inline-block;
+  font-size: 0.72em;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  line-height: 1.6;
+  padding: 0 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--rule);
+  background: var(--soft);
+  color: var(--accent);
 }
-main section.taste-group > h2 {
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+main li.taste-dislike span.tag {
   color: var(--text-muted);
-  margin: 0 0 0.5rem;
+  border-style: dashed;
 }
-main section.taste-like > h2 {
-  color: var(--accent);
-}
-main section.taste-into > h2 {
+main li.taste-into span.tag {
   color: var(--into);
 }
-main ul.taste {
-  margin: 0;
-  padding-left: 1.1rem;
+main ol.stream a.short {
+  color: var(--text);
+  text-decoration: none;
 }
-main ul.taste > li {
-  margin-bottom: 0.7rem;
-  padding-left: 0.15rem;
+main ol.stream a.short:hover,
+main ol.stream a.short:focus-visible {
+  color: var(--accent);
 }
-main ul.taste > li::marker {
+main ol.stream time {
   color: var(--text-faint);
-}
-main section.taste-like ul.taste > li::marker {
-  color: var(--accent);
-}
-main section.taste-into ul.taste > li::marker {
-  color: var(--into);
-}
-main ul.taste a {
-  text-decoration-style: dotted;
 }
 main span.emoji {
   margin: 0 0.15em;
@@ -138,14 +128,16 @@ main details.more[open] > summary {
 }
 
 /* 기록 */
-main h2.log-title {
+main h2.log-title,
+main aside.side > h2 {
   display: flex;
   align-items: center;
   gap: 0.8rem;
   font-size: 1.2rem;
   margin: 2.2rem 0 0.4rem;
 }
-main h2.log-title::after {
+main h2.log-title::after,
+main aside.side > h2::after {
   content: "";
   flex: 1;
   height: 1px;
@@ -221,8 +213,10 @@ main .album figure.photo img {
   display: block;
   width: 100%;
   height: auto;
+  width: auto;
+  max-width: 100%;
   max-height: 230px;
-  object-fit: cover;
+  margin: 0 auto;
   border-radius: 6px;
 }
 main .album figcaption {
@@ -386,9 +380,6 @@ footer {
   main h1 {
     font-size: 1.45rem;
   }
-  main section.taste-group {
-    padding: 0.8rem 0.9rem 0.5rem;
-  }
   main section.day {
     padding-left: 0.95rem;
   }
@@ -404,12 +395,6 @@ footer {
   }
 }
 @media (min-width: 1100px) {
-  main .tastes {
-    column-gap: 1.2rem;
-  }
-  main section.taste-group {
-    margin-bottom: 0;
-  }
   main .album figure {
     max-width: 300px;
   }

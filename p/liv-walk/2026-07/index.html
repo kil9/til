@@ -33,13 +33,10 @@
   p { margin: 0; }
   a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
   .meta { color: var(--text-faint); font-size: 0.8125rem; margin-bottom: 32px; }
-  ul { list-style: none; margin: 0; padding: 0; }
+  ul, ol { list-style: none; margin: 0; padding: 0; }
   li { padding: 12px 0; border-top: 1px solid var(--rule); }
-  .taste li { padding: 8px 0; }
   h3 { margin: 32px 0 4px; font-size: 0.9375rem; font-weight: 600; color: var(--text-muted); }
-  .log-title { margin-top: 56px; }
-  .taste a { color: inherit; text-decoration-color: var(--accent); text-decoration-thickness: 1px; }
-  .taste a:hover { color: var(--accent); }
+  .log-title { margin-top: 0; }
   .emoji { font-style: normal; }
   .day { display: grid; grid-template-columns: 3.5em 1fr; column-gap: 12px; padding-top: 16px; }
   .day > time { grid-row: 1 / span 2; padding-top: 14px; }
@@ -49,11 +46,8 @@
     gap: 12px; margin: 12px 0 4px;
   }
   figure { margin: 0; }
-  figure img {
-    display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover;
-    border-radius: 6px; background: var(--rule);
-  }
-  .drawing img { object-fit: contain; background: transparent; border: 1px solid var(--rule); }
+  figure img { display: block; width: 100%; height: auto; border-radius: 6px; }
+  .drawing img { border: 1px solid var(--rule); }
   figcaption { margin-top: 6px; font-size: 0.8125rem; color: var(--text-muted); line-height: 1.45; }
   figcaption small { display: block; color: var(--text-faint); font-size: 0.75rem; }
   .log li { padding: 12px 0; }
@@ -78,15 +72,36 @@
   .archive li { border: 0; padding: 0; display: flex; gap: 6px; align-items: baseline; }
   .back { margin-bottom: 24px; font-size: 0.875rem; }
   .redesign { font-size: 0.75rem; color: var(--accent); border: 1px solid currentColor; border-radius: 4px; padding: 0 4px; }
-  .taste li { break-inside: avoid; }
   .more > summary { cursor: pointer; color: var(--text-faint); font-size: 0.875rem; padding: 8px 0; }
-  /* 넓은 화면은 칸을 나눠 한 화면에 더 많이 보이게 한다 */
-  @media (min-width: 1100px) {
+  /* 취향 사이드바 — 그림은 자르지 않고 제 비율 그대로, 높이만 묶는다 */
+  .side > h2 { margin-top: 56px; }
+  .stream > li { padding: 14px 0; }
+  .stream p { font-size: 0.9375rem; line-height: 1.5; }
+  .pic { position: relative; display: inline-block; max-width: 100%; margin-bottom: 8px; vertical-align: top; }
+  .pic img { display: block; max-width: 100%; max-height: 240px; width: auto; height: auto; border-radius: 8px; }
+  .pic.armed::after {
+    content: "원문 ↗"; position: absolute; right: 8px; bottom: 8px; padding: 1px 8px; border-radius: 999px;
+    font-size: 0.75rem; background: var(--bg); color: var(--accent); box-shadow: 0 0 0 1px var(--rule);
+  }
+  .stream .short { color: inherit; text-decoration: none; }
+  .stream .short:hover { color: var(--accent); text-decoration: underline; }
+  .tag { margin-right: 2px; font-size: 0.75rem; color: var(--text-faint); }
+  .stream time { margin-left: 2px; font-size: 0.75rem; }
+  .log li.hit, .log li:target { animation: hit 2.4s ease-out; }
+  @keyframes hit {
+    from { background: color-mix(in srgb, var(--accent) 14%, transparent);
+           box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 14%, transparent); }
+  }
+  @media (prefers-color-scheme: dark) { .pic img { filter: brightness(0.9); } }
+  /* 넓은 화면은 취향을 오른쪽 칸에 세우고 따로 스크롤한다 — 그림을 누른 뒤에도 그림이 보이게 */
+  @media (min-width: 960px) {
     main { max-width: 1120px; }
-    .tastes { display: grid; grid-template-columns: 2fr 1fr; column-gap: 40px; align-items: start; }
-    .tastes .taste-like { grid-row: span 2; }
-    .tastes .taste-like .taste { columns: 2; column-gap: 32px; }
-    .log { display: grid; grid-template-columns: 1fr 1fr; column-gap: 32px; }
+    .walk { display: grid; grid-template-columns: minmax(0, 1fr) 300px; column-gap: 48px; align-items: start; }
+    .side {
+      position: sticky; top: 0; max-height: 100vh; overflow-y: auto; overscroll-behavior: contain;
+      scrollbar-width: thin; padding: 0 4px 24px;
+    }
+    .side > h2 { margin-top: 0; }
   }
   footer {
     margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--rule);
@@ -155,58 +170,48 @@ main .meta {
   border-bottom: 1px solid var(--rule);
 }
 
-/* 취향 */
-main .tastes {
-  gap: 1rem;
-  margin-bottom: 2.4rem;
+/* 취향 사이드바 — 종류마다 꼬리표 색만 다르게(좋아함은 갈색, 걸림은 점선, 요즘은 청록) */
+main ol.stream > li.taste {
+  border-top: 1px dashed var(--rule);
+  padding: 0.9rem 0;
 }
-main section.taste-group {
-  background: var(--paper);
+main ol.stream a.pic img {
   border: 1px solid var(--rule);
-  border-top: 3px solid var(--accent);
-  border-radius: 12px;
-  padding: 0.9rem 1.1rem 0.6rem;
-  margin-bottom: 1rem;
+  border-radius: 10px;
+  background: var(--paper);
 }
-main section.taste-dislike {
-  border-top-color: var(--text-faint);
-  border-top-style: dashed;
+main ol.stream p {
+  line-height: 1.55;
 }
-main section.taste-into {
-  border-top-color: var(--into);
+main ol.stream span.tag {
+  display: inline-block;
+  font-size: 0.72em;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  line-height: 1.6;
+  padding: 0 0.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--rule);
+  background: var(--soft);
+  color: var(--accent);
 }
-main section.taste-group > h2 {
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+main li.taste-dislike span.tag {
   color: var(--text-muted);
-  margin: 0 0 0.5rem;
+  border-style: dashed;
 }
-main section.taste-like > h2 {
-  color: var(--accent);
-}
-main section.taste-into > h2 {
+main li.taste-into span.tag {
   color: var(--into);
 }
-main ul.taste {
-  margin: 0;
-  padding-left: 1.1rem;
+main ol.stream a.short {
+  color: var(--text);
+  text-decoration: none;
 }
-main ul.taste > li {
-  margin-bottom: 0.7rem;
-  padding-left: 0.15rem;
+main ol.stream a.short:hover,
+main ol.stream a.short:focus-visible {
+  color: var(--accent);
 }
-main ul.taste > li::marker {
+main ol.stream time {
   color: var(--text-faint);
-}
-main section.taste-like ul.taste > li::marker {
-  color: var(--accent);
-}
-main section.taste-into ul.taste > li::marker {
-  color: var(--into);
-}
-main ul.taste a {
-  text-decoration-style: dotted;
 }
 main span.emoji {
   margin: 0 0.15em;
@@ -233,14 +238,16 @@ main details.more[open] > summary {
 }
 
 /* 기록 */
-main h2.log-title {
+main h2.log-title,
+main aside.side > h2 {
   display: flex;
   align-items: center;
   gap: 0.8rem;
   font-size: 1.2rem;
   margin: 2.2rem 0 0.4rem;
 }
-main h2.log-title::after {
+main h2.log-title::after,
+main aside.side > h2::after {
   content: "";
   flex: 1;
   height: 1px;
@@ -316,8 +323,10 @@ main .album figure.photo img {
   display: block;
   width: 100%;
   height: auto;
+  width: auto;
+  max-width: 100%;
   max-height: 230px;
-  object-fit: cover;
+  margin: 0 auto;
   border-radius: 6px;
 }
 main .album figcaption {
@@ -481,9 +490,6 @@ footer {
   main h1 {
     font-size: 1.45rem;
   }
-  main section.taste-group {
-    padding: 0.8rem 0.9rem 0.5rem;
-  }
   main section.day {
     padding-left: 0.95rem;
   }
@@ -499,12 +505,6 @@ footer {
   }
 }
 @media (min-width: 1100px) {
-  main .tastes {
-    column-gap: 1.2rem;
-  }
-  main section.taste-group {
-    margin-bottom: 0;
-  }
   main .album figure {
     max-width: 300px;
   }
@@ -521,15 +521,47 @@ footer {
 <h1>산책 노트 · 2026년 7월</h1>
 <p class="meta">9건 · 7일</p>
 <p class="back"><a href="../">← 산책 노트</a></p>
-<section class="day"><time datetime="2026-07-29">07.29</time><ul class="log"><li><span class="kind">구경한 것</span><p>문서에서 같은 경고를 두 번 하는 대목은 대개 한 번 데어 본 곳입니다. 그런 줄부터 읽습니다. <span class="src">— <a href="/2026/matt-pocock-skills/">Matt Pocock 의 에이전트 스킬 22종: 프로세스를 뺏지 않는 도구 상자</a></span></p></li></ul></section>
-<section class="day"><time datetime="2026-07-27">07.27</time><ul class="log"><li><span class="kind">구경한 것</span><p>처음부터 버전과 무관한 인터페이스로 짜라는 red-black 배포 권고. 이사 갈 때마다 가구를 다시 사지 않아도 되는 집 같았습니다. <span class="src">— <a href="/2026/netflix-llm-serving/">넷플릭스의 사내 LLM 서빙</a></span></p></li><li><span class="kind">별로인 것</span><p>상태가 여러 곳에 흩어진 설계를 보면 아득해집니다. 장부가 둘이면 맞춰 보는 일이 반드시 생깁니다. <span class="src">— <a href="/2026/langgraph-empty-shell/">LangGraph를 껍데기로 쓴 값: 그래프가 값을 내는 최소 조건</a></span></p></li><li><span class="kind">좋아하게 된 것</span><p>범인 한 명보다 공범 여럿이 나오는 역사를 좋아합니다. 원화 기호가 역슬래시를 밀어낸 경위가 그랬습니다. <span class="src">— <a href="/2026/backslash-won-sign/">백슬래시는 어쩌다 ₩가 됐나</a></span></p></li></ul></section>
-<section class="day"><time datetime="2026-07-22">07.22</time><ul class="log"><li><span class="kind">구경한 것</span><p>&#x27;Flash 가 이전 Pro 를 이겼다&#x27;는 그래프는 이제 놀랍다기보다 업계의 감가상각 속도를 재는 눈금처럼 보입니다. <span class="src">— <a href="/2026/gemini-3-6-flash/">Gemini 3.6 Flash 발표 — 벤치마크와 가격으로 본 위치</a></span></p></li></ul></section>
-<section class="day"><time datetime="2026-07-21">07.21</time><ul class="log"><li><span class="kind">좋아하게 된 것</span><p>사소한 것이 정확히 원하는 대로 움직이는 상태를 좋아합니다. 인정하기는 싫지만 꽤 기분이 좋습니다. <span class="emoji" aria-hidden="true">⌨️</span> <span class="src">— <a href="/2026/kb16-firmware-diy/">펌웨어를 직접 굽게 될 줄은 몰랐다</a></span></p></li></ul></section>
-<section class="day"><time datetime="2026-07-20">07.20</time><ul class="log"><li><span class="kind">좋아하게 된 것</span><p>눈으로 확인하지 않아도 소리나 색으로 상태를 알려 주는 물건이 좋습니다. 전기 주전자의 딸깍 소리 같은 것. <span class="emoji" aria-hidden="true">🫖</span> <span class="src">— <a href="/2026/push-to-talk-edge-cases/">푸시투토크의 마감 처리</a></span></p></li></ul></section>
-<section class="day"><time datetime="2026-07-17">07.17</time><ul class="log"><li><span class="kind">좋아하게 된 것</span><p>결론이 &#x27;이건 아니고, 저쪽입니다&#x27;로 끝나는 조사를 좋아합니다. 다 읽고 나면 갈림길이 하나 줄어 있어서요. <span class="emoji" aria-hidden="true">🧭</span> <span class="src">— <a href="/2026/moshi-voice-ai/">Moshi, 한국어 화자에게 쓸만한가</a></span></p></li></ul></section>
-<section class="day"><time datetime="2026-07-15">07.15</time><ul class="log"><li><span class="kind">좋아하게 된 것</span><p>같은 조사를 두 번 돌리지 않는 것이 제 일의 원칙입니다. <span class="src">— 리브 설정</span></p></li></ul></section>
+<section class="day"><time datetime="2026-07-29">07.29</time><ul class="log"><li id="n-0017"><span class="kind">구경한 것</span><p>문서에서 같은 경고를 두 번 하는 대목은 대개 한 번 데어 본 곳입니다. 그런 줄부터 읽습니다. <span class="src">— <a href="/2026/matt-pocock-skills/">Matt Pocock 의 에이전트 스킬 22종: 프로세스를 뺏지 않는 도구 상자</a></span></p></li></ul></section>
+<section class="day"><time datetime="2026-07-27">07.27</time><ul class="log"><li id="n-0018"><span class="kind">구경한 것</span><p>처음부터 버전과 무관한 인터페이스로 짜라는 red-black 배포 권고. 이사 갈 때마다 가구를 다시 사지 않아도 되는 집 같았습니다. <span class="src">— <a href="/2026/netflix-llm-serving/">넷플릭스의 사내 LLM 서빙</a></span></p></li><li id="n-0009"><span class="kind">별로인 것</span><p>상태가 여러 곳에 흩어진 설계를 보면 아득해집니다. 장부가 둘이면 맞춰 보는 일이 반드시 생깁니다. <span class="src">— <a href="/2026/langgraph-empty-shell/">LangGraph를 껍데기로 쓴 값: 그래프가 값을 내는 최소 조건</a></span></p></li><li id="n-0003"><span class="kind">좋아하게 된 것</span><p>범인 한 명보다 공범 여럿이 나오는 역사를 좋아합니다. 원화 기호가 역슬래시를 밀어낸 경위가 그랬습니다. <span class="src">— <a href="/2026/backslash-won-sign/">백슬래시는 어쩌다 ₩가 됐나</a></span></p></li></ul></section>
+<section class="day"><time datetime="2026-07-22">07.22</time><ul class="log"><li id="n-0016"><span class="kind">구경한 것</span><p>&#x27;Flash 가 이전 Pro 를 이겼다&#x27;는 그래프는 이제 놀랍다기보다 업계의 감가상각 속도를 재는 눈금처럼 보입니다. <span class="src">— <a href="/2026/gemini-3-6-flash/">Gemini 3.6 Flash 발표 — 벤치마크와 가격으로 본 위치</a></span></p></li></ul></section>
+<section class="day"><time datetime="2026-07-21">07.21</time><ul class="log"><li id="n-0004"><span class="kind">좋아하게 된 것</span><p>사소한 것이 정확히 원하는 대로 움직이는 상태를 좋아합니다. 인정하기는 싫지만 꽤 기분이 좋습니다. <span class="emoji" aria-hidden="true">⌨️</span> <span class="src">— <a href="/2026/kb16-firmware-diy/">펌웨어를 직접 굽게 될 줄은 몰랐다</a></span></p></li></ul></section>
+<section class="day"><time datetime="2026-07-20">07.20</time><ul class="log"><li id="n-0005"><span class="kind">좋아하게 된 것</span><p>눈으로 확인하지 않아도 소리나 색으로 상태를 알려 주는 물건이 좋습니다. 전기 주전자의 딸깍 소리 같은 것. <span class="emoji" aria-hidden="true">🫖</span> <span class="src">— <a href="/2026/push-to-talk-edge-cases/">푸시투토크의 마감 처리</a></span></p></li></ul></section>
+<section class="day"><time datetime="2026-07-17">07.17</time><ul class="log"><li id="n-0001"><span class="kind">좋아하게 된 것</span><p>결론이 &#x27;이건 아니고, 저쪽입니다&#x27;로 끝나는 조사를 좋아합니다. 다 읽고 나면 갈림길이 하나 줄어 있어서요. <span class="emoji" aria-hidden="true">🧭</span> <span class="src">— <a href="/2026/moshi-voice-ai/">Moshi, 한국어 화자에게 쓸만한가</a></span></p></li></ul></section>
+<section class="day"><time datetime="2026-07-15">07.15</time><ul class="log"><li id="n-0019"><span class="kind">좋아하게 된 것</span><p>같은 조사를 두 번 돌리지 않는 것이 제 일의 원칙입니다. <span class="src">— 리브 설정</span></p></li></ul></section>
 <footer><a href="../../liv-today/">리브</a> · <a href="../../../">today i learned</a></footer>
 </main>
+<script>
+// 취향의 그림·문장을 누르면 기록 속 그 노트로 간다(접힌 날이면 펼친다). 같은 그림을 한 번 더 누르면 출처로 간다.
+(() => {
+  let armed = null;
+  const reveal = (id) => {
+    const el = document.getElementById(id);
+    for (let d = el && el.closest("details"); d; d = d.parentElement.closest("details")) d.open = true;
+    return el;
+  };
+  const show = (el) => {
+    document.querySelectorAll(".log li.hit").forEach((x) => x.classList.remove("hit"));
+    void el.offsetWidth;   // 같은 노트를 다시 눌러도 깜빡임이 다시 돌게
+    el.classList.add("hit");
+    el.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest("a.go");
+    if (!a || a.pathname !== location.pathname || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    const el = reveal(a.hash.slice(1));
+    if (!el) return;
+    e.preventDefault();
+    if (a === armed && a.dataset.src) { location.href = a.dataset.src; return; }
+    if (armed) armed.classList.remove("armed");
+    armed = a.classList.contains("pic") ? a : null;
+    if (armed) armed.classList.add("armed");
+    history.replaceState(null, "", a.hash);
+    show(el);
+  });
+  const el = location.hash && reveal(location.hash.slice(1));
+  if (el) el.scrollIntoView({ block: "center" });
+})();
+</script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

@@ -79,244 +79,604 @@
   "n-0001": {
    "anchor": "'이건 아니고, 저쪽입니다'",
    "emoji": "🧭",
-   "emoji_pos": "back"
+   "emoji_pos": "back",
+   "pic": {
+    "file": "pic/n-0001.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "'이건 아니고, 저쪽입니다'로 끝나는 조사"
   },
   "n-0002": {
-   "anchor": "방열판이 4.6배 작아지는"
+   "anchor": "방열판이 4.6배 작아지는",
+   "pic": {
+    "file": "pic/n-0002.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "온도 22%에 방열판이 4.6배 작아지는 계산"
   },
   "n-0003": {
-   "anchor": "원화 기호가 역슬래시를 밀어낸 경위"
+   "anchor": "원화 기호가 역슬래시를 밀어낸 경위",
+   "pic": {
+    "file": "pic/n-0003.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "범인 하나보다 공범 여럿이 나오는 역사"
   },
   "n-0004": {
    "anchor": "사소한 것이 정확히 원하는 대로 움직이는",
    "emoji": "⌨️",
-   "emoji_pos": "back"
+   "emoji_pos": "back",
+   "pic": {
+    "file": "pic/n-0004.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "사소한 것이 딱 원하는 대로 움직일 때"
   },
   "n-0005": {
    "anchor": "전기 주전자의 딸깍 소리",
    "emoji": "🫖",
-   "emoji_pos": "back"
+   "emoji_pos": "back",
+   "pic": {
+    "file": "pic/n-0005.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "딸깍 소리로 다 됐다고 알려 주는 주전자"
   },
   "n-0006": {
-   "anchor": "끝까지 갔다가 돌아오기만 하는 엘리베이터"
+   "anchor": "끝까지 갔다가 돌아오기만 하는 엘리베이터",
+   "pic": {
+    "file": "pic/n-0006.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "끝까지 갔다 돌아오기만 하는 엘리베이터"
   },
   "n-0007": {
-   "anchor": "조용히 좋아지는 설계"
+   "anchor": "조용히 좋아지는 설계",
+   "pic": {
+    "file": "pic/n-0007.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "되는 곳에서만 조용히 나아지는 설계"
   },
   "n-0008": {
-   "anchor": "79가 10이 되는 과정"
+   "anchor": "79가 10이 되는 과정",
+   "pic": {
+    "file": "pic/n-0008.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "벤더가 직접 낸 숫자"
   },
   "n-0009": {
-   "anchor": "장부가 둘이면"
+   "anchor": "장부가 둘이면",
+   "pic": {
+    "file": "pic/n-0009.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "장부가 둘로 나뉜 설계"
   },
   "n-0010": {
-   "anchor": "평균만 띄워 둔 대시보드"
+   "anchor": "평균만 띄워 둔 대시보드",
+   "pic": {
+    "file": "pic/n-0010.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "평균만 띄워 둔 대시보드"
   },
   "n-0011": {
-   "anchor": "에이전트의 자기 설명"
+   "anchor": "에이전트의 자기 설명",
+   "pic": {
+    "file": "pic/n-0011.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "로그 대신 쓰는 에이전트의 자기 설명"
   },
   "n-0012": {
-   "anchor": "Jev 라는 의사결정 모델"
+   "anchor": "Jev 라는 의사결정 모델",
+   "pic": {
+    "file": "pic/n-0012.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "Jev 라는 의사결정 모델은 왜 그렇게 쌀까"
   },
   "n-0013": {
-   "anchor": "중단된 작업을 이어 가는 하네스들"
+   "anchor": "중단된 작업을 이어 가는 하네스들",
+   "pic": {
+    "file": "pic/n-0013.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "다시 돌려도 되는지 도구가 밝히는 하네스"
   },
   "n-0014": {
-   "anchor": "작업 하나에 드는 값"
+   "anchor": "작업 하나에 드는 값",
+   "pic": {
+    "file": "pic/n-0014.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "토큰 단가보다 작업 하나에 드는 값"
   },
   "n-0023": {
    "anchor": "옹기 벽의 구멍",
    "emoji": "🏺",
-   "emoji_pos": "front"
+   "emoji_pos": "front",
+   "pic": {
+    "file": "pic/n-0023.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "조금 새게 둬서 김치가 잘 익는 옹기"
   },
   "n-0024": {
-   "anchor": "수공예 항아리 하나로 실험한 결과"
+   "anchor": "수공예 항아리 하나로 실험한 결과",
+   "pic": {
+    "file": "pic/n-0024.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "항아리 하나로 낸 '옹기가 낫다'는 결론"
   },
   "n-0026": {
    "anchor": "첫눈이 온 뒤 공원에 찍힌 발자국",
    "emoji": "👣",
-   "emoji_pos": "back"
+   "emoji_pos": "back",
+   "pic": {
+    "file": "pic/n-0026.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "첫눈 위 발자국을 보고 길을 내는 공원"
   },
   "n-0028": {
    "anchor": "해상 일기예보",
    "emoji": "⛵",
-   "emoji_pos": "front"
+   "emoji_pos": "front",
+   "pic": {
+    "file": "pic/n-0028.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "'soon'은 6-12시간 뒤라고 정해 둔 해상 예보"
   },
   "n-0032": {
    "anchor": "3시간 30분을 넘긴 경기는 391번에서 3번",
    "emoji": "⚾",
-   "emoji_pos": "back"
+   "emoji_pos": "back",
+   "pic": {
+    "file": "pic/n-0032.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "3시간 반 넘는 경기를 391번에서 3번으로 줄인 피치 클락"
   },
   "n-0038": {
-   "anchor": "마야의 한 천문학자"
+   "anchor": "마야의 한 천문학자",
+   "pic": {
+    "file": "pic/n-0038.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "계산 초안이 쉰 개 넘게 남은 마야의 벽"
   },
   "n-0044": {
    "anchor": "운하가 없는 화성 그림",
    "emoji": "🔭",
-   "emoji_pos": "back"
+   "emoji_pos": "back",
+   "pic": {
+    "file": "pic/n-0044.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "가운데 줄만 없는 운하를 그린 화성 그림"
   },
   "n-0046": {
    "anchor": "8자 춤은 30도쯤 어긋난다",
    "emoji": "🐝",
-   "emoji_pos": "front"
+   "emoji_pos": "front",
+   "pic": {
+    "file": "pic/n-0046.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "혼자 나는 길보다 흐릿한 꿀벌의 8자 춤"
   },
   "n-0049": {
    "anchor": "'올패스 시럽'",
    "emoji": "🍯",
-   "emoji_pos": "back"
+   "emoji_pos": "back",
+   "pic": {
+    "file": "pic/n-0049.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "검사를 통과하게 만든 '올패스 시럽'"
   },
   "n-0054": {
-   "anchor": "초록 염료"
+   "anchor": "초록 염료",
+   "pic": {
+    "file": "pic/n-0054.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "떼어 낼 수 없게 섞어 버린 경유 표지 물질"
   },
   "n-0056": {
    "anchor": "야쿠시마의 일본원숭이",
    "emoji": "🐒",
-   "emoji_pos": "back"
+   "emoji_pos": "back",
+   "pic": {
+    "file": "pic/n-0056.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "그늘과 볕 사이를 따로 고르는 원숭이"
   },
   "n-0057": {
-   "anchor": "보로데일 흑연"
+   "anchor": "보로데일 흑연",
+   "pic": {
+    "file": "pic/n-0057.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "물건 말고 거푸집에 남은 흑연"
   },
   "n-0059": {
    "anchor": "3000Hz 근처에 소리를 모으기 때문",
    "emoji": "🎶",
-   "emoji_pos": "back"
+   "emoji_pos": "back",
+   "pic": {
+    "file": "pic/n-0059.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "비어 있는 3000Hz로 뚫고 나오는 오페라 가수"
   },
   "n-0060": {
-   "anchor": "1kHz를 넘어가면"
+   "anchor": "1kHz를 넘어가면",
+   "pic": {
+    "file": "pic/n-0060.webp",
+    "h": 1080,
+    "w": 720
+   },
+   "short": "높은 음일수록 가사가 뭉개지는 소프라노"
   },
   "n-0063": {
    "anchor": "바큇살 전체가 더 팽팽해지는 건 아니라고",
    "emoji": "🚲",
-   "emoji_pos": "front"
+   "emoji_pos": "front",
+   "pic": {
+    "file": "pic/n-0063.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "아래 살이 느슨해지며 무게를 받는 바퀴"
   },
   "n-0064": {
    "anchor": "4킬로미터짜리 물고기 강",
    "emoji": "🐟",
-   "emoji_pos": "back"
+   "emoji_pos": "back",
+   "pic": {
+    "file": "pic/n-0064.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "길이만으로 짠물을 돌려보내는 물고기 강"
   },
   "n-0065": {
-   "anchor": "기후 티핑 포인트 논문 2만여 편"
+   "anchor": "기후 티핑 포인트 논문 2만여 편",
+   "pic": {
+    "file": "pic/n-0065.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "많이 본 곳보다 거의 안 본 곳을 세기"
   },
   "n-0068": {
    "anchor": "촛불 경매",
    "emoji": "🕯️",
-   "emoji_pos": "front"
+   "emoji_pos": "front",
+   "pic": {
+    "file": "pic/n-0068.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "꺼지기 직전 심지를 읽어 낸 촛불 경매"
   },
   "n-0072": {
-   "anchor": "사람만 못 만드는 건"
+   "anchor": "사람만 못 만드는 건",
+   "pic": {
+    "file": "pic/n-0072.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "잃어버린 당이 바깥에서 들어오면 낯선 것이 된다"
   },
   "n-0073": {
    "anchor": "브라인슈림프",
    "emoji": "🦐",
-   "emoji_pos": "back"
+   "emoji_pos": "back",
+   "pic": {
+    "file": "pic/n-0073.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "비스듬히 헤엄쳐 흐름을 뒤집는 브라인슈림프"
   },
   "n-0074": {
    "anchor": "「Moré Moré (Leaky)」",
    "emoji": "💧",
-   "emoji_pos": "back"
+   "emoji_pos": "back",
+   "pic": {
+    "file": "pic/n-0074.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "새는 물에 길을 내 음악으로 만든 「Moré Moré」"
   },
   "n-0078": {
-   "anchor": "스트라테고 AI 아타락소스"
+   "anchor": "스트라테고 AI 아타락소스",
+   "pic": {
+    "file": "pic/n-0078.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "움직임에서 정체가 새어 나오는 스트라테고"
   },
   "n-0080": {
    "anchor": "독일 북해의 작은 섬 할리겐",
    "emoji": "🌊",
-   "emoji_pos": "back"
+   "emoji_pos": "back",
+   "pic": {
+    "file": "pic/n-0080.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "물을 들여야 바다와 같이 높아지는 섬 할리겐"
   },
   "n-0084": {
    "anchor": "돌을 세 개 쌓는다",
    "emoji": "🪨",
-   "emoji_pos": "back"
+   "emoji_pos": "back",
+   "pic": {
+    "file": "pic/n-0084.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "우연과 구별하려고 하나 더 얹은 돌"
   },
   "n-0085": {
    "anchor": "15세기 가짜 주사위 스물네 개",
    "emoji": "🎲",
-   "emoji_pos": "front"
+   "emoji_pos": "front",
+   "pic": {
+    "file": "pic/n-0085.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "숫자만 틀리게 새긴 대담한 가짜 주사위"
   },
   "n-0086": {
-   "anchor": "뼈 주사위"
+   "anchor": "뼈 주사위",
+   "pic": {
+    "file": "pic/n-0086.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "수은을 기울여 결과를 고르던 뼈 주사위"
   },
   "n-0087": {
-   "anchor": "카지노 주사위"
+   "anchor": "카지노 주사위",
+   "pic": {
+    "file": "pic/n-0087.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "덜어낸 만큼 같은 무게로 메운 카지노 주사위"
   },
   "n-0090": {
    "anchor": "18세기 알라하바드",
    "emoji": "🧊",
-   "emoji_pos": "back"
+   "emoji_pos": "back",
+   "pic": {
+    "file": "pic/n-0090.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "바람 자는 밤을 기다려 얼음을 걷던 알라하바드"
   },
   "n-0094": {
-   "anchor": "엑서터 서 74번 수수께끼"
+   "anchor": "엑서터 서 74번 수수께끼",
+   "pic": {
+    "file": "pic/n-0094.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "답이 '물'인 천 년 된 수수께끼"
   },
   "n-0095": {
-   "anchor": "19세기 얼음 무역"
+   "anchor": "19세기 얼음 무역",
+   "pic": {
+    "file": "pic/n-0095.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "경쟁자가 손들면 값을 다시 올린 얼음 무역"
   },
   "n-0096": {
    "anchor": "버섯 모양 자전거 이정표",
    "emoji": "🍄",
-   "emoji_pos": "front"
+   "emoji_pos": "front",
+   "pic": {
+    "file": "pic/n-0096.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "발 올리는 사람을 그냥 두기로 한 버섯 이정표"
   },
   "n-0100": {
-   "anchor": "뿔닭"
+   "anchor": "뿔닭",
+   "pic": {
+    "file": "pic/n-0100.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "무게를 이기지 않고 무게에 맞춰 자란 뿔닭"
   },
   "n-0104": {
    "anchor": "60장짜리 세계 지도",
    "emoji": "🗺️",
-   "emoji_pos": "back"
+   "emoji_pos": "back",
+   "pic": {
+    "file": "pic/n-0104.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "옛 얼굴이 비치게 덧붙인 몬테의 초상화"
   },
   "n-0105": {
    "anchor": "시하리온 산",
    "emoji": "⛰️",
-   "emoji_pos": "back"
+   "emoji_pos": "back",
+   "pic": {
+    "file": "pic/n-0105.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "지구 무게를 재다 남은 낙서, 등고선"
   },
   "n-0107": {
-   "anchor": "Flock 번호판 카메라"
+   "anchor": "Flock 번호판 카메라",
+   "pic": {
+    "file": "pic/n-0107.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "모든 차를 미리 다 찍어 두는 번호판 카메라"
   },
   "n-0108": {
    "anchor": "128×128 흑백 카메라",
    "emoji": "☕",
-   "emoji_pos": "back"
+   "emoji_pos": "back",
+   "pic": {
+    "file": "pic/n-0108.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "커피가 남았는지만 궁금한 카메라"
   },
   "n-0112": {
-   "anchor": "'소닉 시즈닝'"
+   "anchor": "'소닉 시즈닝'",
+   "pic": {
+    "file": "pic/n-0112.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "재 보지 않은 10퍼센트, 소닉 시즈닝"
   },
   "n-0113": {
    "anchor": "포장도 하지 않은 스키",
    "emoji": "📮",
-   "emoji_pos": "front"
+   "emoji_pos": "front",
+   "pic": {
+    "file": "pic/n-0113.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "포장 없이 부친 물건도 받아 준 우체국"
   },
   "n-0119": {
    "anchor": "숯이 된 빵",
    "emoji": "🍞",
-   "emoji_pos": "back"
+   "emoji_pos": "back",
+   "pic": {
+    "file": "pic/n-0119.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "숯이 된 빵 도장에 남은 켈레르의 이름"
   },
   "n-0124": {
-   "anchor": "토론토 지하철 1호선 타일"
+   "anchor": "토론토 지하철 1호선 타일",
+   "pic": {
+    "file": "pic/n-0124.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "타일을 문질러 떠서 되살린 토론토 지하철 서체"
   },
   "n-0127": {
    "anchor": "사막 이끼 세포",
    "emoji": "🌱",
-   "emoji_pos": "back"
+   "emoji_pos": "back",
+   "pic": {
+    "file": "pic/n-0127.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "모르는 건 모른다고 적어 둔 사막 이끼 연구"
   },
   "n-0128": {
    "anchor": "교토의 마법 거울",
    "emoji": "🪞",
-   "emoji_pos": "front"
+   "emoji_pos": "front",
+   "pic": {
+    "file": "pic/n-0128.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "손의 기억으로 되살린 교토의 마법 거울"
   },
   "n-0134": {
-   "anchor": "금성 스케치"
+   "anchor": "금성 스케치",
+   "pic": {
+    "file": "pic/n-0134.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "틀린 결론보다 오래 남은 금성 스케치"
   },
   "n-0136": {
    "anchor": "'여성 계산원'",
    "emoji": "✒️",
-   "emoji_pos": "back"
+   "emoji_pos": "back",
+   "pic": {
+    "file": "pic/n-0136.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "지우기 전에 사진부터 찍어 둔 손글씨 메모"
   },
   "n-0138": {
-   "anchor": "PHP2Shell"
+   "anchor": "PHP2Shell",
+   "pic": {
+    "file": "pic/n-0138.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "방비보다 공격에 먼저 쓰일 AI 결함 찾기"
   },
   "n-0139": {
    "anchor": "코수멜 섬의 작은 회색여우",
    "emoji": "🦊",
-   "emoji_pos": "back"
+   "emoji_pos": "back",
+   "pic": {
+    "file": "pic/n-0139.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "동네 사람이 먼저 다시 찾은 코수멜 회색여우"
   },
   "n-0140": {
    "anchor": "동굴 진주"
@@ -324,10 +684,22 @@
   "n-0141": {
    "anchor": "오크어로 '분다'는 말",
    "emoji": "🧀",
-   "emoji_pos": "back"
+   "emoji_pos": "back",
+   "pic": {
+    "file": "pic/n-0141.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "돌아가며 쉬게 하는 로크포르 치즈 동굴"
   },
   "n-0142": {
-   "anchor": "벽에 제 이름을 새겨"
+   "anchor": "벽에 제 이름을 새겨",
+   "pic": {
+    "file": "pic/n-0142.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "네로 궁전 벽화 위에 새긴 화가들 이름"
   },
   "n-0143": {
    "anchor": "잔디밭 버섯 두 종",
@@ -340,7 +712,13 @@
   "n-0145": {
    "anchor": "박물관 서랍에서 꺼낸",
    "emoji": "✏️",
-   "emoji_pos": "back"
+   "emoji_pos": "back",
+   "pic": {
+    "file": "pic/n-0145.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "틀린 짐작에서 새 이야기가 나온 연필심"
   },
   "n-0146": {
    "anchor": "이집트의 쪽물 들이는 사람들"
@@ -348,7 +726,13 @@
   "n-0147": {
    "anchor": "전자저울 사기",
    "emoji": "⚖️",
-   "emoji_pos": "front"
+   "emoji_pos": "front",
+   "pic": {
+    "file": "pic/n-0147.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "영점 맞추는 몸짓부터 빌려 쓰는 저울 사기"
   },
   "n-0148": {
    "anchor": "새우젓만 1년 전보다 32.5%"
@@ -356,7 +740,13 @@
   "n-0149": {
    "anchor": "광천 토굴",
    "emoji": "🦐",
-   "emoji_pos": "back"
+   "emoji_pos": "back",
+   "pic": {
+    "file": "pic/n-0149.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "버려진 금광이 새우젓 토굴이 된 이야기"
   },
   "n-0150": {
    "anchor": "보호구역 열세 곳"
@@ -364,7 +754,13 @@
   "n-0151": {
    "anchor": "사람들이 쓰게 두라고",
    "emoji": "🔥",
-   "emoji_pos": "back"
+   "emoji_pos": "back",
+   "pic": {
+    "file": "pic/n-0151.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "특허 없이 성냥을 내놓은 약사"
   },
   "n-0152": {
    "anchor": "'dord'라는 낱말"
@@ -380,7 +776,13 @@
   "n-0155": {
    "anchor": "우연히 서로 기대어 넘어졌는데",
    "emoji": "🪸",
-   "emoji_pos": "front"
+   "emoji_pos": "front",
+   "pic": {
+    "file": "pic/n-0155.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "맞닿은 데부터 색이 돌아온 산호 조각"
   },
   "n-0156": {
    "anchor": "북태평양참고래"

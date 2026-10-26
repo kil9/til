@@ -17,7 +17,8 @@ created_date: '2026-10-04 03:14'
 | 원본 | `backlog/assets/liv-notes/notes.jsonl` | 커밋됨. 한 줄 한 항목, 덧붙이기만 한다 |
 | 도구 | `backlog/assets/liv-notes.py` | `add`·`excerpt`·`render`·`check` |
 | 공개 페이지 | `p/liv-walk/index.html` | `render` 생성물. 손으로 고치지 않는다 |
-| 꾸밈 | `backlog/assets/liv-notes/decor.json` | 노트별 링크 구절·이모지, 날짜별 그림·사진, 디자인 고친 기록. 덮어써도 되는 표시층(task-139·140·141) |
+| 꾸밈 | `backlog/assets/liv-notes/decor.json` | 노트별 이모지·짧은 문장(`short`, 취향만)·그림(`pic`), 날짜별 그림·사진, 디자인 고친 기록. 덮어써도 되는 표시층(task-139·140·141·147). 옛 `anchor`(문장 속 링크 구절)는 task-147 뒤로 쓰지 않는다 |
+| 취향 그림 | `p/liv-walk/pic/<id>.webp` | 사이드바 취향 항목 그림. `liv-notes.py pics` 가 codex 이미지 생성으로 그리고 폭 720px WebP 로 줄인다. 원본 PNG 는 `~/.cache/liv-pics/` (task-147) |
 | 리브의 CSS | `backlog/assets/liv-notes/liv.css` | 산책 때마다 리브가 통째로 고쳐 쓴다. 기본 CSS 뒤에 붙는다 |
 | 그림 | `p/liv-walk/draw/<YYYY-MM-DD>.svg` | 화이트리스트로 다시 쓴 SVG. 페이지에는 `<img>` 로만 싣는다 |
 
