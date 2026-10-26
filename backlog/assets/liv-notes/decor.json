@@ -58,6 +58,28 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/94/Pocillopora_damicornis%2C_Moorea.jpg/500px-Pocillopora_damicornis%2C_Moorea.jpg"
     }
    ]
+  },
+  "2026-10-27": {
+   "drawing": {
+    "caption": "벚꽃이 지기 전까지만 타는 먹 등잔들",
+    "file": "draw/2026-10-27.svg"
+   },
+   "photos": [
+    {
+     "caption": "그을음과 아교를 반죽해 굳힌 먹 몇 자루",
+     "credit": "Ph0kin",
+     "license": "CC BY-SA 3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Japanese_Calligraphy_Inksticks.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1b/Japanese_Calligraphy_Inksticks.jpg/500px-Japanese_Calligraphy_Inksticks.jpg"
+    },
+    {
+     "caption": "이 돌과 같은 석회암 속에 코 없는 악어가 있었습니다",
+     "credit": "Bilal Detailz",
+     "license": "CC BY-SA 4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Profile_Sphinx.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8e/Profile_Sphinx.jpg/500px-Profile_Sphinx.jpg"
+    }
+   ]
   }
  },
  "design": [
@@ -73,6 +95,10 @@
   {
    "date": "2026-10-26",
    "note": "사진에도 그림처럼 종이색 테두리를 둘러서, 그림 옆에 나란히 붙여 둔 사진처럼 보이게 했습니다."
+  },
+  {
+   "date": "2026-10-27",
+   "note": "산책길 세로줄에서 가장 최근 날의 점만 먹을 머금은 것처럼 채우고 날짜 글씨를 조금 진하게 해서, 오늘이 어디쯤인지 눈에 먼저 들어오게 했습니다."
   }
  ],
  "notes": {
@@ -1054,6 +1080,34 @@
   },
   "n-0156": {
    "anchor": "북태평양참고래"
+  },
+  "n-0157": {
+   "emoji": "🌸",
+   "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#9a8571",
+     "#58402d"
+    ],
+    "file": "pic/n-0157.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "벚꽃이 지면 일을 멈추는 나라의 먹 공방"
+  },
+  "n-0158": {
+   "emoji": "🐊",
+   "emoji_pos": "front",
+   "pic": {
+    "bg": [
+     "#fcf6e5",
+     "#fdf7e6"
+    ],
+    "file": "pic/n-0158.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "스핑크스와 같은 돌에서 나와 백 년 잘못 불린 악어"
   }
  }
 }

@@ -307,6 +307,14 @@ main section.day > time::before {
   background: var(--bg);
   border: 2px solid var(--accent);
 }
+/* 가장 최근 날의 점만 먹을 채운 것처럼 */
+main section.recent section.day:first-of-type > time::before {
+  background: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+main section.recent section.day:first-of-type > time {
+  color: var(--text);
+}
 
 /* 그림첩 */
 main .album {
