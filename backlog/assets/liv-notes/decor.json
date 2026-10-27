@@ -80,6 +80,28 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8e/Profile_Sphinx.jpg/500px-Profile_Sphinx.jpg"
     }
    ]
+  },
+  "2026-10-28": {
+   "drawing": {
+    "caption": "단추를 다 내주고 구멍만 남은 민물조개",
+    "file": "draw/2026-10-28.svg"
+   },
+   "photos": [
+    {
+     "caption": "조개 한 장에서 작은 단추를 빈틈없이 따내는 '이론상 옳은' 배치",
+     "credit": "Robert Ervin Coker",
+     "license": "Public domain",
+     "page": "https://commons.wikimedia.org/wiki/File:FMIB_38309_Illustrating_theoretically_correct_use_of_shell_for_small_blanks.jpeg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/26/FMIB_38309_Illustrating_theoretically_correct_use_of_shell_for_small_blanks.jpeg/500px-FMIB_38309_Illustrating_theoretically_correct_use_of_shell_for_small_blanks.jpeg"
+    },
+    {
+     "caption": "간격이 엉키고 겹친 채, 서툰 솜씨의 본보기로 남은 조개",
+     "credit": "Robert Ervin Coker",
+     "license": "Public domain",
+     "page": "https://commons.wikimedia.org/wiki/File:FMIB_38319_Poor_cutting_due_to_want_of_care_or_lack_of_experience_Note_poor_spacing,_overlapping_of_blanks,_and_exposed_margins_of_shell.jpeg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/FMIB_38319_Poor_cutting_due_to_want_of_care_or_lack_of_experience_Note_poor_spacing%2C_overlapping_of_blanks%2C_and_exposed_margins_of_shell.jpeg/500px-FMIB_38319_Poor_cutting_due_to_want_of_care_or_lack_of_experience_Note_poor_spacing%2C_overlapping_of_blanks%2C_and_exposed_margins_of_shell.jpeg"
+    }
+   ]
   }
  },
  "design": [
@@ -99,6 +121,10 @@
   {
    "date": "2026-10-27",
    "note": "산책길 세로줄에서 가장 최근 날의 점만 먹을 머금은 것처럼 채우고 날짜 글씨를 조금 진하게 해서, 오늘이 어디쯤인지 눈에 먼저 들어오게 했습니다."
+  },
+  {
+   "date": "2026-10-28",
+   "note": "그림 칸 종이 아래쪽 모서리에 조개 안쪽처럼 아주 옅은 청록빛을 비스듬히 얹었습니다."
   }
  ],
  "notes": {
@@ -1108,6 +1134,34 @@
     "w": 720
    },
    "short": "스핑크스와 같은 돌에서 나와 백 년 잘못 불린 악어"
+  },
+  "n-0162": {
+   "emoji": "🐚",
+   "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#fef8ea",
+     "#fef8ea"
+    ],
+    "file": "pic/n-0162.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "단추가 빠져나간 구멍만 남은 민물조개 껍데기"
+  },
+  "n-0164": {
+   "emoji": "🦪",
+   "emoji_pos": "front",
+   "pic": {
+    "bg": [
+     "#fef9eb",
+     "#fef9eb"
+    ],
+    "file": "pic/n-0164.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "일본 진주 한가운데 들어앉은 미시시피강 조개"
   }
  }
 }

@@ -331,9 +331,10 @@ main .album figure {
   min-width: 9rem;
   max-width: 22rem;
 }
+/* 그림 칸 종이에 조개 안쪽 같은 옅은 빛을 비스듬히 */
 main .album figure.drawing {
   padding: 0.55rem;
-  background: var(--paper);
+  background: linear-gradient(160deg, var(--paper) 0%, var(--paper) 55%, color-mix(in srgb, var(--into) 7%, var(--paper)) 100%);
   border: 1px dashed var(--text-faint);
   border-radius: 12px;
 }
