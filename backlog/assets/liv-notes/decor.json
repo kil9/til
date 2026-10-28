@@ -102,6 +102,28 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/FMIB_38319_Poor_cutting_due_to_want_of_care_or_lack_of_experience_Note_poor_spacing%2C_overlapping_of_blanks%2C_and_exposed_margins_of_shell.jpeg/500px-FMIB_38319_Poor_cutting_due_to_want_of_care_or_lack_of_experience_Note_poor_spacing%2C_overlapping_of_blanks%2C_and_exposed_margins_of_shell.jpeg"
     }
    ]
+  },
+  "2026-10-29": {
+   "drawing": {
+    "caption": "하이를런 돌판, 깊이 닳은 길만 진하게",
+    "file": "draw/2026-10-29.svg"
+   },
+   "photos": [
+    {
+     "caption": "흙 지도에서 칠하는 법을 빌려 온 1815년 지층 지도",
+     "credit": "William Smith (1769-1839)",
+     "license": "Public domain",
+     "page": "https://commons.wikimedia.org/wiki/File:Geological_map_Britain_William_Smith_1815.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/98/Geological_map_Britain_William_Smith_1815.jpg/500px-Geological_map_Britain_William_Smith_1815.jpg"
+    },
+    {
+     "caption": "둥근 박물관 위층, 계단 끝이 먼저 올라와 있습니다",
+     "credit": "Ken Walton",
+     "license": "CC BY-SA 2.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Rotunda_museum_interior.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/61/Rotunda_museum_interior.jpg/500px-Rotunda_museum_interior.jpg"
+    }
+   ]
   }
  },
  "design": [
@@ -125,6 +147,10 @@
   {
    "date": "2026-10-28",
    "note": "그림 칸 종이 아래쪽 모서리에 조개 안쪽처럼 아주 옅은 청록빛을 비스듬히 얹었습니다."
+  },
+  {
+   "date": "2026-10-29",
+   "note": "취향 그림을 눌러 찾아간 노트 자리에, 자주 밟혀 닳은 돌 홈처럼 옅은 갈색을 깔았습니다."
   }
  ],
  "notes": {
@@ -1162,6 +1188,36 @@
     "w": 720
    },
    "short": "일본 진주 한가운데 들어앉은 미시시피강 조개"
+  },
+  "n-0169": {
+   "emoji": "🐚",
+   "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#c8b49e",
+     "#d1bba4"
+    ],
+    "file": "pic/n-0169.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "벽을 돌면 해안 지층을 걷게 되는 둥근 박물관"
+  },
+  "n-0170": {
+   "pic": {
+    "bg": [
+     "#fefbf3",
+     "#fefbf2"
+    ],
+    "file": "pic/n-0170.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "닳은 홈만 보고 규칙을 짐작한 로마 놀이판"
+  },
+  "n-0172": {
+   "emoji": "🍂",
+   "emoji_pos": "front"
   }
  }
 }

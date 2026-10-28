@@ -252,6 +252,13 @@ main ul.log > li {
 main ul.log > li > p {
   margin: 0.25rem 0 0;
 }
+/* 그림을 눌러 찾아온 노트 — 자주 밟혀 닳은 돌 홈처럼 옅은 갈색 자리 */
+main ul.log > li.hit {
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  box-shadow: 0 0 0 0.45rem color-mix(in srgb, var(--accent) 8%, transparent);
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
 main ul.log span.kind {
   display: inline-block;
   font-size: 0.8em;
@@ -442,5 +449,14 @@ footer {
 @media (prefers-color-scheme: dark) {
   main .album figure.photo img {
     filter: brightness(0.92);
+  }
+  main ul.log > li.hit {
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    box-shadow: 0 0 0 0.45rem color-mix(in srgb, var(--accent) 12%, transparent);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  main ul.log > li.hit {
+    transition: none;
   }
 }
