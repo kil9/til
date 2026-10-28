@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-10-28 | 전문가 50명은 에이전트가 기운 쪽을 86% 따라갔다: 동전 던지기로 정한 Claude Code 의 성향이 인과추론 분석가의 판단을 결정했고, 77% 는 에이전트의 논거를 제 말로 옮겼으나 에이전트를 언급한 사람은 15% 였다 | [/2026/agents-shape-expert-judgment-calls/](https://til.kil9.dev/2026/agents-shape-expert-judgment-calls/) |
 | 2026-10-26 | 검수 세 가지를 뿌요뿌요 글 한 편에 돌려 봤다: 고쳐 쓰기는 1%를 바꾸며 두 문장을 망쳤고, 맥락 없는 낭독은 글 안의 앞뒤 모순을 찾았다 | [/2026/revision-pass-puyo/](https://til.kil9.dev/2026/revision-pass-puyo/) |
 | 2026-10-23 | 신경망은 이미 깨끗하다: '고양이와 자동차' 뉴런은 V 자 뉴런이었고 Qwen3-32B 뉴런의 90% 가 한 가지 일을 한다는 Goodfire 의 가설과, 이틀 뒤 나온 '아직은 아니다' 반론을 정리했다 | [/2026/neural-networks-already-clean/](https://til.kil9.dev/2026/neural-networks-already-clean/) |
 | 2026-10-21 | CA 의 비밀 키가 '4' 였다: eMudhra 중간 인증서 8장의 P-384 개인키는 256 미만의 정수였고, 공개 인증서에서 직접 복구해 전부 확인했다 | [/2026/emudhra-weak-ca-keys/](https://til.kil9.dev/2026/emudhra-weak-ca-keys/) |
