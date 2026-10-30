@@ -213,6 +213,26 @@ def repatch_daynav(repo, dates, date, prefix="../"):
 # 배지가 이미 소스를 말하므로 라벨에 소스 이름을 되풀이하지 않는다. 다만 백분위의 뜻은
 # 소스마다 다르다 — GeekNews 는 30일 롤링 추천 분포, HN 은 프런트페이지 30건 안의 순위다.
 SOURCE_LABEL = {"gn": "추천 상위", "hn": "프런트 상위"}
+SOURCE_NAME = {"gn": "GeekNews", "hn": "Hacker News"}
+
+
+def srcmark(src):
+    """출처 로고 (task-120). 실체는 template.html 상단 스프라이트의 <symbol> 이다.
+
+    구 두 글자 텍스트 라벨을 갈아치웠다. 소스가 둘뿐이라 브랜드 타일의 색·형태가 곧
+    이름이고, 글자보다 훑을 때 먼저 걸린다. 자리는 제목 끝이다 — 메타 줄에 두면 항목을
+    다 읽은 뒤에야 출처를 알게 되고, 실제로 그 자리에서는 백분위 문구와 뒤엉켜 보였다.
+    이름은 title·aria-label 로 남는다 — 로고를 못 읽는 독자에게 'HN' 두 글자보다
+    오히려 친절하다.
+
+    모르는 소스는 아무것도 내지 않는다. 소스가 늘어도 발행은 나가고, 그때 빠지는 것은
+    제목 옆 아이콘 하나뿐이다 — 백분위 문구가 여전히 소스를 구분해 준다.
+    """
+    name = SOURCE_NAME.get(src)
+    if not name:
+        return ""
+    return (f'<svg class="srcmark" role="img" aria-label="{esc(name)}">'
+            f'<title>{esc(name)}</title><use href="#src-{esc(src)}"/></svg>')
 
 
 def subtitle(it):
@@ -230,12 +250,14 @@ def foot(it):
     말이 아니다. 같은 '추천 상위' 로 찍으면 둘을 견주게 된다.
     """
     src = it.get("source", "gn")
+    # 로고는 제목 끝으로 갔다. 이 줄에는 백분위만 남는데, 그 문구가 이미 소스마다
+    # 다르므로('추천 상위' = GeekNews, '프런트 상위' = HN) 출처 표시가 사라지지 않는다.
     parts = [esc(it["domain"]), esc(it["interest"]),
-             f'<span class="src">{esc(src.upper())}</span> '
              f'{SOURCE_LABEL.get(src, "추천 상위")} {esc(it["percentile"])}%']
     also = it.get("also")
-    if also:      # 양쪽에 오른 글 — 링크는 GeekNews 쪽만 남기고 점수는 둘 다 보인다
-        parts.append(f'<span class="src">{esc(also["source"].upper())}</span> '
+    if also:      # 양쪽에 오른 글 — 링크는 GeekNews 쪽만 남기고 점수는 둘 다 보인다.
+        # 여기는 제목 옆 로고가 가리키지 않는 '다른 쪽' 이라 이름을 글자로 밝힌다.
+        parts.append(f'{esc(SOURCE_NAME.get(also["source"], str(also["source"]).upper()))} '
                      f'{esc(also.get("percentile", ""))}% ({esc(also["points"])}표)')
     if it.get("heat"):
         parts.append(f'<span class="heat">{esc(it["heat"])}</span>')
@@ -273,13 +295,17 @@ def render(data, repo, root_rel, dates=(), nav_prefix="../"):
             "ANCHOR": esc(it["anchor"]), "RANK": esc(it["rank"]), "URL": esc(it["url"]),
             "TITLE": esc(it["title"]), "LEDE": esc(it["lede"]),
             "BULLETS": "\n".join(f"      <li>{esc(b)}</li>" for b in it["bullets"]),
+            "SRC": srcmark(it.get("source", "gn")),
             "SUBTITLE": subtitle(it), "FOOT": foot(it),
             "TIEBOX": tie, "LIV": liv,
             "ACTION_TOPIC": esc(it["action_topic"]), "ACTION_URL": esc(it["source_url"]),
             "ACTION_ANGLE": esc(it["angle"]),
         }))
 
+    # 넘긴 것 그리드에는 원래 출처 표시가 없었다 (task-120). 본문 항목만 배지를 달면
+    # 아래로 내려올수록 어디서 온 글인지 모르게 되고, 그 그리드가 회차 건수의 대부분이다.
     rest_html = [fill(tdir.joinpath("item-rest.html").read_text(encoding="utf-8"), {
+        "SRC": srcmark(r.get("source", "gn")),
         "URL": esc(r["url"]), "TITLE": esc(r["title"]), "SUMMARY": esc(r["summary"]),
         "ACTION_TOPIC": esc(r["action_topic"]), "ACTION_URL": esc(r["source_url"]),
         "ACTION_ANGLE": esc(r["angle"]),
