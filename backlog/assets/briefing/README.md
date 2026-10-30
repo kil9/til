@@ -277,3 +277,7 @@
 - 아카이브 목록 위에는 안 읽은 회차 요약 한 줄(`.unread-line`)이 있다(task-96). 건수와 가장
   오래된 안 읽은 회차 링크이며, 전부 읽었거나 저장소를 못 읽으면 `hidden` 인 채로 남는다.
   목록이 최신 순이라 '가장 오래된 안 읽은 것' 은 미독 배열의 마지막 원소다.
+
+## 발행 잡 코드 (`job/`)
+
+이 템플릿을 채우는 잡(run.sh·collect/select/compose/render/announce.py·thread-watch.py·recap.sh)은 `job/` 에 있다. nuc14 의 `~/jobs/liv-briefing` 이 이 디렉터리의 심링크이고 crontab 이 그 경로로 08:40·09:00·5분마다·일요일 09:20 에 돈다. 런타임 산출물(`state/`·`out/`·전용 클론 `repo/`·`repo-recap/`·`cron.log`)은 `job/.gitignore` 로 제외된다 — 이 저장소는 public 이고 루트가 Pages 로 서빙되므로 비밀은 코드에 두지 않고 `~/.hermes/.env` 에서 읽는다.
