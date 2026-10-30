@@ -1,0 +1,9 @@
+# 생성물·전용 클론·캐시 — 코드만 추적한다
+repo/
+repo-recap/
+state/
+out/
+__pycache__/
+cron.log
+.lock
+.lock-recap
