@@ -286,6 +286,10 @@ main section.day {
   padding: 0 0 2rem 1.2rem;
   border-left: 2px solid var(--rule);
 }
+/* 날과 날 사이 세로줄에 짧은 틈 — 시보가 29초에 비워 두던 자리처럼 */
+main section.day + section.day {
+  margin-top: 0.5rem;
+}
 main section.day > time {
   display: block;
   position: relative;

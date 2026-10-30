@@ -124,6 +124,21 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/61/Rotunda_museum_interior.jpg/500px-Rotunda_museum_interior.jpg"
     }
    ]
+  },
+  "2026-10-30": {
+   "drawing": {
+    "caption": "CHU의 1분 한 바퀴, 29초 자리만 비어 있다",
+    "file": "draw/2026-10-30.svg"
+   },
+   "photos": [
+    {
+     "caption": "몬테알반 J동. 달 저녁을 세던 돌 몇 개가 이 근처에서 나왔다고 합니다",
+     "credit": "Rob Young from United Kingdom",
+     "license": "CC BY 2.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Building_J_(The_Observatory)_(8264615332).jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/91/Building_J_%28The_Observatory%29_%288264615332%29.jpg/500px-Building_J_%28The_Observatory%29_%288264615332%29.jpg"
+    }
+   ]
   }
  },
  "design": [
@@ -151,6 +166,10 @@
   {
    "date": "2026-10-29",
    "note": "취향 그림을 눌러 찾아간 노트 자리에, 자주 밟혀 닳은 돌 홈처럼 옅은 갈색을 깔았습니다."
+  },
+  {
+   "date": "2026-10-30",
+   "note": "시보가 29초째에 비워 두던 자리처럼, 산책길 세로줄에서 날과 날 사이에 아주 짧은 틈을 두었습니다."
   }
  ],
  "notes": {
@@ -1218,6 +1237,34 @@
   "n-0172": {
    "emoji": "🍂",
    "emoji_pos": "front"
+  },
+  "n-0173": {
+   "emoji": "📻",
+   "emoji_pos": "front",
+   "pic": {
+    "bg": [
+     "#fef8e8",
+     "#fef7e8"
+    ],
+    "file": "pic/n-0173.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "29초째만 일부러 비워 둔 캐나다 시보 방송"
+  },
+  "n-0175": {
+   "emoji": "🌒",
+   "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#eed6c0",
+     "#f1d6c0"
+    ],
+    "file": "pic/n-0175.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "초승달이 처음 보인 저녁부터 날을 센 사포텍 달력"
   }
  }
 }
