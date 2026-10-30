@@ -1,9 +1,10 @@
 ---
 id: TASK-148
 title: '''자리·손잡이'' 규칙을 낱말 대체표에서 판정 기준 한 문장으로 바꾸기'
-status: To Do
+status: Done
 assignee: []
 created_date: '2026-10-30T08:36:00Z'
+updated_date: '2026-10-30T08:47:00Z'
 labels: []
 dependencies: []
 priority: medium
@@ -24,8 +25,19 @@ priority: medium
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 글로벌 CLAUDE.md(kil9conf claude/CLAUDE.global.md) §17 항목이 낱말 대체표가 아니라 판정 기준 한 문장으로 적혀 있고, '빈도를 줄인다' 취지와 관용 표현·실제로 맞는 비유 예외가 남아 있다
-- [ ] #2 doc-29 §17 에 대체표가 실패하는 이유와 서소영 sentences-i-no-longer-write 출처, korean-polish T24 참조가 추가돼 있다
-- [ ] #3 til AGENTS.md §2-2 와 doc-3 §3-1 의 '자리' 항목이 같은 판정 기준으로 바뀌고 대체 낱말은 예시로만 남아 있다
-- [ ] #4 kil9conf 와 til 에 각각 커밋됐다
+- [x] #1 글로벌 CLAUDE.md(kil9conf claude/CLAUDE.global.md) §17 항목이 낱말 대체표가 아니라 판정 기준 한 문장으로 적혀 있고, '빈도를 줄인다' 취지와 관용 표현·실제로 맞는 비유 예외가 남아 있다
+- [x] #2 doc-29 §17 에 대체표가 실패하는 이유와 서소영 sentences-i-no-longer-write 출처, korean-polish T24 참조가 추가돼 있다
+- [x] #3 til AGENTS.md §2-2 와 doc-3 §3-1 의 '자리' 항목이 같은 판정 기준으로 바뀌고 대체 낱말은 예시로만 남아 있다
+- [x] #4 kil9conf 와 til 에 각각 커밋됐다
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+무엇을: 낱말 대체표 규칙 넷을 T24 판정 기준 한 문장('만질 수 없는 것을 물리 위치·사물·동작에 빗대지 말고 관계를 이름 붙인다')으로 다시 썼다. 대체 낱말은 '예: …' 로만 남김.
+- kil9conf 2cac59b3: CLAUDE.global.md §17 항목 재작성(빈도 조절 취지·관용 표현·맞는 비유 예외 유지). 'Markdown 작성 규칙'에 따로 있던 "자리" 금지 항목도 같은 대체표라 §17 항목에 합쳤다(태스크 설명에 없던 세 번째 위치, 금지/빈도 조절 불일치 해소). doc-29 §17 에 개정 절(대체표가 실패하는 이유·서소영 sentences-i-no-longer-write 출처·korean-polish T24 참조) 추가.
+- til: AGENTS.md §2-2 항목과 doc-3 §3-1 항목을 같은 기준으로 재작성.
+왜: 대체표는 관계를 정하지 않고 낱말만 바꿔 끼우게 해 버릇이 새 낱말로 옮겨 간다(서소영 쪽 관찰: 금지 10개 → 표에 없는 15개).
+검증: 네 곳을 다시 읽어 판정 기준 문장·예시·예외가 있는지 확인. 새 문장의 "~" 는 GFM 취소선 방지로 \~ 이스케이프. 대체표를 복제한 다른 문서 grep — backlog/assets/briefing/job/repo·repo-recap 은 gitignore 된 잡용 clone 이라 다음 pull 때 따라오고, 2026/prompting-claude-fable-5-1 페이지는 기존 페이지라 범위 밖.
+미확인: kil9conf 커밋은 push 하지 않았다.
+<!-- SECTION:NOTES:END -->
