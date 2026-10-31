@@ -21,6 +21,7 @@ til/
 ├── PRODUCT.md            impeccable 이 읽는 제품 사실 기록(동상)
 ├── 404.html              커스텀 404 + 구 URL → 신 경로 리다이렉트 맵
 ├── CNAME                 GitHub Pages 커스텀 도메인(til.kil9.dev) 지정 파일
+├── apple-touch-icon.png, icon-192.png, icon-512.png, site.webmanifest  홈 화면 아이콘(루트 index.html 만 링크, iOS 는 다른 페이지도 /apple-touch-icon.png 를 찾는다)
 ├── feed.xml              Atom 1.0 피드 (생성물 — site-feed.py, 손으로 고치지 않는다)
 ├── sitemap.xml           sitemap 0.9 (생성물 — 동상)
 ├── robots.txt            전체 허용 + Sitemap 줄 (생성물 — 동상)
