@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-10-28T19:16:00+09:00</updated>
+  <updated>2026-10-31T21:20:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>받아쓰기 녹음 중 파형 pill: 포커스를 뺏지 않는 Windows 오버레이를 데몬 안 스레드 하나로 띄웠다</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/dictation-waveform-overlay/"/>
+    <id>https://til.kil9.dev/2026/dictation-waveform-overlay/</id>
+    <published>2026-10-31T21:20:00+09:00</published>
+    <updated>2026-10-31T21:20:00+09:00</updated>
+    <category term="system"/>
+    <summary type="text">F13 홀드 받아쓰기에 녹음 중 경과 시간·막대 파형·남은 시간 띠를 담은 pill 을 붙였다. 형태는 Wispr Flow·Superwhisper 류에서 가져왔고, 레벨은 녹음 스트림을 새로 열지 않고 Core Audio 피크 미터로 읽는다. 결과가 SendInput 으로 포그라운드 창에 들어가므로 포커스 비탈취를 세 겹으로 걸었고, PowerShell 데몬 안 C# STA 스레드의 레이어드 창이라 프로세스가 늘지 않는다.</summary>
+  </entry>
   <entry>
     <title>전문가 50명은 에이전트가 기운 쪽을 86% 따라갔다: 동전 던지기로 정한 Claude Code 의 성향이 인과추론 분석가의 판단을 결정했고, 77% 는 에이전트의 논거를 제 말로 옮겼으나 에이전트를 언급한 사람은 15% 였다</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/agents-shape-expert-judgment-calls/"/>
