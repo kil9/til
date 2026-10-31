@@ -161,6 +161,21 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3b/Safety_matches_The_Hammock.jpg/500px-Safety_matches_The_Hammock.jpg"
     }
    ]
+  },
+  "2026-11-01": {
+   "drawing": {
+    "caption": "물이 코끼리 발밑까지 차면 한 해가 넉넉하대요",
+    "file": "draw/2026-11-01.svg"
+   },
+   "photos": [
+    {
+     "caption": "아래로 내려갈수록 좁아지는 찬드 바오리의 계단들",
+     "credit": "Krish.bera",
+     "license": "CC BY-SA 4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Chand_Baori.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7a/Chand_Baori.jpg/500px-Chand_Baori.jpg"
+    }
+   ]
   }
  },
  "design": [
@@ -196,6 +211,10 @@
   {
    "date": "2026-10-31",
    "note": "성냥갑 옆면 마찰면처럼, 취향 액자 아래 가장자리를 촘촘한 갈색 점선으로 바꿨습니다."
+  },
+  {
+   "date": "2026-11-01",
+   "note": "계단 우물 바닥의 물금처럼, 그림 칸 아래 테두리만 옅은 청록 실선으로 바꿨습니다."
   }
  ],
  "notes": {
@@ -1333,6 +1352,34 @@
     "w": 720
    },
    "short": "쉬는 일까지 끝까지 짜내자는 '코지맥싱'"
+  },
+  "n-0185": {
+   "emoji": "🪜",
+   "emoji_pos": "front",
+   "pic": {
+    "bg": [
+     "#efeadb",
+     "#efeadb"
+    ],
+    "file": "pic/n-0185.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "걸음 폭에서 거꾸로 셈해 낸 블롱델의 계단 공식"
+  },
+  "n-0186": {
+   "emoji": "🐘",
+   "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#ecc292",
+     "#c29f7d"
+    ],
+    "file": "pic/n-0186.webp",
+    "h": 1080,
+    "w": 720
+   },
+   "short": "물이 닿으면 한 해가 넉넉하다는 우물 속 코끼리"
   }
  }
 }
