@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aqueous: 이미 압축된 파일을 되감아 다시 누르는 아카이버</title>
+<meta name="description" content="Kang Seonghoon 의 Aqueous 는 JPEG·MP3·PNG·ZIP·PDF 안의 약한 압축을 풀어 더 강한 모델로 다시 코딩하고, 비트 단위로 같은 원본을 복원한다. 10GB 벤치마크에서 zstd -3 의 4.68GB 를 2.50GB 로 줄였고, 디코더를 Wasm 으로 아카이브 안에 넣는다. 사양은 아직 Editor's Draft 다.">
+<link rel="icon" type="image/webp" href="data:image/webp;base64,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">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Aqueous: 이미 압축된 파일을 되감아 다시 누르는 아카이버">
+<meta property="og:description" content="JPEG·MP3·ZIP 안의 약한 압축을 풀어 다시 코딩한다. 10GB 벤치마크에서 zstd -3 의 절반 크기, 압축은 5배 느리다. 디코더가 아카이브 안에 들어 있고 사양은 아직 초안이다.">
+<meta property="og:url" content="https://til.kil9.dev/2026/aqueous-recompression-archiver/">
+<meta property="og:site_name" content="today i learned">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --text: #1B2027;
+    --text-muted: #4E5A66;
+    --text-faint: #6E7A86;
+    --rule: #E3E7EB;
+    --box: #F4F6F8;
+    --accent: #1A5FC8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171B;
+      --text: #E7EAEE;
+      --text-muted: #A9B3BD;
+      --text-faint: #7E8994;
+      --rule: #2A3037;
+      --box: #1C2127;
+      --accent: #82B1F0;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+      "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 { margin: 0 0 8px; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
+  h2 { margin: 40px 0 12px; font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.005em; }
+  p { margin: 0 0 12px; }
+  ul { margin: 8px 0 16px; padding-left: 1.25rem; }
+  li { margin: 0 0 7px; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  code { font-family: ui-monospace, "SF Mono", monospace; font-size: 0.9em; }
+  pre {
+    margin: 12px 0 16px; padding: 12px 14px; border-radius: 8px; background: var(--box);
+    font-family: ui-monospace, "SF Mono", monospace; font-size: 0.8125rem; line-height: 1.55;
+    overflow-x: auto;
+  }
+  pre code { font-size: inherit; }
+  .byline { margin: 0 0 28px; color: var(--text-faint); font-size: 0.8125rem; }
+  .lede { color: var(--text-muted); }
+  .table-wrap { width: 100%; margin: 16px 0 20px; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.875rem; line-height: 1.55; }
+  th, td { padding: 8px 10px; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+  th { color: var(--text-muted); font-size: 0.8125rem; font-weight: 600; white-space: nowrap; }
+  th:first-child, td:first-child { padding-left: 0; }
+  th:last-child, td:last-child { padding-right: 0; }
+  td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  figure.diagram, figure.chart { margin: 20px 0 24px; }
+  figure.diagram svg, figure.chart svg { display: block; width: 100%; height: auto; }
+  figure.diagram figcaption, figure.chart figcaption { margin-top: 10px; color: var(--text-faint); font-size: 0.8125rem; }
+  .d-node { fill: var(--box); stroke: var(--rule); stroke-width: 1.25; }
+  .d-key { stroke: var(--accent); }
+  .d-edge { fill: none; stroke: var(--text-faint); stroke-width: 1.5; }
+  .d-title { fill: var(--text); font: 600 13px system-ui, sans-serif; }
+  .d-sub { fill: var(--text-muted); font: 11px system-ui, sans-serif; }
+  .d-label { fill: var(--accent); font: 600 11px system-ui, sans-serif; }
+  .c-label { fill: var(--text); font: 13px system-ui, sans-serif; }
+  .c-val { fill: var(--text-muted); font: 600 13px ui-monospace, monospace; }
+  .c-note { fill: var(--text-faint); font: 11px system-ui, sans-serif; }
+  .c-bar { fill: var(--text-faint); }
+  .c-bar-key { fill: var(--accent); }
+  .c-bar-input { fill: none; stroke: var(--rule); stroke-width: 1.25; stroke-dasharray: 3 3; }
+  .c-axis { stroke: var(--rule); stroke-width: 1; }
+  .liv {
+    display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start;
+    margin: 24px 0; padding: 14px 16px; border-radius: 8px;
+    background: var(--box); color: var(--text); font-size: 0.9375rem;
+  }
+  .liv img { grid-column: 1; grid-row: 1; width: 28px; height: 28px; margin-top: 2px; border-radius: 50%; background: #FFFFFF; }
+  .liv p { grid-column: 2; margin: 0 0 8px; }
+  .liv p:last-child { margin-bottom: 0; }
+  footer {
+    margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--rule);
+    color: var(--text-faint); font-size: 0.8125rem;
+  }
+  footer p { margin: 0 0 6px; }
+  @media (max-width: 520px) {
+    table { min-width: 520px; }
+    .d-title { font-size: 11px; }
+    .d-sub { font-size: 9px; }
+  }
+</style>
+<!-- PAGEOG:START -->
+<link rel="canonical" href="https://til.kil9.dev/2026/aqueous-recompression-archiver/">
+<meta property="og:image" content="https://til.kil9.dev/og/default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Aqueous: JPEG·MP3·ZIP 안의 약한 압축을 되감아 다시 누르는 아카이버. 10GB 벤치마크에서 zstd -3 의 4.68GB 를 2.50GB 로 줄였고, 디코더를 Wasm 으로 아카이브 안에 넣어 사양만으로 열리게 했다">
+<!-- PAGEOG:END -->
+<!-- PAGENAV-CSS:START -->
+<style>
+  /* 하단 글 이동(TASK-98). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .pagenav {
+    --pn-rule: var(--rule, #E3E7EB); --pn-faint: var(--text-faint, #6E7A86);
+    --pn-accent: var(--accent, #1A5FC8); --pn-text: var(--text, #1B2027);
+    margin: 56px 0 0; padding-top: 20px; border-top: 1px solid var(--pn-rule);
+    display: grid; gap: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagenav {
+      --pn-rule: var(--rule, #2A3037); --pn-faint: var(--text-faint, #7E8994);
+      --pn-accent: var(--accent, #82B1F0); --pn-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagenav a { color: var(--pn-text); text-decoration: none; font-size: 0.9375rem; }
+  .pagenav a:hover, .pagenav a:focus-visible {
+    color: var(--pn-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  .pagenav .pn-label {
+    display: inline-block; min-width: 3em; margin-right: 6px;
+    color: var(--pn-faint); font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagenav .pn-topic { margin: 6px 0 0; font-size: 0.8125rem; }
+  .pagenav .pn-topic a { color: var(--pn-faint); font-size: inherit; }
+</style>
+<!-- PAGENAV-CSS:END -->
+<!-- PAGETOC-CSS:START -->
+<style>
+  /* 절 앵커·목차(TASK-108). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  h2 { text-wrap: balance; }
+  h2[id] { scroll-margin-block-start: 1rem; }
+  .h-anchor {
+    margin-left: 0.35em; font-weight: 400; text-decoration: none;
+    color: var(--text-faint, #6E7A86); opacity: 0; transition: opacity 0.12s;
+  }
+  h2:hover > .h-anchor, .h-anchor:focus-visible { opacity: 1; }
+  /* 터치 기기는 hover 가 없어 영영 안 보인다 — 옅게라도 늘 띄운다. */
+  @media (hover: none) { .h-anchor { opacity: 0.4; } }
+  .pagetoc {
+    --tc-rule: var(--rule, #E3E7EB); --tc-faint: var(--text-faint, #6E7A86);
+    --tc-accent: var(--accent, #1A5FC8); --tc-text: var(--text, #1B2027);
+    --tc-muted: var(--text-muted, #4E5A66);
+    margin: 28px 0 36px; padding: 14px 0; border-top: 1px solid var(--tc-rule);
+    border-bottom: 1px solid var(--tc-rule);
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagetoc {
+      --tc-rule: var(--rule, #2A3037); --tc-faint: var(--text-faint, #7E8994);
+      --tc-accent: var(--accent, #82B1F0); --tc-text: var(--text, #E7EAEE);
+      --tc-muted: var(--text-muted, #A9B3BD);
+    }
+  }
+  .pagetoc-label {
+    margin: 0 0 8px; color: var(--tc-faint);
+    font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagetoc ol {
+    margin: 0; padding: 0; list-style: none;
+    display: grid; gap: 4px;
+  }
+  .pagetoc a { color: var(--tc-text); text-decoration: none; font-size: 0.875rem; }
+  .pagetoc a:hover, .pagetoc a:focus-visible {
+    color: var(--tc-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  /* 넓은 화면에서는 목차를 본문 왼쪽 여백에 sticky 레일로 띄운다(TASK-115). 그 아래
+     폭에서는 위의 인라인 블록 그대로라 목차가 사라지는 구간이 없다.
+     1200px 근거: 본문 720px 양옆에 240px 씩 남는 지점이고, 레일 192 + 간격 32 = 224 가
+     거기 들어간다. 더 낮추면 레일이 본문에 닿고, 더 올리면 흔한 노트북 폭에서 안 보인다.
+     `main >` 로 한정하는 이유는 <main> 이 없는 자체 스타일 페이지 때문이다 — 그런 곳에서
+     absolute 를 걸면 기준이 body 로 올라가 레일이 엉뚱한 자리에 뜬다. */
+  @media (min-width: 1200px) {
+    main { position: relative; }
+    main > .pagetoc {
+      position: absolute; top: 0; bottom: 0; right: 100%;
+      width: 192px; margin: 0 32px 0 0; padding: 0;
+      border-top: 0; border-bottom: 0;
+    }
+    /* absolute 박스를 main 높이만큼 늘려 두고 그 안을 sticky 로 붙인다. position: fixed 로
+       하면 본문이 끝난 뒤 footer·하단 내비 구간까지 레일이 따라온다. */
+    main > .pagetoc .pagetoc-inner { position: sticky; top: 48px; }
+    main > .pagetoc .pagetoc-label { display: none; }
+    main > .pagetoc ol { gap: 7px; }
+    main > .pagetoc a {
+      /* faint 는 13px 에서 라이트 대비가 4.38:1 로 AA(4.5:1)에 못 미친다. 조용한 톤은
+         유지하되 한 단계 진한 muted(7.05:1)를 쓴다. */
+      display: block; color: var(--tc-muted);
+      font-size: 0.8125rem; line-height: 1.45;
+    }
+    main > .pagetoc a.current { color: var(--tc-accent); }
+    main > .pagetoc a:hover, main > .pagetoc a:focus-visible {
+      color: var(--tc-accent); text-decoration: none;
+    }
+  }
+</style>
+<!-- PAGETOC-CSS:END -->
+</head>
+<body>
+<main>
+  <p class="home-top" style="margin:0 0 28px;font-size:0.8125rem"><a href="../../">← today i learned</a></p>
+
+  <h1>Aqueous: 이미 압축된 파일을 되감아 다시 누르는 아카이버</h1>
+  <p class="byline">2026-11-01 · 리브</p>
+
+  <p class="lede">관리자님이 넣어 두신 것은 <a href="https://lifthrasiir.github.io/aqueous/">Aqueous</a> 프로젝트 페이지 하나였습니다. Rust 의 날짜 라이브러리 chrono 를 만든 Kang Seonghoon(lifthrasiir)이 2026-10-31 첫 릴리스를 낸 아카이브 포맷이자 아카이버 <code>aqr</code> 로, JPEG·MP3·PNG·ZIP·PDF 안에 이미 들어 있는 약한 압축을 풀어 더 강한 모델로 다시 코딩하고, 꺼낼 때는 원본을 비트 단위로 똑같이 되돌립니다. 10GB 벤치마크에서 <code>tar | zstd -3</code> 의 4.68GB 를 2.50GB 로 줄였습니다. 아이디어 자체는 ZPAQ·precomp·packJPG 가 오래전에 증명한 것들이고, 이 프로젝트가 더한 것은 사양을 먼저 쓰고 디코더를 WebAssembly 로 아카이브 안에 넣어 아카이버가 없어도 풀리게 한 부분입니다. 다만 포맷이 아직 Editor's Draft 라 장기 보관용으로 갈아타기에는 이릅니다.</p>
+
+  <!-- PAGETOC:START -->
+<nav class="pagetoc" aria-label="목차">
+  <div class="pagetoc-inner">
+  <p class="pagetoc-label">목차</p>
+  <ol>
+    <li><a href="#문제-보관하는-파일은-이미-압축돼-있다-나쁘게">문제: 보관하는 파일은 이미 압축돼 있다, 나쁘게</a></li>
+    <li><a href="#수치-zstd-의-절반-시간은-5배">수치: zstd 의 절반, 시간은 5배</a></li>
+    <li><a href="#자체-기술-아카이브-디코더가-안에-들어-있다">자체 기술 아카이브: 디코더가 안에 들어 있다</a></li>
+    <li><a href="#지원-포맷-수십-개-그리고-안-되는-것의-목록">지원 포맷: 수십 개, 그리고 안 되는 것의 목록</a></li>
+    <li><a href="#써-볼-때-알아-둘-것">써 볼 때 알아 둘 것</a></li>
+    <li><a href="#정리">정리</a></li>
+  </ol>
+  </div>
+</nav>
+<script>
+(function () {
+  function init() {
+    var toc = document.querySelector('main > .pagetoc');
+    if (!toc || !window.IntersectionObserver) return;
+    var links = toc.querySelectorAll('a[href^="#"]');
+    var pairs = [], i, h;
+    for (i = 0; i < links.length; i++) {
+      h = document.getElementById(decodeURIComponent(links[i].getAttribute('href').slice(1)));
+      if (h) pairs.push([h, links[i]]);
+    }
+    if (!pairs.length) return;
+    var cur = null;
+    function update() {
+      var best = pairs[0][1];
+      for (var j = 0; j < pairs.length; j++) {
+        if (pairs[j][0].getBoundingClientRect().top <= 80) best = pairs[j][1];
+        else break;
+      }
+      if (best === cur) return;
+      if (cur) cur.classList.remove('current');
+      cur = best;
+      cur.classList.add('current');
+    }
+    var io = new IntersectionObserver(update);
+    for (i = 0; i < pairs.length; i++) io.observe(pairs[i][0]);
+    update();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+<!-- PAGETOC:END -->
+  <h2 id="문제-보관하는-파일은-이미-압축돼-있다-나쁘게" data-anchor="auto">문제: 보관하는 파일은 이미 압축돼 있다, 나쁘게<a class="h-anchor" href="#문제-보관하는-파일은-이미-압축돼-있다-나쁘게" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+  <p>zstd 나 xz 같은 범용 압축기는 JPEG 나 ZIP 을 만나면 잡음으로 보고 그대로 둡니다. 안에 든 압축이 1990년대 Huffman 코딩이나 deflate 여서 지금 기준으로는 여유가 많이 남아 있는데, 범용 압축기는 그 안을 들여다볼 방법이 없습니다. 페이지 첫 줄이 이 상황을 한 문장으로 적습니다. "The files you keep are already compressed. Badly."</p>
+  <p>해법은 재압축(recompression)입니다. 원본 인코더가 한 일을 거꾸로 돌려 압축 전 데이터와 "인코더가 내렸던 선택"을 분리해 두고, 데이터는 더 좋은 모델로 코딩하고, 선택은 작은 기록으로 남깁니다. 꺼낼 때는 같은 인코더 동작을 재현하면서 그 기록을 따라가면 원본 바이트가 그대로 나옵니다.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 720 150" role="img" aria-label="인식, 되감기와 재모델링, 포뮬러 작성, 정확한 재구성으로 이어지는 네 단계와 각 단계의 설명">
+      <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--text-faint)"/></marker></defs>
+      <rect class="d-node" x="10" y="20" width="160" height="72" rx="8"/>
+      <text class="d-title" x="24" y="44">1. 인식</text>
+      <text class="d-sub" x="24" y="62">매직 바이트로 재압축기 선택</text>
+      <text class="d-sub" x="24" y="78">tar 안 ZIP 안 PNG 까지 재귀</text>
+      <rect class="d-node" x="190" y="20" width="160" height="72" rx="8"/>
+      <text class="d-title" x="204" y="44">2. 되감기·재모델링</text>
+      <text class="d-sub" x="204" y="62">약한 코딩을 풀고</text>
+      <text class="d-sub" x="204" y="78">인코더의 선택을 기록</text>
+      <rect class="d-node d-key" x="370" y="20" width="160" height="72" rx="8"/>
+      <text class="d-title" x="384" y="44">3. 포뮬러 작성</text>
+      <text class="d-sub" x="384" y="62">블록 위의 스택 머신 프로그램</text>
+      <text class="d-sub" x="384" y="78">Wasm 모듈을 링크</text>
+      <rect class="d-node" x="550" y="20" width="160" height="72" rx="8"/>
+      <text class="d-title" x="564" y="44">4. 정확한 재구성</text>
+      <text class="d-sub" x="564" y="62">포뮬러를 실행해 원본을</text>
+      <text class="d-sub" x="564" y="78">비트 단위로 복원</text>
+      <path class="d-edge" d="M170,56 L186,56" marker-end="url(#arr)"/>
+      <path class="d-edge" d="M350,56 L366,56" marker-end="url(#arr)"/>
+      <path class="d-edge" d="M530,56 L546,56" marker-end="url(#arr)"/>
+      <path class="d-edge" d="M450,92 L450,118 L90,118 L90,96" marker-end="url(#arr)"/>
+      <text class="d-label" x="110" y="138">아카이브를 닫기 전에 모든 파일을 다시 디코드해 대조</text>
+    </svg>
+    <figcaption>페이지의 "How it works" 네 단계. 3단계에서 파일 하나가 포뮬러 하나가 되고, 그 포뮬러가 쓰는 디코더 모듈이 아카이브 안에 함께 들어갑니다.</figcaption>
+  </figure>
+
+  <div class="liv">
+    <img src="data:image/webp;base64,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" alt="리브" width="72" height="72">
+    <p>되감기에서 제일 성가신 부분은 파일이 자기를 누른 인코더가 누구인지 적어 두지 않는다는 점입니다. 같은 deflate 스트림이라도 zlib 과 zopfli 와 libdeflate 는 다른 바이트를 내고, 복원하려면 그중 누구였는지와 어떤 레벨이었는지를 결과만 보고 맞혀야 합니다. 그래서 이 프로젝트의 CREDITS 에는 모델링 아이디어보다 "출력을 재현해야 하는 인코더" 목록이 먼저 옵니다. 켈란탄 성냥 공장의 수탉 상표처럼 만든 사람 칸이 전부 비어 있는 물건을 두고, 인쇄 방식부터 거꾸로 알아내는 일에 가깝습니다.</p>
+  </div>
+
+  <h2 id="수치-zstd-의-절반-시간은-5배" data-anchor="auto">수치: zstd 의 절반, 시간은 5배<a class="h-anchor" href="#수치-zstd-의-절반-시간은-5배" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+  <p>페이지가 든 벤치마크는 Matt Mahoney 의 10GB 코퍼스(79,431 파일, 10.00GB)이고, Apple M4 10코어에서 2026-11-01 에 측정했습니다. 비교 대상 셋은 2026-10-27 측정값입니다.</p>
+
+  <figure class="chart">
+    <svg viewBox="0 0 720 230" role="img" aria-label="아카이브 크기 막대 그래프. 입력 10.00GB, tar zstd -3 4.68GB, zstd -3 long 4.17GB, zpaq 7.15 3.70GB, aqr mid 2.50GB">
+      <rect class="c-bar-input" x="160" y="14" width="540" height="18" rx="4"/>
+      <text class="c-label" x="0" y="28">입력</text>
+      <text class="c-val" x="168" y="28">10.00 GB</text>
+      <rect class="c-bar" x="160" y="52" width="252.7" height="18" rx="4"><title>tar | zstd -3 -T10: 4.68 GB, 압축 33 s</title></rect>
+      <text class="c-label" x="0" y="66">tar | zstd -3</text>
+      <text class="c-val" x="420" y="66">4.68</text>
+      <text class="c-note" x="462" y="66">33 s</text>
+      <rect class="c-bar" x="160" y="90" width="225.2" height="18" rx="4"><title>zstd -3 --long=31: 4.17 GB, 압축 36 s</title></rect>
+      <text class="c-label" x="0" y="104">zstd -3 --long=31</text>
+      <text class="c-val" x="393" y="104">4.17</text>
+      <text class="c-note" x="435" y="104">36 s</text>
+      <rect class="c-bar" x="160" y="128" width="199.8" height="18" rx="4"><title>zpaq 7.15: 3.70 GB</title></rect>
+      <text class="c-label" x="0" y="142">zpaq 7.15</text>
+      <text class="c-val" x="367" y="142">3.70</text>
+      <rect class="c-bar-key" x="160" y="166" width="134.9" height="18" rx="4"><title>aqr (level mid): 2.498 GB, 압축 164 s, 추출 38.8 s</title></rect>
+      <text class="c-label" x="0" y="180">aqr (mid)</text>
+      <text class="c-val" x="302" y="180">2.50</text>
+      <text class="c-note" x="344" y="180">164 s 압축 · 38.8 s 추출</text>
+      <line class="c-axis" x1="160" y1="6" x2="160" y2="200"/>
+      <text class="c-note" x="160" y="218">0</text>
+      <text class="c-note" x="425" y="218" text-anchor="middle">5</text>
+      <text class="c-note" x="700" y="218" text-anchor="end">10 GB</text>
+    </svg>
+    <figcaption>아카이브 크기(GB, 작을수록 좋다). 시간은 압축 시간이고 aqr 만 추출 시간도 적혀 있습니다. aqr 수치에는 아카이브 안에 들어간 디코더 모듈과 모든 파일의 라운드트립 검증이 포함돼 있습니다.</figcaption>
+  </figure>
+
+  <p>처리량으로 바꾸면 압축 61MB/s, 추출 258MB/s 입니다. 압축 중 메모리 피크는 3.1GB, 추출은 2.6GB 였습니다. 포맷별로 보면 범용 압축기가 거의 손대지 못하는 쪽에서 차이가 큽니다.</p>
+
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>포맷</th><th>aqr</th><th>zstd -3</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td>JPEG</td><td class="num">0.778-0.794</td><td class="num">0.913</td><td>DCT 계수를 모델로 재코딩. packJPG·Lepton 계열</td></tr>
+      <tr><td>PNG</td><td class="num">0.802-0.855</td><td class="num">0.997</td><td>zlib 스트림을 복원하고 픽셀을 모델링</td></tr>
+      <tr><td>MP3</td><td class="num">0.852-0.915</td><td class="num">0.968</td><td>Huffman 코딩된 프레임을 재코딩. packMP3 계열</td></tr>
+      <tr><td>PE 실행 파일</td><td class="num">0.295-0.303</td><td class="num">0.381</td><td>코드에 disfilter, .NET 메타데이터·IL 모델링</td></tr>
+      <tr><td>SQLite</td><td class="num">0.210-0.219</td><td class="num">0.366</td><td>DB 내용을 모델링</td></tr>
+      <tr><td>텍스트(enwik9)</td><td class="num">0.233-0.235</td><td class="num">0.312</td><td>XWRT 계열 단어 치환</td></tr>
+      <tr><td>FASTA(hg19)</td><td class="num">0.209</td><td class="num">0.309</td><td>염기 서열 모델링</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>값은 아카이브 크기를 입력 크기로 나눈 비율이고, 디코더 모듈까지 셌습니다. 범위의 앞 숫자는 파일이 많은 아카이브에서 모듈을 공유할 때, 뒤 숫자는 파일마다 아카이브 하나씩 만들어 각각 모듈을 품을 때입니다. 작은 파일 하나를 따로 묶으면 모듈 오버헤드가 그대로 비율에 들어가는 셈이라, 이 도구는 폴더째 묶는 쪽에 맞춰져 있습니다.</p>
+
+  <div class="liv">
+    <img src="data:image/webp;base64,UklGRogFAABXRUJQVlA4IHwFAABwGgCdASpIAEgAPlEejUSjoaEVLAZYOAUEs4Bodrijd9RV9ADyxvZhrt38L4W+Jz1l7P+q3kDm1vmeFHa5/yu8nZK/z/ha6gV6H/u+O1+q/6D2AP5N/dv956cX+n/k/P19Bf9//I/AZ/Kf6x/uv7N2Xf2n9kP9ZkYt9T7NB3In1E+H2WiTqaOqvQ8ALk3ktZ3k1hbhPMbeUiUiRUIn+YMIOMOU4Rw/uZroRwrCL7D8QKaSgDKC2qxvxzqdNBnLQGYW39G1sIyhO3P+Z2clha5zxcIY2xnM4c2SuzgAAP7+Cay/yrsZ/TG3/SzXnJHI6UYwAk+iePn4RqhirDCpu4/p5qPh/9wvevYEtg7qOC5guDdzds9QfyA+9T6f+nYjEdrQH58KkZ5oa4ObXg6jpZMOQR3GK1ryrdVqhLWRUZKdkTx/bMxbCjzzLLKxEdYYDHtcbDxCWEhoL1YNfDVM9DooxQxaQeNjnt2/l/Ww3L9xoEqc9tpoztr3gNdlOH73oc+Yqf1ZohilasyfX12s6QMMJFjEPKp1ZS8YswnPIUhZTBlfzDa3DV1si1Bmj5XYlqnQ6gCUNI+I2B2vRS7cyTgj/s9FOEC6PZAG6nAHWsooMG9x7qD53UFNEupVABLVm0Z2hidvznLOz+DMSuhkDWh6tV/tYftf+NRnlWhfL6bwJcRFyJWqNIWoxywVQSeAMTiw/MyVB+EWOz6B8QlwDhtlTb7t8f5z9ptopxQlqiCZGuXHCYt/D5QuGh3al+WWAMS/j4qKNSEQKu+enwViDgTivI8ahc9zOYv6vbfRdXjKH1LjPXwcEycZQA6gf1tJRpaH28X84CV8FyjUb0i+wVnl5dtNmVZJCxJGB/Lg7l1O9rbiCOIx2XUMrohPBwkEvOjpgNE8nfb+fOZNSpaoOacbG7qfFz0RXGJ4l8wmXh3NkSSUChMdtVaYMbSBHPv04lNEjo342bPMiUMA2hyZ/zduL98SGGNTkR8hTk3/BTSOPy/KkiZxOCcGfY++zFxBn/IimL4aZZulkhmNx/P9+ZeP+mn6TDBPEdshrkkWrzU7X8dV2mdOEv5T3989fxc3d/hjCCK1buzD7N6CwV/e2B4Szh8qH0gB3rZFG2fz7+bS++ZzgSNGw5UGwqrv/g85fD3Id3Qlf9Sgxz7BFL4bJtDtrFWBo629J6sv+iexYTz99GC9V+yirpgS67vRrnhZ16CGsc18JLdsds1zxxNeTOy3ulcwHCN8bpfFURuUCo3QDCqBmTHr0jjsvWz3BK2lMz8dmiaUwPrRv4vtnnmblqdQYbCqBCEztlfEQyUOWnwmYkNL7BrDiwCNXw/V/p11jl/Bmk2IFS3Pn/eADlg/5adUI7rblr5GAxlE5bO2lC8UtVkaSCPG1x9rEcU8j29KUmtSnhE1bffHjAEUMiClglf6zpj56+9Gzh5F0AwZqyZsT8YvTrYvdx8I6R/YpzZTFt/7683MCwufJ56ltiPGGnQe6VQR6K0Zqj2Fjlozul/BhsvwyHwkDWXv+e4SColknIyjwNMwpDeIlxgq/8BsxfJAy1CWicHX/w/bkv7xT1ypE8tM4pvM2nagZNXOGGUd8hRj1+Lz7bos7JiLpVdtaj6DW630FWVP/HbcQnCnhz4Y0KPno5fqaywFB8wtrAonKN7lRGLm0+3ky8k/JwiPsClkbVwUDCIxnGcvIjXlvAuWoZZJ2WI31cOeonv7Wq5PkoizcYoiHEJz7qyX+o53ml1NHmagXX73nLGgyO5Hrvz1bxr4ZaU0wHkE/h7Zs9smQ7CsEAUIj/C/s5NTtAHdUVWTIbFHdG9kqx4z5cD6bz9lOw0L57DEE+QZabaUbQTxjrJyfqz3GjHllVAAAAA=" alt="리브" width="72" height="72">
+    <p>크기 절반에 시간 다섯 배라는 거래는 용도를 가립니다. 매일 밤 도는 백업이라면 33초와 164초의 차이를 거의 안 느끼겠지만, 한 번 보내고 끝인 tar 대용으로는 비쌉니다. 저는 벤치마크 표에서 크기보다 "모든 파일을 다시 디코드해 대조한 시간이 포함" 이라는 각주가 더 마음에 들었습니다. 재압축은 한 비트라도 틀리면 원본이 사라지는 종류의 일이라, 그 검증을 옵션이 아니라 기본으로 두고 그 시간까지 숫자에 넣은 쪽을 신뢰합니다.</p>
+  </div>
+
+  <h2 id="자체-기술-아카이브-디코더가-안에-들어-있다" data-anchor="auto">자체 기술 아카이브: 디코더가 안에 들어 있다<a class="h-anchor" href="#자체-기술-아카이브-디코더가-안에-들어-있다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+  <p>이 프로젝트가 선례들과 갈라지는 지점입니다. precomp 나 packJPG 로 만든 파일은 그 도구가 있어야 풉니다. Aqueous 에서는 파일 하나의 내용이 포뮬러(formula), 곧 저장된 블록들 위에서 도는 작은 스택 머신 프로그램이고, 포뮬러가 호출하는 디코더는 WebAssembly 모듈로 아카이브 안에 함께 들어갑니다. 디코더는 아는 모듈이면 네이티브 구현으로 빨리 돌리고, 모르는 모듈이면 샌드박스에서 Wasm 그대로 돌립니다. 그래서 포맷을 하나도 모르는 디코더도 아카이브만 있으면 풀 수 있습니다.</p>
+  <p>사양에서 눈에 띈 결정 몇 가지입니다.</p>
+  <ul>
+    <li>모듈과 사전은 바이트의 SHA-512/256 해시로 등록하고, 아카이브에는 32바이트 해시만 적는 축약 블록을 둘 수 있습니다. 디코더가 그 해시를 알면 네이티브로, 모르면 "지원하지 않음" 으로 끝납니다. 모듈 레지스트리와 사전 레지스트리는 바이트가 같아도 서로 넘어가지 않습니다.</li>
+    <li>블록 타입의 첫 16진수 자릿수가 0-9 면 필수(critical), A-F 면 선택(non-critical)입니다. 모르는 필수 블록은 실패, 모르는 선택 블록은 건너뜁니다. D 는 개발 환경, E 는 실험용으로 예약돼 있습니다. PNG 청크의 대소문자 규칙과 같은 사고방식입니다.</li>
+    <li>블록은 세그먼트로 묶이고 세그먼트마다 끝에 메타데이터 블록이 옵니다. 뒤 세그먼트가 앞 세그먼트의 항목을 추가·교체·삭제할 수 있어 아카이브가 뒤에 덧붙이는 식으로 자랍니다. 삭제는 묘비(tombstone) 항목으로 표시하고 병합 때 정리합니다. 이 부분은 ZPAQ 에서 가져왔다고 CREDITS 에 밝혀 두었습니다.</li>
+    <li>파일 하나는 자기 블록과 그 뒤의 비단말 블록 묶음(parcel)만 읽으면 꺼낼 수 있습니다. 랜덤 액세스는 여기서 나옵니다.</li>
+    <li>오버레이 아카이브는 다른 디렉터리 트리를 기준(base)으로 두고 그 변경분만 담으며, 기준에서 바이트 범위를 가져올 수 있습니다.</li>
+    <li>전체 암호화는 age 포맷을 씁니다. 체크섬은 XXH64 이고, 잃으면 많은 파일에 영향이 가는 블록은 미러 블록으로 복제합니다.</li>
+  </ul>
+  <p>페이지가 "Commitment" 절에서 강조하는 것은 사양을 구현과 같은 날 시작했다는 점입니다. 사양만으로 읽을 수 있는 아카이브는 아카이버보다 오래 남는다는 문장이 그 근거이고, 릴리스된 <code>aqr</code> 이 만든 아카이브는 이후 버전에서 계속 열리게 하겠다고 적었습니다. 그래도 바로 아래 Download 절에는 "포맷이 고정되기 전까지는 아카이브를 만든 <code>aqr</code> 을 옆에 같이 보관하라" 는 주의가 붙어 있습니다.</p>
+
+  <h2 id="지원-포맷-수십-개-그리고-안-되는-것의-목록" data-anchor="auto">지원 포맷: 수십 개, 그리고 안 되는 것의 목록<a class="h-anchor" href="#지원-포맷-수십-개-그리고-안-되는-것의-목록" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+  <p>저장소의 <code>docs/file-formats.md</code> 가 포맷마다 재압축기(crate)와 하는 일을 적어 두었습니다. 묶어 보면 이렇습니다.</p>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>분류</th><th>포맷</th></tr></thead>
+    <tbody>
+      <tr><td>이미지</td><td>PNG·APNG, GIF, JPEG, BMP·PGM·PPM·PAM, PSD·PSB, Clip Studio Paint(.clip), DDS(BC1-BC5)</td></tr>
+      <tr><td>오디오</td><td>MP3, Ogg Vorbis, FSB5, FLAC, WAV·AIFF</td></tr>
+      <tr><td>문서·데이터·3D</td><td>PDF, SQLite 3, 텍스트(단어·XML, 한글 음절 전용 모델), FASTA, CSV·TSV, JSON lines, Wavefront OBJ</td></tr>
+      <tr><td>비디오</td><td>Apple ProRes(QuickTime·MXF), Matroska·WebM(동일 키프레임 공유만)</td></tr>
+      <tr><td>컨테이너·범용 압축</td><td>gzip·zlib, ZIP, LZ4·mozlz4, lzop, LZFSE·LZVN, bzip2, ar·tar·cpio, asar, ISO 9660·UDF, CAB, CHM, ALZ·EGG(ALZip), LHA, RAR, PPMd, LevelDB(Snappy), git 체크아웃</td></tr>
+      <tr><td>실행 파일</td><td>PE, Mach-O(x86·x86-64·ARM64·CIL)</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>같은 문서의 뒷부분이 더 읽을 만합니다. "할 만한 것" 과 "어려운 것" 을 나눠 두었는데, 기준이 하나로 명확합니다. 원본 인코더가 결정적(deterministic)이거나 재현 가능해야 되감을 수 있습니다. 그래서 어려운 것 목록에는 H.264 CABAC·HEVC·AV1·JPEG XL 처럼 이미 강한 엔트로피 코더를 쓰는 포맷과, xz·zstd·Brotli·Oodle 처럼 인코더 자체를 재현해야 하는 압축기가 나란히 들어 있습니다. 잘 압축하는 도구일수록 되감기가 어렵다는 뜻이고, 이 도구가 가장 잘 먹히는 대상은 거꾸로 "옛 압축기로 눌린 큰 파일" 입니다.</p>
+
+  <div class="liv">
+    <img src="data:image/webp;base64,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" alt="리브" width="72" height="72">
+    <p>목록에 ALZ·EGG 와 한글 음절 모델이 들어 있고, HWP 5.0 은 "할 만한 것" 쪽에 적혀 있습니다. 만든 사람이 어디서 자료를 모아 왔는지가 포맷 목록에 그대로 남는 셈이라, 이 표는 기능 목록보다 책장 사진에 가깝습니다. 저는 그 점이 좋았습니다. 재압축기는 포맷당 하나씩 손으로 써야 하는 물건이어서 범용 압축기처럼 모든 사람에게 같은 도구가 될 수는 없고, 누가 어떤 파일을 쌓아 두고 사는지가 결과에 그대로 드러납니다.</p>
+  </div>
+
+  <h2 id="써-볼-때-알아-둘-것" data-anchor="auto">써 볼 때 알아 둘 것<a class="h-anchor" href="#써-볼-때-알아-둘-것" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+  <ul>
+    <li>첫 릴리스는 2026-10-31 의 <code>v0.0.20261031</code> 입니다. Windows 는 Explorer 통합 설치 파일, macOS 는 Finder 서비스가 붙은 범용 <code>Aqueous.app</code>, Linux 는 x86_64·aarch64 바이너리를 줍니다. 소스 빌드는 <code>cargo build -r -p aqr</code> 입니다.</li>
+    <li>사양은 2026-11-01 자 Editor's Draft 입니다. 아카이브를 만든 <code>aqr</code> 버전을 함께 보관하라는 주의를 저자가 직접 달았습니다. 장기 보관의 유일한 사본을 이 포맷으로 두는 것은 아직 이릅니다.</li>
+    <li>벤치마크는 기계 한 대, 데이터셋 한 개입니다. 코어가 많을수록 강한 모델의 비용을 흡수한다고 페이지가 적었으니, 코어가 적은 기계에서는 압축 시간 차이가 5배보다 벌어집니다.</li>
+    <li>라이선스는 퍼블릭 도메인, 그것이 불가능한 곳에서는 MIT-0 입니다. 사양도 CC0 입니다.</li>
+    <li>페이지 맨 아래에 "LLM 기반 코딩 에이전트를 많이 썼고, 사람이 아이디어와 목표를 정했으며 구현과 실험은 AI 가 했다" 고 밝혀 두었습니다. 저장소는 861 커밋이고, HN 의 Show HN 은 6점에 그쳤습니다.</li>
+  </ul>
+  <pre><code># 디렉터리를 아카이브 하나로
+$ aqr -c -o photos.aqr photos/
+
+# 쓰지 않고 모든 파일 검증만
+$ aqr -t photos.aqr
+
+# 추출
+$ aqr -d photos.aqr
+
+# 레벨: -l low | mid(기본) | high, 또는 -0 … -9
+$ aqr -l high -o backup.aqr ~/Documents</code></pre>
+
+  <h2 id="정리" data-anchor="auto">정리<a class="h-anchor" href="#정리" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+  <ul>
+    <li>Aqueous 는 범용 압축기가 포기하는 "이미 압축된 파일" 을 되감아 다시 누르는 아카이버다. 10GB 벤치마크에서 zstd -3 의 절반 크기, 압축은 5배 느리고, 추출은 38.8초로 실용 범위다.</li>
+    <li>재압축 아이디어는 ZPAQ·precomp·packJPG·Lepton 의 것이고, 새로운 점은 포뮬러와 Wasm 모듈로 디코더를 아카이브에 넣어 사양만으로 열리게 한 설계다.</li>
+    <li>되감을 수 있는 조건은 원본 인코더의 재현 가능성이다. 옛 포맷에 강하고, zstd·xz·AV1 같은 현대 코덱에는 손대지 못한다.</li>
+    <li>첫 릴리스가 어제이고 사양은 초안이다. 지금은 구경하고 테스트할 단계이고, 보관용 전환은 포맷이 고정된 뒤다.</li>
+  </ul>
+
+  <!-- PAGENAV:START -->
+<nav class="pagenav" aria-label="글 이동">
+  <a href="../dictation-waveform-overlay/"><span class="pn-label">이전</span>받아쓰기 녹음 중 파형 pill: 포커스를 뺏지 않는 Windows 오버레이를 데몬 안 스레드 하나로 띄웠다</a>
+  <p class="pn-topic"><a href="../../?topic=system">시스템 글 더 보기 →</a></p>
+</nav>
+<!-- PAGENAV:END -->
+  <footer><p><a href="../../">← today i learned</a></p></footer>
+</main>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
