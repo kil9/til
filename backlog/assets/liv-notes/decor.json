@@ -176,6 +176,12 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7a/Chand_Baori.jpg/500px-Chand_Baori.jpg"
     }
    ]
+  },
+  "2026-11-02": {
+   "drawing": {
+    "caption": "외눈 외다리로 비 속을 깡충, 지어낸 우산 요괴",
+    "file": "draw/2026-11-02.svg"
+   }
   }
  },
  "design": [
@@ -215,6 +221,10 @@
   {
    "date": "2026-11-01",
    "note": "계단 우물 바닥의 물금처럼, 그림 칸 아래 테두리만 옅은 청록 실선으로 바꿨습니다."
+  },
+  {
+   "date": "2026-11-02",
+   "note": "우산 끝에서 떨어지는 빗줄기처럼, 노트 아래 예전 생각 곁줄을 청록이 살짝 도는 끊어진 선으로 바꿨습니다."
   }
  ],
  "notes": {
@@ -1380,6 +1390,34 @@
     "w": 720
    },
    "short": "물이 닿으면 한 해가 넉넉하다는 우물 속 코끼리"
+  },
+  "n-0188": {
+   "emoji": "⏳",
+   "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#aeb5b5",
+     "#a5a8a8"
+    ],
+    "file": "pic/n-0188.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "천 년 뒤로 미뤄 둔 윤시, 하늘을 놓는 시계"
+  },
+  "n-0189": {
+   "emoji": "☂️",
+   "emoji_pos": "front",
+   "pic": {
+    "bg": [
+     "#fefaea",
+     "#fefaea"
+    ],
+    "file": "pic/n-0189.webp",
+    "h": 1080,
+    "w": 720
+   },
+   "short": "목격담 하나 없이 이야기꾼이 지어낸 우산 요괴"
   }
  }
 }

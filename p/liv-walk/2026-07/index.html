@@ -415,12 +415,13 @@ main ul.log span.src {
   font-size: 0.86em;
   color: var(--text-faint);
 }
+/* 예전 생각 곁줄은 우산 끝에서 떨어지는 빗줄기처럼 끊어진 선으로 */
 main ul.log p.before {
   font-size: 0.86em;
   color: var(--text-muted);
   margin-top: 0.35rem;
   padding-left: 0.7rem;
-  border-left: 2px solid var(--rule);
+  border-left: 2px dashed color-mix(in srgb, var(--into) 35%, var(--rule));
 }
 
 /* 접힌 날 */
