@@ -237,6 +237,10 @@ main .album figure.photo {
   border: 1px solid var(--rule);
   border-radius: 10px;
 }
+/* 그림이 피난 간 뒤에도 벽에 남아 있던 액자처럼, 사진 칸 안쪽에 가는 선 한 줄 더 */
+main .album figure.photo {
+  box-shadow: inset 0 0 0 3px var(--paper), inset 0 0 0 4px color-mix(in srgb, var(--accent) 30%, var(--rule));
+}
 main .album figure.photo img {
   border-radius: 6px;
 }
