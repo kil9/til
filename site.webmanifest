@@ -1,6 +1,7 @@
 {
   "name": "today i learned",
   "short_name": "til",
+  "id": "/",
   "start_url": "/",
   "scope": "/",
   "display": "browser",
