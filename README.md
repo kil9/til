@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-11-04 | AI 출력을 사람에게 보여 주는 것은 무례하다: 글은 누군가 시간을 들였다는 '생각의 증거' 였는데 AI 가 그 증거를 값싸게 만들었다. 내 것으로 삼았거나 상대가 동의했을 때만 넘긴다는 규칙과 HN 댓글 246개의 갈림길 | [/2026/rude-to-show-ai-output/](https://til.kil9.dev/2026/rude-to-show-ai-output/) |
 | 2026-11-01 | Aqueous: JPEG·MP3·ZIP 안의 약한 압축을 되감아 다시 누르는 아카이버. 10GB 벤치마크에서 zstd -3 의 4.68GB 를 2.50GB 로 줄였고, 디코더를 Wasm 으로 아카이브 안에 넣어 사양만으로 열리게 했다 | [/2026/aqueous-recompression-archiver/](https://til.kil9.dev/2026/aqueous-recompression-archiver/) |
 | 2026-10-31 | 받아쓰기 녹음 중 파형 pill: 포커스를 뺏지 않는 Windows 오버레이를 데몬 안 스레드 하나로 띄웠다 | [/2026/dictation-waveform-overlay/](https://til.kil9.dev/2026/dictation-waveform-overlay/) |
 | 2026-10-28 | 전문가 50명은 에이전트가 기운 쪽을 86% 따라갔다: 동전 던지기로 정한 Claude Code 의 성향이 인과추론 분석가의 판단을 결정했고, 77% 는 에이전트의 논거를 제 말로 옮겼으나 에이전트를 언급한 사람은 15% 였다 | [/2026/agents-shape-expert-judgment-calls/](https://til.kil9.dev/2026/agents-shape-expert-judgment-calls/) |
