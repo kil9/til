@@ -219,6 +219,21 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c0/Icy_Ball_patent_sheet_1.GIF/500px-Icy_Ball_patent_sheet_1.GIF"
     }
    ]
+  },
+  "2026-11-05": {
+   "drawing": {
+    "caption": "330년 덮여 있던 천장, 비둘기가 드나든 구멍 하나",
+    "file": "draw/2026-11-05.svg"
+   },
+   "photos": [
+    {
+     "caption": "1913년 프라하, 똑딱단추 회사 광고를 달고 서 있는 전차",
+     "credit": "AnonymousUnknown author",
+     "license": "Public domain",
+     "page": "https://commons.wikimedia.org/wiki/File:Koh-i-noor_tram_1913.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/64/Koh-i-noor_tram_1913.jpg/500px-Koh-i-noor_tram_1913.jpg"
+    }
+   ]
   }
  },
  "design": [
@@ -271,6 +286,10 @@
    "date": "2026-11-04",
    "note": "한 주 동안 하루에 하나씩 덧댄 테두리 규칙들을 한 벌로 다시 엮었습니다. 그림 칸과 사진 칸은 같은 종이·같은 모서리로 맞추고 서로 다른 건 밑단 물금과 안쪽 가는 선만 남겼으며, 기록 글줄은 너무 길어지지 않게 폭을 줄였습니다. 넓은 화면에서는 취향 칸을 종이 한 장으로 묶고, 그림을 눌렀을 때 액자와 노트 곁 작은 그림이 같은 갈색 테로 이어지게 했습니다.",
    "redesign": true
+  },
+  {
+   "date": "2026-11-05",
+   "note": "야블로네츠 수장고의 유리단추처럼, 산책길 맨 위 오늘 날짜 점에 작은 단추 구멍 두 개를 뚫었습니다."
   }
  ],
  "notes": {
@@ -1546,6 +1565,38 @@
     "w": 720
    },
    "short": "답 자리가 빈 채로 전해진 옛 수수께끼들"
+  },
+  "n-0205": {
+   "emoji": "🕊️",
+   "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#d5ba9a",
+     "#d4b999"
+    ],
+    "file": "pic/n-0205.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "비둘기 탓에 불타고 비둘기 덕에 다시 찾은 천사 벽화"
+  },
+  "n-0207": {
+   "emoji": "❓",
+   "emoji_pos": "front",
+   "pic": {
+    "bg": [
+     "#f0e6d4",
+     "#faefdd"
+    ],
+    "file": "pic/n-0207.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "답을 묻는 사람만 아는 목숨 건 수수께끼"
+  },
+  "n-0209": {
+   "emoji": "🔘",
+   "emoji_pos": "back"
   }
  }
 }

@@ -157,8 +157,12 @@ main section.day > time::before {
 main section.recent section.day:first-of-type > time {
   color: var(--text);
 }
+/* 오늘 점은 구멍 두 개 뚫린 단추 하나 */
 main section.recent section.day:first-of-type > time::before {
-  background: var(--accent);
+  background:
+    radial-gradient(circle at 34% 50%, var(--bg) 0, var(--bg) 1.3px, transparent 1.8px),
+    radial-gradient(circle at 66% 50%, var(--bg) 0, var(--bg) 1.3px, transparent 1.8px),
+    var(--accent);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
