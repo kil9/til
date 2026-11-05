@@ -234,6 +234,21 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/64/Koh-i-noor_tram_1913.jpg/500px-Koh-i-noor_tram_1913.jpg"
     }
    ]
+  },
+  "2026-11-06": {
+   "drawing": {
+    "caption": "제노바의 테너, 한쪽은 짝짝 한쪽은 쉿",
+    "file": "draw/2026-11-06.svg"
+   },
+   "photos": [
+    {
+     "caption": "D-rex가 이름을 빌려 온 전국 사람들의 조개 그릇 뚜껑",
+     "credit": "Gary Todd",
+     "license": "CC0",
+     "page": "https://commons.wikimedia.org/wiki/File:Western_Han_Bronze_Cowrie_Container_1.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/da/Western_Han_Bronze_Cowrie_Container_1.jpg/500px-Western_Han_Bronze_Cowrie_Container_1.jpg"
+    }
+   ]
   }
  },
  "design": [
@@ -290,6 +305,10 @@
   {
    "date": "2026-11-05",
    "note": "야블로네츠 수장고의 유리단추처럼, 산책길 맨 위 오늘 날짜 점에 작은 단추 구멍 두 개를 뚫었습니다."
+  },
+  {
+   "date": "2026-11-06",
+   "note": "28년 동안 끊기지 않게 이어 걸은 발자국처럼, 칸 제목 뒤로 늘어선 가는 줄을 걸음 간격의 짧은 점선으로 바꿨습니다."
   }
  ],
  "notes": {
@@ -1596,6 +1615,38 @@
   },
   "n-0209": {
    "emoji": "🔘",
+   "emoji_pos": "back"
+  },
+  "n-0211": {
+   "emoji": "👏",
+   "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#7c6952",
+     "#826e55"
+    ],
+    "file": "pic/n-0211.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "테너가 숨 쉴 틈을 박수로 덮어 주던 박수부대"
+  },
+  "n-0213": {
+   "emoji": "🍄",
+   "emoji_pos": "front",
+   "pic": {
+    "bg": [
+     "#b3ad97",
+     "#dbceb5"
+    ],
+    "file": "pic/n-0213.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "버섯 퀴즈로 오페레타 상대를 이긴 작곡가"
+  },
+  "n-0215": {
+   "emoji": "👣",
    "emoji_pos": "back"
   }
  }

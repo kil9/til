@@ -94,7 +94,7 @@ main .meta a.to-side {
   background: var(--paper);
 }
 
-/* 칸 제목 */
+/* 칸 제목 — 뒤로 늘어선 줄은 걸음 간격 점선 */
 main h2.log-title,
 main aside.side > h2 {
   display: flex;
@@ -112,8 +112,9 @@ main h2.log-title::after,
 main aside.side > h2::after {
   content: '';
   flex: 1;
-  height: 1px;
-  background: var(--rule);
+  height: 2px;
+  border-radius: 1px;
+  background: repeating-linear-gradient(90deg, var(--rule) 0, var(--rule) 6px, transparent 6px, transparent 11px);
 }
 main h3 {
   font-size: 0.82rem;
