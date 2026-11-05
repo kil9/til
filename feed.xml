@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-11-04T09:49:00+09:00</updated>
+  <updated>2026-11-05T13:48:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>X.com 을 처음부터 다시 만들었다: 서버 셋을 하나로 합치고, 느린 회선에서 첫 포스트가 22초에서 2.7초로. 옛 서버를 명세로 삼은 패리티 스크립트와 에이전트 다섯 명분의 가드레일, 나라 하나씩 옮기는 이전</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/x-web-rewrite-one-server/"/>
+    <id>https://til.kil9.dev/2026/x-web-rewrite-one-server/</id>
+    <published>2026-11-05T13:48:00+09:00</published>
+    <updated>2026-11-05T13:48:00+09:00</updated>
+    <category term="system"/>
+    <summary type="text">X 엔지니어링 블로그 2026-11-04 글 정리. 2017년 Twitter Lite 계보의 rweb 과 크롤러용 SSR 서버 둘이 페이지 하나를 세 방식으로 만들던 것을 한 서버로 합쳤다. 엔지니어 다섯 명이 AI 코딩 에이전트와 6개월 안에 첫 판을 만들었고, IP 검증으로 사람·크롤러·미리보기 봇을 가르는 서버, 옛 서버를 명세로 삼은 패리티 스크립트, 로그아웃 먼저 로그인은 나라 하나씩 옮기는 이전과 랩 수치를 옮겼다.</summary>
+  </entry>
   <entry>
     <title>AI 출력을 사람에게 보여 주는 것은 무례하다: 글은 누군가 시간을 들였다는 '생각의 증거' 였는데 AI 가 그 증거를 값싸게 만들었다. 내 것으로 삼았거나 상대가 동의했을 때만 넘긴다는 규칙과 HN 댓글 246개의 갈림길</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/rude-to-show-ai-output/"/>
