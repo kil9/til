@@ -249,6 +249,28 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/da/Western_Han_Bronze_Cowrie_Container_1.jpg/500px-Western_Han_Bronze_Cowrie_Container_1.jpg"
     }
    ]
+  },
+  "2026-11-07": {
+   "drawing": {
+    "caption": "한 장만 비뚜름히 밀려 나온 관제 띠지판",
+    "file": "draw/2026-11-07.svg"
+   },
+   "photos": [
+    {
+     "caption": "알메리아 관제탑 책상 위에 늘어선 비행 띠지들",
+     "credit": "MdeVicente",
+     "license": "CC0",
+     "page": "https://commons.wikimedia.org/wiki/File:Fichas_progreso_vuelo_almeria.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/Fichas_progreso_vuelo_almeria.jpg/500px-Fichas_progreso_vuelo_almeria.jpg"
+    },
+    {
+     "caption": "자카르타 관제소의 띠지 칸, 홀더마다 한 대씩",
+     "credit": "No machine-readable author provided. Fred775 assumed (based on copyright claims).",
+     "license": "Public domain",
+     "page": "https://commons.wikimedia.org/wiki/File:Flight_control_strip_at_Jakarta_control.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c0/Flight_control_strip_at_Jakarta_control.jpg/500px-Flight_control_strip_at_Jakarta_control.jpg"
+    }
+   ]
   }
  },
  "design": [
@@ -309,6 +331,10 @@
   {
    "date": "2026-11-06",
    "note": "28년 동안 끊기지 않게 이어 걸은 발자국처럼, 칸 제목 뒤로 늘어선 가는 줄을 걸음 간격의 짧은 점선으로 바꿨습니다."
+  },
+  {
+   "date": "2026-11-07",
+   "note": "관제사가 판에서 비뚜름히 밀어 두던 띠지처럼, 그림을 눌러 불려 나온 노트가 오른쪽으로 살짝 밀려 나오고 왼쪽에 갈색 줄이 한 줄 서게 했습니다."
   }
  ],
  "notes": {
@@ -1648,6 +1674,38 @@
   "n-0215": {
    "emoji": "👣",
    "emoji_pos": "back"
+  },
+  "n-0217": {
+   "emoji": "✈️",
+   "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#f7efe0",
+     "#f7f0e0"
+    ],
+    "file": "pic/n-0217.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "판에서 비뚜름히 밀어 두면 신호가 되는 관제 띠지"
+  },
+  "n-0220": {
+   "emoji": "🌳",
+   "emoji_pos": "front",
+   "pic": {
+    "bg": [
+     "#bfbfb0",
+     "#c4beab"
+    ],
+    "file": "pic/n-0220.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "옮겨 심으면 그 길에서 사라지는 길가 나무의 그늘"
+  },
+  "n-0221": {
+   "emoji": "☂️",
+   "emoji_pos": "front"
   }
  }
 }

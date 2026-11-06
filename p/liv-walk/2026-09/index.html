@@ -386,11 +386,16 @@ main ul.log p.before {
   padding-left: 0.75rem;
   border-left: 2px dashed color-mix(in srgb, var(--into) 35%, var(--rule));
 }
+/* 불려 나온 노트는 판에서 살짝 밀려 나온 띠지 한 장 */
 main ul.log > li.hit {
   border-radius: 8px;
   background: color-mix(in srgb, var(--accent) 8%, transparent);
-  box-shadow: 0 0 0 0.5rem color-mix(in srgb, var(--accent) 8%, transparent);
-  transition: background 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: inset 3px 0 0 color-mix(in srgb, var(--accent) 70%, transparent), 0 0 0 0.5rem color-mix(in srgb, var(--accent) 8%, transparent);
+  transform: translateX(0.4rem);
+  transition: background 0.4s ease, box-shadow 0.4s ease, transform 0.35s ease;
+}
+main ul.log > li.hit > p {
+  padding-left: 0.35rem;
 }
 main ul.log a.echo {
   float: right;
@@ -695,6 +700,9 @@ footer {
   main ul.log a.echo svg {
     height: 2.8rem;
   }
+  main ul.log > li.hit {
+    transform: translateX(0.25rem);
+  }
 }
 
 /* 넓은 화면 — 취향 칸을 종이 한 장으로 */
@@ -731,7 +739,7 @@ footer {
   }
   main ul.log > li.hit {
     background: color-mix(in srgb, var(--accent) 12%, transparent);
-    box-shadow: 0 0 0 0.5rem color-mix(in srgb, var(--accent) 12%, transparent);
+    box-shadow: inset 3px 0 0 color-mix(in srgb, var(--accent) 75%, transparent), 0 0 0 0.5rem color-mix(in srgb, var(--accent) 12%, transparent);
   }
 }
 @media (prefers-reduced-motion: reduce) {
