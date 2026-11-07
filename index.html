@@ -246,6 +246,22 @@
     background: none; color: var(--accent); font-weight: 600;
   }
 
+  /* 필터·검색 전환(TASK-151). 칩·검색어로 목록이 바뀔 때 남는 카드는 새 위치로 미끄러지고
+     빠지는·들어오는 카드는 페이드된다 — 무엇이 어디로 갔는지 좇게 하는 움직임만 쓴다.
+     카드 이름(view-transition-name)은 JS 가 전환하는 동안만 붙인다(페이지 전환에 끼지 않게).
+     나머지 화면(root)은 움직이지 않고 그대로 바뀐다. */
+  html.vt-list .more-link { view-transition-name: more-link; }
+  html.vt-list #no-results { view-transition-name: no-results; }
+  html.vt-list::view-transition-old(root) { display: none; }
+  html.vt-list::view-transition-new(root) { animation: none; }
+  html.vt-list::view-transition-group(*) {
+    animation-duration: 240ms;
+    animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  }
+  /* 빠지는 카드는 먼저 사라진다 — 올라오는 카드와 글자가 겹쳐 읽히지 않게. */
+  html.vt-list::view-transition-old(*):only-child { animation-duration: 90ms; }
+  html.vt-list::view-transition-new(*):only-child { animation-delay: 90ms; animation-duration: 150ms; animation-fill-mode: both; }
+
   /* 피드 하단 전체 목록 링크: 기본 뷰에서만 보인다(필터 중에는 매치 전체가 이미 펼쳐짐). */
   .more-link { margin: 32px 0 0; }
   .more-link a { color: var(--text-muted); text-decoration: underline; text-underline-offset: 3px; }
@@ -1762,7 +1778,7 @@
       chip.className = "chip";
       chip.dataset.topic = key;
       chip.textContent = label;
-      chip.addEventListener("click", function () { state.topic = key; update(); });
+      chip.addEventListener("click", function () { state.topic = key; animatedUpdate(); });
       nav.appendChild(chip);
     }
     if (topicKeys.length >= 2) {
@@ -1771,10 +1787,36 @@
       nav.hidden = false;
     }
 
+    // 목록 변화 전환(TASK-151). 동작을 줄이라는 설정이거나 View Transitions 가 없으면
+    // update() 를 그대로 부른다. 카드 이름은 전환하는 동안만 붙였다가 뗀다.
+    var reduceMotion = window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)");
+    var listTransition = null;
+    function animatedUpdate() {
+      if (!document.startViewTransition || (reduceMotion && reduceMotion.matches)) {
+        update();
+        return;
+      }
+      var root = document.documentElement;
+      cards.forEach(function (card, i) { card.style.viewTransitionName = "card-" + i; });
+      root.classList.add("vt-list");
+      var t = document.startViewTransition(update);
+      listTransition = t;
+      t.finished.finally(function () {
+        if (listTransition !== t) return;  // 뒤 전환이 이어받았다
+        listTransition = null;
+        root.classList.remove("vt-list");
+        cards.forEach(function (card) { card.style.viewTransitionName = ""; });
+      });
+    }
+
+    // 검색은 타자마다 목록이 출렁이지 않도록 입력이 잠깐 멈춘 뒤에 바꾼다(한글 조합 중 포함).
+    var searchTimer = null;
     searchInput.addEventListener("input", function () {
       state.q = searchInput.value.trim();
       if (state.q) loadIndex();
-      update();
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(animatedUpdate, 160);
     });
 
     var initialTopic = params.get("topic");
