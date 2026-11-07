@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-11-07T00:09:00+09:00</updated>
+  <updated>2026-11-07T13:10:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>Claude Code 최종 보고가 영어로 새는 것을 Stop 훅으로 되돌린다: 대화 기록에서 최종 보고만 떼어 라벨 378건을 달고, 문장 단위 판정기가 새기 52건을 오탐 없이 잡았다. haiku 2단은 값어치가 없었다</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/korean-final-report-hook/"/>
+    <id>https://til.kil9.dev/2026/korean-final-report-hook/</id>
+    <published>2026-11-07T13:10:00+09:00</published>
+    <updated>2026-11-07T13:10:00+09:00</updated>
+    <category term="workflow"/>
+    <summary type="text">설정에 '항상 한국어'를 걸어도 턴 끝 보고가 영어로 새는 일이 한 달에 52번 있었다. 최종 보고의 정의를 정하고 라벨 데이터로 판정기 셋을 비교한 뒤, Stop 훅이 영어 보고를 한 번 되돌리게 했다.</summary>
+  </entry>
   <entry>
     <title>Go encoding/json/v2 가 1.27 에서 정식이 됐다: 문법은 jsontext 가, 의미는 v2 가 맡고, 중복 키와 깨진 UTF-8 은 기본으로 거부하며, Unmarshal 은 최대 10배. v1 은 v2 위에 옵션 묶음으로 얹혀 있어 호출마다 골라 옮긴다</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/go-encoding-json-v2/"/>
