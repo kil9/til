@@ -558,14 +558,6 @@ def cmd_pics(a):
 
 # ── 렌더 ────────────────────────────────────────────────────────────────
 
-def favicon():
-    m = re.search(r'rel="icon" type="image/webp" href="data:image/webp;base64,([A-Za-z0-9+/=]+)"',
-                  (ROOT / "index.html").read_text(encoding="utf-8"))
-    if not m:
-        raise SystemExit("루트 index.html 에서 파비콘을 못 찾았다")
-    return m.group(1)
-
-
 def esc(s):
     return html.escape(s, quote=True)
 
@@ -672,7 +664,7 @@ def page(body_title, meta, main, canonical, up, decor):
     liv_css = LIV_CSS.read_text(encoding="utf-8") if LIV_CSS.exists() else ""
     if liv_css and not ok_css(liv_css):
         raise SystemExit(f"{LIV_CSS} 가 허용 틀 밖이다")
-    return TEMPLATE.replace("{{FAVICON_B64}}", favicon()) \
+    return TEMPLATE \
         .replace("{{LIV_CSS}}", liv_css) \
         .replace("{{TITLE}}", body_title) \
         .replace("{{CANONICAL}}", canonical) \
@@ -772,7 +764,7 @@ TEMPLATE = """<!doctype html>
 <meta name="description" content="리브가 구경하다 본 것과 좋아하게 된 것">
 <meta name="robots" content="noindex, follow">
 <link rel="canonical" href="{{CANONICAL}}">
-<link rel="icon" type="image/webp" href="data:image/webp;base64,{{FAVICON_B64}}">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=1">
 <style>
   :root {
     --bg: #FFFFFF; --text: #1B2027; --text-muted: #4E5A66; --text-faint: #6E7A86;

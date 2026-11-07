@@ -21,7 +21,8 @@ til/
 ├── PRODUCT.md            impeccable 이 읽는 제품 사실 기록(동상)
 ├── 404.html              커스텀 404 + 구 URL → 신 경로 리다이렉트 맵
 ├── CNAME                 GitHub Pages 커스텀 도메인(til.kil9.dev) 지정 파일
-├── apple-touch-icon.png, icon-192.png, icon-512.png, site.webmanifest  홈 화면 아이콘(루트 index.html 만 링크, iOS 는 다른 페이지도 /apple-touch-icon.png 를 찾는다)
+├── favicon.svg           전 페이지 공통 파비콘(리브, TASK-150)
+├── apple-touch-icon.png, icon-192.png, icon-512.png, icon-maskable-512.png, site.webmanifest  홈 화면 아이콘(루트 index.html 만 링크, iOS 는 다른 페이지도 /apple-touch-icon.png 를 찾는다)
 ├── feed.xml              Atom 1.0 피드 (생성물 — site-feed.py, 손으로 고치지 않는다)
 ├── sitemap.xml           sitemap 0.9 (생성물 — 동상)
 ├── robots.txt            전체 허용 + Sitemap 줄 (생성물 — 동상)
@@ -77,7 +78,7 @@ til/
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>페이지 제목</title>
 <meta name="description" content="한 줄 설명">
-<link rel="icon" type="image/webp" href="data:image/webp;base64,(리브 파비콘 — 루트 index.html 의 것을 그대로 복사)">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=1">
 <meta property="og:type" content="article">
 <meta property="og:title" content="페이지 제목">
 <meta property="og:description" content="한 줄 설명">
@@ -137,7 +138,7 @@ til/
 
 - 외부 리소스(CDN 스크립트/폰트/이미지) 의존 없이 단일 파일로 열려야 한다. 필요한 자산은 인라인하거나 `data:` URI 로 임베드한다. 웹폰트는 쓰지 않는다(시스템 폰트 스택만).
 - **접수 창구의 PWA(공유 시트 등록)는 til 이 아니라 `inbox.kil9.dev` 다**(2026-11-04). 원본은 til-inbox repo `web/`, nuc14 nginx 가 서빙한다. til.kil9.dev 안에 WebAPK 가 하나라도 깔려 있으면 안드로이드 Chrome 이 루트에서도 "앱이 이미 설치되어 있습니다"를 띄우고, 그 앱은 자기 범위 밖인 루트를 못 열어 "앱을 열 수 없음"이 된다(scope·id 로는 못 가른다, 실측). 그래서 **til 의 어떤 페이지에도 `display` 가 browser 아닌 manifest 를 달지 않는다.** `p/submit-<토큰>/` 은 브리핑의 두 번 클릭 접수가 같은 오리진 localStorage 의 PAT 를 읽어야 해서 페이지로 남기되 manifest 링크는 뺐다. 그 디렉터리의 `icon-*.png` 는 `apple-touch-icon` 용으로 남은 사이드카 예외다.
-- artifact 원본 스타일을 유지하는 페이지라도 **favicon·OG 메타(위 템플릿의 `<link rel="icon">`\~`twitter:card` 블록, 제목·설명·slug 치환)와 beacon 은 반드시 넣는다**(T-24). **OG 이미지(`og:image`)는 2026-07-26 TASK-100 에서 도입했다 — T-24 의 "쓰지 않는다"는 뒤집혔다.** 당시 배제 이유는 `og:image` 가 `data:` URI 를 못 읽어(크롤러가 받아 갈 실제 URL 이 필요하다) 무예외 단일 파일 원칙과 충돌한다는 것이었고, 그 충돌은 `p/archive/thumbs/` 사이드카 예외로 이미 해소돼 있었다. 실제 손해는 Slack·카카오톡·X 공유가 전부 회색 텍스트 블록으로 뜬다는 것이었다. 메타는 손으로 넣지 않고 `backlog/assets/relink-pages.py` 가 마커 구간(`<!-- PAGEOG:START -->`)에 박으므로 신규 페이지는 §4 의 재생성 단계만 지키면 된다. 이미지는 **JPEG** 다(다른 자산은 전부 WebP 지만, 남의 크롤러가 읽어 가므로 카카오톡·X 의 WebP 지원 불확실성을 감수하지 않는다). 파비콘은 전 페이지 공통 **리브 원형 아이콘**(64px WebP, 얼굴 크롭 + 원형 마스크)이며 페이지별 커스텀 파비콘을 만들지 않는다 — base64 데이터는 루트 `index.html` 의 것을 복사한다.
+- artifact 원본 스타일을 유지하는 페이지라도 **favicon·OG 메타(위 템플릿의 `<link rel="icon">`\~`twitter:card` 블록, 제목·설명·slug 치환)와 beacon 은 반드시 넣는다**(T-24). **OG 이미지(`og:image`)는 2026-07-26 TASK-100 에서 도입했다 — T-24 의 "쓰지 않는다"는 뒤집혔다.** 당시 배제 이유는 `og:image` 가 `data:` URI 를 못 읽어(크롤러가 받아 갈 실제 URL 이 필요하다) 무예외 단일 파일 원칙과 충돌한다는 것이었고, 그 충돌은 `p/archive/thumbs/` 사이드카 예외로 이미 해소돼 있었다. 실제 손해는 Slack·카카오톡·X 공유가 전부 회색 텍스트 블록으로 뜬다는 것이었다. 메타는 손으로 넣지 않고 `backlog/assets/relink-pages.py` 가 마커 구간(`<!-- PAGEOG:START -->`)에 박으므로 신규 페이지는 §4 의 재생성 단계만 지키면 된다. 이미지는 **JPEG** 다(다른 자산은 전부 WebP 지만, 남의 크롤러가 읽어 가므로 카카오톡·X 의 WebP 지원 불확실성을 감수하지 않는다). 파비콘은 전 페이지 공통 **리브 원형 아이콘** 루트 `/favicon.svg` 하나를 참조하며(TASK-150, 2026-11-07 — 그전엔 페이지마다 WebP base64 를 박았다) 페이지별 커스텀 파비콘을 만들지 않는다. 정본은 `~/work/kil9/liv/design/family-icons/out/til/`(kil9.dev 패밀리 아이콘, til 은 파랑 점 없는 예외)이고, 그림을 바꾸면 거기서 다시 만들어 복사하고 참조 URL 의 `?v=` 를 올린다. 예외는 자기 아이콘을 가진 `p/submit-<토큰>/`(📮)·`p/namhae-<토큰>/`(🌊) 둘이다.
 - **인덱스로 돌아가는 링크(`← today i learned`)를 상단(본문 첫 요소)과 하단(footer) 양쪽에 넣는다.** 자체 스타일 페이지도 동일 — 상단은 히어로/본문 컨테이너의 첫 요소로, 하단은 기존 footer 안에 넣는다. 위 템플릿의 `../../` 은 아티클 뎁스(`<YYYY>/<slug>/`, 루트가 2단계 위) 기준이며, 지원 페이지(`p/<slug>/`)도 같은 2단계라 동일하게 `../../` 다.
 - **유일한 예외는 Cloudflare Web Analytics beacon**(T-15)이다. 위 템플릿의 `</body>` 직전 beacon `<script>` 를 **모든 신규 페이지에 그대로 넣는다**(token 은 클라이언트 임베드용 공개 값). 쿠키 없는 익명 집계이며, 로드 실패해도 페이지 렌더에는 영향이 없다. 지표는 CF 대시보드(Web Analytics, `til.kil9.dev`)에서 본다.
 - 라이트/다크 대응은 `@media (prefers-color-scheme: dark)` 로 둔다. claude.ai 의 `data-theme` 토글은 standalone 환경에 없으므로 `prefers-color-scheme` 폴백이 있어야 한다.

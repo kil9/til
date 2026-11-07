@@ -175,7 +175,7 @@ def render_page(repo, data, days, date, rng):
     page = R.fill(tpl, {
         "TITLE": html.escape(data["title"]), "DESCRIPTION": html.escape(data["description"]),
         "DATE": date, "RANGE": rng, "COUNT": str(len(days)),
-        "FAVICON_B64": R.favicon(repo), "AVATAR_B64": base64.b64encode(avatar.read_bytes()).decode(),
+        "AVATAR_B64": base64.b64encode(avatar.read_bytes()).decode(),
         "BODY": body,
         "CLOSING": html.escape(data["closing"]), "TIMELINE": timeline(days),
     })

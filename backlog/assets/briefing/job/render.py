@@ -67,14 +67,6 @@ def assert_filled(page, where):
         raise RuntimeError(f"{where}: 치환되지 않은 토큰 {left} — 템플릿과 잡 코드 버전이 어긋났다")
 
 
-def favicon(repo):
-    m = re.search(r'rel="icon" type="image/webp" href="data:image/webp;base64,([A-Za-z0-9+/=]+)"',
-                  (repo / "index.html").read_text(encoding="utf-8"))
-    if not m:
-        raise RuntimeError("루트 index.html 에서 파비콘을 못 찾았다")
-    return m.group(1)
-
-
 DAYNAV_RE = re.compile(r"(<!-- DAYNAV:START -->).*?(<!-- DAYNAV:END -->)", re.S)
 DATE_DIR_RE = re.compile(r"\d{4}-\d{2}-\d{2}")
 
@@ -322,7 +314,7 @@ def render(data, repo, root_rel, dates=(), nav_prefix="../"):
     pick_line = PICK_NUM_RE.sub("", pick.get("line", ""))
     page = fill(tdir.joinpath("template.html").read_text(encoding="utf-8"), {
         "DATE": esc(data["date"]), "DATE_KO": esc(data["date_ko"]),
-        "DESCRIPTION": esc(data["description"]), "FAVICON_B64": favicon(repo),
+        "DESCRIPTION": esc(data["description"]),
         "ROOT_REL": root_rel, "ARCHIVE_REL": root_rel + "p/briefing/archive/",
         "SCANNED": esc(data["scanned"]), "PICKED": esc(data["picked"]),
         "INTRO": "\n".join("    " + p for p in intro),
@@ -428,7 +420,7 @@ def render_archive(repo, data=None):
     out = repo / "p/briefing/archive/index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
     page = fill((repo / "backlog/assets/briefing/archive.html").read_text(encoding="utf-8"),
-                {"FAVICON_B64": favicon(repo), "COUNT": str(len(dates)), "ROWS": "\n".join(rows)})
+                {"COUNT": str(len(dates)), "ROWS": "\n".join(rows)})
     out.write_text(page, encoding="utf-8")
     print(f"  p/briefing/archive/index.html ({len(dates)}회차)")
 
