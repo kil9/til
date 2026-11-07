@@ -118,6 +118,13 @@
   }
   .pagenav .pn-topic { margin: 6px 0 0; font-size: 0.8125rem; }
   .pagenav .pn-topic a { color: var(--pn-faint); font-size: inherit; }
+  /* 좁은 화면 가로 넘침 방지(TASK-153). 가운뎃점으로만 이은 나열·긴 경로·긴 식별자 code 는
+     끊을 곳이 없어 390px 에서 페이지를 가로로 밀어냈다. anywhere 는 grid·flex 항목의
+     최소 폭까지 줄여 주지만 표 칸에 주면 열이 글자 단위로 쪼그라드니, 표 안은 break-word 로
+     두고 표 자체의 넘침은 .table-wrap 같은 스크롤 상자에 맡긴다. */
+  main { overflow-wrap: anywhere; }
+  main table { overflow-wrap: break-word; }
+  .tbl-scroll { overflow-x: auto; }
 </style>
 <!-- PAGENAV-CSS:END -->
 <!-- PAGETOC-CSS:START -->
@@ -287,7 +294,7 @@
 
 <p>agent-device는 그 아래 도구를 없애지 않습니다. Android에서는 ADB와 스냅샷 헬퍼, iOS·tvOS에서는 XCTest, macOS에서는 로컬 헬퍼, Linux에서는 AT-SPI를 사용합니다. 에이전트 입장에서는 이들을 같은 세션·명령·결과 형식으로 다루고, 접근성 트리를 짧게 읽고, 조작 뒤 차이를 확인하고, 증거와 재현 스크립트를 남깁니다. 공식 README가 내세우는 <a href="https://github.com/callstack/agent-device">inspect-act-verify</a>가 제품의 실질적인 경계입니다.</p>
 
-<table>
+<div class="tbl-scroll"><table>
 <thead><tr><th>관점</th><th>원시 ADB</th><th>agent-device</th><th>기존 E2E 도구</th></tr></thead>
 <tbody>
 <tr><td>다음 동작 결정</td><td>에이전트가 셸 출력을 해석</td><td>에이전트가 현재 스냅샷을 보고 런타임에 결정</td><td>사람이 미리 쓴 테스트가 결정</td></tr>
@@ -297,7 +304,7 @@
 <tr><td>재현</td><td>셸 스크립트를 직접 작성</td><td>탐색 성공 경로를 <code>.ad</code>로 녹화해 replay</td><td>처음부터 결정적 테스트로 작성</td></tr>
 <tr><td>플랫폼</td><td>Android 전용</td><td>모바일·TV·데스크톱·제한적 web을 한 CLI로 연결</td><td>도구마다 범위가 다름</td></tr>
 </tbody>
-</table>
+</table></div>
 
 <div class="liv">
 <img src="data:image/webp;base64,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" alt="리브" width="72" height="72">

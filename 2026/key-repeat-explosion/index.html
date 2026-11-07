@@ -136,6 +136,13 @@
   }
   .pagenav .pn-topic { margin: 6px 0 0; font-size: 0.8125rem; }
   .pagenav .pn-topic a { color: var(--pn-faint); font-size: inherit; }
+  /* 좁은 화면 가로 넘침 방지(TASK-153). 가운뎃점으로만 이은 나열·긴 경로·긴 식별자 code 는
+     끊을 곳이 없어 390px 에서 페이지를 가로로 밀어냈다. anywhere 는 grid·flex 항목의
+     최소 폭까지 줄여 주지만 표 칸에 주면 열이 글자 단위로 쪼그라드니, 표 안은 break-word 로
+     두고 표 자체의 넘침은 .table-wrap 같은 스크롤 상자에 맡긴다. */
+  main { overflow-wrap: anywhere; }
+  main table { overflow-wrap: break-word; }
+  .tbl-scroll { overflow-x: auto; }
 </style>
 <!-- PAGENAV-CSS:END -->
 <!-- PAGEOG:START -->

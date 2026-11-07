@@ -48,6 +48,9 @@ hr{border:none;border-top:1px solid var(--line);margin:26px 0}
 strong{font-weight:700}
 footer{color:var(--ink-3);font-size:13px;margin-top:44px;padding-top:20px;border-top:1px solid var(--line)}
 footer code{font-size:12px}
+  /* 좁은 화면 가로 넘침 방지(TASK-153) */
+  main { overflow-wrap: anywhere; }
+  main table { overflow-wrap: break-word; }
 </style>
 </head>
 <body>

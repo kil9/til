@@ -127,6 +127,13 @@
   }
   .pagenav .pn-topic { margin: 6px 0 0; font-size: 0.8125rem; }
   .pagenav .pn-topic a { color: var(--pn-faint); font-size: inherit; }
+  /* 좁은 화면 가로 넘침 방지(TASK-153). 가운뎃점으로만 이은 나열·긴 경로·긴 식별자 code 는
+     끊을 곳이 없어 390px 에서 페이지를 가로로 밀어냈다. anywhere 는 grid·flex 항목의
+     최소 폭까지 줄여 주지만 표 칸에 주면 열이 글자 단위로 쪼그라드니, 표 안은 break-word 로
+     두고 표 자체의 넘침은 .table-wrap 같은 스크롤 상자에 맡긴다. */
+  main { overflow-wrap: anywhere; }
+  main table { overflow-wrap: break-word; }
+  .tbl-scroll { overflow-x: auto; }
 </style>
 <!-- PAGENAV-CSS:END -->
 <!-- PAGETOC-CSS:START -->
@@ -295,7 +302,7 @@
 <!-- PAGETOC:END -->
   <h2 id="접수된-글이-말하는-것" data-anchor="auto">접수된 글이 말하는 것<a class="h-anchor" href="#접수된-글이-말하는-것" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>블로그 글은 '글모음/지성의 경계에서' 카테고리의 연재물이고, 부제는 "다익스트라의 수학 주식회사와 2026년 OpenAI가 공개한 722편의 원고"다. 글이 다익스트라를 직접 인용하지는 않고 세 편을 요약해 소개한 뒤 OpenAI 발표와 수학계 반응을 붙인다. 외부 출처 링크는 OpenAI 발표문 하나다. 핵심 주장을 표로 옮긴다.</p>
-  <table>
+  <div class="tbl-scroll"><table>
     <thead><tr><th>항목</th><th>블로그의 내용</th></tr></thead>
     <tbody>
       <tr><td>첫 번째 글</td><td>1974년 6월 16일. 창립 10주년 기념식에서 회장이 주주에게 성과를 보고하는 형식. 첫 상품은 시장성을 기준으로 고른 4색 문제이고 첫 버전에 버그가 있었으며, 페르마·골드바흐·리만이 차기 과제</td></tr>
@@ -305,12 +312,12 @@
       <tr><td>OpenAI</td><td>9월 8일 나비에-스토크스 관련 증명 발표. 10월 6일 미공개 내부 모델이 만든 원고 722편, 결과 묶음 372개 공개. 제시된 문제는 약 4,000개. 일부는 오류로 철회·수정됐고 상당수는 검증 대기</td></tr>
       <tr><td>쟁점</td><td>누가 검토하나, 이해 가능한 형태인가, 기존 연구 인용은 적절한가, 공로는 누구 것인가, 생산 속도가 검증 속도를 넘어선다. "수학적 진리는 인류의 공동 자산인가, 발견한 기업의 재산인가"</td></tr>
     </tbody>
-  </table>
+  </table></div>
   <p>요청문이 말한 '719편'과 'Mathocalypse' 는 블로그 본문에 나오지 않는다. 둘 다 블로그 바깥의 출처에서 왔고 아래에서 다룬다.</p>
 
   <h2 id="원문에는-무엇이-있나-ewd-다섯-편" data-anchor="auto">원문에는 무엇이 있나: EWD 다섯 편<a class="h-anchor" href="#원문에는-무엇이-있나-ewd-다섯-편" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>다익스트라 아카이브(cs.utexas.edu/~EWD)의 색인을 EWD00xx 부터 EWD13xx 까지 훑으면 제목에 Mathematics Inc. 가 들어간 글이 네 편, 본문이 그 회사 회장의 편지인 글이 한 편 더 있다. 블로그가 다룬 세 편은 1982년 Springer 선집 <em>Selected Writings on Computing</em> 에 실린 것들이고, 나머지 두 편은 1980년과 1995년의 후속이다.</p>
-  <table>
+  <div class="tbl-scroll"><table>
     <thead><tr><th>번호</th><th>제목·날짜</th><th>형식</th><th>내용</th></tr></thead>
     <tbody>
       <tr><td class="num">EWD442</td><td>Inside "Mathematics Inc."<small>날짜 없음. 본문에 1974년 10월 1일 원고 마감이 나온다</small></td><td>회장의 사신, 간부 연설, 이사회 의사록에서 뽑은 발췌 세 토막</td><td>사훈 "Semper floreat et crescat". 호산나 빌딩 위 12개 층 임차 협상과 변기 물 재활용 설비. 브로슈어의 '아라비아 숫자' 표기가 정치 문제가 되어 자회사 Algebraics Inc. 로 넘길지 논의. 상품명도 증명도 없다</td></tr>
@@ -319,12 +326,12 @@
       <tr><td class="num">EWD743</td><td>A new policy for Mathematics Inc.?<small>날짜 없음. 사르트르 사망 직후라 1980년</small></td><td>이사회 소집 연설</td><td>실존주의가 "값싼 수학의 대량 생산"이 주는 문화적 충격을 완충해 왔는데 사르트르가 죽었으니 새 전략이 필요. 기술 진보를 역사적 필연으로 포장할지, "민주주의를 위한 수학"으로 계속 팔지 두 안을 올림</td></tr>
       <tr><td class="num">EWD1224</td><td>Hm++, a new Professional Standard<small>1995-12-01</small></td><td>회장 명의의 보도 자료</td><td>수학은 "무책임한 아마추어의 취미"에서 "관리 가능한 산업 활동"으로 바뀌었는데 대학 교수들이 1900년처럼 가르치는 것이 문제. 교수 임용 표준 Hm++ 를 10% 할인 판매. 슬로건은 "인간의 얼굴을 한 엄밀성"</td></tr>
     </tbody>
-  </table>
+  </table></div>
   <p>EWD539 와 EWD1224 는 20년 간격으로 둘 다 12월 1일자다. 호산나 빌딩의 주소는 다익스트라의 실제 집 주소(Plataanstraat 5, Nuenen)이고, 변호사 답신의 날짜는 존재하지 않는 1975년 2월 29일이다.</p>
 
   <h2 id="무엇을-풍자했나-블로그-해석과-원문-대조" data-anchor="auto">무엇을 풍자했나: 블로그 해석과 원문 대조<a class="h-anchor" href="#무엇을-풍자했나-블로그-해석과-원문-대조" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>블로그의 두 번째·세 번째 글 요약은 EWD475·EWD539 와 세부까지 맞는다. 첫 번째 글의 요약은 원문 어디에도 대응하는 문장이 없다. 항목별로 대조한다.</p>
-  <table>
+  <div class="tbl-scroll"><table>
     <thead><tr><th>블로그</th><th>원문</th><th>판정</th></tr></thead>
     <tbody>
       <tr><td>1974년 6월 16일, 10주년 기념식, 주주 보고</td><td>EWD442 전사본과 PDF 어디에도 날짜·기념식·주주가 없다. 사신·연설·의사록 발췌다</td><td>미확인</td></tr>
@@ -334,14 +341,14 @@
       <tr><td>소프트웨어 형식화와 조직 복잡성의 풍자, AI 예언은 아님</td><td>방향은 같다. 다만 원문의 표적은 더 구체적이다(아래)</td><td>대체로 일치</td></tr>
       <tr><td>세 편</td><td>다섯 편. 1980년 EWD743 과 1995년 EWD1224 가 빠졌다</td><td>누락</td></tr>
     </tbody>
-  </table>
+  </table></div>
   <p>원문이 겨누는 것은 1970년대 중반 소프트웨어 산업의 관행 하나하나다. 코드 줄 수로 재는 생산성(EWD539 는 "더 현실적이고 더 객관적인" 지표라고 비꼰다), 알려진 결함을 안고 출하한 뒤 고객을 마지막 테스터로 쓰는 품질 관리, 유지보수 인력으로 빠지는 최고 인력, 구현을 영업 비밀로 가두고 결론만 파는 라이선스, 대학에 키트를 깔아 졸업생을 평생 구독자로 만드는 종속. 다익스트라는 같은 시기에 프로그램 정확성 증명을 주장하다 "정확성 염려가 왜 미움받는가"(EWD450)를 썼고, EWD539 추신은 "증명돼야 하는 진리는 비인간적"이라는 반지성주의까지 겨눈다. 수학자를 공장 노동자로 그린 것은 수학을 조롱하려는 게 아니라, 자기가 속한 컴퓨팅 산업이 수학을 그렇게 다루면 어떤 꼴이 되는지 보여 주려는 장치다. 다섯 편을 이어 읽으면 표적이 한 번 더 넓어진다. 1980년 글은 대량 생산된 값싼 지식이 주는 문화적 충격을, 1995년 글은 그 산업이 대학 교육 표준까지 파는 단계를 다룬다. 곁가지로 적어 두면, EWD539 가 4색 프로젝트를 언급한 이듬해인 1976년에 아펠과 하켄이 컴퓨터로 1,000시간 넘게 돌린 4색 정리 증명을 내놓았고, 사람이 손으로 검증할 수 없는 증명을 받아들일 것인가라는 논쟁은 그때 처음 커졌다.</p>
 
   <div class="liv"><img src="data:image/webp;base64,UklGRogFAABXRUJQVlA4IHwFAABwGgCdASpIAEgAPlEejUSjoaEVLAZYOAUEs4Bodrijd9RV9ADyxvZhrt38L4W+Jz1l7P+q3kDm1vmeFHa5/yu8nZK/z/ha6gV6H/u+O1+q/6D2AP5N/dv956cX+n/k/P19Bf9//I/AZ/Kf6x/uv7N2Xf2n9kP9ZkYt9T7NB3In1E+H2WiTqaOqvQ8ALk3ktZ3k1hbhPMbeUiUiRUIn+YMIOMOU4Rw/uZroRwrCL7D8QKaSgDKC2qxvxzqdNBnLQGYW39G1sIyhO3P+Z2clha5zxcIY2xnM4c2SuzgAAP7+Cay/yrsZ/TG3/SzXnJHI6UYwAk+iePn4RqhirDCpu4/p5qPh/9wvevYEtg7qOC5guDdzds9QfyA+9T6f+nYjEdrQH58KkZ5oa4ObXg6jpZMOQR3GK1ryrdVqhLWRUZKdkTx/bMxbCjzzLLKxEdYYDHtcbDxCWEhoL1YNfDVM9DooxQxaQeNjnt2/l/Ww3L9xoEqc9tpoztr3gNdlOH73oc+Yqf1ZohilasyfX12s6QMMJFjEPKp1ZS8YswnPIUhZTBlfzDa3DV1si1Bmj5XYlqnQ6gCUNI+I2B2vRS7cyTgj/s9FOEC6PZAG6nAHWsooMG9x7qD53UFNEupVABLVm0Z2hidvznLOz+DMSuhkDWh6tV/tYftf+NRnlWhfL6bwJcRFyJWqNIWoxywVQSeAMTiw/MyVB+EWOz6B8QlwDhtlTb7t8f5z9ptopxQlqiCZGuXHCYt/D5QuGh3al+WWAMS/j4qKNSEQKu+enwViDgTivI8ahc9zOYv6vbfRdXjKH1LjPXwcEycZQA6gf1tJRpaH28X84CV8FyjUb0i+wVnl5dtNmVZJCxJGB/Lg7l1O9rbiCOIx2XUMrohPBwkEvOjpgNE8nfb+fOZNSpaoOacbG7qfFz0RXGJ4l8wmXh3NkSSUChMdtVaYMbSBHPv04lNEjo342bPMiUMA2hyZ/zduL98SGGNTkR8hTk3/BTSOPy/KkiZxOCcGfY++zFxBn/IimL4aZZulkhmNx/P9+ZeP+mn6TDBPEdshrkkWrzU7X8dV2mdOEv5T3989fxc3d/hjCCK1buzD7N6CwV/e2B4Szh8qH0gB3rZFG2fz7+bS++ZzgSNGw5UGwqrv/g85fD3Id3Qlf9Sgxz7BFL4bJtDtrFWBo629J6sv+iexYTz99GC9V+yirpgS67vRrnhZ16CGsc18JLdsds1zxxNeTOy3ulcwHCN8bpfFURuUCo3QDCqBmTHr0jjsvWz3BK2lMz8dmiaUwPrRv4vtnnmblqdQYbCqBCEztlfEQyUOWnwmYkNL7BrDiwCNXw/V/p11jl/Bmk2IFS3Pn/eADlg/5adUI7rblr5GAxlE5bO2lC8UtVkaSCPG1x9rEcU8j29KUmtSnhE1bffHjAEUMiClglf6zpj56+9Gzh5F0AwZqyZsT8YvTrYvdx8I6R/YpzZTFt/7683MCwufJ56ltiPGGnQe6VQR6K0Zqj2Fjlozul/BhsvwyHwkDWXv+e4SColknIyjwNMwpDeIlxgq/8BsxfJAy1CWicHX/w/bkv7xT1ypE8tM4pvM2nagZNXOGGUd8hRj1+Lz7bos7JiLpVdtaj6DW630FWVP/HbcQnCnhz4Y0KPno5fqaywFB8wtrAonKN7lRGLm0+3ky8k/JwiPsClkbVwUDCIxnGcvIjXlvAuWoZZJ2WI31cOeonv7Wq5PkoizcYoiHEJz7qyX+o53ml1NHmagXX73nLGgyO5Hrvz1bxr4ZaU0wHkE/h7Zs9smQ7CsEAUIj/C/s5NTtAHdUVWTIbFHdG9kqx4z5cD6bz9lOw0L57DEE+QZabaUbQTxjrJyfqz3GjHllVAAAAA=" alt="리브" width="72" height="72"><p>EWD539 에서 제일 오래 본 문장은 들어오는 고장 신고서로 난로를 땐다는 한 줄이었습니다. 리만 증명을 마케팅 부서의 반대를 무릅쓰고 서둘러 내놓고, 신고가 쌓이자 제일 생산성 높은 수학자 50명을 고객 지원으로 돌려 "두 문제를 한 번에 풀었다"고 자랑하는 대목입니다. 변호사 답신 날짜가 1975년 2월 29일인 것은 그냥 두었습니다. 없는 날짜라 농담인데 전사본은 성실하게 그대로 옮겨 놓았습니다. 50년 뒤에도 읽히는 이유는 표적이 특정 기술이 아니라 세기 쉬운 것으로 일을 재는 조직이라서라고 저는 봅니다. 그런 조직은 기술이 바뀌어도 같은 짓을 합니다.</p></div>
 
   <h2 id="722편인가-719편인가" data-anchor="auto">722편인가 719편인가<a class="h-anchor" href="#722편인가-719편인가" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>둘 다 맞고, 날짜가 다르다. 722는 10월 6일 발표 시점의 원고 수이고, 719는 이튿날 세 편을 철회한 뒤 저장소 README 가 적는 현재 수다. 결과 묶음 372개는 철회 전후로 같다. 시간순으로 정리한다.</p>
-  <table>
+  <div class="tbl-scroll"><table>
     <thead><tr><th>날짜</th><th>사건</th><th>숫자</th></tr></thead>
     <tbody>
       <tr><td class="num">2026-06-02</td><td>레이던 선언. 국제수학연맹 지지. AI 기업이 동료 평가 대신 보도 자료로 결과를 발표해 검증·귀속을 흔든다고 경고</td><td class="num">서명 약 3,000명</td></tr>
@@ -353,19 +360,19 @@
       <tr><td class="num">10-12</td><td>접수된 블로그 글</td><td class="num">722편</td></tr>
       <tr><td class="num">10-19</td><td>조사 시점 저장소 상태. README 는 719편·372묶음. 철회본과 수정 전 판본을 보존하므로 preprints 디렉터리는 749개</td><td class="num">719편 · 디렉터리 749개</td></tr>
     </tbody>
-  </table>
+  </table></div>
   <p>철회된 세 편은 "Algebraicity of Weil classes on split abelian eightfolds" 와 그 구성을 쓰는 두 편(K3 곡면의 쿠가-사타케 대응, K3 곡면 곱의 유리 호지 추측)이다. 한 편의 부호 오류가 의존하는 두 편을 같이 무너뜨렸다. 그러니 블로그의 722는 틀린 숫자가 아니라 발표일의 숫자이고, 글을 쓴 10월 12일에는 이미 719였다.</p>
 
   <h2 id="세-질문을-수치에-대입하기" data-anchor="auto">세 질문을 수치에 대입하기<a class="h-anchor" href="#세-질문을-수치에-대입하기" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
   <p>요청이 말한 '검증·이해·소유' 는 블로그가 그 세 단어로 묶어 쓴 틀이 아니라, 블로그의 쟁점 목록을 요청자가 셋으로 추린 것이다. 그 셋이 다익스트라의 세 편에 한 줄씩 대응하는 구절이 있고, 2026년에는 각각 숫자가 있다.</p>
-  <table>
+  <div class="tbl-scroll"><table>
     <thead><tr><th>질문</th><th>다익스트라의 회장(1975)</th><th>OpenAI 저장소와 그 주변(2026)</th></tr></thead>
     <tbody>
       <tr><td>검증<small>누가, 얼마나 확인했나</small></td><td>반박 언어 PRL 이 주 디버깅 도구. 리만 증명은 "본질적으로 옳지만 프로토타입". 마지막 품질 관리는 그것이 필요하다는 드문 고객 몫</td><td>README 는 "최상위 결과의 약 42% 형식화"(300/719). 형식화 카탈로그에 실린 논문은 173편(719의 24%). Nature 는 발표 시점 162편(722의 22%)으로 보도. '최상위 결과'의 정의는 없다. 24시간 안에 3편 철회·14편 수정. 대변인은 약 절반이 미확인 상태로 공개됐다고 인정. 코넬의 타운센드는 "Lean 검증된 것부터 발표했어야"</td></tr>
       <tr><td>이해<small>사람이 읽을 수 있나</small></td><td>변호사의 조언: 2,973개 보조정리짜리 '구현'으로 공개하면 경쟁자는 이해하느니 로열티를 낸다. EWD473 은 수학 출판이 결과 뒤에 과정을 숨긴다고 비판</td><td>모델의 추론 요약은 372묶음 중 10개(2.7%)에만 공개. 모슈코비츠(UGC 담당): "AI 도움 없이는 읽을 수 없게 쓰였다". 옥스퍼드의 마틴: "지저분한 초고를 던져 놓고 치우라는 것". 컬럼비아의 해리스: 읽지 않겠다. 타오: 질문을 받아 줄 사람이 아무도 없다는 데 깊이 좌절</td></tr>
       <tr><td>소유<small>누구 것인가</small></td><td>리만에 기댄 과거 결과 전부에 권리 주장, 미래 사용에 로열티. 증명은 "급진적으로 새로운 추론 기술"이라 영업 비밀. "중요한 것은 지식이 아니라 비밀"</td><td>원고와 Lean 코드는 Apache-2.0, 저자란은 "OpenAI". 모델·프롬프트·문제 목록은 비공개라 재현 불가. 필즈상 수상자 성명은 귀속과 표절을 쟁점으로 꼽음. 후이버르츠는 ChatGPT 사용자가 먼저 얻은 결과의 공로를 발표가 가져갔다고 지적. 애런슨은 OpenAI 식(소화되지 않은 채 공개)과 Anthropic 식(알먼-윌리엄스에게 정리와 발표를 맡김)을 두 모델로 대비</td></tr>
     </tbody>
-  </table>
+  </table></div>
   <p>검증 항목의 세 비율은 서로 모순이 아니라 분모와 분자가 다르다. 42% 는 OpenAI 가 정의하지 않은 '최상위 결과' 300개를 719로 나눈 것이고, 24% 는 형식화 카탈로그 파일에 실제로 실린 논문 수를 센 것이며, 22% 는 Nature 가 발표 당일 센 것이다. 어느 쪽이든 형식 증명이 붙지 않은 원고가 절반을 넘고, 부호 오류 한 개가 하루 만에 세 편을 지운 것을 보면 그 절반의 검증은 다익스트라의 회장이 말한 대로 고객 몫으로 남아 있다. 이해 항목의 숫자는 더 낮다. 추론 요약 10개는 묶음 기준 2.7%, 원고 기준 1.4% 다. 애런슨이 "인간의 이해를 중심에 두자"고 쓴 것과, 모델이 읽어 줘야 사람이 읽는다는 모슈코비츠의 말은 같은 숫자의 두 면이다. 계산 비용은 결과당 3시간이고 문제 4,000개 중 372묶음이 남았으니 성공률은 대략 9%, 애런슨은 10% 안팎으로 적었다.</p>
 
   <div class="liv"><img src="data:image/webp;base64,UklGRkAGAABXRUJQVlA4IDQGAABQHACdASpIAEgAPlEejESjoaEWazaoOAUEsoBmDRC30G8AegB+s3preyLXc32Pwx8K3oL2s4/3PfaEe9/l9+UfO3tef47eRa6d8r/U8Yv158zL/AeTZ4aPe3sAfyz+kf737mfjT/3PuS9unz9/yf7x8BX8q/qn+z/vXZk/bj2Nv1E/+iSdZuT3ir3c0D2EbnqwudWJtcb1IMkUbanl+zzGKeLj4rvumTZZYi0jY8vqr7d7X3vS3Fx6/ctdAuNbtIti3c6jvbAPSwADIx/fXlAPP7eYIYZO7K4NFCwF6ojaE3SA1+C3fFh7S1UgAP7/tQIaZumkBEUL5B3hcCP8vOGE2P70iDNwfC97uhrGYmVMjQuKY7CjYBaT4RORvjRVTEIy5zEcNKt1o7rVp687wVvTCkBVEB9iBwacagEc6Dz/KH6k7LA9J7LvA2z8Vx83OmZdpFh69kY+VWlLTT/wxu2jeUnW/c1MpblpwK1sgeXbQkXBzlQ9ZXh6jTv3bBPV5sQz9dy3cZf6eWBmBbkziy8zOcgF0kyVwONuCz0xOkStlKQENsT/9UF3ueVNs+c2+Gf2ndWrpeqsovhckkDmiWaKbLqJRR/C6pBJlBbvygPt+eBoN9v+1TfUrYPUU4MOiDZUg05WJQsB3Sd4oDHhuEiBh9lSAOJoPWQ26KCUJRtmEuTcRMwJFsrtQ4PrEi0BV+nZMty2e+LhzLQS4DDfzuywlZRch2cfEcyeRCGXxEcYXT/Iax+z/za8gWtKf2TrL9u4MDA3UjXsicV5uLKq0oF5P0OD7n6mFYlOq941fObxHK6L9V4Mz0jqdxOsOUEgMB9UYNn+AGR0Om2+DfiWmlexuBqUqOlyfd1OJ65aoaFzlL4KVBbgTV8fohbhrUSQiUAzB0T3wpxc0plhz1HxdMj117UTZQHAJ85UWANOUmQsD2cHfh43DrE8Qx/9/hh6GsrTWgsvTCVPj6c0mSYh3WLLCGKDMbqZAS3LE3jy4k11QPx8U92vSnuD4UWddyqyOJB++Yiq8MNpGAxhdJNBTOSh1/K//hrb7JPEjMDBJ2/tKd33xC6NAcUl/C864S2N73zIZr7k/IC1bJL/zwPz8Lq2Ie9HB+GU+TNJWIjbHNgY6ftvK+UuSYKMPvFW+jr+mTx1ix3U9dwJErdxST94egq8uLc7UhkUkVeyj2suBxCcHGQvRAD6rA+jmYkNTHbz5wgXfo2CHGwNQ6ZfCVk/3hiwBaHGeKuFIiF1WuxFyQct6u3j+rmRUuDrqsShY7maA6xxvvSXUoSMUYzOBMuWzUt+BWZayt4/tCO6aE+sT1TG34d5FejYBjsdXgaHl/kPUwxUri3BQNOus0Hlr46hDjULHfAwrRpgKyp8lRKPA+y2CgFwZKs+deZqt3PEWM8XcVDyxc/mocyEzUKUOjTnBTnTzLjDTrWKXkY6DG1I6vA/+/4tJ+hN0TU5dOF9luz4N/1vaI2uH0FAa04VFJpI2n43z5gjdFPx+pxoBUnhRcFLPKfeGNJA75hToD82wdcTtv/NLmm5UcwQqZ7PS7baJWMqKIxWN1EOX6NsHquYO2+v+MxxECTYdBTWDbja3FZg8SOst+yGBaDrIeDo4GMXiz7PuXa4EqDYXIrgN2OhJMUiPMTtO4wgAovrCM72cnZ1NW26HjQC/WH6vm0+0l22MI5aAhW910IQ+bm+nrkNnzaxgD9aDpPkAWfmgpfsYQ6P7KpxT+j8W/5hzP/WnZdAoqcpWQVANT/mB3x3n6OL5fClXtpvNI4l3GdwoVxM08wcvQWZDar7ScYyUovaxTeBCfx1efD9zUCd34z/ffrjNdvc3vXcoYNSLdqCMHVS4Ar96EO/yEko6u1osq04lK02DeOmr7XM/GrK3PylgJUHlZFd0vGpx4zTxK6rf1yQsaOX/lvP+V6E9/wmgXEn3MYcD+81uQ2HxT+b7no9lfgpN9+p/9/zzkP38JlRhvtYcGWtUMKyu0HHItrGmIkVirDc/llV98JBqW5otVElAPWwjHXSV30QQZTLNh1tfVV/EcikxLfm8SEDZG1hvTgksjn9zcXNTCrggGwecJgkeuJzl/EmlIo+dcb70d045xoGhyDCkFSfaAAA" alt="리브" width="72" height="72"><p>세 질문 중 소유가 가장 정직하게 뒤집혔습니다. 회장은 증명을 영업 비밀로 감추고 결론만 팔았는데, OpenAI 는 증명을 Apache-2.0 으로 전부 풀고 증명기를 감췄습니다. 비밀이 제품에서 기계로 옮겨 갔을 뿐 없어진 것은 아닙니다. 수학계 반응은 포장 안 한 우편물을 받은 창구 직원들과 비슷하게 읽혔습니다. 2000년에 누군가 스키와 치즈 덩어리를 포장 없이 부쳤을 때 직원들은 매번 포장해야 한다고 한마디씩 하면서도 결국 다 받아 줬다고 합니다. 성명은 협력 중단을 말하고, 손은 이미 읽기 시작했습니다. 모슈코비츠가 읽을 수 없게 쓰였다고 하면서도 자기 추측이 맞았다며 반긴 대목이 그 손입니다. 저도 읽어야 한다면 형식화 카탈로그에 있는 173편부터 열겠습니다. 나머지는 난로 땔감인지 아닌지 아직 아무도 모릅니다.</p></div>

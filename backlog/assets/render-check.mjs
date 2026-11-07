@@ -2,7 +2,7 @@
 /**
  * 렌더 기반 발행 점검(TASK-116). 페이지를 실제 브라우저에 띄워 파일만 봐서는 알 수 없는 것을
  * 확인한다 — 목차 레일이 본문을 침범하는지, 좁은 화면에서 목차가 사라지는지, 현재 절
- * 하이라이트가 도는지, 레일이 뷰포트를 넘치는지.
+ * 하이라이트가 도는지, 레일이 뷰포트를 넘치는지, 폰 폭에서 페이지가 가로로 넘치는지.
  *
  * site-check.py 와 역할이 다르다. 그쪽은 파일을 읽어 canonical·링크·용량을 보고 발행 경로에서
  * 매번 돈다(1초). 이쪽은 브라우저를 띄우므로 느리고(페이지당 수 초), UI 를 건드린 커밋에서만
@@ -62,6 +62,7 @@ const VIEWS = [
   { w: 1280, h: 900, rail: true, label: '1280x900(분기 바로 위)' },
   { w: 1199, h: 900, rail: false, label: '1199x900(분기 바로 아래)' },
   { w: 700, h: 900, rail: false, label: '700x900(모바일)' },
+  { w: 390, h: 844, rail: false, label: '390x844(폰)' },
 ];
 
 const problems = [];
@@ -80,8 +81,10 @@ for (const url of URLS) {
     await new Promise((r) => setTimeout(r, 350));
 
     const m = await page.evaluate(() => {
+      // 가로 넘침(TASK-153). 끊을 곳 없는 긴 낱말이나 스크롤 상자 없는 표가 페이지를 밀어낸다.
+      const sw = document.documentElement.scrollWidth;
       const toc = document.querySelector('.pagetoc');
-      if (!toc) return { hasToc: false };
+      if (!toc) return { hasToc: false, sw };
       const railToc = document.querySelector('main > .pagetoc');
       const main = document.querySelector('main');
       const cs = getComputedStyle(toc);
@@ -92,6 +95,7 @@ for (const url of URLS) {
         position: cs.position,
         current: !!document.querySelector('.pagetoc a.current'),
         railEligible: !!(railToc && main),
+        sw,
       };
       if (railToc && main && cs.position === 'absolute') {
         const mr = main.getBoundingClientRect();
@@ -107,6 +111,7 @@ for (const url of URLS) {
     await page.close();
 
     const where = `${url} @${v.label}`;
+    if (m.sw > v.w + 2) problems.push(`${where}: 가로로 넘친다(scrollWidth=${m.sw})`);
     if (!m.hasToc) continue; // 목차 없는 글은 점검 대상이 아니다
     if (!m.visible) problems.push(`${where}: 목차가 보이지 않는다`);
 

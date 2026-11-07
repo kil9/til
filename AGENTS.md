@@ -147,6 +147,7 @@ til/
 ### 2-1. 시각 자료 (T-27)
 
 - 텍스트만으로 전달이 어려운 수치·비교·구조·흐름은 표·차트·인포그래픽으로 보강하는 것이 기본이다. 수치 비교는 표, 추이·비중은 **인라인 SVG 차트**, 개념 구조·루프·타임라인은 인라인 SVG 다이어그램으로 그린다. SVG 의 fill/stroke 에 페이지 CSS 변수(`var(--text)`, `var(--accent)` 등)를 써서 다크모드에 자동 대응시킨다. 외부 차트 라이브러리는 쓰지 않는다. (이미 완성된 artifact 를 그대로 옮기는 경우는 원본을 존중한다.)
+- **표는 스크롤 상자로 감싼다**: `<div class="tbl-scroll"><table>…</table></div>`(`.tbl-scroll` 은 `relink-pages.py` 의 공통 CSS 가 준다. 페이지 자체의 `.table-wrap` 도 된다). 감싸지 않은 표는 390px 폰 폭에서 페이지 전체를 가로로 밀어낸다. 본문의 끊을 곳 없는 긴 낱말(가운뎃점 나열·긴 경로·긴 식별자 `code`)은 같은 공통 CSS 의 `main { overflow-wrap: anywhere }` 가 받는다(TASK-153, 2026-11-07 기준 20페이지가 넘치던 것을 고쳤다). 발행 전 `render-check.mjs` 가 390x844 에서 가로 넘침을 잡는다.
 - 개념 은유·분위기 환기용 **삽화**는 실제로 도움이 될 때만 페이지당 1-2장. 래스터 삽화 생성은 로컬 이미지 생성 에이전트(codex CLI 의 `image_generation`)에 위임한다(레시피는 `/publish-til` 스킬 §2-2). 결과물은 폭 1440px·WebP(q75, 약 70-100KB)로 압축해 base64 `data:image/webp;base64,` URI 로 임베드한다 — 사이드카 이미지 파일 금지(단일 파일 원칙).
 - 마크업: `figure.illust` + 상세 `alt` + `figcaption`(설명 + "삽화: Codex 이미지 생성" 출처 표기), 다크모드에서 `filter: brightness(0.9)`. 예시는 `citrini-2028-gic/index.html`.
 

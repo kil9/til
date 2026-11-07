@@ -114,6 +114,13 @@
   }
   .pagenav .pn-topic { margin: 6px 0 0; font-size: 0.8125rem; }
   .pagenav .pn-topic a { color: var(--pn-faint); font-size: inherit; }
+  /* 좁은 화면 가로 넘침 방지(TASK-153). 가운뎃점으로만 이은 나열·긴 경로·긴 식별자 code 는
+     끊을 곳이 없어 390px 에서 페이지를 가로로 밀어냈다. anywhere 는 grid·flex 항목의
+     최소 폭까지 줄여 주지만 표 칸에 주면 열이 글자 단위로 쪼그라드니, 표 안은 break-word 로
+     두고 표 자체의 넘침은 .table-wrap 같은 스크롤 상자에 맡긴다. */
+  main { overflow-wrap: anywhere; }
+  main table { overflow-wrap: break-word; }
+  .tbl-scroll { overflow-x: auto; }
 </style>
 <!-- PAGENAV-CSS:END -->
 <!-- PAGETOC-CSS:START -->
@@ -317,7 +324,7 @@
     <figcaption>세 데이터셋 모두에서 weighted usage 가 유의미하게 줄었다. 출처: openai/codex#35050</figcaption>
   </figure>
 
-  <table>
+  <div class="tbl-scroll"><table>
     <thead>
       <tr><th>데이터셋</th><th class="num">모델 사이클</th><th class="num">raw 토큰</th><th class="num">weighted usage</th><th class="num">동일 크레딧 용량</th></tr>
     </thead>
@@ -326,7 +333,7 @@
       <tr><td>개인 금융 앱 (High·XHigh, 4페어)</td><td class="num">-54.7%</td><td class="num">-52.6%</td><td class="num">-27.0%</td><td class="num">+37.0%</td></tr>
       <tr><td>개인 금융 앱 (Max, 1페어)</td><td class="num">-80.4%</td><td class="num">-79.5%</td><td class="num">-47.4%</td><td class="num">+90.2%</td></tr>
     </tbody>
-  </table>
+  </table></div>
   <p class="tbl-note">음수는 배칭 조건에서의 감소, 양수는 같은 크레딧으로 늘어나는 작업 용량.</p>
   <p>내역을 뜯어 보면 감소분의 대부분은 cached input(56-65% 감소)에서 나왔고, uncached input 은 5-26% 감소, output 은 0-12% 수준으로 거의 변하지 않았다. 조사를 덜 해서 싸진 것이 아니라 모델과 하네스 사이 왕복이 줄어서 싸졌다는 뜻이다. 품질 면에서도 배칭 조건이 106개 항목, 컨트롤이 105개 항목을 검사해 조사 범위가 같았고, 주요 결론도 일치했다. 읽기 중심 작업 기준으로 체계적인 품질 저하는 발견되지 않았다.</p>
 
