@@ -322,7 +322,18 @@
     .card .tag { line-height: 1.6; }
     .card p { margin-top: 4px; }
   }
+
+  /* 페이지 전환(TASK-152). 카드를 눌러 글로 가거나 글에서 돌아올 때 그 카드 제목이 글 h1 과
+     이어 움직인다. 이름(page-title)은 아래 스크립트가 그 카드 하나에만 붙인다. 글 쪽 짝은
+     backlog/assets/relink-pages.py 의 PAGEVT 구간이다. */
+  @media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }
+  ::view-transition-group(page-title) {
+    animation-duration: 280ms; animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  }
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 160ms; }
 </style>
+<!-- 돌아올 때 카드 정렬·숨김이 끝난 뒤 첫 화면을 그리게 한다(pagereveal 이 카드를 찾도록). -->
+<link rel="expect" href="#gallery-ready" blocking="render">
 </head>
 <body>
 
@@ -1828,6 +1839,40 @@
       if (state.q) loadIndex();
     }
     update();
+
+    // 페이지 전환(TASK-152). 글로 갈 때·글에서 돌아올 때 그 글의 카드 제목에만 이름을 붙인다.
+    // 화면 밖이거나 숨은 카드는 붙이지 않는다 — 날아오는 제목은 위치를 알려 주지 못한다.
+    function cardFor(url) {
+      var path;
+      try { path = new URL(url, location.href).pathname; } catch (e) { return null; }
+      for (var i = 0; i < cards.length; i++) {
+        if (new URL(cards[i].getAttribute("href"), location.href).pathname === path) return cards[i];
+      }
+      return null;
+    }
+    function titleInView(card) {
+      if (!card || card.hidden) return null;
+      var h2 = card.querySelector("h2");
+      var r = h2 && h2.getBoundingClientRect();
+      return r && r.bottom > 0 && r.top < innerHeight ? h2 : null;
+    }
+    addEventListener("pageswap", function (e) {
+      if (!e.viewTransition || !e.activation || !e.activation.entry) return;
+      var h2 = titleInView(cardFor(e.activation.entry.url));
+      if (h2) h2.style.viewTransitionName = "page-title";
+    });
+    addEventListener("pagereveal", function (e) {
+      cards.forEach(function (card) {
+        var h2 = card.querySelector("h2");
+        if (h2) h2.style.viewTransitionName = "";
+      });
+      var from = window.navigation && navigation.activation && navigation.activation.from;
+      if (!e.viewTransition || !from) return;
+      var h2 = titleInView(cardFor(from.url));
+      if (!h2) return;
+      h2.style.viewTransitionName = "page-title";
+      e.viewTransition.finished.finally(function () { h2.style.viewTransitionName = ""; });
+    });
   })();
 
   // 브리핑 사이드바 (task-93, task-104). 한 번의 latest.json 조회로 둘을 한다.
@@ -1850,6 +1895,7 @@
       .catch(function () { /* 표시가 없을 뿐 링크는 그대로 동작한다 */ });
   })();
 </script>
+<span id="gallery-ready" hidden></span>
 
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
 

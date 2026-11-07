@@ -182,6 +182,39 @@
   }
 </style>
 <!-- PAGETOC-CSS:END -->
+<!-- PAGEVT:START -->
+<style>
+  /* 페이지 전환(TASK-152). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  @media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }
+  ::view-transition-group(*) {
+    animation-duration: 280ms; animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  }
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 160ms; }
+</style>
+<script>
+  (function () {
+    function isHome(u) {
+      try { var p = new URL(u, location.href).pathname; return p === "/" || p === "/index.html"; }
+      catch (e) { return false; }
+    }
+    addEventListener("pagereveal", function (e) {
+      var h1 = document.querySelector("h1");
+      if (h1) h1.style.viewTransitionName = "";
+      var from = window.navigation && navigation.activation && navigation.activation.from;
+      if (!e.viewTransition || !h1 || !from || !isHome(from.url)) return;
+      h1.style.viewTransitionName = "page-title";
+      e.viewTransition.finished.finally(function () { h1.style.viewTransitionName = ""; });
+    });
+    addEventListener("pageswap", function (e) {
+      var h1 = document.querySelector("h1");
+      if (!e.viewTransition || !h1 || !e.activation || !e.activation.entry) return;
+      if (!isHome(e.activation.entry.url)) return;
+      var r = h1.getBoundingClientRect();
+      if (r.bottom > 0 && r.top < innerHeight) h1.style.viewTransitionName = "page-title";
+    });
+  })();
+</script>
+<!-- PAGEVT:END -->
 </head>
 <body>
 <main>

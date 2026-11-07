@@ -11,6 +11,7 @@ index.html 의 갤러리 카드이고, 이 스크립트가 카드를 읽어 각 
     <!-- PAGENAV:START --> … <!-- PAGENAV:END -->            <footer> 직전 (아티클)
     <!-- PAGETOC-CSS:START --> … <!-- PAGETOC-CSS:END -->    </head> 직전 (아티클)
     <!-- PAGETOC:START --> … <!-- PAGETOC:END -->            첫 <h2> 직전 (아티클, h2 5개 이상)
+    <!-- PAGEVT:START --> … <!-- PAGEVT:END -->              </head> 직전 (아티클, 페이지 전환)
 
 h2 의 id·앵커 링크(TASK-108)만은 마커 구간이 아니라 h2 태그 자체를 고친다. 대신 우리가
 붙인 것에 data-anchor="auto" 를 표시해 두고 매번 그것만 다시 계산하므로 재실행이
@@ -49,6 +50,7 @@ NAV_MARK = ("<!-- PAGENAV:START -->", "<!-- PAGENAV:END -->")
 OG_MARK = ("<!-- PAGEOG:START -->", "<!-- PAGEOG:END -->")
 TOC_CSS_MARK = ("<!-- PAGETOC-CSS:START -->", "<!-- PAGETOC-CSS:END -->")
 TOC_MARK = ("<!-- PAGETOC:START -->", "<!-- PAGETOC:END -->")
+VT_MARK = ("<!-- PAGEVT:START -->", "<!-- PAGEVT:END -->")
 
 # 목차를 넣을 최소 h2 개수. 짧은 글에서는 목차가 소음이다.
 TOC_MIN_HEADINGS = 5
@@ -95,6 +97,42 @@ PAGENAV_CSS = """<style>
   .pagenav .pn-topic a { color: var(--pn-faint); font-size: inherit; }
 </style>"""
 
+
+# 페이지 전환(TASK-152). 루트 갤러리에서 카드를 눌러 들어오거나 갤러리로 돌아갈 때만 h1 에
+# 이름을 붙여 카드 제목과 이어 움직이게 한다. 글끼리(이전/다음) 오갈 때는 이름을 붙이지 않아
+# 화면 전체가 짧게 페이드만 한다 — 아래쪽 링크에서 넘어가면 화면 밖 h1 이 위에서 날아오기 때문.
+# 루트 index.html 쪽 짝은 그 파일의 'TASK-152' 주석에 있다.
+PAGEVT_HTML = """<style>
+  /* 페이지 전환(TASK-152). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  @media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }
+  ::view-transition-group(*) {
+    animation-duration: 280ms; animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  }
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 160ms; }
+</style>
+<script>
+  (function () {
+    function isHome(u) {
+      try { var p = new URL(u, location.href).pathname; return p === "/" || p === "/index.html"; }
+      catch (e) { return false; }
+    }
+    addEventListener("pagereveal", function (e) {
+      var h1 = document.querySelector("h1");
+      if (h1) h1.style.viewTransitionName = "";
+      var from = window.navigation && navigation.activation && navigation.activation.from;
+      if (!e.viewTransition || !h1 || !from || !isHome(from.url)) return;
+      h1.style.viewTransitionName = "page-title";
+      e.viewTransition.finished.finally(function () { h1.style.viewTransitionName = ""; });
+    });
+    addEventListener("pageswap", function (e) {
+      var h1 = document.querySelector("h1");
+      if (!e.viewTransition || !h1 || !e.activation || !e.activation.entry) return;
+      if (!isHome(e.activation.entry.url)) return;
+      var r = h1.getBoundingClientRect();
+      if (r.bottom > 0 && r.top < innerHeight) h1.style.viewTransitionName = "page-title";
+    });
+  })();
+</script>"""
 
 PAGETOC_CSS = """<style>
   /* 절 앵커·목차(TASK-108). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
@@ -407,6 +445,7 @@ def main():
             nxt = articles[i - 1] if i > 0 else None
             prv = articles[i + 1] if i + 1 < len(articles) else None
             after = splice(after, CSS_MARK, PAGENAV_CSS, r"</head>")
+            after = splice(after, VT_MARK, PAGEVT_HTML, r"</head>")
             after = splice(after, NAV_MARK, nav_html(card, prv, nxt), r"<footer\b")
 
             # 절 앵커·목차(TASK-108). h2 를 먼저 고쳐야 목차가 가리킬 id 가 정해진다.
