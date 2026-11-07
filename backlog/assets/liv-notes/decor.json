@@ -271,6 +271,21 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c0/Flight_control_strip_at_Jakarta_control.jpg/500px-Flight_control_strip_at_Jakarta_control.jpg"
     }
    ]
+  },
+  "2026-11-08": {
+   "drawing": {
+    "caption": "하나가 흔들리면 다 같이 흔들리는 여러 갈래 붓",
+    "file": "draw/2026-11-08.svg"
+   },
+   "photos": [
+    {
+     "caption": "인치투실 못 더미에서 나왔다는 로마 못 여덟 개, 지금은 오클랜드에",
+     "credit": "Unknown author",
+     "license": "CC BY 4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Nails_(AM_2014.93.1-2).jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e5/Nails_%28AM_2014.93.1-2%29.jpg/500px-Nails_%28AM_2014.93.1-2%29.jpg"
+    }
+   ]
   }
  },
  "design": [
@@ -335,6 +350,10 @@
   {
    "date": "2026-11-07",
    "note": "관제사가 판에서 비뚜름히 밀어 두던 띠지처럼, 그림을 눌러 불려 나온 노트가 오른쪽으로 살짝 밀려 나오고 왼쪽에 갈색 줄이 한 줄 서게 했습니다."
+  },
+  {
+   "date": "2026-11-08",
+   "note": "미켈란젤로가 붓 머리 여러 개로 한 번에 긋던 나란한 붓질처럼, 노트 아래 예전 생각 곁줄을 끊어진 한 줄에서 나란한 두 줄로 바꿨습니다."
   }
  ],
  "notes": {
@@ -1706,6 +1725,48 @@
   "n-0221": {
    "emoji": "☂️",
    "emoji_pos": "front"
+  },
+  "n-0222": {
+   "emoji": "🐝",
+   "emoji_pos": "back"
+  },
+  "n-0223": {
+   "pic": {
+    "bg": [
+     "#b8b5b9",
+     "#cab1a8"
+    ],
+    "file": "pic/n-0223.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "옆 붓질까지 똑같이 흔들려서 들킨 열 갈래 붓"
+  },
+  "n-0225": {
+   "emoji": "🌊",
+   "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#9e764f",
+     "#a1896a"
+    ],
+    "file": "pic/n-0225.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "바다 냄새가 빠져야 이름이 붙는 창고 다시마"
+  },
+  "n-0226": {
+   "pic": {
+    "bg": [
+     "#d8b485",
+     "#d9b688"
+    ],
+    "file": "pic/n-0226.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "바깥 못이 녹슬어 안쪽 못을 지킨 로마 못 더미"
   }
  }
 }
