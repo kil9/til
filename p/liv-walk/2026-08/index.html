@@ -136,6 +136,7 @@ html:root {
   --paper: #fffcf6;
   --into: #2c6b64;
   --soft: #eee6d7;
+  --moss: #5f7f45;
   --ink: color-mix(in srgb, var(--accent) 55%, var(--text));
 }
 @media (prefers-color-scheme: dark) {
@@ -149,6 +150,7 @@ html:root {
     --paper: #221f1b;
     --into: #86c6bc;
     --soft: #2b2722;
+    --moss: #9cbf7c;
     --ink: color-mix(in srgb, var(--accent) 70%, var(--text));
   }
 }
@@ -514,11 +516,11 @@ main details.more[open] > summary {
   margin-bottom: 0.6rem;
 }
 
-/* 접힌 날 */
+/* 접힌 날 — 쉬게 둔 길에는 이끼빛이 조금 앉는다 */
 main details.day.folded {
   margin: 0 0 0 0.3rem;
   padding-left: 1.25rem;
-  border-left: 2px dotted var(--rule);
+  border-left: 2px dotted color-mix(in srgb, var(--moss) 38%, var(--rule));
 }
 main details.day.folded > summary {
   position: relative;
@@ -553,7 +555,7 @@ main details.day.folded > summary::after {
   height: 0.44rem;
   margin-top: -0.22rem;
   border-radius: 50%;
-  background: var(--rule);
+  background: color-mix(in srgb, var(--moss) 45%, var(--rule));
 }
 main details.day.folded[open] > summary::after {
   background: var(--accent);
@@ -744,6 +746,9 @@ footer {
   }
   main ul.log p.before {
     border-left-color: color-mix(in srgb, var(--into) 55%, var(--rule));
+  }
+  main details.day.folded {
+    border-left-color: color-mix(in srgb, var(--moss) 30%, var(--rule));
   }
 }
 @media (prefers-reduced-motion: reduce) {

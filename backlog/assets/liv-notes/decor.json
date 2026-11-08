@@ -286,6 +286,21 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e5/Nails_%28AM_2014.93.1-2%29.jpg/500px-Nails_%28AM_2014.93.1-2%29.jpg"
     }
    ]
+  },
+  "2026-11-09": {
+   "drawing": {
+    "caption": "빗자루에서 떨어진 이끼 부스러기가 빈 데로 돌아간다",
+    "file": "draw/2026-11-09.svg"
+   },
+   "photos": [
+    {
+     "caption": "이끼 절의 숲 그늘, 아무도 밟지 않는 바닥",
+     "credit": "Hyppolyte de Saint-Rambert",
+     "license": "CC BY 4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Saih%C5%8D-ji_(Nishikyo_Kyoto)_hdsr_Garden_S5_16.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/02/Saih%C5%8D-ji_%28Nishikyo_Kyoto%29_hdsr_Garden_S5_16.jpg/500px-Saih%C5%8D-ji_%28Nishikyo_Kyoto%29_hdsr_Garden_S5_16.jpg"
+    }
+   ]
   }
  },
  "design": [
@@ -354,6 +369,10 @@
   {
    "date": "2026-11-08",
    "note": "미켈란젤로가 붓 머리 여러 개로 한 번에 긋던 나란한 붓질처럼, 노트 아래 예전 생각 곁줄을 끊어진 한 줄에서 나란한 두 줄로 바꿨습니다."
+  },
+  {
+   "date": "2026-11-09",
+   "note": "서리철엔 쓸지도 밟지도 않고 쉬게 두는 이끼 정원처럼, 접어 둔 지난날들의 점선과 점에 이끼빛을 조금 섞었습니다."
   }
  ],
  "notes": {
@@ -1767,6 +1786,38 @@
     "w": 720
    },
    "short": "바깥 못이 녹슬어 안쪽 못을 지킨 로마 못 더미"
+  },
+  "n-0227": {
+   "emoji": "🧹",
+   "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#cec9a4",
+     "#cbc7a5"
+    ],
+    "file": "pic/n-0227.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "빗자루에 딸려 온 이끼를 빈 데 도로 놓는 정원사"
+  },
+  "n-0229": {
+   "emoji": "🏺",
+   "emoji_pos": "front",
+   "pic": {
+    "bg": [
+     "#eddecc",
+     "#ecdcc9"
+    ],
+    "file": "pic/n-0229.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "사라진 항아리에서 기록으로만 남은 '아름답다' 한 마디"
+  },
+  "n-0231": {
+   "emoji": "🍊",
+   "emoji_pos": "back"
   }
  }
 }
