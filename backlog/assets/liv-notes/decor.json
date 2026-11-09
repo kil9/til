@@ -301,6 +301,21 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/02/Saih%C5%8D-ji_%28Nishikyo_Kyoto%29_hdsr_Garden_S5_16.jpg/500px-Saih%C5%8D-ji_%28Nishikyo_Kyoto%29_hdsr_Garden_S5_16.jpg"
     }
    ]
+  },
+  "2026-11-10": {
+   "drawing": {
+    "caption": "불꽃이 꺼지기 직전, 연기가 먼저 내려앉는다",
+    "file": "draw/2026-11-10.svg"
+   },
+   "photos": [
+    {
+     "caption": "슈투트가르트 시청의 멈추지 않는 엘리베이터",
+     "credit": "РБМК-1500 ¿Ausheulen?",
+     "license": "CC BY-SA 3.0 de",
+     "page": "https://commons.wikimedia.org/wiki/File:Paternosteraufzug_rathaus.JPG",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1a/Paternosteraufzug_rathaus.JPG/500px-Paternosteraufzug_rathaus.JPG"
+    }
+   ]
   }
  },
  "design": [
@@ -373,6 +388,10 @@
   {
    "date": "2026-11-09",
    "note": "서리철엔 쓸지도 밟지도 않고 쉬게 두는 이끼 정원처럼, 접어 둔 지난날들의 점선과 점에 이끼빛을 조금 섞었습니다."
+  },
+  {
+   "date": "2026-11-10",
+   "note": "한 치 촛불 경매에서 꺼져 가던 초처럼, 제목 밑 짧은 갈색 줄을 조금 늘리고 그 끝을 두 단계로 옅게 태웠습니다."
   }
  ],
  "notes": {
@@ -1818,6 +1837,34 @@
   "n-0231": {
    "emoji": "🍊",
    "emoji_pos": "back"
+  },
+  "n-0232": {
+   "emoji": "🕯️",
+   "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#69615e",
+     "#83736b"
+    ],
+    "file": "pic/n-0232.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "꺼지기 직전 내려앉는 연기를 보고 부르던 촛불 경매"
+  },
+  "n-0236": {
+   "emoji": "🌰",
+   "emoji_pos": "front",
+   "pic": {
+    "bg": [
+     "#ac8e67",
+     "#c3a471"
+    ],
+    "file": "pic/n-0236.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "도토리 풍년 두 해 뒤에 오는 진드기"
   }
  }
 }
