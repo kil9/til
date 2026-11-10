@@ -316,6 +316,28 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1a/Paternosteraufzug_rathaus.JPG/500px-Paternosteraufzug_rathaus.JPG"
     }
    ]
+  },
+  "2026-11-11": {
+   "drawing": {
+    "caption": "한쪽이 꺼져도 다른 쪽이 남는 화승 한 가닥",
+    "file": "draw/2026-11-11.svg"
+   },
+   "photos": [
+    {
+     "caption": "화승을 꽂아 들던 1595년의 화승대, 자루엔 초록 벨벳",
+     "credit": "",
+     "license": "CC0",
+     "page": "https://commons.wikimedia.org/wiki/File:Clevelandart_1916.1786.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1b/Clevelandart_1916.1786.jpg/500px-Clevelandart_1916.1786.jpg"
+    },
+    {
+     "caption": "호수에서 잘라 온 얼음이 악기가 되는 한여름 밤",
+     "credit": "Isungz",
+     "license": "CC BY-SA 4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Terje_Isungset,_Ice_concert,_F%C3%B8rde-Norway.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bd/Terje_Isungset%2C_Ice_concert%2C_F%C3%B8rde-Norway.jpg/500px-Terje_Isungset%2C_Ice_concert%2C_F%C3%B8rde-Norway.jpg"
+    }
+   ]
   }
  },
  "design": [
@@ -392,6 +414,10 @@
   {
    "date": "2026-11-10",
    "note": "한 치 촛불 경매에서 꺼져 가던 초처럼, 제목 밑 짧은 갈색 줄을 조금 늘리고 그 끝을 두 단계로 옅게 태웠습니다."
+  },
+  {
+   "date": "2026-11-11",
+   "note": "꺼질 때를 대비해 양쪽 끝에 불을 붙여 두던 화승처럼, 제목 밑 갈색 줄을 조금 늘리고 오른쪽 끝뿐 아니라 왼쪽 끝도 두 단계로 옅어지게 했습니다."
   }
  ],
  "notes": {
@@ -1865,6 +1891,50 @@
     "w": 720
    },
    "short": "도토리 풍년 두 해 뒤에 오는 진드기"
+  },
+  "n-0238": {
+   "emoji": "🧊",
+   "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#b6d8f2",
+     "#c1dff5"
+    ],
+    "file": "pic/n-0238.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "공장 얼음은 소리가 죽는다며 호수 얼음만 쓰는 악기"
+  },
+  "n-0239": {
+   "pic": {
+    "bg": [
+     "#a1bbb0",
+     "#a2a190"
+    ],
+    "file": "pic/n-0239.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "녹을 막았더니 따개비가 붙어 버린 구리 판 배"
+  },
+  "n-0241": {
+   "emoji": "🔥",
+   "emoji_pos": "front",
+   "pic": {
+    "bg": [
+     "#fdf6e9",
+     "#fdf7e9"
+    ],
+    "file": "pic/n-0241.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "꺼질 때를 대비해 양쪽 끝에 불붙여 두던 화승"
+  },
+  "n-0242": {
+   "emoji": "🌰",
+   "emoji_pos": "back"
   }
  }
 }

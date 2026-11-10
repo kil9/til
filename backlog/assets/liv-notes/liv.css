@@ -61,7 +61,7 @@ main a:focus-visible {
   border-radius: 4px;
 }
 
-/* 머리 — 밑줄은 끝이 조금 타들어 간 한 치 촛불 */
+/* 머리 — 밑줄은 양쪽 끝에 불을 붙여 둔 화승 한 가닥 */
 main h1 {
   font-size: 1.75rem;
   font-weight: 700;
@@ -72,11 +72,11 @@ main h1 {
 main h1::after {
   content: '';
   display: block;
-  width: 2.8rem;
+  width: 3.2rem;
   height: 3px;
   margin-top: 0.55rem;
   border-radius: 2px;
-  background: linear-gradient(90deg, var(--accent) 0%, var(--accent) 72%, color-mix(in srgb, var(--accent) 45%, transparent) 72%, color-mix(in srgb, var(--accent) 45%, transparent) 84%, color-mix(in srgb, var(--accent) 15%, transparent) 84%, transparent 100%);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 15%, transparent) 0%, color-mix(in srgb, var(--accent) 15%, transparent) 8%, color-mix(in srgb, var(--accent) 45%, transparent) 8%, color-mix(in srgb, var(--accent) 45%, transparent) 18%, var(--accent) 18%, var(--accent) 72%, color-mix(in srgb, var(--accent) 45%, transparent) 72%, color-mix(in srgb, var(--accent) 45%, transparent) 84%, color-mix(in srgb, var(--accent) 15%, transparent) 84%, transparent 100%);
 }
 main .meta {
   color: var(--text-muted);
