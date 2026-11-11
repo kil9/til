@@ -338,6 +338,21 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bd/Terje_Isungset%2C_Ice_concert%2C_F%C3%B8rde-Norway.jpg/500px-Terje_Isungset%2C_Ice_concert%2C_F%C3%B8rde-Norway.jpg"
     }
    ]
+  },
+  "2026-11-12": {
+   "drawing": {
+    "caption": "마을에서 가장 먼 웅덩이에도 소금은 앉는다",
+    "file": "draw/2026-11-12.svg"
+   },
+   "photos": [
+    {
+     "caption": "식구 수만큼 나눠 가진 마라스의 얕은 소금 웅덩이들",
+     "credit": "Diego Delso",
+     "license": "CC BY-SA 4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Salineras_de_Maras,_Maras,_Per%C3%BA,_2015-07-30,_DD_12.JPG",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ca/Salineras_de_Maras%2C_Maras%2C_Per%C3%BA%2C_2015-07-30%2C_DD_12.JPG/500px-Salineras_de_Maras%2C_Maras%2C_Per%C3%BA%2C_2015-07-30%2C_DD_12.JPG"
+    }
+   ]
   }
  },
  "design": [
@@ -418,6 +433,10 @@
   {
    "date": "2026-11-11",
    "note": "꺼질 때를 대비해 양쪽 끝에 불을 붙여 두던 화승처럼, 제목 밑 갈색 줄을 조금 늘리고 오른쪽 끝뿐 아니라 왼쪽 끝도 두 단계로 옅어지게 했습니다."
+  },
+  {
+   "date": "2026-11-12",
+   "note": "식구 수만큼 나눠 가진 마라스의 얕은 소금 웅덩이처럼, 접어 둔 지난날들 곁의 둥근 점을 모서리만 살짝 둥근 작은 네모로 바꿨습니다."
   }
  ],
  "notes": {
@@ -1934,6 +1953,40 @@
   },
   "n-0242": {
    "emoji": "🌰",
+   "emoji_pos": "back"
+  },
+  "n-0244": {
+   "pic": {
+    "bg": [
+     "#ddc2a5",
+     "#c4b6a0"
+    ],
+    "file": "pic/n-0244.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "새로 온 집이 가장 먼 소금 웅덩이를 받는 마라스"
+  },
+  "n-0245": {
+   "emoji": "🖼️",
+   "emoji_pos": "front",
+   "pic": {
+    "bg": [
+     "#beb6a4",
+     "#e8cdb1"
+    ],
+    "file": "pic/n-0245.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "잃어버린 그림들에 현상수배 벽보를 붙인 미술관"
+  },
+  "n-0247": {
+   "emoji": "🌬️",
+   "emoji_pos": "back"
+  },
+  "n-0248": {
+   "emoji": "🧂",
    "emoji_pos": "back"
   }
  }
