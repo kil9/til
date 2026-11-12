@@ -353,6 +353,28 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ca/Salineras_de_Maras%2C_Maras%2C_Per%C3%BA%2C_2015-07-30%2C_DD_12.JPG/500px-Salineras_de_Maras%2C_Maras%2C_Per%C3%BA%2C_2015-07-30%2C_DD_12.JPG"
     }
    ]
+  },
+  "2026-11-13": {
+   "drawing": {
+    "caption": "널빤지 틈으로 바닷바람이 드나드는 페로의 헛간",
+    "file": "draw/2026-11-13.svg"
+   },
+   "photos": [
+    {
+     "caption": "비 많은 섬, 처마 밑에서 바람을 맞으며 마르는 생선",
+     "credit": "EileenSanda",
+     "license": "CC BY-SA 3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Fish_hanging_to_dry_in_S%C3%B8rv%C3%A1gur_Faroe_Islands.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/da/Fish_hanging_to_dry_in_S%C3%B8rv%C3%A1gur_Faroe_Islands.jpg/500px-Fish_hanging_to_dry_in_S%C3%B8rv%C3%A1gur_Faroe_Islands.jpg"
+    },
+    {
+     "caption": "평소엔 열어 두는 문 62짝, 바닷가에서 본 방벽",
+     "credit": "Klankbeeld",
+     "license": "CC BY 4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Oosterscheldekering_januari_2025.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/05/Oosterscheldekering_januari_2025.jpg/500px-Oosterscheldekering_januari_2025.jpg"
+    }
+   ]
   }
  },
  "design": [
@@ -437,6 +459,10 @@
   {
    "date": "2026-11-12",
    "note": "식구 수만큼 나눠 가진 마라스의 얕은 소금 웅덩이처럼, 접어 둔 지난날들 곁의 둥근 점을 모서리만 살짝 둥근 작은 네모로 바꿨습니다."
+  },
+  {
+   "date": "2026-11-13",
+   "note": "틈 사이로 바닷바람이 드나들게 널빤지를 띄워 짓는 페로의 헛간처럼, 그림 종이 바탕에 아주 옅은 세로 널빤지 결을 깔았습니다."
   }
  ],
  "notes": {
@@ -1988,6 +2014,46 @@
   "n-0248": {
    "emoji": "🧂",
    "emoji_pos": "back"
+  },
+  "n-0250": {
+   "emoji": "🚲",
+   "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#cbcdc7",
+     "#c5c8c3"
+    ],
+    "file": "pic/n-0250.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "폭풍 예보가 나야 날짜가 잡히는 맞바람 자전거 대회"
+  },
+  "n-0252": {
+   "emoji": "🧊",
+   "emoji_pos": "front",
+   "pic": {
+    "bg": [
+     "#a09d95",
+     "#6c8189"
+    ],
+    "file": "pic/n-0252.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "평소 하던 성에 녹이기로 냉동고를 데운 해킹"
+  },
+  "n-0254": {
+   "pic": {
+    "bg": [
+     "#d1cfc0",
+     "#d9d1be"
+    ],
+    "file": "pic/n-0254.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "서로 닿지 않게 매달아 바람에 맡기는 페로의 헛간"
   }
  }
 }

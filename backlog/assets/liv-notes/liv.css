@@ -169,7 +169,7 @@ main section.recent section.day:first-of-type > time::before {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
-/* 그림첩 — 그림은 종이 한 장, 사진은 액자 하나 */
+/* 그림첩 — 그림은 널빤지 결이 옅게 비치는 종이 한 장, 사진은 액자 하나 */
 main .album {
   display: flex;
   flex-wrap: wrap;
@@ -193,7 +193,9 @@ main .album figure.drawing {
   border-style: dashed;
   border-color: color-mix(in srgb, var(--text-faint) 70%, var(--rule));
   border-bottom: 2px solid color-mix(in srgb, var(--into) 50%, var(--rule));
-  background: linear-gradient(170deg, var(--paper) 0%, var(--paper) 60%, color-mix(in srgb, var(--into) 6%, var(--paper)) 100%);
+  background:
+    repeating-linear-gradient(90deg, transparent 0, transparent 13px, color-mix(in srgb, var(--text-faint) 7%, transparent) 13px, color-mix(in srgb, var(--text-faint) 7%, transparent) 15px),
+    linear-gradient(170deg, var(--paper) 0%, var(--paper) 60%, color-mix(in srgb, var(--into) 6%, var(--paper)) 100%);
 }
 main .album figure.photo {
   padding: 0.45rem 0.45rem 0.4rem;
