@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-11-13 | 스마트 TV 시청 추적(ACR) 끄기: 업체마다 이름이 다른 스위치, 그리고 꺼도 남는 것. 삼성·LG·Roku·Vizio·Sony·Fire TV 메뉴 경로 표와 17개 질문 답변 | [/2026/smart-tv-acr-opt-out/](https://til.kil9.dev/2026/smart-tv-acr-opt-out/) |
 | 2026-11-13 | 젠슨 황 사임, 발표문에는 사유가 없다: 임시 CEO 는 CFO 콜렛 크레스, Megaspeed 의혹은 주장한 쪽과 확인된 범위를 나눠 읽는다. 당일 -4.34% 와 AI capex 헷지 가설 대조 | [/2026/jensen-huang-resignation-megaspeed/](https://til.kil9.dev/2026/jensen-huang-resignation-megaspeed/) |
 | 2026-11-13 | 에이전트 시대의 Git 인프라, 누가 어느 층을 바꿨나: 명령까지 바꾼 곳은 Scion 하나, 나머지는 서버만. 병합 3만 건과 체크아웃 2,500만 회의 출처, 로컬 worktree 에서 생기는 부하의 범위 | [/2026/agent-era-git-infra-layers/](https://til.kil9.dev/2026/agent-era-git-infra-layers/) |
 | 2026-11-07 | Claude Code 최종 보고가 영어로 새는 것을 Stop 훅으로 되돌린다: 최종 보고만 떼어 라벨 378건을 달고, 문장 단위 판정기가 새기 52건을 오탐 없이 잡았다 | [/2026/korean-final-report-hook/](https://til.kil9.dev/2026/korean-final-report-hook/) || 2026-11-07 | Go encoding/json/v2 가 1.27 에서 정식이 됐다: 문법은 jsontext 가, 의미는 v2 가 맡고, 중복 키와 깨진 UTF-8 은 기본으로 거부하며, Unmarshal 은 최대 10배 | [/2026/go-encoding-json-v2/](https://til.kil9.dev/2026/go-encoding-json-v2/) |

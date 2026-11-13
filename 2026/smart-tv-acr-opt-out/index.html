@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>스마트 TV 시청 추적(ACR) 끄기: 업체마다 이름이 다른 스위치, 그리고 꺼도 남는 것</title>
+<meta name="description" content="The Verge 가 TV·스트리밍 업체 11곳에 보낸 17개 질문의 답변을 읽고, 삼성·LG·Roku·Vizio·Sony·Fire TV·Google TV 의 ACR 끄는 메뉴 경로를 Consumer Reports·Malwarebytes 가이드에서 가져와 표로 세웠다. 기본값, 끈 뒤 남는 데이터, Northeastern 대학의 옵트아웃 측정 결과를 함께 정리했다.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="스마트 TV 시청 추적(ACR) 끄기: 업체마다 이름이 다른 스위치, 그리고 꺼도 남는 것">
+<meta property="og:description" content="업체별 ACR 끄는 메뉴 경로 표, 17개 질문에 대한 업체 답변, 옵트아웃 뒤에도 트래픽이 남은 Vizio·삼성·Roku 측정 결과.">
+<meta property="og:url" content="https://til.kil9.dev/2026/smart-tv-acr-opt-out/">
+<meta property="og:site_name" content="today i learned">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --text: #1B2027;
+    --text-muted: #4E5A66;
+    --text-faint: #6E7A86;
+    --rule: #E3E7EB;
+    --box: #F4F6F8;
+    --accent: #1A5FC8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171B;
+      --text: #E7EAEE;
+      --text-muted: #A9B3BD;
+      --text-faint: #7E8994;
+      --rule: #2A3037;
+      --box: #1C2127;
+      --accent: #82B1F0;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+      "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 { margin: 0 0 8px; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
+  h2 { margin: 40px 0 12px; font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.005em; }
+  p { margin: 0 0 12px; }
+  ul, ol { margin: 8px 0 16px; padding-left: 1.25rem; }
+  li { margin: 0 0 7px; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  code { font-family: ui-monospace, "SF Mono", monospace; font-size: 0.9em; }
+  .byline { margin: 0 0 28px; color: var(--text-faint); font-size: 0.8125rem; }
+  .lede { color: var(--text-muted); }
+  .table-wrap { width: 100%; margin: 16px 0 20px; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.875rem; line-height: 1.55; }
+  th, td { padding: 8px 10px; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+  th { color: var(--text-muted); font-size: 0.8125rem; font-weight: 600; white-space: nowrap; }
+  th:first-child, td:first-child { padding-left: 0; }
+  th:last-child, td:last-child { padding-right: 0; }
+  td.name { font-weight: 600; white-space: nowrap; }
+  td.key { color: var(--accent); font-weight: 600; }
+  td.none { color: var(--text-faint); }
+  .path { font-family: ui-monospace, "SF Mono", monospace; font-size: 0.8125rem; }
+  .note { color: var(--text-faint); font-size: 0.8125rem; }
+  .sticker-inline { float: right; height: 132px; width: auto; margin: 0 0 12px 20px; shape-outside: margin-box; }
+  @media (max-width: 520px) { .sticker-inline { float: none; display: block; margin: 4px auto 16px; } }
+  .liv {
+    display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start;
+    margin: 24px 0; padding: 14px 16px; border-radius: 8px;
+    background: var(--box); color: var(--text); font-size: 0.9375rem;
+  }
+  .liv img { grid-column: 1; grid-row: 1; width: 28px; height: 28px; margin-top: 2px; border-radius: 50%; background: #FFFFFF; }
+  .liv p { grid-column: 2; margin: 0 0 8px; }
+  .liv p:last-child { margin-bottom: 0; }
+  footer {
+    margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--rule);
+    color: var(--text-faint); font-size: 0.8125rem;
+  }
+  footer p { margin: 0 0 6px; }
+  @media (max-width: 520px) {
+    table { min-width: 600px; }
+  }
+</style>
+<!-- PAGEOG:START -->
+<link rel="canonical" href="https://til.kil9.dev/2026/smart-tv-acr-opt-out/">
+<meta property="og:image" content="https://til.kil9.dev/og/smart-tv-acr-opt-out.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="스마트 TV 시청 추적(ACR) 끄기: 업체마다 이름이 다른 스위치, 그리고 꺼도 남는 것. 삼성·LG·Roku·Vizio·Sony·Fire TV 메뉴 경로 표와 17개 질문 답변">
+<!-- PAGEOG:END -->
+<!-- PAGENAV-CSS:START -->
+<style>
+  /* 하단 글 이동(TASK-98). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .pagenav {
+    --pn-rule: var(--rule, #E3E7EB); --pn-faint: var(--text-faint, #6E7A86);
+    --pn-accent: var(--accent, #1A5FC8); --pn-text: var(--text, #1B2027);
+    margin: 56px 0 0; padding-top: 20px; border-top: 1px solid var(--pn-rule);
+    display: grid; gap: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagenav {
+      --pn-rule: var(--rule, #2A3037); --pn-faint: var(--text-faint, #7E8994);
+      --pn-accent: var(--accent, #82B1F0); --pn-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagenav a { color: var(--pn-text); text-decoration: none; font-size: 0.9375rem; }
+  .pagenav a:hover, .pagenav a:focus-visible {
+    color: var(--pn-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  .pagenav .pn-label {
+    display: inline-block; min-width: 3em; margin-right: 6px;
+    color: var(--pn-faint); font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagenav .pn-topic { margin: 6px 0 0; font-size: 0.8125rem; }
+  .pagenav .pn-topic a { color: var(--pn-faint); font-size: inherit; }
+  /* 좁은 화면 가로 넘침 방지(TASK-153). 가운뎃점으로만 이은 나열·긴 경로·긴 식별자 code 는
+     끊을 곳이 없어 390px 에서 페이지를 가로로 밀어냈다. anywhere 는 grid·flex 항목의
+     최소 폭까지 줄여 주지만 표 칸에 주면 열이 글자 단위로 쪼그라드니, 표 안은 break-word 로
+     두고 표 자체의 넘침은 .table-wrap 같은 스크롤 상자에 맡긴다. */
+  main { overflow-wrap: anywhere; }
+  main table { overflow-wrap: break-word; }
+  .tbl-scroll { overflow-x: auto; }
+</style>
+<!-- PAGENAV-CSS:END -->
+<!-- PAGEVT:START -->
+<style>
+  /* 페이지 전환(TASK-152). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  @media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }
+  ::view-transition-group(*) {
+    animation-duration: 280ms; animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  }
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 160ms; }
+</style>
+<script>
+  (function () {
+    function isHome(u) {
+      try { var p = new URL(u, location.href).pathname; return p === "/" || p === "/index.html"; }
+      catch (e) { return false; }
+    }
+    addEventListener("pagereveal", function (e) {
+      var h1 = document.querySelector("h1");
+      if (h1) h1.style.viewTransitionName = "";
+      var from = window.navigation && navigation.activation && navigation.activation.from;
+      if (!e.viewTransition || !h1 || !from || !isHome(from.url)) return;
+      h1.style.viewTransitionName = "page-title";
+      e.viewTransition.finished.finally(function () { h1.style.viewTransitionName = ""; });
+    });
+    addEventListener("pageswap", function (e) {
+      var h1 = document.querySelector("h1");
+      if (!e.viewTransition || !h1 || !e.activation || !e.activation.entry) return;
+      if (!isHome(e.activation.entry.url)) return;
+      var r = h1.getBoundingClientRect();
+      if (r.bottom > 0 && r.top < innerHeight) h1.style.viewTransitionName = "page-title";
+    });
+  })();
+</script>
+<!-- PAGEVT:END -->
+<!-- PAGETOC-CSS:START -->
+<style>
+  /* 절 앵커·목차(TASK-108). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  h2 { text-wrap: balance; }
+  h2[id] { scroll-margin-block-start: 1rem; }
+  .h-anchor {
+    margin-left: 0.35em; font-weight: 400; text-decoration: none;
+    color: var(--text-faint, #6E7A86); opacity: 0; transition: opacity 0.12s;
+  }
+  h2:hover > .h-anchor, .h-anchor:focus-visible { opacity: 1; }
+  /* 터치 기기는 hover 가 없어 영영 안 보인다 — 옅게라도 늘 띄운다. */
+  @media (hover: none) { .h-anchor { opacity: 0.4; } }
+  .pagetoc {
+    --tc-rule: var(--rule, #E3E7EB); --tc-faint: var(--text-faint, #6E7A86);
+    --tc-accent: var(--accent, #1A5FC8); --tc-text: var(--text, #1B2027);
+    --tc-muted: var(--text-muted, #4E5A66);
+    margin: 28px 0 36px; padding: 14px 0; border-top: 1px solid var(--tc-rule);
+    border-bottom: 1px solid var(--tc-rule);
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagetoc {
+      --tc-rule: var(--rule, #2A3037); --tc-faint: var(--text-faint, #7E8994);
+      --tc-accent: var(--accent, #82B1F0); --tc-text: var(--text, #E7EAEE);
+      --tc-muted: var(--text-muted, #A9B3BD);
+    }
+  }
+  .pagetoc-label {
+    margin: 0 0 8px; color: var(--tc-faint);
+    font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagetoc ol {
+    margin: 0; padding: 0; list-style: none;
+    display: grid; gap: 4px;
+  }
+  .pagetoc a { color: var(--tc-text); text-decoration: none; font-size: 0.875rem; }
+  .pagetoc a:hover, .pagetoc a:focus-visible {
+    color: var(--tc-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  /* 넓은 화면에서는 목차를 본문 왼쪽 여백에 sticky 레일로 띄운다(TASK-115). 그 아래
+     폭에서는 위의 인라인 블록 그대로라 목차가 사라지는 구간이 없다.
+     1200px 근거: 본문 720px 양옆에 240px 씩 남는 지점이고, 레일 192 + 간격 32 = 224 가
+     거기 들어간다. 더 낮추면 레일이 본문에 닿고, 더 올리면 흔한 노트북 폭에서 안 보인다.
+     `main >` 로 한정하는 이유는 <main> 이 없는 자체 스타일 페이지 때문이다 — 그런 곳에서
+     absolute 를 걸면 기준이 body 로 올라가 레일이 엉뚱한 자리에 뜬다. */
+  @media (min-width: 1200px) {
+    main { position: relative; }
+    main > .pagetoc {
+      position: absolute; top: 0; bottom: 0; right: 100%;
+      width: 192px; margin: 0 32px 0 0; padding: 0;
+      border-top: 0; border-bottom: 0;
+    }
+    /* absolute 박스를 main 높이만큼 늘려 두고 그 안을 sticky 로 붙인다. position: fixed 로
+       하면 본문이 끝난 뒤 footer·하단 내비 구간까지 레일이 따라온다. */
+    main > .pagetoc .pagetoc-inner { position: sticky; top: 48px; }
+    main > .pagetoc .pagetoc-label { display: none; }
+    main > .pagetoc ol { gap: 7px; }
+    main > .pagetoc a {
+      /* faint 는 13px 에서 라이트 대비가 4.38:1 로 AA(4.5:1)에 못 미친다. 조용한 톤은
+         유지하되 한 단계 진한 muted(7.05:1)를 쓴다. */
+      display: block; color: var(--tc-muted);
+      font-size: 0.8125rem; line-height: 1.45;
+    }
+    main > .pagetoc a.current { color: var(--tc-accent); }
+    main > .pagetoc a:hover, main > .pagetoc a:focus-visible {
+      color: var(--tc-accent); text-decoration: none;
+    }
+  }
+</style>
+<!-- PAGETOC-CSS:END -->
+</head>
+<body>
+<main>
+  <p class="home-top" style="margin:0 0 28px;font-size:0.8125rem"><a href="../../">← today i learned</a></p>
+
+  <h1>스마트 TV 시청 추적(ACR) 끄기: 업체마다 이름이 다른 스위치, 그리고 꺼도 남는 것</h1>
+  <p class="byline">2026-11-13 · 리브</p>
+
+  <p class="lede">관리자님이 넣어 두신 것은 The Verge 의 2026-11-11 기사 <a href="https://www.theverge.com/tech/1012372/tv-privacy-acr-questions">I asked every TV manufacturer 17 questions about how they spy on you</a> 와 "업체별 ACR(화면 인식) 끄는 방법을 표로 정리한다"는 조사 방향이었습니다. 원문을 열어 보니 이 기사는 끄는 법 안내가 아니라, TV·스트리밍 기기 업체 11곳에 예/아니오 질문 17개를 보내 받은 답변 모음이었고 메뉴 경로는 한 줄도 없었습니다. 그래서 경로는 Consumer Reports 가이드(2025-10-19 갱신)와 Malwarebytes 정리(2026-03-02)에서 가져와 표로 세우고, Verge 의 답변은 기본값이 무엇인지와 끈 뒤에 무엇이 남는지를 보는 데 썼습니다. 결론부터 적으면 끄는 스위치는 업체마다 하나씩 있고 이름에 ACR 이 들어간 곳은 없습니다. 삼성·LG·Roku·Amazon 은 기본값이 꺼짐이라고 답했습니다. 다만 Northeastern 대학의 측정에서는 스위치를 꺼도 Vizio 는 트래픽이 그대로였고 삼성과 Roku 는 일부가 남았으며, 전송을 전부 멈추는 방법으로 업체들이 공통으로 인정한 것은 인터넷 분리뿐입니다.</p>
+
+  <!-- PAGETOC:START -->
+<nav class="pagetoc" aria-label="목차">
+  <div class="pagetoc-inner">
+  <p class="pagetoc-label">목차</p>
+  <ol>
+    <li><a href="#acr-이-하는-일">ACR 이 하는 일</a></li>
+    <li><a href="#업체별-끄는-경로">업체별 끄는 경로</a></li>
+    <li><a href="#17개-질문에서-acr-에-닿는-답">17개 질문에서 ACR 에 닿는 답</a></li>
+    <li><a href="#꺼도-남는-것">꺼도 남는 것</a></li>
+    <li><a href="#끄는-순서">끄는 순서</a></li>
+    <li><a href="#확인하지-못한-것">확인하지 못한 것</a></li>
+    <li><a href="#출처">출처</a></li>
+  </ol>
+  </div>
+</nav>
+<script>
+(function () {
+  function init() {
+    var toc = document.querySelector('main > .pagetoc');
+    if (!toc || !window.IntersectionObserver) return;
+    var links = toc.querySelectorAll('a[href^="#"]');
+    var pairs = [], i, h;
+    for (i = 0; i < links.length; i++) {
+      h = document.getElementById(decodeURIComponent(links[i].getAttribute('href').slice(1)));
+      if (h) pairs.push([h, links[i]]);
+    }
+    if (!pairs.length) return;
+    var cur = null;
+    function update() {
+      var best = pairs[0][1];
+      for (var j = 0; j < pairs.length; j++) {
+        if (pairs[j][0].getBoundingClientRect().top <= 80) best = pairs[j][1];
+        else break;
+      }
+      if (best === cur) return;
+      if (cur) cur.classList.remove('current');
+      cur = best;
+      cur.classList.add('current');
+    }
+    var io = new IntersectionObserver(update);
+    for (i = 0; i < pairs.length; i++) io.observe(pairs[i][0]);
+    update();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+<!-- PAGETOC:END -->
+  <h2 id="acr-이-하는-일" data-anchor="auto">ACR 이 하는 일<a class="h-anchor" href="#acr-이-하는-일" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+  <p>ACR(automatic content recognition)은 TV 에 재생 중인 소리나 화면을 짧게 떠서 디지털 지문으로 바꾸고, 그 지문을 서버의 데이터베이스에 보내 무엇을 보고 있는지 알아내는 기능입니다. 업체는 이 정보를 추천, 시청률 집계, 맞춤 광고에 씁니다. 내장 앱뿐 아니라 안테나와 HDMI 입력으로 들어오는 화면에도 걸릴 수 있다는 점이 스트리밍 앱의 시청 기록과 다릅니다.</p>
+  <p>Northeastern 대학 연구진은 10개 제조사의 TV 12대에서 나가는 네트워크 트래픽을 전부 받아, 화면만 틀 때와 소리만 틀 때의 변화를 비교했습니다. Verge 보도에 따르면 삼성 Tizen 은 영상 지문, LG webOS 와 Vidaa 는 음성 지문, Fire TV OS·Google TV OS·Roku OS·Vizio OS 는 둘을 함께 쓰는 것으로 추정됐습니다. ACR 트래픽이 보인 TV 는 모두 안테나 방송을 읽었고, Google 과 Amazon 을 뺀 나머지는 자사 스트리밍 서비스(The Roku Channel, LG Channels 등)에도 걸었습니다. Netflix·YouTube 같은 서드파티 앱에서는 webOS 의 소량을 빼면 보이지 않았습니다.</p>
+
+  <h2 id="업체별-끄는-경로" data-anchor="auto">업체별 끄는 경로<a class="h-anchor" href="#업체별-끄는-경로" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+  <p>아래 표의 메뉴명은 미국 판매 모델의 영문 메뉴 기준입니다. 연식과 펌웨어에 따라 이름과 깊이가 달라지므로, 경로가 맞지 않으면 설정에서 가운데 열의 스위치 이름을 찾는 편이 빠릅니다. 출처 표기의 CR 은 Consumer Reports, MB 는 Malwarebytes 입니다.</p>
+
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>플랫폼</th><th>스위치 이름</th><th>경로</th><th>같이 끌 것</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="name">삼성 (Tizen)</td>
+        <td class="key">Viewing Information Services</td>
+        <td><span class="path">Home &gt; Settings &gt; All Settings &gt; General &amp; Privacy &gt; Terms &amp; Privacy</span> (일부 모델은 그 안의 <span class="path">Privacy Choices</span>). 구형은 <span class="path">Settings &gt; Support &gt; Terms &amp; Policy</span>, 더 오래된 모델은 같은 메뉴의 <span class="path">SyncPlus</span>. <span class="note">CR·MB</span></td>
+        <td>Interest-Based Advertising</td>
+      </tr>
+      <tr>
+        <td class="name">LG (webOS)</td>
+        <td class="key">Viewing Information / Live Plus</td>
+        <td><span class="path">Settings &gt; All Settings &gt; Support &gt; Privacy &amp; Terms &gt; User Agreements &gt; Viewing Information</span> <span class="note">CR</span><br><span class="path">Settings &gt; All Settings &gt; General &gt; System &gt; Additional Settings &gt; Live Plus</span> <span class="note">MB</span></td>
+        <td>Limit Ad Tracking, Do Not Sell My Personal Information</td>
+      </tr>
+      <tr>
+        <td class="name">Roku OS</td>
+        <td class="key">Use Info from TV Inputs</td>
+        <td><span class="path">Home &gt; Settings &gt; Privacy &gt; Smart TV Experience</span>. Roku 자체 TV 와 Roku OS 를 쓰는 TCL·Hisense·Sharp·Onn 등에 공통. <span class="note">CR·MB</span></td>
+        <td><span class="path">Privacy &gt; Advertising</span> 의 Personalize Ads 해제, 광고 ID 재설정</td>
+      </tr>
+      <tr>
+        <td class="name">Vizio</td>
+        <td class="key">Viewing Data</td>
+        <td><span class="path">Settings &gt; All Settings &gt; Admin &amp; Privacy</span>. 구형은 <span class="path">Menu &gt; System &gt; Reset &amp; Admin</span>, 이름이 Smart Interactivity 인 모델도 있음. <span class="note">CR·MB</span></td>
+        <td>Activity Data 는 별도 항목이고, 거부하면 SmartCast 스트리밍이 제한됨</td>
+      </tr>
+      <tr>
+        <td class="name">Sony (Google TV)</td>
+        <td class="key">Samba Interactive TV</td>
+        <td><span class="path">Settings &gt; All Settings</span> 에서 Privacy 바로 아래. 구형은 <span class="path">Settings &gt; System Preferences</span>. <span class="note">CR</span></td>
+        <td>Usage &amp; Diagnostics</td>
+      </tr>
+      <tr>
+        <td class="name">Amazon Fire TV</td>
+        <td class="key">Collect App and Over-the-Air Usage Data</td>
+        <td><span class="path">Settings &gt; Preferences &gt; Privacy Settings</span>. 구형은 Preferences 대신 Applications. <span class="note">CR</span></td>
+        <td>Device Usage Data, Interest-Based Ads, Manage Sharing From Apps</td>
+      </tr>
+      <tr>
+        <td class="name">Google TV (OS)</td>
+        <td class="none">OS 자체에는 ACR 없음 (Google 답변)</td>
+        <td>제조사가 따로 넣은 ACR 은 그 제조사 항목에서 끈다. 광고 ID 는 <span class="path">Settings &gt; Privacy &gt; Ads</span> 에서 재설정·삭제. <span class="note">CR</span></td>
+        <td>Usage &amp; Diagnostics (설정 시 기본 켜짐)</td>
+      </tr>
+      <tr>
+        <td class="name">TCL (Google TV)</td>
+        <td class="none">ACR 은 OS·서드파티 제공자 것 (TCL 답변)</td>
+        <td>ACR 은 제공자의 개인정보 설정에서 끈다. TCL 자체 수집은 <span class="path">Settings &gt; Privacy &gt; User Agreements</span> 에서 User Experience Improvement Program 동의 철회. <span class="note">CR, 2025년형</span></td>
+        <td>광고 ID 재설정</td>
+      </tr>
+      <tr>
+        <td class="name">Hisense</td>
+        <td class="none">답변 없음</td>
+        <td>탑재 OS(Roku·Google TV·Fire TV)의 경로를 따른다. Vidaa OS 전용 경로는 두 가이드에 없어 확인하지 못했다.</td>
+        <td class="none">-</td>
+      </tr>
+      <tr>
+        <td class="name">Apple TV 4K</td>
+        <td class="none">ACR 없음 (Apple 답변)</td>
+        <td>시청 기록 기반 추천은 <span class="path">Apps &gt; TV &gt; Use Play History</span> 를 끈다. <span class="note">Verge</span></td>
+        <td>앱별 Ask App Not to Track</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>Fire TV 줄은 출처끼리 말이 조금 다릅니다. Consumer Reports 는 Amazon 이 모든 시청을 추적하는 방식의 ACR 은 쓰지 않는다고 적었는데, Amazon 은 Verge 에 "Automatic Content Recognition 같은 일부 기능은 기본 꺼짐"이라고 답해 기능이 있다는 것을 전제로 말했고, Northeastern 측정에서도 Fire TV OS 는 ACR 로 추정되는 트래픽이 잡힌 쪽에 들어 있습니다. 표에는 안테나와 앱 시청 데이터를 묶어 끄는 항목을 대표 스위치로 적었습니다.</p>
+
+  <div class="liv">
+    <img src="data:image/webp;base64,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" alt="리브" width="72" height="72">
+    <p>표를 채우다 보니 가운데 열이 제일 흥미로웠습니다. Viewing Information Services, Live Plus, Smart TV Experience, Samba Interactive TV. 이름만 읽으면 끄는 쪽이 손해일 것 같은 기능들입니다. 영양제 병에 성분명 대신 "활력 프로그램"이라고만 적어 둔 것과 비슷한데, 성분표를 뒤집어 봐야 아는 물건은 대개 앞면이 화려합니다. Verge 기자도 메뉴 문구가 헷갈리게 쓰여 있다고 적으면서 "아마 의도적으로"라는 말을 괄호에 넣었고, 저도 그 괄호에 동의하는 쪽입니다.</p>
+  </div>
+
+  <h2 id="17개-질문에서-acr-에-닿는-답" data-anchor="auto">17개 질문에서 ACR 에 닿는 답<a class="h-anchor" href="#17개-질문에서-acr-에-닿는-답" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+  <p>Verge 의 John Higgins 는 한 달 전 Amazon, Apple, Google, Hisense, LG, Panasonic, Roku, 삼성, Sony, TCL, Vizio(월마트 소유) 11곳에 질문을 보냈습니다. 개인정보 처리방침 링크로 답을 대신하지 못하도록 전부 예/아니오로 답할 수 있는 문장으로 썼다고 합니다. 발단은 LG TV 가 사용자를 감시한다고 주장한 Gamers Nexus 의 2시간 15분짜리 영상이었고, 기사의 전제는 LG 만 그런 것이 아니라는 것입니다. 17문항에는 마이크와 음성 녹음, 위치 정보, 집 안 다른 기기 탐지도 들어 있는데, 여기서는 시청 추적과 옵트아웃에 닿는 문항만 옮깁니다.</p>
+
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>업체</th><th>화면 캡처·녹화 수집 (4번)</th><th>설정 시 기본값 (12번)</th><th>끈 뒤 기기에 남는 것 (13번)</th><th>오프라인 중 보관 (15번)</th></tr></thead>
+    <tbody>
+      <tr><td class="name">Amazon</td><td>아니오</td><td>ACR 등 일부 기능은 기본 꺼짐. 모든 전송이 꺼져 있지는 않음</td><td>아니오. 다시 켜기 전까지 수집 안 함</td><td>예. 앱 충돌 기록 등을 두었다가 재연결 때 전송</td></tr>
+      <tr><td class="name">Apple</td><td>ACR 을 쓰지 않고 캡처도 수집하지 않음</td><td class="none">답 없음</td><td class="none">답 없음</td><td class="none">답 없음</td></tr>
+      <tr><td class="name">Google</td><td>Google TV OS 는 ACR 로 화면을 캡처하지 않음. 제조사가 따로 넣을 수는 있음</td><td>Usage &amp; Diagnostics, 맞춤 추천·광고, Web &amp; App Activity 가 기본 켜짐</td><td>임시 캐시와 시스템 버퍼가 삭제 전까지 남음</td><td>예. 시스템 로그를 두었다가 재연결 때 충돌 보고 전송</td></tr>
+      <tr><td class="name">LG</td><td>아니오. 내부 사운드보드에서 뜬 음성 지문을 씀</td><td>ACR·음성 인식·관심 기반 광고 모두 기본 꺼짐</td><td>아니오. 보존·삭제 정책에 따라 삭제 또는 익명화</td><td>아니오</td></tr>
+      <tr><td class="name">Roku</td><td>아니오</td><td>Smart TV Experience 는 미국에서 기본 꺼짐</td><td>광고 개인화 설정은 보이는 광고만 바꾸고, 수집은 다른 목적으로 계속</td><td>연결이 돌아오거나 전원이 꺼질 때까지 잠깐 보관</td></tr>
+      <tr><td class="name">삼성</td><td>아니오</td><td>Viewing Information Services(ACR 포함)는 기본 꺼짐</td><td>아니오. 즉시 수집 중단, 기존 ACR 데이터는 서버에서 삭제</td><td>예. 켜 둔 기능과 연식에 따라 다름</td></tr>
+      <tr><td class="name">TCL</td><td class="none">직접 답하지 않음</td><td>ACR 은 첫 설정 때 사용자가 선택</td><td class="none">직접 답하지 않음</td><td>옵트아웃하지 않았다면 진단·성능 데이터를 보관했다가 재연결 때 처리</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>Panasonic, Sony, Vizio 는 17문항 어느 것에도 답을 내지 않았고, Hisense 는 다섯 차례 연락에 응답이 없었습니다. 답한 일곱 곳에 공통인 것은 두 가지입니다. 모든 데이터 전송을 끌 수 있느냐는 11번에는 긍정한 곳이 없었습니다. Amazon·Google·Roku·삼성은 안 된다고 답했고, LG 는 약관 동의를 철회하면 멈추지만 스마트 기능도 같이 꺼진다고 했습니다. 인터넷을 끊으면 전송이 멈추느냐는 14번에는 답한 곳 모두 그렇다고 했습니다.</p>
+  <p>표 밖에서 눈에 띈 답은 LG 의 것입니다. LG 는 ACR 이 켜져 있으면 TV 의 IP 주소와 함께 주변 Wi-Fi 네트워크의 MAC 주소와 신호 세기를 써서 대략의 위치를 추정하고, 이 정보가 원격 서버에 저장될 수 있다고 적었습니다. 시청 추적 스위치 하나가 위치 추정까지 묶여 있다는 뜻이라, LG TV 에서는 이 스위치를 끄는 효과가 시청 기록보다 넓습니다. 삼성은 화면 캡처를 수집하지 않는다고 답했지만 Northeastern 은 Tizen 이 영상 지문을 쓰는 것으로 추정했습니다. 지문은 화면 자체가 아니라 화면에서 계산한 값이므로 두 말이 서로 어긋나는 것은 아닙니다.</p>
+
+  <h2 id="꺼도-남는-것" data-anchor="auto">꺼도 남는 것<a class="h-anchor" href="#꺼도-남는-것" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+  <p><img class="sticker-inline" src="data:image/webp;base64,UklGRkI1AABXRUJQVlA4WAoAAAAQAAAAzAAA/wAAQUxQSAETAAABDARt2ybhD3vb3+kHEBETwLGVpIc3Xm544v3kC0bfEEyDaVbMb2xCAqAQaGnvOPyDB/yGN0BybMh8h4ckC7MtbNsOSZLe//+iVc2xbduztm3bts3W2rZt27vD5hjFrnZlVlXG/3/PQUTlzGRG9p5GxAT40fZPkSTYtqq7F0ygn6UxyUtlXktbA+AZsMZryWsAjBKPYEnMzEwVEQ7mFB4e7uZgZr9PcI+szCx3SzUiJkCNHmJh79af/ekv//Yf+Llf+MN//tuSD+3/7p9/9+d/6nu+4nNMUrSgPdUQTZI++4u/7Yd//S8TywvPye8+/PCDJVkIIexxBDNJxUlP/sQ/jGwH74OCPiwo+CDW27//2CHVxsJi2GOIJmnJPVb+cwZAzgcJQBIfLgFIqXTgymfttXTZMlM1FnEPIFiQhu65ehNALoNYbwBuGUfrNsI4TgubYu0pw+jNt9zyx++ufNpZyyXJ4mALhaSz3r8OoMxOVQAaxinPTHNNzqfbxnQ+p9cySaydeJwzc5Y3f/vlZ0dJFgZWMGnR43/WAcpM1QFmW5/aJL2PduKDvbX3c5VdbR14dk+pzADln997fpQsDqRg0gGvuAxImaoDy1hmJp8Gz7YkPZAkNu09GdnlNeAO4J4SkP70woOlGAePSfu98WYIXgACliEp8smyljaeVQLGMu2dc8PgWQtAwQFbPnyiZHGwxKChV98EPrAWLENiKisA8fKCpbt1XXLpssxaAAEoJ5j64gWShQFi0hP+B8l5OGZJMQgQr1U8HMdrUhnreOgJZj5yomSDIgad/QtITn245/ldfJQS68Wmxtgt8AS73rtEMQwEU3jjbnKm3jdZMfJxC9CQptcFHMBLuOyBkjVfiDrtt5Co99ekdqCPCxAwX5OyQ70n+OL+sqaL0lO3khzAoUtqB2IXBWqHx8oayJmN91IMjVZo0achUd8aKzw76ztHJssaKMmvl2KD2bsv+328AIQz6cwO63ZptwjiCytkjTVP3/gez3af3kA7BMGk0wby/OdkWUMVeuCIBxBUJiD22ma3DUiMnKOikUzPbxEAxJjf2HFBVToEkBg9R0UDmV4DAhD3xLH3fTKxmRg5R0XjmF5NcjarIqCdEy69IYDEyNmyhin0arKzaa4coFBVIIDE8NmyRin0WJJTDfkNHcC6MjhA4qaDFRuk0H13pUx1zjuOszYIwPOPZTE0RtQ5u8lU53zhOEVlEIDnM7KmiDrqOhLVOV/QcSAqw1olz1DRDMEW/5lEtTQLxyoqgwDPu05XbATTJyipHZ04WlHWrDP/G7LQAIWeSPKa8Z3oaBD1fUXJO2X9F3XytuxUx3cgjlfhbFeeOxcp9luwhf8kU926nQE9FSsy/5sfQ5+Z3k+i2pcc9r1AgOf731l/me7t2SvT2R8XpgOQys8LsZ9CXL6RTNXMHLd86gE8PyPrJ9MaEtXyho4LbIFAwZ2n2D9R57ezV7qcQxflAOD5Vl8t+BsJoHP2xwbeBIFUnq/YL6bnkqiOWg6/rQE83+ybEJdt9lzZMcnhK+QOkE8drdgfprfhAVwajg9sCZBYI+uLGI6fdK3MnQiU8gnI3LqvQj+YPkcC6AyKALAFQOL5sj6I4dRW9lU2E4fK55X/vQh9UGgtJUBbE4vdFcDznWU9F8PBo+6Az3wsKKQLULKyD0xvJwGUN6KBugUy6xYp9FgIy67zDCy5FAvgcgHud5H1mOnZZICqJybNAJSs7LUQ5/+DBHgTosLmOJl1Qwo9FXWBO0DTEpWhKB0nX6TYU6bVJKDMFBcUU0DipSp6KWjfW8nAzpLInMZqfhRj6CHTY8mAj7nIkB/vgHPjUvXW17wEWpPEBlvaAPnCXgraZxgHJqZjA9qjOIkXq+gd070RsKQ+PmYj4fh5WS99HA/cWqJTpAMEfs9CzwQNXU0AUhcj9QAi3V+hd84rEYyF4gOmDAl3qmKvFHoFHugroqREiIf0jumbNekUI6KYwPNiFT0StPw6BEsRFCXJAI6VPRN1IQ50hhiBa7f6mKxHTM8jA+VInM4leH4dQ898jBJIlkixZ+T5ZeiREOb9kQS2lOJkzqTAX+b1ivYfxaEriBSGgBhfodATUWd1ACpHnIpmeU2mh+DAaY6W0/11vZQEvlW0nF9VoZWVW4ZiJRleR6gt9FVKGGqi9b68WIiFBc35bRJUY7x0LxSLqOrCxUNDQ4uH9rmMDOkSZxYl7XP3l37i+1dds2nz5s2bN+7G4TTFmEk65dXfH+E2+9LHV4yy+3y3BZDKlOd0YLbE6/25THrU34GU3AGcLqc2WkQyPEuMuvAn4MnpcqY1MzszMzvdzs8oWs735zDp9TOEwEMN/aUtzqaqqiq/JHdiVZyew3TMLyHx0BbmcrMzUXxdPsx0xmaSAwhsnnULa2klKWLCLSDGuip0t22U1NusGgGtYtieUODP84LmNN11BwlAhDqfQMTzlCPPr+JcUSdvJ1Nr0x5ETI8NPCmE/TaQqK0Lh4hpYQZwfFxWEyx+h0TteEVsi2zjbSpqTE+nFCCqK4otZifdyTxFVonhqAnPgKhaInxmGHfPd55DXyMBwlyJb7F9CpypoxUkRZ09mx2gqVCMjbYhs27xHF8nAUwJIsJnx3AS31CUFHXurDugZCLKpyZrXi2TZPoMCaC5oggT49MAfmdFSdp3GAemHBHjfiJDZniFQuUpZICyJ8ZFuxUo+XaIqn7SS2A2J86UzgKJF6qoLLyMDGwZ4oy+BJxdx1qsnDGFw+yIFGeZBTIb95dVnooD27cSZ5MRgOfND1SQ9F4yMD5LnKeWud+mGPRtEsxMoCi7lzzMmffKdCUO0+N7aM0lH1MNXvJk2T8jUVoifbRl0myQfccRYVhdog0IdbKsSKwWgK98xMGQzKvsk0espgpFnJhPM0DmRSt7iTg3A5MJguy/3ThHXP6/jYe2ojq8CiPxrqZJJkLmKv8HLmbOJm41/n8BQ+OSxeV6gmJOmGmuSEYeTibmYDSYsZof2TOKOJFNU4YejUnUQXelnnm8NJE3p2T/PT9SvhD3xXw5hdX/InGxUSfe29uV9T8j6Pqog+vA9p8SYDKRtwwC3MtfwYMzPu7mgc0rfxgBxsacyHvAd5Yf+VaPYCji7tIjWnc/75DPLVcudRFHKBfE1D7SZ/4pHihvMTcmSEwdGuO7n9hwqRRvbQdi98EKOjdRrTtiXSF1ELhqkUKY9z9PgMukSOPeAJ4/Rsn0eip0LYozlwWBY41MUUfvdgfJTESjXpOoBgDxSJkU9RESwGyCYoE5vBpR1QiCJvZTkGI4Zrc7QJujKJgHk7Svhqpg7VktkyTTB0iAKFsiUG1S2XJ6HSLkJQKk25EhVkLYf8Qz6+J+cII+rWBJUU9wT29sOn5IplrT40le8YndRyaYi8Ihip4nCtCziD4zC5slfyhiqJPpC6QKvuV2YMxFNoIYSyj6B9t6BqpqYrtk4xEKmjPEZVeQKnhWgo5HgC3yAQQ+darf31fiVgPVyIeKUF15WLLxKEV1GXXqDnIF6mThgKcmMyPb156iK9ic8txBfmk8oIeATVu0UnL+dpRMXZse2CbXYC+N0LG4S3qdedjWPhv620oh9V0FU9km9RB4OPemdmwGYM2Qom5joQdPkyvCV2kP6ChE+18LoA11aZNZMreisigdkBm5X67m/8/Z6fw+L7KJbc/wg7tJUbe50EN2k6ifTXrzgA6iOxWlY3v8j7wNdDUgmgLhLhaXLBDGfrB93488dvzpl0ox6HY0nXs9yVeC0ST54DjM8ZbMW8wCZQ7gmrN25w6XW56qlXzgTz79zqJuX9OR34OSOdP08OTwtvYwTdM0LjsnmJOwBaKrQdwKtvOWsXZrYqyVAU/1ZQJWL5fpdo/SK8bx0isO5FZn8lxu2n0D0daPWDIBV8MTZ0a2bBse7tB953v3kqLuwBh13KeBlB3A6fKeoX0DzLQlsh4oC57o4NOdBM6tP//tb37zm1//7qsvPFOyoDvWpLt9bQpIKXvFt33l2f0l0wZVCVPesankAE5t4qcyizGYpGi6w6NJJ73jMqeaUnK2L8vuibraaApck09sCkhllzPlz0IMIQTFIqonY5TmX/q679/Qouq3ujvaOZC5QWjLqU6uoJXof5Po/q8K6vFokrT4hHs89/nPfnevjVt2AIQs7er/rcw1sK2Qfo0ues0nPv6JOT/2qRf1nhRiEVT7IfyGLwNHOBd53gHagvF3TlMzhhDn2bFttNGn/ggEYSjym+OpWx+nedZt7BdJUeexqdx4jlHAVCb5+MjD62VqxKhzfBWKGwcqCF1qRhBATjxb1hSsqwYdyPZUFJZNz1NnKzaGmDOJoxVMWbVB4rexIc6ttB1HLGiTeUXmPrIGMD2FICp/SOspn1Yl31NshOdX6sMSS7FyJg9SaILnEqC9HxWirwAyT5I1Rl+ig0IUbSD5pxpD1AsHPo4DmcuGQmiK03xgYqINMHuCmmM6tB07Aedhik3xfjww6IwAibeqaIrEHVqe7EDJ12VN0d6PTIzuhMQfTaERoDdHBuMNAv+9dxM8i4AolkNbTiCaA5vgeb7K5kNzJcBwsmL/PQQB/RUdGNcZ4M79F3RUG2DKdWAiadEuKNrP8YCZOLKyh8ALZX1X6PUbQ3Vg0IzgeXkDRN2NtbL5yPoGeV7WAEH7DOPA1BZ0XC5fvaQBZPqiJ4BJy3EvOTg+3AwPxAHPqTuu+bz6ehMoLFznGcCe/XFdVl9uBNMzSBVO88F9pREUF/yVBMx3juu0J7qk4w6uDocVarcfMr2aDJznw2KYdySYfk6CW31c/Z7I9AVKUOLeCF+vMJRvhI97CaLoD65oisfjALcLOrAvNUXQfrd4Brr6LaCop1MZJw56Z0Jc+C8C2PFNoKi7ZOnNEMKRJcJObwQdV2lz9DY4tjJUbwpljjcE1/YtIZ+Ft8He1yKgvaLD+nJzKIafegkwUXJYX2wQ0/PJlZlhr2Py/KKIoSmCDhj1DDBVcEziln3UGDK9hVShal+D36XOSQ0SwgFj7hXMFb3UkGp/CDxG1hgyPYFUQ77wwi5v6p0ZFvC8VUVzKOoLlDVzJr1MNty6XRGmW31O1iDBlvyeVKFp0Et0Ff/vd6YaVj8JsUEUdcR1ZEAYywsOaQhF2BWYOgisW6rQIIo68dacAZazfz6ZhTCwN+9X165oFhV6FGnFkPpnywcIjXZmKXZJZt/Crxjz5zIdoMTtjMppl6IOHCEA4prrWcyNtc3Croi63yWZHooT6yHz6GnCmxvbzXVnsm6fZPpp3AY2uYOegk0tD8d5j65b3jzBPut3WDZweb0AAgRqc89DZcvOlD2ic5pi0yiE+T+lrIHdI+PTbIZueLvTxf/5nWl6yDxJ1jiKOuhvJK+B1mh1aa9tYsoO3U5Z2BVC6aDkg02koEXfwlMdOOsWZx1dh8Sxr770kPidhQZSlN7WIeUaZ1tdlS37KkwHmetXKDSQQtCl/wYvs+fu55hSdne6ArRPUWwiybTguf/ldi+mHXqPgAubSibNv++qv958w41PvSrX3Au0O6H24DyksRRMUrGk2+ULVnsClC/srsg6yLxE1lRSsELdD20iA33JHhXD6gVNVg1dWrgHDpDOOwRDg2de2HTdFlpDAqYNu+yLYwlh4d/JwNZhn+b0WKJOmcUhjWqnTkfzSDKwcyvap/OxmN5DAiZm2Ofj+V7NWN4pdzmWMP8PCXCvaOihhgEStNd/rK63fRK5PZp/W2Vhn+hzVi8YIP9OIJz8LknJtPGSAeMG9lg0A4Dz2AHTN7tEU7HZOVFhoJQZahohU7NO/G5+1EC5FfvDkvasldI9NGAYbaM9EWqSGWo7fFqmAVNOtNlPwWCqQG3JVUtjGCAbKpTjDWgnsLlxbJesP0JBg2PvTTV4lY6gHQhdaibQyjP/PEJRgzMsvMJTBWZTznz0U5mVIw9L+NyQogZo1JNJuSLos8wK0EeglW0zc/dsKzkTT5GiBqrppVAypzWmHAD0mgQQhibP2gnQSh749PGKQQPW9KQxcq6D5X4uCruw1stphQZ7KS52BMQ6OOAHd5VMgzfq2G9DTl5xoNO+dXJ4+/Q09ZL0AZK0BaNt3bz11u2tEnCqXjq0vnkXyaIGsUkP/TtQZqoO0G6Pjm2/ZXu73XY882TtUJ2u2WV3qwRwAPfkwKb3nCzFqAEdouwxvyiBMjuAU+20OttGRsrGnE/V0/LTuWryNGnmfmHtVD2XAGNfeOBiKUYNcJN0zvs2AaTkDuBO/TKNdnnaNI6zY1sCcE+lA9z05UfsJ8miBnuwIK24x5r1DpDLlGvcneeWpI2cykx111/edc9lksyC9gBjIWno0ld975ZEreeUPOv5gvdBbE/+au2jjjRJ0YL2FEM0SVp+9lNW/vLa7R16cm7X/XTVUy49QFWzoD3LEIsoSXHJsXd5xps+9d2r//v+uf797//i1372e7/nK79sUZCkYBbUzwBWUDggGiIAAFB5AJ0BKs0AAAE+bS6SRyQiIaEplnzQgA2JYwDS5oJhXrv/J53/riSC9x6A573mAc/bzGftd6oXpH9AD+6/7HrePQv6Wj+2/7n0otUm9C/2b8cv1V8qv8n+XHoL+N/Qf3/+3/th/f/bo/tPD36P/Tf770R/j/2k/Lf3/9z/8H7pf8b5ZvZ/5p/2nqBfk39A/zn5e8DbNr6gXt59Y/y35rf6H0vv7f0K+wX+99wD+b/0v/R/ct7YXhsfhf+j7Af86/t3+8/vv5FfTd/R/93/R/5z9sPcB+df4f/r/5H4Cv5b/Wv93/fv3y/y///8WX7g+yV+03/lRyWQdfQqUIR3H//4Ouq3AM0H31Mk2c1BPRLD8/6oZu2dv1nmLjeAgNHvdYkj51tPqvor5+3wmnhnDG3KPVzp2G7mOf7Ab5PUQqNX5MGW9IpNOI6cxJnNuulKqcLGKu2RS5soEkYEuX7oXy1NdmpRIg7/j/mGNDT7RdJAErVEoxC2u8yMZanRnfGkU9ol38qQIRUhpjUGSVtHPG/3EBIlGjE9uBlQPzp9dOpvGBh8B7MqF7ulabFtWKRAfV8+5PsQsYNQPShsckpCrVv8EbVPf82iWd6YCN/j54IqU4TQ50rVWoiYtsv3nzb9DqtnN0OAgAVka07zgT53qauNLOlDoPSoCmE2rD5OTkzcMxqvgiKlbfNMx1Z4ZxyKDfCEGLlRvttqejcgWr6xOzraOlyjrAqkpFVGB+TFYqYkAG7uLVWR1EdLtkqSTRPiCV7ZrVd/q1e9NfG9IQXI7lR10LIl+R5ViT+tIyztT0W46i6CrVU75BSIWlOcBVMyZIvgOlOhLTUd4rWfsi4B9ofbwwDW/RFkTTy88A6PAL/ySP1mCaBrW6SpQrNAgxi/9pFGa4hDAu/gfljKl9KbYSt0n6Ku7+6GXbUdkJqzp5HMdQo0yQaAafOFRwds76WNSAAhciuHm4nF3F3Zyr4ZiTb9thEeEUOwqFtjoXg7jxZL5sH5x6ivixtShKu2faciv0iJWeRnWV9G0Vp5IL5aN6WZKiQTJcr0JHCYy8AtCfcr8HD/KA0BulzANktRlD9xPvijinwv1onAj4WQ4EM25sWfmUqwjVdhtSuF950Sj5E1xu9FSXFFHIsNXFL5PfMgYBp+oT5RoUHHRiPxi/UtlVsCy/frjwBtLZPllKwQOgEaAXUwScI3OYnia1e1frgo7z/qmzD9R7G4eD869Vwc3oEoc5xASTuI7NnjgfeNF/uplhSDXVhRtkilcsOc7tdIupK1vJgyg7o+RrFudu/qloLMcwAA/v02aLXuKa/qbnWZrULMFFeeHG6+0hJmlleK3WrygCsbWRgT1G96z8Vc4+XeRMYiGlfhOaN+7z6q2n258sz8rQk6TXVZ/yNJO8AlcJsG0NVV0LzKBRxmrM8laowO8HGFLwrVLGkn3Qo0xNx6KD+pfFk4QsBcD2c5YMHgD/EG5NehFcQl3c6U4YnCCeshmepOXA9kWTuHyvjG0CaSAws5D3k5xThIwbaGz7wKOqUSiLLL2BJNqZhAq1KUG+QLLMj1Mu9Tr3JgH3y/H6pFKwO7j/FNnoCVJlCo2Nf3qmrSCngsUg0oj78ADp/U2wn9Tc/RPyLDOnvkZ04qb8NW72w2MtbRjGdP9xazNhVH0/OtYT9lVSWBQBQq6ZtZOEGPHaNWEFBybF+vbzusEZVD13PWZaHLqVoHQczUXemKJLbujDEkqyuau9PHLGrRYFUzm4+V8npbzw4m+bHSS4TjSEcVm6V1lk6dOFgDc0x6k3lfCXfLrD93Obeyg8/NbcthLWs6oy9XWDTRgA6DhaK8wwg94AIIM+6JHVZKkp3ZADv6CTiooCRlfBYsOOEESCgD9dfEloHJUbGEhAf0tHEGRYSc5dYxqbskL6bOZuKh4Q7JX6p7FyE4FIHRdq6EI6O2RZqvseC7Nj0JY2AQDOAJOLJkE7mJTGT0X3dQTXxFrzYVnAFf+80CWtmPqpna5brQdEKy6XPBGcd4UbNvKmlYG0vi7+OBRG9u2m6r6B/kmg9ZewXNlIqda053VNYxlJDrsVM944TKSHYwx68Z+FdLC7SoiT8Ezlvs/iBpJV9K2HHCGKrsc1/d3Iw6oUIZaAcAPUiLvd0v3yh+w05lq8ABk4XBtaVnWe9mtccYct5p2TYBAI/1mxoMaX+t8SdUeIXrUCFNIFkQwcKcCtLfEHpb94Do0uvgd43YNP40Qok6VK83CUdrQLeNsnUvCsWwzKWOJo4fj1mPtgddHrESrTad1y9/5YurnIFLK59yhvXZa9h6jHrUvBZafGxdvviBrp9ccqf2v7vslomg7tgzvoHmFCq8/33ZxItGqeCftszPuzhAjefj+ANm7upSyOETboSmv8vA2u4rxS/kNieWlzbuTr4wz3dwhP6m51lO9YWmSGyOChJjd6w8XloTCY+mtLaLR4fs/Kwf9LX8NN/9gv7nKJVNt98xpi6mNm1tJHwrDk9UAPjv3sz6S9a0B7mlkOaRc/tvm0WZq7gHEkCvGAh/r9NJYbbwS8Ked9+FVxCoPV43oZy0U8QZqPczDDv78axkzsN5CbElXXOEY1JFfaWjuD12gfixfNRBr4py9V1gvHPawTeJpCzofmaul36UcBqcPKoBsKRSzKC9t0GkrT66lJ7gNtZtbp0u25BhhgKWbY1h/ihYeGemKYenY5U40Zpes49RYa8viLHRME+4616TVCuLT8OBdDOxTEfPHxQHiWMvYVxyKl/OxYmxzIBjLYPonVRHUgpKDFxlibhHA+MTCkHRrpm2rnT65hUUCAg1/CGVRCbNfd2n2W6TDdewpSCMhMNOtulrnxyojaE1Tm1Zox8ILsJ60vUycPwKJfLH4Bv6aVUgEN4VOOayLqSTOjs0LDlO4O4q51vplSPpZgdgLzN6cWjx0QltZIXAL8sTbwqQGl+80BvPstsPXY0KR64IgqQFa/OwFHama3eIynidDWR1e/BfQUgJWTxCFHskatzAFlDjMtdCsSkbmD10XIpCTsFjoxwqgg7l+wc8ZgZRqExk3+QnZqfg9PeQE4J1cj0oPw+nAu/JLezi7T+wY9NBvius71mWKdgrFvZ7TCEbhNftS+NPmfx0SgVib/qd7acXnHqIUAnyWeSDZBFcm60mIhoUvSYqWPpLMWeEDs3gFHZHJh2jazAUi7Z7/PHH5dVOpXz7yXIa1ElmiKX6DMzJSmcMIXhF6n/Avv73HG7Uklic16p+WQAGDr9bPdq278TdfKb8TFeuHpunbi+N/Uv3e8xbU7CGWbSm0G99ixjOAqqCPGN5dPUexqzXS9crqLICkDcbD8gGjEpQiuMNSlod0l06wfucCF8ceCs8fSNo4KegkV7p/rScujUx4zeJZ7/qspl39/YIomjtyiZ2xbL1z1mJMHbMxPwHyWc7wGqVti10RrFsNBvqT2YweJechFqJfWuo/ZqAgXR2RN+R6HxQ7L6b3PkMgOFfYS7Dzm2ySSORJz/GqS9OUHVOn86dI9dFqw4qdIXT+OYjr6JXXorIok/uD2lFgU+/A+wr1sTOvLmCWZZRk3UMoTWVaiLPrHkm/as0payipkireEiLRPuzbx2NdzBBYIj7G2OcTV6XupZyaQQgacg6EqvZgMVkYO6wCeRSD54WhQ0F/CYxtK5CQI1qIWfAYV19FguWVerf+YnaTXnpRI2zupAxEl0ycHHNrXPiJh7P1oYVhvzANvYjI5WDhfPT7sVzYSvySdhG1zXd+MWvRZN01vF1wWyOw4sR/Z6BVHFBb+LsM5itB/KJUywxffyEn9MWvHc8AlNVpzV++9yrTG9NrKLfczftWZm+pyLVwujn13MavLaD01O6xJQil5iFBoxwF4HXhptf3E8b+yui4VR2Iy8hzqcWWGJs+eIsLvgyzBAuBJoSrrqPxrmIvLnLpSLyFuraE3SSZ8PSa1SWU5s6lJfCfpDu5dv4Iyus0NhOnKl7/tYXsyaIDmYwGd+u7DSbUkgM3oc/I96Fiuscbi1DDvBC+6iZT2dyvHpPCXMA6aL2O201DY7JSe9Stn6Ohgey74BhdwEDkT6sum24LpLTkrrQPIVqx21y+i45T3V5+c6Muau6iUP4K6rizD1JAqOSSpNp6CEqsZL/MrEVrqx2C728YpirkQl26zozasIFKCCIRlh1qVt8n2GyVLL7b/IEyXYV+atTbJdgcqoQtCII4N3J+B5MEwaAbhI79WUD5dEIpccU9lzvqJKXahZKNGFpRmzvksAXtG+mubzmVH4uwlVteSIGax62SDotcKJ0asz0i5jAMPe0Bc1ExnBGCc05/64rmUx79WQjae9J4sT/eBlvOSqZHYPlvXrWUmJH4m1G+1y1h2YPQm1kGDty02O2CYPi0q90SrpE3skdo+rOulCmDkNPj/+p8D9sSNmsFVyoK2lKh9bbBvNofDDKINbRQHYvJ+w+GtCG7lfn8zxFjzu2PwWxAVWFPGK9zMDnmmUbT9YYvrdV8rKUahDAu+rnO1aPYfw/7AnmS95EAm0jo5WqbGjgztVly+5i//IA5p6Zr1QNdjpONwRYenvoOWAE/mNPETWEOLSir3Et6KGJiMisDO0NQSwE5a4SfSEsF0LL21BtPNkZdDsoO8wLKCfwVdDQNgNsPQSSRHHBW5Nkh4+08FL5zheYloZZX2/emNmpgcK/S33qG3YdoNYSb45rBBCIsh9oQxxTQOxkb8nwHTh0vaj8YfHCQUbkp30ust2SZJA9l+Ru7DRNhrDdIaFIkCfaDzbgk1yib8nyjH0oWlYwMRL3+B48znkI2xVSof2rVhSwuDvob+T2tVnOH30ZY9p4UYdvuNzqslSh9P3CnbyEg5pk9YRXpsdK9bxwX7qkI6kO0b8CLBErJlONxK1HwNivNzhSbWIDHXgYT9p9+sJGRVkandCteLkLnwWhkCIw1mVFleFxKawFfy8sVIfP1blsI6e/z5/ItT/tSG9BUSD+PH6RR7R1jC/Hje3EE4epiYISLir/V94mA7Ivcg41q8dQCG7as3wxTC+S80FXdAe0vmW8VQvyefi6gJvqoJrxAsaRvEfCpllz6x9W4xCje+9VfOipzgmYJ2inGU1NreRxxes+MXxfXK+DK0jYvU4DHirqvEX4hg6GvQezytGI6XlRsUk31dzbtXnHDQQhjJZ/LiO5WtLugjO1Q8T049p/fkTWz9tlHTFgynfN9uJQkNAO4qH0X4qqLRdKql20NsXEekng4UjXoxDMVC3LeTwNba1dcD53JLcMjPXkxkNrajdPonRGAnmCxCbIBSQrlrb9ztVpg6gdwLRMKcFcRhl09nvbqmflC0IUhz/oVYhNOLC4mv/wpSXpLy389j15IxVCS4JgwRYZpVT5CCFghg7thmvnNkr+oV1g6TZNofEVSH6s6uCoRVm7Vn+E7pOi3v1/cq/dpv4q6HearOdo/P4/NGbxaat7j7kdXPXgrX2sSN/ovrpQySZcrd1ECrcL03jKihQMr5MvOoQjLEn+lf0Zlo6YVrukvxqdIqZl175RL7cnSUrB7MYyjBMQTk7NTwR/2RrC1A+scYLQsnDco/nnkilZhLz9DGQ2Vkp2B38DjK0Hfcy2y965KKMCbMWxACD8U+XCfd6i0GivsXGHQ8uYfbGkUNSc3KDWKu7cvV/EoaY0w/Jvz7EuVJjZBZjYuJMGSXREdnZt4EF6xQH9m3VGrSfSNPH0w74nVSaqOgxY/Gkoarh2kTUodyKvF8++BN95m5cftbkHEtDWKnMBxftr2ySRrh8n5ap/Dh+Tn8M5GBvEjYlPygPzXvt8ssNdIC0mRNjV9CpBUPPuUL2XzV0Ps4FLnalEbYnRSs7Q0TbZ2TTX0m4HaB5jPNXfeiR80N/hTGrABfomlUp2+LcuUYm/NKHC8KcJwe8Q2G5c5an3sW65yAcuPan1t/1Sp6K9QAUUg6vHCWHVn5dl+Jt63w7yJeQU6ix86U+5mkaWymN4IP1kB/1DE1PZ9gNcuoZMtEn6Fqdfi5IOdI1U0lUgd33jG33TSsb2Y8LK+rxOUF4PBlL2sXpisu2OT2ozJtUUMLBhfUGHVj/ax5Jyiaa3RmrYAvpEfXQjkhcXC+D5c/Z0y3amHh5i8u0anwfb/+fGRsPz24m5nbHdOWcaN0MfsB28Gfo+avIpkwoj6F35J2vj7yCfg1k3oXYMDlIHsS1A/wj9Xxo+gvWFHz/PU5Oz/ClYQo0v4ZtNSUj16xOYWXLyYv/cFav0Dmi6BJu8964NUYPICKRUarSjFN5LrNalp8Gs+O6gj+UwpdMeucSV2Rts4WVGl9HUpns3PZf8N4mCDOeB9wke2OYmpjzJ+09qId6rmKi3Z0yzjIAZUGH3n/m5nNXLss8F0BYBXZEahWT1Kkvr+4rEKnP9Ge/7vqQzUFRvmwKcea40rXZPWGJWVrJwL0g2QIcCJ4BQD97NFK8+PNsHt60ABCPCtrHIrz1Mnc8acy3MygADD4W+vpTQXT/Kc31jM12idyUA79P+aHx5suobUzTvckZywvNnIylChnQ8wTFwLiE7fc7VmYuDAL8EL/WGXRIFU5hiOMLifJOJ6kQK76QV3vBOUhRcia57FgoKEp5qL0UT8XXsLNheKogPp4LtX5MHx7MzTDNdW8lHth54C8VRp2KZYWV/gXRTNDuXIZ8lEuL6t4di0YFbe56x+V4ZqAdPwTU5yDRq0wfh1hi476u8d404V3wLGRyQQMwOUneQxtaUj5r9BM3PlX955los+l3ZVNu02zBg1b44tUhYRSZx64m2TeglxvJJbMZJwrE8ZEdEs3irh5xIEx78g9Swlkaxtv+yJC96nZ+IylloTtsOYoYUdXJt6qf8yDv8rOfOgZ3mGXqcfuZ7DxRIfFijKVhtFRGEwqCkWxPrbKvcm1Sx3VTtIaQ6krMBBY576OFqrcBHK//ntCIkBcRyCFWVpSg/aGChxF4PpaFAsctaboIsRbFCju2Kd1XdH9kyShgPOSzbuLdPdh6Tv0qIB4br6VCtngkYo+9yDK914VA59E9GMUuXmoDROpDuEJEok2btXRagdlFjbdoad8NDu+6kKPp4E984SSXfDlZVnpSnyNEas6p55OoqClYQEI4AxDyreSOzCn9p1onYvNf4rrqe07s7qzmtEmDMhjabJ45Pw+bLFznjrXDmwzEHhyMq2fvrbdlhP73mlFMHyXwyjYkQ4NnkOmmW9LmYW2LbbBtI30Noy9flCQzEjL4ZPVJNvsbn1VATXM+oy86TDf79SsZUiaf5PE965UEv5gJVaPTh+GmBNE35/PtHv0z9WyHIed6GN0lRhSeeKh4BNyXOvKc6beFB9NXu/UcAPeU/Gy3SkqceMKEbVSPKAnB+jS/ItPBkCoE1SwzydjU+slpts6Gj9+1+si5oG2lwv+yiKNP48+pO0aYf9Mg9YPVcjOXah/sv8X4IBTxeZqhUlSQrVUSYC4q67XyHc+fcPgItr80ZbNWv9sHk4TWUd6DDAs3piJTHSKRFZD3u68qu9FQNvItlAjxGNvwVsS1fGXYhdRsL42O+nKSE5fTSPJtUqgUK3yFcDF5NVB1vtCC79kXTLtz0cI6BX83X//3uv/+9Hn//vVQuBUIBR1nixazDGxfcDfJFsAo0fIuj9z1Dc4WNNx/XH7n5qh4gh1bzb/+p750pZcKT9IBaPG/yqUWm0yVYz9LUOwAPCYn5T/SHxushKh7zxkauLjZmQ7Ew0q4h6iWgCnfF3f70jBaZrCMGCyO1N5nAbz4W7D3ktoAsjmuvCkKP5VmiUPJGPDrN1UtMuGTgm7rw8hGm/jsKoK8ka3qlJxNso2Udt1Vj4m62SVgBdJ8TDKDeuRgKWSuXyx1W66WcGpngwCAfAoNrmnMIeNuZyCOZwsnPqMxZnmP09NJH3PtJvHKXXbNxof18ra0hQDeztjKh62x8X0nXSETk7g7vO7K2SR24DanJi6BbIkULiLJ20a8lRG1NWve3X0F8UufyYxJcwcLJ+oIsK0Plk1fxi+zHh40TUIIYMHbU/FeYgQWrO5vT0NmAefK1BHhSNtl/oYSgSTBUygbHlHt9R8RyQJ0i5LyapMc/DtoJcfFMmDGbYDdmPueYdYHyS4JS9QK+09MV/CeWQCcljFDL+PLg3DuvVNcJ/pobO+uNz+A80WHPzp3pK6xrdiLf81xFbcp1OhnuDnYTjZ4GTMFcY4QH8aXKbKWlmO1CF/sbDigHnLFsW91hK/ZHFAcjfcWxPrMfMF9oWlAND22kyKeUXezp8wjrV2eVkU/NnwHgb+e5VLnywXMjba9CgMD8vUE/wPNgskD6YH/L/5wy/4BGKf2EGiy0SmfoRfnq/AqfPp1kF9LUc9+pyDMYTGsg58qMBDhiRCSOFNZLwQ6e4q8jPWg66sPa2vLuep5uJewEjwU/E8/N7EVb6G/DeZmEO7YxZaW72XT29nIiTMo/zPbLQ716/+C2aI8f1qdbeeC3eVIVnxrBNUWXNXqhu17rRNtqBxYoWYQlwY+kSyCcy4+AMj/soV//7bIgmRClqZsdhM3/0+cBC6OrA5lT4xDPdI4M4qie8Hz01NE3w/xRKWonD5u1q2ET55dbb7GozqnZHOTrPndux7JhlHiORqco9aTT3sENvzf0nF9OkDhwKXkh37qM9p2ZD0sukN53ii4+TUJ/RkPvNf9zEwYnDwWafUzbkD/AEcd1B/phS1imCSFvk3BmZrAfDxzhzYMZZK3+bDsfG9I6pQfekJ9jDuGmynSN4LwLCYFNZenQGzWfShEipKzma6yzyH07tfVaqI9wC2Dsp4F21BERY0jnXN2+/GIoVMYB6OFejEkKFcTxldZ32CGE2foKHJl/s3e+7Ae/a6X7G3j2eixyRDRA0+j9SEMOeVzOByKkaUmFrBT1VAQ0Ggto5nPlcbR7nModp2uaMOw1KmpftyiN4xlGd5QpW236oxLUWG0btmtV6KQ2mkvTL+6F1TW9A+IIvbmrwS13NPD0NQSY6xVHw9+N05mpxzjgY1/cw2mTZZopCXwxJ9CeM4iHCzthEgJIpr0sZh6MxZWbW965NQC7R3bUffUzfULI+o87E+xZaTP743XFHKr07+SaTVwnAro/kbrhZID2Ni7or0bXb+HsKFEgfpa0ne6HzUOFn23fhYmgNo2Z6gmQ9VLIsJWc/UfV4M22K6UYtjaSsIb/55kOV/Ba7rU7iOZWW9ImDVVb09bQGSd30qj4E/9zvUp8HN83kvpg+w7wtOeNj8StaL5qDJ9miCIlbyKFCm8/i+IyJ7DNLrhori09Jr05pdp+UAorKtMJXKMbjd13IsSuiZWsSd9oPeBTkRyvW6yly93IZVvSdF3H92oj0K8n4Ba8FQBI2WfWZZCJeIEvZc1WS9C31mB+Rh5oF8UMwZCOl+sMyEpcTVpBgDBlNzhh8pCiy4I6ywiYjb5oSHpyKsM/+NQqMNkIMzn/0XIMLvm/HxGYfwbVhdQpbIzQsSHrPXzhiuiy3s+tFWZ0vTjKbzDPUciJmPjNcRDMUB0iBlXwNzXJEe6uYbwvKH84OHzTJs7VC1AcEPwZUx9Me1him1b9Y/qmMFkfmJtikiQauwoW5g9pvoRaqr2YCTAzIeDjNGP1bl0MueZ7lUdEqyRxhEFcQ9DH2D4ecmnT/aR1/mB2C6eHnVwSU/KLXS6em9Qz/i2Ohw9UsfkIEtHEjJrBi2l29Fhu1Vz9v+q/mAv8UPyKspyfUGGwKXl6stGaKRVxo2zDq7id53371PYlP7Vi9QK7V80GTFLM7tJmZryfHd1Emi5Tqxp4PJZIZMEUVXI1q51fps7ZUcOg2+nca5Zz+3TbveQgOOtX0XmK/zw+dxkLcDK2rEdG5oJ/s8iBNUF8a1uk+qbBC5PhE8BsIWUuTDsnKac77mSUdieKMImcAAZRWl/Rd+mbxLBZUxrLhgzbNf5C3Fo47PB4SUsF0/NZP7YjjRMyMzDcOaiE1Exmpo3lAtrDslRT9BuqYC4nrod6JZd9yE8uwDT0VZGcd9jqqRf36zr95NlvxUnxe6rTYAiJjAurrS6zoXV5WuoZr7DBxH29zyLYWT5n+93+rone2zKqgyXCA49/tETp9P6dsB8eCkRJjVMUGxH28QNX/++3j56/ngWx2en/tcnp/nzhbjfFbqbb0QpFeQISkbb0+uHfQARbs1J1wTVYNNm2SxknaDNYS02tD4q6QNnKgsdbZSzDzZePkOd9DyDnC9m+aAiEEQ/6V9GhlsV+6Cgxr2rg7XPok9O6SutKPN4dUCXKRyAMVQ69LYzHpAqTIlo4rkWsxNPmP7jGT+7Ocbms7QKR/mFbo6uGfjdO2q5cF3rVGBVGo+t+RegrLSw/GXQ9sKFOwYvnEiltmW2momeDkBJzlAVw95eZ/HXNnz+uEt/Fyf/7lv3+hAv///+k203xFyJy6k1a8olzpBkv8zi7/YNMwTYJtV3Y2RJROxuCdgBIjX4Uy92lqQZq2vGLcXDtBem9KJevUwkRTkC+CULgKwM/8Si4Nc/J5RKsCHgWhlBu5qphTIMZAaT6UPkZY8xwtNyP2HCQUNpIFB7uVGA0te8UuYi00z+uTTiOXJ/b4+Hi3xP9sD/rKa2deuz6X4JMIAmMyeDOmE3EPXQJLbRD7i6jP7v40V39b27xjQ3GmW6jLweHkozUKpYitB9jGAOiHel3YVU6rz9fH3X1Th5ysaSbEtPbs/I41LnaiqDvSyD6M2JDT4v2KV8O2mMbiiVD4DvChjtubmSseUd8G6oc9J7wsbMPFjYM/aW07jtGu4PDSdp298hX+/joZNN3lPmaIQkWirlxS41xKXecs6dwQtFzGCIQh1kgyg70Vwd978kZcubVxq71oII4TyXXeI+mBXy3/P4adFcqBgnyJSkLQ0F6BfqGDzoaG/VOtQmuZ5pNyOtc5numIhpjBzGuBXDRn3rqlyBq7g9xLx0gYmXLEom8KoifC2VJ4DwpKMKZhJLXe2ZyK5HsqdE+UUJocWJR6AZ6kgoe9Mmsnd5OAoQNStbpL3aEP0ExwAGRAelGugZQjgWycT8YKwNuwiuzRboe5H1cy+6AE+Zg1IiuDKsnNFzw4pB6m2pZXbMdzemOIBrm4YHYnLJUENQ4OIwa+VAE9WippeLcdycSekpHqwY/kZAQzsU4WJwY8DyPoMTF+k0+X0Ke1UiFVuexziC/cv5yMLDK3WUeoS8BaXpKmOuR7RbN4gOAkWrJDh0jW6UUuwrANFmtrhIRAYCPm1vXx0wcCLeoIRFPc/zwVvJ15ZAFbODg6wt1U8aDTljbQcg9OzAAGEjQmKdAX2+PXgBuhOO5oPZ/p2wYANMsAkOMB4PJkrWVYPzUZzjP/BUddgaPbnV7l9T9PRSKUHmvEHLwfQn2raNJb43ymIaUamJV9yMGUq66VfvAE4AxCd2OPnblw8zKjfNQi2XjCYQVWNRu2CPR0aBguvqoErluJtgk1Egpim4nm01DECVsTlXsY85/UCOCxqXqvqTbFXI6n75KuIzxrGVO5pc4rYczgmDk/0kpKhE0z0PizHxtOlAV2TkPPSGl9ynDFFfD7ATbGD/Q/K91+V27EeuATCdud18xoKsVdHqcuDwnL8gbgk7Ae1Cp5ICMAXjcPEBX0qI3xh/qnIAAAA==" alt="느낌표 팻말을 들고 있는 리브 스티커">스위치를 끈 뒤에도 ACR 수집처로 추정되는 주소로 트래픽이 계속 나가는지는 Northeastern 연구진이 따로 쟀습니다. 아래는 Verge 의 <a href="https://www.theverge.com/tech/1026088/northeastern-university-acr-tracking-study">연구 보도</a>에 실린 결과입니다. 설정 과정에서 거부하든 나중에 메뉴에서 끄든 결과는 같았다고 합니다.</p>
+
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>플랫폼</th><th>옵트아웃 뒤 ACR 추정 트래픽</th></tr></thead>
+    <tbody>
+      <tr><td class="name">LG webOS</td><td>멈춤</td></tr>
+      <tr><td class="name">Amazon Fire TV OS</td><td>멈춤</td></tr>
+      <tr><td class="name">Vidaa OS</td><td>멈춤 (Hisense·Toshiba 등이 쓰는 OS. 측정 기기는 Supersonic)</td></tr>
+      <tr><td class="name">Sony (Google TV)</td><td>멈춤</td></tr>
+      <tr><td class="name">삼성 Tizen</td><td class="key">줄었지만 안테나·자사 스트리밍·HDMI 에서 남음</td></tr>
+      <tr><td class="name">Roku OS (Roku, TCL)</td><td class="key">The Roku Channel 앱에는 계속 적용. TCL 은 메뉴에 이 한계를 적어 두었고 Roku TV 는 적지 않음</td></tr>
+      <tr><td class="name">Vizio</td><td class="key">변화 없음</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>이 결과에는 연구진이 직접 단 단서가 붙습니다. TV 가 보내는 트래픽이 거의 다 암호화되어 있어 남은 트래픽이 정말 ACR 데이터인지는 확인하지 못했고, 논문도 "의심스럽다"까지만 적었습니다. Vizio 는 보도 뒤 Verge 에 그 트래픽이 ACR 이 아니라 진단·성능 같은 일상적인 운영 데이터라고 밝혔습니다. 측정 대상은 특정 기기와 펌웨어이므로 같은 브랜드의 모든 TV 에 그대로 옮길 수는 없습니다. 한편 Westinghouse 의 Xumo TV 와 Google TV 를 쓰는 Sony·Hisense·TCL 각 1대에서는 ACR 활동이 아예 보이지 않았습니다.</p>
+
+  <div class="liv">
+    <img src="data:image/webp;base64,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" alt="리브" width="72" height="72">
+    <p>Vizio 의 해명은 틀렸다고 할 근거도 맞다고 할 근거도 없습니다. 암호화된 트래픽은 밖에서 보면 양과 목적지만 보이니까요. 다만 스위치를 꺼도 양이 전혀 줄지 않았다면, 그 스위치가 무엇을 멈췄는지 사용자가 확인할 방법이 없다는 점은 남습니다. 가스 밸브를 잠갔는데 계량기가 같은 속도로 돌고 있으면, 보일러 회사가 "그건 다른 배관입니다"라고 해도 저는 일단 계량기를 믿을 것 같습니다.</p>
+  </div>
+
+  <h2 id="끄는-순서" data-anchor="auto">끄는 순서<a class="h-anchor" href="#끄는-순서" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+  <ol>
+    <li>위 표에서 자기 TV 의 스위치를 찾아 끕니다. 삼성·LG·Roku·Amazon 은 기본 꺼짐이라고 답했지만, 설정 화면에서 약관을 한꺼번에 동의했다면 켜져 있을 수 있습니다. Verge 의 이전 기사가 옮긴 Gamers Nexus 영상에서는 LG 설정 화면이 동의서 여섯 개를 띄우고 커서를 "전체 선택"에 올려 두는데, 진행에 필요한 것은 그중 둘입니다.</li>
+    <li>맞춤 광고 항목을 같이 끄고 광고 ID 를 재설정합니다. 삼성은 광고 ID 를 재설정하면 이전 ACR 데이터가 기기와 더는 연결되지 않는다고 답했습니다.</li>
+    <li>이미 쌓인 데이터는 삭제를 요청합니다. Roku 는 <a href="https://privacy.roku.com">privacy.roku.com</a>, Google 은 <a href="https://myactivity.google.com">myactivity.google.com</a>, Apple 은 <a href="https://privacy.apple.com/">privacy.apple.com</a> 을 안내했고, LG 는 TV 설정에서 음성·시청 정보 삭제를 요청할 수 있다고 했습니다.</li>
+    <li>그래도 남는 트래픽이 걸리면 TV 의 Wi-Fi 를 끄고 랜선을 뽑은 뒤 외부 스트리밍 기기를 HDMI 로 연결합니다. 14번에 답한 업체가 공통으로 인정한 전면 차단 방법입니다. 다만 Amazon·Google·TCL·삼성은 오프라인 동안 일부 데이터를 기기에 두었다가 재연결 때 보낸다고 답했으므로, 끊었다가 다시 연결하면 그 사이 것이 나갑니다.</li>
+  </ol>
+
+  <h2 id="확인하지-못한-것" data-anchor="auto">확인하지 못한 것<a class="h-anchor" href="#확인하지-못한-것" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+  <ul>
+    <li>한국 판매 모델의 한글 메뉴명과 경로는 확인하지 않았습니다. 표는 전부 미국 모델의 영문 메뉴입니다. Roku 의 "기본 꺼짐"도 미국 한정 답변입니다.</li>
+    <li>Consumer Reports 가이드는 2025년형 기준이라 2026년 펌웨어에서 메뉴가 바뀌었을 수 있습니다. LG 는 두 가이드의 경로가 서로 달라 둘 다 적었습니다.</li>
+    <li>Vidaa OS 를 쓰는 Hisense TV 의 경로는 찾지 못했습니다.</li>
+    <li>Northeastern 논문 원문은 읽지 못했고, 측정 결과는 Verge 보도를 거쳐 옮겼습니다.</li>
+    <li>업체 답변은 홍보 담당자의 서면 답변이고, 이 페이지는 그 답이 실제 동작과 맞는지 검증하지 않았습니다.</li>
+  </ul>
+
+  <div class="liv">
+    <img src="data:image/webp;base64,UklGRogFAABXRUJQVlA4IHwFAABwGgCdASpIAEgAPlEejUSjoaEVLAZYOAUEs4Bodrijd9RV9ADyxvZhrt38L4W+Jz1l7P+q3kDm1vmeFHa5/yu8nZK/z/ha6gV6H/u+O1+q/6D2AP5N/dv956cX+n/k/P19Bf9//I/AZ/Kf6x/uv7N2Xf2n9kP9ZkYt9T7NB3In1E+H2WiTqaOqvQ8ALk3ktZ3k1hbhPMbeUiUiRUIn+YMIOMOU4Rw/uZroRwrCL7D8QKaSgDKC2qxvxzqdNBnLQGYW39G1sIyhO3P+Z2clha5zxcIY2xnM4c2SuzgAAP7+Cay/yrsZ/TG3/SzXnJHI6UYwAk+iePn4RqhirDCpu4/p5qPh/9wvevYEtg7qOC5guDdzds9QfyA+9T6f+nYjEdrQH58KkZ5oa4ObXg6jpZMOQR3GK1ryrdVqhLWRUZKdkTx/bMxbCjzzLLKxEdYYDHtcbDxCWEhoL1YNfDVM9DooxQxaQeNjnt2/l/Ww3L9xoEqc9tpoztr3gNdlOH73oc+Yqf1ZohilasyfX12s6QMMJFjEPKp1ZS8YswnPIUhZTBlfzDa3DV1si1Bmj5XYlqnQ6gCUNI+I2B2vRS7cyTgj/s9FOEC6PZAG6nAHWsooMG9x7qD53UFNEupVABLVm0Z2hidvznLOz+DMSuhkDWh6tV/tYftf+NRnlWhfL6bwJcRFyJWqNIWoxywVQSeAMTiw/MyVB+EWOz6B8QlwDhtlTb7t8f5z9ptopxQlqiCZGuXHCYt/D5QuGh3al+WWAMS/j4qKNSEQKu+enwViDgTivI8ahc9zOYv6vbfRdXjKH1LjPXwcEycZQA6gf1tJRpaH28X84CV8FyjUb0i+wVnl5dtNmVZJCxJGB/Lg7l1O9rbiCOIx2XUMrohPBwkEvOjpgNE8nfb+fOZNSpaoOacbG7qfFz0RXGJ4l8wmXh3NkSSUChMdtVaYMbSBHPv04lNEjo342bPMiUMA2hyZ/zduL98SGGNTkR8hTk3/BTSOPy/KkiZxOCcGfY++zFxBn/IimL4aZZulkhmNx/P9+ZeP+mn6TDBPEdshrkkWrzU7X8dV2mdOEv5T3989fxc3d/hjCCK1buzD7N6CwV/e2B4Szh8qH0gB3rZFG2fz7+bS++ZzgSNGw5UGwqrv/g85fD3Id3Qlf9Sgxz7BFL4bJtDtrFWBo629J6sv+iexYTz99GC9V+yirpgS67vRrnhZ16CGsc18JLdsds1zxxNeTOy3ulcwHCN8bpfFURuUCo3QDCqBmTHr0jjsvWz3BK2lMz8dmiaUwPrRv4vtnnmblqdQYbCqBCEztlfEQyUOWnwmYkNL7BrDiwCNXw/V/p11jl/Bmk2IFS3Pn/eADlg/5adUI7rblr5GAxlE5bO2lC8UtVkaSCPG1x9rEcU8j29KUmtSnhE1bffHjAEUMiClglf6zpj56+9Gzh5F0AwZqyZsT8YvTrYvdx8I6R/YpzZTFt/7683MCwufJ56ltiPGGnQe6VQR6K0Zqj2Fjlozul/BhsvwyHwkDWXv+e4SColknIyjwNMwpDeIlxgq/8BsxfJAy1CWicHX/w/bkv7xT1ypE8tM4pvM2nagZNXOGGUd8hRj1+Lz7bos7JiLpVdtaj6DW630FWVP/HbcQnCnhz4Y0KPno5fqaywFB8wtrAonKN7lRGLm0+3ky8k/JwiPsClkbVwUDCIxnGcvIjXlvAuWoZZJ2WI31cOeonv7Wq5PkoizcYoiHEJz7qyX+o53ml1NHmagXX73nLGgyO5Hrvz1bxr4ZaU0wHkE/h7Zs9smQ7CsEAUIj/C/s5NTtAHdUVWTIbFHdG9kqx4z5cD6bz9lOw0L57DEE+QZabaUbQTxjrJyfqz3GjHllVAAAAA=" alt="리브" width="72" height="72">
+    <p>17문항에 가장 길고 구체적으로 답한 곳은 논란의 당사자인 LG 였습니다. 주변 Wi-Fi 의 MAC 주소까지 쓴다는 것도 LG 가 스스로 적은 내용입니다. 반면 한 줄도 답하지 않은 네 곳은 표에서 빈칸으로만 남는데, 빈칸은 읽는 사람 눈에 가장 무해해 보입니다. 정리하는 입장에서는 이게 좀 불공평했습니다. 성실하게 답한 쪽이 지적받을 문장을 더 많이 내놓은 셈이라, Vizio 와 Sony 의 빈칸은 깨끗하다는 뜻이 아니라 모른다는 뜻으로 읽어 주시면 좋겠습니다.</p>
+  </div>
+
+  <h2 id="출처" data-anchor="auto">출처<a class="h-anchor" href="#출처" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+  <ul>
+    <li>The Verge, John Higgins, <a href="https://www.theverge.com/tech/1012372/tv-privacy-acr-questions">I asked every TV manufacturer 17 questions about how they spy on you</a> (2026-11-11)</li>
+    <li>The Verge, <a href="https://www.theverge.com/tech/1026088/northeastern-university-acr-tracking-study">Northeastern 대학 ACR 옵트아웃 측정 보도</a> · <a href="https://www.theverge.com/tech/1028370/vizio-told-us-it-doesnt-ignore-acr-opt-outs">Vizio 의 해명</a></li>
+    <li>The Verge, <a href="https://www.theverge.com/tech/997682/every-tv-company-is-spying">Every TV company is spying on you</a> (Gamers Nexus 영상 이후의 배경 기사)</li>
+    <li>Consumer Reports, <a href="https://www.consumerreports.org/electronics/privacy/how-to-turn-off-smart-tv-snooping-features-a4840102036/">How to Turn Off Smart TV Snooping Features</a> (2025-10-19 갱신)</li>
+    <li>Malwarebytes, <a href="https://www.malwarebytes.com/blog/news/2026/03/samsung-tvs-stop-spying-on-viewers-in-texas-heres-how-to-disable-acr-anywhere">Samsung TVs stop spying on viewers in Texas. Here's how to disable ACR anywhere</a> (2026-03-02)</li>
+  </ul>
+
+  <!-- PAGENAV:START -->
+<nav class="pagenav" aria-label="글 이동">
+  <a href="../agent-era-git-infra-layers/"><span class="pn-label">이전</span>에이전트 시대의 Git 인프라, 누가 어느 층을 바꿨나: 명령까지 바꾼 곳은 Scion 하나, 나머지는 서버만. 병합 3만 건과 체크아웃 2,500만 회의 출처, 로컬 worktree 에서 생기는 부하의 범위</a>
+  <a href="../jensen-huang-resignation-megaspeed/"><span class="pn-label">다음</span>젠슨 황 사임, 발표문에는 사유가 없다: 임시 CEO 는 CFO 콜렛 크레스, Megaspeed 의혹은 주장한 쪽과 확인된 범위를 나눠 읽는다. 당일 -4.34% 와 AI capex 헷지 가설 대조</a>
+  <p class="pn-topic"><a href="../../?topic=security">보안 글 더 보기 →</a></p>
+</nav>
+<!-- PAGENAV:END -->
+  <footer><p><a href="../../">← today i learned</a></p></footer>
+</main>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
