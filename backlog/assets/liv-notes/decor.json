@@ -375,6 +375,21 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/05/Oosterscheldekering_januari_2025.jpg/500px-Oosterscheldekering_januari_2025.jpg"
     }
    ]
+  },
+  "2026-11-14": {
+   "drawing": {
+    "caption": "턱 세 단을 굴러 내려와 종을 울리는 주사위",
+    "file": "draw/2026-11-14.svg"
+   },
+   "photos": [
+    {
+     "caption": "구멍 무늬가 뚫린 4세기 청동 주사위 탑, 지금은 본에 있습니다",
+     "credit": "Rheinisches Landesmuseum, Bonn",
+     "license": "Public domain",
+     "page": "https://commons.wikimedia.org/wiki/File:Vettweiss-Froitzheim_Dice_Tower.jpg",
+     "src": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Vettweiss-Froitzheim_Dice_Tower.jpg"
+    }
+   ]
   }
  },
  "design": [
@@ -2054,6 +2069,48 @@
     "w": 720
    },
    "short": "서로 닿지 않게 매달아 바람에 맡기는 페로의 헛간"
+  },
+  "n-0255": {
+   "emoji": "🔔",
+   "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#fdf1df",
+     "#fef1e0"
+    ],
+    "file": "pic/n-0255.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "주사위가 빠져나올 때 종이 울리는 로마의 주사위 탑"
+  },
+  "n-0256": {
+   "pic": {
+    "bg": [
+     "#fbeed9",
+     "#fceed9"
+    ],
+    "file": "pic/n-0256.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "서랍 속에서 다시 주사위가 된 1만 2천 년 전 뼛조각"
+  },
+  "n-0258": {
+   "pic": {
+    "bg": [
+     "#f9eacd",
+     "#fbebce"
+    ],
+    "file": "pic/n-0258.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "옛 사미 지명 900개로 채운 손그림 지도"
+  },
+  "n-0260": {
+   "emoji": "🪨",
+   "emoji_pos": "front"
   }
  }
 }
