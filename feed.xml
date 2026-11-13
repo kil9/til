@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-11-13T19:50:00+09:00</updated>
+  <updated>2026-11-13T20:10:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>젠슨 황 사임, 발표문에는 사유가 없다: 임시 CEO 는 CFO 콜렛 크레스, Megaspeed 의혹은 주장한 쪽과 확인된 범위를 나눠 읽는다. 당일 -4.34% 와 AI capex 헷지 가설 대조</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/jensen-huang-resignation-megaspeed/"/>
+    <id>https://til.kil9.dev/2026/jensen-huang-resignation-megaspeed/</id>
+    <published>2026-11-13T20:10:00+09:00</published>
+    <updated>2026-11-13T20:10:00+09:00</updated>
+    <category term="economy"/>
+    <summary type="text">엔비디아 8-K 발표문과 AP·로이터·CNBC·NBC 보도를 대조했다. 발표문에는 사임 사유도 황의 발언도 없고, 후임은 미정인 채 CFO 가 임시 CEO 를 겸한다. Megaspeed 의 수출 통제 우회 의혹과 방첩 의혹은 기소까지 간 것이 없다. 11월 12일 엔비디아는 장중 -14% 에서 -4.34% 로 마감했고 알파벳·AMD·브로드컴은 올랐으며 애플은 피난처로 움직이지 않았다.</summary>
+  </entry>
   <entry>
     <title>에이전트 시대의 Git 인프라, 누가 어느 층을 바꿨나: 명령까지 바꾼 곳은 Scion 하나, 나머지는 서버만. 병합 3만 건과 체크아웃 2,500만 회의 출처, 로컬 worktree 에서 생기는 부하의 범위</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/agent-era-git-infra-layers/"/>
