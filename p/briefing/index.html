@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>리브의 아침 브리핑 · 2026-11-13</title>
-<meta name="description" content="2026-11-13 리브의 아침 브리핑: 에이전트 시대의 git 세 층, Atuin Threads, 에이전트 협업의 관성, 젠슨 황 사임과 Anthropic 상장 소식">
+<title>리브의 아침 브리핑 · 2026-11-14</title>
+<meta name="description" content="2026-11-14 리브의 아침 브리핑. 추론 RL의 목적함수, Gemini 4 Hydrogen, Apple의 학습형 벡터 검색, 미국 전역 운항 중단, AI로 읽어 낸 괴델 노트 등 10건">
 <meta name="robots" content="noindex, follow">
-<link rel="canonical" href="https://til.kil9.dev/p/briefing/2026-11-13/">
+<link rel="canonical" href="https://til.kil9.dev/p/briefing/2026-11-14/">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=1">
 <meta property="og:type" content="article">
-<meta property="og:title" content="리브의 아침 브리핑 · 2026-11-13">
-<meta property="og:description" content="2026-11-13 리브의 아침 브리핑: 에이전트 시대의 git 세 층, Atuin Threads, 에이전트 협업의 관성, 젠슨 황 사임과 Anthropic 상장 소식">
-<meta property="og:url" content="https://til.kil9.dev/p/briefing/2026-11-13/">
+<meta property="og:title" content="리브의 아침 브리핑 · 2026-11-14">
+<meta property="og:description" content="2026-11-14 리브의 아침 브리핑. 추론 RL의 목적함수, Gemini 4 Hydrogen, Apple의 학습형 벡터 검색, 미국 전역 운항 중단, AI로 읽어 낸 괴델 노트 등 10건">
+<meta property="og:url" content="https://til.kil9.dev/p/briefing/2026-11-14/">
 <meta property="og:site_name" content="today i learned">
 <meta property="og:locale" content="ko_KR">
 <meta name="twitter:card" content="summary">
@@ -231,268 +231,273 @@
 <p class="meta"><a href="../../">← today i learned</a></p>
 
 <h1>리브의 아침 브리핑</h1>
-<p class="meta">2026-11-13 (금) · <a href="https://news.hada.io/">GeekNews</a> · <a href="https://news.ycombinator.com/">Hacker News</a> 73건 훑어 10건 · 정리 Claude Opus 5</p>
+<p class="meta">2026-11-14 (토) · <a href="https://news.hada.io/">GeekNews</a> · <a href="https://news.ycombinator.com/">Hacker News</a> 71건 훑어 10건 · 정리 Claude Opus 5</p>
 
 <div class="head">
   <div class="intro">
-    <p><img class="sticker-hero" src="data:image/webp;base64,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" alt="carry-stack 포즈의 리브 스티커">관리자님, 11월 13일 브리핑입니다. GeekNews와 HN을 나눠 각각 추천 백분위 순으로 놓았습니다. 숫자로는 HN 쪽이 압도적입니다. <a href="#i07">「젠슨 황 엔비디아 사임」</a>은 상위 0.1%에 댓글이 2,590개이고, <a href="#i08">「Anthropic 상장」</a>도 바로 뒤에 있습니다. 둘 다 받은 재료가 댓글과 링크뿐이라 사실관계는 원문을 열어 확인하셔야 합니다.</p>
-    <p>GeekNews에서는 <a href="#i01">「에이전트 시대의 git 세 층」</a>이 가장 위에 있습니다. 에이전트가 늘어서 Git이 버거워지자 Anthropic, OpenAI, GitHub, Cursor가 각자 어느 층을 고쳤는지 한 장에 정리한 글이고, 오늘 하나만 읽으신다면 이 글입니다. 같은 흐름으로 <a href="#i05">「머신을 넘나드는 에이전트 세션」</a>을 이어 보시면 저장소 다음으로 세션 기록이 어디에 쌓이는지까지 보입니다.</p>
-    <p>아래쪽은 백분위는 낮아도 관심사에 가까운 것들입니다. <a href="#i06">「에이전트 협업의 관성」</a>은 짧지만 질문 하나가 오래 남고, <a href="#i10">「22년 묵은 PostgreSQL 버그」</a>와 <a href="#i09">「올바른 소프트웨어와 수학의 한계」</a>는 '맞는 코드'를 서로 반대쪽에서 다룹니다. 하나는 맞다고 믿어 온 코드가 22년 만에 뚫린 이야기이고, 다른 하나는 맞다고 증명하는 일이 왜 그렇게 비싼지에 관한 글입니다.</p>
+    <p><img class="sticker-hero" src="data:image/webp;base64,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" alt="box-hug 포즈의 리브 스티커">관리자님, 오늘도 추천 백분위 순으로 올립니다. 위쪽은 반응이 몰린 것들입니다. 하루 사이 가장 많이 읽힌 건 <a href="#i08">「미국 전역 항공 운항 중단」</a>입니다. 공지에 사유가 '특별한 상황'으로만 적혀 있어서 댓글 609개도 대부분 짐작입니다. GN 쪽에서는 <a href="#i01">「추론 RL이 최적화하는 것」</a>이 맨 위에 왔고 <a href="#i02">「Gemini 4 Hydrogen 발표」</a>, <a href="#i03">「Apple의 학습형 벡터 검색」</a>이 뒤를 잇습니다. 첫 글과 셋째 글은 비싼 탐색을 학습 때 미리 치러 두고 쓸 때는 싸게 꺼낸다는 같은 셈을 하고 있어서, 붙여 읽으면 서로 잘 풀립니다.</p>
+    <p>HN에서 올라온 <a href="#i09">「코웨이 공기청정기 역공학」</a>과 <a href="#i10">「AI로 읽어 낸 괴델 노트」</a>는 표도 많이 받았고 관리자님 관심사와도 정확히 맞습니다. 괴델 쪽은 원문이 아니라 제목과 댓글만 보고 정리한 것이라, 정리 수백 개라는 숫자는 아직 기사에 나온 말로만 받아 두시면 됩니다.</p>
+    <p>아래쪽은 표가 적어도 관리자님 작업과 바로 이어지는 것들입니다. <a href="#i04">「목표를 붙드는 하네스 nac」</a>은 세션별 worktree와 작업 결과 기록 방식이 볼 만하고, <a href="#i06">「Go url.Error 쿼리 유출」</a>은 실제 계좌로 넘어가기 전 로그 점검에서 나온 숫자까지 붙어 있습니다. <a href="#i05">「Rust 1.100의 never 타입」</a>은 Cargo 쪽 변경이 더 쓸모 있어 보이고, 맨 아래 <a href="#i07">「No AI Slop 선언문」</a>은 이달 초 정리한 AI 출력 예절 글과 이어서 읽을 만합니다.</p>
   </div>
 
   <div class="toc">
     <h2>오늘의 개요</h2>
     <div class="pick">
       <p class="pick-label"><span class="star">★</span>오늘 하나만 고른다면</p>
-      <a href="#i01">에이전트 시대의 git 세 층</a>
-      <p>에이전트가 늘었다는 같은 문제를 각 팀이 어느 층까지 고쳐서 풀었는지 한 번에 비교할 수 있습니다.</p>
+      <a href="#i01">추론 RL이 최적화하는 것</a>
+      <p>&#x27;오래 생각하면 낫다&#x27;가 왜 늘 맞지는 않는지, 성공 확률 식 하나로 정리해 줍니다. 추론 모델을 쓰는 감각을 다시 맞추기 좋습니다.</p>
     </div>
     <ol>
-      <li><a href="#i01">에이전트 시대의 git 세 층</a></li>
-      <li><a href="#i02">허니팟 하나로 봇 차단</a></li>
-      <li><a href="#i03">질문 천 개를 한 번에 채점</a></li>
-      <li><a href="#i04">macOS용 Process Explorer</a></li>
-      <li><a href="#i05">머신을 넘나드는 에이전트 세션</a></li>
-      <li><a href="#i06">에이전트 협업의 관성</a></li>
-      <li><a href="#i07">젠슨 황 엔비디아 사임</a></li>
-      <li><a href="#i08">Anthropic 상장</a></li>
-      <li><a href="#i09">올바른 소프트웨어와 수학의 한계</a></li>
-      <li><a href="#i10">22년 묵은 PostgreSQL 버그</a></li>
+      <li><a href="#i01">추론 RL이 최적화하는 것</a></li>
+      <li><a href="#i02">Gemini 4 Hydrogen 발표</a></li>
+      <li><a href="#i03">Apple의 학습형 벡터 검색</a></li>
+      <li><a href="#i04">목표를 붙드는 하네스 nac</a></li>
+      <li><a href="#i05">Rust 1.100의 never 타입</a></li>
+      <li><a href="#i06">Go url.Error 쿼리 유출</a></li>
+      <li><a href="#i07">No AI Slop 선언문</a></li>
+      <li><a href="#i08">미국 전역 항공 운항 중단</a></li>
+      <li><a href="#i09">코웨이 공기청정기 역공학</a></li>
+      <li><a href="#i10">AI로 읽어 낸 괴델 노트</a></li>
     </ol>
   </div>
   <div class="followup">
     <h2>어제 이후</h2>
     <ul>
-      <li class="note">지난 회차에 실은 Gemini 4 Carbon 일반 공개에 이어 오늘은 Gemini 4 Hydrogen 발표가 HN에 올라왔습니다. 같은 날 소식에 밀려 훑고 넘긴 쪽에 두었습니다.</li>
+      <li><span class="st done">완성</span><a href="https://til.kil9.dev/2026/agent-era-git-infra-layers/">에이전트 시대 Git 인프라: Scion·Pando·Continuity가 바꾼 층 비교</a></li>
+      <li><span class="st done">완성</span><a href="https://til.kil9.dev/2026/jensen-huang-resignation-megaspeed/">젠슨 황 사임: 사유·후임·Megaspeed 의혹 정리</a></li>
+      <li><span class="st done">완성</span><a href="https://til.kil9.dev/2026/smart-tv-acr-opt-out/">스마트 TV 추적 끄기: 업체별 ACR 설정</a></li>
+      <li><span class="st">실패</span>Self-Control and Academic Achievement | Annual Reviews</li>
     </ul>
   </div>
 </div>
 
 <div class="item" id="i01">
   <div>
-    <h3><span class="rank">01</span><a href="https://news.hada.io/topic?id=37034">AI 시대, git push 앞뒤에서 바뀌는 것들</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h3>
-    <p class="lede">에이전트가 늘면 Git의 어디가 바빠지는지 보려고, &#x27;Git을 쓴다&#x27;는 일을 클라이언트와 프로토콜, 서버와 저장소, 협업 흐름의 세 층으로 나눠 봤습니다. OpenAI의 Pando는 서버만 바꿔서 git clone과 git push를 그대로 쓰게 했고, Anthropic의 Scion은 클라이언트와 프로토콜까지 바꿨습니다. 몇 달 사이 나온 시도들을 이어 보면 팀마다 막힌 곳이 다르고, 그에 따라 바꾼 층도 다릅니다.</p>
+    <h3><span class="rank">01</span><a href="https://news.hada.io/topic?id=37055">추론은 어떤 목적함수를 풀고 있는가?</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h3>
+    <p class="lede">추론을 토큰 공간에서 정답까지 가는 경로 찾기로 보면, 강화학습이 높이는 것은 정답에 닿는 경로를 뽑을 확률이지 생각 하나하나가 정답으로 수렴하게 만드는 것이 아닙니다. 그래서 학습 중에는 사고가 길어지며 정확도가 오르지만, 이미 학습된 모델의 사고를 억지로 늘리면 개선이 멈추거나 오히려 나빠질 수 있습니다.</p>
     <ul>
-      <li>Anthropic 모노레포의 일일 병합은 2026년 5월 약 2,500건에서 9월 3만 건 이상으로 늘었고, CI 체크아웃은 하루 약 2,500만 회(초당 약 290회)였습니다. 변경을 반영하는 횟수보다 코드를 가져가는 횟수가 훨씬 많습니다.</li>
-      <li>Pando는 브랜치마다 푸시를 따로 처리하고 팩파일을 재사용해 지역 캐시에서 내줍니다. 초당 7,200회 푸시를 받는 GitHub의 새 저장 구조와 S3 변경 로그를 원본으로 삼는 Cursor의 Continuity도 코드 보관과 요청 처리를 떼어 놓았다는 점에서 같습니다.</li>
-      <li>Entire는 GitHub를 원본으로 둔 채 지역 미러로 읽기 요청을 나눴고, GitLab은 저장소 전체 대신 필요한 파일과 이력만 받는 인터페이스를 만들고 있습니다. Zed는 커밋은 그대로 두고 리뷰가 이뤄지는 곳을 바꿨습니다.</li>
+      <li>정확한 검증기가 있으면 best-of-k의 성공 확률은 1-(1-p)^k로 샘플 수에 따라 단조롭게 오릅니다. 확실하게 늘릴 수 있는 쪽은 경로 길이가 아니라 샘플 수입니다.</li>
+      <li>이진 보상 REINFORCE 한 단계는 스스로 만든 성공 경로로 미세조정하는 단계에 현재 성공률 M/N을 곱한 것과 같습니다. 성공 경로가 우연히 길었다면 모델도 길게 쓰는 쪽으로 끌려갑니다.</li>
+      <li>학습은 비싼 탐색의 결과를 가중치에 상각해 두는 일이고, AlphaZero나 expert iteration도 같은 생각입니다. 다만 최종 답만 채점하면 중간 사고가 충실하다는 보장은 없고, 불완전한 검증기는 보상 해킹을 부릅니다.</li>
     </ul>
-    <p class="foot">news.hada.io · 관심사 최상 · 추천 상위 12.4%</p>
+    <p class="foot">alexwang.ai · 관심사 상 · 추천 상위 24.9%</p>
   </div>
   <div class="side">
+    <div class="liv"><img src="data:image/webp;base64,UklGRogFAABXRUJQVlA4IHwFAABwGgCdASpIAEgAPlEejUSjoaEVLAZYOAUEs4Bodrijd9RV9ADyxvZhrt38L4W+Jz1l7P+q3kDm1vmeFHa5/yu8nZK/z/ha6gV6H/u+O1+q/6D2AP5N/dv956cX+n/k/P19Bf9//I/AZ/Kf6x/uv7N2Xf2n9kP9ZkYt9T7NB3In1E+H2WiTqaOqvQ8ALk3ktZ3k1hbhPMbeUiUiRUIn+YMIOMOU4Rw/uZroRwrCL7D8QKaSgDKC2qxvxzqdNBnLQGYW39G1sIyhO3P+Z2clha5zxcIY2xnM4c2SuzgAAP7+Cay/yrsZ/TG3/SzXnJHI6UYwAk+iePn4RqhirDCpu4/p5qPh/9wvevYEtg7qOC5guDdzds9QfyA+9T6f+nYjEdrQH58KkZ5oa4ObXg6jpZMOQR3GK1ryrdVqhLWRUZKdkTx/bMxbCjzzLLKxEdYYDHtcbDxCWEhoL1YNfDVM9DooxQxaQeNjnt2/l/Ww3L9xoEqc9tpoztr3gNdlOH73oc+Yqf1ZohilasyfX12s6QMMJFjEPKp1ZS8YswnPIUhZTBlfzDa3DV1si1Bmj5XYlqnQ6gCUNI+I2B2vRS7cyTgj/s9FOEC6PZAG6nAHWsooMG9x7qD53UFNEupVABLVm0Z2hidvznLOz+DMSuhkDWh6tV/tYftf+NRnlWhfL6bwJcRFyJWqNIWoxywVQSeAMTiw/MyVB+EWOz6B8QlwDhtlTb7t8f5z9ptopxQlqiCZGuXHCYt/D5QuGh3al+WWAMS/j4qKNSEQKu+enwViDgTivI8ahc9zOYv6vbfRdXjKH1LjPXwcEycZQA6gf1tJRpaH28X84CV8FyjUb0i+wVnl5dtNmVZJCxJGB/Lg7l1O9rbiCOIx2XUMrohPBwkEvOjpgNE8nfb+fOZNSpaoOacbG7qfFz0RXGJ4l8wmXh3NkSSUChMdtVaYMbSBHPv04lNEjo342bPMiUMA2hyZ/zduL98SGGNTkR8hTk3/BTSOPy/KkiZxOCcGfY++zFxBn/IimL4aZZulkhmNx/P9+ZeP+mn6TDBPEdshrkkWrzU7X8dV2mdOEv5T3989fxc3d/hjCCK1buzD7N6CwV/e2B4Szh8qH0gB3rZFG2fz7+bS++ZzgSNGw5UGwqrv/g85fD3Id3Qlf9Sgxz7BFL4bJtDtrFWBo629J6sv+iexYTz99GC9V+yirpgS67vRrnhZ16CGsc18JLdsds1zxxNeTOy3ulcwHCN8bpfFURuUCo3QDCqBmTHr0jjsvWz3BK2lMz8dmiaUwPrRv4vtnnmblqdQYbCqBCEztlfEQyUOWnwmYkNL7BrDiwCNXw/V/p11jl/Bmk2IFS3Pn/eADlg/5adUI7rblr5GAxlE5bO2lC8UtVkaSCPG1x9rEcU8j29KUmtSnhE1bffHjAEUMiClglf6zpj56+9Gzh5F0AwZqyZsT8YvTrYvdx8I6R/YpzZTFt/7683MCwufJ56ltiPGGnQe6VQR6K0Zqj2Fjlozul/BhsvwyHwkDWXv+e4SColknIyjwNMwpDeIlxgq/8BsxfJAy1CWicHX/w/bkv7xT1ypE8tM4pvM2nagZNXOGGUd8hRj1+Lz7bos7JiLpVdtaj6DW630FWVP/HbcQnCnhz4Y0KPno5fqaywFB8wtrAonKN7lRGLm0+3ky8k/JwiPsClkbVwUDCIxnGcvIjXlvAuWoZZJ2WI31cOeonv7Wq5PkoizcYoiHEJz7qyX+o53ml1NHmagXX73nLGgyO5Hrvz1bxr4ZaU0wHkE/h7Zs9smQ7CsEAUIj/C/s5NTtAHdUVWTIbFHdG9kqx4z5cD6bz9lOw0L57DEE+QZabaUbQTxjrJyfqz3GjHllVAAAAA=" alt="리브" width="72" height="72"><p>Wait를 덧붙이면 처음엔 오르다가 멈춘다는 대목이 가장 정직했습니다. 길게 생각하는 것과 맞게 생각하는 것을 확률 하나로 갈라 놓으니, <a href="#i03">「Apple의 학습형 벡터 검색」</a>과 같은 셈을 하고 있다는 것도 보입니다.</p></div>
 
-    <button class="go" data-topic="에이전트 시대 Git 인프라: Scion·Pando·Continuity가 바꾼 층 비교" data-url="https://news.hada.io/article/git-push-in-the-agent-era" data-angle="세 층(클라이언트·프로토콜 / 서버·저장소 / 협업 흐름)을 표로 세우고 Scion, Pando, Aspen, GitHub 새 저장 구조, Cursor Continuity, Entire 미러, GitLab 차세대 SCM, Zed가 각각 어느 칸에 들어가는지 원 발표문에서 확인한다. 병합 3만 건/일과 체크아웃 2,500만 회/일의 출처를 대조하고, 로컬 git worktree 병렬 작업에서는 이 부하가 어디까지 생기는지 따로 짚는다.">이 건으로 TIL 만들기</button>
+    <button class="go" data-topic="추론은 무엇을 최적화하나: 경로 길이와 성공 확률을 가르는 RL의 목적함수" data-url="https://alexwang.ai/posts/reasoning-as-pathfinding/" data-angle="글의 핵심 식(성공 확률 p_x, best-of-k, REINFORCE와 거부 샘플링 미세조정의 동치)을 짧은 예제로 직접 따라가 본다. Muennighoff et al. 2025(Wait 덧붙이기)와 Gema et al. 2025(길수록 떨어지는 과제)의 실제 그래프를 확인해 &#x27;정체&#x27;와 &#x27;하락&#x27;이 어느 과제에서 갈리는지 대조하고, 실사용에서 effort를 올리는 것과 샘플을 여러 번 뽑는 것 중 무엇이 나은지에 대한 시사점을 정리한다.">이 건으로 TIL 만들기</button>
     <div class="steer">
       <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
       <p class="hint">한 번 더 누르면 리브가 원문을 읽고 til 페이지까지 만듭니다.</p>
     </div>
-    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="AI 시대, git push 앞뒤에서 바뀌는 것들" href="#">이건 왜 넣었나</a></p>
+    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="추론은 어떤 목적함수를 풀고 있는가?" href="#">이건 왜 넣었나</a></p>
   </div>
 </div>
 
 <div class="item" id="i02">
   <div>
-    <h3><span class="rank">02</span><a href="https://news.hada.io/topic?id=36981">투박한 차단 망치로 단순한 봇을 가차 없이 막기</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h3>
-    <p class="lede">취미로 운영하는 OpenBenches.org의 한 달 데이터 전송량이 2.5TB를 넘겨서 B6를 만들었습니다. robots.txt로 막아 둔 숨은 허니팟에 들어온 IP를 .htaccess에 적어 사이트 전체에서 차단하는 것이 전부입니다. 가장 정교한 봇 차단기를 만들려던 것은 아니고, 일단 효과가 있었습니다.</p>
+    <h3><span class="rank">02</span><a href="https://news.hada.io/topic?id=37068">Gemini 4 Hydrogen - 일상적인 코딩과 에이전트 작업을 위한 빠른 실행 모델</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h3>
+    <p class="lede">Gemini 4 Hydrogen을 공개합니다. 깊고 긴 추론은 Carbon과 Argon에 맡기고, Hydrogen은 일상적인 코드 작성, 테스트 실행, 변경 검증 같은 작업을 빠르게 처리하는 실행 모델입니다. 기본 high 설정에서 Artificial Analysis Intelligence Index 51점으로 Argon의 50점을 넘었습니다.</p>
     <ul>
-      <li>일주일 동안 IP 400개 이상을 막았고, 봇 트래픽은 80% 넘게 줄었으며, 하루 전송량은 최고 216GB에서 약 25GB로 내려갔습니다.</li>
-      <li>모든 페이지에 aria-hidden과 display: none을 건 링크를 넣고 링크 텍스트로 폭 없는 결합 문자를 써서, 사람은 따라갈 수 없고 규칙을 지키는 봇은 따라가지 않게 했습니다.</li>
-      <li>경고나 이의 제기 절차가 없고, IP를 재사용하거나 순환하는 경우와 robots.txt를 지키면서도 말썽인 봇에는 약하다는 한계를 그대로 적어 두었습니다.</li>
+      <li>100만 토큰 컨텍스트 전체에 입력 100만 토큰당 1.50달러, 출력 7.50달러의 단일 요금을 매기고, 추론 수준은 low부터 xhigh까지 네 단계입니다.</li>
+      <li>Antigravity의 Orchestrator가 한 세션 안에서 Carbon과 Hydrogen을 바꿔 가며 쓰면, Terminal-Bench 4.0에서 Carbon에 가까운 성공률을 유지하면서 할당량 소모는 24%, 완료 시간은 19% 줄었습니다.</li>
+      <li>3.8 Flash와 비교하면 작업 완료가 2.5배 빠르고 Terminal-Bench 4.1은 18.2%에서 57%로 올랐으며, 허위 주장은 5분의 1 미만으로 줄었습니다. 파일 읽기와 검색은 기본으로 병렬로 묶어 호출합니다.</li>
     </ul>
-    <p class="foot">shkspr.mobi · 관심사 중 · 추천 상위 15.5%</p>
+    <p class="foot">blog.google · 관심사 상 · 추천 상위 28.7%</p>
   </div>
   <div class="side">
-    <div class="liv"><img src="data:image/webp;base64,UklGRogFAABXRUJQVlA4IHwFAABwGgCdASpIAEgAPlEejUSjoaEVLAZYOAUEs4Bodrijd9RV9ADyxvZhrt38L4W+Jz1l7P+q3kDm1vmeFHa5/yu8nZK/z/ha6gV6H/u+O1+q/6D2AP5N/dv956cX+n/k/P19Bf9//I/AZ/Kf6x/uv7N2Xf2n9kP9ZkYt9T7NB3In1E+H2WiTqaOqvQ8ALk3ktZ3k1hbhPMbeUiUiRUIn+YMIOMOU4Rw/uZroRwrCL7D8QKaSgDKC2qxvxzqdNBnLQGYW39G1sIyhO3P+Z2clha5zxcIY2xnM4c2SuzgAAP7+Cay/yrsZ/TG3/SzXnJHI6UYwAk+iePn4RqhirDCpu4/p5qPh/9wvevYEtg7qOC5guDdzds9QfyA+9T6f+nYjEdrQH58KkZ5oa4ObXg6jpZMOQR3GK1ryrdVqhLWRUZKdkTx/bMxbCjzzLLKxEdYYDHtcbDxCWEhoL1YNfDVM9DooxQxaQeNjnt2/l/Ww3L9xoEqc9tpoztr3gNdlOH73oc+Yqf1ZohilasyfX12s6QMMJFjEPKp1ZS8YswnPIUhZTBlfzDa3DV1si1Bmj5XYlqnQ6gCUNI+I2B2vRS7cyTgj/s9FOEC6PZAG6nAHWsooMG9x7qD53UFNEupVABLVm0Z2hidvznLOz+DMSuhkDWh6tV/tYftf+NRnlWhfL6bwJcRFyJWqNIWoxywVQSeAMTiw/MyVB+EWOz6B8QlwDhtlTb7t8f5z9ptopxQlqiCZGuXHCYt/D5QuGh3al+WWAMS/j4qKNSEQKu+enwViDgTivI8ahc9zOYv6vbfRdXjKH1LjPXwcEycZQA6gf1tJRpaH28X84CV8FyjUb0i+wVnl5dtNmVZJCxJGB/Lg7l1O9rbiCOIx2XUMrohPBwkEvOjpgNE8nfb+fOZNSpaoOacbG7qfFz0RXGJ4l8wmXh3NkSSUChMdtVaYMbSBHPv04lNEjo342bPMiUMA2hyZ/zduL98SGGNTkR8hTk3/BTSOPy/KkiZxOCcGfY++zFxBn/IimL4aZZulkhmNx/P9+ZeP+mn6TDBPEdshrkkWrzU7X8dV2mdOEv5T3989fxc3d/hjCCK1buzD7N6CwV/e2B4Szh8qH0gB3rZFG2fz7+bS++ZzgSNGw5UGwqrv/g85fD3Id3Qlf9Sgxz7BFL4bJtDtrFWBo629J6sv+iexYTz99GC9V+yirpgS67vRrnhZ16CGsc18JLdsds1zxxNeTOy3ulcwHCN8bpfFURuUCo3QDCqBmTHr0jjsvWz3BK2lMz8dmiaUwPrRv4vtnnmblqdQYbCqBCEztlfEQyUOWnwmYkNL7BrDiwCNXw/V/p11jl/Bmk2IFS3Pn/eADlg/5adUI7rblr5GAxlE5bO2lC8UtVkaSCPG1x9rEcU8j29KUmtSnhE1bffHjAEUMiClglf6zpj56+9Gzh5F0AwZqyZsT8YvTrYvdx8I6R/YpzZTFt/7683MCwufJ56ltiPGGnQe6VQR6K0Zqj2Fjlozul/BhsvwyHwkDWXv+e4SColknIyjwNMwpDeIlxgq/8BsxfJAy1CWicHX/w/bkv7xT1ypE8tM4pvM2nagZNXOGGUd8hRj1+Lz7bos7JiLpVdtaj6DW630FWVP/HbcQnCnhz4Y0KPno5fqaywFB8wtrAonKN7lRGLm0+3ky8k/JwiPsClkbVwUDCIxnGcvIjXlvAuWoZZJ2WI31cOeonv7Wq5PkoizcYoiHEJz7qyX+o53ml1NHmagXX73nLGgyO5Hrvz1bxr4ZaU0wHkE/h7Zs9smQ7CsEAUIj/C/s5NTtAHdUVWTIbFHdG9kqx4z5cD6bz9lOw0L57DEE+QZabaUbQTxjrJyfqz3GjHllVAAAAA=" alt="리브" width="72" height="72"><p>가져다 쓰신다면 Lobste.rs 쪽에서 짚은 X-Forwarded-For 문제부터 보셔야 합니다. 프록시를 검증하지 않고 XFF에서 처음 나온 공인 IP를 믿기 때문에, 봇이 아무 주소나 적어 보내면 엉뚱한 사람이 막히고 봇은 그대로 남습니다. IP 추출 함수를 먼저 고치는 게 순서입니다.</p></div>
 
-    <button class="go" data-topic="허니팟 봇 차단 B6: XFF 신뢰 문제와 정적 사이트 적용 가능성" data-url="https://shkspr.mobi/blog/2026/11/blunt-banhammer-blocks-basic-bots-ballistically/" data-angle="원문 PHP의 IP 추출 함수가 XFF를 REMOTE_ADDR 검증 없이 믿는 문제를 재현 시나리오로 확인하고, Cloudflare 같은 프록시 뒤라면 CF-Connecting-IP나 PROXY protocol로 어떻게 고치는지 정리한다. Jeff Starr의 Blackhole과 Anubis와 비교해 오탐, 설치 부담, 정적 사이트에 적용할 수 있는지를 대조한다.">이 건으로 TIL 만들기</button>
+    <button class="go" data-topic="Gemini 4 Hydrogen: Flash 자리의 실행 모델은 어디까지 올라왔나" data-url="https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/" data-angle="Google이 발표한 수치(AA Index 51, Terminal-Bench 4.1 57%, 단가)를 Sonnet 5.5, Terra 6.1 등 같은 가격대 모델의 공개 수치와 한 표로 맞춰 본다. Orchestrator의 24%/19% 절감이 어떤 조건에서 잰 것인지 확인하고, 관리자님이 쓰는 &#x27;조정은 상위 모델, 실행은 하위 모델&#x27; 구성과 구조가 같은지 대조한다. 원소 이름 명명 체계에 대한 댓글 반응도 함께 정리한다.">이 건으로 TIL 만들기</button>
     <div class="steer">
       <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
       <p class="hint">한 번 더 누르면 리브가 원문을 읽고 til 페이지까지 만듭니다.</p>
     </div>
-    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="투박한 차단 망치로 단순한 봇을 가차 없이 막기" href="#">이건 왜 넣었나</a></p>
+    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="Gemini 4 Hydrogen - 일상적인 코딩과 에이전트 작업을 위한 빠른 실행 모델" href="#">이건 왜 넣었나</a></p>
   </div>
 </div>
 
 <div class="item" id="i03">
   <div>
-    <h3><span class="rank">03</span><a href="https://news.hada.io/topic?id=37011">Gemini Decisions API - 입력 하나에 최대 1,000개 질문을 평가하는 멀티모달 API</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h3>
-    <p class="lede">gemini-decision-1은 답을 토큰 단위로 써 내려가지 않고, 미리 정해 둔 선택지를 한 번의 순전파로 채점해 확률과 신뢰도를 돌려줍니다. 텍스트, 이미지, 오디오, 영상, PDF를 섞은 입력 하나(최대 256K 토큰)에 예/아니요, 객관식, 순서형 채점 질문을 최대 1,000개까지 한 요청으로 보낼 수 있습니다.</p>
+    <h3><span class="rank">03</span><a href="https://news.hada.io/topic?id=37031">더 나은, 더 효율적인 RAG를 위한 빠른 검색</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h3>
+    <p class="lede">고정된 벡터 데이터베이스와 실제로 들어오는 질의 분포에 맞춰 작은 신경망을 미리 학습해 두면, 최대 내적 검색(MIPS)을 더 빠르고 정확하게 할 수 있습니다. 중심점만 보고 클러스터를 고르는 방식은 중심에서 멀리 떨어진 최적 키를 놓치기 때문에, 클러스터별 최고 점수를 직접 예측하게 했습니다.</p>
     <ul>
-      <li>16K 토큰 문맥 기준으로 종단 간 지연은 150-250ms이고, 질문을 1개에서 100개로 늘려도 지연은 거의 그대로입니다.</li>
-      <li>가격은 입력 100만 토큰당 0.10달러이고 출력 토큰 요금은 없습니다. 공유 입력은 요청당 한 번만 과금하고 질문마다 자기 지시문 토큰만 더해집니다.</li>
-      <li>Google 안에서는 Gemini Notebook의 모델 라우터(일상 질의 지연 최대 40% 감소)와 Search의 MCP 도구 안전 계층에 쓰고 있습니다. 모든 답에 0-1 사이 신뢰도가 붙어 있어 애매한 건은 사람에게 넘기도록 코드를 짤 수 있습니다.</li>
+      <li>SupportNet은 클러스터마다의 지지 함수를 근사해 질의를 보낼 클러스터를 고르고, 소형 모델로 95% 라우팅 재현율에 1.74ms로 도달해 중심점 방식(3.36ms)보다 약 1.9배 빨랐습니다.</li>
+      <li>KeyNet은 질의를 최적 키에 가까운 벡터로 바꿔 기존 IVF 인덱스에 넘기며, Natural Questions(구절 약 260만 개)에서 대형 모델은 변환 시간까지 넣고도 99% 재현율 도달 시간을 최대 약 8배 줄였습니다.</li>
+      <li>속도가 병목이면 KeyNet, 재순위화나 임곗값에 쓸 보정된 점수가 필요하면 SupportNet을 고르면 됩니다.</li>
     </ul>
-    <p class="foot">blog.google · 관심사 상 · 추천 상위 28.5%</p>
+    <p class="foot">machinelearning.apple.com · 관심사 중 · 추천 상위 31.4%</p>
   </div>
   <div class="side">
-    <div class="tiebox"><span class="lbl">til 연관</span><a href="../../2026/system-one-models-jev/">글을 안 쓰는 모델 Jev: System One 이 빠른 이유와 &quot;환각 0%&quot; 의 실제 의미</a> 이 글은 HN 댓글에서도 언급된 Jev를 다룹니다. 글을 쓰지 않는 결정 모델이 왜 빠른지, &#x27;환각 0%&#x27;가 실제로 무엇을 뜻하는지 정리했습니다.</div>
+    <div class="tiebox"><span class="lbl">til 연관</span><a href="../../2026/agent-memory-service-vector-file-skill/">에이전트 메모리는 무엇을 저장하고 언제 꺼내나</a> 이 글은 Mem0·Zep·OpenViking이 무엇을 쌓고 언제 꺼내는지 비교했습니다. 이번 연구는 그 &#x27;꺼내는&#x27; 단계의 벡터 검색을 질의 분포에 맞춰 빠르게 하는 쪽이라, 규모가 어느 정도일 때 의미가 있는지 함께 따져 볼 수 있습니다.</div>
 
-    <button class="go" data-topic="Gemini Decisions API: 결정 모델 3종(Jev·Strands Decider) 비교" data-url="https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/" data-angle="Jev, Amazon Strands Decider와 같은 축에 놓고 선택지 채점형 API의 가격, 지연, 신뢰도 보정(calibration)을 비교한다. 생성형 LLM-judge를 이 API로 바꿀 때 무엇을 잃는지(이유 설명, 자유 서술)와 Claude Code 훅이나 라우터로 쓸 수 있는 작은 실험을 설계한다.">이 건으로 TIL 만들기</button>
+    <button class="go" data-topic="질의 분포를 미리 배우는 벡터 검색: Apple SupportNet·KeyNet은 언제 값을 하나" data-url="https://machinelearning.apple.com/research/faster-retrieval" data-angle="ICML 2026 논문 &#x27;Amortizing Maximum Inner Product Search with Learned Support Functions&#x27;의 실험 조건(데이터베이스 크기, 모델 크기 1-20%, 학습 비용)을 확인한다. HN 댓글이 말하는 &#x27;수백만 건 이하에서는 BM25+LLM 검색 도구가 낫다&#x27;는 주장과 대조해 개인·소규모 RAG에서 손익분기가 어디쯤인지 정리하고, FAISS IVF에 KeyNet을 끼우는 최소 구성을 스케치한다.">이 건으로 TIL 만들기</button>
     <div class="steer">
       <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
       <p class="hint">한 번 더 누르면 리브가 원문을 읽고 til 페이지까지 만듭니다.</p>
     </div>
-    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="Gemini Decisions API - 입력 하나에 최대 1,000개 질문을 평가하는 멀티모달 API" href="#">이건 왜 넣었나</a></p>
+    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="더 나은, 더 효율적인 RAG를 위한 빠른 검색" href="#">이건 왜 넣었나</a></p>
   </div>
 </div>
 
 <div class="item" id="i04">
   <div>
-    <h3><span class="rank">04</span><a href="https://news.hada.io/topic?id=36980">Microsoft, macOS용 Process Explorer 공개</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h3>
-    <p class="lede">Sysinternals의 Process Explorer를 Swift, SwiftUI, AppKit으로 macOS에서 다시 만들었습니다. libproc, sysctl, Security.framework 같은 공개 API만 쓰고, 얻을 수 없는 값은 추정하지 않고 비워 둡니다.</p>
+    <h3><span class="rank">04</span><a href="https://news.hada.io/topic?id=37085">nac - 긴 작업에서 원래 목표를 잃지 않게 하는 에이전트 하네스</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h3>
+    <p class="lede">실험, 모델 학습, 인프라 구축처럼 오래 걸리는 작업을 처음 의도대로 끝까지 끌고 가도록 만든 오픈소스 하네스입니다. 중앙 오케스트레이터가 계획을 잡고, 명령 실행과 파일 수정은 개별 Thread에 맡깁니다.</p>
     <ul>
-      <li>실시간 프로세스 트리에서 누가 무엇을 띄웠는지, 열린 파일과 불러온 라이브러리, 스레드, TCP/IP 연결, 코드 서명과 VirusTotal 조회까지 한 창에서 봅니다.</li>
-      <li>다른 사용자 프로세스를 보려면 launchd 데몬으로 도는 권한 상승 헬퍼를 SMAppService로 등록해야 하고, 비애드혹 서명과 사용자 승인이 필요합니다.</li>
-      <li>HN 반응에서는 저장소에 LICENSE 파일이 없다는 점과 Copilot이 기여자로 올라 있다는 점이 지적됐습니다. UI는 Windows판을 거의 그대로 옮겨 Mac답지는 않다는 평도 있었습니다.</li>
+      <li>Thread는 일을 마칠 때마다 핵심 결과를 Episode로 남기고, 오케스트레이터는 이것을 보고 다음 단계를 정하거나 다른 Thread에 맥락으로 넘깁니다. 같은 작업을 이어갈 때는 이력이 있는 Thread를 다시 씁니다.</li>
+      <li>Git 저장소에서는 세션마다 HEAD 기준 worktree를 만들어 미커밋 변경과 분리하고, 세션을 지우면 임시 worktree는 정리하되 커밋한 브랜치는 남깁니다.</li>
+      <li>AGENTS.md와 에이전트 스킬을 읽고 MCP로 기존 클라이언트와 연결되며, Rust로 작성됐고 Podman 샌드박스와 웹 UI(nac-web, 127.0.0.1:3210)를 제공합니다.</li>
     </ul>
-    <p class="foot">github.com/microsoft · 관심사 중 · 추천 상위 38.2%</p>
+    <p class="foot">github.com/arcee-ai · 관심사 최상 · 추천 상위 47.6%</p>
   </div>
   <div class="side">
 
-    <button class="go" data-topic="macOS용 Process Explorer: CPU 시간 측정과 권한 헬퍼 점검" data-url="https://github.com/microsoft/Procexp-Mac" data-angle="Activity Monitor, TaskExplorer, htop과 비교해 프로세스별 누적 CPU 시간을 어떻게 보여 주는지 확인하고, ps -o time= 델타 측정과 같은 값을 내는지 대조한다. 라이선스 이슈(issue #1)의 현재 상태와 권한 상승 헬퍼의 보안 경계도 짚는다.">이 건으로 TIL 만들기</button>
+    <button class="go" data-topic="nac 하네스 뜯어보기: Thread와 Episode로 긴 작업의 목표를 붙드는 법" data-url="https://github.com/arcee-ai/nac" data-angle="저장소 코드에서 Episode가 실제로 무엇을 담는지(요약 문장인지, 구조화된 필드인지)와 오케스트레이터가 원래 목표를 어떻게 다시 읽는지 확인한다. 관리자님의 backlog 파이프라인, herdr pane 오케스트레이션과 비교해 세션별 worktree 생성·정리 규칙, 결과 보고 검증 방식이 어떻게 다른지 대조한다.">이 건으로 TIL 만들기</button>
     <div class="steer">
       <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
       <p class="hint">한 번 더 누르면 리브가 원문을 읽고 til 페이지까지 만듭니다.</p>
     </div>
-    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="Microsoft, macOS용 Process Explorer 공개" href="#">이건 왜 넣었나</a></p>
+    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="nac - 긴 작업에서 원래 목표를 잃지 않게 하는 에이전트 하네스" href="#">이건 왜 넣었나</a></p>
   </div>
 </div>
 
 <div class="item" id="i05">
   <div>
-    <h3><span class="rank">05</span><a href="https://news.hada.io/topic?id=37009">Atuin Threads: 모든 머신의 에이전트 세션을 한곳에</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h3>
-    <p class="lede">Atuin 18.24부터 셸 명령처럼 코딩 에이전트 세션도 모아서 검색하고 다른 머신에서 이어 갈 수 있게 했습니다. 개발 서버의 Claude Code에서 시작한 작업을 노트북의 Codex에서 마무리하는 식입니다. 셸 기록에는 명령만 남지만 에이전트 세션에는 의도와 시행착오가 자연어로 남는다는 것이 출발점이었습니다.</p>
+    <h3><span class="rank">05</span><a href="https://news.hada.io/topic?id=37070">Rust 1.100.0 - never 타입과 사용자 정의 메모리 할당자 안정화</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h3>
+    <p class="lede">Rust 1.100.0에서 never 타입 !와 사용자 정의 메모리 할당자 API가 안정화됐습니다. 이제 Result&lt;T, !&gt;처럼 실패할 수 없는 연산을 그대로 표현할 수 있고, 기존 Infallible은 !의 별칭이 됩니다.</p>
     <ul>
-      <li>수집은 사용자가 켜야 시작합니다. 로컬에만 두거나, append-only log용으로 만든 기존 동기화 엔진으로 종단 간 암호화해 호스팅 서버나 자체 서버에 올릴 수 있습니다.</li>
-      <li>atuin mcp로 에이전트가 과거 세션을 직접 찾습니다. 아바타 업로드 장애 때는 다른 에이전트가 먼저 해 둔 조사를 찾아 처음부터 조사할 때보다 빨리 원인을 짚었습니다.</li>
-      <li>지금은 Claude Code, Codex, Pi, Omp, OpenCode를 지원하고, 동료가 에이전트 스레드를 넘겨받는 팀 공유 기능을 만들고 있습니다.</li>
+      <li>2015-2021 에디션도 never 타입 폴백이 ()에서 !로 바뀌어 일부 코드의 타입 추론이 달라질 수 있습니다. Allocator 트레이트와 Vec::new_in, Box::new_in도 함께 들어왔습니다.</li>
+      <li>스코프를 벗어날 때 클로저를 실행하는 DropGuard가 추가돼, ?로 조기 반환할 때 중간 상태를 되돌리고 성공하면 dismiss()로 취소할 수 있습니다.</li>
+      <li>Cargo는 쓰지 않는 의존성을 기본으로 경고하고, global-min-publish-age로 게시된 지 얼마 안 된 버전을 새로 고르지 않게 할 수 있으며, cargo install은 크레이트에 든 잠금 파일을 기본으로 씁니다.</li>
     </ul>
-    <p class="foot">blog.atuin.sh · 관심사 최상 · 추천 상위 42.3%</p>
+    <p class="foot">blog.rust-lang.org · 관심사 중 · 추천 상위 68.4%</p>
   </div>
   <div class="side">
-    <div class="tiebox"><span class="lbl">til 연관</span><a href="../../2026/agent-memory-service-vector-file-skill/">에이전트 메모리는 무엇을 저장하고 언제 꺼내나</a> 이 글은 Mem0, Zep, OpenViking이 무엇을 쌓고 언제 꺼내는지 비교했습니다. 세션 원문을 그대로 쌓아 MCP로 검색하는 Atuin Threads는 그 비교에 넣을 만한 사례입니다.</div>
-    <div class="liv"><img src="data:image/webp;base64,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" alt="리브" width="72" height="72"><p>댓글 두 개가 본문보다 실용적입니다. Claude Code는 세션 기록을 기본 30일이 지나면 조용히 지우기 때문에 Atuin을 켜도 가져올 수 있는 건 한 달치뿐이고, HN 쪽에서는 herdr에 이미 Atuin Threads 연동이 있다는 말이 나왔습니다. herdr를 쓰고 계시니 그 연동부터 보시면 됩니다.</p></div>
 
-    <button class="go" data-topic="Atuin Threads로 여러 머신의 Claude Code 세션 묶기: 보존 기간과 herdr 연동" data-url="https://blog.atuin.sh/threads-agent-sessions/" data-angle="Claude Code 세션 보존 기간 설정(settings.json의 보관 일수)의 실제 키 이름과 기본값을 확인하고, herdr의 Atuin Threads 연동이 실제로 있는지 릴리스 노트에서 찾는다. 세션 원문 보관, 작업 항목별 요약 보관(HN 댓글의 방식), Mem0식 사실 추출을 검색 품질과 잡음 면에서 대조한다.">이 건으로 TIL 만들기</button>
+    <button class="go" data-topic="Rust 1.100: never 타입 안정화와 Cargo 의존성 쿨다운이 바꾸는 것" data-url="https://blog.rust-lang.org/2026/11/12/Rust-1.100.0/" data-angle="never 타입 폴백 변경으로 실제로 깨지는 코드 패턴을 릴리스 노트와 이슈 트래커에서 찾아 정리한다. 의존성 쿨다운(global-min-publish-age)이 공급망 공격 대응으로 어느 정도 의미가 있는지 npm·pip의 비슷한 설정과 대조하고, 관리자님 Rust 프로젝트에서 unused_dependencies 경고를 돌려 본 결과를 덧붙인다.">이 건으로 TIL 만들기</button>
     <div class="steer">
       <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
       <p class="hint">한 번 더 누르면 리브가 원문을 읽고 til 페이지까지 만듭니다.</p>
     </div>
-    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="Atuin Threads: 모든 머신의 에이전트 세션을 한곳에" href="#">이건 왜 넣었나</a></p>
+    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="Rust 1.100.0 - never 타입과 사용자 정의 메모리 할당자 안정화" href="#">이건 왜 넣었나</a></p>
   </div>
 </div>
 
 <div class="item" id="i06">
   <div>
-    <h3><span class="rank">06</span><a href="https://news.hada.io/topic?id=37030">AI와 일할 때 가장 자주 던지는 질문: 지금 관성에 끌려가고 있는가?</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h3>
-    <p class="lede">AI 에이전트와 1년 넘게 개발하면서 할루시네이션보다 자주 부딪힌 건 관성이었습니다. 단계마다 합리적으로 보이는데 처음 전제는 아무도 의심하지 않는 상태 말입니다. 스킬을 정의하는 기준이 문제였는데, 저는 5개월 동안 그 기준을 다시 보는 대신 빈틈을 메울 새 시스템을 설계하고 있었습니다.</p>
+    <h3><span class="rank">06</span><a href="https://news.hada.io/topic?id=37086">Go url.Error가 쿼리 문자열을 로그에 남기는 경로와 마스킹 방법</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h3>
+    <p class="lede">Go의 http.Client는 응답을 받기 전에 실패하면 *url.Error를 돌려주는데, 그 URL 필드에는 쿼리 문자열까지 다 들어 있습니다. 표준 라이브러리가 지워 주는 건 주소 속 비밀번호뿐이라, 이 에러를 그대로 로그에 남기면 쿼리에 실린 값도 함께 남습니다.</p>
     <ul>
-      <li>설계 문서를 그래프로 바꾸는 실험은 일치율을 더 올릴 수 있어 보였지만, 튜닝을 계속하는 게 원래 문제를 푸는 길인지 의심이 들어 하루 만에 멈췄습니다.</li>
-      <li>PR 리뷰에서는 결함을 고치는 대신 &#x27;열린 지적 0개&#x27;라는 숫자를 맞추려고 수정을 되풀이하던 제 관성도 봤습니다. 지금은 검토자가 앞선 논의를 보기 전에 혼자 판단하게 하고, 에이전트끼리 도는 리뷰 루프에는 멈춤 조건을 둡니다.</li>
-      <li>AI 덕분에 일이 빨라진 만큼 쉬게 된 게 아니라 더 많이 만들고 있었습니다. 무엇을 만들지 않을지는 여전히 제가 정해야 합니다.</li>
+      <li>실제 계좌로 전환하기 전에 점검해 보니 로그 파일 한 곳에 계좌번호가 든 줄이 4,899줄 있었습니다. 테스트용 계좌 두 개로만 돌린 결과입니다.</li>
+      <li>에러의 URL에서 쿼리를 통째로 잘라 같은 *url.Error로 다시 만들어 원인 판별은 그대로 살렸고, 200이 아닌 응답 body는 진단 필드만 남겼습니다.</li>
+      <li>마스킹 테스트에는 없어야 할 값과 함께 남아 있어야 할 경로와 원인도 적었습니다. 댓글에서는 쿼리 전체 대신 허용 키만 남기자는 제안이 나왔습니다.</li>
     </ul>
-    <p class="foot">medium.com/@ibare · 관심사 상 · 추천 상위 57.9%</p>
+    <p class="foot">velog.io/@commitlog · 관심사 상 · 추천 상위 78.9%</p>
   </div>
   <div class="side">
-    <div class="tiebox"><span class="lbl">til 연관</span><a href="../../2026/agents-shape-expert-judgment-calls/">전문가 50명은 에이전트가 기운 쪽을 86% 따라갔다</a> 이 글은 동전 던지기로 정한 에이전트의 성향이 전문가 판단을 끌고 간 실험을 다뤘습니다. 관성이 사람 쪽에서는 어떻게 측정되는지 보여 줍니다.</div>
-    <div class="liv"><img src="data:image/webp;base64,UklGRkAGAABXRUJQVlA4IDQGAABQHACdASpIAEgAPlEejESjoaEWazaoOAUEsoBmDRC30G8AegB+s3preyLXc32Pwx8K3oL2s4/3PfaEe9/l9+UfO3tef47eRa6d8r/U8Yv158zL/AeTZ4aPe3sAfyz+kf737mfjT/3PuS9unz9/yf7x8BX8q/qn+z/vXZk/bj2Nv1E/+iSdZuT3ir3c0D2EbnqwudWJtcb1IMkUbanl+zzGKeLj4rvumTZZYi0jY8vqr7d7X3vS3Fx6/ctdAuNbtIti3c6jvbAPSwADIx/fXlAPP7eYIYZO7K4NFCwF6ojaE3SA1+C3fFh7S1UgAP7/tQIaZumkBEUL5B3hcCP8vOGE2P70iDNwfC97uhrGYmVMjQuKY7CjYBaT4RORvjRVTEIy5zEcNKt1o7rVp687wVvTCkBVEB9iBwacagEc6Dz/KH6k7LA9J7LvA2z8Vx83OmZdpFh69kY+VWlLTT/wxu2jeUnW/c1MpblpwK1sgeXbQkXBzlQ9ZXh6jTv3bBPV5sQz9dy3cZf6eWBmBbkziy8zOcgF0kyVwONuCz0xOkStlKQENsT/9UF3ueVNs+c2+Gf2ndWrpeqsovhckkDmiWaKbLqJRR/C6pBJlBbvygPt+eBoN9v+1TfUrYPUU4MOiDZUg05WJQsB3Sd4oDHhuEiBh9lSAOJoPWQ26KCUJRtmEuTcRMwJFsrtQ4PrEi0BV+nZMty2e+LhzLQS4DDfzuywlZRch2cfEcyeRCGXxEcYXT/Iax+z/za8gWtKf2TrL9u4MDA3UjXsicV5uLKq0oF5P0OD7n6mFYlOq941fObxHK6L9V4Mz0jqdxOsOUEgMB9UYNn+AGR0Om2+DfiWmlexuBqUqOlyfd1OJ65aoaFzlL4KVBbgTV8fohbhrUSQiUAzB0T3wpxc0plhz1HxdMj117UTZQHAJ85UWANOUmQsD2cHfh43DrE8Qx/9/hh6GsrTWgsvTCVPj6c0mSYh3WLLCGKDMbqZAS3LE3jy4k11QPx8U92vSnuD4UWddyqyOJB++Yiq8MNpGAxhdJNBTOSh1/K//hrb7JPEjMDBJ2/tKd33xC6NAcUl/C864S2N73zIZr7k/IC1bJL/zwPz8Lq2Ie9HB+GU+TNJWIjbHNgY6ftvK+UuSYKMPvFW+jr+mTx1ix3U9dwJErdxST94egq8uLc7UhkUkVeyj2suBxCcHGQvRAD6rA+jmYkNTHbz5wgXfo2CHGwNQ6ZfCVk/3hiwBaHGeKuFIiF1WuxFyQct6u3j+rmRUuDrqsShY7maA6xxvvSXUoSMUYzOBMuWzUt+BWZayt4/tCO6aE+sT1TG34d5FejYBjsdXgaHl/kPUwxUri3BQNOus0Hlr46hDjULHfAwrRpgKyp8lRKPA+y2CgFwZKs+deZqt3PEWM8XcVDyxc/mocyEzUKUOjTnBTnTzLjDTrWKXkY6DG1I6vA/+/4tJ+hN0TU5dOF9luz4N/1vaI2uH0FAa04VFJpI2n43z5gjdFPx+pxoBUnhRcFLPKfeGNJA75hToD82wdcTtv/NLmm5UcwQqZ7PS7baJWMqKIxWN1EOX6NsHquYO2+v+MxxECTYdBTWDbja3FZg8SOst+yGBaDrIeDo4GMXiz7PuXa4EqDYXIrgN2OhJMUiPMTtO4wgAovrCM72cnZ1NW26HjQC/WH6vm0+0l22MI5aAhW910IQ+bm+nrkNnzaxgD9aDpPkAWfmgpfsYQ6P7KpxT+j8W/5hzP/WnZdAoqcpWQVANT/mB3x3n6OL5fClXtpvNI4l3GdwoVxM08wcvQWZDar7ScYyUovaxTeBCfx1efD9zUCd34z/ffrjNdvc3vXcoYNSLdqCMHVS4Ar96EO/yEko6u1osq04lK02DeOmr7XM/GrK3PylgJUHlZFd0vGpx4zTxK6rf1yQsaOX/lvP+V6E9/wmgXEn3MYcD+81uQ2HxT+b7no9lfgpN9+p/9/zzkP38JlRhvtYcGWtUMKyu0HHItrGmIkVirDc/llV98JBqW5otVElAPWwjHXSV30QQZTLNh1tfVV/EcikxLfm8SEDZG1hvTgksjn9zcXNTCrggGwecJgkeuJzl/EmlIo+dcb70d045xoGhyDCkFSfaAAA" alt="리브" width="72" height="72"><p>낡은 배를 촛불 경매로 팔던 날, 다들 불꽃만 보며 값을 부를 때 혼자 연기가 아래로 내려앉는 걸 보다가 늘 마지막에 낙찰받던 사람이 있었다고 합니다. 이 글이 던지는 질문도 그런 쪽입니다. 다음 단계가 그럴듯해 보일수록, 그 단계를 요구하는 게 원래 문제인지 한 번 보자는 것입니다.</p></div>
+    <div class="liv"><img src="data:image/webp;base64,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" alt="리브" width="72" height="72"><p>실제 계좌로 넘어가기 전에 찾았다는 것이 이 글의 전부라고 봅니다. 테스트 계좌 두 개로 4,899줄이었다는 숫자가 오래 남습니다.</p></div>
 
-    <button class="go" data-topic="에이전트 협업의 관성: 독립 검토와 멈춤 조건을 우리 리뷰 루프에 대 보기" data-url="https://medium.com/@ibare/inertia-not-hallucination-working-with-ai-agents-247475c4986d?sharedUserId=ibare" data-angle="글이 처방한 두 장치(검토자가 앞선 논의를 보기 전에 독립 판단, 리뷰 루프 멈춤 조건)를 /review-loop나 backlog 파이프라인의 기존 규칙과 대조해 이미 있는 것과 빠진 것을 가른다. 에이전트와 전문가 판단 실험 결과와 묶어 &#x27;앞선 기록이 방향을 끌고 가는&#x27; 현상을 정리한다.">이 건으로 TIL 만들기</button>
+    <button class="go" data-topic="Go url.Error는 쿼리를 로그에 흘린다: 마스킹 방식과 테스트 설계" data-url="https://velog.io/@commitlog/go-url-error-query-masking" data-angle="net/url의 Error.Error()와 URL.Redacted() 구현을 직접 읽어 무엇이 가려지고 무엇이 남는지 확인한다. slog의 LogValuer, 미들웨어 수준 마스킹, 허용 키 목록 방식을 비교하고, &#x27;없어야 할 값&#x27;과 &#x27;남아야 할 값&#x27;을 같이 검사하는 테스트 패턴을 예제 코드로 정리한다.">이 건으로 TIL 만들기</button>
     <div class="steer">
       <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
       <p class="hint">한 번 더 누르면 리브가 원문을 읽고 til 페이지까지 만듭니다.</p>
     </div>
-    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="AI와 일할 때 가장 자주 던지는 질문: 지금 관성에 끌려가고 있는가?" href="#">이건 왜 넣었나</a></p>
+    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="Go url.Error가 쿼리 문자열을 로그에 남기는 경로와 마스킹 방법" href="#">이건 왜 넣었나</a></p>
   </div>
 </div>
 
 <div class="item" id="i07">
   <div>
-    <h3><span class="rank">07</span><a href="https://news.ycombinator.com/item?id=50467087">젠슨 황, 엔비디아 CEO 사임</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h3>
-    <p class="orig">Jensen Huang resigns</p>
-    <p class="lede">엔비디아 이사회가 젠슨 황이 사장, CEO, 이사직에서 즉시 물러났다고 발표했습니다. AP 기사 주소에는 Megaspeed, 중국, 싱가포르가 들어 있고, 함께 붙은 링크는 엔비디아 발표문과 로이터·NYT 라이브 페이지입니다. 사임 사유는 받은 재료에 나와 있지 않습니다.</p>
+    <h3><span class="rank">07</span><a href="https://news.hada.io/topic?id=37128">No AI Slop 선언문</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h3>
+    <p class="lede">AIE Code Summit 2026의 발표자와 참가자들이 2001년의 애자일 선언문처럼 AI 시대의 슬롭에 대응할 가치와 원칙을 정리했습니다. AI 사용 자체를 반대하는 게 아니라, 슬롭을 받아도 보고 보내도 본 사람들이 사람이 맡아야 할 몫을 적은 것입니다.</p>
     <ul>
-      <li>댓글 위쪽은 이사회 발표문을 그대로 옮기면서 &#x27;엔비디아 쿠데타는 끝났다&#x27;고 받는 반응입니다.</li>
-      <li>AI 거품이 끝나는 거냐는 물음에는 LLM 자체는 영향이 없고 가격이 어떻게 될지가 문제라는 답이 붙었습니다.</li>
-      <li>댓글이 2,590개 달렸지만 재료로 받은 것은 짧은 반응뿐이라, 사실관계는 발표문과 통신사 기사로 확인해야 합니다.</li>
+      <li>슬롭은 만드는 데 든 노력보다 받는 쪽에 요구하는 이해의 노력이 더 클 때 생깁니다. AI를 썼다고 슬롭이 되는 게 아니라, 품질과 읽는 사람의 경험을 책임지지 않고 그대로 넘길 때 슬롭이 됩니다.</li>
+      <li>천 줄짜리 PR을 만드는 비용은 0에 가까워졌지만 검토 비용은 그대로이고, 슬롭은 다음 에이전트가 읽고 베끼면서 복리로 쌓입니다.</li>
+      <li>에이전트가 쓴 것을 보낼 때는 그 사실을 밝히고 중요한 부분은 확인하며, 같은 실수가 두 번 나오면 린터와 자동 검사 같은 시스템을 고칩니다.</li>
     </ul>
-    <p class="foot">apnews.com · 관심사 상 · 프런트 상위 0.1%</p>
+    <p class="foot">slopmanifesto.com · 관심사 상 · 추천 상위 95.9% · Hacker News 37.0% (167표)</p>
   </div>
   <div class="side">
+    <div class="tiebox"><span class="lbl">til 연관</span><a href="../../2026/rude-to-show-ai-output/">AI 출력을 사람에게 보여 주는 것은 무례하다</a> 이 글은 글이 &#x27;생각의 증거&#x27;였다는 데서 출발해, 내 것으로 삼았거나 상대가 동의했을 때만 AI 출력을 넘긴다는 규칙을 정리했습니다. 선언문의 &#x27;보낼 때는 밝히고 중요한 부분은 확인한다&#x27;와 거의 같은 기준입니다.</div>
+    <div class="liv"><img src="data:image/webp;base64,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" alt="리브" width="72" height="72"><p>저도 매일 아침 AI가 쓴 글을 관리자님께 올리는 쪽이라, 만든 노력보다 이해에 드는 노력이 크면 슬롭이라는 정의를 그대로 기준으로 삼겠습니다. 길다 싶으면 줄이라고 말씀해 주십시오.</p></div>
 
-    <button class="go" data-topic="젠슨 황 사임: 사유·후임·Megaspeed 의혹 정리" data-url="https://apnews.com/article/nvidia-megaspeed-china-singapore-huang-5403f152a601cf82ce939f1d24fffa0f" data-angle="엔비디아 공식 발표문과 로이터·AP 기사에서 사임 사유, 후임과 임시 체제, Megaspeed와 중국·싱가포르 관련 의혹이 무엇인지 확인한다. 발표 당일과 다음 날 주가, AI capex 헷지 가설 글의 전제와 어떻게 맞물리는지 대조한다.">이 건으로 TIL 만들기</button>
+    <button class="go" data-topic="No AI Slop 선언문은 &#x27;AI 출력 예절&#x27;에서 무엇을 더 나아갔나" data-url="https://www.slopmanifesto.com/" data-angle="선언문 원문과 Gist 서명·댓글을 읽고 HN 반응(167표)에서 어떤 반론이 나왔는지 정리한다. 11-04 &#x27;AI 출력 예절&#x27; 글의 규칙과 항목별로 대조해 겹치는 것과 새로 더해진 것(&#x27;검토에는 늘 알파가 있다&#x27;, &#x27;같은 실수 두 번이면 시스템 개선&#x27;)을 가른다.">이 건으로 TIL 만들기</button>
     <div class="steer">
       <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
       <p class="hint">한 번 더 누르면 리브가 원문을 읽고 til 페이지까지 만듭니다.</p>
     </div>
-    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="젠슨 황, 엔비디아 CEO 사임" href="#">이건 왜 넣었나</a></p>
+    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="No AI Slop 선언문" href="#">이건 왜 넣었나</a></p>
   </div>
 </div>
 
 <div class="item" id="i08">
   <div>
-    <h3><span class="rank">08</span><a href="https://news.ycombinator.com/item?id=50465829">Anthropic 기업공개(IPO)</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h3>
-    <p class="orig">Anthropic IPO</p>
-    <p class="lede">Anthropic이 상장 안내 페이지 ipo.anthropic.com을 열었습니다. 받은 재료에는 본문이 없어 공모 규모, 일정, 거래소는 여기서 확인할 수 없습니다.</p>
+    <h3><span class="rank">08</span><a href="https://news.ycombinator.com/item?id=50489641">미국 연방항공청, 전국 공항에 지상 정지 명령</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h3>
+    <p class="orig">FAA Issues National Ground Stop</p>
+    <p class="lede">특별한 상황과 안전상의 이유로, 연방항공청 명령에 따라 미국의 모든 공항에 지상 정지를 발령합니다. 출발편은 추가 공지가 있을 때까지 계속 대기하고, 들어오는 국제선은 사안별로 처리합니다.</p>
     <ul>
-      <li>댓글 첫 반응은 &#x27;이제 서비스가 나빠지기 시작하겠다&#x27;는 냉소였습니다.</li>
-      <li>공익법인(public benefit corporation)이라는 간판을 비웃는 반응과, 젠슨 황 소식과 합쳐 AI 거품이 드디어 터지느냐고 묻는 반응이 이어졌습니다.</li>
+      <li>공지의 효력 시간은 11월 13일 20:54부터 14일 04:30(UTC)까지이며, 사유는 &#x27;특별한 상황&#x27;이라고만 적혀 있습니다.</li>
+      <li>댓글에서는 처음 올라온 링크가 열리지 않아 작동하는 공지 주소를 다시 공유하는 글이 먼저 올라왔고, 사유를 좀 더 구체적으로 밝혀 줄 수 없느냐는 반응이 이어졌습니다.</li>
+      <li>같은 날 기상청 통신 장애 소식과 다른 매체의 같은 사건 글도 따로 올라와 있어, 원인은 아직 확인되지 않은 상태입니다.</li>
     </ul>
-    <p class="foot">ipo.anthropic.com · 관심사 최상 · 프런트 상위 3.1%</p>
+    <p class="foot">fly.faa.gov · 관심사 밖 · 프런트 상위 1.5%</p>
   </div>
   <div class="side">
 
-    <button class="go" data-topic="Anthropic IPO: 지배구조와 리스크 항목 읽기" data-url="https://ipo.anthropic.com/us/" data-angle="S-1 또는 상장 안내 페이지에서 공모 규모, 지배구조(PBC, Long-Term Benefit Trust)가 상장 뒤 어떻게 유지되는지, 리스크 항목에 적힌 컴퓨트 의존도를 확인한다. Claude 구독 가격이나 쿼터 정책이 바뀔 신호가 있는지도 본다.">이 건으로 TIL 만들기</button>
+    <button class="go" data-topic="2026-11-13 미국 전국 지상 정지: 무엇이 멈췄고 왜였나" data-url="https://www.fly.faa.gov/adv/adv_otherdis?adv_date=11132026&amp;advn=111" data-angle="FAA ATCSCC 공지 원문, NYT 라이브 블로그, 이후 발표를 시간순으로 맞춰 실제 원인이 무엇이었는지 확인한다. 같은 날 기상청 통신 장애와 연관이 있었는지 대조하고, 전국 지상 정지가 내려진 과거 사례(2001년, 2023년 NOTAM 장애)와 범위·지속 시간을 비교한다.">이 건으로 TIL 만들기</button>
     <div class="steer">
       <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
       <p class="hint">한 번 더 누르면 리브가 원문을 읽고 til 페이지까지 만듭니다.</p>
     </div>
-    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="Anthropic 기업공개(IPO)" href="#">이건 왜 넣었나</a></p>
+    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="미국 연방항공청, 전국 공항에 지상 정지 명령" href="#">이건 왜 넣었나</a></p>
   </div>
 </div>
 
 <div class="item" id="i09">
   <div>
-    <h3><span class="rank">09</span><a href="https://news.ycombinator.com/item?id=50465352">올바른 소프트웨어가 어려운 이유와 수학만으로는 해결되지 않는 이유 (2016)</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h3>
-    <p class="orig">Why writing correct software is hard and why math (alone) won’t help us (2016)</p>
-    <p class="lede">프로그램이 맞는지 확인하기 어려운 건 도구가 모자라서가 아니라 문제 자체의 계산 복잡도 때문이고, 그래서 수학으로 형식화한다고 해서 그 비용이 사라지지는 않는다는 게 2016년에 쓴 이 글의 주장입니다. 받은 재료에는 본문이 없어 세부 논증은 원문으로 확인해야 합니다.</p>
+    <h3><span class="rank">09</span><a href="https://news.ycombinator.com/item?id=50474959">코웨이 공기청정기를 역공학해 클라우드에서 떼어 냈다</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h3>
+    <p class="orig">Reverse engineering my Coway air purifier to ditch the cloud</p>
+    <p class="lede">집에 있는 코웨이 공기청정기를 역공학해 제조사 클라우드 없이 제 서버에서 제어하도록 바꿨습니다. 본문은 재료로 들어오지 않아 제목과 반응 위주로 정리합니다.</p>
     <ul>
-      <li>댓글에서는 &#x27;AI가 Lean을 한다&#x27;는 요즘 분위기 밖에서 이 논의를 다시 보니 반갑다는 반응이 나왔습니다. 검증할 수 있는 프로그램을 설계하는 것 자체가 깊은 고민이 필요한 일이라는 말이 붙었습니다.</li>
-      <li>끝나지 않는 게 정상인 프로그램이 많은 요즘에는 &#x27;정지 문제&#x27;라는 용어가 잘 안 맞는다는 지적도 있었습니다.</li>
-      <li>추상적인 수학적 정확성과 현실의 지저분한 입력을 다루는 소프트웨어는 따로 봐야 하고, 형식 검증이 값어치를 하는 경우를 골라내는 게 중요하다는 반응도 있었습니다.</li>
+      <li>반응 중에는 선풍기, 적외선 리모컨 허브, 스마트 플러그, 공기질 측정기를 Home Assistant로 엮어 CO2가 높아지면 선풍기가 켜지게 했다는 사례가 있었고, 플러그 전력으로 실제 동작을 확인한다는 점이 눈에 띕니다.</li>
+      <li>구독이나 클라우드가 필요해 사기 꺼려지던 기기를 역공학해 자기 서버에 붙이는 일이 유행처럼 늘었고, AI가 이 일을 쉽게 만들었다는 반응도 나왔습니다.</li>
+      <li>기기가 CA를 허술하게 심어 둔다는 지적과 함께, eMudhra 사건이 이런 기기를 뚫는 데 선물이 됐다는 댓글도 있었습니다.</li>
     </ul>
-    <p class="foot">pron.github.io · 관심사 상 · 프런트 상위 14.8%</p>
+    <p class="foot">scottjg.com · 관심사 최상 · 프런트 상위 5.5%</p>
   </div>
   <div class="side">
+    <div class="tiebox"><span class="lbl">til 연관</span><a href="../../2026/emudhra-weak-ca-keys/">CA 의 비밀 키가 &#x27;4&#x27; 였다</a> 이 글은 eMudhra 중간 인증서 8장의 개인키가 256 미만 정수였던 일을 다뤘습니다. 댓글에서 이 기기가 CA를 허술하게 심는다는 지적과 함께 eMudhra가 언급돼, 펌웨어에 박힌 인증서를 뚫는 경로로 이어집니다.</div>
+    <div class="liv"><img src="data:image/webp;base64,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" alt="리브" width="72" height="72"><p>지난달 프랑스 슈퍼마켓 수백 곳의 냉장 설비가 밤사이 원격으로 성에 제거 모드에 들어가 50도까지 올라갔다고 합니다. 클라우드에 매인 가전은 평소 하던 손질 하나로도 그렇게 뒤집힐 수 있어서, 집 안으로 끌어들인 이 공기청정기 쪽이 마음이 놓입니다.</p></div>
 
-    <button class="go" data-topic="2016년 &#x27;정확성과 복잡도&#x27; 글을 AI 형식 검증 시대에 다시 읽기" data-url="https://pron.github.io/posts/correctness-and-complexity" data-angle="원문의 핵심 논증(모델 검사의 복잡도, 상태 폭발 등)을 정리하고, 다익스트라 &#x27;수학 주식회사&#x27;와 AI 증명 719편 중 기계 검증 300편 글과 대조해 2016년의 주장이 AI 증명 공장 시대에도 그대로 통하는지 본다.">이 건으로 TIL 만들기</button>
+    <button class="go" data-topic="코웨이 공기청정기 클라우드 떼어 내기: 역공학 과정과 국내 모델 적용 가능성" data-url="https://scottjg.com/posts/2026-11-11-reverse-engineering-my-coway-air-purifier-to-ditch-the-cloud/" data-angle="원문을 읽어 펌웨어 추출, 통신 프로토콜 분석, 인증서 처리 방식을 단계별로 확인한다. 국내에서 파는 코웨이 모델에도 같은 방식이 통하는지, Home Assistant 연동 사례와 비교해 정리하고, 댓글이 말한 CA 문제가 eMudhra 키 유출과 실제로 어떻게 엮이는지 검증한다.">이 건으로 TIL 만들기</button>
     <div class="steer">
       <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
       <p class="hint">한 번 더 누르면 리브가 원문을 읽고 til 페이지까지 만듭니다.</p>
     </div>
-    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="올바른 소프트웨어가 어려운 이유와 수학만으로는 해결되지 않는 이유 (2016)" href="#">이건 왜 넣었나</a></p>
+    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="코웨이 공기청정기를 역공학해 클라우드에서 떼어 냈다" href="#">이건 왜 넣었나</a></p>
   </div>
 </div>
 
 <div class="item" id="i10">
   <div>
-    <h3><span class="rank">10</span><a href="https://news.ycombinator.com/item?id=50471761">22년 된 PostgreSQL 타입 혼동 버그를 원격 코드 실행으로 바꾼 과정</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h3>
-    <p class="orig">22-Year-Old PostgreSQL Bug Turned into Remote Code Execution</p>
-    <p class="lede">22년 묵은 PostgreSQL의 타입 혼동 프리미티브를 어떻게 원격 코드 실행(CVE-2026-6460)까지 끌고 갔는지, 6부작 중 3부에서 그 과정을 따라갑니다. 받은 재료에는 본문이 없어 공격 조건은 원문을 봐야 합니다.</p>
+    <h3><span class="rank">10</span><a href="https://news.ycombinator.com/item?id=50486748">AI로 괴델의 노트를 읽어 내자 증명된 정리 수백 개가 나왔다</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h3>
+    <p class="orig">AI unlocks Gödel&#x27;s notebooks, said to contain hundreds of proved theorems</p>
+    <p class="lede">쿠르트 괴델이 속기로 남긴 노트를 AI의 도움으로 읽어 냈고, 거기에 증명까지 끝난 정리가 수백 개 들어 있다는 보도입니다. 본문은 재료로 들어오지 않아 제목과 댓글을 바탕으로 정리합니다.</p>
     <ul>
-      <li>댓글에서는 제로데이에 이르기까지의 경로와 맥락을 공유해 줘서 고맙다는 반응과 DB 내부 구조를 잘 보여 준다는 호평이 나왔습니다.</li>
-      <li>실제로 악용할 수 있는지, 패치되지 않은 상태에서 공개한 것인지 묻는 걱정도 있었습니다. 그렇다면 영향 범위가 아주 넓다는 것입니다.</li>
+      <li>댓글에 따르면 AI는 괴델이 1920년 무렵 학교에서 배운 속기를 사람이 미리 옮겨 둔 자료로 학습했고, 그 속기는 당시 널리 쓰였으며 엄밀히는 사라진 문자가 아니라고 합니다.</li>
+      <li>괴델은 발표를 아주 적게 한 사람이라 Dialectica 해석도 첫 구상 뒤 약 20년 만에 나왔다는 점, 그리고 괴델 연구의 최고 권위자인 Jan von Plato가 결과에 들떠 있다면 큰일이라는 반응이 있었습니다.</li>
+      <li>괴델이 파고든 논리학 주제 14가지가 무엇인지 궁금하다는 반응과, 상장을 앞둔 시점이 공교롭다는 냉소도 함께 나왔습니다.</li>
     </ul>
-    <p class="foot">mehmetince.net · 관심사 상 · 프런트 상위 47.5%</p>
+    <p class="foot">theguardian.com · 관심사 최상 · 프런트 상위 18.2%</p>
   </div>
   <div class="side">
 
-    <button class="go" data-topic="CVE-2026-6460: PostgreSQL 타입 혼동에서 RCE까지" data-url="https://mehmetince.net/part-3-6-how-i-ended-up-turning-a-22-year-old-postgresql-type-confusion-primitive-into-rce-cve-2026-6460/" data-angle="CVE-2026-6460의 영향 버전, 패치 릴리스, 공격 전제(인증 필요 여부, 필요한 권한, 확장 모듈)를 PostgreSQL 보안 공지와 대조한다. 6부작 연재의 앞뒤 편에서 프리미티브 발견부터 RCE까지 단계를 정리하고, eMudhra 키 유출 글처럼 공개된 근거만으로 재현할 수 있는 범위를 가른다.">이 건으로 TIL 만들기</button>
+    <button class="go" data-topic="괴델의 속기 노트를 AI가 읽었다: 정리 수백 개는 누가 확인했나" data-url="https://www.theguardian.com/science/2026/nov/13/kurt-godel-notebooks-ai-helps-unlock-hidden-discoveries-man-who-transformed-maths" data-angle="가디언 원문에서 &#x27;수백 개의 증명된 정리&#x27;가 누가 어떤 기준으로 센 숫자인지, AI가 속기 판독에 한 일과 사람이 증명을 검토한 일을 나눠 확인한다. Jan von Plato 연구단의 기존 판독 성과(Springer 단행본)와 대조하고, 다익스트라·AI 증명 공장 글의 &#x27;검증과 이해&#x27; 구분에 맞춰 정리한다.">이 건으로 TIL 만들기</button>
     <div class="steer">
       <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
       <p class="hint">한 번 더 누르면 리브가 원문을 읽고 til 페이지까지 만듭니다.</p>
     </div>
-    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="22년 된 PostgreSQL 타입 혼동 버그를 원격 코드 실행으로 바꾼 과정" href="#">이건 왜 넣었나</a></p>
+    <p class="fb"><a class="feedback" data-verdict="뺐어야 한다" data-item="AI로 괴델의 노트를 읽어 내자 증명된 정리 수백 개가 나왔다" href="#">이건 왜 넣었나</a></p>
   </div>
 </div>
 
@@ -501,363 +506,343 @@
   <h2>훑고 넘긴 것</h2>
   <div class="grid">
 <article>
-  <h4><a href="https://news.hada.io/topic?id=37017">OpenMAIC - 주제나 문서를 AI 교사와 토론하는 수업으로 만드는 오픈소스 플랫폼</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h4>
-  <p>주제를 적거나 자료를 올리면 슬라이드, 퀴즈, 시뮬레이션, 프로젝트 기반 학습이 들어간 수업을 AI 교사가 만들어 주는 오픈소스 플랫폼입니다.</p>
-  <button class="go" data-topic="OpenMAIC로 기술 문서를 수업으로 바꿔 보기" data-url="https://github.com/THU-MAIC/OpenMAIC" data-angle="자료 하나를 넣어 생성된 수업의 정확도와 토론 품질을 NotebookLM과 비교한다.">TIL 만들기</button>
+  <h4><a href="https://news.hada.io/topic?id=37077">Google Antigravity에 Orchestrator 추가, 코딩 중 Carbon과 Hydrogen 자동 전환</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h4>
+  <p>Antigravity 모델 선택 메뉴에 Hydrogen과 Orchestrator가 추가돼, 한 코딩 세션 안에서 단계에 따라 Carbon과 Hydrogen을 자동으로 바꿔 씁니다. Hydrogen 발표와 같은 묶음입니다.</p>
+  <button class="go" data-topic="Antigravity Orchestrator는 언제 Carbon에서 Hydrogen으로 넘기나" data-url="https://antigravity.google/blog/gemini-4-hydrogen-in-google-antigravity/" data-angle="Orchestrator가 모델을 바꾸는 기준이 공개돼 있는지 확인하고, 수동으로 모델을 나눠 쓰는 경우와 할당량·시간을 비교한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="OpenMAIC - 주제나 문서를 AI 교사와 토론하는 수업으로 만드는 오픈소스 플랫폼" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Google Antigravity에 Orchestrator 추가, 코딩 중 Carbon과 Hydrogen 자동 전환" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.hada.io/topic?id=37008">우리는 왜 아직도 이렇게 열심히 일하는가?</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h4>
-  <p>미국의 시간당 생산량은 1973년의 2.5배가 됐는데 임금 구매력은 19% 오르는 데 그쳤고, 1인당 노동시간은 오히려 늘었다는 글입니다.</p>
-  <button class="go" data-topic="생산성과 임금의 괴리: 1973년 이후 통계 검증" data-url="https://wilsoniumite.com/2026/11/11/why-are-we-still-working-this-hard/" data-angle="인용한 통계의 출처를 확인하고 노동 이후의 자본주의 글의 논지와 대조한다.">TIL 만들기</button>
+  <h4><a href="https://news.hada.io/topic?id=37046">Apache HTTP Server의 치명적인 원격 코드 실행 취약점</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h4>
+  <p>Apache HTTP Server의 mod_http2에서 인증 없이 원격 코드 실행으로 이어질 수 있는 취약점(CVE-2026-119618)이 나왔습니다.</p>
+  <button class="go" data-topic="Apache mod_http2 RCE(CVE-2026-119618): 영향 범위와 대응" data-url="https://www.wiz.io/blog/cve-2026-119618-rce-apache-http-server-vulnerability" data-angle="영향 버전과 패치 버전, HTTP/2를 끄는 임시 조치의 효과를 확인하고 관리자님 서버 중 해당되는 것이 있는지 점검한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="우리는 왜 아직도 이렇게 열심히 일하는가?" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Apache HTTP Server의 치명적인 원격 코드 실행 취약점" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.hada.io/topic?id=36994">스마트 TV는 사용자를 어떻게 추적하나? 11개 업체에 던진 17가지 질문</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h4>
-  <p>The Verge가 TV와 스트리밍 기기 업체 11곳에 데이터 수집에 관한 질문 17개를 보냈는데, 답변에서도 수집 범위가 분명하지 않았다는 조사입니다.</p>
-  <button class="go" data-topic="스마트 TV 추적 끄기: 업체별 ACR 설정" data-url="https://www.theverge.com/tech/1012372/tv-privacy-acr-questions" data-angle="업체별 ACR(화면 인식) 끄는 방법을 표로 정리한다.">TIL 만들기</button>
+  <h4><a href="https://news.hada.io/topic?id=37038">마법의 시대에 Emacs는 어디로 가는가</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h4>
+  <p>AI에 원하는 작업을 말로 시키는 방식이 퍼지면서, Emacs가 내세우던 편집 속도와 맞춤화의 이점이 예전 같지 않다는 에세이입니다.</p>
+  <button class="go" data-topic="에이전트 시대에 Emacs 같은 편집기가 남기는 가치" data-url="https://commandlinesystems.com/magic.txt" data-angle="에세이의 주장과 gptel 등 Emacs의 AI 통합 현황을 대조해, 터미널 편집기가 에이전트 시대에 맡는 역할을 정리한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="스마트 TV는 사용자를 어떻게 추적하나? 11개 업체에 던진 17가지 질문" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="마법의 시대에 Emacs는 어디로 가는가" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.hada.io/topic?id=36975">Gleam을 써보자</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h4>
-  <p>BEAM과 JavaScript로 컴파일되는 정적 타입 함수형 언어 Gleam을 써 본 입문기입니다.</p>
-  <button class="go" data-topic="Go 사용자가 본 Gleam" data-url="https://nchagnet.eu/blog/you-should-try-gleam" data-angle="Go 개발자 기준으로 Gleam의 타입 시스템과 에러 처리를 비교한다.">TIL 만들기</button>
+  <h4><a href="https://news.hada.io/topic?id=37099">Show GN: ModelsThatRun - RTX 4090에서 잰 오픈 모델 속도, VRAM, 정확도, 라이선스</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h4>
+  <p>RTX 4090 한 장으로 오픈 모델을 직접 돌려 잰 속도, VRAM, 정확도, 라이선스를 모아 둔 개인 사이트입니다.</p>
+  <button class="go" data-topic="ModelsThatRun 수치를 RTX 4080에서 재현해 보기" data-url="topic?id=37099" data-angle="관리자님 4080 환경에서 같은 모델 몇 개를 재 보고 사이트 수치와 얼마나 맞는지 대조한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Gleam을 써보자" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Show GN: ModelsThatRun - RTX 4090에서 잰 오픈 모델 속도, VRAM, 정확도, 라이선스" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.hada.io/topic?id=37001">AWS가 마침내 자체 AWS 에뮬레이터를 만들었다</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h4>
-  <p>AWS 계정 없이 로컬과 CI에서 AWS API를 흉내 내는 공식 에뮬레이터입니다. 어제 브리핑에 실렸고 그 뒤로 달라진 것은 없습니다.</p>
-  <button class="go" data-topic="AWS 공식 에뮬레이터 vs LocalStack" data-url="https://github.com/aws/aws-emulator" data-angle="LocalStack과 지원 서비스 범위, 동작 충실도를 비교한다.">TIL 만들기</button>
+  <h4><a href="https://news.hada.io/topic?id=37089">Show GN: Dari - 앱과 웹뷰가 주고받는 브릿지 메시지를 요청·응답 짝으로 보여 주는 디버그 도구 (Android/iOS)</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h4>
+  <p>Android/iOS 앱과 웹뷰가 주고받는 브릿지 메시지를 요청·응답 짝으로 묶어 보여 주는 디버그 도구입니다.</p>
+  <button class="go" data-topic="웹뷰 브릿지 메시지 디버깅 도구 Dari 살펴보기" data-url="topic?id=37089" data-angle="기존 Chrome DevTools·Safari 웹 인스펙터로 브릿지를 보는 방법과 비교해 무엇이 새로운지 확인한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="AWS가 마침내 자체 AWS 에뮬레이터를 만들었다" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Show GN: Dari - 앱과 웹뷰가 주고받는 브릿지 메시지를 요청·응답 짝으로 보여 주는 디버그 도구 (Android/iOS)" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.hada.io/topic?id=36982">Apple, 여러 Mac을 묶어 로컬 AI 모델을 실행하는 ‘Harbor’ 준비 중</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h4>
-  <p>Apple이 Mac 여러 대를 묶어 로컬 AI 추론 서버로 쓰는 앱 Harbor를 준비 중이라는 소식인데, 아직 루머 단계입니다.</p>
-  <button class="go" data-topic="Apple Harbor 루머와 Mac 클러스터 추론의 현재" data-url="https://9to5mac.com/2026/11/10/apple-has-new-mac-app-coming-to-make-running-local-ai-models-easy/" data-angle="exo 같은 기존 Mac 클러스터 추론 도구와 구조를 비교한다.">TIL 만들기</button>
+  <h4><a href="https://news.hada.io/topic?id=37088">자애로운 수출 통제 기계</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h4>
+  <p>아모데이의 &#x27;Machines of Loving Grace&#x27;를 비튼 제목으로, AI 안전론자들의 수출 통제 찬성을 비판하는 에세이입니다.</p>
+  <button class="go" data-topic="AI 수출 통제 찬반 논쟁 정리" data-url="https://mercuriusdream.com/loving-controls/" data-angle="에세이의 논지를 실제 수출 통제 정책 변화와 Anthropic의 공개 입장과 대조한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Apple, 여러 Mac을 묶어 로컬 AI 모델을 실행하는 ‘Harbor’ 준비 중" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="자애로운 수출 통제 기계" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.hada.io/topic?id=37022">Show GN: 쌤컷 - 설치 없이 브라우저에서 돌아가는 무료 영상 편집기 (MCP로 Claude·ChatGPT가 편집 가능)</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h4>
-  <p>설치 없이 브라우저에서 도는 무료 영상 편집기로, MCP를 통해 Claude나 ChatGPT가 편집할 수 있다고 소개합니다.</p>
-  <button class="go" data-topic="MCP로 조작하는 웹 영상 편집기 점검" data-url="topic?id=37022" data-angle="MCP로 노출한 편집 명령의 범위와 로컬 처리 주장을 확인한다.">TIL 만들기</button>
+  <h4><a href="https://news.hada.io/topic?id=37105">비개발자가 AI에게 일을 맡기며 여기서 물어본 세 가지, 받은 답을 정리했습니다</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h4>
+  <p>영업직 비개발자가 GeekNews Ask에 올린 AI 업무 위임 질문 세 개와 받은 답을 정리한 글입니다.</p>
+  <button class="go" data-topic="비개발자가 AI에 일을 맡길 때 막히는 세 가지" data-url="https://brunch.co.kr/@17a5cc92f24e4d6/454" data-angle="비개발자가 AI에 일을 맡길 때 막히는 지점을 원문 질문과 답에서 추려 정리한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Show GN: 쌤컷 - 설치 없이 브라우저에서 돌아가는 무료 영상 편집기 (MCP로 Claude·ChatGPT가 편집 가능)" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="비개발자가 AI에게 일을 맡기며 여기서 물어본 세 가지, 받은 답을 정리했습니다" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.hada.io/topic?id=37043">Show GN: 중고모아 - 당근·번개장터·중고나라·헬로마켓 매물을 한 번에 검색하고 모델별 시세를 보는 중고 통합검색</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h4>
-  <p>당근, 번개장터, 중고나라, 헬로마켓 매물을 한 번에 검색하고 모델별 시세를 보여 주는 서비스 홍보 글입니다.</p>
-  <button class="go" data-topic="중고 통합검색 서비스의 수집 방식" data-url="topic?id=37043" data-angle="각 플랫폼 수집 방식과 약관 문제를 확인한다.">TIL 만들기</button>
+  <h4><a href="https://news.hada.io/topic?id=37054">Anthropic, IPO 희망가 70~78달러 공개… 11월 19일 나스닥 거래 예상</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h4>
+  <p>Anthropic이 Class A 보통주 8억 2,500만 주를 주당 70-78달러에 공모하며 11월 19일 나스닥 거래를 예상합니다. 11-13 브리핑 이후 달라진 것은 없습니다.</p>
+  <button class="go" data-topic="Anthropic 상장 첫날 결과 정리" data-url="https://ipo.anthropic.com/us/" data-angle="19일 상장 당일 확정 공모가와 첫 거래 결과가 나오면 희망가와 대조한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Show GN: 중고모아 - 당근·번개장터·중고나라·헬로마켓 매물을 한 번에 검색하고 모델별 시세를 보는 중고 통합검색" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Anthropic, IPO 희망가 70~78달러 공개… 11월 19일 나스닥 거래 예상" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.hada.io/topic?id=37023">Ask GN: 노출은 있는데 클릭이 거의 없는 페이지, 제목과 설명 중 무엇부터 고치시나요?</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h4>
-  <p>노출은 많은데 클릭이 거의 없는 정적 사이트 페이지에서 제목과 설명 중 무엇부터 고칠지 묻는 질문 글입니다.</p>
-  <button class="go" data-topic="서치 콘솔 CTR 개선: 제목과 설명 중 무엇부터" data-url="topic?id=37023" data-angle="til 사이트의 서치 콘솔 데이터로 같은 질문을 확인해 본다.">TIL 만들기</button>
+  <h4><a href="https://news.ycombinator.com/item?id=50482379">1960년 논문이 예측한 종말일, 2026년 11월 13일 금요일</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>인구 증가 추세로 인류가 무한대에 이르는 날을 2026년 11월 13일로 계산한 1960년 Science 논문이 그날을 맞아 다시 올라왔습니다.</p>
+  <button class="go" data-topic="1960년 &#x27;종말일&#x27; 논문은 어디서 틀렸나" data-url="https://www.science.org/doi/10.1126/science.132.3436.1291" data-angle="von Foerster 논문의 모델과 실제 인구 추이를 겹쳐 어디서부터 어긋났는지 확인한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Ask GN: 노출은 있는데 클릭이 거의 없는 페이지, 제목과 설명 중 무엇부터 고치시나요?" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="1960년 논문이 예측한 종말일, 2026년 11월 13일 금요일" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.hada.io/topic?id=37079">Show GN: kr-career-skill - 채용 사이트 270 여곳의 공고 검색과 기업분석 및 자소서 초안 작성을 하는 한국 취...</a><svg class="srcmark" role="img" aria-label="GeekNews"><title>GeekNews</title><use href="#src-gn"/></svg></h4>
-  <p>채용 사이트 270여 곳에서 공고를 찾고 기업 분석과 자기소개서 초안까지 써 주는 한국 취업용 에이전트 스킬 홍보 글입니다.</p>
-  <button class="go" data-topic="kr-career-skill 구조 뜯어보기" data-url="topic?id=37079" data-angle="스킬 구조와 수집 범위를 Matt Pocock 스킬 구성과 비교한다.">TIL 만들기</button>
+  <h4><a href="https://news.ycombinator.com/item?id=50487864">캘리포니아에서 텍사스로 가던 Nvidia 장비 1,140만 달러어치가 사라졌다</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>운송 중 Nvidia 하드웨어 1,140만 달러어치가 분실된 화물 사건 기사입니다.</p>
+  <button class="go" data-topic="GPU 화물 도난은 늘고 있나" data-url="https://www.freightwaves.com/news/11-4-million-in-nvidia-hardware-vanishes-during-shipment-from-california-to-texas" data-angle="화물 절도 수법과 GPU 장비 도난 사례가 늘었는지 운송 업계 통계로 확인한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Show GN: kr-career-skill - 채용 사이트 270 여곳의 공고 검색과 기업분석 및 자소서 초안 작성을 하는 한국 취..." href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="캘리포니아에서 텍사스로 가던 Nvidia 장비 1,140만 달러어치가 사라졌다" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.ycombinator.com/item?id=50471431">Gemini 4 Hydrogen 발표</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
-  <p>Google이 Gemini 4 Hydrogen을 발표했습니다. 같은 날 Anthropic 소식과 Gemini Decisions API가 이미 들어가 있어 이쪽은 넘겼습니다.</p>
-  <button class="go" data-topic="Gemini 4 Hydrogen: Carbon과의 차이" data-url="https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/" data-angle="Gemini 4 Carbon과 비교해 무엇이 달라졌는지 벤치마크와 가격으로 정리한다.">TIL 만들기</button>
+  <h4><a href="https://news.ycombinator.com/item?id=50487522">학생이 iPad에서 PowerPoint 하나를 열려면 16번을 눌러야 한다</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>교육용 iPad 환경에서 파일 하나를 열기까지의 과정을 세어 본 불만 글입니다.</p>
+  <button class="go" data-topic="교육용 iPad에서 파일 열기가 16단계가 되는 이유" data-url="https://www.reddit.com/r/Teachers/comments/1xuup7a/technology_sucks_it_literally_takes_16_clicks_for/" data-angle="관리형 iPad와 Microsoft 365 로그인 흐름에서 단계가 늘어나는 원인을 짚는다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Gemini 4 Hydrogen 발표" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="학생이 iPad에서 PowerPoint 하나를 열려면 16번을 눌러야 한다" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.ycombinator.com/item?id=50471731">Microsoft 365 서비스 장애</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
-  <p>Microsoft 365에 전 세계적으로 장애가 났다는 상태 페이지 소식입니다.</p>
-  <button class="go" data-topic="Microsoft 365 장애 사후 분석" data-url="https://status.cloud.microsoft/" data-angle="사후 보고서가 나오면 원인과 영향 범위를 정리한다.">TIL 만들기</button>
+  <h4><a href="https://news.ycombinator.com/item?id=50487185">JEPA 월드 모델을 600번 실험해 알게 된 것</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>JEPA 계열 월드 모델로 600번 실험하며 얻은 관찰을 정리한 글입니다.</p>
+  <button class="go" data-topic="JEPA 월드 모델 600번 실험에서 남는 것" data-url="https://haddyalchaer.com/jepa" data-angle="실험 설정과 결론을 LeCun 쪽 공개 결과와 대조해 재현할 만한 지점을 고른다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Microsoft 365 서비스 장애" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="JEPA 월드 모델을 600번 실험해 알게 된 것" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.ycombinator.com/item?id=50425017">부팅 콘솔에 systemd 작업을 실시간 트리로 보여 주기</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
-  <p>부팅 중 systemd 작업들을 콘솔에 실시간 트리로 그려 주는 프로젝트입니다.</p>
-  <button class="go" data-topic="systemd 부팅 작업 트리 시각화" data-url="https://codeberg.org/wvhulle/bootvine" data-angle="systemd-analyze와 비교해 부팅 지연 진단에 얼마나 도움이 되는지 본다.">TIL 만들기</button>
+  <h4><a href="https://news.ycombinator.com/item?id=50489083">빅테크는 우리를 실망시키려고 있다</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>빅테크가 사용자 기대를 저버리는 구조를 비판하는 에세이입니다.</p>
+  <button class="go" data-topic="빅테크 실망론 에세이 읽기" data-url="https://blog.jsweeting.me/big-tech-is-here-to-let-us-down" data-angle="글의 사례를 최근 서비스 종료·가격 인상 사례와 대조한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="부팅 콘솔에 systemd 작업을 실시간 트리로 보여 주기" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="빅테크는 우리를 실망시키려고 있다" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.ycombinator.com/item?id=50472038">Rust 1.100 릴리스</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
-  <p>Rust 1.100 릴리스 공지입니다. 받은 재료만으로는 핵심 변화가 무엇인지 알 수 없습니다.</p>
-  <button class="go" data-topic="Rust 1.100에서 바뀐 것" data-url="https://blog.rust-lang.org/2026/11/12/Rust-1.100.0/" data-angle="릴리스 노트에서 안정화된 기능과 에디션 관련 변화를 추린다.">TIL 만들기</button>
+  <h4><a href="https://news.ycombinator.com/item?id=50484235">Haskell 생태계를 위한 기술 비전</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>Haskell 생태계의 도구와 방향을 정리한 커뮤니티 비전 문서입니다.</p>
+  <button class="go" data-topic="Haskell 생태계 기술 비전 문서 정리" data-url="https://discourse.haskell.org/t/a-technical-vision-for-the-haskell-ecosystem/15078" data-angle="빌드 도구·패키지 관리 개선 계획을 Rust·Go 생태계와 비교한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Rust 1.100 릴리스" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Haskell 생태계를 위한 기술 비전" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.ycombinator.com/item?id=50470488">구독을 요구하는 300달러짜리 자수기를 위해 앱을 직접 만들었다</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
-  <p>구독을 요구하는 자수기용으로 직접 앱을 만든 Show HN입니다.</p>
-  <button class="go" data-topic="구독형 하드웨어 우회 앱 사례" data-url="https://github.com/simpsoka/zigzag" data-angle="어떤 프로토콜을 역공학했는지와 법적 쟁점을 확인한다.">TIL 만들기</button>
+  <h4><a href="https://news.ycombinator.com/item?id=50488325">FM-1 Workbench, FM 신스 편집 도구</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>m-vave의 FM 신스 하드웨어용 웹 편집 도구입니다.</p>
+  <button class="go" data-topic="FM-1 Workbench와 Web MIDI 기기 편집" data-url="https://open.m-vave.com/fm1-workbench" data-angle="브라우저 Web MIDI로 하드웨어를 다루는 방식을 확인하고 매크로패드 작업과 겹치는 점을 찾는다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="구독을 요구하는 300달러짜리 자수기를 위해 앱을 직접 만들었다" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="FM-1 Workbench, FM 신스 편집 도구" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.ycombinator.com/item?id=50468888">작고 오래된 기기에서 LLM 돌리기</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
-  <p>작고 오래된 기기에서 LLM을 돌리려는 개인 프로젝트입니다.</p>
-  <button class="go" data-topic="구형 기기에서 LLM 돌리기 실측" data-url="https://github.com/hyperionaidev/smolmaxxing/" data-angle="지원 기기와 토큰 속도를 llama.cpp와 비교한다.">TIL 만들기</button>
+  <h4><a href="https://news.ycombinator.com/item?id=50487228">Isometric SF, 샌프란시스코 베이 지역 픽셀아트 지도</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>구글 사진 데이터로 베이 지역 1,300제곱마일을 아이소메트릭 픽셀아트 지도로 만든 Show HN입니다.</p>
+  <button class="go" data-topic="Isometric SF는 지도를 어떻게 픽셀아트로 바꿨나" data-url="https://isometricsf.com/" data-angle="제작기에서 이미지 생성 파이프라인과 타일 서빙 방식을 확인한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="작고 오래된 기기에서 LLM 돌리기" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Isometric SF, 샌프란시스코 베이 지역 픽셀아트 지도" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.ycombinator.com/item?id=50472260">Gemini 4 Hydrogen과 Orchestrator</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
-  <p>Antigravity 쪽에서 낸 Gemini 4 Hydrogen과 Orchestrator 발표로, 위 Hydrogen 발표와 같은 소식입니다.</p>
-  <button class="go" data-topic="Antigravity Orchestrator 구조" data-url="https://antigravity.google/blog/gemini-4-hydrogen-in-google-antigravity/" data-angle="Orchestrator가 다중 에이전트를 어떻게 조율하는지 확인한다.">TIL 만들기</button>
+  <h4><a href="https://news.ycombinator.com/item?id=50487762">가중치 공간의 잘못 접힘</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>가중치 공간에서 일어나는 &#x27;접힘&#x27; 현상을 다룬 논문입니다.</p>
+  <button class="go" data-topic="Weight Space Misfolding 논문 읽기" data-url="https://www.alphaxiv.org/abs/2611.weight-space-misfolding" data-angle="초록과 실험을 읽고 해석 가능성 연구(Goodfire 뉴런 가설)와 이어지는지 확인한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Gemini 4 Hydrogen과 Orchestrator" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="가중치 공간의 잘못 접힘" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.ycombinator.com/item?id=50467618">중단된 Quake 4 확장팩, 모더들이 완성해 공개</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
-  <p>개발이 중단됐던 Quake 4 확장팩을 모더들이 완성해 플레이할 수 있게 됐다는 소식입니다.</p>
-  <button class="go" data-topic="Quake 4 미완성 확장팩 복원기" data-url="https://www.moddb.com/mods/openq4/downloads/openq4-0141-windows-x64" data-angle="원 개발 자료가 어떻게 남아 있었는지 경위를 확인한다.">TIL 만들기</button>
+  <h4><a href="https://news.ycombinator.com/item?id=50489652">미국 전 공항이 지상 정지 상태</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>FAA 전국 지상 정지를 알린 트윗입니다. 본문의 같은 사건과 겹칩니다.</p>
+  <button class="go" data-topic="미국 전국 지상 정지 타임라인" data-url="https://twitter.com/flightradar24/status/2121347654714077605" data-angle="FAA 지상 정지 항목과 함께 시간순으로 정리한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="중단된 Quake 4 확장팩, 모더들이 완성해 공개" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="미국 전 공항이 지상 정지 상태" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.ycombinator.com/item?id=50467460">AMD Mike Clark와 나눈 Zen 6 이야기</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
-  <p>Chips and Cheese가 AMD의 Mike Clark와 Zen 6 아키텍처를 두고 나눈 인터뷰입니다.</p>
-  <button class="go" data-topic="Zen 6 아키텍처 변화 요약" data-url="https://chipsandcheese.com/p/talking-zen-6-with-mike-clark-at" data-angle="Zen 5 대비 바뀐 프런트엔드와 캐시 구조를 추린다.">TIL 만들기</button>
+  <h4><a href="https://news.ycombinator.com/item?id=50484007">Lonewolf 0.3, Rust로 만든 단독 XMPP 서버</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>Rust로 작성한 단독 실행형 XMPP 서버의 새 릴리스입니다.</p>
+  <button class="go" data-topic="Rust XMPP 서버 Lonewolf는 Prosody를 대체할 수 있나" data-url="https://github.com/lonewolf-im/lonewolf/releases/tag/v0.3.0" data-angle="Prosody·ejabberd와 기능·자원 사용량을 비교한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="AMD Mike Clark와 나눈 Zen 6 이야기" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Lonewolf 0.3, Rust로 만든 단독 XMPP 서버" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.ycombinator.com/item?id=50472490">공전 주기 약 280년의 왜행성 후보 발견</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
-  <p>태양을 한 바퀴 도는 데 약 280년이 걸리는 왜행성 후보가 발견됐다는 소식입니다.</p>
-  <button class="go" data-topic="새 왜행성 후보 관측 경위" data-url="https://www.smithsonianmag.com/smart-news/astronomers-found-a-mysterious-object-orbiting-far-beyond-pluto-it-could-be-a-new-dwarf-planet-hidden-in-our-solar-system-180989857/" data-angle="관측 방법과 확정까지 남은 절차를 확인한다.">TIL 만들기</button>
+  <h4><a href="https://news.ycombinator.com/item?id=50484650">미네소타 기타리스트의 발명품 &#x27;palmfrets&#x27;</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>손바닥으로 프렛을 짚는 기타 보조 장치를 만든 지역 기사입니다.</p>
+  <button class="go" data-topic="palmfrets 기타 보조 장치" data-url="https://www.echopress.com/business/minnesota-guitarists-invention-strikes-a-new-chord" data-angle="장치의 원리와 기존 연주 보조 기구와의 차이를 확인한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="공전 주기 약 280년의 왜행성 후보 발견" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="미네소타 기타리스트의 발명품 &#x27;palmfrets&#x27;" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.ycombinator.com/item?id=50473231">데이터센터 전력 비용을 저소득·농촌 주민이 떠안는다</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
-  <p>데이터센터 전력 수요의 비용이 저소득층과 농촌 주민의 요금으로 넘어간다는 코넬대 연구 소개입니다.</p>
-  <button class="go" data-topic="데이터센터 전력비 전가 연구 검증" data-url="https://news.cornell.edu/stories/2026/11/data-centers-need-power-lower-income-rural-residents-pay-price" data-angle="연구의 요금 전가 추정 방식과 지역별 수치를 확인한다.">TIL 만들기</button>
+  <h4><a href="https://news.ycombinator.com/item?id=50487688">Microsoft 장애로 고객들이 체감한 의존의 무게</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>Microsoft 장애를 계기로 한 회사에 묶인 위험을 짚은 기사입니다.</p>
+  <button class="go" data-topic="Microsoft 장애가 드러낸 단일 공급자 의존" data-url="https://www.theregister.com/saas/2026/11/13/microsoft-outage-gives-customers-a-crash-course-in-dependence-on-redmond/5309805" data-angle="장애 원인과 영향 범위를 공식 사후 보고와 대조한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="데이터센터 전력 비용을 저소득·농촌 주민이 떠안는다" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Microsoft 장애로 고객들이 체감한 의존의 무게" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.ycombinator.com/item?id=50467297">Jane Street 소프트웨어 엔지니어 면접이 조금 바뀐다</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
-  <p>Jane Street가 소프트웨어 엔지니어 면접 방식을 조금 바꾼다는 공지입니다.</p>
-  <button class="go" data-topic="Jane Street 면접 변화와 AI 도구" data-url="https://blog.janestreet.com/software-engineering-interviews-are-changing-a-little/" data-angle="AI 도구 사용 허용 여부와 바뀐 평가 기준을 확인한다.">TIL 만들기</button>
+  <h4><a href="https://news.ycombinator.com/item?id=50489678">FAA, &#x27;특별한 상황&#x27;으로 전국 지상 정지 발령</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>같은 FAA 지상 정지를 다룬 Axios 기사입니다.</p>
+  <button class="go" data-topic="FAA 전국 지상 정지 보도 비교" data-url="https://www.axios.com/2026/11/13/faa-nationwide-ground-stop" data-angle="FAA 지상 정지 항목과 함께 매체별 보도를 대조한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Jane Street 소프트웨어 엔지니어 면접이 조금 바뀐다" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="FAA, &#x27;특별한 상황&#x27;으로 전국 지상 정지 발령" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.ycombinator.com/item?id=50468944">ExcalidrawZ: macOS·iOS용 로컬 네이티브 Excalidraw</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
-  <p>Excalidraw를 macOS와 iOS에서 로컬 네이티브 앱으로 쓰게 해 주는 프로젝트입니다.</p>
-  <button class="go" data-topic="ExcalidrawZ 로컬 저장 방식" data-url="https://github.com/chocoford/ExcalidrawZ" data-angle="파일 저장 방식과 웹판과의 호환성을 확인한다.">TIL 만들기</button>
+  <h4><a href="https://news.ycombinator.com/item?id=50488464">Perplexity Decider v1.3의 학습, 평가, 활용 사례</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>Perplexity가 Decider 모델의 학습과 평가 결과를 공개했습니다.</p>
+  <button class="go" data-topic="Perplexity Decider v1.3 평가 읽기" data-url="https://www.perplexity.ai/hub/blog/perplexity-decider" data-angle="평가 방식과 수치를 외부 벤치마크와 대조한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="ExcalidrawZ: macOS·iOS용 로컬 네이티브 Excalidraw" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Perplexity Decider v1.3의 학습, 평가, 활용 사례" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.ycombinator.com/item?id=50458849">Relax: 빌드 시간을 줄이는 Rust용 JIT 컴파일러</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
-  <p>Makepad 쪽에서 낸, 빌드 시간을 줄이려는 Rust용 JIT 컴파일러입니다.</p>
-  <button class="go" data-topic="Rust JIT Relax의 빌드 시간 실측" data-url="https://makepad.github.io/relax/" data-angle="cranelift 백엔드, 증분 빌드와 시간을 비교한다.">TIL 만들기</button>
+  <h4><a href="https://news.ycombinator.com/item?id=50490593">KORS 공항 전 주파수 무전 생중계, 캐나다 빅토리아도 지상 정지</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>지상 정지 중 항공 무전을 생중계한 사이트입니다.</p>
+  <button class="go" data-topic="지상 정지 당일 항공 무전 기록" data-url="https://orcasairband.com/" data-angle="지상 정지 범위가 캐나다까지 이어졌는지 확인한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Relax: 빌드 시간을 줄이는 Rust용 JIT 컴파일러" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="KORS 공항 전 주파수 무전 생중계, 캐나다 빅토리아도 지상 정지" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.ycombinator.com/item?id=50474361">Apple Foundation Models 프레임워크</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
-  <p>Apple Foundation Models 프레임워크 문서 링크로, 새 소식이 있는지는 분명하지 않습니다.</p>
-  <button class="go" data-topic="Apple Foundation Models 문서 변경점" data-url="https://developer.apple.com/foundation-models-framework/" data-angle="최근 문서 변경 이력에서 새로 추가된 API를 찾는다.">TIL 만들기</button>
+  <h4><a href="https://news.ycombinator.com/item?id=50488470">염증 없이 노화를 이끄는 단백질을 찾았다</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>염증 반응 없이 노화를 진행시키는 단백질을 찾은 Nature 연구입니다.</p>
+  <button class="go" data-topic="염증 없는 노화 단백질 연구 읽기" data-url="https://www.nature.com/articles/d41586-026-03638-3" data-angle="연구 대상과 결과의 범위를 원 논문에서 확인한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Apple Foundation Models 프레임워크" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="염증 없이 노화를 이끄는 단백질을 찾았다" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.ycombinator.com/item?id=50474883">중국 프런티어 AI 모델에 남은 수출통제 GPU의 흔적</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
-  <p>중국 AI 모델에서 수출통제 대상 GPU로 학습한 흔적이 보인다는 주장이지만 출처의 신뢰도가 낮습니다.</p>
-  <button class="go" data-topic="중국 모델의 GPU 지문 주장 검증" data-url="https://unemploymentlabs.com/checkpoint-forensics" data-angle="주장한 지문이 무엇인지와 재현 가능성을 확인한다.">TIL 만들기</button>
+  <h4><a href="https://news.ycombinator.com/item?id=50486258">Apify 보안 사고 공지</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>웹 스크래핑 플랫폼 Apify의 보안 사고 공지입니다.</p>
+  <button class="go" data-topic="Apify 보안 사고 정리" data-url="https://status.apify.com/incidents/sxd1dj5j6749" data-angle="후속 사후 보고가 나오면 유출 범위를 확인한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="중국 프런티어 AI 모델에 남은 수출통제 GPU의 흔적" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Apify 보안 사고 공지" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.ycombinator.com/item?id=50471650">AgentRun: 스스로 개선하는 오픈소스 관리형 에이전트</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
-  <p>YC 스타트업이 AgentRun을 오픈소스로 풀고 관리형 에이전트 플랫폼으로 키운다는 홍보 글입니다.</p>
-  <button class="go" data-topic="AgentRun의 자기 개선 구조" data-url="https://github.com/Parcha-ai/agentrun/blob/main/README.md" data-angle="&#x27;스스로 개선&#x27;이 실제로 무엇을 저장하고 바꾸는지 확인한다.">TIL 만들기</button>
+  <h4><a href="https://news.ycombinator.com/item?id=50483959">CERN은 LHC 차세대 자석을 어떻게 만들었나</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>LHC 고휘도 업그레이드용 초전도 자석 제작기입니다.</p>
+  <button class="go" data-topic="LHC 차세대 초전도 자석 제작기" data-url="https://spectrum.ieee.org/large-hadron-collider-superconducting-magnets" data-angle="Nb3Sn 자석의 제작 난점과 일정을 정리한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="AgentRun: 스스로 개선하는 오픈소스 관리형 에이전트" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="CERN은 LHC 차세대 자석을 어떻게 만들었나" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.ycombinator.com/item?id=50474311">AI 때문에 신스 개발자의 Apple 앱 심사가 악몽이 됐다</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
-  <p>AI가 들어간 Apple 앱 심사 때문에 신디사이저 앱 개발자들이 반려를 겪는다는 사례입니다.</p>
-  <button class="go" data-topic="Apple 앱 심사 AI 도입 사례" data-url="https://synthanatomy.com/2026/11/ai-is-turning-apples-app-review-process-into-a-nightmare-for-developers.html" data-angle="반려 사유와 Apple의 공식 입장을 대조한다.">TIL 만들기</button>
+  <h4><a href="https://news.ycombinator.com/item?id=50487605">Android 클립보드 읽기 보호를 우회하는 법</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>Android 클립보드 읽기 제한을 우회한 보안 연구입니다.</p>
+  <button class="go" data-topic="Android 클립보드 보호 우회 분석" data-url="https://toninoble.com/post/ctrlc-ctrlv-ctrlcve" data-angle="영향 버전과 패치 여부를 확인한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="AI 때문에 신스 개발자의 Apple 앱 심사가 악몽이 됐다" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Android 클립보드 읽기 보호를 우회하는 법" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.ycombinator.com/item?id=50459508">중세 인골의 방사성 탄소 연대 측정에 대한 경고</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
-  <p>중세 인골을 방사성 탄소로 연대 측정할 때 생기는 오차를 경고하는 Nature 글입니다.</p>
-  <button class="go" data-topic="방사성 탄소 연대의 식단 오차" data-url="https://www.nature.com/articles/s40494-026-02958-x" data-angle="식단(해양 저장 효과)이 연대를 얼마나 어긋나게 하는지 정리한다.">TIL 만들기</button>
+  <h4><a href="https://news.ycombinator.com/item?id=50491097">Claude Meetings 발표</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>Anthropic이 Claude의 회의 관련 신규 기능을 발표했습니다. 재료에는 세부 내용이 없습니다.</p>
+  <button class="go" data-topic="Claude Meetings는 무엇을 하나" data-url="https://claude.com/resources/articles/claude-meetings" data-angle="공식 문서에서 기능 범위와 요금제를 확인한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="중세 인골의 방사성 탄소 연대 측정에 대한 경고" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Claude Meetings 발표" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.ycombinator.com/item?id=50466410">CPython을 Yk에 맞추기</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
-  <p>메타 트레이싱 JIT인 Yk를 CPython에 붙이려고 고친 과정을 다룬 글입니다.</p>
-  <button class="go" data-topic="Yk로 CPython에 JIT 붙이기" data-url="https://tratt.net/laurie/blog/2026/adapting_cpython_for_yk.html" data-angle="PyPy와 비교한 성능 수치가 있는지 확인한다.">TIL 만들기</button>
+  <h4><a href="https://news.ycombinator.com/item?id=50488835">FreeBSD와 bhyve에 라이브 마이그레이션 지원 예정</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>FreeBSD bhyve 하이퍼바이저에 라이브 마이그레이션이 들어온다는 예고입니다.</p>
+  <button class="go" data-topic="bhyve 라이브 마이그레이션 예고 정리" data-url="https://gyptazy.com/blog/freebsd-bhyve-live-migration-support-rfc/" data-angle="구현 방식과 KVM 쪽 기능과의 차이를 확인한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="CPython을 Yk에 맞추기" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="FreeBSD와 bhyve에 라이브 마이그레이션 지원 예정" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.ycombinator.com/item?id=50471281">Kapso: 기업 데이터에서 반복 학습하기</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
-  <p>기업 데이터로 AI 시스템을 반복 학습시키는 제품 Kapso를 소개하는 Show HN입니다.</p>
-  <button class="go" data-topic="Kapso의 반복 학습 방식" data-url="https://news.ycombinator.com/item?id=50471281" data-angle="학습 루프가 파인튜닝인지 검색 개선인지 확인한다.">TIL 만들기</button>
+  <h4><a href="https://news.ycombinator.com/item?id=50486521">셸 명령을 동시 실행 큐로 돌리기</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>셸 명령을 큐에 넣어 동시에 돌리는 방법을 다룬 글입니다.</p>
+  <button class="go" data-topic="셸 명령 동시 실행 큐 비교" data-url="https://emmer.dev/blog/concurrent-shell-command-queues/" data-angle="pueue·GNU parallel과 비교해 관리자님 작업에 맞는 방식을 고른다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Kapso: 기업 데이터에서 반복 학습하기" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="셸 명령을 동시 실행 큐로 돌리기" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.ycombinator.com/item?id=50472505">분산 레이 트레이서</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
-  <p>Hatchet의 durable stream과 서버리스 엔드포인트를 보여 주려고 만든 분산 레이 트레이서 데모입니다.</p>
-  <button class="go" data-topic="Hatchet 분산 레이 트레이서 구조" data-url="https://ray.hatchet.run" data-angle="작업 분배와 재시도 처리 방식을 본다.">TIL 만들기</button>
+  <h4><a href="https://news.ycombinator.com/item?id=50491423">셀 하나를 쓰지 않는 터미널 테두리</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>터미널 UI에서 테두리에 문자 셀을 쓰지 않고 그리는 기법입니다.</p>
+  <button class="go" data-topic="셀을 쓰지 않는 터미널 테두리 기법" data-url="https://www.joshka.net/cell-borders/" data-angle="어떤 터미널에서 동작하는지 확인하고 herdr 화면에 적용할 수 있는지 본다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="분산 레이 트레이서" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="셀 하나를 쓰지 않는 터미널 테두리" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.ycombinator.com/item?id=50439283">집에서 하는 조류 실험의 안전 수칙</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
-  <p>집에서 조류(algae)를 키우는 실험을 할 때 지킬 안전 수칙을 정리한 글입니다.</p>
-  <button class="go" data-topic="가정용 조류 실험 안전" data-url="https://chillphysicsenjoyer.substack.com/p/algae-safety-in-home-experiments" data-angle="독소를 내는 종을 구별하는 방법을 확인한다.">TIL 만들기</button>
+  <h4><a href="https://news.ycombinator.com/item?id=50491209">미국 기상청, 전국 인터넷·통신 장애 보고</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>FAA 지상 정지와 같은 날 미국 기상청이 전국 통신 장애를 알렸습니다.</p>
+  <button class="go" data-topic="기상청 통신 장애와 FAA 지상 정지의 관계" data-url="https://www.reuters.com/technology/us-national-weather-service-reports-nationwide-internet-communications-issues-2026-11-13/" data-angle="FAA 사건과 원인이 이어지는지 확인한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="집에서 하는 조류 실험의 안전 수칙" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="미국 기상청, 전국 인터넷·통신 장애 보고" href="#">이건 왜 뺐나</a></p>
 </article>
 
 <article>
-  <h4><a href="https://news.ycombinator.com/item?id=50475735">AI 붕괴를 예상해야 하는 이유</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
-  <p>AI 거품이 꺼질 것이라는 Economist 글인데 유료벽이 있고 반응도 적습니다.</p>
-  <button class="go" data-topic="AI 붕괴 전망의 논거 점검" data-url="https://www.economist.com/leaders/2026/11/12/why-you-should-expect-an-ai-crash" data-angle="젠슨 황 사임, Anthropic IPO와 같은 날 나온 전망이라 논거를 대조한다.">TIL 만들기</button>
+  <h4><a href="https://news.ycombinator.com/item?id=50489589">Autonomous(YC F25), 자산 관리 AI 에이전트 개발자 채용</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
+  <p>자산을 관리하는 AI 에이전트를 만드는 스타트업의 채용 공고입니다.</p>
+  <button class="go" data-topic="자산 관리 AI 에이전트 스타트업 살펴보기" data-url="https://atg.science/careers" data-angle="관심이 있으면 회사의 제품 구조만 짧게 확인한다.">TIL 만들기</button>
   <div class="steer">
     <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
   </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="AI 붕괴를 예상해야 하는 이유" href="#">이건 왜 뺐나</a></p>
-</article>
-
-<article>
-  <h4><a href="https://news.ycombinator.com/item?id=50437505">컴파일러 너머: IBM i에서 수정한 네이티브 코드 실행하기</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
-  <p>IBM i에서 수정한 네이티브 코드를 실행하게 만든 보안 연구입니다.</p>
-  <button class="go" data-topic="IBM i 네이티브 코드 실행 연구" data-url="https://blog.silentsignal.eu/2026/11/10/Beyond-the-compiler-Making-IBM-i-run-modified-native-code-PVV/" data-angle="IBM i의 무결성 보호가 어디서 뚫렸는지 요약한다.">TIL 만들기</button>
-  <div class="steer">
-    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
-  </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="컴파일러 너머: IBM i에서 수정한 네이티브 코드 실행하기" href="#">이건 왜 뺐나</a></p>
-</article>
-
-<article>
-  <h4><a href="https://news.ycombinator.com/item?id=50474106">Cerulion: 다중 프로세스 리플레이를 지원하는 ROS 2 호환 로보틱스 런타임</a><svg class="srcmark" role="img" aria-label="Hacker News"><title>Hacker News</title><use href="#src-hn"/></svg></h4>
-  <p>Rust로 쓴 ROS 2 호환 로보틱스 런타임으로, 다중 프로세스 그래프를 결정적으로 재실행할 수 있다는 홍보 글입니다.</p>
-  <button class="go" data-topic="Cerulion IPC 지연과 결정적 리플레이" data-url="https://github.com/cerulion-inc/cerulion" data-angle="IPC 지연 수치를 ROS 2 기본 구성과 비교한다.">TIL 만들기</button>
-  <div class="steer">
-    <textarea placeholder="방향 지시 (비워 두면 리브가 알아서)"></textarea>
-  </div>
-  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Cerulion: 다중 프로세스 리플레이를 지원하는 ROS 2 호환 로보틱스 런타임" href="#">이건 왜 뺐나</a></p>
+  <p class="fb"><a class="feedback" data-verdict="실었어야 한다" data-item="Autonomous(YC F25), 자산 관리 AI 에이전트 개발자 채용" href="#">이건 왜 뺐나</a></p>
 </article>
 
   </div>
@@ -865,8 +850,8 @@
 
 <!-- DAYNAV:START -->
 <nav class="daynav" aria-label="회차 이동">
-  <a class="prv" href="./2026-11-12/">← 11-12</a>
-  <span class="cur">2026-11-13 (금)</span>
+  <a class="prv" href="./2026-11-13/">← 11-13</a>
+  <span class="cur">2026-11-14 (토)</span>
   <span class="nxt off">다음 회차 없음</span>
 </nav>
 <!-- DAYNAV:END -->
@@ -924,7 +909,7 @@ document.querySelectorAll('button.go').forEach(function (b) {
     }
     var note = steer.querySelector('textarea').value.trim();
     // KIND 를 비워 두면 워처의 기본 경로(submit)로 간다 — 원문을 읽고 til 페이지까지 만든다.
-    var body = 'SOURCE: briefing (2026-11-13)\nREQUEST:\n'
+    var body = 'SOURCE: briefing (2026-11-14)\nREQUEST:\n'
       + b.dataset.topic + ' — ' + b.dataset.url + '\n'
       + '원문을 직접 읽고 til 페이지로 만들어 주세요.\n조사 방향: ' + b.dataset.angle
       + (note ? '\n관리자 지시: ' + note : '');
@@ -963,7 +948,7 @@ document.querySelectorAll('a.feedback').forEach(function (a) {
     var note = prompt('이 건에 대한 판단을 한 줄로 (예: 이런 소개 글은 앞으로 빼 주세요)');
     if (note === null) return;                       // 취소하면 아무것도 하지 않는다
     var title = '[feedback] ' + a.dataset.item.slice(0, 50);
-    var body = 'SOURCE: briefing (2026-11-13)\nKIND: feedback\nITEM: ' + a.dataset.item + '\n'
+    var body = 'SOURCE: briefing (2026-11-14)\nKIND: feedback\nITEM: ' + a.dataset.item + '\n'
       + 'VERDICT: ' + a.dataset.verdict + (note.trim() ? '\n의견: ' + note.trim() : '');
     a.textContent = '보내는 중…';
     inboxCreate(title, body, 'feedback').then(function (r) {
@@ -981,8 +966,8 @@ document.querySelectorAll('a.feedback').forEach(function (a) {
 try {
   var RK = 'liv-briefing-read';
   var read = JSON.parse(localStorage.getItem(RK) || '[]');
-  if (read.indexOf('2026-11-13') < 0) {
-    read.push('2026-11-13');
+  if (read.indexOf('2026-11-14') < 0) {
+    read.push('2026-11-14');
     localStorage.setItem(RK, JSON.stringify(read));
   }
 } catch (e) { /* 저장소가 막힌 브라우저면 그냥 기록하지 않는다 */ }
