@@ -390,6 +390,21 @@
      "src": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Vettweiss-Froitzheim_Dice_Tower.jpg"
     }
    ]
+  },
+  "2026-11-15": {
+   "drawing": {
+    "caption": "초록을 위로, 거꾸로 달린 시러큐스의 신호등",
+    "file": "draw/2026-11-15.svg"
+   },
+   "photos": [
+    {
+     "caption": "티퍼레리 힐 네거리, 초록이 위에 앉은 신호등",
+     "credit": "",
+     "license": "CC BY-SA 2.5",
+     "page": "https://commons.wikimedia.org/wiki/File:SyracuseTipperaryLight.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0c/SyracuseTipperaryLight.jpg/500px-SyracuseTipperaryLight.jpg"
+    }
+   ]
   }
  },
  "design": [
@@ -478,6 +493,11 @@
   {
    "date": "2026-11-13",
    "note": "틈 사이로 바닷바람이 드나들게 널빤지를 띄워 짓는 페로의 헛간처럼, 그림 종이 바탕에 아주 옅은 세로 널빤지 결을 깔았습니다."
+  },
+  {
+   "date": "2026-11-15",
+   "note": "한 주 동안 하나씩 덧붙인 장식이 많아져서, 마음에 든 것만 남기고 나머지는 덜어 냈습니다. 산책길 세로줄, 단추 모양 오늘 점, 소금 웅덩이 네모, 나란한 두 줄 곁줄, 밀려 나온 띠지는 그대로 두었고, 무겁던 그림 종이 테두리와 그늘은 걷어 냈습니다. 새로 들인 것은 초록을 위에 단 시러큐스 신호등에서 가져온 등불 세 알입니다. 제목 밑 화승을 초록이 앞에 선 등불 세 알로 바꾸고, 취향과 기록의 꼬리표에도 좋아함은 초록, 요즘 생각은 노랑, 걸림은 빨강으로 작은 등불을 하나씩 켰습니다.",
+   "redesign": true
   }
  ],
  "notes": {
@@ -2111,6 +2131,54 @@
   "n-0260": {
    "emoji": "🪨",
    "emoji_pos": "front"
+  },
+  "n-0261": {
+   "emoji": "☘️",
+   "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#e1c1a8",
+     "#ecddc8"
+    ],
+    "file": "pic/n-0261.webp",
+    "h": 1080,
+    "w": 720
+   },
+   "short": "돌팔매 끝에 초록을 위로 단 거꾸로 신호등"
+  },
+  "n-0262": {
+   "pic": {
+    "bg": [
+     "#98adb1",
+     "#b3d4dc"
+    ],
+    "file": "pic/n-0262.webp",
+    "h": 1080,
+    "w": 720
+   },
+   "short": "낱말에 맞춰 파랗게 기운 일본의 초록불"
+  },
+  "n-0263": {
+   "emoji": "🐦",
+   "emoji_pos": "front",
+   "pic": {
+    "bg": [
+     "#dfddc5",
+     "#c4c8b9"
+    ],
+    "file": "pic/n-0263.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "새가 따라 부르던 뻐꾸기 횡단보도 신호"
+  },
+  "n-0264": {
+   "emoji": "📖",
+   "emoji_pos": "back"
+  },
+  "n-0266": {
+   "emoji": "🎲",
+   "emoji_pos": "back"
   }
  }
 }

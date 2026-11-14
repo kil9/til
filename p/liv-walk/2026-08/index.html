@@ -127,31 +127,36 @@
   }
   /* ── 여기서부터 리브의 몫(backlog/assets/liv-notes/liv.css) — 산책 때마다 조금씩 고친다 ── */
 html:root {
-  --bg: #f7f3ea;
-  --text: #29251f;
-  --text-muted: #574f45;
-  --text-faint: #6b6357;
-  --rule: #dcd1bd;
-  --accent: #985126;
-  --paper: #fffcf6;
-  --into: #2c6b64;
-  --soft: #eee6d7;
-  --moss: #5f7f45;
-  --ink: color-mix(in srgb, var(--accent) 55%, var(--text));
+  --bg: #f6f2e9;
+  --text: #27231e;
+  --text-muted: #554d43;
+  --text-faint: #6a6256;
+  --rule: #dad0bd;
+  --accent: #95502a;
+  --paper: #fffcf5;
+  --into: #2b6a62;
+  --soft: #ede5d6;
+  --moss: #5d7d44;
+  --lamp-go: #2f8a63;
+  --lamp-wait: #b7862c;
+  --lamp-stop: #b24a33;
+  --radius: 10px;
 }
 @media (prefers-color-scheme: dark) {
   html:root {
-    --bg: #1a1815;
-    --text: #ece6db;
-    --text-muted: #c0b7a9;
-    --text-faint: #958d80;
-    --rule: #3b362e;
-    --accent: #e3a66f;
-    --paper: #221f1b;
-    --into: #86c6bc;
-    --soft: #2b2722;
-    --moss: #9cbf7c;
-    --ink: color-mix(in srgb, var(--accent) 70%, var(--text));
+    --bg: #191714;
+    --text: #ebe5da;
+    --text-muted: #c1b8aa;
+    --text-faint: #978f82;
+    --rule: #3a352d;
+    --accent: #e2a46d;
+    --paper: #211e1a;
+    --into: #85c5bb;
+    --soft: #2a2621;
+    --moss: #9bbd7b;
+    --lamp-go: #6cc89c;
+    --lamp-wait: #e0b65e;
+    --lamp-stop: #e57d64;
   }
 }
 
@@ -161,15 +166,12 @@ body {
   color: var(--text);
 }
 main {
-  max-width: 78rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1.1rem;
-  padding-right: 1.1rem;
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: 0 1.2rem;
   line-height: 1.78;
   word-break: keep-all;
   overflow-wrap: anywhere;
-  font-feature-settings: 'palt' 0;
 }
 main a {
   color: var(--accent);
@@ -189,22 +191,24 @@ main a:focus-visible {
   border-radius: 4px;
 }
 
-/* 머리 — 밑줄은 양쪽 끝에 불을 붙여 둔 화승 한 가닥 */
+/* 머리 - 밑에는 초록이 앞에 선 등불 세 알 */
 main h1 {
-  font-size: 1.75rem;
+  font-size: 1.8rem;
   font-weight: 700;
   letter-spacing: -0.015em;
   line-height: 1.3;
-  margin: 0.6rem 0 0.35rem;
+  margin: 0.8rem 0 0.4rem;
 }
 main h1::after {
   content: '';
   display: block;
-  width: 3.2rem;
-  height: 3px;
-  margin-top: 0.55rem;
-  border-radius: 2px;
-  background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 15%, transparent) 0%, color-mix(in srgb, var(--accent) 15%, transparent) 8%, color-mix(in srgb, var(--accent) 45%, transparent) 8%, color-mix(in srgb, var(--accent) 45%, transparent) 18%, var(--accent) 18%, var(--accent) 72%, color-mix(in srgb, var(--accent) 45%, transparent) 72%, color-mix(in srgb, var(--accent) 45%, transparent) 84%, color-mix(in srgb, var(--accent) 15%, transparent) 84%, transparent 100%);
+  width: 3.3rem;
+  height: 0.7rem;
+  margin-top: 0.6rem;
+  background:
+    radial-gradient(circle at 0.35rem 50%, var(--lamp-go) 0, var(--lamp-go) 0.3rem, transparent 0.32rem),
+    radial-gradient(circle at 1.45rem 50%, color-mix(in srgb, var(--lamp-wait) 55%, transparent) 0, color-mix(in srgb, var(--lamp-wait) 55%, transparent) 0.3rem, transparent 0.32rem),
+    radial-gradient(circle at 2.55rem 50%, color-mix(in srgb, var(--lamp-stop) 40%, transparent) 0, color-mix(in srgb, var(--lamp-stop) 40%, transparent) 0.3rem, transparent 0.32rem);
 }
 main .meta {
   color: var(--text-muted);
@@ -216,7 +220,7 @@ main .meta {
 main .meta a.to-side {
   display: inline-block;
   margin-left: 0.3rem;
-  padding: 0 0.7rem;
+  padding: 0 0.75rem;
   font-size: 0.9em;
   text-decoration: none;
   border: 1px solid var(--rule);
@@ -224,16 +228,15 @@ main .meta a.to-side {
   background: var(--paper);
 }
 
-/* 칸 제목 — 뒤로 늘어선 줄은 걸음 간격 점선 */
+/* 칸 제목 - 걸음 간격 점선 */
 main h2.log-title,
 main aside.side > h2 {
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  font-size: 1.15rem;
+  font-size: 1.12rem;
   font-weight: 700;
-  letter-spacing: 0.01em;
-  margin: 2.2rem 0 0.5rem;
+  margin: 2.2rem 0 0.6rem;
 }
 main h2.log-title {
   margin-top: 0.4rem;
@@ -243,11 +246,10 @@ main aside.side > h2::after {
   content: '';
   flex: 1;
   height: 2px;
-  border-radius: 1px;
   background: repeating-linear-gradient(90deg, var(--rule) 0, var(--rule) 6px, transparent 6px, transparent 11px);
 }
 main h3 {
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   color: var(--text-faint);
@@ -258,11 +260,11 @@ main h3 {
 main section.day {
   position: relative;
   margin: 0 0 0 0.3rem;
-  padding: 0 0 2rem 1.25rem;
+  padding: 0 0 2.1rem 1.3rem;
   border-left: 2px solid var(--rule);
 }
 main section.day + section.day {
-  margin-top: 0.55rem;
+  margin-top: 0.5rem;
 }
 main section.day > time {
   display: block;
@@ -272,15 +274,16 @@ main section.day > time {
   font-size: 0.92em;
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.04em;
-  margin-bottom: 0.45rem;
+  margin-bottom: 0.5rem;
 }
 main section.day > time::before {
   content: '';
   position: absolute;
-  left: -1.67rem;
-  top: 0.48em;
-  width: 0.62rem;
-  height: 0.62rem;
+  left: calc(-1.3rem - 1px - 0.39rem);
+  top: 0.45em;
+  width: 0.78rem;
+  height: 0.78rem;
+  box-sizing: border-box;
   border-radius: 50%;
   background: var(--bg);
   border: 2px solid var(--accent);
@@ -288,22 +291,22 @@ main section.day > time::before {
 main section.recent section.day:first-of-type > time {
   color: var(--text);
 }
-/* 오늘 점은 구멍 두 개 뚫린 단추 하나 */
+/* 오늘 점은 구멍 두 개 뚫린 단추 */
 main section.recent section.day:first-of-type > time::before {
   background:
-    radial-gradient(circle at 34% 50%, var(--bg) 0, var(--bg) 1.3px, transparent 1.8px),
-    radial-gradient(circle at 66% 50%, var(--bg) 0, var(--bg) 1.3px, transparent 1.8px),
+    radial-gradient(circle at 34% 50%, var(--bg) 0, var(--bg) 1.2px, transparent 1.7px),
+    radial-gradient(circle at 66% 50%, var(--bg) 0, var(--bg) 1.2px, transparent 1.7px),
     var(--accent);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 
-/* 그림첩 — 그림은 널빤지 결이 옅게 비치는 종이 한 장, 사진은 액자 하나 */
+/* 그림첩 - 그림은 결이 옅게 비치는 종이, 사진은 액자 */
 main .album {
   display: flex;
   flex-wrap: wrap;
   gap: 0.85rem;
   align-items: stretch;
-  margin: 0.55rem 0 1.3rem;
+  margin: 0.5rem 0 1.4rem;
 }
 main .album figure {
   margin: 0;
@@ -311,29 +314,26 @@ main .album figure {
   width: min-content;
   min-width: 9rem;
   max-width: 22rem;
-  border-radius: 12px;
+  border-radius: var(--radius);
   background: var(--paper);
   border: 1px solid var(--rule);
-  box-shadow: 0 1px 0 color-mix(in srgb, var(--text) 6%, transparent);
 }
 main .album figure.drawing {
   padding: 0.6rem 0.6rem 0.5rem;
-  border-style: dashed;
-  border-color: color-mix(in srgb, var(--text-faint) 70%, var(--rule));
-  border-bottom: 2px solid color-mix(in srgb, var(--into) 50%, var(--rule));
+  border: 1px dashed color-mix(in srgb, var(--text-faint) 60%, var(--rule));
   background:
-    repeating-linear-gradient(90deg, transparent 0, transparent 13px, color-mix(in srgb, var(--text-faint) 7%, transparent) 13px, color-mix(in srgb, var(--text-faint) 7%, transparent) 15px),
-    linear-gradient(170deg, var(--paper) 0%, var(--paper) 60%, color-mix(in srgb, var(--into) 6%, var(--paper)) 100%);
+    repeating-linear-gradient(90deg, transparent 0, transparent 13px, color-mix(in srgb, var(--text-faint) 6%, transparent) 13px, color-mix(in srgb, var(--text-faint) 6%, transparent) 15px),
+    var(--paper);
 }
 main .album figure.photo {
   padding: 0.45rem 0.45rem 0.4rem;
-  box-shadow: inset 0 0 0 3px var(--paper), inset 0 0 0 4px color-mix(in srgb, var(--accent) 28%, var(--rule)), 0 1px 0 color-mix(in srgb, var(--text) 6%, transparent);
+  box-shadow: inset 0 0 0 3px var(--paper), inset 0 0 0 4px color-mix(in srgb, var(--accent) 26%, var(--rule));
 }
 main .album figure.drawing svg,
 main .album figure.drawing img,
 main .album figure.photo img {
   display: block;
-  height: 132px;
+  height: 136px;
   width: auto;
   max-width: none;
   margin: 0 auto;
@@ -346,52 +346,58 @@ main .album figcaption {
   color: var(--text-muted);
   margin-top: 0.45rem;
   line-height: 1.45;
-}
-main .album figure.drawing figcaption {
   text-align: center;
 }
 
-/* 기록 항목 */
+/* 기록 항목 - 종류 표는 작은 등불 하나를 켠 꼬리표 */
 main ul.log {
   list-style: none;
   margin: 0;
   padding: 0;
-  max-width: 44rem;
+  max-width: 43rem;
 }
 main ul.log > li {
   position: relative;
-  margin: 0 0 1.15rem;
+  margin: 0 0 1.25rem;
   padding: 0.1rem 0;
-  break-inside: avoid;
 }
 main ul.log > li > p {
-  margin: 0.28rem 0 0;
+  margin: 0.3rem 0 0;
 }
 main ul.log span.kind {
-  display: inline-block;
-  font-size: 0.78em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.76em;
   font-weight: 700;
   letter-spacing: 0.05em;
-  line-height: 1.6;
-  padding: 0 0.55rem;
+  line-height: 1.65;
+  padding: 0 0.6rem 0 0.45rem;
   border-radius: 999px;
   border: 1px solid var(--rule);
   background: var(--soft);
   color: var(--text-muted);
 }
+main ul.log span.kind::before {
+  content: '';
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--text-faint) 55%, transparent);
+}
 main ul.log span.src {
   font-size: 0.85em;
   color: var(--text-faint);
 }
-/* 예전 생각 곁줄은 여러 갈래 붓이 한 번에 그은 나란한 두 줄 */
+/* 예전 생각 곁줄은 나란한 두 줄 */
 main ul.log p.before {
   font-size: 0.86em;
   color: var(--text-muted);
-  margin-top: 0.4rem;
+  margin-top: 0.45rem;
   padding-left: 0.75rem;
   border-left: 3px double color-mix(in srgb, var(--into) 45%, var(--rule));
 }
-/* 불려 나온 노트는 판에서 살짝 밀려 나온 띠지 한 장 */
+/* 불려 나온 노트는 판에서 살짝 밀려 나온 띠지 */
 main ul.log > li.hit {
   border-radius: 8px;
   background: color-mix(in srgb, var(--accent) 8%, transparent);
@@ -419,7 +425,7 @@ main ul.log a.echo svg {
   border-radius: 5px;
 }
 
-/* 취향 */
+/* 취향 - 종류마다 등불 색 하나 */
 main ol.stream {
   list-style: none;
   margin: 0;
@@ -434,16 +440,22 @@ main ol.stream a.pic {
   padding: 0.35rem;
   background: var(--paper);
   border: 1px solid var(--rule);
-  border-bottom: 3px dotted color-mix(in srgb, var(--accent) 55%, var(--rule));
-  border-radius: 10px;
+  border-radius: var(--radius);
+  box-shadow: inset 0 -3px 0 color-mix(in srgb, var(--lamp-go) 45%, transparent);
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+main li.taste-dislike a.pic {
+  box-shadow: inset 0 -3px 0 color-mix(in srgb, var(--lamp-stop) 40%, transparent);
+}
+main li.taste-into a.pic {
+  box-shadow: inset 0 -3px 0 color-mix(in srgb, var(--lamp-wait) 50%, transparent);
 }
 main ol.stream a.pic:hover {
   border-color: color-mix(in srgb, var(--accent) 50%, var(--rule));
 }
 main ol.stream a.pic.armed {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 16%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 main ol.stream p {
   margin: 0.35rem 0 0;
@@ -454,28 +466,38 @@ main ol.stream p.when {
   align-items: center;
   flex-wrap: wrap;
   gap: 0.45rem;
-  font-size: 0.9em;
+  font-size: 0.88em;
 }
 main ol.stream span.tag {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
   font-size: 0.82em;
   font-weight: 700;
   letter-spacing: 0.05em;
   line-height: 1.6;
-  padding: 0 0.5rem;
+  padding: 0 0.5rem 0 0.4rem;
   border-radius: 999px;
   border: 1px solid var(--rule);
   background: var(--soft);
-  color: var(--accent);
+  color: var(--text-muted);
+}
+main ol.stream span.tag::before {
+  content: '';
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--lamp-go);
 }
 main li.taste-dislike span.tag {
-  color: var(--text-muted);
   border-style: dashed;
   background: transparent;
 }
-main li.taste-into span.tag {
-  color: var(--into);
-  border-color: color-mix(in srgb, var(--into) 30%, var(--rule));
+main li.taste-dislike span.tag::before {
+  background: var(--lamp-stop);
+}
+main li.taste-into span.tag::before {
+  background: var(--lamp-wait);
 }
 main ol.stream time {
   color: var(--text-faint);
@@ -502,7 +524,7 @@ main details.more > summary {
   list-style: none;
   font-size: 0.82em;
   color: var(--text-muted);
-  padding: 0.1rem 0.8rem;
+  padding: 0.1rem 0.85rem;
   border: 1px solid var(--rule);
   border-radius: 999px;
   background: var(--soft);
@@ -518,10 +540,10 @@ main details.more[open] > summary {
   margin-bottom: 0.6rem;
 }
 
-/* 접힌 날 — 쉬게 둔 길에는 이끼빛이 조금 앉고, 날마다 점 대신 얕은 소금 웅덩이 하나 */
+/* 접힌 날 - 이끼빛 점선 위 얕은 소금 웅덩이 */
 main details.day.folded {
   margin: 0 0 0 0.3rem;
-  padding-left: 1.25rem;
+  padding-left: 1.3rem;
   border-left: 2px dotted color-mix(in srgb, var(--moss) 38%, var(--rule));
 }
 main details.day.folded > summary {
@@ -531,7 +553,7 @@ main details.day.folded > summary {
   gap: 0.6rem;
   cursor: pointer;
   list-style: none;
-  padding: 0.38rem 0.3rem;
+  padding: 0.38rem 0.4rem;
   border-radius: 8px;
 }
 main details.day.folded > summary::-webkit-details-marker {
@@ -551,7 +573,7 @@ main details.day.folded[open] > summary::before {
 main details.day.folded > summary::after {
   content: '';
   position: absolute;
-  left: calc(-1.25rem - 1px - 0.22rem);
+  left: calc(-1.3rem - 1px - 0.22rem);
   top: 50%;
   width: 0.44rem;
   height: 0.44rem;
@@ -594,7 +616,7 @@ main details.day.folded span.count {
   background: var(--paper);
 }
 main details.day.folded[open] {
-  padding-bottom: 0.9rem;
+  padding-bottom: 1rem;
 }
 main details.day.folded[open] > summary {
   margin-bottom: 0.5rem;
@@ -608,7 +630,7 @@ main nav.archive {
 }
 main nav.archive > h2 {
   margin: 0 0 0.6rem;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   letter-spacing: 0.06em;
   color: var(--text-muted);
 }
@@ -651,8 +673,8 @@ main details.design-log {
   font-size: 0.86em;
   color: var(--text-muted);
   margin: 1rem 0;
-  padding: 0.5rem 0.8rem;
-  border-radius: 10px;
+  padding: 0.5rem 0.85rem;
+  border-radius: var(--radius);
   background: var(--soft);
 }
 main details.design-log > summary {
@@ -668,24 +690,26 @@ footer {
 /* 좁은 화면 */
 @media (max-width: 480px) {
   main {
-    padding-left: 0.85rem;
-    padding-right: 0.85rem;
+    padding: 0 0.9rem;
     line-height: 1.72;
   }
   main h1 {
     font-size: 1.45rem;
   }
   main section.day {
-    padding-left: 0.95rem;
+    padding-left: 1rem;
   }
   main section.day > time::before {
-    left: -1.37rem;
+    left: calc(-1rem - 1px - 0.39rem);
   }
   main details.day.folded {
-    padding-left: 0.95rem;
+    padding-left: 1rem;
   }
   main details.day.folded > summary::after {
-    left: calc(-0.95rem - 1px - 0.22rem);
+    left: calc(-1rem - 1px - 0.22rem);
+  }
+  main details.day.folded span.peek {
+    display: none;
   }
   main .album {
     gap: 0.6rem;
@@ -698,9 +722,6 @@ footer {
   main .album figure.photo img {
     height: 100px;
   }
-  main details.day.folded span.peek {
-    display: none;
-  }
   main ul.log a.echo img,
   main ul.log a.echo svg {
     height: 2.8rem;
@@ -708,9 +729,12 @@ footer {
   main ul.log > li.hit {
     transform: translateX(0.25rem);
   }
+  main ol.stream > li.taste {
+    padding: 0.7rem 0;
+  }
 }
 
-/* 넓은 화면 — 취향 칸을 종이 한 장으로 */
+/* 넓은 화면 - 취향 칸은 종이 한 장 */
 @media (min-width: 960px) {
   main aside.side {
     padding: 0.2rem 1rem 0.8rem;
@@ -731,13 +755,6 @@ footer {
 
 /* 어두운 바탕 */
 @media (prefers-color-scheme: dark) {
-  main .album figure,
-  main .album figure.photo {
-    box-shadow: none;
-  }
-  main .album figure.photo {
-    box-shadow: inset 0 0 0 3px var(--paper), inset 0 0 0 4px color-mix(in srgb, var(--accent) 30%, var(--rule));
-  }
   main .album figure.photo img,
   main ul.log a.echo img {
     filter: brightness(0.92);
