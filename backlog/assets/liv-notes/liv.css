@@ -478,14 +478,17 @@ main details.day.folded span.peek {
   color: var(--text-faint);
   font-size: 0.9em;
 }
+/* 개수 꼬리표는 밑에 판 두 장을 깔고 선 탑 */
 main details.day.folded span.count {
   flex: none;
   font-size: 0.75em;
   color: var(--text-muted);
   padding: 0 0.5rem;
+  margin-bottom: 4px;
   border: 1px solid var(--rule);
   border-radius: 999px;
   background: var(--paper);
+  box-shadow: 0 2px 0 -1px var(--paper), 0 2px 0 0 var(--rule), 0 4px 0 -1px var(--soft), 0 4px 0 0 color-mix(in srgb, var(--moss) 30%, var(--rule));
 }
 main details.day.folded[open] {
   padding-bottom: 1rem;
