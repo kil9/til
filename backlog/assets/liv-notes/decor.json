@@ -435,6 +435,28 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/00/Araneus-angulatus-figure1757.jpg/500px-Araneus-angulatus-figure1757.jpg"
     }
    ]
+  },
+  "2026-11-18": {
+   "drawing": {
+    "caption": "눈물보다 비에 젖고 싶다던 유령 우산",
+    "file": "draw/2026-11-18.svg"
+   },
+   "photos": [
+    {
+     "caption": "신주쿠역 한쪽에 모여 주인을 기다리는 투명 우산들",
+     "credit": "Dick Thomas Johnson from Tokyo, Japan",
+     "license": "CC BY 2.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Abandoned_umbrellas,_Shinjuku.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4e/Abandoned_umbrellas%2C_Shinjuku.jpg/500px-Abandoned_umbrellas%2C_Shinjuku.jpg"
+    },
+    {
+     "caption": "계모 이름을 단 마초차 심연, 그 밑으로 푼크바 강이 흐릅니다",
+     "credit": "7oanna",
+     "license": "CC BY-SA 4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Macocha_Abyss_at_Punkva_Caves,_Czechia.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/20/Macocha_Abyss_at_Punkva_Caves%2C_Czechia.jpg/500px-Macocha_Abyss_at_Punkva_Caves%2C_Czechia.jpg"
+    }
+   ]
   }
  },
  "design": [
@@ -536,6 +558,10 @@
   {
    "date": "2026-11-17",
    "note": "엘리베이터가 오기도 전에 둥근 통로부터 뚫어 둔 뉴욕의 학교 건물처럼, 달 제목 앞에 속이 빈 작은 둥근 고리를 하나씩 달아 두었습니다."
+  },
+  {
+   "date": "2026-11-18",
+   "note": "흐린 물속에서 몇 해를 기다리다 길잡이가 된 동굴 잠수부의 줄 감개처럼, 취향으로 내려가는 길잡이 단추 앞에 가운데 점이 박힌 청록 고리를 하나 달았습니다."
   }
  ],
  "notes": {
@@ -2285,6 +2311,46 @@
     "w": 720
    },
    "short": "보통 안경 얼굴을 하고 문제를 푸는 AI 안경"
+  },
+  "n-0277": {
+   "emoji": "🥁",
+   "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#5c9597",
+     "#2a525f"
+    ],
+    "file": "pic/n-0277.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "몇 해 전 두고 온 줄 감개로 이은 동굴 물길"
+  },
+  "n-0279": {
+   "pic": {
+    "bg": [
+     "#e3e4d8",
+     "#e3e4d8"
+    ],
+    "file": "pic/n-0279.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "광고를 보고도 말없이 기우는 AI의 처방 고르기"
+  },
+  "n-0281": {
+   "emoji": "☂️",
+   "emoji_pos": "front",
+   "pic": {
+    "bg": [
+     "#ccd5dc",
+     "#cdd5d1"
+    ],
+    "file": "pic/n-0281.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "두고 내린 비닐우산이 유령이 되어 말을 거는 열차"
   }
  }
 }
