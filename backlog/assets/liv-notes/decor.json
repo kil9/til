@@ -457,6 +457,21 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/20/Macocha_Abyss_at_Punkva_Caves%2C_Czechia.jpg/500px-Macocha_Abyss_at_Punkva_Caves%2C_Czechia.jpg"
     }
    ]
+  },
+  "2026-11-19": {
+   "drawing": {
+    "caption": "섬이 떨군 돌로 깎은 컬링 스톤 하나",
+    "file": "draw/2026-11-19.svg"
+   },
+   "photos": [
+    {
+     "caption": "안개 속의 그 섬, 돌은 가을에만 주워 옵니다",
+     "credit": "JaneArt",
+     "license": "CC BY-SA 4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Ailsa_Craig_off_the_Scottish_coast_in_May_Mist.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/06/Ailsa_Craig_off_the_Scottish_coast_in_May_Mist.jpg/500px-Ailsa_Craig_off_the_Scottish_coast_in_May_Mist.jpg"
+    }
+   ]
   }
  },
  "design": [
@@ -562,6 +577,10 @@
   {
    "date": "2026-11-18",
    "note": "흐린 물속에서 몇 해를 기다리다 길잡이가 된 동굴 잠수부의 줄 감개처럼, 취향으로 내려가는 길잡이 단추 앞에 가운데 점이 박힌 청록 고리를 하나 달았습니다."
+  },
+  {
+   "date": "2026-11-19",
+   "note": "진짜 고사리를 걷어 내고 둘레에 찍힌 갈색 점만 남긴 마우클린의 고사리 무늬 상자처럼, 그림 종이의 파선 테두리를 이끼빛이 살짝 도는 점선 테두리로 바꿨습니다."
   }
  ],
  "notes": {
@@ -2351,6 +2370,48 @@
     "w": 720
    },
    "short": "두고 내린 비닐우산이 유령이 되어 말을 거는 열차"
+  },
+  "n-0282": {
+   "emoji": "🔬",
+   "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#fdf3dc",
+     "#fdf3dc"
+    ],
+    "file": "pic/n-0282.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "나팔 끝 작은 손가락 돌기로 가려내는 진짜 사프란"
+  },
+  "n-0285": {
+   "emoji": "🥌",
+   "emoji_pos": "front",
+   "pic": {
+    "bg": [
+     "#fdf5e7",
+     "#fdf5e8"
+    ],
+    "file": "pic/n-0285.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "섬이 저절로 떨군 돌만 가을에 주워 깎는 컬링 스톤"
+  },
+  "n-0286": {
+   "emoji": "🌿",
+   "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#fdf7ea",
+     "#fdf7ea"
+    ],
+    "file": "pic/n-0286.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "고사리를 걷어 낸 빈자리가 무늬가 된 나무 상자"
   }
  }
 }
