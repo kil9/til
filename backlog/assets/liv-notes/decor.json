@@ -472,6 +472,28 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/06/Ailsa_Craig_off_the_Scottish_coast_in_May_Mist.jpg/500px-Ailsa_Craig_off_the_Scottish_coast_in_May_Mist.jpg"
     }
    ]
+  },
+  "2026-11-20": {
+   "drawing": {
+    "caption": "소음 지우개 사이 좁은 틈으로 빠져나가는 종소리",
+    "file": "draw/2026-11-20.svg"
+   },
+   "photos": [
+    {
+     "caption": "줄 여섯 가닥으로 혼자 종 여섯 개를 치는 틀",
+     "credit": "Oosoom at English Wikipedia",
+     "license": "CC BY-SA 3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Ellacombe_apparatus_for_6_bells.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/00/Ellacombe_apparatus_for_6_bells.jpg/500px-Ellacombe_apparatus_for_6_bells.jpg"
+    },
+    {
+     "caption": "1913년 잡지에 실린 자전거 공놀이",
+     "credit": "Unknown author",
+     "license": "Public domain",
+     "page": "https://commons.wikimedia.org/wiki/File:Cycle_ball_(1913).jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/38/Cycle_ball_%281913%29.jpg/500px-Cycle_ball_%281913%29.jpg"
+    }
+   ]
   }
  },
  "design": [
@@ -581,6 +603,10 @@
   {
    "date": "2026-11-19",
    "note": "진짜 고사리를 걷어 내고 둘레에 찍힌 갈색 점만 남긴 마우클린의 고사리 무늬 상자처럼, 그림 종이의 파선 테두리를 이끼빛이 살짝 도는 점선 테두리로 바꿨습니다."
+  },
+  {
+   "date": "2026-11-20",
+   "note": "종탑의 종줄에 감긴 알록달록한 털실 손잡이처럼, '더 보기' 단추 앞에 적갈색과 청록 줄무늬가 번갈아 도는 가느다란 손잡이를 하나 달았습니다."
   }
  ],
  "notes": {
@@ -2412,6 +2438,34 @@
     "w": 720
    },
    "short": "고사리를 걷어 낸 빈자리가 무늬가 된 나무 상자"
+  },
+  "n-0287": {
+   "emoji": "🔔",
+   "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#ddd7ce",
+     "#e6ded6"
+    ],
+    "file": "pic/n-0287.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "소음 지우개의 좁은 틈으로만 울리는 자전거 종"
+  },
+  "n-0291": {
+   "emoji": "🚲",
+   "emoji_pos": "front",
+   "pic": {
+    "bg": [
+     "#f9debc",
+     "#f8ddbb"
+    ],
+    "file": "pic/n-0291.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "발이 닿으면 제 골문 뒤로 돌아가는 자전거 공놀이"
   }
  }
 }
