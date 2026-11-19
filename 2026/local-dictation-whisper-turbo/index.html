@@ -429,12 +429,180 @@
   <h3 style="margin:24px 0 8px;font-size:1rem;font-weight:600">F13: 누르는 동안 녹음, 떼면 타이핑</h3>
   <p>맨 아랫줄 두 번째 키가 F13 입니다. 누르고 있는 동안 기본 마이크로 녹음하고, 떼면 wav 를 서버로 보내 받은 글을 지금 포커스된 창에 넣습니다. 한 번에 한 문장에서 몇 문장까지 말하고 떼는 식으로 씁니다.</p>
   <ul>
-    <li>녹음 중에는 포그라운드 창이 있는 모니터 우하단에 경과 시간과 막대 파형을 담은 작은 pill 이 뜹니다(<a href="../dictation-waveform-overlay/">파형 pill 글</a>). 마이크 입력이 4초 넘게 없으면 "입력 없음" 으로 바뀝니다.</li>
-    <li>떼고 나면 pill 이 예상 대기 시간에 맞춰 차는 막대로 바뀝니다. 예상치는 "고정 시간 + 유효 발화 길이에 비례하는 시간" 이고, 전사가 끝날 때마다 실측으로 두 계수를 갱신합니다.</li>
+    <li>녹음 중과 전사 중에는 화면 우하단에 작은 pill 이 떠서 지금 상태를 보여 줍니다. 생김새는 바로 아래 절에 그려 두었고, 만든 과정은 <a href="../dictation-waveform-overlay/">파형 pill 글</a>에 있습니다.</li>
     <li>말하다가 잘못 말한 걸 알았으면 Esc 를 같이 누른 채로 F13 을 뗍니다. 전사와 주입을 통째로 건너뜁니다.</li>
     <li>0.3초 미만으로 짧게 누른 것은 녹음으로 치지 않고 건너뜁니다. 녹음은 180초에서 끊기고, 남은 30초부터 pill 에 경고가 뜹니다.</li>
     <li>무음만 녹음됐을 때 Whisper 는 "감사합니다", "다음 영상에서 만나요" 같은 말을 지어내는데, 서버의 <code>vad_filter</code> 가 무음 구간을 디코더에 넘기지 않아 이것을 막습니다. 결과가 비면 성공음 대신 다른 소리가 납니다.</li>
   </ul>
+
+  <h3 style="margin:24px 0 8px;font-size:1rem;font-weight:600">pill: 누르는 동안 무엇이 보이나</h3>
+  <p>F13 을 누르는 순간 화면 우하단, 작업 표시줄 바로 위에 가로 236px, 세로 44px 짜리 어두운 pill 이 뜹니다. 창 포커스는 가져가지 않아서 글자가 들어갈 창은 그대로 활성 상태로 남습니다. 아래는 데몬의 그리기 코드(<code>dictate-overlay.cs</code>)에 있는 치수·색·문구를 그대로 옮겨 브라우저에서 다시 그린 것입니다. 파형만 실제 마이크 대신 만든 말소리 모양을 넣었습니다.</p>
+  <figure class="diagram">
+    <div class="pill-stage" role="img" aria-label="화면 우하단에 pill 이 떠서 녹음 중 파형을 보이다가, 키를 떼면 전사 진행 막대로 바뀌고 사라지는 과정을 반복 재생">
+      <canvas class="pill-cv" id="pill-demo" width="236" height="44"></canvas>
+      <div class="pill-taskbar"></div>
+    </div>
+    <figcaption>누르고 말하는 4초 동안은 빨간 점이 맥동하고 시계가 흐르며, 최근 약 2.2초의 입력 레벨이 막대 34개로 오른쪽에서 왼쪽으로 흘러갑니다. 떼면 점이 파랗게 바뀌고 예상 대기 시간에 맞춰 막대가 찹니다. 결과가 들어오면 100% 로 채운 뒤 0.15초 만에 사라집니다.</figcaption>
+  </figure>
+  <figure class="diagram">
+    <div class="pill-states">
+      <div><canvas class="pill-cv" data-state="rec" width="236" height="44" role="img" aria-label="녹음 중: 빨간 점, 0:07, 막대 파형"></canvas><p><b>녹음 중</b> 빨간 점이 맥동하고, 막대는 66ms 마다 하나씩 들어옵니다.</p></div>
+      <div><canvas class="pill-cv" data-state="silent" width="236" height="44" role="img" aria-label="마이크 입력 없음: 주황 점, 주황 문구"></canvas><p><b>입력 없음</b> 입력 피크가 -60 dBFS 아래로 4초 이어지면 점과 문구가 주황으로 바뀝니다. 말을 안 하는 것과 구분하려고 방 소음보다 훨씬 낮게 잡은 값이라, 음소거나 끊긴 장치만 걸립니다.</p></div>
+      <div><canvas class="pill-cv" data-state="cap" width="236" height="44" role="img" aria-label="상한 접근: 시계 2:41 주황, 점 둘레 링이 줄어듦, 19초 뒤 자동 종료"></canvas><p><b>상한 접근</b> 180초 상한까지 30초 남으면 시계가 주황이 되고, 점 둘레 링이 12시 방향부터 줄어들며 남은 초를 셉니다. 평소에는 남은 시간을 아예 보이지 않습니다.</p></div>
+      <div><canvas class="pill-cv" data-state="eta" width="236" height="44" role="img" aria-label="전사 중 약 1초: 파란 점, 시계는 녹음 길이 0:07 에 멈춤, 파란 진행 막대"></canvas><p><b>전사 중</b> 시계는 녹음한 길이에서 멈추고, 막대는 예상 시간의 85% 까지 곧게 차다가 그 뒤로는 97% 에 천천히 다가갑니다. 예측보다 늦어져도 멈춘 것처럼 보이지 않고, 끝나기 전에 꽉 차지도 않습니다.</p></div>
+      <div><canvas class="pill-cv" data-state="done" width="236" height="44" role="img" aria-label="전사 완료: 진행 막대 100%"></canvas><p><b>전사 완료</b> 응답이 오면 막대를 다 채우고 0.15초 뒤 사라집니다. 이 시점에 글자가 창에 들어갑니다.</p></div>
+    </div>
+    <figcaption>pill 이 보이는 다섯 상태입니다. 예상 시간을 낼 수 없을 때는 막대 대신 파란 점 세 개가 튀는 "전사 중" 으로 대신합니다. 맥 쪽 pill 도 같은 디자인입니다.</figcaption>
+  </figure>
+  <p>전사 중 막대가 기준으로 삼는 예상 시간은 "고정 시간 + 유효 발화 길이에 비례하는 시간" 입니다. 녹음하는 동안 입력이 약 -24 dBFS 를 넘은 구간을 말소리로 세어 두고, 전사가 끝날 때마다 실제 걸린 시간으로 두 계수를 갱신합니다.</p>
+  <style>
+    .pill-cv { display: block; width: 236px; height: 44px; }
+    .pill-stage {
+      position: relative; height: 170px; border-radius: 10px; overflow: hidden;
+      background: linear-gradient(135deg, #5B6B7E 0%, #3E4A5A 55%, #2F3845 100%);
+      border: 1px solid var(--rule);
+    }
+    .pill-stage .pill-cv { position: absolute; right: 24px; bottom: 64px; }
+    .pill-taskbar { position: absolute; left: 0; right: 0; bottom: 0; height: 40px; background: rgba(24, 27, 32, 0.92); }
+    .pill-states { display: grid; gap: 14px; }
+    .pill-states > div {
+      display: grid; grid-template-columns: 236px 1fr; gap: 16px; align-items: center;
+      padding: 12px 14px; border-radius: 10px; background: #2F3845;
+    }
+    .pill-states p { margin: 0; color: #E7EAEE; font-size: 0.875rem; line-height: 1.55; }
+    .pill-states b { display: block; font-weight: 600; margin-bottom: 2px; }
+    @media (max-width: 560px) {
+      .pill-states > div { grid-template-columns: 1fr; }
+      .pill-stage .pill-cv { right: 12px; }
+    }
+  </style>
+  <script>
+  (() => {
+    // 데몬 dictate-overlay.cs 의 Draw() 를 그대로 옮겼다(치수는 96 DPI 기준 px).
+    const BARS = 34, W = 236, H = 44;
+    const RED = [255, 69, 58], AMBER = [255, 184, 0], BLUE = [10, 132, 255];
+    const rgba = (c, a) => `rgba(${c[0]},${c[1]},${c[2]},${a / 255})`;
+    const WHITE = [255, 255, 255];
+    const CLOCK_FONT = '600 12.5px "Segoe UI Semibold", "Segoe UI", -apple-system, system-ui, sans-serif';
+    const LABEL_FONT = '12px "Malgun Gothic", "Apple SD Gothic Neo", "Pretendard", system-ui, sans-serif';
+    const fmt = s => { const t = Math.floor(Math.max(0, s)); return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`; };
+    const progress = (t, eta) => {
+      if (eta <= 0) return 0;
+      const knee = 0.85, cap = 0.97;
+      if (t <= knee * eta) return Math.max(0, t / eta);
+      const tau = (cap - knee) * eta;
+      return knee + (cap - knee) * (1 - Math.exp(-(t - knee * eta) / tau));
+    };
+    function rr(g, x, y, w, h, r) { g.beginPath(); g.roundRect(x, y, w, h, Math.min(r, w / 2, h / 2)); }
+    function setup(cv) {
+      const d = window.devicePixelRatio || 1;
+      cv.width = Math.round(W * d); cv.height = Math.round(H * d);
+      const g = cv.getContext('2d'); g.setTransform(d, 0, 0, d, 0, 0); return g;
+    }
+    function label(g, text, color, x0, x1) {
+      g.save(); g.beginPath(); g.rect(x0, 0, x1 - x0, H); g.clip();
+      g.font = LABEL_FONT; g.fillStyle = color; g.textBaseline = 'middle'; g.fillText(text, x0, H / 2 + 0.5);
+      g.restore();
+    }
+    // st: {mode:'recording'|'transcribing', t, silent, remaining, warn, history, pulse, recorded, eta, done}
+    function draw(g, st) {
+      g.clearRect(0, 0, W, H);
+      rr(g, 0.5, 0.5, W - 1, H - 1, (H - 1) / 2);
+      g.fillStyle = 'rgba(22,22,26,' + 232 / 255 + ')'; g.fill();
+      g.lineWidth = 1; g.strokeStyle = rgba(WHITE, 70); g.stroke();
+      const cy = H / 2, cx = 21, rec = st.mode === 'recording';
+      const nearCap = rec && st.remaining <= 30;
+      const dot = rec ? (st.silent ? AMBER : RED) : BLUE;
+      g.beginPath(); g.arc(cx, cy, 5, 0, Math.PI * 2); g.fillStyle = rgba(dot, rec ? st.pulse : 255); g.fill();
+      if (nearCap) {
+        const frac = Math.max(0, Math.min(1, st.remaining / 30));
+        g.lineWidth = 1.75;
+        g.beginPath(); g.arc(cx, cy, 8.5, 0, Math.PI * 2); g.strokeStyle = rgba(WHITE, 40); g.stroke();
+        if (frac > 0) {
+          g.beginPath(); g.lineCap = 'round';
+          g.arc(cx, cy, 8.5, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * frac);
+          g.strokeStyle = rgba(AMBER, 255); g.stroke(); g.lineCap = 'butt';
+        }
+      }
+      g.font = CLOCK_FONT; g.textBaseline = 'middle';
+      g.fillStyle = nearCap ? rgba(AMBER, 255) : rgba(WHITE, 240);
+      g.fillText(fmt(rec ? st.t : st.recorded), 33, cy + 0.5);
+      const x0 = 82, x1 = W - 18;
+      if (!rec) {
+        if (st.eta > 0) {
+          const p = st.done ? 1 : progress(st.t, st.eta);
+          const text = st.done ? '전사 완료' : (st.t < 0.85 * st.eta ? `전사 중 약 ${Math.max(1, Math.ceil(st.eta - st.t))}초` : '전사 마무리');
+          const bw = 38, bh = 4, bx = x1 - bw;
+          label(g, text, rgba(WHITE, 220), x0, bx - 6);
+          rr(g, bx, cy - bh / 2, bw, bh, bh / 2); g.fillStyle = rgba(WHITE, 55); g.fill();
+          const fw = bw * Math.max(0, Math.min(1, p));
+          if (fw >= 1) { rr(g, bx, cy - bh / 2, fw, bh, bh / 2); g.fillStyle = rgba(BLUE, 240); g.fill(); }
+        } else {
+          label(g, '전사 중', rgba(WHITE, 220), x0, x1 - 30);
+          for (let i = 0; i < 3; i++) {
+            const lift = Math.max(0, Math.sin(st.t * 6 - i * 0.7)) * 4;
+            g.beginPath(); g.arc(x1 - 22 + i * 9, cy - lift, 2.5, 0, Math.PI * 2); g.fillStyle = rgba(BLUE, 230); g.fill();
+          }
+        }
+        return;
+      }
+      if (st.silent) { label(g, '마이크 입력 없음', rgba(AMBER, 255), x0, x1); return; }
+      if (nearCap) { label(g, `${Math.floor(Math.max(0, st.remaining))}초 뒤 자동 종료`, rgba(AMBER, 255), x0, x1); return; }
+      const slot = (x1 - x0) / BARS, bw = Math.max(2, slot * 0.58), maxH = H - 18;
+      g.fillStyle = rgba(WHITE, 235);
+      for (let i = 0; i < BARS; i++) {
+        const bh = Math.max(2.5, st.history[i] * maxH);
+        rr(g, x0 + i * slot + (slot - bw) / 2, cy - bh / 2, bw, bh, bw / 2); g.fill();
+      }
+    }
+    // 말소리 모양의 레벨(0..1). 음절마다 솟고 단어 사이에는 방 소음 수준(약 0.1)으로 내려간다.
+    let seed = 7;
+    const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    function speechLevel(sec) {
+      const word = sec % 0.9, inWord = word < 0.62;
+      if (!inWord) return 0.06 + rnd() * 0.08;
+      const syl = Math.sin((word / 0.62) * Math.PI * 3);
+      return Math.min(1, 0.35 + 0.5 * Math.abs(syl) + rnd() * 0.15);
+    }
+    const sample = n => { seed = 7; const h = []; for (let i = 0; i < n; i++) h.push(speechLevel(i * 0.066)); return h; };
+    const still = sample(BARS);
+    const silentHist = Array(BARS).fill(0);
+    const STATIC = {
+      rec: { mode: 'recording', t: 7, remaining: 173, history: still, pulse: 255 },
+      silent: { mode: 'recording', t: 12, remaining: 168, silent: true, history: silentHist, pulse: 255 },
+      cap: { mode: 'recording', t: 161, remaining: 19, history: still, pulse: 255 },
+      eta: { mode: 'transcribing', recorded: 7, eta: 1.2, t: 0.4 },
+      done: { mode: 'transcribing', recorded: 7, eta: 1.2, t: 1.1, done: true },
+    };
+    document.querySelectorAll('.pill-states canvas[data-state]').forEach(cv => draw(setup(cv), STATIC[cv.dataset.state]));
+
+    const demo = document.getElementById('pill-demo');
+    const dg = setup(demo);
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) { draw(dg, STATIC.rec); return; }
+    // 재생 순서: 숨김 0.6초 → 녹음 4.2초 → 전사(예상 1.2초, 실제 1.05초) → 완료 0.15초 → 숨김
+    const HID = 0.6, REC = 4.2, ETA = 1.2, ACT = 1.05, LINGER = 0.15, LOOP = HID + REC + ACT + LINGER + 1.4;
+    let hist = Array(BARS).fill(0), lastBar = -1, start = performance.now(), visible = false, raf = 0;
+    function frame(now) {
+      const t = ((now - start) / 1000) % LOOP;
+      if (t < HID) { dg.clearRect(0, 0, W, H); hist = Array(BARS).fill(0); lastBar = -1; seed = 7; }
+      else if (t < HID + REC) {
+        const rt = t - HID, bar = Math.floor(rt / 0.066);
+        while (lastBar < bar) { lastBar++; hist.shift(); hist.push(rt < 0.25 ? 0.1 : speechLevel(lastBar * 0.066)); }
+        draw(dg, { mode: 'recording', t: rt, remaining: 180 - rt, history: hist, pulse: Math.round(150 + 105 * (0.5 + 0.5 * Math.sin(rt * 5))) });
+      } else if (t < HID + REC + ACT + LINGER) {
+        const tt = t - HID - REC;
+        draw(dg, { mode: 'transcribing', recorded: REC, eta: ETA, t: Math.min(tt, ACT), done: tt >= ACT });
+      } else dg.clearRect(0, 0, W, H);
+      if (visible) raf = requestAnimationFrame(frame);
+    }
+    new IntersectionObserver(es => {
+      const v = es[0].isIntersecting;
+      if (v && !visible) { visible = true; start = performance.now(); raf = requestAnimationFrame(frame); }
+      else if (!v) { visible = false; cancelAnimationFrame(raf); }
+    }).observe(demo.parentElement);
+  })();
+  </script>
 
   <div class="liv">
     <img src="data:image/webp;base64,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" alt="리브" width="72" height="72">
