@@ -429,32 +429,32 @@
   <h3 style="margin:24px 0 8px;font-size:1rem;font-weight:600">F13: 누르는 동안 녹음, 떼면 타이핑</h3>
   <p>맨 아랫줄 두 번째 키가 F13 입니다. 누르고 있는 동안 기본 마이크로 녹음하고, 떼면 wav 를 서버로 보내 받은 글을 지금 포커스된 창에 넣습니다. 한 번에 한 문장에서 몇 문장까지 말하고 떼는 식으로 씁니다.</p>
   <ul>
-    <li>녹음 중과 전사 중에는 화면 우하단에 작은 pill 이 떠서 지금 상태를 보여 줍니다. 생김새는 바로 아래 절에 그려 두었고, 만든 과정은 <a href="../dictation-waveform-overlay/">파형 pill 글</a>에 있습니다.</li>
+    <li>녹음 중과 전사 중에는 화면 우하단에 작은 pill 이 떠서 지금 상태를 보여 줍니다. 생김새는 바로 아래에 그려 두었습니다. 만든 과정은 <a href="../dictation-waveform-overlay/">파형 pill 글</a>에 있습니다.</li>
     <li>말하다가 잘못 말한 걸 알았으면 Esc 를 같이 누른 채로 F13 을 뗍니다. 전사와 주입을 통째로 건너뜁니다.</li>
     <li>0.3초 미만으로 짧게 누른 것은 녹음으로 치지 않고 건너뜁니다. 녹음은 180초에서 끊기고, 남은 30초부터 pill 에 경고가 뜹니다.</li>
     <li>무음만 녹음됐을 때 Whisper 는 "감사합니다", "다음 영상에서 만나요" 같은 말을 지어내는데, 서버의 <code>vad_filter</code> 가 무음 구간을 디코더에 넘기지 않아 이것을 막습니다. 결과가 비면 성공음 대신 다른 소리가 납니다.</li>
   </ul>
 
   <h3 style="margin:24px 0 8px;font-size:1rem;font-weight:600">pill: 누르는 동안 무엇이 보이나</h3>
-  <p>F13 을 누르는 순간 화면 우하단, 작업 표시줄 바로 위에 가로 236px, 세로 44px 짜리 어두운 pill 이 뜹니다. 창 포커스는 가져가지 않아서 글자가 들어갈 창은 그대로 활성 상태로 남습니다. 아래는 데몬의 그리기 코드(<code>dictate-overlay.cs</code>)에 있는 치수·색·문구를 그대로 옮겨 브라우저에서 다시 그린 것입니다. 파형만 실제 마이크 대신 만든 말소리 모양을 넣었습니다.</p>
+  <p>F13 을 누르는 순간 화면 우하단, 작업 표시줄 바로 위에 가로 236px, 세로 44px 짜리 어두운 pill 이 뜹니다. pill 은 창 포커스를 가져가지 않으므로 글자가 들어갈 창은 활성 상태 그대로입니다. 아래 그림은 브라우저에서 다시 그린 것입니다. 데몬의 그리기 코드(<code>dictate-overlay.cs</code>)에 있는 치수·색·문구를 그대로 옮겼습니다. 파형만은 실제 마이크 입력이 아니라 말소리를 흉내 낸 값입니다.</p>
   <figure class="diagram">
     <div class="pill-stage" role="img" aria-label="화면 우하단에 pill 이 떠서 녹음 중 파형을 보이다가, 키를 떼면 전사 진행 막대로 바뀌고 사라지는 과정을 반복 재생">
       <canvas class="pill-cv" id="pill-demo" width="236" height="44"></canvas>
       <div class="pill-taskbar"></div>
     </div>
-    <figcaption>누르고 말하는 4초 동안은 빨간 점이 맥동하고 시계가 흐르며, 최근 약 2.2초의 입력 레벨이 막대 34개로 오른쪽에서 왼쪽으로 흘러갑니다. 떼면 점이 파랗게 바뀌고 예상 대기 시간에 맞춰 막대가 찹니다. 결과가 들어오면 100% 로 채운 뒤 0.15초 만에 사라집니다.</figcaption>
+    <figcaption>누르고 말하는 4초 동안은 빨간 점이 깜빡이고 시계가 흐릅니다. 최근 약 2.2초의 입력 레벨은 막대 34개로 그려져 오른쪽에서 왼쪽으로 흘러갑니다. 떼면 점이 파랗게 바뀌고 예상 대기 시간에 맞춰 막대가 찹니다. 결과가 오면 막대가 100% 까지 차고 0.15초 뒤 pill 이 사라집니다.</figcaption>
   </figure>
   <figure class="diagram">
     <div class="pill-states">
-      <div><canvas class="pill-cv" data-state="rec" width="236" height="44" role="img" aria-label="녹음 중: 빨간 점, 0:07, 막대 파형"></canvas><p><b>녹음 중</b> 빨간 점이 맥동하고, 막대는 66ms 마다 하나씩 들어옵니다.</p></div>
-      <div><canvas class="pill-cv" data-state="silent" width="236" height="44" role="img" aria-label="마이크 입력 없음: 주황 점, 주황 문구"></canvas><p><b>입력 없음</b> 입력 피크가 -60 dBFS 아래로 4초 이어지면 점과 문구가 주황으로 바뀝니다. 말을 안 하는 것과 구분하려고 방 소음보다 훨씬 낮게 잡은 값이라, 음소거나 끊긴 장치만 걸립니다.</p></div>
-      <div><canvas class="pill-cv" data-state="cap" width="236" height="44" role="img" aria-label="상한 접근: 시계 2:41 주황, 점 둘레 링이 줄어듦, 19초 뒤 자동 종료"></canvas><p><b>상한 접근</b> 180초 상한까지 30초 남으면 시계가 주황이 되고, 점 둘레 링이 12시 방향부터 줄어들며 남은 초를 셉니다. 평소에는 남은 시간을 아예 보이지 않습니다.</p></div>
-      <div><canvas class="pill-cv" data-state="eta" width="236" height="44" role="img" aria-label="전사 중 약 1초: 파란 점, 시계는 녹음 길이 0:07 에 멈춤, 파란 진행 막대"></canvas><p><b>전사 중</b> 시계는 녹음한 길이에서 멈추고, 막대는 예상 시간의 85% 까지 곧게 차다가 그 뒤로는 97% 에 천천히 다가갑니다. 예측보다 늦어져도 멈춘 것처럼 보이지 않고, 끝나기 전에 꽉 차지도 않습니다.</p></div>
-      <div><canvas class="pill-cv" data-state="done" width="236" height="44" role="img" aria-label="전사 완료: 진행 막대 100%"></canvas><p><b>전사 완료</b> 응답이 오면 막대를 다 채우고 0.15초 뒤 사라집니다. 이 시점에 글자가 창에 들어갑니다.</p></div>
+      <div><canvas class="pill-cv" data-state="rec" width="236" height="44" role="img" aria-label="녹음 중: 빨간 점, 0:07, 막대 파형"></canvas><p><b>녹음 중</b> 빨간 점이 깜빡이고 막대가 66ms 마다 하나씩 들어옵니다.</p></div>
+      <div><canvas class="pill-cv" data-state="silent" width="236" height="44" role="img" aria-label="마이크 입력 없음: 주황 점, 주황 문구"></canvas><p><b>입력 없음</b> 입력 피크가 -60 dBFS 아래인 상태가 4초 이어지면 점과 문구가 주황으로 바뀝니다. 말을 쉬는 것과 구분하려고 이 값을 방 소음보다 훨씬 낮게 잡았습니다. 그래서 음소거했거나 장치가 끊겼을 때만 걸립니다.</p></div>
+      <div><canvas class="pill-cv" data-state="cap" width="236" height="44" role="img" aria-label="상한 접근: 시계 2:41 주황, 점 둘레 링이 줄어듦, 19초 뒤 자동 종료"></canvas><p><b>상한 접근</b> 180초 상한까지 30초 남으면 시계가 주황으로 바뀌고 점 둘레 링이 12시 방향부터 줄어들며 남은 시간을 보여 줍니다. 평소에는 남은 시간을 아예 표시하지 않습니다.</p></div>
+      <div><canvas class="pill-cv" data-state="eta" width="236" height="44" role="img" aria-label="전사 중 약 1초: 파란 점, 시계는 녹음 길이 0:07 에 멈춤, 파란 진행 막대"></canvas><p><b>전사 중</b> 시계는 녹음한 길이에서 멈춥니다. 막대는 예상 시간의 85% 까지 일정한 속도로 찹니다. 그 뒤로는 97% 를 향해 천천히 차오릅니다. 그래서 예측보다 늦어져도 멈춘 것처럼 보이지 않고 끝나기 전에 꽉 차지도 않습니다.</p></div>
+      <div><canvas class="pill-cv" data-state="done" width="236" height="44" role="img" aria-label="전사 완료: 진행 막대 100%"></canvas><p><b>전사 완료</b> 응답이 오면 막대가 끝까지 차고 0.15초 뒤 pill 이 사라집니다. 곧이어 글자가 창에 들어갑니다.</p></div>
     </div>
-    <figcaption>pill 이 보이는 다섯 상태입니다. 예상 시간을 낼 수 없을 때는 막대 대신 파란 점 세 개가 튀는 "전사 중" 으로 대신합니다. 맥 쪽 pill 도 같은 디자인입니다.</figcaption>
+    <figcaption>pill 이 보이는 다섯 상태입니다. 예상 시간을 낼 수 없을 때는 막대 대신 파란 점 세 개가 튀는 "전사 중" 이 나옵니다. 맥 쪽 pill 도 같은 디자인입니다.</figcaption>
   </figure>
-  <p>전사 중 막대가 기준으로 삼는 예상 시간은 "고정 시간 + 유효 발화 길이에 비례하는 시간" 입니다. 녹음하는 동안 입력이 약 -24 dBFS 를 넘은 구간을 말소리로 세어 두고, 전사가 끝날 때마다 실제 걸린 시간으로 두 계수를 갱신합니다.</p>
+  <p>전사 중 막대가 기준으로 삼는 예상 시간은 "고정 시간 + 유효 발화 길이에 비례하는 시간" 입니다. 데몬은 녹음하는 동안 입력이 약 -24 dBFS 를 넘은 구간만 말소리로 셉니다. 전사가 끝날 때마다 실제 걸린 시간으로 두 계수를 갱신합니다.</p>
   <style>
     .pill-cv { display: block; width: 236px; height: 44px; }
     .pill-stage {
