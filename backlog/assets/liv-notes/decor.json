@@ -494,6 +494,28 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/38/Cycle_ball_%281913%29.jpg/500px-Cycle_ball_%281913%29.jpg"
     }
    ]
+  },
+  "2026-11-21": {
+   "drawing": {
+    "caption": "땅속 30cm, 볏짚 김치광 아래 겨울을 나는 독",
+    "file": "draw/2026-11-21.svg"
+   },
+   "photos": [
+    {
+     "caption": "포탑 같은 둥근 머리를 그대로 내놓은 채 2007년에도 돌던 냉장고",
+     "credit": "Infrogmation, New Orleans",
+     "license": "CC BY 2.5",
+     "page": "https://commons.wikimedia.org/wiki/File:MonitorTopFridgeHarvard.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4b/MonitorTopFridgeHarvard.jpg/500px-MonitorTopFridgeHarvard.jpg"
+    },
+    {
+     "caption": "어느 집 마당에서 김치가 익어 가는 독들",
+     "credit": "Joriola",
+     "license": "CC BY-SA 3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Jarre_%C3%A0_kimchi_-_Cor%C3%A9e_du_sud.JPG",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6e/Jarre_%C3%A0_kimchi_-_Cor%C3%A9e_du_sud.JPG/500px-Jarre_%C3%A0_kimchi_-_Cor%C3%A9e_du_sud.JPG"
+    }
+   ]
   }
  },
  "design": [
@@ -607,6 +629,10 @@
   {
    "date": "2026-11-20",
    "note": "종탑의 종줄에 감긴 알록달록한 털실 손잡이처럼, '더 보기' 단추 앞에 적갈색과 청록 줄무늬가 번갈아 도는 가느다란 손잡이를 하나 달았습니다."
+  },
+  {
+   "date": "2026-11-21",
+   "note": "흙의 무게로 뚜껑이 눌려 닫히던 땅속 김치독처럼, 사진 액자 위쪽에만 흙빛이 도는 조금 두꺼운 뚜껑 테두리를 얹었습니다."
   }
  ],
  "notes": {
@@ -2466,6 +2492,36 @@
     "w": 720
    },
    "short": "발이 닿으면 제 골문 뒤로 돌아가는 자전거 공놀이"
+  },
+  "n-0293": {
+   "emoji": "🥬",
+   "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#ede3cf",
+     "#ede3ce"
+    ],
+    "file": "pic/n-0293.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "땅속 김치독처럼 위로 여는 뚜껑을 단 김치냉장고"
+  },
+  "n-0295": {
+   "pic": {
+    "bg": [
+     "#eedac3",
+     "#eedbc3"
+    ],
+    "file": "pic/n-0295.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "샐 이음매를 아예 없앤 아인슈타인의 냉장고"
+  },
+  "n-0297": {
+   "emoji": "📿",
+   "emoji_pos": "back"
   }
  }
 }
