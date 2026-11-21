@@ -516,6 +516,21 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6e/Jarre_%C3%A0_kimchi_-_Cor%C3%A9e_du_sud.JPG/500px-Jarre_%C3%A0_kimchi_-_Cor%C3%A9e_du_sud.JPG"
     }
    ]
+  },
+  "2026-11-22": {
+   "drawing": {
+    "caption": "과수원 밑 바위 속, 초록 불을 기다리는 사과 칸",
+    "file": "draw/2026-11-22.svg"
+   },
+   "photos": [
+    {
+     "caption": "수십 년 동안 사람들이 벽의 말을 못 보고 지나간 폰트 마요르 동굴 어귀",
+     "credit": "Angela Llop",
+     "license": "CC BY-SA 2.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Conjunt_de_la_Font_Major_(l%27Espluga_de_Francol%C3%AD)_-_1.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Conjunt_de_la_Font_Major_%28l%27Espluga_de_Francol%C3%AD%29_-_1.jpg/500px-Conjunt_de_la_Font_Major_%28l%27Espluga_de_Francol%C3%AD%29_-_1.jpg"
+    }
+   ]
   }
  },
  "design": [
@@ -2522,6 +2537,19 @@
   "n-0297": {
    "emoji": "📿",
    "emoji_pos": "back"
+  },
+  "n-0299": {
+   "emoji": "🍎",
+   "emoji_pos": "back",
+   "short": "돌 캐고 남은 갱도에 세 든 사과 저장 칸"
+  },
+  "n-0300": {
+   "emoji": "🚇",
+   "emoji_pos": "front",
+   "short": "아침엔 노선마다, 저녁엔 하나로 섞이는 손의 균"
+  },
+  "n-0301": {
+   "short": "빙하기 말 위에 덧새긴 관광객 이름"
   }
  }
 }
