@@ -531,6 +531,28 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/Conjunt_de_la_Font_Major_%28l%27Espluga_de_Francol%C3%AD%29_-_1.jpg/500px-Conjunt_de_la_Font_Major_%28l%27Espluga_de_Francol%C3%AD%29_-_1.jpg"
     }
    ]
+  },
+  "2026-11-23": {
+   "drawing": {
+    "caption": "우산살 줄을 쓴 소나무, 짚 띠 속 거미 한 마리",
+    "file": "draw/2026-11-23.svg"
+   },
+   "photos": [
+    {
+     "caption": "위는 헐겁게, 아래는 꽉 묶은 하마리큐의 짚 띠",
+     "credit": "Paul Asman and Jill Lenoble",
+     "license": "CC BY 2.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Komo-maki_(straw_mat_wrapping)_at_Hama-rikyu_(11975357286).jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/87/Komo-maki_%28straw_mat_wrapping%29_at_Hama-rikyu_%2811975357286%29.jpg/500px-Komo-maki_%28straw_mat_wrapping%29_at_Hama-rikyu_%2811975357286%29.jpg"
+    },
+    {
+     "caption": "가지 끝마다 줄을 내려 받친 겨울 겐로쿠엔",
+     "credit": "yosi.nakao from Japan.",
+     "license": "CC BY-SA 2.1 jp",
+     "page": "https://commons.wikimedia.org/wiki/File:Kenrokuen_in_winter_01.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/90/Kenrokuen_in_winter_01.jpg/500px-Kenrokuen_in_winter_01.jpg"
+    }
+   ]
   }
  },
  "design": [
@@ -2550,6 +2572,21 @@
   },
   "n-0301": {
    "short": "빙하기 말 위에 덧새긴 관광객 이름"
+  },
+  "n-0304": {
+   "emoji": "🕷️",
+   "emoji_pos": "back"
+  },
+  "n-0305": {
+   "short": "솔나방보다 거미를 더 품는 소나무 짚 띠"
+  },
+  "n-0306": {
+   "emoji": "☂️",
+   "emoji_pos": "back",
+   "short": "눈을 막지 않고 가지를 매달아 주는 우산 줄"
+  },
+  "n-0307": {
+   "short": "고개를 돌리기 전에 먼저 생긴 목이라는 틈"
   }
  }
 }
