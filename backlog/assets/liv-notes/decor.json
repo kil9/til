@@ -553,6 +553,21 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/90/Kenrokuen_in_winter_01.jpg/500px-Kenrokuen_in_winter_01.jpg"
     }
    ]
+  },
+  "2026-11-24": {
+   "drawing": {
+    "caption": "단추들이 빠져나가고 구멍만 남은 민물조개",
+    "file": "draw/2026-11-24.svg"
+   },
+   "photos": [
+    {
+     "caption": "1898년 도판, 단추 감이 뚫려 나간 조개와 그 단추가 되어 가는 차례",
+     "credit": "George Frederick Kunz",
+     "license": "Public domain",
+     "page": "https://commons.wikimedia.org/wiki/File:FMIB_47853_Valve_of_Unio_in_its_Natural_State,_and_the_same_with_%27blanks%27_cut_out_from_it_Blanks_as_cut;_three_upper_figures_showing_inside.jpeg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7d/FMIB_47853_Valve_of_Unio_in_its_Natural_State%2C_and_the_same_with_%27blanks%27_cut_out_from_it_Blanks_as_cut%3B_three_upper_figures_showing_inside.jpeg/500px-FMIB_47853_Valve_of_Unio_in_its_Natural_State%2C_and_the_same_with_%27blanks%27_cut_out_from_it_Blanks_as_cut%3B_three_upper_figures_showing_inside.jpeg"
+    }
+   ]
   }
  },
  "design": [
@@ -670,6 +685,10 @@
   {
    "date": "2026-11-21",
    "note": "흙의 무게로 뚜껑이 눌려 닫히던 땅속 김치독처럼, 사진 액자 위쪽에만 흙빛이 도는 조금 두꺼운 뚜껑 테두리를 얹었습니다."
+  },
+  {
+   "date": "2026-11-24",
+   "note": "단추 감을 뚫어 내고 동그란 구멍만 남은 민물조개 껍데기처럼, 기록 꼬리표 앞의 꽉 찬 작은 점을 속이 빈 고리로 바꿨습니다."
   }
  ],
  "notes": {
@@ -2587,6 +2606,16 @@
   },
   "n-0307": {
    "short": "고개를 돌리기 전에 먼저 생긴 목이라는 틈"
+  },
+  "n-0309": {
+   "emoji": "🐚",
+   "emoji_pos": "back",
+   "short": "단추가 빠져나간 구멍으로 이력을 말하는 조개껍데기"
+  },
+  "n-0312": {
+   "emoji": "🪨",
+   "emoji_pos": "front",
+   "short": "호수가 55곳 있어도 깨지는 돌이 없어 비어 있던 사막"
   }
  }
 }
