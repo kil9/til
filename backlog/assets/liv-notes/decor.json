@@ -568,6 +568,21 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7d/FMIB_47853_Valve_of_Unio_in_its_Natural_State%2C_and_the_same_with_%27blanks%27_cut_out_from_it_Blanks_as_cut%3B_three_upper_figures_showing_inside.jpeg/500px-FMIB_47853_Valve_of_Unio_in_its_Natural_State%2C_and_the_same_with_%27blanks%27_cut_out_from_it_Blanks_as_cut%3B_three_upper_figures_showing_inside.jpeg"
     }
    ]
+  },
+  "2026-11-25": {
+   "drawing": {
+    "caption": "망치로 한 번, 귀로 한 번 듣는 바퀴",
+    "file": "draw/2026-11-25.svg"
+   },
+   "photos": [
+    {
+     "caption": "부다페스트 역, 긴 망치를 완충기에 기대 두고 일지를 쓰는 바퀴 두드리는 사람",
+     "credit": "SimonTrew",
+     "license": "CC BY-SA 3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:A_wheeltapper_signing_off_at_Budapest-Keleti.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/A_wheeltapper_signing_off_at_Budapest-Keleti.jpg/500px-A_wheeltapper_signing_off_at_Budapest-Keleti.jpg"
+    }
+   ]
   }
  },
  "design": [
@@ -2616,6 +2631,21 @@
    "emoji": "🪨",
    "emoji_pos": "front",
    "short": "호수가 55곳 있어도 깨지는 돌이 없어 비어 있던 사막"
+  },
+  "n-0315": {
+   "emoji": "🔨",
+   "emoji_pos": "back",
+   "short": "금 간 종처럼 탁한 소리로 바퀴를 짚던 망치"
+  },
+  "n-0318": {
+   "emoji": "🐦",
+   "emoji_pos": "front",
+   "short": "스쿠터 경보음을 제 목에 맞게 줄여 부르는 지빠귀"
+  },
+  "n-0320": {
+   "emoji": "🛤️",
+   "emoji_pos": "back",
+   "short": "매끄럽게 펴지 못한 철교에만 남은 이음매 엇박자"
   }
  }
 }
