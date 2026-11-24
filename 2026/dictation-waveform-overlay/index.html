@@ -358,7 +358,7 @@
   <p>조건이 하나 있습니다. 이 미터는 그 endpoint 에 활성 스트림이 있을 때만 값을 냅니다. 그래서 MCI <code>record</code> 직후에 미터를 엽니다. 무음 판정 임계값은 처음 0.01 로 잡았다가 조용한 방 소음 피크가 0.003 안팎이라 가만히 있기만 해도 "입력 없음" 이 떠서 0.001 로 내렸습니다. 이 표시는 말을 안 하는 상태가 아니라 음소거되거나 끊긴 마이크(피크가 0 근처)를 잡으려는 것입니다.</p>
 
   <h2 id="창-포커스를-절대-가져가지-않는다" data-anchor="auto">창: 포커스를 절대 가져가지 않는다<a class="h-anchor" href="#창-포커스를-절대-가져가지-않는다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
-  <p>전사 결과는 SendInput 으로 지금 포그라운드인 창에 들어갑니다. 오버레이가 한 번이라도 활성화되면 받아쓴 글이 오버레이나 엉뚱한 창으로 갑니다. 그래서 포커스 방지를 세 겹으로 걸었습니다.</p>
+  <p>전사 결과는 SendInput 으로 지금 포그라운드인 창에 들어갑니다. 오버레이가 한 번이라도 활성화되면 받아쓴 글이 오버레이나 엉뚱한 창으로 갑니다. 그래서 포커스 탈취 방지를 세 겹으로 걸었습니다.</p>
   <ul>
     <li>활성화 금지: <code>WS_EX_NOACTIVATE</code>, <code>SW_SHOWNOACTIVATE</code> 로 표시, <code>WM_MOUSEACTIVATE</code> 에 <code>MA_NOACTIVATE</code> 응답</li>
     <li>클릭 통과: <code>WS_EX_TRANSPARENT</code> 와 <code>WM_NCHITTEST</code> 에 <code>HTTRANSPARENT</code></li>
@@ -408,7 +408,7 @@
   <ul>
     <li>형태는 받아쓰기 앱들의 pill 을 따랐고, 캐럿 좌표가 불안정해 화면 구석에 고정했습니다.</li>
     <li>레벨은 <code>IAudioMeterInformation</code> 피크로 충분했습니다. 활성 스트림이 있어야 값이 나오니 녹음 시작 직후에 엽니다.</li>
-    <li>받아쓰기 오버레이에서 가장 중요한 조건은 포커스 비탈취이고, NOACTIVATE 를 세 겹으로 걸었습니다.</li>
+    <li>받아쓰기 오버레이에서 가장 중요한 조건은 포커스를 뺏지 않는 것이고, NOACTIVATE 를 세 겹으로 걸었습니다.</li>
     <li>PowerShell 데몬 안에 C# STA 스레드를 하나 두는 것으로 별도 프로세스 없이 해결했습니다. PowerShell 5.1 의 <code>Add-Type</code> 은 C# 5 컴파일러라 문자열 보간이나 <code>?.</code> 는 못 씁니다.</li>
   </ul>
 
