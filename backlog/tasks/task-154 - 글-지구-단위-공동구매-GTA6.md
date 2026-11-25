@@ -1,9 +1,10 @@
 ---
 id: TASK-154
 title: '글: 지구 단위 공동구매 (GTA6)'
-status: To Do
+status: In Progress
 assignee: []
 created_date: '2026-11-22T11:20:00Z'
+updated_date: '2026-11-25T02:34:00Z'
 labels: []
 dependencies: []
 ordinal: 1000
@@ -21,3 +22,9 @@ GTA6 예산을 전 지구적 공동구매로 읽는 에세이. topics/gta6-globa
 - [ ] #2 반론·사실 검증 반영
 - [ ] #3 초안 완성 후 /publish-til
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+초안 v1 완료(2026-11-23), 사용자 검토 대기. 로컬 drafts/gta6-global-group-buy.md, 머신 간 사본은 private kil9log 의 topics/·drafts/ 같은 이름. 다음: 문장 다듬기 에이전트 또는 /publish-til.
+<!-- SECTION:NOTES:END -->
