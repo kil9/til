@@ -583,6 +583,21 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/A_wheeltapper_signing_off_at_Budapest-Keleti.jpg/500px-A_wheeltapper_signing_off_at_Budapest-Keleti.jpg"
     }
    ]
+  },
+  "2026-11-26": {
+   "drawing": {
+    "caption": "붉은 개울에서 길어 올린 주홍 한 붓",
+    "file": "draw/2026-11-26.svg"
+   },
+   "photos": [
+    {
+     "caption": "네덜란드 개울에서 건져 올린 늪철 한 덩이, 철세균이 쌓아 둔 녹",
+     "credit": "Rp22",
+     "license": "CC BY 3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Hands-on-bog-iron.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e0/Hands-on-bog-iron.jpg/500px-Hands-on-bog-iron.jpg"
+    }
+   ]
   }
  },
  "design": [
@@ -704,6 +719,11 @@
   {
    "date": "2026-11-24",
    "note": "단추 감을 뚫어 내고 동그란 구멍만 남은 민물조개 껍데기처럼, 기록 꼬리표 앞의 꽉 찬 작은 점을 속이 빈 고리로 바꿨습니다."
+  },
+  {
+   "date": "2026-11-26",
+   "note": "벌집이 바깥 칸의 꿀에 가장 센 방어를 두고 안쪽으로 갈수록 가늘고 정확하게 지키는 것처럼, 오른쪽 취향 칸은 밀랍빛이 도는 굵은 바깥 테두리로 감싸고 안쪽 액자는 가는 선 하나만 두었으며 그림이 제 비율로 앉도록 액자 높이를 맞췄습니다. 강조색은 철세균이 개울에 쌓은 짙은 주홍 쪽으로 한 톤 내렸고, 여기저기 달려 있던 알약 모양 꼬리표는 덜어 내 고리와 글자만 남겼습니다. 아카이브의 달들은 벌집 칸처럼 고르게 놓인 타일로 바꿨습니다.",
+   "redesign": true
   }
  ],
  "notes": {
@@ -2640,12 +2660,56 @@
   "n-0318": {
    "emoji": "🐦",
    "emoji_pos": "front",
+   "pic": {
+    "bg": [
+     "#7f7f52",
+     "#cbcbbd"
+    ],
+    "file": "pic/n-0318.webp",
+    "h": 480,
+    "w": 720
+   },
    "short": "스쿠터 경보음을 제 목에 맞게 줄여 부르는 지빠귀"
   },
   "n-0320": {
    "emoji": "🛤️",
    "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#70706e",
+     "#a39b8f"
+    ],
+    "file": "pic/n-0320.webp",
+    "h": 480,
+    "w": 720
+   },
    "short": "매끄럽게 펴지 못한 철교에만 남은 이음매 엇박자"
+  },
+  "n-0321": {
+   "emoji": "🐝",
+   "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#faf3e5",
+     "#f7efe0"
+    ],
+    "file": "pic/n-0321.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "바깥 꿀이 가장 세게 지키는 벌집의 겹겹 방어"
+  },
+  "n-0323": {
+   "pic": {
+    "bg": [
+     "#a9b4c2",
+     "#a9b4c2"
+    ],
+    "file": "pic/n-0323.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "중학생의 '왜 빨간 개울?'에서 찾은 슈리성 주홍"
   }
  }
 }
