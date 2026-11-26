@@ -53,6 +53,7 @@ GitHub Pages 는 `main` 브랜치 루트를 그대로 서빙한다(별도 빌드
 
 | 날짜 | 페이지 | 경로 |
 | --- | --- | --- |
+| 2026-11-27 | Pine 을 다운로드 폴더에 켜 두는 것은 기본 설정으로는 권하지 않는다: 읽고 알리는 일만 맡기고, 옮기는 일은 모델 밖에 둔다 | [/2026/pine-on-downloads-folder/](https://til.kil9.dev/2026/pine-on-downloads-folder/) |
 | 2026-11-27 | GPT-6 Astra 와 함께 쓴 '중력의 양자화' 논문은 알려진 장애물 21개 중 1개를 풀었다: 오펜하임의 심사와 누구나 해 볼 수 있는 검사 셋 | [/2026/ai-quantum-gravity-paper-referee/](https://til.kil9.dev/2026/ai-quantum-gravity-paper-referee/) |
 | 2026-11-19 | 로컬 받아쓰기를 Whisper large-v3-turbo 로 정하기까지: 모델·엔진·표기 교정을 실측으로 고르고, KB16 키 셋으로 녹음하고 VRAM 을 끄고 켠다 | [/2026/local-dictation-whisper-turbo/](https://til.kil9.dev/2026/local-dictation-whisper-turbo/) |
 | 2026-11-13 | 스마트 TV 시청 추적(ACR) 끄기: 업체마다 이름이 다른 스위치, 그리고 꺼도 남는 것. 삼성·LG·Roku·Vizio·Sony·Fire TV 메뉴 경로 표와 17개 질문 답변 | [/2026/smart-tv-acr-opt-out/](https://til.kil9.dev/2026/smart-tv-acr-opt-out/) |
