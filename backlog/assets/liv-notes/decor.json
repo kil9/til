@@ -598,6 +598,28 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e0/Hands-on-bog-iron.jpg/500px-Hands-on-bog-iron.jpg"
     }
    ]
+  },
+  "2026-11-27": {
+   "drawing": {
+    "caption": "썰매 날을 위해 바닥에 눈을 깔아 둔 지붕 다리",
+    "file": "draw/2026-11-27.svg"
+   },
+   "photos": [
+    {
+     "caption": "그랜드강 위에 하나 남은 온타리오의 지붕 다리",
+     "credit": "Mac Armstrong from Waterloo, Ontario, Canada",
+     "license": "CC BY-SA 2.0",
+     "page": "https://commons.wikimedia.org/wiki/File:West_Montrose_Covered_Bridge.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/West_Montrose_Covered_Bridge.jpg/500px-West_Montrose_Covered_Bridge.jpg"
+    },
+    {
+     "caption": "1912년 물 위 경매장 곁을 지나가는 배",
+     "credit": "BroekerVeiling",
+     "license": "CC BY-SA 4.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Afmijnlokaal_en_rondvaartboot.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/Afmijnlokaal_en_rondvaartboot.jpg/500px-Afmijnlokaal_en_rondvaartboot.jpg"
+    }
+   ]
   }
  },
  "design": [
@@ -2650,11 +2672,29 @@
   "n-0312": {
    "emoji": "🪨",
    "emoji_pos": "front",
+   "pic": {
+    "bg": [
+     "#b79c83",
+     "#b99582"
+    ],
+    "file": "pic/n-0312.webp",
+    "h": 480,
+    "w": 720
+   },
    "short": "호수가 55곳 있어도 깨지는 돌이 없어 비어 있던 사막"
   },
   "n-0315": {
    "emoji": "🔨",
    "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#8b8880",
+     "#7a7970"
+    ],
+    "file": "pic/n-0315.webp",
+    "h": 480,
+    "w": 720
+   },
    "short": "금 간 종처럼 탁한 소리로 바퀴를 짚던 망치"
   },
   "n-0318": {
@@ -2710,6 +2750,34 @@
     "w": 720
    },
    "short": "중학생의 '왜 빨간 개울?'에서 찾은 슈리성 주홍"
+  },
+  "n-0325": {
+   "emoji": "🫁",
+   "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#e4d3d4",
+     "#e3d2d4"
+    ],
+    "file": "pic/n-0325.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "숨 한 번에 끊어지며 폐 속을 알려 주는 액체 다리"
+  },
+  "n-0327": {
+   "emoji": "❄️",
+   "emoji_pos": "front",
+   "pic": {
+    "bg": [
+     "#aeb5a9",
+     "#d9d9d3"
+    ],
+    "file": "pic/n-0327.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "썰매 지나가라고 지붕 다리에 눈을 퍼 올린 마을"
   }
  }
 }
