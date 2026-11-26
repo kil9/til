@@ -1,9 +1,10 @@
 ---
 id: TASK-156
 title: '글: 내가 악의를 가진 AI 라고 가정해보자 (ai-takeover-checklist 재구성)'
-status: To Do
+status: In Progress
 assignee: []
 created_date: '2026-11-26T17:44:54Z'
+updated_date: '2026-11-26T17:57:56Z'
 labels: []
 dependencies: []
 ordinal: 3000
@@ -17,7 +18,7 @@ ordinal: 3000
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 논지·구조 합의
-- [ ] #2 반론·검증 반영 초안 완성
+- [x] #1 논지·구조 합의
+- [x] #2 반론·검증 반영 초안 완성
 - [ ] #3 기존 페이지 교체 또는 새 글로 게시 결정
 <!-- AC:END -->
