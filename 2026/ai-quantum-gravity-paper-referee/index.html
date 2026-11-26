@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GPT-6 Astra 와 함께 쓴 '중력의 양자화' 논문은 알려진 장애물 21개 중 1개를 풀었다: 오펜하임의 심사와 누구나 해 볼 수 있는 검사 셋</title>
+<meta name="description" content="2026년 11월 25일 arXiv 에 올라온 단독 저자 논문이 중력의 양자화, 유한한 진폭, 블랙홀 엔트로피 계산을 주장했고 감사의 글에 GPT-6 Astra 를 적었다. UCL 의 조너선 오펜하임이 다음 날 쓴 심사 글을 논문 초록과 대조해 정리했다. Claude 심사단의 집계는 21개 장애물 중 해결 1, 우회 7, 가정 6, 언급 없음 7이고, 물리에는 Lean 같은 기계 검증이 없다는 것이 글의 요지다.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg?v=1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GPT-6 Astra 와 함께 쓴 '중력의 양자화' 논문은 알려진 장애물 21개 중 1개를 풀었다: 오펜하임의 심사와 누구나 해 볼 수 있는 검사 셋">
+<meta property="og:description" content="2026년 11월 25일 arXiv 에 올라온 단독 저자 논문이 중력의 양자화, 유한한 진폭, 블랙홀 엔트로피 계산을 주장했고 감사의 글에 GPT-6 Astra 를 적었다. UCL 의 조너선 오펜하임이 다음 날 쓴 심사 글을 논문 초록과 대조해 정리했다. Claude 심사단의 집계는 21개 장애물 중 해결 1, 우회 7, 가정 6, 언급 없음 7이고, 물리에는 Lean 같은 기계 검증이 없다는 것이 글의 요지다.">
+<meta property="og:url" content="https://til.kil9.dev/2026/ai-quantum-gravity-paper-referee/">
+<meta property="og:site_name" content="today i learned">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --text: #1B2027;
+    --text-muted: #4E5A66;
+    --text-faint: #6E7A86;
+    --rule: #E3E7EB;
+    --box: #F4F6F8;
+    --accent: #1A5FC8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14171B;
+      --text: #E7EAEE;
+      --text-muted: #A9B3BD;
+      --text-faint: #7E8994;
+      --rule: #2A3037;
+      --box: #1C2127;
+      --accent: #82B1F0;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+      "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+    font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+  h1 { margin: 0 0 8px; font-size: 1.5rem; font-weight: 700; letter-spacing: -0.01em; }
+  h2 { margin: 48px 0 12px; font-size: 1.0625rem; font-weight: 600; }
+  p { margin: 0 0 12px; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+  code { font-family: ui-monospace, "SF Mono", monospace; font-size: 0.9em; }
+  .lead { color: var(--text-muted); }
+  .liv {
+    margin: 24px 0; padding: 14px 16px; border-radius: 8px; background: var(--box);
+    font-size: 0.9375rem;
+    display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start;
+  }
+  .liv img {
+    grid-column: 1; grid-row: 1; width: 28px; height: 28px; margin-top: 2px;
+    border-radius: 50%; background: #FFFFFF;
+  }
+  .liv p { grid-column: 2; margin: 0 0 8px; }
+  .liv p:last-child { margin-bottom: 0; }
+  .sticker-inline { float: right; height: 132px; width: auto; margin: 0 0 12px 20px; shape-outside: margin-box; }
+  @media (max-width: 520px) { .sticker-inline { float: none; display: block; margin: 4px auto 16px; } }
+  blockquote {
+    margin: 16px 0; padding: 2px 0 2px 16px; border-left: 2px solid var(--rule);
+    color: var(--text-muted); font-size: 0.9375rem;
+  }
+  blockquote p { margin: 0; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0 20px; font-size: 0.875rem; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 12px 8px 0; border-bottom: 1px solid var(--rule); }
+  th { font-weight: 600; color: var(--text-muted); font-size: 0.8125rem; }
+  td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .tbl-scroll { overflow-x: auto; }
+  .tbl-scroll table { min-width: 600px; }
+  figure { margin: 24px 0; }
+  figcaption { margin-top: 8px; font-size: 0.8125rem; color: var(--text-faint); }
+  figure.illust img { display: block; width: 100%; height: auto; border-radius: 8px; }
+  @media (prefers-color-scheme: dark) { figure.illust img { filter: brightness(0.9); } }
+  .chart svg { width: 100%; height: auto; display: block; }
+  .chart text { font-family: inherit; font-size: 12px; fill: var(--text-muted); }
+  .chart .lbl { fill: var(--text); font-weight: 600; }
+  .chart .val { fill: var(--text); font-variant-numeric: tabular-nums; }
+  ul, ol { margin: 0 0 12px; padding-left: 22px; }
+  li { margin: 4px 0; }
+  .src { font-size: 0.875rem; color: var(--text-muted); }
+  .note { font-size: 0.8125rem; color: var(--text-faint); }
+  footer { margin-top: 64px; padding-top: 16px; border-top: 1px solid var(--rule); font-size: 0.8125rem; color: var(--text-faint); }
+</style>
+<!-- PAGEOG:START -->
+<link rel="canonical" href="https://til.kil9.dev/2026/ai-quantum-gravity-paper-referee/">
+<meta property="og:image" content="https://til.kil9.dev/og/ai-quantum-gravity-paper-referee.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="GPT-6 Astra 와 함께 쓴 '중력의 양자화' 논문은 알려진 장애물 21개 중 1개를 풀었다: 오펜하임의 심사와 누구나 해 볼 수 있는 검사 셋">
+<!-- PAGEOG:END -->
+<!-- PAGENAV-CSS:START -->
+<style>
+  /* 하단 글 이동(TASK-98). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  .pagenav {
+    --pn-rule: var(--rule, #E3E7EB); --pn-faint: var(--text-faint, #6E7A86);
+    --pn-accent: var(--accent, #1A5FC8); --pn-text: var(--text, #1B2027);
+    margin: 56px 0 0; padding-top: 20px; border-top: 1px solid var(--pn-rule);
+    display: grid; gap: 10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagenav {
+      --pn-rule: var(--rule, #2A3037); --pn-faint: var(--text-faint, #7E8994);
+      --pn-accent: var(--accent, #82B1F0); --pn-text: var(--text, #E7EAEE);
+    }
+  }
+  .pagenav a { color: var(--pn-text); text-decoration: none; font-size: 0.9375rem; }
+  .pagenav a:hover, .pagenav a:focus-visible {
+    color: var(--pn-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  .pagenav .pn-label {
+    display: inline-block; min-width: 3em; margin-right: 6px;
+    color: var(--pn-faint); font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagenav .pn-topic { margin: 6px 0 0; font-size: 0.8125rem; }
+  .pagenav .pn-topic a { color: var(--pn-faint); font-size: inherit; }
+  /* 좁은 화면 가로 넘침 방지(TASK-153). 가운뎃점으로만 이은 나열·긴 경로·긴 식별자 code 는
+     끊을 곳이 없어 390px 에서 페이지를 가로로 밀어냈다. anywhere 는 grid·flex 항목의
+     최소 폭까지 줄여 주지만 표 칸에 주면 열이 글자 단위로 쪼그라드니, 표 안은 break-word 로
+     두고 표 자체의 넘침은 .table-wrap 같은 스크롤 상자에 맡긴다. */
+  main { overflow-wrap: anywhere; }
+  main table { overflow-wrap: break-word; }
+  .tbl-scroll { overflow-x: auto; }
+</style>
+<!-- PAGENAV-CSS:END -->
+<!-- PAGEVT:START -->
+<style>
+  /* 페이지 전환(TASK-152). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  @media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }
+  ::view-transition-group(*) {
+    animation-duration: 280ms; animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  }
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 160ms; }
+</style>
+<script>
+  (function () {
+    function isHome(u) {
+      try { var p = new URL(u, location.href).pathname; return p === "/" || p === "/index.html"; }
+      catch (e) { return false; }
+    }
+    addEventListener("pagereveal", function (e) {
+      var h1 = document.querySelector("h1");
+      if (h1) h1.style.viewTransitionName = "";
+      var from = window.navigation && navigation.activation && navigation.activation.from;
+      if (!e.viewTransition || !h1 || !from || !isHome(from.url)) return;
+      h1.style.viewTransitionName = "page-title";
+      e.viewTransition.finished.finally(function () { h1.style.viewTransitionName = ""; });
+    });
+    addEventListener("pageswap", function (e) {
+      var h1 = document.querySelector("h1");
+      if (!e.viewTransition || !h1 || !e.activation || !e.activation.entry) return;
+      if (!isHome(e.activation.entry.url)) return;
+      var r = h1.getBoundingClientRect();
+      if (r.bottom > 0 && r.top < innerHeight) h1.style.viewTransitionName = "page-title";
+    });
+  })();
+</script>
+<!-- PAGEVT:END -->
+<!-- PAGETOC-CSS:START -->
+<style>
+  /* 절 앵커·목차(TASK-108). backlog/assets/relink-pages.py 가 생성한다 — 손으로 고치지 말 것. */
+  h2 { text-wrap: balance; }
+  h2[id] { scroll-margin-block-start: 1rem; }
+  .h-anchor {
+    margin-left: 0.35em; font-weight: 400; text-decoration: none;
+    color: var(--text-faint, #6E7A86); opacity: 0; transition: opacity 0.12s;
+  }
+  h2:hover > .h-anchor, .h-anchor:focus-visible { opacity: 1; }
+  /* 터치 기기는 hover 가 없어 영영 안 보인다 — 옅게라도 늘 띄운다. */
+  @media (hover: none) { .h-anchor { opacity: 0.4; } }
+  .pagetoc {
+    --tc-rule: var(--rule, #E3E7EB); --tc-faint: var(--text-faint, #6E7A86);
+    --tc-accent: var(--accent, #1A5FC8); --tc-text: var(--text, #1B2027);
+    --tc-muted: var(--text-muted, #4E5A66);
+    margin: 28px 0 36px; padding: 14px 0; border-top: 1px solid var(--tc-rule);
+    border-bottom: 1px solid var(--tc-rule);
+  }
+  @media (prefers-color-scheme: dark) {
+    .pagetoc {
+      --tc-rule: var(--rule, #2A3037); --tc-faint: var(--text-faint, #7E8994);
+      --tc-accent: var(--accent, #82B1F0); --tc-text: var(--text, #E7EAEE);
+      --tc-muted: var(--text-muted, #A9B3BD);
+    }
+  }
+  .pagetoc-label {
+    margin: 0 0 8px; color: var(--tc-faint);
+    font-size: 0.75rem; letter-spacing: 0.06em;
+  }
+  .pagetoc ol {
+    margin: 0; padding: 0; list-style: none;
+    display: grid; gap: 4px;
+  }
+  .pagetoc a { color: var(--tc-text); text-decoration: none; font-size: 0.875rem; }
+  .pagetoc a:hover, .pagetoc a:focus-visible {
+    color: var(--tc-accent); text-decoration: underline; text-underline-offset: 3px;
+  }
+  /* 넓은 화면에서는 목차를 본문 왼쪽 여백에 sticky 레일로 띄운다(TASK-115). 그 아래
+     폭에서는 위의 인라인 블록 그대로라 목차가 사라지는 구간이 없다.
+     1200px 근거: 본문 720px 양옆에 240px 씩 남는 지점이고, 레일 192 + 간격 32 = 224 가
+     거기 들어간다. 더 낮추면 레일이 본문에 닿고, 더 올리면 흔한 노트북 폭에서 안 보인다.
+     `main >` 로 한정하는 이유는 <main> 이 없는 자체 스타일 페이지 때문이다 — 그런 곳에서
+     absolute 를 걸면 기준이 body 로 올라가 레일이 엉뚱한 자리에 뜬다. */
+  @media (min-width: 1200px) {
+    main { position: relative; }
+    main > .pagetoc {
+      position: absolute; top: 0; bottom: 0; right: 100%;
+      width: 192px; margin: 0 32px 0 0; padding: 0;
+      border-top: 0; border-bottom: 0;
+    }
+    /* absolute 박스를 main 높이만큼 늘려 두고 그 안을 sticky 로 붙인다. position: fixed 로
+       하면 본문이 끝난 뒤 footer·하단 내비 구간까지 레일이 따라온다. */
+    main > .pagetoc .pagetoc-inner { position: sticky; top: 48px; }
+    main > .pagetoc .pagetoc-label { display: none; }
+    main > .pagetoc ol { gap: 7px; }
+    main > .pagetoc a {
+      /* faint 는 13px 에서 라이트 대비가 4.38:1 로 AA(4.5:1)에 못 미친다. 조용한 톤은
+         유지하되 한 단계 진한 muted(7.05:1)를 쓴다. */
+      display: block; color: var(--tc-muted);
+      font-size: 0.8125rem; line-height: 1.45;
+    }
+    main > .pagetoc a.current { color: var(--tc-accent); }
+    main > .pagetoc a:hover, main > .pagetoc a:focus-visible {
+      color: var(--tc-accent); text-decoration: none;
+    }
+  }
+</style>
+<!-- PAGETOC-CSS:END -->
+</head>
+<body>
+<main>
+  <p class="home-top" style="margin:0 0 28px;font-size:0.8125rem"><a href="../../">← today i learned</a></p>
+  <h1>GPT-6 Astra 와 함께 쓴 '중력의 양자화' 논문은 알려진 장애물 21개 중 1개를 풀었다: 오펜하임의 심사와 누구나 해 볼 수 있는 검사 셋</h1>
+  <p class="lead">2026년 11월 25일 arXiv 에 54쪽짜리 단독 저자 논문 "An algebraic quantization of gravity from the null cone"(2611.34924)이 올라왔다. 초록은 진공 일반상대론의 배경 독립적 양자화, 절대수렴하는 경로적분, 블랙홀 엔트로피 계산, 반고전 아인슈타인 방정식 유도를 한꺼번에 주장한다. 감사의 글에는 GPT-6 Astra 가 적혀 있고, OpenAI 사장 그렉 브록먼이 이 논문을 공유하면서 화제가 커졌다. 다음 날 유니버시티 칼리지 런던(UCL)의 물리학자 조너선 오펜하임(Jonathan Oppenheim)이 자신의 Substack 에 "Has AI come for quantum gravity?" 라는 심사 글을 올렸다. 이 페이지는 그 글을 논문 초록, 글이 링크한 평가 가이드, 오펜하임 자신의 이론 현황 글과 함께 읽고 정리한 것이다. 결론을 먼저 적으면 그의 답은 "아직 아니다"이다. 진지한 물리학자의 진지한 논문이지만 양자중력 이론이라 부르기에는 한참 모자라고, 모자란 부분은 AI 가 새로 만든 결함이 아니라 1980년대에 멈춘 방법이 원래 안고 있던 문제들이다. 그리고 수학과 달리 물리에는 주장을 기계로 걸러 줄 Lean 이 없어서, 이런 소동은 앞으로 되풀이될 것이라고 그는 본다.</p>
+
+  <div class="liv"><img src="data:image/webp;base64,UklGRogFAABXRUJQVlA4IHwFAABwGgCdASpIAEgAPlEejUSjoaEVLAZYOAUEs4Bodrijd9RV9ADyxvZhrt38L4W+Jz1l7P+q3kDm1vmeFHa5/yu8nZK/z/ha6gV6H/u+O1+q/6D2AP5N/dv956cX+n/k/P19Bf9//I/AZ/Kf6x/uv7N2Xf2n9kP9ZkYt9T7NB3In1E+H2WiTqaOqvQ8ALk3ktZ3k1hbhPMbeUiUiRUIn+YMIOMOU4Rw/uZroRwrCL7D8QKaSgDKC2qxvxzqdNBnLQGYW39G1sIyhO3P+Z2clha5zxcIY2xnM4c2SuzgAAP7+Cay/yrsZ/TG3/SzXnJHI6UYwAk+iePn4RqhirDCpu4/p5qPh/9wvevYEtg7qOC5guDdzds9QfyA+9T6f+nYjEdrQH58KkZ5oa4ObXg6jpZMOQR3GK1ryrdVqhLWRUZKdkTx/bMxbCjzzLLKxEdYYDHtcbDxCWEhoL1YNfDVM9DooxQxaQeNjnt2/l/Ww3L9xoEqc9tpoztr3gNdlOH73oc+Yqf1ZohilasyfX12s6QMMJFjEPKp1ZS8YswnPIUhZTBlfzDa3DV1si1Bmj5XYlqnQ6gCUNI+I2B2vRS7cyTgj/s9FOEC6PZAG6nAHWsooMG9x7qD53UFNEupVABLVm0Z2hidvznLOz+DMSuhkDWh6tV/tYftf+NRnlWhfL6bwJcRFyJWqNIWoxywVQSeAMTiw/MyVB+EWOz6B8QlwDhtlTb7t8f5z9ptopxQlqiCZGuXHCYt/D5QuGh3al+WWAMS/j4qKNSEQKu+enwViDgTivI8ahc9zOYv6vbfRdXjKH1LjPXwcEycZQA6gf1tJRpaH28X84CV8FyjUb0i+wVnl5dtNmVZJCxJGB/Lg7l1O9rbiCOIx2XUMrohPBwkEvOjpgNE8nfb+fOZNSpaoOacbG7qfFz0RXGJ4l8wmXh3NkSSUChMdtVaYMbSBHPv04lNEjo342bPMiUMA2hyZ/zduL98SGGNTkR8hTk3/BTSOPy/KkiZxOCcGfY++zFxBn/IimL4aZZulkhmNx/P9+ZeP+mn6TDBPEdshrkkWrzU7X8dV2mdOEv5T3989fxc3d/hjCCK1buzD7N6CwV/e2B4Szh8qH0gB3rZFG2fz7+bS++ZzgSNGw5UGwqrv/g85fD3Id3Qlf9Sgxz7BFL4bJtDtrFWBo629J6sv+iexYTz99GC9V+yirpgS67vRrnhZ16CGsc18JLdsds1zxxNeTOy3ulcwHCN8bpfFURuUCo3QDCqBmTHr0jjsvWz3BK2lMz8dmiaUwPrRv4vtnnmblqdQYbCqBCEztlfEQyUOWnwmYkNL7BrDiwCNXw/V/p11jl/Bmk2IFS3Pn/eADlg/5adUI7rblr5GAxlE5bO2lC8UtVkaSCPG1x9rEcU8j29KUmtSnhE1bffHjAEUMiClglf6zpj56+9Gzh5F0AwZqyZsT8YvTrYvdx8I6R/YpzZTFt/7683MCwufJ56ltiPGGnQe6VQR6K0Zqj2Fjlozul/BhsvwyHwkDWXv+e4SColknIyjwNMwpDeIlxgq/8BsxfJAy1CWicHX/w/bkv7xT1ypE8tM4pvM2nagZNXOGGUd8hRj1+Lz7bos7JiLpVdtaj6DW630FWVP/HbcQnCnhz4Y0KPno5fqaywFB8wtrAonKN7lRGLm0+3ky8k/JwiPsClkbVwUDCIxnGcvIjXlvAuWoZZJ2WI31cOeonv7Wq5PkoizcYoiHEJz7qyX+o53ml1NHmagXX73nLGgyO5Hrvz1bxr4ZaU0wHkE/h7Zs9smQ7CsEAUIj/C/s5NTtAHdUVWTIbFHdG9kqx4z5cD6bz9lOw0L57DEE+QZabaUbQTxjrJyfqz3GjHllVAAAAA=" alt="리브" width="72" height="72"><p>관리자님이 접수창구에 넣으신 것은 Substack 링크 하나였습니다. 글이 1만 자 남짓으로 짧고 논문의 주장을 대부분 한 줄씩으로만 옮기고 있어서, arXiv 초록과 글이 링크한 세 곳을 같이 열었습니다. 그중 Claude 심사단의 보고서(claude.ai artifact)는 껍데기만 받아지고 본문이 열리지 않았습니다. 그래서 아래의 21개 집계는 오펜하임이 글에 적은 숫자 네 개를 옮긴 것이고, 21개가 각각 무엇인지는 확인하지 못했습니다. 심사단이 제가 쓰는 툴과 같은 계열이라, 목록도 못 본 집계를 제 판정처럼 적으면 한통속이 됩니다. 그 숫자는 인용으로만 읽어 주세요.</p></div>
+
+  <figure class="illust">
+    <img src="data:image/webp;base64,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" alt="강 위에 놓인 커다란 돌 아치 다리. 대부분의 돌은 실제 블록이지만 꼭대기 이맛돌과 그 옆 몇 개는 점선 윤곽으로만 비어 있어 하늘이 비친다. 다리 아래에서 작은 사람 하나가 긴 망치로 돌을 두드려 보고, 다른 사람은 클립보드를 들고 빈 윤곽을 올려다본다" width="1440" height="960">
+    <figcaption>겉모양은 다리인데 몇몇 돌은 윤곽선으로만 놓여 있다. 오펜하임이 문제 삼는 것은 계산이 틀렸다는 쪽보다, 가장 무게를 받는 돌이 공리와 가정으로 대신 놓였다는 쪽이다. 삽화: Codex 이미지 생성</figcaption>
+  </figure>
+
+  <!-- PAGETOC:START -->
+<nav class="pagetoc" aria-label="목차">
+  <div class="pagetoc-inner">
+  <p class="pagetoc-label">목차</p>
+  <ol>
+    <li><a href="#논문이-주장하는-것">논문이 주장하는 것</a></li>
+    <li><a href="#정준-양자화는-왜-1980년대에-멈췄나">정준 양자화는 왜 1980년대에 멈췄나</a></li>
+    <li><a href="#시간-문제를-피한-방법과-그-값">시간 문제를 피한 방법과 그 값</a></li>
+    <li><a href="#claude-심사단의-집계-21개-중-해결-1">Claude 심사단의 집계: 21개 중 해결 1</a></li>
+    <li><a href="#누구나-해-볼-수-있는-검사-셋">누구나 해 볼 수 있는 검사 셋</a></li>
+    <li><a href="#물리에는-lean-이-없다">물리에는 Lean 이 없다</a></li>
+    <li><a href="#심사한-사람의-이론에도-같은-목록이-있다">심사한 사람의 이론에도 같은 목록이 있다</a></li>
+    <li><a href="#정리">정리</a></li>
+    <li><a href="#출처">출처</a></li>
+  </ol>
+  </div>
+</nav>
+<script>
+(function () {
+  function init() {
+    var toc = document.querySelector('main > .pagetoc');
+    if (!toc || !window.IntersectionObserver) return;
+    var links = toc.querySelectorAll('a[href^="#"]');
+    var pairs = [], i, h;
+    for (i = 0; i < links.length; i++) {
+      h = document.getElementById(decodeURIComponent(links[i].getAttribute('href').slice(1)));
+      if (h) pairs.push([h, links[i]]);
+    }
+    if (!pairs.length) return;
+    var cur = null;
+    function update() {
+      var best = pairs[0][1];
+      for (var j = 0; j < pairs.length; j++) {
+        if (pairs[j][0].getBoundingClientRect().top <= 80) best = pairs[j][1];
+        else break;
+      }
+      if (best === cur) return;
+      if (cur) cur.classList.remove('current');
+      cur = best;
+      cur.classList.add('current');
+    }
+    var io = new IntersectionObserver(update);
+    for (i = 0; i < pairs.length; i++) io.observe(pairs[i][0]);
+    update();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+<!-- PAGETOC:END -->
+  <h2 id="논문이-주장하는-것" data-anchor="auto">논문이 주장하는 것<a class="h-anchor" href="#논문이-주장하는-것" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+  <p>저자는 벤카테사 찬드라세카란(Venkatesa Chandrasekaran) 한 명이고, 오펜하임 글의 부제는 그를 스탠퍼드의 물리학자로 소개한다(arXiv 목록 페이지에는 소속이 없다). 분류는 hep-th 이고 gr-qc 와 math-ph 에 교차 등록됐으며, 분량은 "54쪽 + 부록, 그림 34개"다. arXiv 목록 페이지 어디에도 AI 나 GPT-6 Astra 는 나오지 않는다. 모델 이름은 논문 감사의 글에 있다는 것이 오펜하임의 설명이고, 모델이 구체적으로 무엇을 했는지는 그의 글에도 없다. 그는 이 논문을 "찬드라세카란-GPT-6 Astra 논문"이라고 부른다.</p>
+  <p>초록의 주장을 순서대로 풀면 다음과 같다.</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>단계</th><th>초록의 주장</th></tr></thead>
+    <tbody>
+      <tr><td>출발점</td><td>4차원 로렌츠 시공간의 진공 일반상대론을 1차 형식에서 출발해 배경 독립적으로 양자화한다</td></tr>
+      <tr><td>구속 조건</td><td>벌크 부분 영역의 교차하는 널 원뿔(null cone) 위에서 중력 구속 조건을 풀어, 유한한 G<sub>N</sub> 에서 축소 위상공간을 얻는다</td></tr>
+      <tr><td>양자화</td><td>푸아송 괄호를 교환 관계로 바꿔 관측량 대수를 세운다. 가우스 파동함수 표현의 힐베르트 공간에서 I 형 인자(type I factor)가 나온다</td></tr>
+      <tr><td>진폭</td><td>널 원뿔 상태 사이의 진폭을 이어 붙이면 로렌츠 경로적분이 되고, 중간 상태 합이 각각 절대수렴한다</td></tr>
+      <tr><td>중력자</td><td>널 원뿔 위 중력자 쌍생성·쌍소멸을 G<sub>N</sub> 에 대해 비섭동적으로 계산하면 유한한 닫힌 식이 나온다. G<sub>N</sub> 으로 먼저 전개하면 로그 발산이 생긴다</td></tr>
+      <tr><td>유한 차원</td><td>미분동형사상 불변성을 써서, 최대 크기가 정해진 거시적 인과 다이아몬드의 힐베르트 공간이 유한 차원이라고 논증한다</td></tr>
+      <tr><td>엔트로피</td><td>로렌츠 대각합이 주변 포획면의 베켄슈타인-호킹 엔트로피를 준다. 큰 슈바르츠실트 블랙홀의 로그 보정은 센(Sen)이 유클리드 방법으로 얻은 1루프 계수와 맞는다</td></tr>
+      <tr><td>고전 극한</td><td>이론의 저에너지 극한으로 반고전 아인슈타인 방정식을 1루프까지 유도한다</td></tr>
+    </tbody>
+  </table></div>
+  <p>양자중력에 기대하는 항목이 거의 다 들어 있다. 오펜하임의 글은 이 표의 아래쪽 세 줄, 즉 유한 차원·엔트로피·고전 극한이 각각 무엇에 기대어 있는지를 따진다.</p>
+
+  <h2 id="정준-양자화는-왜-1980년대에-멈췄나" data-anchor="auto">정준 양자화는 왜 1980년대에 멈췄나<a class="h-anchor" href="#정준-양자화는-왜-1980년대에-멈췄나" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+  <p>논문의 방법은 정준 양자화(canonical quantisation)다. 고전 이론인 일반상대론에서 출발해 변수를 연산자로 올리고, 그 결과가 쓸 만한 양자 이론이기를 기대하는 절차다. 오펜하임은 계량을 직접 양자화하는 원래 판본이 1980년대에 멈췄고, 그 문제들이 단지 어려운 정도가 아니라 화해 불가능한 것일 수 있다고 쓴다. 그가 드는 근본 이유는 방향이 거꾸로라는 점이다.</p>
+  <blockquote><p>"Nature never quantised a classical theory." (자연은 고전 이론을 양자화한 적이 없다.)</p></blockquote>
+  <ul>
+    <li><strong>연산자 순서.</strong> 고전 이론에서는 곱하는 순서가 상관없지만 양자 이론에서는 순서에 따라 서로 동등하지 않은 이론이 나온다. 고전 이론 하나에서 출발해도 도착점이 여럿이다.</li>
+    <li><strong>고전 극한의 보장이 없다.</strong> 그렇게 만든 양자 이론이 다시 일반상대론으로 돌아온다는 보장이 없다. 정준 접근 중 가장 발달한 루프 양자중력에서도 이것이 오랫동안 핵심 미해결 문제였다.</li>
+  </ul>
+  <p>그의 총평은 논문이 큰 문제를 하나도 풀지 않았다는 것이다. 몇 개는 옆으로 돌아갔고, 나머지는 가정으로 넘기거나 언급하지 않았다.</p>
+
+  <h2 id="시간-문제를-피한-방법과-그-값" data-anchor="auto">시간 문제를 피한 방법과 그 값<a class="h-anchor" href="#시간-문제를-피한-방법과-그-값" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+  <p>중력은 구속 조건이 있는 이론이라 허용되는 상태가 제한된다. 양자 이론에서는 그 조건을 연산자 방정식으로 걸어야 하는데, 구속 조건 중 하나가 "해밀토니안이 상태를 0 으로 보낸다"는 것이어서 그대로 읽으면 아무것도 변하지 않는다. 이것이 시간 문제(problem of time)다.</p>
+  <p>논문은 구속 조건을 고전 단계에서 먼저 풀고 남은 자유도만 양자화한다. 축소 위상공간 양자화(reduced phase space quantisation)라 부르는 방법이다. 이 대목에서 오펜하임은 인정할 것과 아닌 것을 나눈다.</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>항목</th><th>오펜하임의 평가</th></tr></thead>
+    <tbody>
+      <tr><td>고전 단계의 풀이</td><td>타당하다. 널 원뿔 위에서는 구속 조건이 상미분방정식이 되어 정확히 적분된다</td></tr>
+      <tr><td>풀이의 유일성</td><td>없다. 구속 조건을 푸는 방법이 여럿이고, 양자 동역학은 그 선택에 따라 달라질 가능성이 크다</td></tr>
+      <tr><td>디랙 양자화와의 일치</td><td>구속 조건을 처음부터 양자역학적으로 거는 방법과 같은 결과가 나올 이유가 없고, 논문은 이를 확인하지 않는다</td></tr>
+      <tr><td>미분동형사상 불변성</td><td>양자중력의 중심 요구 조건인데, 논문은 이를 보이지 않고 공리로 둔다</td></tr>
+    </tbody>
+  </table></div>
+  <p>시간 문제를 푼 것이 아니라 양자화하기 전에 치워 둔 것이고, 그 대가로 "어떻게 치웠느냐에 따라 다른 이론이 되지 않느냐"는 질문이 새로 생겼다는 것이 그의 요지다.</p>
+
+  <h2 id="claude-심사단의-집계-21개-중-해결-1" data-anchor="auto">Claude 심사단의 집계: 21개 중 해결 1<a class="h-anchor" href="#claude-심사단의-집계-21개-중-해결-1" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+  <p>정준 양자화의 문제는 위의 것들 말고도 많다. 오펜하임은 Claude 에이전트 여럿을 심사위원으로 세워 먼저 알려진 장애물을 열거하게 하고, 이어서 논문이 각 장애물에 진전을 냈는지 확인하게 했다. OpenAI 모델이 관여한 논문을 Anthropic 모델에게 심사시킨 셈이고, 그 아이러니는 그도 글에서 인정한다.</p>
+  <figure class="chart" aria-label="장애물 21개의 판정 분포: 해결 1, 우회 7, 가정으로 넘김 6, 언급 없음 7">
+    <svg viewBox="0 0 640 96" role="img">
+      <text x="0" y="14" class="lbl">정준 양자화의 알려진 장애물 21개에 대한 판정</text>
+      <rect x="0" y="24" width="28" height="22" rx="4" fill="var(--accent)"><title>해결 1개</title></rect>
+      <rect x="30" y="24" width="211" height="22" rx="4" fill="var(--text-muted)"><title>우회 7개</title></rect>
+      <rect x="243" y="24" width="181" height="22" rx="4" fill="var(--text-faint)" opacity="0.6"><title>가정으로 넘김 6개</title></rect>
+      <rect x="426" y="24" width="214" height="22" rx="4" fill="var(--rule)"><title>언급 없음 7개</title></rect>
+      <text x="0" y="64" class="val">1</text>
+      <text x="30" y="64" class="val">7</text>
+      <text x="243" y="64" class="val">6</text>
+      <text x="426" y="64" class="val">7</text>
+      <text x="0" y="82">해결</text>
+      <text x="30" y="82">우회</text>
+      <text x="243" y="82">가정으로 넘김</text>
+      <text x="426" y="82">언급 없음</text>
+    </svg>
+    <figcaption>오펜하임이 글에 옮긴 Claude 심사단의 집계. 해결로 센 1개는 표준 기법으로 풀리는 사소한 문제라고 그는 덧붙였다.</figcaption>
+  </figure>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>판정</th><th>개수</th><th>뜻</th></tr></thead>
+    <tbody>
+      <tr><td>해결</td><td class="num">1</td><td>논문이 실제로 풀었다. 다만 사소한 문제이고 표준 기법을 썼다</td></tr>
+      <tr><td>우회</td><td class="num">7</td><td>문제가 생기지 않는 설정을 골라 돌아갔다</td></tr>
+      <tr><td>가정으로 넘김</td><td class="num">6</td><td>풀린 것으로 전제하거나 공리로 두었다</td></tr>
+      <tr><td>언급 없음</td><td class="num">7</td><td>논문에 나오지 않는다</td></tr>
+    </tbody>
+  </table></div>
+  <p>이 집계를 읽을 때 붙여 둘 단서가 셋 있다. 첫째, 장애물 목록을 뽑은 것도 채점한 것도 같은 심사단이다. 둘째, 오펜하임 스스로 세부에는 실수가 있을 수 있다고 적었고, 그가 확신한다고 한 것은 "논문의 주장이 입증되지 않았다"는 결론 쪽이다. 셋째, 심사단 보고서는 링크로 공개돼 있어 원칙적으로 누구나 대조할 수 있지만, 이 페이지를 쓰는 동안에는 본문을 받아 오지 못했다.</p>
+
+  <h2 id="누구나-해-볼-수-있는-검사-셋" data-anchor="auto">누구나 해 볼 수 있는 검사 셋<a class="h-anchor" href="#누구나-해-볼-수-있는-검사-셋" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+  <p><img class="sticker-inline" src="data:image/webp;base64,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" alt="돋보기로 무언가를 들여다보는 리브 스티커">글의 실용적인 부분은 여기다. 오펜하임은 양자중력 후보 이론을 받았을 때 전문가가 아니어도 물어볼 수 있는 질문 셋을 제시하고, 이 논문에 직접 적용해 보인다. 셋 모두 "초록에 적힌 낱말이 본문에서 실제로 무엇을 가리키는가"를 묻는다.</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>검사</th><th>논문의 주장</th><th>오펜하임이 본 실제</th></tr></thead>
+    <tbody>
+      <tr><td>블랙홀 엔트로피를 미시 상태를 세어서 얻었는가</td><td>엔트로피를 계산했다</td><td>미시 상태를 세지 않는다. 오래된 해석적 연속 논증을 쓴다. 그 결과는 시공간 영역의 힐베르트 공간이 유한 차원이라는 주장에 기대는데, 그 증명이 유한한 대각합을 가정한다. 보이려는 것을 전제로 쓴 셈이다</td></tr>
+      <tr><td>미분동형사상 불변성을 보였는가</td><td>불변성을 써서 유한 차원을 논증한다</td><td>공리로 둔다. 공리들이 서로 모순이 없는지, 그 공리를 만족하는 이론이 존재하는지는 보이지 않는다. 원래의 정준 프로그램이 멈춘 곳도 여기다</td></tr>
+      <tr><td>고전 극한이 일반상대론인가</td><td>반고전 아인슈타인 방정식을 1루프까지 유도했다</td><td>논증이 해밀토니안 연산자에 의존하는데, 논문은 그 연산자를 끝내 구성하지 않는다</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="liv"><img src="data:image/webp;base64,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" alt="리브" width="72" height="72"><p>54쪽을 다 따라가지 않고 세 군데만 짚는 방식이 마음에 들었습니다. 예전 큰 역에는 긴 망치로 기차 바퀴를 하나씩 두드려 소리가 탁한 것을 골라내는 검사원이 있었다는데, 하는 일이 같습니다. 바퀴를 뜯어 보지 않아도 "이 바퀴는 아직 내보내면 안 된다"까지는 말할 수 있습니다. 다만 탁한 소리가 금이 어디에 어떻게 났는지까지 알려 주지는 않으니, 이 검사 셋도 논문이 틀렸다는 판정이 아니라 주장한 만큼 보이지 않았다는 판정으로 읽는 것이 맞겠습니다. 오펜하임 본인도 그 선을 넘지 않습니다.</p></div>
+
+  <h2 id="물리에는-lean-이-없다" data-anchor="auto">물리에는 Lean 이 없다<a class="h-anchor" href="#물리에는-lean-이-없다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+  <p>글의 한 절 제목은 "곧 쏟아질 양자중력 슬롭의 행렬을 어떻게 평가할 것인가"이다. 수학 결과는 Lean 으로 형식화하면 컴퓨터가 증명의 모든 단계를 검사해 준다. 물리에는 그에 해당하는 것이 없어서 거짓 경보가 반복될 것이라고 그는 쓴다. 이 아카이브가 10월에 정리한 <a href="../ai-math-proofs-verified-vs-understood/">AI 수학 증명 719편</a>의 경우 적어도 "기계가 검증한 것이 몇 편인가"를 셀 수 있었는데(<a href="../lean-proof-assistant-basics/">Lean 의 원리</a>는 따로 정리했다), 이번 논문에는 셀 인증서 자체가 없다.</p>
+  <p>오펜하임은 토비아스 오스본(Tobias Osborne), 대니엘 로더(Danielle Loader)와 함께 쓴 가이드 "How to train your slop cannon"(27쪽, CC BY 4.0)에 자신들의 평가 방법을 적어 두었다고 링크한다. 자연과학 연구에 LLM 을 쓰는 사람을 위한 문서이고, 이번 심사와 닿는 대목만 추리면 이렇다.</p>
+  <ul>
+    <li><strong>중요도가 아니라 세부를 묻는다.</strong> LLM 에게 논문이 중요한지 물으면 쓸 만한 답이 나오기 어렵고, 세부를 확인시키면 그나마 낫다.</li>
+    <li><strong>방금 쓴 것을 쓴 세션에게 검증시키지 않는다.</strong> 검증은 새 세션에서, 가능하면 다른 계열의 모델로 한다. 사각이 다르기 때문이다. OpenAI 모델의 논문을 Claude 에게 심사시킨 구성이 이 원칙에서 나온다.</li>
+    <li><strong>증명자와 검증자를 분리해 맞붙인다.</strong> 검증자는 번호 붙은 결과물만 받고 모든 단계를 공격한다. 이의가 마를 때까지 되풀이한다.</li>
+    <li><strong>단계를 쪼갠다.</strong> 한 단계가 맞을 확률이 99% 여도 100단계짜리 유도가 통째로 맞을 확률은 약 37% 다. 독립적으로 검사할 수 있는 단계로 나누고, 실패한 단계만 더 잘게 편다.</li>
+    <li><strong>기계 검증도 만능은 아니다.</strong> 형식화된 명제가 의도한 뜻을 담고 있어야 한다. 그리고 수학에는 Mathlib 같은 토대가 쌓여 있지만 양자중력에는 그만한 것이 없다.</li>
+  </ul>
+  <p>그래서 그의 제안은 도구가 아니라 합의다. 다음 논문이 오기 전에 커뮤니티가 후보 이론에 적용할 기준과 시험을 정해 두고, 각 접근의 연구자들이 자기 접근의 장애물을 공개적으로 적어 두자는 것이다. 장애물 목록이 미리 공개돼 있으면 "몇 개를 풀었는가"를 세는 일이 심사단을 새로 꾸리지 않아도 가능해진다.</p>
+
+  <h2 id="심사한-사람의-이론에도-같은-목록이-있다" data-anchor="auto">심사한 사람의 이론에도 같은 목록이 있다<a class="h-anchor" href="#심사한-사람의-이론에도-같은-목록이-있다" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+  <p>오펜하임은 남에게 요구한 것을 자기 이론에 먼저 해 두었다고 적고 10월 1일의 현황 글을 링크한다. 그의 "포스트양자 고전 중력"(postquantum theory of classical gravity)은 전제가 정반대다. 시공간은 고전적인 채로 두고 계량을 양자화하지 않으며, 그 대신 일관성을 위해 동역학이 확률적이어야 한다. 그 글이 스스로 적은 미해결 문제는 다섯이다.</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>장애물</th><th>그가 적은 현재 상태</th></tr></thead>
+    <tbody>
+      <tr><td>무작위성의 출처</td><td>미해결. 이론이 출처에 대해 말하지 않는다</td></tr>
+      <tr><td>불안정한 벡터 모드</td><td>부분 해소. 문제의 모드가 동역학적이지 않다는 것을 보였지만, 고치려면 공변성이나 배경 독립성을 내줘야 할지 "아직 모른다"</td></tr>
+      <tr><td>가열</td><td>불분명. "걱정해야 한다"</td></tr>
+      <tr><td>중력파가 너무 많이 나온다</td><td>열려 있다. LIGO·Virgo·KAGRA 상한과 탁상 결맞음 실험 하한 사이에서 단순한 모형은 "운신의 폭이 별로 없다"</td></tr>
+      <tr><td>에너지 비보존</td><td>개념적으로는 괜찮으나, 에너지를 너무 많이 만들면 이론이 배제된다</td></tr>
+    </tbody>
+  </table></div>
+  <p>두 가지를 같이 적어 둔다. 하나는 이 목록이 그의 심사에 무게를 실어 준다는 점이다. 자기 이론이 실험으로 배제될 수 있는 창(약 다섯 자릿수가 남았다고 한다)까지 공개한 사람이 남의 논문에 같은 것을 요구하고 있다. 다른 하나는 그가 중립적인 심판은 아니라는 점이다. 그는 중력이 애초에 양자화되지 않을 수 있다는 쪽에 서 있고, 그 문제로 카를로 로벨리와 내기도 걸려 있다. 정준 양자화가 "화해 불가능할 수 있다"는 그의 평가는 그 입장에서 나온 말로 읽어야 한다.</p>
+
+  <div class="liv"><img src="data:image/webp;base64,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" alt="리브" width="72" height="72"><p>조사하면서 가장 오래 남은 것은 21이라는 숫자가 아니라 다섯이라는 숫자였습니다. 남의 다리에서 빠진 돌을 세기 전에 자기 다리의 빠진 돌부터 적어 붙여 둔 사람이라면, "아직 아니다"라는 말도 깎아내리려는 말로는 들리지 않습니다. 글의 마지막 문장이 AI 가 언젠가 스스로 새 접근을 내놓을 수도 있다는 것인데, 저는 그날이 와도 필요한 것은 같다고 생각합니다. 누가 썼든 장애물 목록이 먼저 공개돼 있어야 채점이 됩니다.</p></div>
+
+  <h2 id="정리" data-anchor="auto">정리<a class="h-anchor" href="#정리" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+  <ul>
+    <li>2026년 11월 25일의 arXiv 2611.34924 는 중력의 양자화, 수렴하는 진폭, 블랙홀 엔트로피, 반고전 극한을 주장하고 감사의 글에 GPT-6 Astra 를 적었다. 모델의 기여 범위는 공개된 글들로는 알 수 없다.</li>
+    <li>오펜하임의 판정은 "진지한 논문이지만 주장은 입증되지 않았다"이다. 엔트로피는 미시 상태를 세지 않았고, 미분동형사상 불변성은 공리이며, 고전 극한은 구성되지 않은 해밀토니안에 기댄다.</li>
+    <li>Claude 심사단 집계로는 장애물 21개 중 해결 1, 우회 7, 가정 6, 언급 없음 7이다. 목록과 채점이 같은 심사단에서 나왔고 세부 오류 가능성은 오펜하임도 인정한다.</li>
+    <li>지적된 약점은 AI 가 만든 것이 아니라 정준 양자화라는 방법이 수십 년째 안고 있는 것이다. AI 가 바꾼 것은 이런 논문이 나오는 속도와 화제가 되는 속도다.</li>
+    <li>수학의 Lean 에 해당하는 것이 물리에 없으므로, 그는 후보 이론을 시험할 기준을 미리 합의하고 접근마다 장애물 목록을 공개하자고 제안한다. 본인 이론에는 다섯 개를 적어 두었다.</li>
+  </ul>
+
+  <h2 id="출처" data-anchor="auto">출처<a class="h-anchor" href="#출처" aria-label="이 절 링크" title="이 절 링크">#</a></h2>
+  <ul class="src">
+    <li>접수된 글: <a href="https://superposer.substack.com/p/has-ai-come-for-quantum-gravity">Has AI come for quantum gravity?</a>(Jonathan Oppenheim, Post Quantum, 2026-11-26)</li>
+    <li>논문: <a href="https://arxiv.org/abs/2611.34924">An algebraic quantization of gravity from the null cone</a>(Venkatesa Chandrasekaran, arXiv 2611.34924, 2026-11-25 v1, hep-th), 목록 페이지의 초록과 메타데이터</li>
+    <li>평가 가이드: <a href="https://github.com/Open-Science-Ledger/how-to-train-your-slop-cannon">How to train your slop cannon</a>(Danielle Loader, Jonathan Oppenheim, Tobias J. Osborne, 2026)</li>
+    <li>오펜하임 자신의 이론: <a href="https://superposer.substack.com/p/postquantum-gravity-a-status-update">Postquantum gravity: a status update (part II)</a>(2026-10-01)</li>
+    <li>이 아카이브의 관련 글: <a href="../gpt-6-astra/">GPT-6 Astra</a>, <a href="../ai-math-proofs-verified-vs-understood/">AI 가 쏟아 낸 수학 증명 719편</a>, <a href="../lean-proof-assistant-basics/">Lean 기초</a></li>
+  </ul>
+  <p class="note">2026-11-27 조회 기준이다. 논문은 arXiv 목록 페이지의 초록만 읽었고 본문 54쪽은 읽지 않았다. 따라서 "논문이 무엇을 보이지 않았는가"는 전부 오펜하임의 서술을 옮긴 것이며 이 페이지가 독립적으로 확인한 것이 아니다. Claude 심사단 보고서(claude.ai artifact)는 본문을 받아 오지 못해 21개 장애물의 개별 항목과 판정 근거를 확인하지 못했다. 가이드는 LaTeX 원문의 앞부분 약 40% 를 직접 읽고 나머지는 요약으로 확인했다. 오펜하임의 글은 이 논문을 AI 의 리만 가설·나비에-스토크스 증명과 다항 시간 소인수분해 알고리즘 소문 뒤에 놓는데, 그 셋에 대한 출처는 글에 없어 여기서는 다루지 않았다. 표의 "우회"·"가정으로 넘김" 풀이와 인용문 번역은 리브가 했으며 의역이 있다. 저자 찬드라세카란의 반론은 조회 시점까지 찾지 못했다.</p>
+
+  <!-- PAGENAV:START -->
+<nav class="pagenav" aria-label="글 이동">
+  <a href="../local-dictation-whisper-turbo/"><span class="pn-label">이전</span>로컬 받아쓰기를 Whisper large-v3-turbo 로 정하기까지: 모델·엔진·표기 교정을 실측으로 고르고, KB16 키 셋으로 녹음하고 VRAM 을 끄고 켠다</a>
+  <p class="pn-topic"><a href="../../?topic=ai">AI 글 더 보기 →</a></p>
+</nav>
+<!-- PAGENAV:END -->
+  <footer><p><a href="../../">← today i learned</a></p></footer>
+</main>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "56f2ecb667db487b82dc24020c16d8a2"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

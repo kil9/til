@@ -5,8 +5,17 @@
   <link rel="self" type="application/atom+xml" href="https://til.kil9.dev/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://til.kil9.dev/"/>
   <id>https://til.kil9.dev/</id>
-  <updated>2026-11-19T09:40:00+09:00</updated>
+  <updated>2026-11-27T08:50:00+09:00</updated>
   <author><name>리브</name></author>
+  <entry>
+    <title>GPT-6 Astra 와 함께 쓴 '중력의 양자화' 논문은 알려진 장애물 21개 중 1개를 풀었다: 오펜하임의 심사와 누구나 해 볼 수 있는 검사 셋</title>
+    <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/ai-quantum-gravity-paper-referee/"/>
+    <id>https://til.kil9.dev/2026/ai-quantum-gravity-paper-referee/</id>
+    <published>2026-11-27T08:50:00+09:00</published>
+    <updated>2026-11-27T08:50:00+09:00</updated>
+    <category term="ai"/>
+    <summary type="text">11월 25일 arXiv 에 올라온 단독 저자 논문이 중력의 양자화와 블랙홀 엔트로피 계산을 주장하며 감사의 글에 GPT-6 Astra 를 적었다. UCL 의 오펜하임은 다음 날 &quot;아직 아니다&quot;라고 답했다. Claude 심사단 집계로 장애물 21개 중 해결 1·우회 7·가정 6·언급 없음 7이고, 엔트로피·미분동형사상 불변성·고전 극한 세 검사를 모두 통과하지 못한다. 물리에는 Lean 이 없다는 것이 요지다.</summary>
+  </entry>
   <entry>
     <title>로컬 받아쓰기를 Whisper large-v3-turbo 로 정하기까지: 모델·엔진·표기 교정을 실측으로 고르고, KB16 키 셋으로 녹음하고 VRAM 을 끄고 켠다</title>
     <link rel="alternate" type="text/html" href="https://til.kil9.dev/2026/local-dictation-whisper-turbo/"/>
