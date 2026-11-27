@@ -620,6 +620,28 @@
      "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/Afmijnlokaal_en_rondvaartboot.jpg/500px-Afmijnlokaal_en_rondvaartboot.jpg"
     }
    ]
+  },
+  "2026-11-28": {
+   "drawing": {
+    "caption": "가라앉지 말라는 오리와, 어둠에서 빛나던 성냥갑",
+    "file": "draw/2026-11-28.svg"
+   },
+   "photos": [
+    {
+     "caption": "해 질 녘 바다 위의 슴새들, 몸시계는 몇 시를 가리키고 있었을까요",
+     "credit": "John Rostron",
+     "license": "CC BY-SA 2.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Shearwaters_at_Dusk,_off_Annet_-_geograph.org.uk_-_2016460.jpg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3d/Shearwaters_at_Dusk%2C_off_Annet_-_geograph.org.uk_-_2016460.jpg/500px-Shearwaters_at_Dusk%2C_off_Annet_-_geograph.org.uk_-_2016460.jpg"
+    },
+    {
+     "caption": "바닥의 골에 성냥을 긋던 작은 은갑",
+     "credit": "User:kerryleeo",
+     "license": "CC BY-SA 3.0",
+     "page": "https://commons.wikimedia.org/wiki/File:Vintage_Vesta.jpeg",
+     "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3b/Vintage_Vesta.jpeg/500px-Vintage_Vesta.jpeg"
+    }
+   ]
   }
  },
  "design": [
@@ -2667,6 +2689,15 @@
   "n-0309": {
    "emoji": "🐚",
    "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#fcf5e2",
+     "#fcf5e2"
+    ],
+    "file": "pic/n-0309.webp",
+    "h": 720,
+    "w": 720
+   },
    "short": "단추가 빠져나간 구멍으로 이력을 말하는 조개껍데기"
   },
   "n-0312": {
@@ -2778,6 +2809,50 @@
     "w": 720
    },
    "short": "썰매 지나가라고 지붕 다리에 눈을 퍼 올린 마을"
+  },
+  "n-0329": {
+   "emoji": "🧭",
+   "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#a8b6b6",
+     "#a2afb0"
+    ],
+    "file": "pic/n-0329.webp",
+    "h": 480,
+    "w": 720
+   },
+   "short": "한 시간 늦은 몸시계로 해를 읽고 나는 슴새"
+  },
+  "n-0330": {
+   "emoji": "🐢",
+   "emoji_pos": "front"
+  },
+  "n-0331": {
+   "pic": {
+    "bg": [
+     "#ddd0be",
+     "#aa927d"
+    ],
+    "file": "pic/n-0331.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "어깨를 다쳐 가며 꿰매는 야구공의 108땀"
+  },
+  "n-0332": {
+   "emoji": "🦆",
+   "emoji_pos": "back",
+   "pic": {
+    "bg": [
+     "#fcf3e4",
+     "#fdf4e4"
+    ],
+    "file": "pic/n-0332.webp",
+    "h": 720,
+    "w": 720
+   },
+   "short": "가라앉지 말라고 오리를 그려 넣은 성냥갑"
   }
  }
 }
